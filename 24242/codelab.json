@@ -1,0 +1,26 @@
+{
+  "environment": "web",
+  "source": "room.md",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-10-24T10:43:38+02:00",
+  "id": "24242",
+  "duration": 2,
+  "title": "RoomDatabase",
+  "author": "Gerard Falcó",
+  "summary": "Room Database",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "sdk"
+  ],
+  "tags": [
+    "android"
+  ],
+  "feedback": "github.com/gerardfp",
+  "ga": "0",
+  "url": "24242"
+}
