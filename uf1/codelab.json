@@ -1,13 +1,13 @@
 {
   "environment": "web",
-  "source": "1PodNGZCBnlSJ80XKxxJinGKzeMNOo5nclELr8iAKO8Y",
+  "source": "14kNz2bQ0JiGZLvJeQV1qc4z3PCs_9YtMRl6F6wTJ0xg",
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2018-10-24T22:59:55Z",
-  "id": "/",
-  "duration": 0,
-  "title": "DAM MP08 Programació Multimèdia i Dispositius Mòbils",
+  "updated": "2018-10-24T22:53:45Z",
+  "id": "uf1",
+  "duration": 1260,
+  "title": "UF1 Programació d'aplicacions per a dispositius mòbils",
   "summary": "Programació Multimèdia i Dispositius Mòbils",
   "theme": "android",
   "status": [
@@ -18,5 +18,5 @@
   ],
   "tags": [],
   "feedback": "https://github.com/gerardfp",
-  "url": "/"
+  "url": "uf1"
 }

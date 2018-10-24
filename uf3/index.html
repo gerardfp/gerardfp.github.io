@@ -1,0 +1,112 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>UF3 Desenvolupament d&#39;aplicacions per a dispositius mòbils</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="UF3 Desenvolupament d&#39;aplicacions per a dispositius mòbils"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Visió general" duration="0">
+        <p><strong>UF 3: Desenvolupament de jocs per a dispositius mòbils </strong></p>
+<p>Durada: 30 hores </p>
+<p>Resultats d&#39;aprenentatge i criteris d&#39;avaluació </p>
+<p>1. Selecciona i prova motors de jocs analitzant l&#39;arquitectura de jocs 2D i 3D. </p>
+<p>Criteris d&#39;avaluació </p>
+<p>1.1 Descriu els conceptes fonamentals de l&#39;animació 2D i 3D. </p>
+<p>1.2 Identifica els elements que componen l&#39;arquitectura d&#39;un joc en 2D i 3D. </p>
+<p>1.3 Analitza els components d&#39;un motor de jocs. </p>
+<p>1.4 Analitza entorns de desenvolupament de jocs.</p>
+<p>1.5 Analitza diferents motors de jocs, les seves característiques i funcionalitats. </p>
+<p>1.6 Identifica els blocs funcionals d&#39;un joc existent.</p>
+<p>1.7 Defineix i executa els processos de renderització. </p>
+<p>1.8 Reconeix la representació lògica i espacial d&#39;una escena gràfica sobre un joc existent. </p>
+<p>2. Desenvolupa jocs 2D i 3D senzills fent servir motors de jocs. </p>
+<p>Criteris d&#39;avaluació </p>
+<p>2.1 Estableix la lògica d&#39;un joc nou. </p>
+<p>2.2 Crea objectes i defineix els fons. </p>
+<p>2.3 Instal·la i utilitza extensions per al tractament d&#39;escenes. </p>
+<p>2.4 Utilitza instruccions gràfiques per determinar les propietats finals de la superfície d&#39;un objecte o imatge. </p>
+<p>2.5 Incorpora so als diferents esdeveniments del joc. </p>
+<p>2.6 Desenvolupa i implanta jocs per a dispositius mòbils. </p>
+<p>2.7 Realitza proves de funcionament i optimització dels jocs desenvolupats. </p>
+<p>2.8 Documenta les fases de disseny i desenvolupament dels jocs creats. </p>
+<p>Continguts </p>
+<p>1. Anàlisi de motors de jocs: </p>
+<p>1.1 Conceptes d&#39;animació. </p>
+<p>1.2 Arquitectura del joc. Components. </p>
+<p>1.3 Motors de jocs: tipus i utilització. </p>
+<p>1.4 Àrees d&#39;especialització, llibreries utilitzades i llenguatges de programació. </p>
+<p>1.5 Components d&#39;un motor de jocs. </p>
+<p>1.6 Llibreries que proporcionen les funcions bàsiques d&#39;un motor 2D/3D. </p>
+<p>1.7 API gràfics 3D. </p>
+<p>1.8 Estudi de jocs existents. </p>
+<p>1.9 Aplicació de modificacions sobre jocs existents. </p>
+<p>2. Desenvolupaments de jocs 2D i 3D: </p>
+<p>2.1 Entorns de desenvolupament per a jocs. </p>
+<p>2.2 Integració del motor de jocs en entorns de desenvolupament. </p>
+<p>2.3 Conceptes avançats de programació 3D. </p>
+<p>2.4 Fases de desenvolupament. </p>
+<p>2.5 Propietats dels objectes: llum, textures, reflexos, ombres. </p>
+<p>2.6 Aplicació de les funcions del motor gràfic. Renderització.</p>
+<p>2.7 Aplicació de les funcions del graf d&#39;escena. Tipus de nodes i la seva utilització. </p>
+<p>2.8 Anàlisi d&#39;execució. Optimització del codi</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Projecte MyGdxGame" duration="120">
+        <p><a href="https://gerardfp.github.io/mygdxgame/" target="_blank">https://gerardfp.github.io/mygdxgame/</a></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>
