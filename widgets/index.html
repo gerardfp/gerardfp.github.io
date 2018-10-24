@@ -44,51 +44,54 @@
 <li>CalendarView</li>
 <li>NumberPicker</li>
 </ul>
-<aside class="special"><p>Realiza una App que incorpore todos los Widgets incluidos en esta práctica. El estado de cada Widget se guarda en el fichero <code>SharedPreferences</code>, y se restaura al iniciar la Aplicación.</p>
+<p>Realiza una App que incorpore todos los Widgets incluidos en esta práctica. El estado de cada Widget se guarda en el fichero <code>SharedPreferences</code>, y se restaura al iniciar la Aplicación.</p>
 <p>Usa el siguiente <em>layout </em>como base:</p>
-<p><em><code>&lt;?</code></em><strong><code>xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;</code></strong><em><code>?&gt;</code></em></p>
-<p><code>&lt;</code><strong><code>LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;</code></strong></p>
-<p><strong><code>xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;</code></strong></p>
-<p><strong><code>xmlns:tools=&#34;http://schemas.android.com/tools&#34;</code></strong></p>
-<p><strong><code>android:layout_width=&#34;match_parent&#34;</code></strong></p>
-<p><strong><code>android:layout_height=&#34;match_parent&#34;</code></strong><code>&gt;</code></p>
-<p><code>   &lt;</code><strong><code>ScrollView</code></strong></p>
-<p><strong><code>android:layout_width=&#34;match_parent&#34;</code></strong></p>
-<p><strong><code>android:layout_height=&#34;match_parent&#34;</code></strong><code>&gt;</code></p>
-<p><code>       &lt;</code><strong><code>LinearLayout</code></strong></p>
-<p><strong><code>android:layout_width=&#34;match_parent&#34;</code></strong></p>
-<p><strong><code>android:layout_height=&#34;match_parent&#34;</code></strong></p>
-<p><strong><code>android:orientation=&#34;vertical&#34;</code></strong><code>&gt;</code></p>
-<p><em><code>           &lt;!--Widgets--&gt;</code></em></p>
-<p><code>       &lt;/</code><strong><code>LinearLayout</code></strong><code>&gt;</code></p>
-<p><code>   &lt;/</code><strong><code>ScrollView</code></strong><code>&gt;</code></p>
-<p><code>&lt;/</code><strong><code>LinearLayout</code></strong><code>&gt;</code></p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;&gt;
+
+   &lt;ScrollView
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;match_parent&#34;&gt;
+       &lt;LinearLayout
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;match_parent&#34;
+           android:orientation=&#34;vertical&#34;&gt;
+
+           &lt;!--Widgets--&gt;
+
+       &lt;/LinearLayout&gt;
+   &lt;/ScrollView&gt;
+&lt;/LinearLayout&gt;</code></pre>
 <p>Incluye cada Widget dentro de un <code>CardView</code></p>
-<p><code>&lt;</code><strong><code>TextView</code></strong></p>
-<p><strong><code>android:layout_height=&#34;wrap_content&#34;</code></strong></p>
-<p><strong><code>android:layout_width=&#34;wrap_content&#34;</code></strong></p>
-<p><strong><code>   android:layout_margin=&#34;16dp&#34;</code></strong></p>
-<p><strong><code>android:text=&#34;WidgetName&#34; </code></strong><code>/&gt;</code></p>
-<p><code>&lt;</code><strong><code>android.support.v7.widget.CardView</code></strong></p>
-<p><strong><code>android:layout_width=&#34;match_parent&#34;</code></strong></p>
-<p><strong><code>android:layout_height=&#34;wrap_content&#34;</code></strong></p>
-<p><strong><code>android:layout_marginBottom=&#34;16dp&#34;</code></strong><code>&gt;</code></p>
-<p><code>   &lt;</code><strong><code>LinearLayout</code></strong></p>
-<p><strong><code>android:layout_width=&#34;match_parent&#34;</code></strong></p>
-<p><strong><code>android:layout_height=&#34;wrap_content&#34;</code></strong></p>
-<p><strong><code>android:orientation=&#34;vertical&#34;</code></strong></p>
-<p><strong><code>android:padding=&#34;10dp&#34;</code></strong><code>&gt;</code></p>
-<p><code>       &lt;</code><strong><code>Widget</code></strong></p>
-<p><strong><code>android:id=&#34;@+id/widget&#34; </code></strong><code>/&gt;</code></p>
-<p><code>   &lt;/</code><strong><code>LinearLayout</code></strong><code>&gt;</code></p>
-<p><code>&lt;/</code><strong><code>android.support.v7.widget.CardView</code></strong><code>&gt;</code></p>
+<pre><code>&lt;TextView
+   android:layout_height=&#34;wrap_content&#34;
+   android:layout_width=&#34;wrap_content&#34;
+   android:layout_margin=&#34;16dp&#34;
+   android:text=&#34;WidgetName&#34; /&gt;
+&lt;android.support.v7.widget.CardView
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;wrap_content&#34;
+   android:layout_marginBottom=&#34;16dp&#34;&gt;
+   &lt;LinearLayout
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:orientation=&#34;vertical&#34;
+       android:padding=&#34;10dp&#34;&gt;
+       &lt;Widget
+           android:id=&#34;@+id/widget&#34; /&gt;
+   &lt;/LinearLayout&gt;
+&lt;/android.support.v7.widget.CardView&gt;</code></pre>
 <p>Necesitarás incluir la dependencia de la librería <code>CardView</code> en el archivo <code>build.gradle</code> para el Module:app</p>
 <p>Ajusta el número de versión, para que coincida con tu <code>compileSdkVersion</code></p>
-<p><code>dependencies {</code></p>
-<p><em><code>// ... other depencencies</code></em></p>
-<p><code>implementation </code><strong><code>&#39;com.android.support:cardview-v7:25.+&#39;</code></strong></p>
-<p><code>}</code></p>
-</aside>
+<pre><code>dependencies {
+   // ... other depencencies
+
+   implementation &#39;com.android.support:cardview-v7:25.+&#39;
+}</code></pre>
 
 
       </google-codelab-step>
