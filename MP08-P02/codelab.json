@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1Iq_xyPliwEVPE7Jde4bsVS3vMdUfTwZZovqiGfbrCVU",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-10-24T21:29:38Z",
+  "id": "MP08-P02",
+  "duration": 0,
+  "title": "P02 - Activity",
+  "summary": "Programació Multimèdia i Dispositius Mòbils",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "MP08-P02"
+}
