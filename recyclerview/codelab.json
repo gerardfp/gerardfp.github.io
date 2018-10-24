@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1aDAy8i2NhoATJ6RSFyeNIkMYzxd8QAsJ6Op4bEmXlnM",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-10-24T22:11:20Z",
+  "id": "recyclerview",
+  "duration": 0,
+  "title": "RecyclerView",
+  "summary": "RecyclerView",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "recyclerview"
+}

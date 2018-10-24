@@ -1,0 +1,729 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Widgets</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Widgets"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p>La clase <code>View</code> es el bloque de construcción básico para los componentes de Interfaz de Usuario. Una <code>View</code> ocupa un area rectangular en la pantalla y es responsable del dibujado y del manejo de eventos. <code>View</code> es la clase base para los widgets, los cuales se usan para crear componentes de Interfaz de Usuario interactivos (botones, campos de texto, etc.). La subclase <code>ViewGroup</code> es la clase base para <em>layouts</em>, que son contenedores invisibles que sustentan otras Views (o otros ViewGroups) y definen sus propiedades de disposición.</p>
+<p>El objetivo de esta práctica es introducir el uso de diferentes <strong>Widgets</strong> de Interfaz de Usuario.</p>
+<p>Actualmente existen un total de 139 subclases (directas e indirectas) de <a href="https://developer.android.com/reference/android/view/View.html" target="_blank"><code>View</code></a>. Veremos solamente algunas de ellas, en concreto:</p>
+<ul>
+<li>ToggleButton</li>
+<li>Switch</li>
+<li>CheckBox</li>
+<li>CheckedTextView</li>
+<li>RadioButton</li>
+<li>Spinner</li>
+<li>ProgressBar</li>
+<li>SeekBar</li>
+<li>RatingBar</li>
+<li>TimePicker</li>
+<li>TextClock</li>
+<li>DatePicker</li>
+<li>CalendarView</li>
+<li>NumberPicker</li>
+</ul>
+<aside class="special"><p>Tarea</p>
+<p>Realiza una App que incorpore todos los Widgets incluidos en esta práctica. El estado de cada Widget se guarda en el fichero <code>SharedPreferences</code>, y se restaura al iniciar la Aplicación.</p>
+<p>Usa el siguiente <em>layout </em>como base:</p>
+<p><em>&lt;?</em><strong>xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;</strong><em>?&gt;</em></p>
+<p>&lt;<strong>LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;</strong></p>
+<p><strong>xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;</strong></p>
+<p><strong>xmlns:tools=&#34;http://schemas.android.com/tools&#34;</strong></p>
+<p><strong>android:layout_width=&#34;match_parent&#34;</strong></p>
+<p><strong>android:layout_height=&#34;match_parent&#34;</strong>&gt;</p>
+<p>   &lt;<strong>ScrollView</strong></p>
+<p><strong>android:layout_width=&#34;match_parent&#34;</strong></p>
+<p><strong>android:layout_height=&#34;match_parent&#34;</strong>&gt;</p>
+<p>       &lt;<strong>LinearLayout</strong></p>
+<p><strong>android:layout_width=&#34;match_parent&#34;</strong></p>
+<p><strong>android:layout_height=&#34;match_parent&#34;</strong></p>
+<p><strong>android:orientation=&#34;vertical&#34;</strong>&gt;</p>
+<p><em>           &lt;!--Widgets--&gt;</em></p>
+<p>       &lt;/<strong>LinearLayout</strong>&gt;</p>
+<p>   &lt;/<strong>ScrollView</strong>&gt;</p>
+<p>&lt;/<strong>LinearLayout</strong>&gt;</p>
+<p>Incluye cada Widget dentro de un <code>CardView</code></p>
+<p>&lt;<strong>TextView</strong></p>
+<p><strong>android:layout_height=&#34;wrap_content&#34;</strong></p>
+<p><strong>android:layout_width=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:layout_margin=&#34;16dp&#34;</strong></p>
+<p><strong>android:text=&#34;WidgetName&#34; </strong>/&gt;</p>
+<p>&lt;<strong>android.support.v7.widget.CardView</strong></p>
+<p><strong>android:layout_width=&#34;match_parent&#34;</strong></p>
+<p><strong>android:layout_height=&#34;wrap_content&#34;</strong></p>
+<p><strong>android:layout_marginBottom=&#34;16dp&#34;</strong>&gt;</p>
+<p>   &lt;<strong>LinearLayout</strong></p>
+<p><strong>android:layout_width=&#34;match_parent&#34;</strong></p>
+<p><strong>android:layout_height=&#34;wrap_content&#34;</strong></p>
+<p><strong>android:orientation=&#34;vertical&#34;</strong></p>
+<p><strong>android:padding=&#34;10dp&#34;</strong>&gt;</p>
+<p>       &lt;<strong>Widget</strong></p>
+<p><strong>android:id=&#34;@+id/widget&#34; </strong>/&gt;</p>
+<p>   &lt;/<strong>LinearLayout</strong>&gt;</p>
+<p>&lt;/<strong>android.support.v7.widget.CardView</strong>&gt;</p>
+<p>Necesitarás incluir la dependencia de la librería <code>CardView</code> en el archivo <code>build.gradle</code> para el Module:app</p>
+<p>Ajusta el número de versión, para que coincida con tu <code>compileSdkVersion</code></p>
+<p>dependencies {</p>
+<p><em>// ... other depencencies</em></p>
+<p>implementation <strong>&#39;com.android.support:cardview-v7:25.+&#39;</strong></p>
+<p>}</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ToggleButton" duration="0">
+        <p>&lt;<strong>ToggleButton</strong></p>
+<p><strong>   android:id=&#34;@+id/toggleButton&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:text=&#34;ToggleButton&#34; </strong>/&gt;</p>
+<p><strong>public class </strong>MainActivity <strong>extends </strong>AppCompatActivity <strong>implements</strong></p>
+<p>CompoundButton.OnCheckedChangeListener{</p>
+<p><strong>static final </strong>String <strong><em>TOGGLEBUTTON </em></strong>= <strong>&#34;TOGGLEBUTTON&#34;</strong>;</p>
+<p>   ToggleButton <strong>toggleButton</strong>;</p>
+<p>   @Override</p>
+<p><strong>protected void </strong>onCreate(Bundle savedInstanceState) {</p>
+<p><strong>super</strong>.onCreate(savedInstanceState);</p>
+<p>      setContentView(R.layout.<strong><em>activity_main</em></strong>);</p>
+<p><strong>toggleButton </strong>= findViewById(R.id.<strong><em>toggleButton</em></strong>);</p>
+<p><strong>      toggleButton</strong>.setChecked(getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getBoolean(<strong><em>TOGGLEBUTTON</em></strong>, <strong>true</strong>));</p>
+<p><strong>toggleButton</strong>.setOnCheckedChangeListener(<strong>this</strong>);</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>public void </strong>onCheckedChanged(CompoundButton compoundButton, <strong>boolean </strong>b) {</p>
+<p><strong>int </strong>id = compoundButton.getId();</p>
+<p><strong>switch </strong>(id){</p>
+<p><strong>case </strong>R.id.<strong><em>toggleButton</em></strong>:</p>
+<p>            getPreferences(<strong><em>MODE_PRIVATE</em></strong>)</p>
+<p>                 .edit()</p>
+<p>                 .putBoolean(<strong><em>TOGGLEBUTTON</em></strong>, b)</p>
+<p>                 .apply();</p>
+<p><strong>break</strong>;</p>
+<p>       }</p>
+<p>   }</p>
+<p>}</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Switch" duration="0">
+        <p>&lt;<strong>Switch</strong></p>
+<p><strong>   android:id=&#34;@+id/switch1&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:text=&#34;Switch&#34; </strong>/&gt;</p>
+<p><strong>public class </strong>MainActivity <strong>extends </strong>AppCompatActivity <strong>implements</strong></p>
+<p>CompoundButton.OnCheckedChangeListener {</p>
+<p><strong>static final </strong>String <strong><em>SWITCH </em></strong>= <strong>&#34;SWITCH&#34;</strong>;</p>
+<p>   Switch <strong>aSwitch</strong>;</p>
+<p>   @Override</p>
+<p><strong>protected void </strong>onCreate(Bundle savedInstanceState) {</p>
+<p><strong>super</strong>.onCreate(savedInstanceState);</p>
+<p>       setContentView(R.layout.<strong><em>activity_main</em></strong>);</p>
+<p><strong>aSwitch </strong>= findViewById(R.id.<strong><em>switch1</em></strong>);</p>
+<p><strong>aSwitch</strong>.setChecked(getPreferences(MODE_PRIVATE).getBoolean(<strong><em>SWITCH</em></strong>, <strong>false</strong>));</p>
+<p><strong>aSwitch</strong>.setOnCheckedChangeListener(<strong>this</strong>);</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>public void </strong>onCheckedChanged(CompoundButton compoundButton, <strong>boolean </strong>b) {</p>
+<p><strong>int </strong>id = compoundButton.getId();</p>
+<p><strong>switch </strong>(id){</p>
+<p><strong>case </strong>R.id.<strong><em>switch1</em></strong>:</p>
+<p>               getPreferences(MODE_PRIVATE).edit()</p>
+<p>                       .putBoolean(<strong><em>SWITCH</em></strong>, b)</p>
+<p>                       .apply();</p>
+<p><strong>break</strong>;</p>
+<p>       }</p>
+<p>   }</p>
+<p>}</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="CheckBox" duration="0">
+        <p>&lt;<strong>CheckBox</strong></p>
+<p><strong>   android:id=&#34;@+id/checkBox&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:text=&#34;CheckBox&#34; </strong>/&gt;</p>
+<p><strong>public class </strong>MainActivity <strong>extends </strong>AppCompatActivity <strong>implements</strong></p>
+<p>CompoundButton.OnCheckedChangeListener{</p>
+<p><strong>static final </strong>String <strong><em>CHECKBOX </em></strong>= <strong>&#34;CHECKBOX&#34;</strong>;</p>
+<p>   CheckBox <strong>checkBox</strong>;</p>
+<p>   @Override</p>
+<p><strong>protected void </strong>onCreate(Bundle savedInstanceState) {</p>
+<p><strong>super</strong>.onCreate(savedInstanceState);</p>
+<p>       setContentView(R.layout.<strong><em>activity_main</em></strong>);</p>
+<p><strong>checkBox </strong>= (CheckBox) findViewById(R.id.<strong><em>checkBox</em></strong>);</p>
+<p><strong>       checkBox</strong>.setChecked(getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getBoolean(<strong><em>CHECKBOX</em></strong>, <strong>true</strong>));</p>
+<p><strong>checkBox</strong>.setOnCheckedChangeListener(<strong>this</strong>);</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>public void </strong>onCheckedChanged(CompoundButton compoundButton, <strong>boolean </strong>b) {</p>
+<p><strong>int </strong>id = compoundButton.getId();</p>
+<p><strong>switch </strong>(id){</p>
+<p><strong>case </strong>R.id.<strong><em>checkBox</em></strong>:</p>
+<p>               getPreferences(<strong><em>MODE_PRIVATE</em></strong>).edit()</p>
+<p>                       .putBoolean(<strong><em>CHECKBOX</em></strong>, b)</p>
+<p>                       .apply();</p>
+<p><strong>break</strong>;</p>
+<p>       }</p>
+<p>   }</p>
+<p>}</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="CheckedTextView" duration="0">
+        <p>&lt;<strong>CheckedTextView</strong></p>
+<p><strong>   android:id=&#34;@+id/checkedTextView&#34;</strong></p>
+<p><strong>   android:text=&#34;CheckedTextView&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;fill_parent&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;40dip&#34;</strong></p>
+<p><strong>   android:gravity=&#34;center_vertical&#34;</strong></p>
+<p><strong>   android:drawableRight=&#34;?android:attr/listChoiceIndicatorMultiple&#34;</strong>/&gt;</p>
+<p><strong>public class </strong>MainActivity <strong>extends </strong>AppCompatActivity <strong>implements</strong></p>
+<p>View.OnClickListener {</p>
+<p><strong>static final </strong>String <strong><em>CHECKEDTEXTVIEW </em></strong>= <strong>&#34;CHECKEDTEXTVIEW&#34;</strong>;</p>
+<p>   CheckedTextView <strong>checkedTextView</strong>;</p>
+<p>   @Override</p>
+<p><strong>protected void </strong>onCreate(Bundle savedInstanceState) {</p>
+<p><strong>super</strong>.onCreate(savedInstanceState);</p>
+<p>       setContentView(R.layout.<strong><em>activity_main</em></strong>);</p>
+<p><strong>checkedTextView </strong>= (CheckedTextView) findViewById(R.id.<strong><em>checkedTextView</em></strong>);</p>
+<p><strong>       checkedTextView</strong>.setChecked(getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getBoolean(<strong><em>CHECKEDTEXTVIEW</em></strong>, <strong>true</strong>));</p>
+<p><strong>checkedTextView</strong>.setOnClickListener(<strong>this</strong>);</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>public void </strong>onClick(View view) {</p>
+<p><strong>int </strong>id = view.getId();</p>
+<p><strong>switch </strong>(id){</p>
+<p><strong>case </strong>R.id.<strong><em>checkedTextView</em></strong>:</p>
+<p>               getPreferences(<strong><em>MODE_PRIVATE</em></strong>).edit()</p>
+<p>                      .putBoolean(<strong><em>CHECKEDTEXTVIEW</em></strong>, !<strong>checkedTextView</strong>.isChecked())</p>
+<p>                      .apply();</p>
+<p><strong>checkedTextView</strong>.toggle();</p>
+<p><strong>break</strong>;</p>
+<p>       }</p>
+<p>   }</p>
+<p>}</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="RadioGroup" duration="0">
+        <p>&lt;<strong>RadioGroup</strong></p>
+<p><strong>   android:layout_width=&#34;match_parent&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;match_parent&#34;</strong></p>
+<p><strong>   android:orientation=&#34;horizontal&#34;</strong>&gt;</p>
+<p>   &lt;<strong>RadioButton</strong></p>
+<p><strong>       android:id=&#34;@+id/radioButton&#34;</strong></p>
+<p><strong>       android:layout_width=&#34;wrap_content&#34;</strong></p>
+<p><strong>       android:layout_height=&#34;wrap_content&#34;</strong></p>
+<p><strong>       android:text=&#34;RadioButton&#34; </strong>/&gt;</p>
+<p>   &lt;<strong>RadioButton</strong></p>
+<p><strong>       android:id=&#34;@+id/radioButton2&#34;</strong></p>
+<p><strong>       android:layout_width=&#34;wrap_content&#34;</strong></p>
+<p><strong>       android:layout_height=&#34;wrap_content&#34;</strong></p>
+<p><strong>       android:text=&#34;RadioButton2&#34; </strong>/&gt;</p>
+<p>&lt;/<strong>RadioGroup</strong>&gt;</p>
+<p><strong>public class </strong>MainActivity <strong>extends </strong>AppCompatActivity <strong>implements</strong></p>
+<p>RadioGroup.OnCheckedChangeListener {</p>
+<p><strong>static final </strong>String <strong><em>RADIOGROUP </em></strong>= <strong>&#34;RADIOGROUP&#34;</strong>;</p>
+<p>   RadioGroup <strong>radioGroup</strong>;</p>
+<p>   @Override</p>
+<p><strong>protected void </strong>onCreate(Bundle savedInstanceState) {</p>
+<p><strong>super</strong>.onCreate(savedInstanceState);</p>
+<p>       setContentView(R.layout.<strong><em>activity_main</em></strong>);</p>
+<p><strong>radioGroup </strong>= (RadioGroup) findViewById(R.id.<strong><em>radioGroup</em></strong>);</p>
+<p><strong>       radioGroup</strong>.check(</p>
+<p>           getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getInt(<strong><em>RADIOGROUP</em></strong>, <strong>radioGroup</strong>.getCheckedRadioButtonId()));</p>
+<p><strong>radioGroup</strong>.setOnCheckedChangeListener(<strong>this</strong>);</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>public void </strong>onCheckedChanged(RadioGroup radioGroup, @IdRes <strong>int </strong>i) {</p>
+<p><strong>int </strong>id = radioGroup.getId();</p>
+<p><strong>switch </strong>(id) {</p>
+<p><strong>case </strong>R.id.<strong><em>radioGroup</em></strong>:</p>
+<p>               getPreferences(<strong><em>MODE_PRIVATE</em></strong>).edit()</p>
+<p>                       .putInt(<strong><em>RADIOGROUP</em></strong>, i)</p>
+<p>                       .apply();</p>
+<p><strong>break</strong>;</p>
+<p>       }</p>
+<p>   }</p>
+<p>}</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Spinner" duration="0">
+        <p>&lt;<strong>Spinner</strong></p>
+<p><strong>   android:id=&#34;@+id/spinner&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;match_parent&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34; </strong>/&gt;</p>
+<p>&lt;<strong>Spinner</strong></p>
+<p><strong>   android:id=&#34;@+id/spinner2&#34;</strong></p>
+<p><strong>   android:spinnerMode=&#34;dialog&#34;</strong></p>
+<p><strong>   android:prompt=&#34;@string/spinner2_prompt&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;match_parent&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34; </strong>/&gt;</p>
+<p>&lt;<strong>string name=&#34;spinner2_prompt&#34;</strong>&gt;Choose you planet&lt;/<strong>string</strong>&gt;</p>
+<p>&lt;<strong>string-array name=&#34;planets_array&#34;</strong>&gt;</p>
+<p>   &lt;<strong>item</strong>&gt;Mercury&lt;/<strong>item</strong>&gt;</p>
+<p>   &lt;<strong>item</strong>&gt;Venus&lt;/<strong>item</strong>&gt;</p>
+<p>   &lt;<strong>item</strong>&gt;Earth&lt;/<strong>item</strong>&gt;</p>
+<p>   &lt;<strong>item</strong>&gt;Mars&lt;/<strong>item</strong>&gt;</p>
+<p>   &lt;<strong>item</strong>&gt;Jupiter&lt;/<strong>item</strong>&gt;</p>
+<p>   &lt;<strong>item</strong>&gt;Saturn&lt;/<strong>item</strong>&gt;</p>
+<p>   &lt;<strong>item</strong>&gt;Uranus&lt;/<strong>item</strong>&gt;</p>
+<p>   &lt;<strong>item</strong>&gt;Neptune&lt;/<strong>item</strong>&gt;</p>
+<p>&lt;/<strong>string-array</strong>&gt;</p>
+<p><strong>public class </strong>MainActivity <strong>extends </strong>AppCompatActivity <strong>implements</strong></p>
+<p>AdapterView.OnItemSelectedListener {</p>
+<p><strong>static final </strong>String <strong><em>SPINNER </em></strong>= <strong>&#34;SPINNER&#34;</strong>;</p>
+<p><strong>static final </strong>String <strong><em>SPINNER2 </em></strong>= <strong>&#34;SPINNER2&#34;</strong>;</p>
+<p>   Spinner <strong>spinner</strong>;</p>
+<p>   Spinner <strong>spinner2</strong>;</p>
+<p>   @Override</p>
+<p><strong>protected void </strong>onCreate(Bundle savedInstanceState) {</p>
+<p><strong>super</strong>.onCreate(savedInstanceState);</p>
+<p>       setContentView(R.layout.<strong><em>activity_main</em></strong>);</p>
+<p><strong>spinner </strong>= (Spinner) findViewById(R.id.<strong><em>spinner</em></strong>);</p>
+<p><strong>spinner2 </strong>= (Spinner) findViewById(R.id.<strong><em>spinner2</em></strong>);</p>
+<p>       ArrayAdapter&lt;CharSequence&gt; adapter = ArrayAdapter.<em>createFromResource</em>(<strong>this</strong>,</p>
+<p>               R.array.<strong><em>planets_array</em></strong>, android.R.layout.<strong><em>simple_spinner_item</em></strong>);</p>
+<p>       adapter.setDropDownViewResource(android.R.layout.<strong><em>simple_spinner_dropdown_item</em></strong>);</p>
+<p>       ArrayList&lt;String&gt; arrayItems = <strong>new </strong>ArrayList&lt;&gt;();</p>
+<p>       Collections.<em>addAll</em>(arrayItems, <strong>&#34;Milky Way&#34;</strong>, <strong>&#34;Andromeda&#34;</strong>, <strong>&#34;Cassiopeia&#34;</strong>, <strong>&#34;Sagittarius&#34;</strong>, <strong>&#34;Pegasus&#34;</strong>);</p>
+<p>       ArrayAdapter&lt;String&gt; adapter2 = <strong>new </strong>ArrayAdapter&lt;&gt;(<strong>this</strong>,</p>
+<p>               android.R.layout.<strong><em>simple_spinner_item</em></strong>, arrayItems);</p>
+<p>       adapter2.setDropDownViewResource(android.R.layout.<strong><em>simple_spinner_dropdown_item</em></strong>);</p>
+<p><strong>       spinner</strong>.setAdapter(adapter);</p>
+<p><strong>spinner2</strong>.setAdapter(adapter2);</p>
+<p><strong>spinner</strong>.setSelection(getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getInt(<strong><em>SPINNER</em></strong>, 0));</p>
+<p><strong>spinner2</strong>.setSelection(getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getInt(<strong><em>SPINNER2</em></strong>, 0));</p>
+<p><strong>spinner</strong>.setOnItemSelectedListener(<strong>this</strong>);</p>
+<p><strong>spinner2</strong>.setOnItemSelectedListener(<strong>this</strong>);</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>public void </strong>onItemSelected(AdapterView&lt;?&gt; adapterView, View view, <strong>int </strong>i, <strong>long </strong>l) {</p>
+<p><strong>int </strong>id = adapterView.getId();</p>
+<p><strong>switch </strong>(id) {</p>
+<p><strong>case </strong>R.id.<strong><em>spinner</em></strong>:</p>
+<p>               System.<strong><em>out</em></strong>.println(<strong>&#34;SPINEER  &#34; </strong>+ R.id.<strong><em>spinner</em></strong>);</p>
+<p>               getPreferences(<strong><em>MODE_PRIVATE</em></strong>).edit()</p>
+<p>                       .putInt(<strong><em>SPINNER</em></strong>, i)</p>
+<p>                       .apply();</p>
+<p><strong>break</strong>;</p>
+<p><strong>case </strong>R.id.<strong><em>spinner2</em></strong>:</p>
+<p>               System.<strong><em>out</em></strong>.println(<strong>&#34;SPINEER2  &#34; </strong>+ R.id.<strong><em>spinner2</em></strong>);</p>
+<p>               getPreferences(<strong><em>MODE_PRIVATE</em></strong>).edit()</p>
+<p>                       .putInt(<strong><em>SPINNER2</em></strong>, i)</p>
+<p>                       .apply();</p>
+<p><strong>break</strong>;</p>
+<p>       }</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>public void </strong>onNothingSelected(AdapterView&lt;?&gt; adapterView) {</p>
+<p><em>      // Accion a tomar en caso de que el item seleccionado se elimine del array de items</em></p>
+<p>   }</p>
+<p>}</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ProgressBar" duration="0">
+        <p>Indeterminate =&gt; Circular</p>
+<p>Determinate =&gt; Horizontal</p>
+<p>&lt;<strong>ProgressBar</strong></p>
+<p><strong>   android:id=&#34;@+id/progressBar&#34;</strong></p>
+<p><strong>   style=&#34;?android:attr/progressBarStyle&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34; </strong>/&gt;</p>
+<p>&lt;<strong>ProgressBar</strong></p>
+<p><strong>   android:layout_width=&#34;match_parent&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:id=&#34;@+id/progressBar2&#34;</strong></p>
+<p><strong>   style=&#34;?android:attr/progressBarStyleHorizontal&#34; </strong>/&gt;</p>
+<p>&lt;<strong>Button</strong></p>
+<p><strong>   android:layout_width=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:text=&#34;Start&#34;</strong></p>
+<p><strong>   android:id=&#34;@+id/button&#34;</strong>/&gt;</p>
+<p><strong>public class </strong>MainActivity <strong>extends </strong>AppCompatActivity {</p>
+<p>   ProgressBar <strong>progressBar</strong>;</p>
+<p>   ProgressBar <strong>progressBar2</strong>;</p>
+<p>   Button <strong>button</strong>;</p>
+<p>   @Override</p>
+<p><strong>protected void </strong>onCreate(Bundle savedInstanceState) {</p>
+<p><strong>super</strong>.onCreate(savedInstanceState);</p>
+<p>       setContentView(R.layout.<strong><em>activity_main</em></strong>);</p>
+<p><strong>progressBar </strong>= (ProgressBar) findViewById(R.id.<strong><em>progressBar</em></strong>);</p>
+<p><strong>progressBar2 </strong>= (ProgressBar) findViewById(R.id.<strong><em>progressBar2</em></strong>);</p>
+<p><strong>progressBar</strong>.setVisibility(View.<strong><em>GONE</em></strong>);</p>
+<p><strong>progressBar2</strong>.setVisibility(View.<strong><em>GONE</em></strong>);</p>
+<p><strong>       progressBar2</strong>.setMax(100);</p>
+<p><strong>progressBar2</strong>.setProgress(0);</p>
+<p><strong>button </strong>= (Button) findViewById(R.id.<strong><em>button</em></strong>);</p>
+<p><strong>button</strong>.setOnClickListener(<strong>this</strong>);</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>public void </strong>onClick(View view) {</p>
+<p><strong>int </strong>id = view.getId();</p>
+<p><strong>switch </strong>(id){</p>
+<p><strong>case </strong>R.id.<strong><em>button</em></strong>:</p>
+<p><strong>new </strong>AsyncTask&lt;Integer, Integer, String&gt;() {</p>
+<p>                   @Override</p>
+<p><strong>protected </strong>String doInBackground(Integer... integers) {</p>
+<p><strong>int </strong>total = integers[0];</p>
+<p><strong>int </strong>step = integers[1];</p>
+<p><strong>for </strong>(<strong>int </strong>count=0; count &lt;= total/step; count++) {</p>
+<p><strong>try </strong>{</p>
+<p>                               Thread.<em>sleep</em>(step);</p>
+<p>                               publishProgress((<strong>int</strong>) (count*step/(<strong>float</strong>)total*100));</p>
+<p>                           } <strong>catch </strong>(InterruptedException e) {</p>
+<p>                               e.printStackTrace();</p>
+<p>                           }</p>
+<p>                       }</p>
+<p><strong>return &#34;Task Completed.&#34;</strong>;</p>
+<p>                   }</p>
+<p>                   @Override</p>
+<p><strong>protected void </strong>onPostExecute(String result) {</p>
+<p>                       Toast.<em>makeText</em>(MainActivity.<strong>this</strong>, result, Toast.<strong><em>LENGTH_SHORT</em></strong>).show();</p>
+<p><strong>button</strong>.setText(<strong>&#34;Restart&#34;</strong>);</p>
+<p><strong>button</strong>.setEnabled(<strong>true</strong>);</p>
+<p><strong>progressBar</strong>.setVisibility(View.<strong><em>GONE</em></strong>);</p>
+<p><strong>progressBar2</strong>.setVisibility(View.<strong><em>GONE</em></strong>);</p>
+<p>                   }</p>
+<p>                   @Override</p>
+<p><strong>protected void </strong>onPreExecute() {</p>
+<p><strong>button</strong>.setText(<strong>&#34;Task Starting...&#34;</strong>);</p>
+<p><strong>button</strong>.setEnabled(<strong>false</strong>);</p>
+<p><strong>progressBar</strong>.setVisibility(View.VISIBLE);</p>
+<p><strong>progressBar2</strong>.setVisibility(View.VISIBLE);</p>
+<p>                   }</p>
+<p>                   @Override</p>
+<p><strong>protected void </strong>onProgressUpdate(Integer... values) {</p>
+<p><strong>progressBar2</strong>.setProgress((<strong>int</strong>) (values[0]*<strong>progressBar2</strong>.getMax()/100.0f));</p>
+<p>                   }</p>
+<p>               }.execute(1000, 10);</p>
+<p><strong>break</strong>;</p>
+<p>       }</p>
+<p>   }</p>
+<p>}</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="SeekBar" duration="0">
+        <p>&lt;<strong>SeekBar</strong></p>
+<p><strong>   android:id=&#34;@+id/seekBar&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;match_parent&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34; </strong>/&gt;</p>
+<p>&lt;<strong>SeekBar</strong></p>
+<p><strong>   android:id=&#34;@+id/seekBar2&#34;</strong></p>
+<p><strong>   style=&#34;@style/Widget.AppCompat.SeekBar.Discrete&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;match_parent&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:max=&#34;10&#34; </strong>/&gt;</p>
+<p><strong>public class </strong>MainActivity <strong>extends </strong>AppCompatActivity <strong>implements</strong></p>
+<p>SeekBar.OnSeekBarChangeListener {</p>
+<p><strong>static final </strong>String <strong><em>SEEKBAR </em></strong>= <strong>&#34;SEEKBAR&#34;</strong>;</p>
+<p><strong>static final </strong>String <strong><em>SEEKBAR2 </em></strong>= <strong>&#34;SEEKBAR2&#34;</strong>;</p>
+<p>   SeekBar <strong>seekBar</strong>;</p>
+<p>   SeekBar <strong>seekBar2</strong>;</p>
+<p>   @Override</p>
+<p><strong>protected void </strong>onCreate(Bundle savedInstanceState) {</p>
+<p><strong>super</strong>.onCreate(savedInstanceState);</p>
+<p>       setContentView(R.layout.<strong><em>activity_main</em></strong>);</p>
+<p><strong>seekBar </strong>= (SeekBar) findViewById(R.id.<strong><em>seekBar</em></strong>);</p>
+<p><strong>seekBar2 </strong>= (SeekBar) findViewById(R.id.<strong><em>seekBar2</em></strong>);</p>
+<p><strong>seekBar</strong>.setProgress(getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getInt(<strong><em>SEEKBAR</em></strong>, 0));</p>
+<p><strong>seekBar2</strong>.setProgress(getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getInt(<strong><em>SEEKBAR2</em></strong>, 0));</p>
+<p><strong>seekBar</strong>.setOnSeekBarChangeListener(<strong>this</strong>);</p>
+<p><strong>seekBar2</strong>.setOnSeekBarChangeListener(<strong>this</strong>);</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>public void </strong>onProgressChanged(SeekBar seekBar, <strong>int </strong>i, <strong>boolean </strong>b) {</p>
+<p><strong>int </strong>id = seekBar.getId();</p>
+<p><strong>switch </strong>(id){</p>
+<p><strong>case </strong>R.id.<strong><em>seekBar</em></strong>:</p>
+<p>               getPreferences(<strong><em>MODE_PRIVATE</em></strong>).edit()</p>
+<p>                       .putInt(<strong><em>SEEKBAR</em></strong>, i)</p>
+<p>                       .apply();</p>
+<p><strong>break</strong>;</p>
+<p><strong>case </strong>R.id.<strong><em>seekBar2</em></strong>:</p>
+<p>               getPreferences(<strong><em>MODE_PRIVATE</em></strong>).edit()</p>
+<p>                       .putInt(<strong><em>SEEKBAR2</em></strong>, i)</p>
+<p>                       .apply();</p>
+<p><strong>break</strong>;</p>
+<p>       }</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>public void </strong>onStartTrackingTouch(SeekBar seekBar) {</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>public void </strong>onStopTrackingTouch(SeekBar seekBar) {</p>
+<p>   }</p>
+<p>}</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="RatingBar" duration="0">
+        <p>&lt;<strong>RatingBar</strong></p>
+<p><strong>   android:id=&#34;@+id/ratingBar&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34; </strong>/&gt;</p>
+<p><strong>public class </strong>MainActivity <strong>extends </strong>AppCompatActivity <strong>implements</strong></p>
+<p>RatingBar.OnRatingBarChangeListener {</p>
+<p><strong>static final </strong>String <strong><em>RATINGBAR </em></strong>= <strong>&#34;RATINGBAR&#34;</strong>;</p>
+<p>   RatingBar <strong>ratingBar</strong>;</p>
+<p>   @Override</p>
+<p><strong>protected void </strong>onCreate(Bundle savedInstanceState) {</p>
+<p><strong>super</strong>.onCreate(savedInstanceState);</p>
+<p>       setContentView(R.layout.<strong><em>activity_main</em></strong>);</p>
+<p><strong>ratingBar </strong>= (RatingBar) findViewById(R.id.<strong><em>ratingBar</em></strong>);</p>
+<p><strong>ratingBar</strong>.setRating(getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getFloat(<strong><em>RATINGBAR</em></strong>, 0f));</p>
+<p><strong>ratingBar</strong>.setOnRatingBarChangeListener(<strong>this</strong>);</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>public void </strong>onRatingChanged(RatingBar ratingBar, <strong>float </strong>v, <strong>boolean </strong>b) {</p>
+<p><strong>int </strong>id = ratingBar.getId();</p>
+<p><strong>switch </strong>(id){</p>
+<p><strong>case </strong>R.id.<strong><em>ratingBar</em></strong>:</p>
+<p>               getPreferences(<strong><em>MODE_PRIVATE</em></strong>).edit()</p>
+<p>                       .putFloat(<strong><em>RATINGBAR</em></strong>, v)</p>
+<p>                       .apply();</p>
+<p><strong>               break</strong>; </p>
+<p>       }</p>
+<p>   }</p>
+<p>}</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="TimePicker" duration="0">
+        <p>&lt;<strong>TimePicker</strong></p>
+<p><strong>   android:id=&#34;@+id/timePicker&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:timePickerMode=&#34;spinner&#34; </strong>/&gt;</p>
+<p><em>&lt;!--android:timePickerMode=&#34;clock&#34;--&gt;</em></p>
+<p><strong>public class </strong>MainActivity <strong>extends </strong>AppCompatActivity <strong>implements</strong></p>
+<p>TimePicker.OnTimeChangedListener {</p>
+<p><strong>   static final </strong>String <strong><em>TIMEPICKERHOUR </em></strong>= <strong>&#34;TIMEPICKERHOUR&#34;</strong>;</p>
+<p><strong>   static final </strong>String <strong><em>TIMEPICKERMINUTE </em></strong>= <strong>&#34;TIMEPICKERMINUTE&#34;</strong>;</p>
+<p>   TimePicker <strong>timePicker</strong>;</p>
+<p>   @Override</p>
+<p><strong>protected void </strong>onCreate(Bundle savedInstanceState) {</p>
+<p><strong>super</strong>.onCreate(savedInstanceState);</p>
+<p>       setContentView(R.layout.<strong><em>activity_main</em></strong>);</p>
+<p><strong>       timePicker </strong>= (TimePicker) findViewById(R.id.<strong><em>timePicker</em></strong>);</p>
+<p><strong>       timePicker</strong>.setIs24HourView(<strong>true</strong>);</p>
+<p><em>       // API &gt;= 23</em></p>
+<p><em>       //timePicker.setHour(getPreferences(MODE_PRIVATE).getInt(TIMEPICKERHOUR, 0));</em></p>
+<p><em>       //timePicker.setCurrentMinute(getPreferences(MODE_PRIVATE).getInt(TIMEPICKERMINUTE, 0));</em></p>
+<p><em>       // API &lt; 23</em></p>
+<p><strong>       timePicker</strong>.setCurrentHour(getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getInt(<strong><em>TIMEPICKERHOUR</em></strong>, 0));</p>
+<p><strong>       timePicker</strong>.setCurrentMinute(getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getInt(<strong><em>TIMEPICKERMINUTE</em></strong>, 0));</p>
+<p><strong>       timePicker</strong>.setOnTimeChangedListener(<strong>this</strong>);</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>   public void </strong>onTimeChanged(TimePicker timePicker, <strong>int </strong>hour, <strong>int </strong>minute) {</p>
+<p><strong>int </strong>id = timePicker.getId();</p>
+<p><strong>switch</strong>(id){</p>
+<p><strong>case </strong>R.id.<strong><em>timePicker</em></strong>:</p>
+<p>               getPreferences(<strong><em>MODE_PRIVATE</em></strong>).edit()</p>
+<p>                       .putInt(<strong><em>TIMEPICKERHOUR</em></strong>, hour)</p>
+<p>                       .putInt(<strong><em>TIMEPICKERMINUTE</em></strong>, minute)</p>
+<p>                       .apply();</p>
+<p><strong>break</strong>;</p>
+<p>       }</p>
+<p>   }</p>
+<p>}</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="TextClock" duration="0">
+        <p>&lt;<strong>TextClock</strong></p>
+<p><strong>   android:id=&#34;@+id/textClock&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34; </strong>/&gt;</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="DatePicker" duration="0">
+        <p>&lt;<strong>DatePicker</strong></p>
+<p><strong>   android:id=&#34;@+id/datePicker&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;match_parent&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:datePickerMode=&#34;spinner&#34;</strong></p>
+<p><strong>   android:calendarViewShown=&#34;false&#34;</strong>/&gt;</p>
+<p><strong>public class </strong>MainActivity <strong>extends </strong>AppCompatActivity <strong>implements</strong></p>
+<p>DatePicker.OnDateChangedListener {</p>
+<p><strong>   static final </strong>String <strong><em>DATEPICKERYEAR </em></strong>= <strong>&#34;DATEPICKERYEAR&#34;</strong>;</p>
+<p><strong>   static final </strong>String <strong><em>DATEPICKERMONTH </em></strong>= <strong>&#34;DATEPICKERMONTH&#34;</strong>;</p>
+<p><strong>   static final </strong>String <strong><em>DATEPICKERDAY </em></strong>= <strong>&#34;DATEPICKERDAY&#34;</strong>;</p>
+<p>   DatePicker <strong>datePicker</strong>;</p>
+<p>   @Override</p>
+<p><strong>protected void </strong>onCreate(Bundle savedInstanceState) {</p>
+<p><strong>super</strong>.onCreate(savedInstanceState);</p>
+<p>       setContentView(R.layout.<strong><em>activity_main</em></strong>);</p>
+<p><strong>datePicker</strong>= (DatePicker) findViewById(R.id.<strong><em>datePicker</em></strong>);</p>
+<p><em>// API &gt;= 26</em></p>
+<p><em>       //datePicker.updateDate(2000, 12, 31);</em></p>
+<p><em>       //datePicker.setOnDateChangedListener(this);</em></p>
+<p><strong>       datePicker</strong>.init(</p>
+<p>            getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getInt(<strong><em>DATEPICKERYEAR</em></strong>, <strong>datePicker</strong>.getYear()),</p>
+<p>            getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getInt(<strong><em>DATEPICKERMONTH</em></strong>, <strong>datePicker</strong>.getMonth()),</p>
+<p>            getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getInt(<strong><em>DATEPICKERDAY</em></strong>, <strong>datePicker</strong>.getDayOfMonth()),</p>
+<p><strong>this</strong>);</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>   public void </strong>onDateChanged(DatePicker datePicker, <strong>int </strong>year, <strong>int </strong>month, <strong>int </strong>day) {</p>
+<p><strong>int </strong>id = datePicker.getId();</p>
+<p><strong>switch</strong>(id){</p>
+<p><strong>case </strong>R.id.<strong><em>datePicker</em></strong>:</p>
+<p>               getPreferences(<strong><em>MODE_PRIVATE</em></strong>).edit()</p>
+<p>                       .putInt(<strong><em>DATEPICKERYEAR</em></strong>, year)</p>
+<p>                       .putInt(<strong><em>DATEPICKERMONTH</em></strong>, month)</p>
+<p>                       .putInt(<strong><em>DATEPICKERDAY</em></strong>, day)</p>
+<p>                       .apply();</p>
+<p><strong>break</strong>;</p>
+<p>       }</p>
+<p>   }</p>
+<p>}</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="CalendarView" duration="0">
+        <p>&lt;<strong>CalendarView</strong></p>
+<p><strong>   android:id=&#34;@+id/calendarView&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34; </strong>/&gt;</p>
+<p><strong>public class </strong>MainActivity <strong>extends </strong>AppCompatActivity <strong>implements</strong></p>
+<p>CalendarView.OnDateChangeListener {</p>
+<p><strong>   static final </strong>String <strong><em>CALENDARVIEW </em></strong>= <strong>&#34;CALENDARVIEW&#34;</strong>;</p>
+<p>   CalendarView <strong>calendarView</strong>;</p>
+<p>   @Override</p>
+<p><strong>protected void </strong>onCreate(Bundle savedInstanceState) {</p>
+<p><strong>super</strong>.onCreate(savedInstanceState);</p>
+<p>       setContentView(R.layout.<strong><em>activity_main</em></strong>);</p>
+<p><strong>calendarView</strong> = (CalendarView) findViewById(R.id.<strong><em>calendarView</em></strong>);</p>
+<p><strong>       calendarView</strong>.setDate(getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getLong(<strong><em>CALENDARVIEW</em></strong>,  </p>
+<p>               Calendar.<em>getInstance</em>().getTimeInMillis()));</p>
+<p><strong>calendarView</strong>.setOnDateChangeListener(<strong>this</strong>);</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>public void </strong>onSelectedDayChange(@NonNull CalendarView calendarView, <strong>int </strong>year, <strong>int </strong>month, <strong>int </strong>day) {</p>
+<p><strong>int </strong>id = calendarView.getId();</p>
+<p><strong>switch</strong>(id){</p>
+<p><strong>case </strong>R.id.<strong><em>calendarView</em></strong>:</p>
+<p>               Calendar calendar = Calendar.<em>getInstance</em>();</p>
+<p>               calendar.set(year, month, day);</p>
+<p>               getPreferences(<strong><em>MODE_PRIVATE</em></strong>).edit()</p>
+<p>                       .putLong(<strong><em>CALENDARVIEW</em></strong>, calendar.getTimeInMillis())</p>
+<p>                       .apply();</p>
+<p><strong>break</strong>;</p>
+<p>       }</p>
+<p>   }</p>
+<p>}</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="NumberPicker" duration="0">
+        <p>&lt;<strong>NumberPicker</strong></p>
+<p><strong>   android:id=&#34;@+id/numberPicker&#34;</strong></p>
+<p><strong>   android:layout_width=&#34;wrap_content&#34;</strong></p>
+<p><strong>   android:layout_height=&#34;wrap_content&#34; </strong>/&gt;</p>
+<p><strong>public class </strong>MainActivity <strong>extends </strong>AppCompatActivity <strong>implements</strong></p>
+<p>NumberPicker.OnValueChangeListener {</p>
+<p><strong>   static final String </strong><strong><em>NUMBERPICKER </em></strong><strong>= &#34;NUMBERPICKER&#34;;</strong></p>
+<p>   NumberPicker <strong>numberPicker</strong>;</p>
+<p>   @Override</p>
+<p><strong>protected void </strong>onCreate(Bundle savedInstanceState) {</p>
+<p><strong>super</strong>.onCreate(savedInstanceState);</p>
+<p>       setContentView(R.layout.<strong><em>activity_main</em></strong>);</p>
+<p><strong>numberPicker </strong>= (NumberPicker) findViewById(R.id.<strong><em>numberPicker</em></strong>);</p>
+<p><strong>numberPicker</strong>.setMinValue(1);</p>
+<p><strong>numberPicker</strong>.setMaxValue(10);</p>
+<p><strong>numberPicker</strong>.setValue(getPreferences(<strong><em>MODE_PRIVATE</em></strong>).getInt(<strong><em>NUMBERPICKER</em></strong>, </p>
+<p><strong>numberPicker</strong>.getMinValue()));</p>
+<p><strong>numberPicker</strong>.setOnValueChangedListener(<strong>this</strong>);</p>
+<p>   }</p>
+<p>   @Override</p>
+<p><strong>public void </strong>onValueChange(NumberPicker numberPicker, <strong>int </strong>oldVal, <strong>int </strong>newVal) {</p>
+<p><strong>int </strong>id = numberPicker.getId();</p>
+<p><strong>switch</strong>(id){</p>
+<p><strong>case </strong>R.id.<strong><em>numberPicker</em></strong>:</p>
+<p>               getPreferences(<strong><em>MODE_PRIVATE</em></strong>).edit()</p>
+<p>                       .putInt(<strong><em>NUMBERPICKER</em></strong>, newVal)</p>
+<p>                       .apply();</p>
+<p><strong>break</strong>;</p>
+<p>       }</p>
+<p>   }</p>
+<p>}</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>

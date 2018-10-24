@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1fiuK5vjtPHJa1x4-fDxxndi-dQyGrLZFQPUEhaw7eB4",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-10-24T22:11:48Z",
+  "id": "room-database",
+  "duration": 4,
+  "title": "Room Database",
+  "summary": "Room Database",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "room-database"
+}

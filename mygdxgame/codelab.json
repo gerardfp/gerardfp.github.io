@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1aWvcOonFZzD4uL_1VExkcHt-4xqmbdDXnBtQ1blZ0CY",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-10-24T22:22:32Z",
+  "id": "mygdxgame",
+  "duration": 0,
+  "title": "MyGdxGame",
+  "summary": "Projecte MyGdxGame",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mygdxgame"
+}

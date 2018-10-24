@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1ChiXfBuX0SNubITlzr_jIMuX22p9XT1SoV9SCOFrMwk",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-10-24T21:55:04Z",
+  "id": "widgets",
+  "duration": 0,
+  "title": "Widgets",
+  "summary": "Widgets",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "widgets"
+}

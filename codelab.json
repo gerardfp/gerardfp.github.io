@@ -4,9 +4,9 @@
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2018-10-24T22:02:18Z",
-  "id": "MP08",
-  "duration": 1380,
+  "updated": "2018-10-24T22:23:50Z",
+  "id": "/",
+  "duration": 1500,
   "title": "Programació Multimèdia i Dispositius Mòbils",
   "summary": "Programació Multimèdia i Dispositius Mòbils",
   "theme": "android",
@@ -18,5 +18,5 @@
   ],
   "tags": [],
   "feedback": "https://github.com/gerardfp",
-  "url": "MP08"
+  "url": "/"
 }

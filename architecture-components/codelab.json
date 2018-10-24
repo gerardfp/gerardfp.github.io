@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1-s47MXE5_ffG3lMEDgZb2MneWW6Oo6L0xbcvv5030qw",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-10-24T22:13:48Z",
+  "id": "architecture-components",
+  "duration": 0,
+  "title": "Architecture Components",
+  "summary": "Architecture Components",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "architecture-components"
+}

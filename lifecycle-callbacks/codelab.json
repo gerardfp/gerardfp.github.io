@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1akQbpZ0UszqfYVRH9VdN7pGH_HbyClBLLdQ0bMCN8xg",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-10-24T21:54:09Z",
+  "id": "lifecycle-callbacks",
+  "duration": 0,
+  "title": "Lifecycle callbacks",
+  "summary": "Lifecycle Callbacks",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "lifecycle-callbacks"
+}

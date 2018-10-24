@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1lkG2lWrrlqVvcG9GdMwsiBsfKfZZaeutn6oqvl-MAdM",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-10-24T21:49:48Z",
+  "id": "android-studio",
+  "duration": 0,
+  "title": "Android Studio",
+  "summary": "Programació Multimèdia i Dispositius Mòbils",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "android-studio"
+}
