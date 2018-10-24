@@ -155,17 +155,9 @@ new AlertDialog.Builder(MainActivity.this)
       </google-codelab-step>
     
       <google-codelab-step label="Guardar el estado de una Actividad" duration="0">
-        
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="El comportamiento predeterminado del sistema preserva el estado de una actividad cuando esta se detiene. De este modo, cuando los usuarios vuelven a una actividad anterior, su interfaz de usuario aparece como la habían dejado (por ejemplo, el texto introducido en un EditText). Sin embargo, tú puedes (y debes) retener de manera proactiva el estado de tus actividades utilizando métodos de callback, en caso de que la actividad se destruya y sea necesario volver a crearla." duration="0">
-        
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Cuando el sistema detiene una actividad (por ejemplo, cuando se inicia una actividad nueva o la tarea pasa a segundo plano), es posible que el sistema destruya esa actividad completamente si necesita recuperar memoria del sistema. Cuando esto sucede, se pierde la información sobre el estado de la actividad. No obstante, Android implementa de forma predeterminada un sistema de guardado y recuperación de esta información." duration="0">
-        <p>El proceso automático de guardar el estado de una Activity consiste en almacenar en un objeto de clase <code>Bundle</code> la información de los elementos de la Interfaz de Usuario (<code>EditText</code>, <code>Checkbox</code>, <code>RadioButton</code>, etc.) antes de que la Activity sea destruida, para después restaurar esos valores cuando se vuelve a crear.</p>
+        <p>El comportamiento predeterminado del sistema preserva el estado de una actividad cuando esta se detiene. De este modo, cuando los usuarios vuelven a una actividad anterior, su interfaz de usuario aparece como la habían dejado (por ejemplo, el texto introducido en un <code>EditText</code>). Sin embargo, tú puedes (y <strong>debes</strong>) retener de manera proactiva el estado de tus actividades utilizando métodos de callback, en caso de que la actividad se destruya y sea necesario volver a crearla.</p>
+<p>Cuando el sistema detiene una actividad (por ejemplo, cuando se inicia una actividad nueva o la tarea pasa a segundo plano), es posible que el sistema destruya esa actividad completamente si necesita recuperar memoria del sistema. Cuando esto sucede, se pierde la información sobre el estado de la actividad. No obstante, Android implementa de forma predeterminada un sistema de guardado y recuperación de esta información.</p>
+<p>El proceso automático de guardar el estado de una Activity consiste en almacenar en un objeto de clase <code>Bundle</code> la información de los elementos de la Interfaz de Usuario (<code>EditText</code>, <code>Checkbox</code>, <code>RadioButton</code>, etc.) antes de que la Activity sea destruida, para después restaurar esos valores cuando se vuelve a crear.</p>
 <p>El guardado de datos tiene lugar en el método <code>onSaveInstanceState()</code>, y el de restauración en <code>onRestoreInstanceState()</code>.</p>
 <p>Observemos las llamadas que el sistema realiza a estos métodos de nuestra Activity:</p>
 <ol type="1" start="1">
