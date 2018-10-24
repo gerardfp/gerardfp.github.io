@@ -1,0 +1,158 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>P01 - Android Studio</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="P01 - Android Studio"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Esta práctica te enseña cómo crear tu primera aplicación para Android. Aprenderás cómo crear un proyecto de Android con Android Studio, y ejecutar una versión depurable de la aplicación." duration="0">
+        <p>Antes de comenzar, descarga e instala <a href="https://developer.android.com/studio/" target="_blank">Android Studio</a>.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crear un proyecto de Android" duration="0">
+        
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Esta lección le muestra cómo crear un proyecto nuevo Android con Android Studio y describe algunos de los archivos del proyecto." duration="0">
+        <ol type="1" start="1">
+<li>En Android Studio, cree un nuevo proyecto:<br></li>
+</ol>
+<ul>
+<li>Si todavía no ha abierto un proyecto, en la pantalla de <strong>bienvenida</strong>, haga clic en <strong>Nuevo proyecto</strong>.<br></li>
+<li>Si ha abierto un proyecto, desde el menú <strong>Archivo</strong>, seleccione <strong>Nuevo proyecto</strong> . <em>Crear nuevo proyecto</em> aparece en pantalla.<br></li>
+</ul>
+<ol type="1" start="2">
+<li>Rellene los campos de la pantalla. Para <strong>Nombre de la aplicación</strong> use &#34;Mi Primera Aplicación&#34;. Para <strong>la empresa de dominio</strong> , utilice &#34;example.com&#34;. Para los otros campos, utilice los valores por defecto y haga clic en <strong>Siguiente<br><br></strong>He aquí una breve explicación de cada campo:<br></li>
+</ol>
+<ul>
+<li><strong>Nombre de la aplicación</strong> es el nombre de la aplicación que aparece a los usuarios.<br></li>
+<li><strong>Dominio de la empresa</strong> proporciona un calificador que se añadirá al nombre del paquete; Android Studio recordará este calificador para cada nuevo proyecto se crea.<br></li>
+<li><strong>Nombre del paquete</strong> es el nombre completo para el proyecto (siguiendo las mismas reglas que las de denominación de paquetes en el lenguaje de programación Java). Su nombre del paquete debe ser único en todos los paquetes instalados en el sistema Android. Puede <strong>editar</strong> este valor independientemente del nombre de la aplicación o del dominio de la empresa.<br></li>
+<li><strong>Ubicación del proyecto</strong> es el directorio en el sistema que contiene los archivos del proyecto.<br></li>
+</ul>
+<ol type="1" start="3">
+<li>Bajo <strong>Dispositivos de destino Android</strong> , acepte los valores predeterminados y haga clic en <strong>Siguiente</strong>.<br><br>El SDK Obligatorio mínimo es la primera versión de Android que su aplicacion soporte, y se indica usando el <a href="https://developer.android.com/guide/topics/manifest/uses-sdk-element.html#ApiLevels" target="_blank">API level</a> . Para soportar el máximo de dispositivos que sea posible, debe establecer el API level a la versión más baja disponible que permita a la aplicación proveerse del conjunto de características del núcleo que necesite. Si alguna de las funciones de su aplicación sólo es posible en las versiones más recientes de Android y no es crítica para el conjunto de características del núcleo de la aplicación, se puede habilitar la función sólo cuando se ejecuta en las versiones que lo soportan (como se vió en <a href="https://developer.android.com/training/basics/supporting-devices/platforms.html" target="_blank">soporte a diferentes versiones de la plataforma</a> ).<br></li>
+<li>Bajo <strong>añadir una actividad de Mobile</strong> , seleccione <strong>Actividad vacía</strong> y haga clic en <strong>Siguiente</strong>.<br></li>
+<li>Bajo <strong>Personalizar la actividad</strong> , acepte los valores predeterminados y haga clic <strong>en Finalizar</strong>.</li>
+</ol>
+<p><strong>Actividades (</strong><strong><em>Activities</em></strong><strong>)</strong></p>
+<p><br>Una actividad (<strong><em>activity</em></strong>) es una de las características distintivas del marco de Android. A cada actividad se le asigna una ventana en la que se puede dibujar su interfaz de usuario. Las actividades proporcionan al usuario acceso a tu aplicación, y puede haber muchas. Una aplicación por lo general tienen una actividad principal para cuando el usuario inicia la aplicación, otra actividad para cuando se selecciona un cierto contenido para ver, por ejemplo, y otras actividades para cuando se realizan otras tareas dentro de la aplicación. Ver <a href="https://developer.android.com/guide/components/activities.html" target="_blank">Activities</a> para más información.</p>
+<p>Su proyecto Android es una aplicación básica de &#34;Hello World&#34; que contiene algunos <strong>archivos por defecto</strong>. Veamos los más importantes:</p>
+<p><code>app/src/main/java/com.example.myfirstapp/MainActivity.java</code></p>
+<p>Este archivo aparece en Android Studio después de que finalice el asistente Nuevo proyecto. Contiene la definición de clase para la actividad que creó anteriormente. Cuando se construye y ejecuta la aplicación, la <a href="https://developer.android.com/reference/android/app/Activity.html" target="_blank"><code>Activity</code></a> se inicia y carga el archivo de diseño (<em>layout</em>) que dice &#34;Hello World!&#34;</p>
+<p><code>app/src/main/res/layout/activity_main.xml</code></p>
+<p>Este archivo XML define el layout de la actividad. Contiene un elemento <code>TextView</code> con el texto &#34;¡Hola mundo!&#34;.</p>
+<p><code>app/src/main/AndroidManifest.xml</code></p>
+<p>El <a href="https://developer.android.com/guide/topics/manifest/manifest-intro.html" target="_blank">archivo de manifiesto</a> describe las características fundamentales de la aplicación y define cada uno de sus componentes. Volveremos a ver este archivo en las siguientes lecciones para añadir más componentes a la aplicación.</p>
+<p><code>app/build.gradle</code></p>
+<p>Android Studio utiliza Gradle para compilar y construir su aplicación. Hay un archivo  <code>build.gradle</code> para cada módulo de su proyecto, así como un archivo <code>build.gradle</code> de todo el proyecto. Por lo general, sólo está interesado en el archivo <code>build.gradle</code> para el módulo, en este caso el <code>app</code> o módulo de aplicación. Aquí es donde se encuentran las dependencias de construcción de tu aplicación, incluyendo los ajustes <code>defaultConfig</code>:</p>
+<ul>
+<li><code>compiledSdkVersion</code> es la versión de la plataforma contra la que va a compilar su aplicación. Por defecto, se establece en la última versión de Android disponible en el SDK, que por defecto, es la última versión de Android SDK instalado en la máquina de desarrollo. Todavía se pueden construir aplicaciones para ser usadas con las versiones anteriores, pero si se establece este valor a la última versión, permite habilitar nuevas características y optimizar la aplicación para una gran experiencia de usuario en los dispositivos más recientes.<br></li>
+<li><code>applicationId</code> es el nombre de paquete completo para su aplicación que especificó en el asistente Nuevo proyecto.<br></li>
+<li><code>minSdkVersion</code> es la versión del SDK mínimo especificado durante el asistente Nuevo proyecto. Esta es la primera versión del SDK de Android que soporta la aplicación.<br></li>
+<li><code>targetSdkVersion</code> indica la versión más alta de Android con la que ha probado su aplicación. A medida que las nuevas versiones de Android estén disponibles, se debería probar la aplicación en la nueva versión y actualizar este valor para que coincida con el último nivel de la API y de esta manera aprovechar las nuevas características de la plataforma. Para obtener más información, lea <a href="https://developer.android.com/training/basics/supporting-devices/platforms.html" target="_blank">soportar a las diferentes versiones de la plataforma</a>.</li>
+</ul>
+<p>Veamos también los subdirectorios <code>/res</code> que contienen los <a href="https://developer.android.com/guide/topics/resources/overview.html" target="_blank">recursos</a> para su aplicación:</p>
+<p><code>drawable/</code></p>
+<p>Directorios de <a href="https://developer.android.com/guide/topics/resources/drawable-resource.html" target="_blank">recursos dibujables</a>, a parte de los iconos del lanzador, diseñados para diferentes <a href="https://developer.android.com/training/multiscreen/screendensities.html" target="_blank">densidades</a> .</p>
+<p><code>layout/</code></p>
+<p>Directorio para los archivos que definen la interfaz de usuario de la aplicación, como <code>activity_main.xml</code>, discutido anteriormente, que describe un diseño básico para la clase <code>MainActivity</code>.</p>
+<p><code>menu/</code></p>
+<p>Directorio para los archivos que definen elementos de menú de la aplicación.</p>
+<p><code>mipmap/</code></p>
+<p>Los iconos Lanzadores residen en la carpeta <code>mipmap/</code> en lugar de las carpetas <code>drawable/</code>. Esta carpeta contiene la imagen <code>ic_launcher.png</code> que aparece por defecto cuando se ejecuta la aplicación.</p>
+<p><code>values/</code></p>
+<p>Directorio para otros archivos XML que contienen una colección de recursos, como las cadenas de caracteres (strings) y colores.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Ejecutar la App" duration="0">
+        <h2>Ejecutar en un dispositivo real</h2>
+<p>Configurar el dispositivo de la siguiente manera:</p>
+<ol type="1" start="1">
+<li>Conectar el dispositivo a su equipo de desarrollo con un cable USB. Si está desarrollando en Windows, puede que tenga que instalar el controlador USB adecuado para su dispositivo. Para ayuda sobre la instalación, consulte el documento <a href="https://developer.android.com/studio/run/oem-usb.html" target="_blank">controlador USB OEM</a>.<br></li>
+<li>Habilitar <strong>la depuración USB</strong> en el dispositivo, yendo a <strong>Configuración&gt; Opciones de desarrollador</strong> .<br><br>  <strong>Nota:</strong> En Android 4.2 y versiones posteriores, <strong>Opciones de desarrollador</strong> se oculta de forma predeterminada. Para que esté disponible, vaya a <strong>Ajustes&gt; Acerca del teléfono</strong> y toque <strong>el número de compilación</strong> siete veces. Regrese a la pantalla anterior y encontrará las <strong>Opciones de desarrollador</strong> .<br></li>
+</ol>
+<p>Ejecutar la aplicación desde Android Studio de la siguiente manera:</p>
+<ol type="1" start="1">
+<li>En Android Studio, seleccione el proyecto y haga clic en <strong>Ejecutar </strong><img style="max-width: 25.00px" src="img\5cddd1366b146a3c.png"> desde la barra de herramientas.<br></li>
+<li>En la ventana <strong>Select Deployment Target</strong>, seleccione el dispositivo y haga clic en <strong>OK</strong> .</li>
+</ol>
+<p>Android Studio instala la aplicación en el dispositivo conectado y la inicia.</p>
+<h2>Ejecutar en el emulador</h2>
+<p>Antes de ejecutar la aplicación en un emulador, es necesario crear una definición <a href="https://developer.android.com/tools/devices/index.html" target="_blank">Android Virtual Device</a> (AVD). Una definición AVD define las características de un teléfono Android, tablet Android Wear, o dispositivo Android TV que desea simular en el emulador de Android.</p>
+<p>Crear una definición de AVD de la siguiente manera:</p>
+<ol type="1" start="1">
+<li>Lanzar el Administrador de dispositivos Android virtual seleccionando <strong>Herramientas&gt; Android&gt; AVD Manager</strong>, o haciendo clic en el icono del Administrador de AVD <img style="max-width: 25.42px" src="img\d73bc586b296459.png">en la barra de herramientas.<br></li>
+<li>En la pantalla principal AVD Manager, haga clic en <strong>Crear dispositivo virtual</strong> .<br></li>
+<li>En la página Selección de dispositivos, seleccione un dispositivo de teléfono, como Nexus 6, a continuación, haga clic en <strong>Siguiente</strong> .<br></li>
+<li>En la página Seleccionar Imagen, seleccione la imagen del sistema que desee para la AVD y haga clic en <strong>Siguiente</strong> .<br></li>
+<li>Verificar los ajustes de configuración (por su primera AVD, deje todos los ajustes como están), y luego haga clic <strong>en Finalizar</strong> .</li>
+</ol>
+<p>Para obtener más información sobre el uso AVDs, vea <a href="https://developer.android.com/studio/run/managing-avds.html" target="_blank">Crear y administrar dispositivos virtuales</a> .</p>
+<p>Ejecutar la aplicación desde Android Studio de la siguiente manera:</p>
+<ol type="1" start="1">
+<li>En <strong>Android Studio</strong>, seleccione el proyecto y haga clic <strong>en Ejecutar </strong><img style="max-width: 20.00px" src="img\5cddd1366b146a3c.png"> desde la barra de herramientas.<br></li>
+<li>En la ventana <strong>Select Deployment Target</strong>, seleccione el emulador y haga clic en <strong>OK</strong> .</li>
+</ol>
+<p>El emulador puede tomar unos minutos en empezar. Puede que tenga que desbloquear la pantalla. Cuando lo haga, <em>Mi primera aplicación </em>aparecerá en la pantalla del emulador.</p>
+<p>Así es cómo construyes y ejecutas la aplicación de Android en el emulador!</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>
