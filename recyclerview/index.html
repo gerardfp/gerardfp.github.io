@@ -27,7 +27,7 @@
       <google-codelab-step label="Introducció" duration="0">
         <p>El objetivo de esta práctica es explicar el elemento <strong><code>RecyclerView</code></strong>.</p>
 <p>El widget <a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank"><code>RecyclerView</code></a><code> </code>es una versión más flexible y avanzada de <a href="https://developer.android.com/reference/android/widget/ListView.html" target="_blank"><code>ListView</code></a>. Este widget es un contenedor para mostrar grandes conjuntos de datos que se pueden desplazar de manera muy eficiente al mantener una cantidad limitada de vistas. Usa el widget <a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank"><code>RecyclerView</code></a> cuando tengas conjuntos de datos cuyos elementos cambien en tiempo de ejecución sobre la base de la acción del usuario o los eventos de la red.</p>
-<p>Realizaremos una aplicación que mostrará una lista con textos aleatorios</p>
+<p>Realizaremos una aplicación que mostrará una lista de poemas</p>
 <p><img style="max-width: 444.70px" src="img\3b90a07af599c7c5.png"></p>
 <p><strong>RecyclerView</strong>: Es el encargado de mostrar la lista en pantalla</p>
 <p><strong>Adapter</strong>: Es el encargado de crear el <em>layout</em> para cada ítem, y los datos con los que se rellena</p>
@@ -58,12 +58,12 @@
    public String title;
    public String author;
 }</code></pre>
-<p>En la <code>MainActivity</code>, añade el ArrayList como campo de la clase:</p>
+<p>En la <code>MainActivity</code>, añade el <code>ArrayList</code> como campo de la clase:</p>
 <pre><code>public class MainActivity extends AppCompatActivity {
    List&lt;Poem&gt; poemList = new ArrayList&lt;&gt;();
    . . . .
 }</code></pre>
-<p>En el método onCreate() de la MainActivity, rellena el array con <em>fake data</em>:</p>
+<p>En el método <code>onCreate()</code> de la <code>MainActivity</code>, rellena el array con <em>fake data</em>:</p>
 <pre><code>@Override
 protected void onCreate(Bundle savedInstanceState) {
    . . . .
@@ -80,24 +80,24 @@ protected void onCreate(Bundle savedInstanceState) {
       </google-codelab-step>
     
       <google-codelab-step label="RecyclerView" duration="0">
-        <p><a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank">RecyclerView</a> proporciona estos administradores de layout incorporados:</p>
+        <p><a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank"><code>RecyclerView</code></a> proporciona estos administradores de layout incorporados:</p>
 <table>
-<tr><td colspan="1" rowspan="1"><p><a href="https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html" target="_blank">LinearLayoutManager</a> muestra elementos en una lista de desplazamiento horizontal o vertical.</p>
+<tr><td colspan="1" rowspan="1"><p><a href="https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html" target="_blank">LinearLayoutManager</a><code> </code>muestra elementos en una lista de desplazamiento horizontal o vertical.</p>
 <p><img style="max-width: 146.70px" src="img\4ddefc2975a500a8.png"></p>
-</td><td colspan="1" rowspan="1"><p><a href="https://developer.android.com/reference/android/support/v7/widget/GridLayoutManager.html" target="_blank">GridLayoutManager</a> muestra elementos en una cuadrícula.</p>
+</td><td colspan="1" rowspan="1"><p><a href="https://developer.android.com/reference/android/support/v7/widget/GridLayoutManager.html" target="_blank">GridLayoutManager</a><code> </code>muestra elementos en una cuadrícula.</p>
 <p><img style="max-width: 144.40px" src="img\fac440afb6f65950.png"></p>
-</td><td colspan="1" rowspan="1"><p><a href="https://developer.android.com/reference/android/support/v7/widget/StaggeredGridLayoutManager.html" target="_blank">StaggeredGridLayoutManager</a> muestra elementos en una cuadrícula escalonada.</p>
+</td><td colspan="1" rowspan="1"><p><a href="https://developer.android.com/reference/android/support/v7/widget/StaggeredGridLayoutManager.html" target="_blank">StaggeredGridLayoutManager</a><code> </code>muestra elementos en una cuadrícula escalonada.</p>
 <p><img style="max-width: 143.70px" src="img\2a44143f4e286c2e.png"></p>
 </td></tr>
 </table>
-<p>Para esta práctica usaremos el LinearLayoutManager</p>
-<p>Añade el elemento &lt;RecyclerView&gt; al layout activity_main.xml</p>
+<p>Para esta práctica usaremos el <code>LinearLayoutManager</code></p>
+<p>Añade el elemento <code>&lt;RecyclerView&gt;</code> al layout <code>activity_main.xml</code></p>
 <pre><code>&lt;android.support.v7.widget.RecyclerView
    android:id=&#34;@+id/poem_list&#34;
    android:layout_width=&#34;match_parent&#34;
    android:layout_height=&#34;match_parent&#34;
    android:scrollbars=&#34;vertical&#34; /&gt;</code></pre>
-<p>En el método onCreate() de la MainActivity, establece el LinearLayoutManager al RecyclerView</p>
+<p>En el método <code>onCreate()</code> de la MainActivity, establece el <code>LinearLayoutManager</code> al <code>RecyclerView</code></p>
 <pre><code>@Override
 protected void onCreate(Bundle savedInstanceState) {
    . . . .
@@ -110,13 +110,12 @@ protected void onCreate(Bundle savedInstanceState) {
       </google-codelab-step>
     
       <google-codelab-step label="Adapter" duration="0">
-        <p>El adaptador es el encargado de transformar los elementos del ArrayList en Views para insertarlas en el RecyclerView.</p>
-<p>Se crea una plantilla definiendo cómo tiene que ser una fila (item_poem.xml). El Adaptador creará diferentes Views a partir de la plantilla, y las rellenará con los datos de los elementos del ArrayList. </p>
+        <p>El adaptador es el encargado de transformar los elementos del <code>ArrayList</code> en <code>Views</code> para insertarlas en el <code>RecyclerView</code>.</p>
+<p>Se crea una plantilla definiendo cómo tiene que ser una fila (<code>item_poem.xml</code>). El Adaptador creará diferentes Views a partir de la plantilla, y las rellenará con los datos de los elementos del <code>ArrayList</code>. </p>
 <p><img style="max-width: 480.70px" src="img\16430b779b613c71.png"></p>
-<p>La clave del RecyclerView es que no crea un View para cada elemento del ArrayList, sino que crea las suficientes para que se muestren en pantalla, y cuando el usuario hace scroll sobre la lista, reutiliza las que han quedado invisibles, rellenándolas con los datos de los nuevos elementos del ArrayList.</p>
+<p>Lo importante del <code>RecyclerView</code> es que no crea un <code>View</code> para cada elemento del <code>ArrayList</code>, sino que crea las suficientes para que se muestren en pantalla, y cuando el usuario hace scroll sobre la lista, reutiliza las que han quedado invisibles, rellenándolas con los datos de los nuevos elementos del <code>ArrayList</code>.</p>
 <p><img style="max-width: 373.24px" src="img\e1204cf223775586.png"></p>
-<p><strong>⏩Crea la plantilla para los items de la lista</strong></p>
-<p>Crea un nuevo layout llamado item_poem.xml con el siguiente código:</p>
+<p>Crea un nuevo layout llamado <code>item_poem.xml</code> con el siguiente código (serála plantilla para los items de la lista):</p>
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;android.support.v7.widget.CardView xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    android:layout_width=&#34;match_parent&#34;
@@ -142,8 +141,7 @@ protected void onCreate(Bundle savedInstanceState) {
            android:textSize=&#34;20sp&#34; /&gt;
    &lt;/LinearLayout&gt;
 &lt;/android.support.v7.widget.CardView&gt;</code></pre>
-<p><strong>⏩Crea el Adaptador</strong></p>
-<p>Crea una nueva clase llamada PoemsRecyclerAdapter con el siguiente código:</p>
+<p>Crea una nueva clase llamada <code>PoemsRecyclerAdapter</code> con el siguiente código:</p>
 <pre><code>public class PoemsRecyclerAdapter extends RecyclerView.Adapter&lt;PoemsRecyclerAdapter.PoemViewHolder&gt;{
 
    List&lt;Poem&gt; list;
@@ -182,18 +180,17 @@ protected void onCreate(Bundle savedInstanceState) {
        }
    }
 }</code></pre>
-<p><strong>⏩Establece el Adaptador al RecyclerView</strong></p>
-<p>En el método onCreate() de la MainActivity, añade el siguiente código:</p>
+<p>En el método <code>onCreate()</code> de la <code>MainActivity</code>, añade el siguiente código para establecer el Adaptador al RecyclerView::</p>
 <pre><code>PoemsRecyclerAdapter poemsRecyclerAdapter = new PoemsRecyclerAdapter(poemList);
 recyclerView.setAdapter(poemsRecyclerAdapter);</code></pre>
-<aside class="warning"><p><strong>IMPORTANTE: Cuando se modifique el ArrayList, hay que notificar al adaptador, y este ordenará al RecyclerView actualizar la lista. Esto se hace con el siguiente método:</strong></p>
+<aside class="warning"><p><strong>IMPORTANTE: Cuando se modifique el </strong><strong><code>ArrayList</code></strong><strong>, hay que notificar al adaptador, y este ordenará al RecyclerView actualizar la lista. Esto se hace con el siguiente método:</strong></p>
 <p><strong><code>poemsRecyclerAdapter</code></strong><code>.notifyDataSetChanged();</code></p>
 </aside>
 <p>Tratemos de comprender el código del Adaptador:</p>
 <ol type="1" start="1">
-<li>En el constructor le pasamos el ArrayList que contendrá los poemas.</li>
-<li>El método onCreateViewHolder() lo llamará el RecyclerView cuando necesite una nueva <code>View</code> para representar un ítem.<br>Para obtener una View en la que representar un Poema, inflamos el layout item_poem.xml<br>En lugar de retornarle al RecyclerView la View, le retornamos un objeto de la clase PoemViewHolder, que es la propia View pero con los receptáculos para los datos del poema guardados como varibles.</li>
-<li>El método onBindViewHolder() lo llamará el RecyclerView para rellenar los datos de un ítem. El RecyclerView nos pasa el ViewHolder y la posición, y lo rellenamos con el elemento del <code>ArrayList</code> que está en esa posición. </li>
+<li>En el constructor le pasamos el <code>ArrayList</code> que contendrá los poemas.</li>
+<li>El método <code>onCreateViewHolder()</code> lo llamará el <code>RecyclerView</code> cuando necesite una nueva <code>View</code> para representar un ítem.<br>Para obtener una <code>View</code> en la que representar un Poema, inflamos el layout <code>item_poem.xml</code><br>En lugar de retornarle al <code>RecyclerView</code> la <code>View</code>, le retornamos un objeto de la clase <code>PoemViewHolder</code>, que es la propia <code>View</code> pero con los receptáculos para los datos del poema guardados como varibles.</li>
+<li>El método <code>onBindViewHolder()</code> lo llamará el <code>RecyclerView</code> para rellenar los datos de un ítem. El <code>RecyclerView</code> nos pasa el <code>ViewHolder</code> y la posición, y lo rellenamos con el elemento del <code>ArrayList</code> que está en esa posición. </li>
 </ol>
 
 
