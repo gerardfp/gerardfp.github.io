@@ -28,28 +28,6 @@
         <p>El objetivo de esta práctica es explicar el elemento <strong>RecyclerView</strong>.</p>
 <p>El widget <a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank"><code>RecyclerView</code></a> es una versión más flexible y avanzada de <a href="https://developer.android.com/reference/android/widget/ListView.html" target="_blank"><code>ListView</code></a>. Este widget es un contenedor para mostrar grandes conjuntos de datos que se pueden desplazar de manera muy eficiente al mantener una cantidad limitada de vistas. Usa el widget <a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank"><code>RecyclerView</code></a> cuando tengas conjuntos de datos cuyos elementos cambien en tiempo de ejecución sobre la base de la acción del usuario o los eventos de la red.</p>
 <p>Realizaremos una aplicación que mostrará una lista con textos aleatorios</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Crea el projecte" duration="0">
-        <p><strong>⏩Crea el proyecto</strong></p>
-<p>Selecciona &#34;Empty Activity&#34; como plantilla para la actividad principal.</p>
-<p><strong>⏩Añade las bibliotecas </strong></p>
-<pre>RecyclerView</pre>
-<p><strong> y </strong></p>
-<pre>CardView</pre>
-<p>Añade las bibliotecas </p>
-<pre>RecyclerView</pre>
-<p> y </p>
-<pre>CardView</pre>
-<p> en el archivo </p>
-<pre>build.gradle (Module: app)</pre>
-<pre><code>dependencies {
-   . . . .
-   implementation &#39;com.android.support:cardview-v7:26.1.0&#39;
-   implementation &#39;com.android.support:recyclerview-v7:26.1.0&#39;
-}</code></pre>
 <p><img style="max-width: 444.70px" src="img\3b90a07af599c7c5.png"></p>
 <p><strong>RecyclerView</strong>: Es el encargado de mostrar la lista en pantalla</p>
 <p><strong>Adapter</strong>: Es el encargado de crear el <em>layout</em> para cada ítem, y los datos con los que se rellena</p>
@@ -58,31 +36,32 @@
 
       </google-codelab-step>
     
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Selecciona &#34;Empty Activity&#34; como plantilla para la actividad principal.</p>
+<p>Añade las bibliotecas RecyclerView y CardView en el archivo build.gradle (Module: app)</p>
+<pre><code>dependencies {
+   . . . .
+   implementation &#39;com.android.support:cardview-v7:26.1.0&#39;
+   implementation &#39;com.android.support:recyclerview-v7:26.1.0&#39;
+}</code></pre>
+
+
+      </google-codelab-step>
+    
       <google-codelab-step label="Dataset" duration="0">
-        <p>Como Dataset utilizaremos un <code>ArrayList</code>, que contendrá las películas (autor y título).</p>
-<p>Por el momento, rellenaremos el array con datos falsos, solamente para probar el <code>RecyclerView</code>. </p>
-<p><strong>⏩Crea la clase </strong></p>
-<pre>Poem</pre>
-<p>Añade los campos siguientes:</p>
+        <p>Como Dataset utilizaremos un ArrayList, que contendrá las películas (autor y título).</p>
+<p>Por el momento, rellenaremos el array con datos falsos, solamente para probar el RecyclerView. </p>
+<p>Crea la clase <strong><code>Poem</code></strong> y añade los campos siguientes:</p>
 <pre><code>public class Poem {
    public String title;
    public String author;
 }</code></pre>
-<p><strong>⏩Crea el </strong></p>
-<pre>ArrayList</pre>
-<p>En la </p>
-<pre>MainActivity</pre>
-<p>, añade el ArrayList como campo de la clase:</p>
+<p>En la MainActivity, añade el ArrayList como campo de la clase:</p>
 <pre><code>public class MainActivity extends AppCompatActivity {
    List&lt;Poem&gt; poemList = new ArrayList&lt;&gt;();
    . . . .
 }</code></pre>
-<p><strong>⏩Añade datos de prueba</strong></p>
-<p>En el método </p>
-<pre>onCreate()</pre>
-<p> de la </p>
-<pre>MainActivity</pre>
-<p>, rellena el array con <em>fake data</em>:</p>
+<p>En el método onCreate() de la MainActivity, rellena el array con <em>fake data</em>:</p>
 <pre><code>@Override
 protected void onCreate(Bundle savedInstanceState) {
    . . . .
@@ -99,7 +78,7 @@ protected void onCreate(Bundle savedInstanceState) {
       </google-codelab-step>
     
       <google-codelab-step label="RecyclerView" duration="0">
-        <p><a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank"><code>RecyclerView</code></a><code> </code>proporciona estos administradores de layout incorporados:</p>
+        <p><a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank">RecyclerView</a> proporciona estos administradores de layout incorporados:</p>
 <table>
 <tr><td colspan="1" rowspan="1"><p><a href="https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html" target="_blank">LinearLayoutManager</a> muestra elementos en una lista de desplazamiento horizontal o vertical.</p>
 <p><img style="max-width: 146.70px" src="img\4ddefc2975a500a8.png"></p>
@@ -109,29 +88,14 @@ protected void onCreate(Bundle savedInstanceState) {
 <p><img style="max-width: 143.70px" src="img\2a44143f4e286c2e.png"></p>
 </td></tr>
 </table>
-<p>Para esta práctica usaremos el <code>LinearLayoutManager</code></p>
-<p><strong>⏩Añade el </strong></p>
-<pre>RecyclerView</pre>
-<p><strong> al layout</strong></p>
-<p>Añade el elemento </p>
-<pre>&lt;RecyclerView&gt;</pre>
-<p> al layout </p>
-<pre>activity_main.xml</pre>
+<p>Para esta práctica usaremos el LinearLayoutManager</p>
+<p>Añade el elemento <code>&lt;RecyclerView&gt;</code> al layout <code>activity_main.xml</code></p>
 <pre><code>&lt;android.support.v7.widget.RecyclerView
    android:id=&#34;@+id/poem_list&#34;
    android:layout_width=&#34;match_parent&#34;
    android:layout_height=&#34;match_parent&#34;
    android:scrollbars=&#34;vertical&#34; /&gt;</code></pre>
-<p><strong>⏩Establece el </strong></p>
-<pre>LayoutManager</pre>
-<p>En el método </p>
-<pre>onCreate()</pre>
-<p> de la </p>
-<pre>MainActivity</pre>
-<p>, establece el </p>
-<pre>LinearLayoutManager</pre>
-<p> al </p>
-<pre>RecyclerView</pre>
+<p>En el método <code>onCreate()</code> de la <code>MainActivity</code>, establece el <code>LinearLayoutManager</code> al <code>RecyclerView</code></p>
 <pre><code>@Override
 protected void onCreate(Bundle savedInstanceState) {
    . . . .
