@@ -35,7 +35,7 @@
     
       <google-codelab-step label="Crea el projecte" duration="0">
         <p>Realiza una copia del proyecto <a href="https://gerardfp.github.io/recyclerview/" target="_blank">https://gerardfp.github.io/recyclerview/</a></p>
-<p>Añade el componente Lifecycle en las dependencias build.gradle (Module: app):</p>
+<p>Añade el componente <code>Lifecycle</code> en las dependencias <code>build.gradle (Module: app)</code>:</p>
 <pre><code>implementation &#34;android.arch.lifecycle:extensions:1.1.1&#34;
 annotationProcessor &#34;android.arch.lifecycle:compiler:1.1.1&#34;</code></pre>
 <aside class="special"><p>Obtén los números de versión actualizados para <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank"><strong>ViewModel</strong></a>: <a href="https://developer.android.com/topic/libraries/architecture/adding-components.html#lifecycle" target="_blank">adding components to your project</a>.</p>
@@ -108,7 +108,7 @@ annotationProcessor &#34;android.arch.lifecycle:compiler:1.1.1&#34;</code></pre>
 </code></pre>
 <ol type="1" start="1">
 <li>En el <code>ViewHolder</code> hemos hecho la búsqueda del elemento <code>R.id.ratingBar</code>, guardándola en la variable <code>ratingBar</code>.</li>
-<li>En el método <code>onBIndViewHolder()</code>, rellenamos el <code>RatingBar</code> con las estrellas que tenga cada poema, y añadimos un <em>listener </em>para actualizar el rating de cada poema.</li>
+<li>En el método <code>onBindViewHolder()</code>, rellenamos el <code>RatingBar</code> con las estrellas que tenga cada poema, y añadimos un <em>listener </em>para actualizar el rating de cada poema.</li>
 </ol>
 
 
@@ -152,6 +152,16 @@ annotationProcessor &#34;android.arch.lifecycle:compiler:1.1.1&#34;</code></pre>
    }
 }
 </code></pre>
+<aside class="special"><p><strong>NOTA:</strong> Si en el <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank">ViewModel</a> se necesita el <code>contexto</code> de la <a href="https://developer.android.com/reference/android/app/Application.html" target="_blank">Application</a> (por ejemplo para obtener una base de datos), se puede extender de la clase <a href="https://developer.android.com/reference/android/arch/lifecycle/AndroidViewModel.html" target="_blank">AndroidViewModel</a> obteniendo así en el constructor una referencia la <a href="https://developer.android.com/reference/android/app/Application.html" target="_blank">Application</a>.</p>
+<p><strong><code>public class </code></strong><code>PoemsViewModel </code><strong><code>extends </code></strong><code>AndroidViewModel {</code></p>
+<p><code>   List&lt;Poem&gt; </code><strong><code>poemList </code></strong><code>= </code><strong><code>new </code></strong><code>ArrayList&lt;&gt;();</code></p>
+<p><code>   Context </code><strong><code>context</code></strong><code>;</code></p>
+<p><strong><code>public </code></strong><code>PoemsViewModel(@NonNull Application application) {</code></p>
+<p><strong><code>super</code></strong><code>(application);</code></p>
+<p><strong><code>context </code></strong><code>= application;</code></p>
+<p><code>   }</code></p>
+<p><code>}</code></p>
+</aside>
 
 
       </google-codelab-step>
