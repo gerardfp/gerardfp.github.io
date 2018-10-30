@@ -117,7 +117,7 @@ annotationProcessor &#34;android.arch.lifecycle:compiler:1.1.1&#34;</code></pre>
       </google-codelab-step>
     
       <google-codelab-step label="ViewModel" duration="0">
-        <p>Para prevenir que el <code>ArrayList</code> se pierda al hacer la rotación del móvil, usaremos un ViewModel, ya que este sobrevive a la rotación.</p>
+        <p>Para prevenir que el <code>ArrayList</code> se pierda al hacer la rotación del móvil, usaremos un <code>ViewModel</code>, ya que este sobrevive a la rotación.</p>
 <p>Crea la clase <strong><code>PoemsViewModel</code></strong>, de forma que contenga el array de poemas y un método para obtenerlo: </p>
 <pre><code>public class PoemsViewModel extends ViewModel {
    List&lt;Poem&gt; poemList = new ArrayList&lt;&gt;();
@@ -170,7 +170,7 @@ annotationProcessor &#34;android.arch.lifecycle:compiler:1.1.1&#34;</code></pre>
     
       <google-codelab-step label="Data Repository" duration="0">
         <p>Este diagrama representa las clases principales que conforman la arquitectura básica de una App.</p>
-<p>Se puede observar que cada Activity tiene su propio ViewModel.</p>
+<p>Se puede observar que cada <code>Activity</code> tiene su propio <code>ViewModel</code>.</p>
 <p><img style="max-width: 367.00px" src="img\62bfce2434ab700b.png"></p>
 <p>Ampliaremos la aplicación para que al hacer click en un poema de la lista, se abra otra <code>Activity</code> y lo muestre.</p>
 <p>Empezaremos creando la <code>Activity</code> que muestra un poema. Esta <code>PoemActivity</code> recibirá en el <code>Intent</code> la posición en el array del Poema que se debe mostrar. A continuación extraerá el <code>ArrayList</code> de poemas del <code>ViewModel</code> y mostrará los datos de dicho poema.</p>
@@ -240,15 +240,15 @@ annotationProcessor &#34;android.arch.lifecycle:compiler:1.1.1&#34;</code></pre>
        return poemRepository;
    }
 }</code></pre>
-<p>Solo queda modificar el PoemsViewModel, para que obtenga el ArrayList&lt;Poem&gt; del PoemsRepository:</p>
+<p>Solo queda modificar el <code>PoemsViewModel</code>, para que obtenga el <code>ArrayList&lt;Poem&gt;</code> del <code>PoemsRepository</code>:</p>
 <pre><code>public class PoemsViewModel extends ViewModel {
    List&lt;Poem&gt;  getPoemList(){
        return PoemRepository.getInstance().poemList;
    }
 }</code></pre>
-<aside class="special"><p><strong>Obtén más info acerca de la Arquitectura de aplicación en </strong><a href="https://developer.android.com/jetpack/docs/guide" target="_blank"><strong>https://developer.android.com/jetpack/docs/guide</strong></a></p>
+<aside class="special"><p>Obtén más info acerca de la Arquitectura de aplicación en <a href="https://developer.android.com/jetpack/docs/guide" target="_blank">https://developer.android.com/jetpack/docs/guide</a></p>
 </aside>
-<aside class="special"><p><strong>Los Patrones de Diseño, ese mundo por descubrir: </strong><a href="https://es.wikipedia.org/wiki/Patr%C3%B3n_de_dise%C3%B1o" target="_blank"><strong>https://es.wikipedia.org/wiki/Patr%C3%B3n_de_dise%C3%B1o</strong></a></p>
+<aside class="special"><p>Los Patrones de Diseño, ese mundo por descubrir: <a href="https://es.wikipedia.org/wiki/Patr%C3%B3n_de_dise%C3%B1o" target="_blank">https://es.wikipedia.org/wiki/Patr%C3%B3n_de_dise%C3%B1o</a></p>
 </aside>
 
 
