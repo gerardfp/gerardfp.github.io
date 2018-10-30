@@ -110,12 +110,15 @@ annotationProcessor &#34;android.arch.lifecycle:compiler:1.1.1&#34;</code></pre>
 <li>En el <code>ViewHolder</code> hemos hecho la búsqueda del elemento <code>R.id.ratingBar</code>, guardándola en la variable <code>ratingBar</code>.</li>
 <li>En el método <code>onBindViewHolder()</code>, rellenamos el <code>RatingBar</code> con las estrellas que tenga cada poema, y añadimos un <em>listener </em>para actualizar el rating de cada poema.</li>
 </ol>
+<aside class="warning"><p>Al ejecutar la App observa que cuando se cambia el <em>rating </em>de un poema, podemos hacer scroll en la lista y el rating se mantiene. Sin embargo, si rotamos el móvil los ratings se pierden. Esto es debido a que al hacer la rotación la <code>MainActivity</code> se destruye y se vuelve a crear, por tanto el <code>ArrayList</code> también.</p>
+</aside>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="ViewModel" duration="0">
-        <p>Crea la clase <strong><code>PoemsViewModel</code></strong>, que contendrá el array de poemas y un método para obtenerlo: </p>
+        <p>Para prevenir que el <code>ArrayList</code> se pierda al hacer la rotación del móvil, usaremos un ViewModel, ya que este sobrevive a la rotación.</p>
+<p>Crea la clase <strong><code>PoemsViewModel</code></strong>, de forma que contenga el array de poemas y un método para obtenerlo: </p>
 <pre><code>public class PoemsViewModel extends ViewModel {
    List&lt;Poem&gt; poemList = new ArrayList&lt;&gt;();
 
@@ -160,6 +163,92 @@ annotationProcessor &#34;android.arch.lifecycle:compiler:1.1.1&#34;</code></pre>
 <p><strong><code>context </code></strong><code>= application;</code></p>
 <p><code>   }</code></p>
 <p><code>}</code></p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Data Repository" duration="0">
+        <p>Este diagrama representa las clases principales que conforman la arquitectura básica de una App.</p>
+<p>Se puede observar que cada Activity tiene su propio ViewModel.</p>
+<p><img style="max-width: 367.00px" src="img\62bfce2434ab700b.png"></p>
+<p>Ampliaremos la aplicación para que al hacer click en un poema de la lista, se abra otra <code>Activity</code> y lo muestre.</p>
+<p>Empezaremos creando la <code>Activity</code> que muestra un poema. Esta <code>PoemActivity</code> recibirá en el <code>Intent</code> la posición en el array del Poema que se debe mostrar. A continuación extraerá el <code>ArrayList</code> de poemas del <code>ViewModel</code> y mostrará los datos de dicho poema.</p>
+<pre><code>public class PoemActivity extends AppCompatActivity {
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_poem);
+
+       List&lt;Poem&gt; poems = ViewModelProviders.of(this).get(PoemsViewModel.class).getPoemList();
+
+       int poemId = getIntent().getIntExtra(&#34;POEM_ID&#34;,0);
+
+       Poem poem = poems.get(poemId);
+
+       if(poem != null) {
+           ((TextView) findViewById(R.id.poem_title)).setText(poem.title);
+           ((TextView) findViewById(R.id.poem_author)).setText(poem.author);
+           ((RatingBar) findViewById(R.id.poem_rating)).setRating(poem.rating);
+           ((TextView) findViewById(R.id.poem_content)).setText(poem.content);
+       }
+   }
+}</code></pre>
+<p>En el layout de la <code>PoemActivity</code> añadimos los widgets para mostrar un poema:</p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   android:orientation=&#34;vertical&#34;
+   tools:context=&#34;.PoemActivity&#34;&gt;
+   &lt;TextView
+       android:id=&#34;@+id/poem_title&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34; /&gt;
+   &lt;TextView
+       android:id=&#34;@+id/poem_author&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34; /&gt;
+   &lt;RatingBar
+       android:id=&#34;@+id/poem_rating&#34;
+       android:layout_width=&#34;wrap_content&#34;
+       android:layout_height=&#34;wrap_content&#34; /&gt;
+   &lt;TextView
+       android:id=&#34;@+id/poem_content&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34; /&gt;
+
+&lt;/LinearLayout&gt;</code></pre>
+<p>Ahora viene una cuestión fundamental: el array de poemas lo tenemos en el <code>ViewModel</code>. Esto no es conveniente ya que cada <code>Activity</code> tiene su propia copia del <code>ViewModel</code>. Es decir la <code>MainActivity</code> y la <code>PoemActivity</code> tendrán dos copias diferentes del <code>PoemsViewModel</code>, y por lo tanto dos copias diferentes del <code>ArrayList</code>.</p>
+<p>Además, el <code>ArrayList</code> del <code>PoemsViewModel</code> de la <code>MainActivity</code> estará rellenado con los poemas que se han rellenado en la <code>MainActivity</code>, pero el <code>ArrayList</code> del <code>PoemsViewModel</code> de la <code>PoemActivity</code> estará todavía vacío.</p>
+<p>Podría parecer que la solución pasa por rellenar el <code>ArrayList</code> en el <code>PoemsViewModel</code>, y así las dos Activities tendrían los mismos datos. Pero no es así, en realidad tendrían dos <code>ArrayList</code> diferentes con una copia idéntica de los datos. Pero ¿qué pasaría si en la <code>MainActivity</code> modificamos el rating de una Poema? ... en el <code>ArrayList</code> de la <code>PoemActivity</code> no se modificaría dicho rating.</p>
+<p>La solución entonces pasa por que los <code>ViewModel</code> obtengan el mismo array de poemas. </p>
+<p>Para ello crearemos un clase llamada <code>PoemsRepository</code> (que contendrá el array de poemas), usando el patrón <strong>Singleton (</strong><strong><code>static</code></strong><strong>)</strong>:</p>
+<pre><code>public class PoemRepository {
+
+   static PoemRepository poemRepository;
+   List&lt;Poem&gt; poemList = new ArrayList&lt;&gt;();
+
+   static PoemRepository getInstance(){
+       if(poemRepository == null){
+           poemRepository = new PoemRepository();
+       }
+
+       return poemRepository;
+   }
+}</code></pre>
+<p>Solo queda modificar el PoemsViewModel, para que obtenga el ArrayList&lt;Poem&gt; del PoemsRepository:</p>
+<pre><code>public class PoemsViewModel extends ViewModel {
+   List&lt;Poem&gt;  getPoemList(){
+       return PoemRepository.getInstance().poemList;
+   }
+}</code></pre>
+<aside class="special"><p><strong>Obtén más info acerca de la Arquitectura de aplicación en </strong><a href="https://developer.android.com/jetpack/docs/guide" target="_blank"><strong>https://developer.android.com/jetpack/docs/guide</strong></a></p>
+</aside>
+<aside class="special"><p><strong>Los Patrones de Diseño, ese mundo por descubrir: </strong><a href="https://es.wikipedia.org/wiki/Patr%C3%B3n_de_dise%C3%B1o" target="_blank"><strong>https://es.wikipedia.org/wiki/Patr%C3%B3n_de_dise%C3%B1o</strong></a></p>
 </aside>
 
 
