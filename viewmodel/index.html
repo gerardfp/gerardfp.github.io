@@ -152,9 +152,8 @@ annotationProcessor &#34;android.arch.lifecycle:compiler:1.1.1&#34;</code></pre>
    }
 }
 </code></pre>
-<aside class="special"><p><strong>NOTA:</strong> Si en el <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank">ViewModel</a> se necesita el <code>contexto</code> de la <a href="https://developer.android.com/reference/android/app/Application.html" target="_blank">Application</a> (por ejemplo para obtener una base de datos), se puede extender de la clase <a href="https://developer.android.com/reference/android/arch/lifecycle/AndroidViewModel.html" target="_blank">AndroidViewModel</a> obteniendo así en el constructor una referencia la <a href="https://developer.android.com/reference/android/app/Application.html" target="_blank">Application</a>.</p>
+<aside class="special"><p><strong>NOTA:</strong> Si en el <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank">ViewModel</a><code> </code>se necesita el <code>contexto</code> de la <a href="https://developer.android.com/reference/android/app/Application.html" target="_blank">Application</a><code> </code>(por ejemplo para obtener una base de datos Room), se puede extender de la clase <a href="https://developer.android.com/reference/android/arch/lifecycle/AndroidViewModel.html" target="_blank">AndroidViewModel</a><code> </code>obteniendo así en el constructor una referencia la <a href="https://developer.android.com/reference/android/app/Application.html" target="_blank">Application</a>.</p>
 <p><strong><code>public class </code></strong><code>PoemsViewModel </code><strong><code>extends </code></strong><code>AndroidViewModel {</code></p>
-<p><code>   List&lt;Poem&gt; </code><strong><code>poemList </code></strong><code>= </code><strong><code>new </code></strong><code>ArrayList&lt;&gt;();</code></p>
 <p><code>   Context </code><strong><code>context</code></strong><code>;</code></p>
 <p><strong><code>public </code></strong><code>PoemsViewModel(@NonNull Application application) {</code></p>
 <p><strong><code>super</code></strong><code>(application);</code></p>
