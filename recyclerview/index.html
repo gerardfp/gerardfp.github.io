@@ -97,7 +97,7 @@ protected void onCreate(Bundle savedInstanceState) {
    android:layout_width=&#34;match_parent&#34;
    android:layout_height=&#34;match_parent&#34;
    android:scrollbars=&#34;vertical&#34; /&gt;</code></pre>
-<p>En el método <code>onCreate()</code> de la MainActivity, establece el <code>LinearLayoutManager</code> al <code>RecyclerView</code></p>
+<p>En el método <code>onCreate()</code> de la <code>MainActivity</code>, establece el <code>LinearLayoutManager</code> al <code>RecyclerView</code></p>
 <pre><code>@Override
 protected void onCreate(Bundle savedInstanceState) {
    . . . .
@@ -180,10 +180,10 @@ protected void onCreate(Bundle savedInstanceState) {
        }
    }
 }</code></pre>
-<p>En el método <code>onCreate()</code> de la <code>MainActivity</code>, añade el siguiente código para establecer el Adaptador al RecyclerView::</p>
+<p>En el método <code>onCreate()</code> de la <code>MainActivity</code>, añade el siguiente código para establecer el Adaptador al RecyclerView:</p>
 <pre><code>PoemsRecyclerAdapter poemsRecyclerAdapter = new PoemsRecyclerAdapter(poemList);
 recyclerView.setAdapter(poemsRecyclerAdapter);</code></pre>
-<aside class="warning"><p><strong>IMPORTANTE: Cuando se modifique el </strong><strong><code>ArrayList</code></strong><strong>, hay que notificar al adaptador, y este ordenará al RecyclerView actualizar la lista. Esto se hace con el siguiente método:</strong></p>
+<aside class="warning"><p><strong>IMPORTANTE: Cuando se modifique el </strong><strong><code>ArrayList</code></strong><strong>, hay que notificar al adaptador, y éste ordenará al RecyclerView actualizar la lista. Esto se hace con el siguiente método:</strong></p>
 <p><strong><code>poemsRecyclerAdapter</code></strong><code>.notifyDataSetChanged();</code></p>
 </aside>
 <p>Tratemos de comprender el código del Adaptador:</p>

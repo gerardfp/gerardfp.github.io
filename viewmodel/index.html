@@ -1,0 +1,190 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>ViewModel</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="ViewModel"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p>El objetivo de esta práctica es explicar el elemento <strong><code>ViewModel</code></strong>.</p>
+<p>La clase <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank">ViewModel</a> está diseñada para almacenar y gestionar datos relacionados con la UI de forma consciente al ciclo de vida. La clase <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank">ViewModel</a> permite que los datos sobrevivan a cambios de configuración, como la rotación de la pantalla.</p>
+<p><img style="max-width: 522.00px" src="img\c5ef819a04c024e7.png"></p>
+<p>En esta práctica ampliaremos la practica anterior: <a href="https://gerardfp.github.io/recyclerview/" target="_blank">https://gerardfp.github.io/recyclerview/</a> de forma que permita valorar con estrellas cada poema.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Realiza una copia del proyecto <a href="https://gerardfp.github.io/recyclerview/" target="_blank">https://gerardfp.github.io/recyclerview/</a></p>
+<p>Añade el componente Lifecycle en las dependencias build.gradle (Module: app):</p>
+<pre><code>implementation &#34;android.arch.lifecycle:extensions:1.1.1&#34;
+annotationProcessor &#34;android.arch.lifecycle:compiler:1.1.1&#34;</code></pre>
+<aside class="special"><p>Obtén los números de versión actualizados para <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank"><strong>ViewModel</strong></a>: <a href="https://developer.android.com/topic/libraries/architecture/adding-components.html#lifecycle" target="_blank">adding components to your project</a>.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Añade el RatingBar" duration="0">
+        <p>Añade a la clase <code>Poem</code> el campo <code>rating</code>:</p>
+<pre><code>public class Poem {
+   public String title;
+   public String author;
+   String content;
+   float rating;
+}</code></pre>
+<p>Añade un elemento <code>&lt;RatingBar&gt;</code> en el layout <code>item_poem.xml</code>:</p>
+<pre><code>&lt;RatingBar
+   android:id=&#34;@+id/ratingBar&#34;
+   android:layout_width=&#34;wrap_content&#34;
+   android:layout_height=&#34;wrap_content&#34; /&gt;</code></pre>
+<p>Modifica el adaptador para incluir el elemento <code>RatingBar</code>:</p>
+<pre><code>public class PoemsRecyclerAdapter extends RecyclerView.Adapter&lt;PoemsRecyclerAdapter.PoemViewHolder&gt;{
+
+   List&lt;Poem&gt; list;
+
+   PoemsRecyclerAdapter(List&lt;Poem&gt; list){
+       this.list = list;
+   }
+
+   @Override
+   public PoemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+       View itemPoem = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_poem, parent, false);
+       return new PoemViewHolder(itemPoem);
+   }
+
+   @Override
+   public void onBindViewHolder(PoemViewHolder holder, int position) {
+       final Poem poem = list.get(position);
+
+       holder.poemAuthor.setText(poem.author);
+       holder.poemTitle.setText(poem.title);
+       holder.ratingBar.setRating(poem.rating);
+       holder.ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+           @Override
+           public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+               if(b) poem.rating = v;
+           }
+       });
+   }
+
+   @Override
+   public int getItemCount() {
+       return (list != null ? list.size() : 0);
+   }
+
+   class PoemViewHolder extends RecyclerView.ViewHolder {
+       private TextView poemTitle;
+       private TextView poemAuthor;
+       private RatingBar ratingBar;
+
+       PoemViewHolder(View itemPoem) {
+           super(itemPoem);
+           poemTitle = itemPoem.findViewById(R.id.poem_title);
+           poemAuthor = itemPoem.findViewById(R.id.poem_author);
+           ratingBar = itemPoem.findViewById(R.id.ratingBar);
+       }
+   }
+}
+</code></pre>
+<ol type="1" start="1">
+<li>En el <code>ViewHolder</code> hemos hecho la búsqueda del elemento <code>R.id.ratingBar</code>, guardándola en la variable <code>ratingBar</code>.</li>
+<li>En el método <code>onBIndViewHolder()</code>, rellenamos el <code>RatingBar</code> con las estrellas que tenga cada poema, y añadimos un <em>listener </em>para actualizar el rating de cada poema.</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ViewModel" duration="0">
+        <p>Crea la clase <strong><code>PoemsViewModel</code></strong>, que contendrá el array de poemas y un método para obtenerlo: </p>
+<pre><code>public class PoemsViewModel extends ViewModel {
+   List&lt;Poem&gt; poemList = new ArrayList&lt;&gt;();
+
+   List&lt;Poem&gt;  getPoemList(){
+       return poemList;
+   }
+}</code></pre>
+<p>Modificamos la  <code>MainActivity</code> para que obtenga el array de poemas del <code>ViewModel</code>:</p>
+<pre><code>public class MainActivity extends AppCompatActivity {
+
+   List&lt;Poem&gt; poemList;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_main);
+
+       PoemsViewModel poemsViewModel = ViewModelProviders.of(this).get(PoemsViewModel.class);
+
+       poemList = poemsViewModel.getPoemList();
+
+       for(int i = 0; i&lt;200; i++){
+           Poem poem = new Poem();
+           poem.author = &#34;Author &#34; + i;
+           poem.title = &#34;Title &#34; + i;
+           poemList.add(poem);
+       }
+
+       RecyclerView recyclerView = findViewById(R.id.poem_list);
+       recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+       PoemsRecyclerAdapter poemsRecyclerAdapter = new PoemsRecyclerAdapter(poemList);
+       recyclerView.setAdapter(poemsRecyclerAdapter);
+   }
+}
+</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>

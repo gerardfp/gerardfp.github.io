@@ -1,14 +1,14 @@
 {
   "environment": "web",
-  "source": "1aDAy8i2NhoATJ6RSFyeNIkMYzxd8QAsJ6Op4bEmXlnM",
+  "source": "1CQ7PO9znu6gMdHYVdfACzCRjuGjytnfbsU1m1Sn6WEk",
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2018-10-25T12:03:20Z",
-  "id": "recyclerview",
+  "updated": "2018-10-30T09:35:51Z",
+  "id": "viewmodel",
   "duration": 0,
-  "title": "RecyclerView",
-  "summary": "RecyclerView",
+  "title": "ViewModel",
+  "summary": "ViewModel",
   "theme": "android",
   "status": [
     "draft"
@@ -18,5 +18,5 @@
   ],
   "tags": [],
   "feedback": "https://github.com/gerardfp",
-  "url": "recyclerview"
+  "url": "viewmodel"
 }
