@@ -4,11 +4,11 @@
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2018-10-24T22:33:28Z",
-  "id": "lifecycle-callbacks",
+  "updated": "2018-11-19T13:01:13Z",
+  "id": "lifecycle",
   "duration": 0,
-  "title": "Lifecycle callbacks",
-  "summary": "Lifecycle Callbacks",
+  "title": "Lifecycle",
+  "summary": "Lifecycle",
   "theme": "android",
   "status": [
     "draft"
@@ -18,5 +18,5 @@
   ],
   "tags": [],
   "feedback": "https://github.com/gerardfp",
-  "url": "lifecycle-callbacks"
+  "url": "lifecycle"
 }

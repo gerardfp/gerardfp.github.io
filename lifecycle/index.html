@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Lifecycle callbacks</title>
+  <title>Lifecycle</title>
   <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../../elements/codelab.html">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
@@ -20,7 +20,7 @@
 </head>
 <body unresolved class="fullbleed">
 
-  <google-codelab title="Lifecycle callbacks"
+  <google-codelab title="Lifecycle"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
@@ -97,8 +97,8 @@
        super.onDestroy();
    }
 }</code></pre>
-<pre></pre>
-<p><strong>  Nota:</strong> La implementación que realices de estos métodos del ciclo de vida siempre deben llamar la implementación de la superclase antes de realizar cualquier otra tarea, como se muestra en los ejemplos anteriores.</p>
+<aside class="special"><p><strong>Nota:</strong> La implementación que realices de estos métodos del ciclo de vida siempre deben llamar la implementación de la superclase antes de realizar cualquier otra tarea, como se muestra en los ejemplos anteriores.</p>
+</aside>
 <p>En cada <em>callback </em>se ha añadido un feedback utilizando <a href="https://developer.android.com/guide/topics/ui/notifiers/toasts.html" target="_blank"><code>Toast</code></a> con el fin de conocer los distintos <em>callbacks </em>que se ejecutan durante la transición de estados.</p>
 <p><img style="max-width: 415.00px" src="img\44131a19dd6885fc.png"></p>
 <p>Ejecuta esta aplicación y observa los Toast que se van mostrando. Haz diferentes operaciones que cambien el estado de la  actividad para observar la sucesión de llamadas callback de la Activity que el sistema va llamando durante las transiciones de estado. Por ejemplo:</p>
@@ -286,13 +286,16 @@ protected void onCreate(Bundle savedInstanceState) {
 
     // ...other actions...
 }</code></pre>
-<aside class="special"><p>Tarea</p>
-<p>Desarrolla una Aplicación que muestre un registro del Ciclo de Vida de su Actividad Principal.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Tarea" duration="0">
+        <p>Desarrolla una Aplicación que muestre un registro del Ciclo de Vida de su Actividad Principal.</p>
 <p>Cada vez que se llame a un callback del ciclo de vida de la <code>MainActivity</code>, se debe mostrar en la pantalla un registro con el nombre del callback que se ha llamado y la hora en que se ha hecho.</p>
 <p>Para mostrar el registro, puedes utilizar un <code>LinearLayout</code> en el que se vaya añadiendo un <code>TextView</code> por cada entrada del registro.</p>
 <p>No es necesario que el registro se mantenga cuando se cierre la aplicación y se vuelva a abrir, ni tampoco cuando la Activity se destruya y se vuelva a crear (por ejemplo al rotar el teléfono).</p>
 <p><img style="max-width: 267.00px" src="img\baac151008eeae9c.png"></p>
-</aside>
 
 
       </google-codelab-step>
