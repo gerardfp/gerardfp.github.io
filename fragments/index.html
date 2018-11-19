@@ -240,14 +240,12 @@ public abstract class PoemRoomDatabase extends RoomDatabase {
 
    private SectionsPagerAdapter mSectionsPagerAdapter;
    private ViewPager mViewPager;
+   private PoemViewModel poemViewModel;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_main);
-
-       Toolbar toolbar = findViewById(R.id.toolbar);
-       setSupportActionBar(toolbar);
 
        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -258,6 +256,8 @@ public abstract class PoemRoomDatabase extends RoomDatabase {
 
        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+       poemViewModel = ViewModelProviders.of(MainActivity.this).get(PoemViewModel.class);
    }
 
    public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -284,6 +284,23 @@ public abstract class PoemRoomDatabase extends RoomDatabase {
 }</code></pre>
 <aside class="warning"><p>Se mostrará un error en el método <code>getItem()</code>, debido a que todavía no hemos creado las clases <code>AZPoemListFragment</code>, <code>NewestPoemListFragment</code> y <code>TopRatedPoemListFragment</code></p>
 </aside>
+<p>Para añadir datos &#34;random&#34; en la base de datos, podemos añadir un OnClickListener al FloatingActionButton para que nos rellene la base de datos cuando lo pulsemos:</p>
+<pre><code>findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+   @Override
+   public void onClick(View view) {
+
+       poemViewModel.deleteAllPoems();
+
+       for (int i = 0; i &lt; 20; i++) {
+           Poem poem = new Poem();
+           poem.author = &#34;Author &#34; + i;
+           poem.title = &#34;Title &#34; + i;
+           poem.rating = new Random().nextFloat()*5;
+           poem.date = new SimpleDateFormat(&#34;yyyyMMdd_HHmmss&#34;).format(Calendar.getInstance().getTime());
+           poemViewModel.insertPoem(poem);
+       }
+   }
+});</code></pre>
 
 
       </google-codelab-step>
