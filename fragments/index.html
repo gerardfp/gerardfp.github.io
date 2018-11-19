@@ -28,7 +28,7 @@
         <p>El objetivo de esta práctica es trabajar con <strong>Fragments</strong>.</p>
 <p>Un <a href="https://developer.android.com/reference/android/app/Fragment.html" target="_blank"><code>Fragment</code></a> representa un comportamiento o una parte de la interfaz de usuario en una <a href="https://developer.android.com/reference/android/app/Activity.html" target="_blank"><code>Activity</code></a>. Puedes combinar múltiples fragmentos en una sola actividad para crear una IU multipanel y volver a usar un fragmento en múltiples actividades. Puedes pensar en un fragmento como una sección modular de una actividad que tiene su ciclo de vida propio, recibe sus propios eventos de entrada y que puedes agregar o quitar mientras la actividad se esté ejecutando (algo así como una &#34;subactividad&#34; que puedes volver a usar en diferentes actividades).</p>
 <p>En esta práctica utilizaremos los Fragments, para crear una Activity con diversos Tabs, de forma que en cada Tab se muestre una ordenación diferente de una misma lista.</p>
-<p><img style="max-width: 216.70px" src="img\1b12448a8adc63d9.png"></p>
+<p><img style="max-width: 240.58px" src="img\bdaca2adaa4ecbd7.png"></p>
 
 
       </google-codelab-step>
@@ -301,8 +301,7 @@ public abstract class PoemRoomDatabase extends RoomDatabase {
         <p>Ahora crearemos los tres Fragments que se mostrarán en el <code>ViewPager</code>.</p>
 <p>Ya que los tres Fragments són prácticamente idénticos (muestran una lista de poemas), y lo único que cambia es el orden en que se muestran los poemas, podemos crear un Fragment <strong>abstracto </strong>en el que falte concretar la consulta.</p>
 <p><img style="max-width: 597.17px" src="img\58dcdb6bc34a5acd.png"></p>
-<h2>PoemListFragment</h2>
-<p>Crea el PoemListFragment con el asistente (New -&gt; Fragment -&gt; Blank)</p>
+<p>Crea el <code>PoemListFragment</code> con el asistente (New -&gt; Fragment -&gt; Blank)</p>
 <p><img style="max-width: 641.00px" src="img\533ac65c2ce21ff4.png"></p>
 <p>Añadiremos en este <code>PoemListFragment</code> el <code>RecyclerView</code> para mostrar la lista de poemas. La lista de poemas con el que se rellenará el <code>RecyclerView</code> lo retornará el método abstracto <code>getPoems()</code>, que se concretará en los Fragments que extiendan de este PoemListFragment.</p>
 <pre><code>public abstract class PoemListFragment extends Fragment {
@@ -389,7 +388,7 @@ public abstract class PoemRoomDatabase extends RoomDatabase {
        }
    }
 }</code></pre>
-<p>El Layout item_poem.xml</p>
+<p>El Layout <code>item_poem.xml</code></p>
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;android.support.v7.widget.CardView xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    android:layout_width=&#34;match_parent&#34;
@@ -419,8 +418,12 @@ public abstract class PoemRoomDatabase extends RoomDatabase {
            android:layout_height=&#34;wrap_content&#34; /&gt;
    &lt;/LinearLayout&gt;
 &lt;/android.support.v7.widget.CardView&gt;</code></pre>
-<h2>AZ, Newest y TopRated Fragments</h2>
-<p>Una vez creado el Fragment abstracto, ya podemos extenderlo para crear los Fragments AZ, Newest y TopRated:.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="AZ, Newest y TopRated Fragments" duration="0">
+        <p>Una vez creado el Fragment abstracto, ya podemos extenderlo para crear los Fragments AZ, Newest y TopRated:</p>
 <p>Crea una nueva <strong>Java Class</strong> para cada uno de ellos:</p>
 <pre><code>public class AZPoemListFragment extends PoemListFragment {
 
