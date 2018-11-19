@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1--UmgB3EjUKBnUL27WUziAwFd1CSIqyBVv1_SV9EJSs",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2018-11-18T22:18:56Z",
+  "id": "fragments2",
+  "duration": 0,
+  "title": "Fragments2",
+  "summary": "Fragments",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "fragments2"
+}

@@ -27,755 +27,420 @@
       <google-codelab-step label="Introducció" duration="0">
         <p>El objetivo de esta práctica es trabajar con <strong>Fragments</strong>.</p>
 <p>Un <a href="https://developer.android.com/reference/android/app/Fragment.html" target="_blank"><code>Fragment</code></a> representa un comportamiento o una parte de la interfaz de usuario en una <a href="https://developer.android.com/reference/android/app/Activity.html" target="_blank"><code>Activity</code></a>. Puedes combinar múltiples fragmentos en una sola actividad para crear una IU multipanel y volver a usar un fragmento en múltiples actividades. Puedes pensar en un fragmento como una sección modular de una actividad que tiene su ciclo de vida propio, recibe sus propios eventos de entrada y que puedes agregar o quitar mientras la actividad se esté ejecutando (algo así como una &#34;subactividad&#34; que puedes volver a usar en diferentes actividades).</p>
-<p>Realizaremos una aplicación que mostrará una lista de películas, descargadas de <a href="http://themoviedb.org" target="_blank">http://themoviedb.org</a></p>
-<p><img style="max-width: 307.00px" src="img\143048db7a78f574.png"></p>
-<p>Para poder consultar la api de TheMovieDB necesitarás una API_KEY, así que tienes que registrarte en la web y solicitarla.</p>
-<p><em><code>92fd4bac1fb7ad2e8013081985bc9789</code></em></p>
-<p>Aquí encontrarás el código final de la aplicación: <a href="https://github.com/gerardfp/TheMovieDb1" target="_blank">https://github.com/gerardfp/TheMovieDb1</a> </p>
-<p><strong>⏩Crea el proyecto</strong></p>
-<p>Selecciona &#34;Empty Activity&#34; como plantilla para la actividad principal.</p>
+<p>En esta práctica utilizaremos los Fragments, para crear una Activity con diversos Tabs, de forma que en cada Tab se muestre una ordenación diferente de una misma lista.</p>
+<p><img style="max-width: 216.70px" src="img\1b12448a8adc63d9.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Orientación y tamaño de la pantalla" duration="0">
-        <p>Android permite de una forma sencilla tener distintos archivos de recursos dependiendo del tamaño y la orientación de la pantalla.</p>
-<p>Para ello solo hay que añadir los cualificadores deseados en el momento de crear el archivo de recursos.</p>
-<p>Por ejemplo, podemos tener dos versiones del layout <code>activity_main.xml</code>, una para la orientación vertical de la pantalla (<em>portrait</em>) y otra para la veritcal (<em>landscape</em>).</p>
-<p><strong>⏩Crea un layout activity_main alternativo</strong></p>
-<p>Crea un layout </p>
-<pre>activity_main.xml</pre>
-<p> alternativo para la orientación horizontal de la pantalla</p>
-<p>Selecciona <strong>New</strong> -&gt; <strong>Layout resource file</strong> e introduce el cualificador <strong>Orientation </strong>con el valor <strong>Landscape</strong>:</p>
-<p><img style="max-width: 722.00px" src="img\93edd7f68f56cfcf.png"></p>
-<p><strong>⏩Diseña el layout </strong></p>
-<pre>activity_main.xml (land)</pre>
-<p>Añade, por ejemplo, un </p>
-<pre>TextView</pre>
-<p>:<br></p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;android.support.constraint.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-   android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;&gt;
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Selecciona &#34;<strong>Tabbed Activity</strong>&#34; como plantilla para la MainActivity</p>
+<p><img style="max-width: 207.00px" src="img\f6b856d5e371c862.png"></p>
+<p>Selecciona &#34;<strong>Action Bar Tabs (with ViewPager)</strong>&#34; en el apartado &#34;Navigation Style&#34;:</p>
+<p><img style="max-width: 717.00px" src="img\aa1daa3c5931cff3.png"></p>
+<aside class="warning"><p>Observa que al seleccionar esta plantilla, Android Studio ha añadido automáticamente la biblioteca &#34;Design&#34;:</p>
+<p><code>implementation </code><strong><code>&#39;com.android.support:design:27.1.1&#39;</code></strong></p>
+</aside>
+<p>Añade los siguientes componentes en las dependencias <code>build.gradle (Module: app)</code>:</p>
+<pre><code>implementation &#39;com.android.support:cardview-v7:27.1.1&#39;
+implementation &#39;com.android.support:recyclerview-v7:27.1.1&#39;
 
-   &lt;TextView
-       android:layout_width=&#34;wrap_content&#34;
-       android:layout_height=&#34;wrap_content&#34;
-       android:text=&#34;Hello Horizontal World!&#34;
-       app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
-       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
-       app:layout_constraintRight_toRightOf=&#34;parent&#34;
-       app:layout_constraintTop_toTopOf=&#34;parent&#34; /&gt;
+implementation &#39;android.arch.lifecycle:extensions:1.1.1&#39;
+annotationProcessor &#39;android.arch.lifecycle:compiler:1.1.1&#39;
 
-&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
-<p><strong>📲 Prueba la aplicación</strong></p>
-<p>Observa cómo al rotar la pantalla se intercambia entre el </p>
-<pre>activity_main.xml</pre>
-<p> y el </p>
-<pre>activity_main.xml (land)</pre>
-<p>Como has podido ver, calificadores para layouts alternativos hay bastantes. No solo para el tamaño y orientación de la pantalla, sino también para el Codigo de País, Idioma, o Versión de Android.</p>
-<p>En esta práctica trabajaremos solo con la orientación, pero no sería nada difícil añadir un cualificador para adaptarlo al tamaño de la pantalla, y así tener dos versiones diferentes, una para tablet y otra para móvil, por ejemplo.</p>
-<h2>Orientación en runtime</h2>
-<p>Para obtener la orientación de la pantalla en <em>runtime </em>(es decir desde el código Java), haremos un pequeño truquito.</p>
-<p>Añadiremos dos ficheros de recursos de valores que llamaremos <code>config.xml</code>, uno de ellos con el calificador <em>landscape</em>. Dentro de los ficheros añadiremos un recurso booleano el cual será <code>false</code> para la versión normal y <code>true</code> para la versión <em>landscape</em>.</p>
-<p>Luego desde el código Java, podemos obtener el valor del booleano, que será <code>true</code> o <code>false</code>, en función del fichero que haya cargado (que dependerá de la orientación).</p>
-<p><strong>⏩Crea dos versiones alternativas del archivo config.xml</strong></p>
-<p>Sobre la carpeta </p>
-<pre>res/values</pre>
-<p> selecciona <strong>New</strong> -&gt; <strong>Values resource file</strong>. Ponle el nombre de fichero</p>
-<pre> config.xml</pre>
-<p>. Repite la operación añadiendo el cualificador <em>Landscape</em>.</p>
-<p>En la versión normal añade el siguiente item:</p>
-<pre><code>&lt;resources&gt;
-   &lt;item name=&#34;land&#34; type=&#34;bool&#34;&gt;false&lt;/item&gt;
-&lt;/resources&gt;</code></pre>
-<p>En la versión <em>land </em>dale el valor </p>
-<pre>true</pre>
-<pre><code>&lt;item name=&#34;land&#34; type=&#34;bool&#34;&gt;true&lt;/item&gt;</code></pre>
-<p>De esta forma, ya que Android nos cargará un fichero u otro dependiendo de la orientación de la pantalla, el valor del item &#34;land&#34;, será </p>
-<pre>true</pre>
-<p> o </p>
-<pre>false</pre>
-<p>.</p>
-<p><strong>⏩Obtén el valor del item </strong><strong><em>land </em></strong><strong>en runtime</strong></p>
-<p>Desde la </p>
-<pre>ActivityMain</pre>
-<p> podemos obtener el valor del ítem &#34;land&#34;, y así obtener la orientación de la pantalla:</p>
-<p>(<strong>Añade el </strong></p>
-<pre>id</pre>
-<p><strong> al TextView en las dos versiones del layout</strong>)<br></p>
+implementation &#39;android.arch.persistence.room:runtime:1.1.1&#39;
+annotationProcessor &#39;android.arch.persistence.room:compiler:1.1.1&#39;</code></pre>
+<aside class="special"><p>Para obtener los números de versión actualizados: <a href="https://developer.android.com/topic/libraries/architecture/adding-components" target="_blank">adding components to your project</a>.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="App Architecture" duration="0">
+        <h2>Entities</h2>
+<pre><code>@Entity
+public class Poem {
+   @PrimaryKey (autoGenerate = true)
+   public int id;
+
+   public String author;
+   public String title;
+   public String content;
+   public float rating;
+   public String date;
+}</code></pre>
+<h2>Dao</h2>
+<pre><code>@Dao
+public abstract class PoemDAO {
+
+   @Insert
+   abstract void insert(Poem poem);
+
+   @Query(&#34;SELECT * FROM poem&#34;)
+   abstract LiveData&lt;List&lt;Poem&gt;&gt; getAllPoems();
+
+   @Query(&#34;SELECT * FROM poem ORDER BY date DESC&#34;)
+   abstract LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByDate();
+
+   @Query(&#34;SELECT * FROM poem ORDER BY title&#34;)
+   abstract LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByTitle();
+
+   @Query(&#34;SELECT * FROM poem ORDER BY rating DESC&#34;)
+   abstract LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByRating();
+
+   @Query(&#34;SELECT * FROM poem WHERE id = :id&#34;)
+   abstract LiveData&lt;Poem&gt; getPoem(int id);
+
+   @Query(&#34;UPDATE poem SET rating=:rating WHERE id=:id&#34;)
+   abstract void setRating(int id, float rating);
+
+   @Query(&#34;DELETE FROM poem&#34;)
+   abstract void deleteAllPoems();
+}</code></pre>
+<h2>Database</h2>
+<pre><code>@Database(entities = {Poem.class}, version = 1)
+public abstract class PoemRoomDatabase extends RoomDatabase {
+
+   public abstract PoemDAO poemDAO();
+
+   private static volatile PoemRoomDatabase INSTANCE;
+
+   static PoemRoomDatabase getDatabase(final Context context) {
+       if (INSTANCE == null) {
+           synchronized (PoemRoomDatabase.class) {
+               if (INSTANCE == null) {
+                   INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                           PoemRoomDatabase.class, &#34;poem_database&#34;)
+                           .fallbackToDestructiveMigration()
+                           .build();
+               }
+           }
+       }
+       return INSTANCE;
+   }
+}</code></pre>
+<h2>Repository</h2>
+<pre><code>public class PoemRepository {
+
+   private PoemDAO mPoemDao;
+
+   PoemRepository(Application application) {
+       mPoemDao = PoemRoomDatabase.getDatabase(application).poemDAO();
+   }
+
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoems() {
+       return mPoemDao.getAllPoems();
+   }
+
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByTitle() {
+       return mPoemDao.getAllPoemsOrderedByTitle();
+   }
+
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByDate() {
+       return mPoemDao.getAllPoemsOrderedByDate();
+   }
+
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByRating() {
+       return mPoemDao.getAllPoemsOrderedByRating();
+   }
+
+   LiveData&lt;Poem&gt; getPoem(int id){ return mPoemDao.getPoem(id); }
+
+   public void insert(Poem poem) {
+       new InsertAsyncTask(mPoemDao).execute(poem);
+   }
+
+   private static class InsertAsyncTask extends AsyncTask&lt;Poem, Void, Void&gt; {
+
+       private PoemDAO mAsyncTaskDao;
+
+       InsertAsyncTask(PoemDAO dao) {
+           mAsyncTaskDao = dao;
+       }
+
+       @Override
+       protected Void doInBackground(final Poem... params) {
+           mAsyncTaskDao.insert(params[0]);
+           return null;
+       }
+   }
+
+   public void setRating(Poem poem){
+       new SetRatingAsyncTask(mPoemDao).execute(poem);
+   }
+
+   private static class SetRatingAsyncTask extends AsyncTask&lt;Poem, Void, Void&gt; {
+
+       private PoemDAO mAsyncTaskDao;
+
+       SetRatingAsyncTask(PoemDAO dao) {
+           mAsyncTaskDao = dao;
+       }
+
+       @Override
+       protected Void doInBackground(final Poem... poems) {
+           mAsyncTaskDao.setRating(poems[0].id, poems[0].rating);
+           return null;
+       }
+   }
+
+   public void deleteAllPoems(){
+       new DeleteAsyncTask(mPoemDao).execute();
+   }
+
+   private static class DeleteAsyncTask extends AsyncTask&lt;Poem, Void, Void&gt; {
+
+       private PoemDAO mAsyncTaskDao;
+
+       DeleteAsyncTask(PoemDAO dao) {
+           mAsyncTaskDao = dao;
+       }
+
+       @Override
+       protected Void doInBackground(final Poem... poems) {
+           mAsyncTaskDao.deleteAllPoems();
+           return null;
+       }
+   }
+}</code></pre>
+<h2>ViewModel</h2>
+<pre><code>public class PoemViewModel extends AndroidViewModel {
+
+   private PoemRepository mRepository;
+
+   public PoemViewModel(Application application) {
+       super(application);
+       mRepository = new PoemRepository(application);
+   }
+
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoems() { return mRepository.getAllPoems(); }
+
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByTitle() { return mRepository.getAllPoemsOrderedByTitle(); }
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByDate() { return mRepository.getAllPoemsOrderedByDate(); }
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByRating() { return mRepository.getAllPoemsOrderedByRating(); }
+
+   LiveData&lt;Poem&gt; getPoem(int id){ return mRepository.getPoem(id); }
+
+   public void insertPoem(Poem poem) { mRepository.insert(poem); }
+
+   public void setRating(Poem poem) { mRepository.setRating(poem); }
+
+   public void deleteAllPoems() {
+       mRepository.deleteAllPoems();
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="MainActivity" duration="0">
+        <p>La &#34;Tabbed Activity&#34; que hemos creado a partir de la plantilla lleva mucho código predeterminado que no necesitamos, entre ellos un Fragment que muestra un Hello World, o un menu de opciones en la AppBar. Vamos a simplificarlo un poco y dejar únicamente lo que nos interesa.</p>
+<p>Borra toda la clase MainActivity, y deja solamente el siguiente código: </p>
 <pre><code>public class MainActivity extends AppCompatActivity {
 
+   private SectionsPagerAdapter mSectionsPagerAdapter;
+   private ViewPager mViewPager;
+
    @Override
    protected void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_main);
 
-       TextView textView = findViewById(R.id.textView);
-       if(isLandscape()){
-           textView.setText(&#34;Hello Landscape Runtime World!&#34;);
-       }else{
-           textView.setText(&#34;Hello Runtime World!&#34;);
-       }
+       Toolbar toolbar = findViewById(R.id.toolbar);
+       setSupportActionBar(toolbar);
+
+       mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+       mViewPager = findViewById(R.id.container);
+       mViewPager.setAdapter(mSectionsPagerAdapter);
+
+       TabLayout tabLayout = findViewById(R.id.tabs);
+
+       mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+       tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
    }
 
-   boolean isLandscape(){
-       return getResources().getBoolean(R.bool.land);
+   public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+       public SectionsPagerAdapter(FragmentManager fm) {
+           super(fm);
+       }
+
+       @Override
+       public Fragment getItem(int position) {
+           switch (position){
+               case 0: return new AZPoemListFragment();
+               case 1: return new NewestPoemListFragment();
+               case 2: return new TopRatedPoemListFragment();
+               default: return new AZPoemListFragment();
+           }
+       }
+
+       @Override
+       public int getCount() {
+           return 3;
+       }
    }
 }</code></pre>
-<p><strong>📲 Prueba la aplicación</strong></p>
-<p>Observa cómo en <em>runtime</em> se establece un texto u otro en el </p>
-<pre>TextView</pre>
-<p> dependiendo de la orientación</p>
+<aside class="warning"><p>Se mostrará un error en el método <code>getItem()</code>, debido a que todavía no hemos creado las clases <code>AZPoemListFragment</code>, <code>NewestPoemListFragment</code> y <code>TopRatedPoemListFragment</code></p>
+</aside>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Fragments" duration="0">
-        <p>Nuestra aplicación va seguir el diseño Master/Detail. </p>
-<p>La sección Master mostrará la lista de peliculas, y la sección Detail mostrará los detalles de la película seleccionada.</p>
-<p>Haremos dos versiones según la orientación. En la versión <strong>Landscape</strong> se mostrarán al mismo tiempo la lista (<em>Master</em>) y el detalle (<em>Detail</em>). En la versión <strong>Portrait</strong> se mostrarán en Activities diferentes.</p>
-<p><img style="max-width: 493.70px" src="img\ac213e1fc0e7aa28.png"></p>
-<p>De momento, solo nos centraremos en la disposición de los Fragments, así que en lugar de la lista y la información de las películas añadiremos un <code>Button</code> en el Master y un <code>TextView</code> en el Detail. <strong>Cuando se haga click en el botón, cambiaremos el texto del </strong><strong><code>TextView</code></strong><strong>.</strong> En la versión <em>Landscape</em>, los dos fragments estarán en la <code>MainActivity</code>. En la versión <em>Portrait</em> iniciaremos una nueva Activity para el Detail.</p>
-<p><img style="max-width: 576.50px" src="img\a9357572105d42f9.png"></p>
-<p><strong>⏩Crea el MainFragment</strong></p>
-<p>Crea un nuevo fichero de layout llamado </p>
-<pre>fragment_main.xml</pre>
-<p>Añade el </p>
-<pre>Button</pre>
-<pre><code>&lt;Button
-   android:id=&#34;@+id/button&#34;
-   android:layout_width=&#34;wrap_content&#34;
-   android:layout_height=&#34;wrap_content&#34;
-   android:text=&#34;Button&#34; /&gt;</code></pre>
-<p>Crea la clase </p>
-<pre>MainFragment</pre>
-<pre><code>public class MainFragment extends Fragment {
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
-       super.onCreateView(inflater, container, savedInstanceState);
-       View mView = inflater.inflate(R.layout.fragment_main, container, false);
+      <google-codelab-step label="FragmentPagerAdapter, ViewPager y TabLayout" duration="0">
+        <p><img style="max-width: 736.40px" src="img\cbcf29397ba8c40e.png"></p>
+<p><code>ViewPager</code> permite al usuario hacer flip a izquierda y derecha a través de una serie de paginas.</p>
+<p><code>TabLayout</code> proporciona un layout horizontal para mostrar los tabs.</p>
+<p><code>FragmentPagerAdapter</code> es el encargado de determinar el Fragment que se ha de mostrar dentro del ViewPager en función del Tab seleccionado.</p>
 
-       return mView;
-   }
-}</code></pre>
-<p>(Importa la clase </p>
-<pre><code>android.app.Fragment</code></pre>
-<p>)</p>
-<p><strong>⏩Crea el DetailFragment</strong></p>
-<p>Crea un nuevo fichero de layout llamado </p>
-<pre>fragment_detail.xml</pre>
-<p>Añade el </p>
-<pre>TextView</pre>
-<pre><code>&lt;TextView
-   android:id=&#34;@+id/textView&#34;
-   android:layout_width=&#34;wrap_content&#34;
-   android:layout_height=&#34;wrap_content&#34;
-   android:text=&#34;TextView&#34; /&gt;</code></pre>
-<p>Crea la clase </p>
-<pre>DetailFragment</pre>
-<pre><code>public class DetailFragment extends Fragment {
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
-       super.onCreateView(inflater, container, savedInstanceState);
-       View mView = inflater.inflate(R.layout.fragment_detail, container, false);
 
-       return mView;
-   }
-}</code></pre>
-<p><strong>⏩Modifica el layout ActivityMain</strong></p>
-<p>Para la versión normal, haz que incluya solo el </p>
-<pre>MainFragment</pre>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;android.support.constraint.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-   android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;&gt;
-
-   &lt;fragment
-       android:id=&#34;@+id/fragmentMain&#34;
-       android:name=&#34;com.example.gerard.p07.MainFragment&#34;
-       android:layout_width=&#34;match_parent&#34;
-       android:layout_height=&#34;match_parent&#34; /&gt;
-
-&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
-<p>Para la versión <em>landscape</em>, incluye los dos fragments</p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;android.support.constraint.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-   android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;&gt;
-
-   &lt;LinearLayout
-       android:layout_width=&#34;match_parent&#34;
-       android:layout_height=&#34;match_parent&#34;
-       android:orientation=&#34;horizontal&#34;&gt;
-       &lt;fragment
-           android:id=&#34;@+id/fragmentMain&#34;
-           android:name=&#34;com.example.gerard.p07.MainFragment&#34;
-           android:layout_width=&#34;0dp&#34;
-           android:layout_weight=&#34;2&#34;
-           android:layout_height=&#34;match_parent&#34; /&gt;
-
-       &lt;fragment
-           android:id=&#34;@+id/fragmentDetail&#34;
-           android:name=&#34;com.example.gerard.p07.DetailFragment&#34;
-           android:layout_width=&#34;0dp&#34;
-           android:layout_weight=&#34;3&#34;
-           android:layout_height=&#34;match_parent&#34; /&gt;
-   &lt;/LinearLayout&gt;
-&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
-<p>** Borra la prueba anterior con el </p>
-<pre>TextView </pre>
-<p>en la </p>
-<pre>MainActivity</pre>
-<pre><code>TextView textView = findViewById(R.id.textView);
-if(isLandscape()){
-   textView.setText(&#34;Hello Landscape Runtime World!&#34;);
-}else{
-   textView.setText(&#34;Hello Runtime World!&#34;);
-}</code></pre>
-<p><strong>📲 Prueba la aplicación</strong></p>
-<p>Observa cómo en <em>Landscape</em> aparecen los dos Fragment (Main y Detail), y en cambio, en modo <em>Portrait</em> solo aparece el Main.</p>
-<h2>Comunicación entre Fragments</h2>
-<p>En este apartado veremos cómo se pueden pasar datos, un String por ejemplo, de un Fragment a otro.</p>
-<p>Necesitamos que cuando se haga click en el botón, el <code>MainFragment</code> envíe un <code>TEXTO</code> al <code>DetailFragment</code> para que lo muestre en el <code>TextView</code>. La comunicación entre Fragments será diferente según la orientación:</p>
-<ul>
-<li><strong>Portrait</strong>: el MainFragment iniciará la <code>DetailActivity</code>, y le pasará le <code>TEXTO</code> en el <code>Intent</code>. El <code>DetailFragment</code> recuperará el <code>Intent</code> y de ahí sacará el <code>TEXTO</code>.</li>
-<li><strong>Landscape</strong>: el <code>MainFragment</code> ejecutará un método de la <code>MainActivity</code> y le pasará el <code>TEXTO</code> como parámetro. La <code>MainActivity</code> a su vez, ejecutará otro método del <code>DetailFragment</code>, pasándole el <code>TEXTO</code>.</li>
-</ul>
-<h3>Portrait</h3>
-<p>Añadiremos un listener al botón, para que inicie la <code>DetailActivity</code>, y le pase un texto en el <code>Intent</code>.</p>
-<p>La <code>DetailActivity</code> incluye el <code>DetailFragment</code>, quien pondrá en el <code>TextView</code> el texto sacado del <code>Intent</code>.</p>
-<p><img style="max-width: 467.00px" src="img\855996ec62ca28ec.png"></p>
-<p><strong>⏩Añade el Listener al botón</strong></p>
-<p>En la clase  </p>
-<pre>MainFragment </pre>
-<p>añade un </p>
-<pre>OnClickListener</pre>
-<p> al botón:</p>
-<pre><code>@Override
-public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                         Bundle savedInstanceState) {
-   super.onCreateView(inflater, container, savedInstanceState);
-   View mView = inflater.inflate(R.layout.fragment_main, container, false);
-
-   mView.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-         Intent intent = new Intent(getActivity(), DetailActivity.class);
-         intent.putExtra(&#34;TEXT&#34;, &#34;Hello fragment communication!&#34;);
-         startActivity(intent);
-      }
-   });
-
-   return mView;
-}</code></pre>
-<p><strong>⏩Crea la DetailActivity</strong></p>
-<p>Crea un nueva &#34;Empty Activity&#34; con el nombre </p>
-<pre>DetailActivity</pre>
-<p>En la layout de la </p>
-<pre>DetailActivity</pre>
-<p> (</p>
-<pre>activity_detail.xml</pre>
-<p>) añade el fragment  </p>
-<pre>DetailFragment</pre>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;android.support.constraint.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-   android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;&gt;
-
-   &lt;fragment
-       android:id=&#34;@+id/fragmentDetail&#34;
-       android:name=&#34;com.example.gerard.p07.DetailFragment&#34;
-       android:layout_width=&#34;0dp&#34;
-       android:layout_weight=&#34;3&#34;
-       android:layout_height=&#34;match_parent&#34; /&gt;
-
-&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
-<p><strong>⏩Haz que el DetailFragment cambie el TextView</strong></p>
-<p>Pon el siguiente código en la clase  </p>
-<pre>DetailFragment </pre>
-<p>para que saque el texto del </p>
-<pre>Intent </pre>
-<p>y lo establezca en el </p>
-<pre>TextView</pre>
-<p>.</p>
-<pre><code>public class DetailFragment extends Fragment {
-   View mView;
+      </google-codelab-step>
+    
+      <google-codelab-step label="PoemListFragment" duration="0">
+        <p>Ahora crearemos los tres Fragments que se mostrarán en el <code>ViewPager</code>.</p>
+<p>Ya que los tres Fragments són prácticamente idénticos (muestran una lista de poemas), y lo único que cambia es el orden en que se muestran los poemas, podemos crear un Fragment <strong>abstracto </strong>en el que falte concretar la consulta.</p>
+<p><img style="max-width: 597.17px" src="img\58dcdb6bc34a5acd.png"></p>
+<h2>PoemListFragment</h2>
+<p>Crea el PoemListFragment con el asistente (New -&gt; Fragment -&gt; Blank)</p>
+<p><img style="max-width: 641.00px" src="img\533ac65c2ce21ff4.png"></p>
+<p>Añadiremos en este <code>PoemListFragment</code> el <code>RecyclerView</code> para mostrar la lista de poemas. La lista de poemas con el que se rellenará el <code>RecyclerView</code> lo retornará el método abstracto <code>getPoems()</code>, que se concretará en los Fragments que extiendan de este PoemListFragment.</p>
+<pre><code>public abstract class PoemListFragment extends Fragment {
+   PoemViewModel poemViewModel;
 
    @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
-       super.onCreateView(inflater, container, savedInstanceState);
-       mView = inflater.inflate(R.layout.fragment_detail, container, false);
+   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+       View view = inflater.inflate(R.layout.fragment_poem_list, container, false);
 
-       Intent intent = getActivity().getIntent();
-       String text = intent.getStringExtra(&#34;TEXT&#34;);
-       updateTextView(text);
+       RecyclerView recyclerView = view.findViewById(R.id.poemList);
+       recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-       return mView;
-   }
+       final PoemsRecyclerAdapter poemsRecyclerAdapter = new PoemsRecyclerAdapter();
+       recyclerView.setAdapter(poemsRecyclerAdapter);
 
-   void updateTextView(String text){
-       ((TextView) mView.findViewById(R.id.textView)).setText(text);
-   }
-}</code></pre>
-<p><strong>📲 Prueba la aplicación</strong></p>
-<p>Observa cómo al hacer click en el botón se abre la </p>
-<pre>DetailActivity</pre>
-<p> y se establece el </p>
-<pre>TEXTO</pre>
-<p> enviado. (De momento esto lo hace tanto en <em>Landscape</em> como en <em>Portrait</em>. A continuación haremos la discriminación)</p>
-<h3>Landscape</h3>
-<p>Para la comunicación entre Fragments dentro de una misma Activity, se utilizan Listeners.</p>
-<p>Haremos que cuando se haga click en el botón, la <code>MainFragment</code> ejecute un método de la <code>MainActivity</code>, y le pase como parametro el <code>TEXT</code>. Para ello, la <code>MainActivity</code> debe establecerse como listener de la <code>MainFragment</code>.</p>
-<p>Luego, la <code>MainActivity</code> ejecutará un método de la <code>DetailFragment</code>, pasándole el <code>TEXT.</code></p>
-<p><img style="max-width: 404.65px" src="img\da43db8808ee2a07.png"></p>
-<p><strong>⏩Define el interfaz OnButtonClickListener</strong></p>
-<p>En la clase  </p>
-<pre>MainFragment</pre>
-<p> crea el interfaz </p>
-<pre>OnButtonClickListener</pre>
-<p>:</p>
-<pre><code>public class MainFragment extends Fragment {
-   interface OnButtonClickListener {
-       void onButtonClick(String text);
-   }
-
-    . . . .
-}</code></pre>
-<p><strong>⏩Haz que la MainActivity implemente el interface OnButtonClickListener</strong></p>
-<p>En el método </p>
-<pre>onButtonClick()</pre>
-<p>, la </p>
-<pre>MainActivity</pre>
-<p> ejecutará el método </p>
-<pre>updateTextView()</pre>
-<p> de la </p>
-<pre>DetailFragment</pre>
-<pre><code>public class MainActivity extends AppCompatActivity implements MainFragment.OnButtonClickListener{
-
-   @Override
-   protected void onCreate(Bundle savedInstanceState) {
-       super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_main);
-   }
-
-   @Override
-   public void onButtonClick(String text) {
-       if(isLandscape()) {
-           DetailFragment fragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
-           fragment.updateTextView(text);
-       }else {
-           Intent intent = new Intent(this, DetailActivity.class);
-           intent.putExtra(&#34;TEXT&#34;, text);
-           startActivity(intent);
-       }
-   }
-}</code></pre>
-<p><strong>⏩Establece la MainActivity como listener del evento OnButtonClick</strong></p>
-<p>En el callback </p>
-<pre>onAttach()</pre>
-<p> del </p>
-<pre>MainFragment</pre>
-<p>, guardamos la </p>
-<pre>MainActivity</pre>
-<p> como </p>
-<pre><code>listener</code></pre>
-<p> para el evento </p>
-<pre>OnButtonClick</pre>
-<p>.</p>
-<p>Cuando se haga click en el botón haremos que se ejecute el método </p>
-<pre>onButtonClick()</pre>
-<p> de la </p>
-<pre>MainActivity</pre>
-<pre><code>public class MainFragment extends Fragment {
-
-   interface OnButtonClickListener {
-       void onButtonClick(String text);
-   }
-
-   OnButtonClickListener mListener; // el listener será la MainActivity
-
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
-       super.onCreateView(inflater, container, savedInstanceState);
-       View mView = inflater.inflate(R.layout.fragment_main, container, false);
-
-       mView.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+       poemViewModel = ViewModelProviders.of(this).get(PoemViewModel.class);
+       getPoems().observe(this, new Observer&lt;List&lt;Poem&gt;&gt;() {
            @Override
-           public void onClick(View view) {
-               mListener.onButtonClick(&#34;Hello fragment communication!&#34;);
+           public void onChanged(@Nullable List&lt;Poem&gt; poems) {
+               poemsRecyclerAdapter.setList(poems);
+               poemsRecyclerAdapter.notifyDataSetChanged();
            }
        });
-       return mView;
+
+       return view;
    }
 
-   @Override
-   public void onAttach(Context context) {
-       super.onAttach(context);
-       try {
-           mListener = (OnButtonClickListener) context; // context==MainActivity
-       } catch (ClassCastException e) {
-           throw new ClassCastException(context.toString() + &#34; must implement OnButtonClickListener&#34;);
-       }
-   }
+   abstract LiveData&lt;List&lt;Poem&gt;&gt; getPoems();
 }</code></pre>
-<p><strong>📲 Prueba la aplicación</strong></p>
-<p>Ahora, en modo <em>Landscape</em>, el </p>
-<pre>TEXTO</pre>
-<p> se envía al </p>
-<pre>DetailFragment</pre>
-<p> de la </p>
-<pre>MainActivity</pre>
-<p>.</p>
-<h2>ViewPager y TabLayout</h2>
-<p>Ahora haremos que el <code>MainFragment</code> incluya un Barra con Tabs para poder desplazarnos entre tres Fragments diferentes</p>
-<p><img style="max-width: 327.22px" src="img\f98ba27ed44d176b.png"></p>
-<p>Para hacer esto android provee las clases <code>FragmentPagerAdapter</code>, <code>ViewPager</code> y <code>TabLayout</code></p>
-<p><strong>⏩Añade las bibliotecas</strong></p>
-<p>En el </p>
-<pre>build.gradle (app)</pre>
-<p>,  añade las siguientes bibliotecas:<br></p>
-<pre><code>implementation &#39;com.android.support:design:26.1.0&#39;
-implementation &#39;com.android.support:support-v13:26.1.0&#39;</code></pre>
-<p><strong>⏩Crea tres Fragments</strong></p>
-<p>Llámalos  </p>
-<pre>FirstFragment</pre>
-<p>, </p>
-<pre>SecondFragment</pre>
-<p>, y </p>
-<pre>ThirdFragment</pre>
-<p>Añade en el layout de cada fragment un contenido diferente... el que desees</p>
-<p><strong>⏩Añade el TabLayout y el ViewPager en el FragmentMain</strong></p>
-<p>Pon el siguiente xml en el </p>
-<pre><code>fragment_main.xml
-</code></pre>
+<p>En el Layout <code>fragment_poem_list.xml</code> añadimos el RecyclerView:</p>
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;RelativeLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+&lt;FrameLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
    android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;&gt;
-
-   &lt;android.support.design.widget.TabLayout
-       android:id=&#34;@+id/tabLayout&#34;
-       android:layout_width=&#34;match_parent&#34;
-       android:layout_height=&#34;wrap_content&#34; /&gt;
-
-   &lt;android.support.v4.view.ViewPager
-       android:id=&#34;@+id/viewPager&#34;
-       android:layout_width=&#34;match_parent&#34;
-       android:layout_height=&#34;match_parent&#34;
-       android:layout_below=&#34;@id/tabLayout&#34;/&gt;
-
-&lt;/RelativeLayout&gt;</code></pre>
-<p><strong>⏩Configura el FragmentPagerAdapter</strong></p>
-<p>En la clase </p>
-<pre><code>MainFragment </code></pre>
-<p>cambia el callback </p>
-<pre><code>onCreateView()</code></pre>
-<p> por el siguiente:</p>
-<pre><code></code></pre>
-<pre><code>@Override
-public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                        Bundle savedInstanceState) {
-   super.onCreateView(inflater, container, savedInstanceState);
-   View mView = inflater.inflate(R.layout.fragment_main, container, false);
-
-   FragmentPagerAdapter mPagerAdapter = new FragmentPagerAdapter(getFragmentManager()) {
-      private final Fragment[] mFragments = new Fragment[] {
-              new FirstFragment(),
-              new SecondFragment(),
-              new ThirdFragment(),
-      };
-      private final String[] mFragmentNames = new String[] {
-              &#34;First&#34;,
-              &#34;Second&#34;,
-              &#34;Third&#34;
-      };
-      @Override
-      public Fragment getItem(int position) {
-          return mFragments[position];
-      }
-      @Override
-      public int getCount() {
-          return mFragments.length;
-      }
-      @Override
-      public CharSequence getPageTitle(int position) {
-          return mFragmentNames[position];
-      }
-   };
-
-   ViewPager mViewPager = (ViewPager) mView.findViewById(R.id.viewPager);
-   mViewPager.setAdapter(mPagerAdapter);
-   TabLayout tabLayout = (TabLayout) mView.findViewById(R.id.tabLayout);
-   tabLayout.setupWithViewPager(mViewPager);
-
-   return mView;
-}</code></pre>
-<p>** Importa las siguientes librerías:</p>
-<pre><code>import android.app.Fragment;
-import android.support.design.widget.TabLayout;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;</code></pre>
-<p><strong>📲 Prueba la aplicación</strong></p>
-<p><strong>⏩Challenge: </strong></p>
-<p>Añade un botón en cada fragment, y haz que cuando se haga click, cada uno ejecute el callback </p>
-<pre>onButtonClick()</pre>
-<p> de la </p>
-<pre>MainActivity</pre>
-<p>, pasándole un texto diferente. La </p>
-<pre>MainActivity</pre>
-<p> lo enviará al </p>
-<pre>DetailFragment</pre>
-<p> para que lo muestre.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Extensión de fragments" duration="0">
-        <p>En la prueba anterior, cada fragment tenía un contenido diferente, sin embargo, para la App de películas los tres fragments contienen lo mismo: un RecyclerView. Lo único que cambia entre ellos es el ArrayList de películas con que se ha de rellenar ese RecyclerView.</p>
-<p>Sería absurdo, en este caso, poner un RecyclerView diferente en cada uno de los tres fragments. Así que optaremos por hacer un fragment genérico con el RecyclerView, y hacer que los tres fragments extiendan del genérico, y solamente implementen el código que rellena el ArrayList.</p>
-<p><img style="max-width: 483.70px" src="img\d6a5300962b1b447.png"></p>
-<p>De momento, los fragment rellenarán el ArrayList con <strong>datos de prueba</strong>, más adelante haremos que cada uno lo rellene con las películas correspondientes.</p>
-<p><strong>⏩Crea el ListFragment</strong></p>
-<p>En su archivo de layout, </p>
-<pre>fragment_list.xml</pre>
-<p>,  añade el </p>
-<pre>RecyclerView</pre>
-<p>:<br></p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;android.support.constraint.ConstraintLayout
-   xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-   android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;&gt;
+   android:layout_height=&#34;match_parent&#34;
+   tools:context=&#34;.PoemListFragment&#34;&gt;
 
    &lt;android.support.v7.widget.RecyclerView
-       android:id=&#34;@+id/recyclerView&#34;
-       android:layout_width=&#34;match_parent&#34;
-       android:layout_height=&#34;match_parent&#34; /&gt;
-
-&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
-<p>En la clase </p>
-<pre>ListFragment</pre>
-<p> configuramos el </p>
-<pre>RecyclerView</pre>
-<p>:</p>
-<ul>
-<li>Definimos el LayoutManager: Lineal</li>
-<li>Creamos el ArrayList para almacenar los items</li>
-<li>Definimos el Adaptador</li>
-<li>Definimos el interfaz para el Listener del evento OnItemSelected</li>
-<li>Declaramos abstracto el método que rellena el ArrayList, para que sean las subclases los que lo implementen</li>
-</ul>
-<pre><code>public abstract class ListFragment extends Fragment {
-
-   public interface OnItemSelectedListener {
-       void onItemSelected(String text);
-   }
-
-   OnItemSelectedListener mListener;
-   private RecyclerView mRecycler;
-   RecyclerAdapter mRecyclerAdapter;
-   ArrayList&lt;String&gt; items = new ArrayList&lt;&gt;();
-
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
-       super.onCreateView(inflater, container, savedInstanceState);
-       View mView = inflater.inflate(R.layout.fragment_list, container, false);
-
-       mRecycler = (RecyclerView) mView.findViewById(R.id.recyclerView);
-       mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-       mRecycler.setHasFixedSize(true);
-
-       mRecyclerAdapter = new RecyclerAdapter(items);
-       mRecycler.setAdapter(mRecyclerAdapter);
-
-       populateList();
-
-       return mView;
-   }
-
-   @Override
-   public void onAttach(Context context) {
-       super.onAttach(context);
-       try {
-           mListener = (OnItemSelectedListener) context;
-       } catch (ClassCastException e) {
-           throw new ClassCastException(context.toString() + &#34; must implement OnItemSelectedListener&#34;);
-       }
-   }
-
-   public abstract void populateList();
-
-   class RecyclerAdapter extends RecyclerView.Adapter&lt;RecyclerAdapter.ItemViewHolder&gt; {
-
-       private List&lt;String&gt; items;
-
-       RecyclerAdapter(List&lt;String&gt; items) {
-           this.items = items;
-       }
-
-       @Override
-       public ItemViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-           View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup,false);
-           return new ItemViewHolder(view);
-       }
-
-       @Override
-       public void onBindViewHolder(final ItemViewHolder viewHolder, int i) {
-           final String item = items.get(i);
-
-           viewHolder.title.setText(item);
-
-           viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   mListener.onItemSelected(item);
-               }
-           });
-       }
-
-       @Override
-       public int getItemCount() {
-           return (items != null ? items.size() : 0);
-       }
-
-       class ItemViewHolder extends RecyclerView.ViewHolder {
-           private TextView title;
-
-           ItemViewHolder(View view) {
-               super(view);
-               this.title = (TextView) view.findViewById(R.id.title);
-           }
-       }
-   }
-}</code></pre>
-<p>Creamos el layout (</p>
-<pre>item.xml</pre>
-<p>) que hará de ViewHolder para cada ítem de la lista:</p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;android.support.constraint.ConstraintLayout
-   xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-   android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;wrap_content&#34;&gt;
-
-   &lt;TextView
-       android:id=&#34;@+id/title&#34;
+       android:id=&#34;@+id/poemList&#34;
        android:layout_width=&#34;match_parent&#34;
        android:layout_height=&#34;wrap_content&#34; /&gt;
 
-&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
-<p><strong>⏩Extiende el ListFragment</strong></p>
-<p>Modificamos los </p>
-<pre>FirstFragment</pre>
-<p>, </p>
-<pre>SecondFragment </pre>
-<p>y </p>
-<pre>ThirdFragment </pre>
-<p>para que extiendan el </p>
-<pre>ListFragment</pre>
-<p>, e implementamos en cada uno el método </p>
-<pre>populateList()
-FirstFragment</pre>
-<pre><code>public class FirstFragment extends ListFragment {
+&lt;/FrameLayout&gt;</code></pre>
+<p>El código del <code>RecyclerView.Adapter</code>:</p>
+<pre><code>public class PoemsRecyclerAdapter extends RecyclerView.Adapter&lt;PoemsRecyclerAdapter.PoemViewHolder&gt;{
+
+   List&lt;Poem&gt; list;
 
    @Override
-   public void populateList() {
-
-       items.clear();
-
-       for(int i=0; i&lt;100; i++){
-           items.add(&#34;FIRST FRAGMENT &#34; + i);
-       }
-
-       mRecyclerAdapter.notifyDataSetChanged();
-   }
-}</code></pre>
-<pre>SecondFragment</pre>
-<pre><code>public class SecondFragment extends ListFragment {
-
-   @Override
-   public void populateList() {
-
-       items.clear();
-
-       for(int i=0; i&lt;100; i++){
-           items.add(&#34;SECOND FRAGMENT &#34; + i);
-       }
-
-       mRecyclerAdapter.notifyDataSetChanged();
-   }
-}</code></pre>
-<pre>ThirdFragment</pre>
-<pre><code>public class ThirdFragment extends ListFragment {
-
-   @Override
-   public void populateList() {
-
-       items.clear();
-
-       for(int i=0; i&lt;100; i++){
-           items.add(&#34;THIRD FRAGMENT &#34; + i);
-       }
-
-       mRecyclerAdapter.notifyDataSetChanged();
-   }
-}</code></pre>
-<p><strong>⏩Implementamos el interface OnItemSelectedListener en la MainActivity</strong></p>
-<p>La </p>
-<pre>MainActivity</pre>
-<p> queda así:</p>
-<pre><code>public class MainActivity extends AppCompatActivity implements ListFragment.OnItemSelectedListener{
-
-   @Override
-   protected void onCreate(Bundle savedInstanceState) {
-       super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_main);
-   }
-
-   boolean isLandscape(){
-       return getResources().getBoolean(R.bool.land);
+   public PoemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+       View itemPoem = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_poem, parent, false);
+       return new PoemViewHolder(itemPoem);
    }
 
    @Override
-   public void onItemSelected(String text) {
-       if(isLandscape()) {
-           DetailFragment fragment = (DetailFragment) getFragmentManager().findFragmentById(R.id.fragmentDetail);
-           fragment.updateTextView(text);
-       }else {
-           Intent intent = new Intent(this, DetailActivity.class);
-           intent.putExtra(&#34;TEXT&#34;, text);
-           startActivity(intent);
+   public void onBindViewHolder(PoemViewHolder holder, int position) {
+       final Poem poem = list.get(position);
+
+       holder.poemAuthor.setText(poem.author);
+       holder.poemTitle.setText(poem.title);
+       holder.ratingBar.setRating(poem.rating);
+   }
+
+   @Override
+   public int getItemCount() {
+       return (list != null ? list.size() : 0);
+   }
+
+   public void setList(List&lt;Poem&gt; poems){
+       this.list = poems;
+   }
+
+   class PoemViewHolder extends RecyclerView.ViewHolder {
+       private TextView poemTitle;
+       private TextView poemAuthor;
+       private RatingBar ratingBar;
+
+
+       PoemViewHolder(View itemPoem) {
+           super(itemPoem);
+           poemTitle = itemPoem.findViewById(R.id.poem_title);
+           poemAuthor = itemPoem.findViewById(R.id.poem_author);
+           ratingBar = itemPoem.findViewById(R.id.ratingBar);
        }
    }
 }</code></pre>
-<p><strong>⏩Code CleanUp</strong></p>
-<p>Ahora los fragments First, Second y Third cogen el layout </p>
-<pre>fragment_list.xml</pre>
-<p>, así que ya no necesitamos sus archivos de layout: <strong>elimina </strong></p>
-<pre>fragment_first.xml</pre>
-<p>, </p>
-<pre>fragment_second.xml</pre>
-<p> y </p>
-<pre>fragment_third.xml</pre>
-<p>Tampoco tenemos los botones en los fragments, así que la </p>
-<pre>MainActivity</pre>
-<p> ya no implementa el interfaz </p>
-<pre>OnButtonClickListener</pre>
-<p>: <strong>elimina</strong> la definición del interface </p>
-<pre>OnButtonClickListener</pre>
-<p> del </p>
-<pre>MainFragment</pre>
-<p>, y también el método </p>
-<pre>onAttach()</pre>
-<p> que establecía la </p>
-<pre>MainActivity</pre>
-<p> como listener.</p>
-<p><strong>📲 Prueba la aplicación</strong></p>
+<p>El Layout item_poem.xml</p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;android.support.v7.widget.CardView xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;wrap_content&#34;
+   android:layout_margin=&#34;4dp&#34;&gt;
+   &lt;LinearLayout
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:orientation=&#34;vertical&#34;
+       android:padding=&#34;8dp&#34;&gt;
+       &lt;TextView
+           android:id=&#34;@+id/poem_title&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:fontFamily=&#34;cursive&#34;
+           android:textSize=&#34;26sp&#34;
+           android:textStyle=&#34;bold&#34; /&gt;
+       &lt;TextView
+           android:id=&#34;@+id/poem_author&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:fontFamily=&#34;cursive&#34;
+           android:textSize=&#34;20sp&#34; /&gt;
+       &lt;RatingBar
+           android:id=&#34;@+id/ratingBar&#34;
+           android:layout_width=&#34;wrap_content&#34;
+           android:layout_height=&#34;wrap_content&#34; /&gt;
+   &lt;/LinearLayout&gt;
+&lt;/android.support.v7.widget.CardView&gt;</code></pre>
+<h2>AZ, Newest y TopRated Fragments</h2>
+<p>Una vez creado el Fragment abstracto, ya podemos extenderlo para crear los Fragments AZ, Newest y TopRated:.</p>
+<p>Crea una nueva <strong>Java Class</strong> para cada uno de ellos:</p>
+<pre><code>public class AZPoemListFragment extends PoemListFragment {
+
+   @Override
+   LiveData&lt;List&lt;Poem&gt;&gt; getPoems() {
+       return poemViewModel.getAllPoemsOrderedByTitle();
+   }
+}</code></pre>
+<pre><code>public class NewestPoemListFragment extends PoemListFragment {
+   @Override
+   LiveData&lt;List&lt;Poem&gt;&gt; getPoems() {
+       return poemViewModel.getAllPoemsOrderedByDate();
+   }
+}</code></pre>
+<pre><code>public class TopRatedPoemListFragment extends PoemListFragment {
+   @Override
+   LiveData&lt;List&lt;Poem&gt;&gt; getPoems() {
+       return poemViewModel.getAllPoemsOrderedByRating();
+   }
+}</code></pre>
 
 
       </google-codelab-step>
