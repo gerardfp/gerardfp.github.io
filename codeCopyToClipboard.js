@@ -4,6 +4,7 @@ Array.prototype.forEach.call(document.getElementsByTagName("pre"), function(v, i
     div.style.float = "right";
     div.style.backgroundColor = "gray";
     div.style.padding = "4px";
+    div.style.cursor = "copy";
     div.addEventListener("click", function(){
         var el = document.createElement("textarea");
         el.value = v.innerText.substring(4);
