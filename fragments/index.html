@@ -254,9 +254,7 @@ public class PoemViewModel extends AndroidViewModel {
 
    public void setRating(Poem poem) { mRepository.setRating(poem); }
 
-   public void deleteAllPoems() {
-       mRepository.deleteAllPoems();
-   }
+   public void deleteAllPoems() { mRepository.deleteAllPoems(); }
 }</code></pre>
 
 
@@ -264,7 +262,7 @@ public class PoemViewModel extends AndroidViewModel {
     
       <google-codelab-step label="MainActivity" duration="0">
         <p>La &#34;Tabbed Activity&#34; que hemos creado a partir de la plantilla lleva mucho código predeterminado que no necesitamos, entre ellos un Fragment que muestra un Hello World, o un menu de opciones en la AppBar. Vamos a simplificarlo un poco y dejar únicamente lo que nos interesa.</p>
-<p>Borra toda la clase MainActivity, y deja solamente el siguiente código: </p>
+<p>Borra toda la clase <code>MainActivity</code>, y deja solamente el siguiente código: </p>
 <pre><code>import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -363,7 +361,7 @@ public class MainActivity extends AppCompatActivity {
 <p><img style="max-width: 597.17px" src="img\58dcdb6bc34a5acd.png"></p>
 <p>Crea el <code>PoemListFragment</code> con el asistente (New -&gt; Fragment -&gt; Blank)</p>
 <p><img style="max-width: 641.00px" src="img\533ac65c2ce21ff4.png"></p>
-<p>Añadiremos en este <code>PoemListFragment</code> el <code>RecyclerView</code> para mostrar la lista de poemas. La lista de poemas con el que se rellenará el <code>RecyclerView</code> lo retornará el método abstracto <code>getPoems()</code>, que se concretará en los Fragments que extiendan de este PoemListFragment.</p>
+<p>Añadiremos en este <code>PoemListFragment</code> el <code>RecyclerView</code> para mostrar la lista de poemas. La lista de poemas con la que se rellenará el <code>RecyclerView</code> lo retornará el método abstracto <code>getPoems()</code>, que se concretará en los Fragments que extiendan de este PoemListFragment.</p>
 <pre><code>import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -392,6 +390,7 @@ public abstract class PoemListFragment extends Fragment {
        recyclerView.setAdapter(poemsRecyclerAdapter);
 
        poemViewModel = ViewModelProviders.of(this).get(PoemViewModel.class);
+
        getPoems().observe(this, new Observer&lt;List&lt;Poem&gt;&gt;() {
            @Override
            public void onChanged(@Nullable List&lt;Poem&gt; poems) {
@@ -506,7 +505,8 @@ public class PoemsRecyclerAdapter extends RecyclerView.Adapter&lt;PoemsRecyclerA
       </google-codelab-step>
     
       <google-codelab-step label="AZ, Newest y TopRated Fragments" duration="0">
-        <p>Una vez creado el Fragment abstracto, ya podemos extenderlo para crear los Fragments AZ, Newest y TopRated:</p>
+        <p>Una vez creado el Fragment abstracto, ya podemos extenderlo para crear los Fragments <strong>AZ</strong>, <strong>Newest </strong>y <strong>TopRated</strong>.</p>
+<p>El RecyclerView, el Adapter y el ViewModel, lo heredarán del PoemListFragment.</p>
 <p>Crea una nueva <strong>Java Class</strong> para cada uno de ellos:</p>
 <pre><code>import android.arch.lifecycle.LiveData;
 import java.util.List;
