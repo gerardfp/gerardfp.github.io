@@ -1,0 +1,368 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Retrofit &#43; Glide</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Retrofit &#43; Glide"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p>El objetivo de esta práctica es explicar las librería <a href="https://square.github.io/retrofit/" target="_blank">Retrofit</a> y <a href="https://github.com/bumptech/glide" target="_blank">Glide</a>.</p>
+<p>La librería <code>Retrofit</code> permite acceder a HTTP API.</p>
+<p>La librería <code>Glide</code> permite cargar imágenes.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Añade las librerías <code>Retrofit</code> y <code>Glide</code> en las dependencias <code>build.gradle (Module: app)</code>:</p>
+<pre><code>implementation &#39;com.squareup.retrofit2:retrofit:2.4.0&#39;
+implementation &#39;com.squareup.retrofit2:converter-gson:2.4.0&#39;
+implementation &#39;com.google.code.gson:gson:2.8.5&#39;
+
+implementation &#39;com.github.bumptech.glide:glide:4.8.0&#39;
+annotationProcessor &#39;com.github.bumptech.glide:compiler:4.8.0&#39;</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="MoviedbAPI" duration="0">
+        <h2>API Model</h2>
+<pre><code>public class Movie {
+   public int id;
+
+   public String title;
+   public String overview;
+   public float rating;
+   public String poster_path;
+}</code></pre>
+<pre><code>import java.util.List;
+
+public class MoviesList {
+   public int total_pages;
+
+   public List&lt;Movie&gt; results;
+}</code></pre>
+<h2>API Calls</h2>
+<pre><code>import retrofit2.Call;
+import retrofit2.http.GET;
+
+public interface MoviedbAPI {
+   @GET(&#34;/3/discover/movie&#34;)
+   Call&lt;MoviesList&gt; getMovies();
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="RetrofitModule" duration="0">
+        <p>Sustituye &#34;YOUR_API_KEY&#34; por tu clave API.</p>
+<pre><code>import android.util.Log;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class MoviedbModule {
+   static MoviedbAPI moviedbAPI;
+
+   public static MoviedbAPI getAPI(){
+       if(moviedbAPI == null){
+           final OkHttpClient client = new OkHttpClient.Builder()
+                   .addInterceptor(new LoggingInterceptor())
+                   .addInterceptor(new ApiKeyInterceptor())
+                   .connectTimeout(15, TimeUnit.SECONDS)
+                   .readTimeout(15,TimeUnit.SECONDS)
+                   .build();
+
+           Retrofit retrofit = new Retrofit.Builder()
+                   .baseUrl(&#34;http://api.themoviedb.org/&#34;)
+                   .client(client)
+                   .addConverterFactory(GsonConverterFactory.create())
+                   .build();
+
+           moviedbAPI = retrofit.create(MoviedbAPI.class);
+       }
+       return moviedbAPI;
+   }
+}
+
+class ApiKeyInterceptor implements Interceptor {
+   @Override
+   public okhttp3.Response intercept(Chain chain) throws IOException {
+       Request original = chain.request();
+       HttpUrl originalHttpUrl = original.url();
+
+       HttpUrl url = originalHttpUrl.newBuilder()
+               .addQueryParameter(&#34;api_key&#34;, &#34;YOUR_API_KEY&#34;)
+               .build();
+
+       Request.Builder requestBuilder = original.newBuilder()
+               .url(url);
+
+       Request request = requestBuilder.build();
+       return chain.proceed(request);
+   }
+}
+
+class LoggingInterceptor implements Interceptor {
+   @Override public okhttp3.Response intercept(Interceptor.Chain chain) throws IOException {
+       Request request = chain.request();
+
+       long t1 = System.nanoTime();
+       Log.e(&#34;INTERCEPTOR&#34;, String.format(&#34;Sending request %s on %s%n%s&#34;,
+               request.url(), chain.connection(), request.headers()));
+
+       okhttp3.Response response = chain.proceed(request);
+
+       long t2 = System.nanoTime();
+       Log.e(&#34;INTERCEPTOR---&#34;, String.format(&#34;Received response for %s in %.1fms%n%s&#34;,
+               response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+
+       return response;
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="App architecture" duration="0">
+        <p><img style="max-width: 367.00px" src="img\7ddb40a483beaed6.png"></p>
+<h2>Repository</h2>
+<pre><code>import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MoviedbRepository {
+   MoviedbAPI moviedbAPI;
+
+   public MoviedbRepository(){
+       moviedbAPI = MoviedbModule.getAPI();
+   }
+
+   public LiveData&lt;List&lt;Movie&gt;&gt; getMovies(){
+       final MutableLiveData&lt;List&lt;Movie&gt;&gt; data = new MutableLiveData&lt;&gt;();
+
+       moviedbAPI.getMovies().enqueue(new Callback&lt;MoviesList&gt;() {
+           @Override
+           public void onResponse(Call&lt;MoviesList&gt; call, Response&lt;MoviesList&gt; response) {
+               data.setValue(response.body().results);
+           }
+
+           @Override
+           public void onFailure(Call&lt;MoviesList&gt; call, Throwable t) {
+           }
+       });
+
+       return data;
+   }
+}</code></pre>
+<h2>ViewModel</h2>
+<pre><code>import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
+import java.util.List;
+
+public class MainViewModel extends AndroidViewModel {
+   private MoviedbRepository moviedbRepository;
+
+   public MainViewModel(@NonNull Application application) {
+       super(application);
+       moviedbRepository = new MoviedbRepository();
+   }
+
+   public LiveData&lt;List&lt;Movie&gt;&gt; getMovies(){
+       return moviedbRepository.getMovies();
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="GlideModule" duration="0">
+        <pre><code>import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+
+@GlideModule
+public final class MyAppGlideModule extends AppGlideModule {}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="MainActivity &#43; RecyclerView" duration="0">
+        <p><code>main_activity.xml</code></p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;android.support.constraint.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;&gt;
+
+   &lt;android.support.v7.widget.RecyclerView
+       android:id=&#34;@+id/movieList&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34; /&gt;
+
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+<p><code>item_movie.xml</code></p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;LinearLayout
+   xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;wrap_content&#34;
+   android:orientation=&#34;vertical&#34;&gt;
+   &lt;TextView
+       android:id=&#34;@+id/movieTitle&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34; /&gt;
+   &lt;ImageView
+       android:id=&#34;@+id/movieImage&#34;
+       android:layout_width=&#34;wrap_content&#34;
+       android:layout_height=&#34;wrap_content&#34; /&gt;
+&lt;/LinearLayout&gt;</code></pre>
+<p><code>RecyclerView.Adapter</code></p>
+<pre><code>import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MovieListAdapter extends RecyclerView.Adapter&lt;MovieListAdapter.MovieListViewHolder&gt;{
+   public List&lt;Movie&gt; movieList = new ArrayList&lt;&gt;();
+
+   @NonNull
+   @Override
+   public MovieListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
+       return new MovieListViewHolder(view);
+   }
+
+   @Override
+   public void onBindViewHolder(@NonNull MovieListViewHolder holder, int position) {
+       Movie movie = movieList.get(position);
+
+       holder.title.setText(movie.title);
+       GlideApp.with(holder.itemView.getContext()).load(&#34;https://image.tmdb.org/t/p/w500/&#34; + movie.poster_path).into(holder.poster);
+   }
+
+   @Override
+   public int getItemCount() {
+       return movieList.size();
+   }
+
+   class MovieListViewHolder extends RecyclerView.ViewHolder {
+       TextView title;
+       ImageView poster;
+       public MovieListViewHolder(View itemView) {
+           super(itemView);
+           title = itemView.findViewById(R.id.movieTitle);
+           poster = itemView.findViewById(R.id.movieImage);
+       }
+   }
+}</code></pre>
+<p><code>MainActivity</code></p>
+<pre><code>import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+   private MainViewModel mViewModel;
+   private RecyclerView mRecyclerView;
+   private MovieListAdapter mMovieListAdapter;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.main_activity);
+
+       mRecyclerView = findViewById(R.id.movieList);
+       mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+       mMovieListAdapter = new MovieListAdapter();
+       mRecyclerView.setAdapter(mMovieListAdapter);
+
+       mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+       mViewModel.getMovies().observe(this, new Observer&lt;List&lt;Movie&gt;&gt;() {
+           @Override
+           public void onChanged(@Nullable List&lt;Movie&gt; movies) {
+               mMovieListAdapter.movieList = movies;
+               mMovieListAdapter.notifyDataSetChanged();
+           }
+       });
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>
