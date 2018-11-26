@@ -85,7 +85,7 @@ annotationProcessor &#39;com.github.bumptech.glide:compiler:4.8.0&#39;</code></p
 <p>Se observa que la respuesta es un objeto que contiene las siguientes variables:</p>
 <ul>
 <li><code>page</code> de tipo <code>int</code></li>
-<li><code>total_pages</code> de tipo int</li>
+<li><code>total_pages</code> de tipo <code>int</code></li>
 <li><code>results</code> de tipo <code>ArrayList</code></li>
 </ul>
 <p>Cada elemento del array &#34;results&#34; es un objeto que contiene la siguientes variables:</p>
@@ -209,8 +209,8 @@ class LoggingInterceptor implements Interceptor {
         <p><img style="max-width: 367.00px" src="img\7ddb40a483beaed6.png"></p>
 <h2>Repository</h2>
 <p>El repositorio realiza una llamada al método <code>getMovies()</code> de la <code>MoviedbAPI</code>, para obtener la lista de películas.</p>
-<p>En un prinicpio se retorna la variable lista vacía (sin películas), y cuando se recibe la respuesta desde <a href="http://themoviedb.org" target="_blank">TheMoviedb.org</a>, se rellena con las películas recibidas.</p>
-<aside class="special"><p>Desde la <code>MainActivity</code> se observara esta variable, y en el momento en que se rellene, se actualizará el <code>RecyclerView</code>.</p>
+<p>En un prinicpio se retorna la variable <code>lista</code> vacía (sin películas), y cuando se recibe la respuesta desde <a href="http://themoviedb.org" target="_blank">TheMoviedb.org</a>, se rellena con las películas recibidas.</p>
+<aside class="special"><p>Desde la <code>MainActivity</code> se observara esta variable <code>lista</code> que se retorna, y en el momento en que se rellene, se actualizará el <code>RecyclerView</code>.</p>
 </aside>
 <pre><code>import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
