@@ -25,9 +25,10 @@
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p>El objetivo de esta práctica es explicar las librería <a href="https://square.github.io/retrofit/" target="_blank">Retrofit</a> y <a href="https://github.com/bumptech/glide" target="_blank">Glide</a>.</p>
+        <p>El objetivo de esta práctica es aprender a usar las librerías <a href="https://square.github.io/retrofit/" target="_blank">Retrofit</a> y <a href="https://github.com/bumptech/glide" target="_blank">Glide</a>.</p>
 <p>La librería <code>Retrofit</code> permite acceder a HTTP API.</p>
 <p>La librería <code>Glide</code> permite cargar imágenes.</p>
+<p><img style="max-width: 291.21px" src="img\4f475a42f135ca0e.png"></p>
 
 
       </google-codelab-step>
@@ -46,22 +47,71 @@ annotationProcessor &#39;com.github.bumptech.glide:compiler:4.8.0&#39;</code></p
     
       <google-codelab-step label="MoviedbAPI" duration="0">
         <h2>API Model</h2>
+<p>La respuesta de la llamada a la API <a href="http://api.themoviedb.org/3/discover/movie?api_key=YOUR_API_KEY" target="_blank"><code>http://api.themoviedb.org/3/discover/movie?api_key=YOUR_API_KEY</code></a> es similar a la siguiente:</p>
+<pre><code>{
+  &#34;page&#34;: 1,
+  &#34;total_pages&#34;: 19484,
+  &#34;results&#34;: 
+  [
+    {
+      &#34;vote_count&#34;: 1298,
+      &#34;id&#34;: 338952,
+      &#34;vote_average&#34;: 7.1,
+      &#34;title&#34;: &#34;Fantastic Beasts: The Crimes of Grindelwald&#34;,
+       &#34;poster_path&#34;: &#34;\/uyJgTzAsp3Za2TaPiZt2yaKYRIR.jpg&#34;,
+      &#34;overview&#34;: &#34;Gellert Grindelwald has escaped imprisonment...&#34;,
+      &#34;release_date&#34;: &#34;2018-11-14&#34;
+    },
+    {
+      &#34;vote_count&#34;: 2381,
+      &#34;id&#34;: 335983,
+      &#34;vote_average&#34;: 6.5,
+      &#34;title&#34;: &#34;Venom&#34;,
+      &#34;poster_path&#34;: &#34;\/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg&#34;,
+      &#34;overview&#34;: &#34;When Eddie Brock acquires the powers of a symbiote...&#34;,
+      &#34;release_date&#34;: &#34;2018-10-03&#34;
+    },
+    {
+      &#34;vote_count&#34;: 68,
+      &#34;id&#34;: 507569,
+      &#34;vote_average&#34;: 5.9,
+      &#34;title&#34;: &#34;The Seven Deadly Sins: Prisoners of the Sky&#34;,
+      &#34;poster_path&#34;: &#34;\/r6pPUVUKU5eIpYj4oEzidk5ZibB.jpg&#34;,
+      &#34;overview&#34;: &#34;Traveling in search of the rare ingredient...&#34;,
+      &#34;release_date&#34;: &#34;2018-08-18&#34;
+    }
+  ]
+}</code></pre>
+<p>Se observa que la respuesta es un objeto que contiene las siguientes variables:</p>
+<ul>
+<li><code>page</code> de tipo <code>int</code></li>
+<li><code>total_pages</code> de tipo int</li>
+<li><code>results</code> de tipo <code>ArrayList</code></li>
+</ul>
+<p>Cada elemento del array &#34;results&#34; es un objeto que contiene la siguientes variables:</p>
+<ul>
+<li><code>vote_count</code> de tipo <code>int</code></li>
+<li><code>id</code> de tipo <code>int</code></li>
+<li><code>vote_average</code> de tipo <code>float</code></li>
+<li><code>title</code> de tipo <code>String</code></li>
+<li><code>poster_path</code> de tipo <code>String</code></li>
+<li><code>overview</code> de tipo <code>String</code></li>
+<li><code>release_date</code> de tipo <code>String</code></li>
+</ul>
+<p>Así pues podemos modelar estos objetos que retorna la API con las siguientes clases, cogiendo solamente los campos que nos interesan.</p>
 <pre><code>public class Movie {
    public int id;
 
    public String title;
-   public String overview;
-   public float rating;
    public String poster_path;
 }</code></pre>
 <pre><code>import java.util.List;
 
 public class MoviesList {
-   public int total_pages;
-
    public List&lt;Movie&gt; results;
 }</code></pre>
 <h2>API Calls</h2>
+<p>Definimos las llamadas a la API en un Interface</p>
 <pre><code>import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -74,7 +124,12 @@ public interface MoviedbAPI {
       </google-codelab-step>
     
       <google-codelab-step label="RetrofitModule" duration="0">
-        <p>Sustituye &#34;YOUR_API_KEY&#34; por tu clave API.</p>
+        <aside class="warning"><p>Sustituye &#34;<code>YOUR_API_KEY</code>&#34; por tu clave API.</p>
+</aside>
+<p>Esta clase <code>MovidbModule</code>, no servirá para obtener el interface <code>MoviedbAPI</code>.</p>
+<p>Cabe destacar el método <code>baseUrl()</code> al cual le pasamos la URL de la API the <a href="http://themoviedb.org" target="_blank">TheMovieDb.org</a>.</p>
+<p>También se ha añadido un Interceptor, llamado <code>ApiKeyInterceptor</code> que interceptará cada llamada a la API, para añadirle el parámetro <code>api_key</code>.</p>
+<p>Por último se ha añadido otro interceptor llamado LoggingInterceptor, con el único propósito de mostrar en el LogCat cada llamada que se realiza a la API.</p>
 <pre><code>import android.util.Log;
 
 import java.io.IOException;
@@ -153,6 +208,10 @@ class LoggingInterceptor implements Interceptor {
       <google-codelab-step label="App architecture" duration="0">
         <p><img style="max-width: 367.00px" src="img\7ddb40a483beaed6.png"></p>
 <h2>Repository</h2>
+<p>El repositorio realiza una llamada al método <code>getMovies()</code> de la <code>MoviedbAPI</code>, para obtener la lista de películas.</p>
+<p>En un prinicpio se retorna la variable lista vacía (sin películas), y cuando se recibe la respuesta desde <a href="http://themoviedb.org" target="_blank">TheMoviedb.org</a>, se rellena con las películas recibidas.</p>
+<aside class="special"><p>Desde la <code>MainActivity</code> se observara esta variable, y en el momento en que se rellene, se actualizará el <code>RecyclerView</code>.</p>
+</aside>
 <pre><code>import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import java.util.List;
@@ -168,12 +227,12 @@ public class MoviedbRepository {
    }
 
    public LiveData&lt;List&lt;Movie&gt;&gt; getMovies(){
-       final MutableLiveData&lt;List&lt;Movie&gt;&gt; data = new MutableLiveData&lt;&gt;();
+       final MutableLiveData&lt;List&lt;Movie&gt;&gt; lista = new MutableLiveData&lt;&gt;();
 
        moviedbAPI.getMovies().enqueue(new Callback&lt;MoviesList&gt;() {
            @Override
            public void onResponse(Call&lt;MoviesList&gt; call, Response&lt;MoviesList&gt; response) {
-               data.setValue(response.body().results);
+               lista.setValue(response.body().results);
            }
 
            @Override
@@ -181,7 +240,7 @@ public class MoviedbRepository {
            }
        });
 
-       return data;
+       return lista;
    }
 }</code></pre>
 <h2>ViewModel</h2>
@@ -208,11 +267,15 @@ public class MainViewModel extends AndroidViewModel {
       </google-codelab-step>
     
       <google-codelab-step label="GlideModule" duration="0">
-        <pre><code>import com.bumptech.glide.annotation.GlideModule;
+        <p>Esta clase nos permitirá utilizar la librería Glide para cargar imágenes.</p>
+<pre><code>import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
 
 @GlideModule
 public final class MyAppGlideModule extends AppGlideModule {}</code></pre>
+<aside class="special"><p>Las imágenes se cargarán para cada película en el Adaptador del RecyclerView de la siguiente manera:</p>
+<p><strong><code>GlideApp.</code></strong><strong><em><code>with</code></em></strong><strong><code>(context).load(imageUrl).into(&lt;ImageView&gt;);</code></strong></p>
+</aside>
 
 
       </google-codelab-step>
@@ -247,6 +310,7 @@ public final class MyAppGlideModule extends AppGlideModule {}</code></pre>
        android:layout_height=&#34;wrap_content&#34; /&gt;
 &lt;/LinearLayout&gt;</code></pre>
 <p><code>RecyclerView.Adapter</code></p>
+<p>Cuando se rellena un elemento de la lista (una película), se carga su Póster en el ImageView:</p>
 <pre><code>import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
