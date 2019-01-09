@@ -1,0 +1,106 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Firebase</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Firebase"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="2">
+        <p><a href="https://console.firebase.google.com/" target="_blank">https://console.firebase.google.com/</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte Android" duration="2">
+        <p>Crea un nou projecte a <strong>Android Studio</strong>.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte Firebase" duration="2">
+        <p>Accedeix a la consola Firebase i crea un nou projecte.</p>
+<p><img style="max-width: 334.00px" src="img\42b1c2cec613eb62.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Registra l&#39;aplicació" duration="2">
+        <p>Afegeix l&#39;aplicació al projecte Firebase</p>
+<p><img style="max-width: 389.00px" src="img\e24ec4be43fb3108.png"></p>
+<p><img style="max-width: 736.40px" src="img\cbf9326adfe8ac0e.png"></p>
+<p>Obté l&#39;empremta SHA-1 amb la següent comanda:</p>
+<p>LINUX:</p>
+<pre>keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore</pre>
+<p>WINDOWS:</p>
+<pre>keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore</pre>
+<aside class="warning"><p>L&#39;executable <code>keytool</code> es troba habitualment a  <code>c:\Program Files\Java\jdkX.X.X\bin\</code></p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Descarrega l&#39;arxiu de configuració" duration="2">
+        <p><img style="max-width: 680.00px" src="img\6ca013819fcacbb1.png"></p>
+<p>Canvia a la<strong> vista Projecte </strong>d&#39;Android Studio i arrossega l&#39;arxiu <code>google-services.json</code> al directori &#34;<strong>app</strong>&#34;</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Afegeix l&#39;SDK de Firebase" duration="2">
+        <p>Segueix les instruccions indicades a la consola Firebase</p>
+<p><img style="max-width: 672.00px" src="img\57050c80ef2f3aa3.png"></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>
