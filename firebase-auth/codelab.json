@@ -1,14 +1,14 @@
 {
   "environment": "web",
-  "source": "1ZqvAKTGI5cogbQc5nsJQYcSB5XSLX93dvt6h7Kdy7W4",
+  "source": "17S4TBpvwJr8t2oHA-ssQ6vqfs5O_H32iph_I5i-pGm8",
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2019-01-10T09:02:34Z",
-  "id": "firebase",
-  "duration": 12,
-  "title": "Firebase",
-  "summary": "firebase",
+  "updated": "2019-01-10T09:20:46Z",
+  "id": "firebase-auth",
+  "duration": 8,
+  "title": "Firebase Authentication",
+  "summary": "firebase-auth",
   "theme": "android",
   "status": [
     "draft"
@@ -18,5 +18,5 @@
   ],
   "tags": [],
   "feedback": "https://github.com/gerardfp",
-  "url": "firebase"
+  "url": "firebase-auth"
 }
