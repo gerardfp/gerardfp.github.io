@@ -53,6 +53,43 @@
         <pre><code>{
   &#34;posts&#34; : {
     &#34;all-posts&#34; :{
+      $PostId : true,
+    },
+    &#34;data&#34; :{
+      $PostId: {
+        &#34;author&#34;: String,
+        &#34;authorPhotoUrl&#34;: String,
+        &#34;content&#34;: String,
+        &#34;likes&#34; : {
+          $UserId: true
+        },
+        &#34;mediaType&#34;:  &#34;video&#34; | &#34;image&#34; | &#34;audio&#34;,
+        &#34;mediaUrl&#34;: String
+      }
+    },
+    &#34;user-likes&#34;: {
+      $UserId: {
+        $PostId: true
+      }
+    },
+    &#34;user-posts&#34;: {
+      $UserId: {
+        $PostId: true
+      }
+    }
+  },
+  &#34;users&#34;: {
+    $UserId : {
+      &#34;displayName&#34;: String,
+      &#34;email&#34;: String,
+      &#34;photoUrl&#34;: String
+    }
+  }
+}</code></pre>
+<p>Ejemplo:</p>
+<pre><code>{
+  &#34;posts&#34; : {
+    &#34;all-posts&#34; :{
       &#34;Post789KqRkS&#34; : true,
       &#34;Post234EeIOa&#34; : true
     },
