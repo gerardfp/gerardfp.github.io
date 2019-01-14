@@ -49,6 +49,67 @@
 
       </google-codelab-step>
     
+      <google-codelab-step label="Estructura de la base de dades" duration="0">
+        <pre><code>{
+  &#34;posts&#34; : {
+    &#34;all-posts&#34; :{
+      &#34;Post789KqRkS&#34; : true,
+      &#34;Post234EeIOa&#34; : true
+    },
+    &#34;data&#34; :{
+      &#34;Post789KqRkS&#34;: {
+        &#34;author&#34;: &#34;Jose Perez&#34;,
+        &#34;authorPhotoUrl&#34;: &#34;https://goo.gl/Uu45.jpg&#34;,
+        &#34;content&#34;: &#34;Hello posts!&#34;,
+        &#34;mediaType&#34;: &#34;video&#34;,
+        &#34;mediaUrl&#34;: &#34;https://fbase.com/Pp65D.mp4&#34;,
+      },
+      &#34;Post234EeIOa&#34;: {
+        &#34;author&#34;: &#34;Juan Lopez&#34;,
+        &#34;authorPhotoUrl&#34;: &#34;https://goo.gl/Ss56.jpg&#34;,
+        &#34;content&#34;: &#34;Hello posts!&#34;,
+        &#34;likes&#34; : {
+          &#34;U456qMkJk&#34;: true,
+          &#34;U123oUeIA&#34;: true
+        },
+        &#34;mediaType&#34;: &#34;video&#34;,
+        &#34;mediaUrl&#34;: &#34;https://fbase.com/Tt65D.mp4&#34;
+      }
+    },
+    &#34;user-likes&#34;: {
+      &#34;U456qMkJk&#34;: {
+        &#34;Post234EeIOa&#34;: true
+      },
+      &#34;U123oUeIA&#34;: {
+        &#34;Post234EeIOa&#34;: true
+      }
+    },
+    &#34;user-posts&#34;: {
+      &#34;U456qMkJk&#34;: {
+        &#34;Post789KqRkS&#34;: true
+      },
+      &#34;U123oUeIA&#34;: {
+        &#34;Post234EeIOa&#34;: true
+      }
+    }
+  },
+  &#34;users&#34;: {
+    &#34;U456qMkJk&#34; : {
+      &#34;displayName&#34;: &#34;Jose Perez&#34;,
+      &#34;email&#34;: &#34;jperez@gmail.com&#34;,
+      &#34;photoUrl&#34;: &#34;https://goo.gl/Uu45.jpg&#34;
+    },
+    &#34;U123oUeIA&#34; : {
+      &#34;displayName&#34;: &#34;Juan Lopez&#34;,
+      &#34;email&#34;: &#34;jlopez@gmail.com&#34;,
+      &#34;photoUrl&#34;: &#34;https://goo.gl/Ss56.jpg&#34;
+    }
+  }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
   </google-codelab>
 
   <script>
