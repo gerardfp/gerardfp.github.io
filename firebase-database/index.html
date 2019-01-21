@@ -147,6 +147,85 @@
 
       </google-codelab-step>
     
+      <google-codelab-step label="Leer y escribir en la base de datos" duration="0">
+        <aside class="special"><p>Consulta la documentación de firebase: <a href="https://firebase.google.com/docs/database/android/read-and-write" target="_blank">https://firebase.google.com/docs/database/android/read-and-write</a> </p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="FirebaseRecyclerAdapter" duration="0">
+        <p>La clase <a href="https://github.com/firebase/FirebaseUI-Android/tree/master/database" target="_blank">FirebaseRecyclerAdapter</a> es una extensión del  <code>RecyclerView.Adapter</code> (ver práctica <a href="https://gerardfp.github.io/recyclerview/" target="_blank">RecyclerView</a>), diseñado para consultar en la Realtime-Database los datos con los que se ha de rellenar un <code>RecyclerView</code>.</p>
+<p>A diferencia del <code>RecyclerView.Adapter</code>, en el que el origen de datos lo teníamos que programar nosotros (por ejemplo, un <code>ArrayList</code>), con el <code>FirebaseRecyclerAdapter</code> el origen de los datos es una consulta en la base de datos. El <code>FirebaseRecyclerAdapter</code> rellenará cada ítem de la lista con los objetos que retorna la consulta.</p>
+<p>Para crear un <code>FirebaseRecyclerAdapter</code> es necesario definir:</p>
+<ul>
+<li>El ViewHolder</li>
+<li>La consulta</li>
+</ul>
+<h2>ViewHolder</h2>
+<p>Empecemos primero definiendo el <code>ViewHolder</code> para mostrar un <code>Post</code>:</p>
+<pre><code>import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+public class PostViewHolder extends RecyclerView.ViewHolder {
+    public ImageView authorPhoto;
+    public TextView author;
+    public TextView content;
+
+    public PostViewHolder(View itemView) {
+        super(itemView);
+
+        authorPhoto = itemView.findViewById(R.id.authorPhoto);
+        author = itemView.findViewById(R.id.author);
+        content = itemView.findViewById(R.id.content);
+    }
+}</code></pre>
+<h2>Query</h2>
+<p>La consulta que debe realizar el <code>FirebaseRecyclerAdapter</code> se define en un objeto de clase <code>FirebaseRecyclerOptions</code>.</p>
+<p>Se han de especificar tres aspectos:</p>
+<ul>
+<li><code>keyQuery</code> : La localización que contiene la lista de <code>keys</code> que se han de buscar en <code>dataRef.</code></li>
+</ul>
+<p>En nuestro caso, si queremos mostrar todos los posts, la keyQuery es &#34;posts/all-posts&#34;, que es donde se encuentran las keys de todos los posts. Si quisiéramos mostrar los posts de un usuario en concreto, la keyQuery sería &#34;posts/user-posts/$userId&#34;</p>
+<ul>
+<li><code>dataRef</code> : La localización de los datos que hay que consultar. Cada <code>key</code> encontrada en <code>keyQuery</code> representa un item de la lista</li>
+</ul>
+<p>En nuestro caso, los datos de los posts están en &#34;posts/data&#34;.</p>
+<ul>
+<li>La clase de los ítems de datos</li>
+</ul>
+<p>En nuestro caso, la clase de cada objecto en &#34;posts/data&#34; es la clase <code>Post.class</code>.</p>
+<pre><code>FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder&lt;Post&gt;()
+        .setIndexedQuery(
+                FirebaseDatabase.getInstance().getReference().child(&#34;posts/all-posts&#34;),      
+                FirebaseDatabase.getInstance().getReference().child(&#34;posts/data&#34;), 
+                Post.class)
+        .setLifecycleOwner(this)
+        .build();</code></pre>
+<aside class="warning"><p>El objeto pasado a <code>setLifecycleOwner()</code> debe ser una Activity o un Fragment al cual se ligará la consulta. Es decir, la consulta permanecerá activa mientras permanezca activa la Activity o el Fragment.</p>
+</aside>
+<h2>FirebaseRecyclerAdapter</h2>
+<p>Ahora que tenemos la <code>Query</code> y el <code>ViewHolder</code> definidos, ya podemos crear el adaptador:</p>
+<pre><code>FirebaseRecyclerAdapter firebaseRecyclerAdapter = new FirebaseRecyclerAdapter&lt;Post, PostViewHolder&gt;(options) {
+            @Override
+            public PostViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+                View view = LayoutInflater.from(parent.getContext())
+                                .inflate(R.layout.post_item, parent, false);
+
+                return new PostViewHolder(view);
+            }
+
+            @Override
+            protected void onBindViewHolder(final PostViewHolder viewHolder, int position, final Post post) {
+                // rellenar el &#39;viewHolder&#39; con los datos del &#39;post&#39;
+            }
+        };</code></pre>
+
+
+      </google-codelab-step>
+    
   </google-codelab>
 
   <script>
