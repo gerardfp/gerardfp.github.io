@@ -1,0 +1,101 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>MediaStore</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="MediaStore"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="2">
+        <p>The Media provider contains meta data for all available media on both internal and external storage devices. </p>
+<p><a href="https://developer.android.com/reference/android/provider/MediaStore" target="_blank">https://developer.android.com/reference/android/provider/MediaStore</a> </p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ACTION PICK" duration="2">
+        <p>Definir los requestCode:</p>
+<pre><code>static final int RC_IMAGE_PICK = 9000;
+static final int RC_VIDEO_PICK = 9001;
+static final int RC_AUDIO_PICK = 9002;</code></pre>
+<p>Iniciar la Galería para seleccionar Image/Video/Audio</p>
+<pre><code>startActivityForResult(Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI), RC_IMAGE_PICK);
+
+startActivityForResult(Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI), RC_IMAGE_PICK);
+
+startActivityForResult(Intent(Intent.ACTION_PICK, android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI), RC_IMAGE_PICK);</code></pre>
+<p>Obtener la URI del archivo seleccionado:</p>
+<pre><code>@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+            if(data != null) {
+          mediaUri = data.getData();
+
+                if (requestCode == RC_IMAGE_PICK) {
+           
+           } else if (requestCode == RC_VIDEO_PICK) {
+            
+                } else if (requestCode == RC_AUDIO_PICK) {
+            
+                }
+            }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ACTION CAPTURE" duration="0">
+        
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>

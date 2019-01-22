@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1NcnXN6Qi01MWKe8k4kjjU91olrHz0T1heXSZCuSIhg0",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-01-22T18:02:24Z",
+  "id": "mediastore",
+  "duration": 4,
+  "title": "MediaStore",
+  "summary": "mediastore",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mediastore"
+}
