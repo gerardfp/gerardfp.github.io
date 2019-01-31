@@ -1,0 +1,593 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Java Development Kit</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Java Development Kit"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p>El Java Development Kit proporciona herramientas de desarrollo para la creación de programas JAVA.</p>
+<p>Nos centraremos en los dos siguientes componentes:</p>
+<ul>
+<li><strong>javac </strong>- es el compilador</li>
+<li><strong>java </strong>- es el lanzador de aplicaciones (ejecuta las aplicaciones en la máquina virtual JVM)</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Obtenir el JDK" duration="0">
+        <p>⏩Descarrega el JDK</p>
+<p>Trobarás el JDK oficial d&#39;Oracle al següent enllaç: </p>
+<p><a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank"><paper-button class="colored" raised>Oracle Java Development Kit (JD)</paper-button></a></p>
+<aside class="warning"><p><strong>Important</strong>: Has de tenir en compte l&#39;arquitectura de l&#39;ordinador (x84/x64) i el Sistema Operatiu.</p>
+</aside>
+<p>Comprueba que se ha descargado el archivo en la carpeta <code>Descargas</code> (o <code>Baixades</code>)</p>
+<p>⏩Descomprime el archivo en tu <code>$HOME</code></p>
+<p>Abre el archivo descargado con el Gestor de Archivadores y extrae el contenido en tu Carpeta Personal</p>
+<p>⏩Prueba el compilador y el intérprete</p>
+<p>Comprueba que puedes ejecutar el compilador y el intérprete, haciendo que muestren su versión. Para ello, abre un terminal y ejecuta los siguientes comandos:</p>
+<p>1 - Ejecuta el compilador con la opción que muestra la versión</p>
+<p>~$ jdk1.8.0_144/bin/javac -version</p>
+<p>Comprueba que muestra la versión</p>
+<p>2 - Ejecuta el intérprete con la opción que muestra la versión</p>
+<p>~$ jdk1.8.0_144/bin/java -version</p>
+<p>Comprueba, de nuevo, que muestra la versión</p>
+<p><img style="max-width: 722.00px" src="img/ced9aeadbdf507a9.png"></p>
+<p><img style="max-width: 717.00px" src="img/aa1daa3c5931cff3.png"></p>
+<aside class="warning"><p>Observa que al seleccionar esta plantilla, Android Studio ha añadido automáticamente la biblioteca &#34;Design&#34;:</p>
+<p><code>implementation </code><strong><code>&#39;com.android.support:design:27.1.1&#39;</code></strong></p>
+</aside>
+<p>Añade los siguientes componentes en las dependencias <code>build.gradle (Module: app)</code>:</p>
+<pre><code>implementation &#39;com.android.support:cardview-v7:27.1.1&#39;
+implementation &#39;com.android.support:recyclerview-v7:27.1.1&#39;
+
+implementation &#39;android.arch.lifecycle:extensions:1.1.1&#39;
+annotationProcessor &#39;android.arch.lifecycle:compiler:1.1.1&#39;
+
+implementation &#39;android.arch.persistence.room:runtime:1.1.1&#39;
+annotationProcessor &#39;android.arch.persistence.room:compiler:1.1.1&#39;</code></pre>
+<aside class="special"><p>Para obtener los números de versión actualizados: <a href="https://developer.android.com/topic/libraries/architecture/adding-components" target="_blank">adding components to your project</a>.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="App Architecture" duration="0">
+        <h2>Entities</h2>
+<pre><code>import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+
+@Entity
+public class Poem {
+   @PrimaryKey (autoGenerate = true)
+   public int id;
+
+   public String author;
+   public String title;
+   public String content;
+   public float rating;
+   public String date;
+}</code></pre>
+<h2>Dao</h2>
+<pre><code>import android.arch.lifecycle.LiveData;
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.Query;
+import java.util.List;
+
+
+@Dao
+public abstract class PoemDAO {
+
+   @Insert
+   abstract void insert(Poem poem);
+
+   @Query(&#34;SELECT * FROM poem&#34;)
+   abstract LiveData&lt;List&lt;Poem&gt;&gt; getAllPoems();
+
+   @Query(&#34;SELECT * FROM poem ORDER BY date DESC&#34;)
+   abstract LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByDate();
+
+   @Query(&#34;SELECT * FROM poem ORDER BY title&#34;)
+   abstract LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByTitle();
+
+   @Query(&#34;SELECT * FROM poem ORDER BY rating DESC&#34;)
+   abstract LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByRating();
+
+   @Query(&#34;SELECT * FROM poem WHERE id = :id&#34;)
+   abstract LiveData&lt;Poem&gt; getPoem(int id);
+
+   @Query(&#34;UPDATE poem SET rating=:rating WHERE id=:id&#34;)
+   abstract void setRating(int id, float rating);
+
+   @Query(&#34;DELETE FROM poem&#34;)
+   abstract void deleteAllPoems();
+}</code></pre>
+<h2>Database</h2>
+<pre><code>import android.arch.persistence.room.Database;
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
+import android.content.Context;
+
+
+@Database(entities = {Poem.class}, version = 1)
+public abstract class PoemRoomDatabase extends RoomDatabase {
+
+   public abstract PoemDAO poemDAO();
+
+   private static volatile PoemRoomDatabase INSTANCE;
+
+   static PoemRoomDatabase getDatabase(final Context context) {
+       if (INSTANCE == null) {
+           synchronized (PoemRoomDatabase.class) {
+               if (INSTANCE == null) {
+                   INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                           PoemRoomDatabase.class, &#34;poem_database&#34;)
+                           .fallbackToDestructiveMigration()
+                           .build();
+               }
+           }
+       }
+       return INSTANCE;
+   }
+}</code></pre>
+<h2>Repository</h2>
+<pre><code>import android.app.Application;
+import android.arch.lifecycle.LiveData;
+import android.os.AsyncTask;
+import java.util.List;
+
+
+public class PoemRepository {
+
+   private PoemDAO mPoemDao;
+
+   PoemRepository(Application application) {
+       mPoemDao = PoemRoomDatabase.getDatabase(application).poemDAO();
+   }
+
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoems() {
+       return mPoemDao.getAllPoems();
+   }
+
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByTitle() {
+       return mPoemDao.getAllPoemsOrderedByTitle();
+   }
+
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByDate() {
+       return mPoemDao.getAllPoemsOrderedByDate();
+   }
+
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByRating() {
+       return mPoemDao.getAllPoemsOrderedByRating();
+   }
+
+   LiveData&lt;Poem&gt; getPoem(int id){ return mPoemDao.getPoem(id); }
+
+   public void insert(Poem poem) {
+       new InsertAsyncTask(mPoemDao).execute(poem);
+   }
+
+   private static class InsertAsyncTask extends AsyncTask&lt;Poem, Void, Void&gt; {
+
+       private PoemDAO mAsyncTaskDao;
+
+       InsertAsyncTask(PoemDAO dao) {
+           mAsyncTaskDao = dao;
+       }
+
+       @Override
+       protected Void doInBackground(final Poem... params) {
+           mAsyncTaskDao.insert(params[0]);
+           return null;
+       }
+   }
+
+   public void setRating(Poem poem){
+       new SetRatingAsyncTask(mPoemDao).execute(poem);
+   }
+
+   private static class SetRatingAsyncTask extends AsyncTask&lt;Poem, Void, Void&gt; {
+
+       private PoemDAO mAsyncTaskDao;
+
+       SetRatingAsyncTask(PoemDAO dao) {
+           mAsyncTaskDao = dao;
+       }
+
+       @Override
+       protected Void doInBackground(final Poem... poems) {
+           mAsyncTaskDao.setRating(poems[0].id, poems[0].rating);
+           return null;
+       }
+   }
+
+   public void deleteAllPoems(){
+       new DeleteAsyncTask(mPoemDao).execute();
+   }
+
+   private static class DeleteAsyncTask extends AsyncTask&lt;Poem, Void, Void&gt; {
+
+       private PoemDAO mAsyncTaskDao;
+
+       DeleteAsyncTask(PoemDAO dao) {
+           mAsyncTaskDao = dao;
+       }
+
+       @Override
+       protected Void doInBackground(final Poem... poems) {
+           mAsyncTaskDao.deleteAllPoems();
+           return null;
+       }
+   }
+}</code></pre>
+<h2>ViewModel</h2>
+<pre><code>import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
+import java.util.List;
+
+
+public class PoemViewModel extends AndroidViewModel {
+
+   private PoemRepository mRepository;
+
+   public PoemViewModel(Application application) {
+       super(application);
+       mRepository = new PoemRepository(application);
+   }
+
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoems() { return mRepository.getAllPoems(); }
+
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByTitle() { return mRepository.getAllPoemsOrderedByTitle(); }
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByDate() { return mRepository.getAllPoemsOrderedByDate(); }
+   LiveData&lt;List&lt;Poem&gt;&gt; getAllPoemsOrderedByRating() { return mRepository.getAllPoemsOrderedByRating(); }
+
+   LiveData&lt;Poem&gt; getPoem(int id){ return mRepository.getPoem(id); }
+
+   public void insertPoem(Poem poem) { mRepository.insert(poem); }
+
+   public void setRating(Poem poem) { mRepository.setRating(poem); }
+
+   public void deleteAllPoems() { mRepository.deleteAllPoems(); }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="MainActivity" duration="0">
+        <p>La &#34;Tabbed Activity&#34; que hemos creado a partir de la plantilla lleva mucho código predeterminado que no necesitamos, entre ellos un Fragment que muestra un Hello World, o un menu de opciones en la AppBar. Vamos a simplificarlo un poco y dejar únicamente lo que nos interesa.</p>
+<p>Borra toda la clase <code>MainActivity</code>, y deja solamente el siguiente código: </p>
+<pre><code>import android.arch.lifecycle.ViewModelProviders;
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Random;
+
+
+public class MainActivity extends AppCompatActivity {
+
+   private SectionsPagerAdapter mSectionsPagerAdapter;
+   private ViewPager mViewPager;
+   private PoemViewModel poemViewModel;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_main);
+
+       mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+       mViewPager = findViewById(R.id.container);
+       mViewPager.setAdapter(mSectionsPagerAdapter);
+
+       TabLayout tabLayout = findViewById(R.id.tabs);
+
+       mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+       tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+       poemViewModel = ViewModelProviders.of(MainActivity.this).get(PoemViewModel.class);
+   }
+
+   public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+       public SectionsPagerAdapter(FragmentManager fm) {
+           super(fm);
+       }
+
+       @Override
+       public Fragment getItem(int position) {
+           switch (position){
+               case 0: return new AZPoemListFragment();
+               case 1: return new NewestPoemListFragment();
+               case 2: return new TopRatedPoemListFragment();
+               default: return new AZPoemListFragment();
+           }
+       }
+
+       @Override
+       public int getCount() {
+           return 3;
+       }
+   }
+}</code></pre>
+<aside class="warning"><p>Se mostrará un error en el método <code>getItem()</code>, debido a que todavía no hemos creado las clases <code>AZPoemListFragment</code>, <code>NewestPoemListFragment</code> y <code>TopRatedPoemListFragment</code></p>
+</aside>
+<p>Para añadir datos &#34;random&#34; en la base de datos, podemos añadir un OnClickListener al FloatingActionButton para que nos rellene la base de datos cuando lo pulsemos:</p>
+<pre><code>findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+   @Override
+   public void onClick(View view) {
+
+       poemViewModel.deleteAllPoems();
+
+       for (int i = 0; i &lt; 20; i++) {
+           Poem poem = new Poem();
+           poem.author = &#34;Author &#34; + i;
+           poem.title = &#34;Title &#34; + i;
+           poem.rating = new Random().nextFloat()*5;
+           poem.date = new SimpleDateFormat(&#34;yyyyMMdd_HHmmss&#34;).format(Calendar.getInstance().getTime());
+           poemViewModel.insertPoem(poem);
+       }
+   }
+});</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="FragmentPagerAdapter, ViewPager y TabLayout" duration="0">
+        <p><img style="max-width: 736.40px" src="img/cbcf29397ba8c40e.png"></p>
+<p><code>ViewPager</code> permite al usuario hacer flip a izquierda y derecha a través de una serie de paginas.</p>
+<p><code>TabLayout</code> proporciona un layout horizontal para mostrar los tabs.</p>
+<p><code>FragmentPagerAdapter</code> es el encargado de determinar el Fragment que se ha de mostrar dentro del ViewPager en función del Tab seleccionado.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="PoemListFragment" duration="0">
+        <p>Ahora crearemos los tres Fragments que se mostrarán en el <code>ViewPager</code>.</p>
+<p>Ya que los tres Fragments són prácticamente idénticos (muestran una lista de poemas), y lo único que cambia es el orden en que se muestran los poemas, podemos crear un Fragment <strong>abstracto </strong>en el que falte concretar la consulta.</p>
+<p><img style="max-width: 597.17px" src="img/58dcdb6bc34a5acd.png"></p>
+<p>Crea el <code>PoemListFragment</code> con el asistente (New -&gt; Fragment -&gt; Blank)</p>
+<p><img style="max-width: 641.00px" src="img/533ac65c2ce21ff4.png"></p>
+<p>Añadiremos en este <code>PoemListFragment</code> el <code>RecyclerView</code> para mostrar la lista de poemas. La lista de poemas con la que se rellenará el <code>RecyclerView</code> lo retornará el método abstracto <code>getPoems()</code>, que se concretará en los Fragments que extiendan de este PoemListFragment.</p>
+<pre><code>import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import java.util.List;
+
+
+public abstract class PoemListFragment extends Fragment {
+   PoemViewModel poemViewModel;
+
+   @Override
+   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+       View view = inflater.inflate(R.layout.fragment_poem_list, container, false);
+
+       RecyclerView recyclerView = view.findViewById(R.id.poemList);
+       recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+       final PoemsRecyclerAdapter poemsRecyclerAdapter = new PoemsRecyclerAdapter();
+       recyclerView.setAdapter(poemsRecyclerAdapter);
+
+       poemViewModel = ViewModelProviders.of(this).get(PoemViewModel.class);
+
+       getPoems().observe(this, new Observer&lt;List&lt;Poem&gt;&gt;() {
+           @Override
+           public void onChanged(@Nullable List&lt;Poem&gt; poems) {
+               poemsRecyclerAdapter.setList(poems);
+               poemsRecyclerAdapter.notifyDataSetChanged();
+           }
+       });
+
+       return view;
+   }
+
+   abstract LiveData&lt;List&lt;Poem&gt;&gt; getPoems();
+}</code></pre>
+<p>En el Layout <code>fragment_poem_list.xml</code> añadimos el RecyclerView:</p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;FrameLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   tools:context=&#34;.PoemListFragment&#34;&gt;
+
+   &lt;android.support.v7.widget.RecyclerView
+       android:id=&#34;@+id/poemList&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34; /&gt;
+
+&lt;/FrameLayout&gt;</code></pre>
+<p>El código del <code>PoemsRecyclerAdapter</code>:</p>
+<pre><code>import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import java.util.List;
+
+
+public class PoemsRecyclerAdapter extends RecyclerView.Adapter&lt;PoemsRecyclerAdapter.PoemViewHolder&gt;{
+
+   List&lt;Poem&gt; list;
+
+   @Override
+   public PoemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+       View itemPoem = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_poem, parent, false);
+       return new PoemViewHolder(itemPoem);
+   }
+
+   @Override
+   public void onBindViewHolder(PoemViewHolder holder, int position) {
+       final Poem poem = list.get(position);
+
+       holder.poemAuthor.setText(poem.author);
+       holder.poemTitle.setText(poem.title);
+       holder.ratingBar.setRating(poem.rating);
+   }
+
+   @Override
+   public int getItemCount() {
+       return (list != null ? list.size() : 0);
+   }
+
+   public void setList(List&lt;Poem&gt; poems){
+       this.list = poems;
+   }
+
+   class PoemViewHolder extends RecyclerView.ViewHolder {
+       private TextView poemTitle;
+       private TextView poemAuthor;
+       private RatingBar ratingBar;
+
+
+       PoemViewHolder(View itemPoem) {
+           super(itemPoem);
+           poemTitle = itemPoem.findViewById(R.id.poem_title);
+           poemAuthor = itemPoem.findViewById(R.id.poem_author);
+           ratingBar = itemPoem.findViewById(R.id.ratingBar);
+       }
+   }
+}</code></pre>
+<p>El Layout <code>item_poem.xml</code></p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;android.support.v7.widget.CardView xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;wrap_content&#34;
+   android:layout_margin=&#34;4dp&#34;&gt;
+   &lt;LinearLayout
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:orientation=&#34;vertical&#34;
+       android:padding=&#34;8dp&#34;&gt;
+       &lt;TextView
+           android:id=&#34;@+id/poem_title&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:fontFamily=&#34;cursive&#34;
+           android:textSize=&#34;26sp&#34;
+           android:textStyle=&#34;bold&#34; /&gt;
+       &lt;TextView
+           android:id=&#34;@+id/poem_author&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:fontFamily=&#34;cursive&#34;
+           android:textSize=&#34;20sp&#34; /&gt;
+       &lt;RatingBar
+           android:id=&#34;@+id/ratingBar&#34;
+           android:layout_width=&#34;wrap_content&#34;
+           android:layout_height=&#34;wrap_content&#34; /&gt;
+   &lt;/LinearLayout&gt;
+&lt;/android.support.v7.widget.CardView&gt;</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="AZ, Newest y TopRated Fragments" duration="0">
+        <p>Una vez creado el Fragment abstracto, ya podemos extenderlo para crear los Fragments <strong>AZ</strong>, <strong>Newest </strong>y <strong>TopRated</strong>.</p>
+<p>El RecyclerView, el Adapter y el ViewModel, lo heredarán del PoemListFragment.</p>
+<p>Crea una nueva <strong>Java Class</strong> para cada uno de ellos:</p>
+<pre><code>import android.arch.lifecycle.LiveData;
+import java.util.List;
+
+
+public class AZPoemListFragment extends PoemListFragment {
+
+   @Override
+   LiveData&lt;List&lt;Poem&gt;&gt; getPoems() {
+       return poemViewModel.getAllPoemsOrderedByTitle();
+   }
+}</code></pre>
+<pre><code>import android.arch.lifecycle.LiveData;
+import java.util.List;
+
+
+public class NewestPoemListFragment extends PoemListFragment {
+   @Override
+   LiveData&lt;List&lt;Poem&gt;&gt; getPoems() {
+       return poemViewModel.getAllPoemsOrderedByDate();
+   }
+}</code></pre>
+<pre><code>import android.arch.lifecycle.LiveData;
+import java.util.List;
+
+
+public class TopRatedPoemListFragment extends PoemListFragment {
+   @Override
+   LiveData&lt;List&lt;Poem&gt;&gt; getPoems() {
+       return poemViewModel.getAllPoemsOrderedByRating();
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>
