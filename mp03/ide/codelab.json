@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "10fDEk_ithFT5RD6rbpxg59aqqRCuiz1ERg9LqoX4Lqo",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-01-31T16:46:33Z",
+  "id": "mp03/ide",
+  "duration": 0,
+  "title": "Entorn Integrat de Desenvolupament",
+  "summary": "Entorn Integrat de Desenvolupament",
+  "theme": "java",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Java"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp03/ide"
+}
