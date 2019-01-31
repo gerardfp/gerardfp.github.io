@@ -48,10 +48,10 @@
 <p>⏩ Prueba el compilador y el intérprete</p>
 <p>Comprueba que puedes ejecutar el compilador y el intérprete, haciendo que muestren su versión. Para ello, abre un terminal y ejecuta los siguientes comandos:</p>
 <p>1 - Ejecuta el compilador con la opción que muestra la versión</p>
-<pre>~$ jdk1.8.0_144/bin/javac -version</pre>
+<pre>jdk1.8.0_144/bin/javac -version</pre>
 <p>✅ Comprueba que muestra la versión</p>
 <p>2 - Ejecuta el intérprete con la opción que muestra la versión</p>
-<pre>~$ jdk1.8.0_144/bin/java -version</pre>
+<pre>jdk1.8.0_144/bin/java -version</pre>
 <p>✅ Comprueba, de nuevo, que muestra la versión</p>
 <p><img style="max-width: 722.00px" src="img/ced9aeadbdf507a9.png"></p>
 
@@ -64,11 +64,11 @@
 <ol type="1" start="1">
 <li>Escribimos el código fuente en un archivo de texto</li>
 <li>Compilamos el código fuente mediante el compilador <code>javac</code>, que lo traduce a bytecode.</li>
-<li>Ejecutamos el programa compilado con la JVM</li>
+<li>Ejecutamos el programa compilado con la Java Virtual Machine <code>java</code></li>
 </ol>
-<p><img alt="Figura que muestra MyProgram.java, compilador, MyProgram.class, Java VM y Mi programa que se ejecutan en un equipo." style="max-width: 504.15px" src="img/422d764bb52766f9.png"></p>
+<p><img style="max-width: 736.40px" src="img/9f4bce3a5316b062.png"></p>
 <p>⏩ Escribe el código fuente del programa &#34;Hola Mundo&#34;</p>
-<p>Abre un editor de texto sin formato, como gedit (el LibreOffice no nos sirve) y crea un archivo en tu <code>$HOME</code>, con el nombre  <strong><code>HelloWorldApp.java</code></strong></p>
+<p>Abre un editor de texto sin formato, como gedit, y crea un archivo en tu carpeta personal, con el nombre  <strong><code>HelloWorldApp.java</code></strong></p>
 <p>Copia el siguiente código y guarda los cambios:</p>
 <pre><code>class HelloWorldApp {
     public static void main(String[] args) {
@@ -80,10 +80,10 @@
 </aside>
 <p>⏩ Compila el archivo con el código fuente</p>
 <p>Usa el siguiente comando en el terminal para compilar el archivo de código fuente que acabas de crear:</p>
-<pre>~$ jdk1.8.0_144/bin/javac HelloWorldApp.java</pre>
+<pre>jdk1.8.0_144/bin/javac HelloWorldApp.java</pre>
 <p>Este comando habrá generado un fichero llamado <strong><code>HelloWorldApp.class</code></strong> con el <em>bytecode </em>de tu programa. Compruébalo.</p>
-<p>⏩Ejecuta el programa con la Máquina Virtual de Java</p>
-<pre>~$ jdk1.8.0_144/bin/java HelloWorldApp</pre>
+<p>⏩ Ejecuta el programa con la Máquina Virtual de Java</p>
+<pre>jdk1.8.0_144/bin/java HelloWorldApp</pre>
 <p>¡Felicidades! ¡Has ejecutado tu primer programa!</p>
 
 
