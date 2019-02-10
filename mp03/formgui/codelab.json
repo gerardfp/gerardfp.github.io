@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1o8rc7OlcDHDKFQZK8NtT1sdpCr8fdkaXhVhx4FUjEOs",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-02-10T23:04:29Z",
+  "id": "mp03/formgui",
+  "duration": 0,
+  "title": "FormGUI",
+  "summary": "Drawing with Java",
+  "theme": "java",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Java"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp03/formgui"
+}
