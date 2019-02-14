@@ -64,8 +64,8 @@
 }</code></pre>
 <p>Aquest codi conté alguns errors (<em>bugs</em>) que tractarem de corregir.</p>
 <p>Si l&#39;executem tal i com està ens sortirà el seguent <em>runtime-error</em>:</p>
-<p>Exception in thread &#34;main&#34; java.lang.ArrayIndexOutOfBoundsException: -1</p>
-<p>        at com.company.Main.main(Main.java:10)</p>
+<pre><code>Exception in thread &#34;main&#34; java.lang.ArrayIndexOutOfBoundsException: -1
+        at com.company.Main.main(Main.java:10)</code></pre>
 
 
       </google-codelab-step>
@@ -119,12 +119,12 @@
 <h2>Breakpoints condicionals</h2>
 <p>Ja hem corregit l&#39;error d&#39;execució (runtime-error) del programa. Però ara tenim un error molt més subtil que és més dificil de trobar.</p>
 <p>Si executem el programa, ens dona el següent resultat:</p>
-<p>50 es la meitat de 100</p>
-<p>25 es la meitat de 50</p>
-<p>12 es la meitat de 25</p>
-<p>6 es la meitat de 12</p>
-<p>3 es la meitat de 6</p>
-<p>1 es la meitat de 3</p>
+<pre><code>50 es la meitat de 100
+25 es la meitat de 50
+12 es la meitat de 25
+6 es la meitat de 12
+3 es la meitat de 6
+1 es la meitat de 3</code></pre>
 <p>Tenim un error extrany quan diu &#34;12 es la meitat de 25&#34;, perquè ens diu això? Sabem que la meitat de 25 és 12.5 i no 12. ¿Què està passant?</p>
 <p>Podem tornar a depurar el programa i anar pas a pas fins que s&#39;arribi al número 12, què és el que ens està donant el bug.</p>
 <p>Una altra opció, es afegir un breakpoint condicional, de forma que l&#39;execució s&#39;aturi justament quan s&#39;arribi al número 12.</p>
