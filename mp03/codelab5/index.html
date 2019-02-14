@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>ANSI/VT100 colors</title>
+  <title>Depuració</title>
   <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../../elements/codelab.html">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
@@ -20,13 +20,13 @@
 </head>
 <body unresolved class="fullbleed">
 
-  <google-codelab title="ANSI/VT100 colors"
+  <google-codelab title="Depuració"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p><img style="max-width: 362.00px" src="img/708be4bd5d6c1b3c.png"></p>
-<p>L&#39;objectiu d&#39;aquest CodeLab és conèixer les possibilitats que ofereixen els terminals ANSI/VT100 per a mostrar text en colors.</p>
+        <p><img style="max-width: 225.00px" src="img/f18ce81cce164ddb.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és la iniciació a l&#39;ús de depurador (<em>debugger</em>).</p>
 <p>La depuració de programes és el procés d&#39;identificar i corregir errors de programació (<em>bugs</em>).</p>
 <p>IntelliJ proporciona una ampli ventall d&#39;eines per a la depuració del codi. Es pot trobar una guia exhaustiva al següent enllaç: <a href="https://www.jetbrains.com/help/idea/debugging-code.html" target="_blank">https://www.jetbrains.com/help/idea/debugging-code.html</a> </p>
 <p>En aquest codelab ens iniciarem en l&#39;ús de:</p>
@@ -40,313 +40,117 @@
     
       <google-codelab-step label="Crea el projecte" duration="0">
         <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Debugger&#34;.</p>
-<p><img style="max-width: 616.00px" src="img/792ed00254716d13.png"></p>
-<p><img style="max-width: 616.00px" src="img/7b9b5bf8a5d2dd19.png"></p>
-<p><img style="max-width: 616.00px" src="img/16bbf2b26d0f540e.png"></p>
+<p><img style="max-width: 548.00px" src="img/1f77c27e0b506e0f.png"></p>
+<p><img style="max-width: 548.00px" src="img/8556ac2bd86adfea.png"></p>
+<p><img style="max-width: 548.00px" src="img/78e32da7f723506.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Seqüencies d&#39;escapament" duration="0">
-        <p>Els terminals <a href="https://ca.wikipedia.org/wiki/VT100" target="_blank">ANSI/VT100</a> no solament poden mostrar text en blanc i negre; també poden mostrar colors i formats gràcies a les <a href="http://www.termsys.demon.co.uk/vtansi.htm" target="_blank"><strong>seqüències d&#39;escapament</strong></a>.</p>
-<p>Les seqüències d&#39;escapament per als colors i formats tenen el aquesta sintaxi:</p>
-<p><img style="max-width: 591.00px" src="img/83a55c9641024fbb.png"></p>
-<p>On <code>{attr1};...;{attrn}</code> són els codis dels colors o formats que desitjem.</p>
-<p>Fem una prova:</p>
+      <google-codelab-step label="Pica el codi" duration="0">
+        <p>El següent codi tracta de comprovar si cada element d&#39;un array és la meitat de l&#39;anterior:</p>
 <pre><code>public class Main {
 
    public static void main(String[] args) {
-       System.out.println(&#34;\033[31mHello Red World!&#34;);
+
+       int[] myArray = { 100, 50, 25, 12, 6, 3, 1 };
+
+       for (int i = 0; i &lt; myArray.length; i++) {
+           if (myArray[i] == myArray[i-1]/2){
+               System.out.println(myArray[i] + &#34; es la meitat de &#34; + myArray[i-1]);
+           }
+       }
    }
 }</code></pre>
-<p>Podem veure que la seqüencia d&#39;escapament <code>\033[31m</code> inclou l&#39;atribut <code>31</code>, que correspon al codi del color de text vermell.</p>
-<p>Una altra prova:</p>
-<pre><code>System.out.println(&#34;\033[31;43;1mHello Red World!&#34;);</code></pre>
-<p>Aquesta vegada els atributs son el <code>31</code> (color de text vermell), el <code>43</code> (color de fons groc) i l&#39;<code>1</code> (negreta).</p>
-<p>Una última prova:</p>
-<pre><code>System.out.println(&#34;\033[31;43;4mHello Red World!&#34;);</code></pre>
-<p>Hem canviat el text en negreta per el text subratllat (atribut <code>4</code>). No obstant, si executem el codi en IntelliJ, la consola no ens mostrarà el text subratllat, ja que no soporta aquesta opció. L&#39;haurem d&#39;executar en una consola compatible amb VT100.</p>
-<p>Obre un terminal, i navega fins al directory de sortida del projecte:</p>
-<p><code>cd IdeaProjects/ANSIColors/out/production/ANSIColors</code></p>
-<p>Executa el programa:</p>
-<p><code>java com.company.Main</code></p>
-<p>Ara sí hauria de sortir el text subratllat...</p>
-<p>A més a més veuras que a partir d&#39;una seqüència d&#39;escapament, tot el text següent manté el color i format, així que si volem tornar al color &#34;per defecte&#34; (blanc i negre), haurem de resetejar el color i format (attribut <code>0</code>) un cop finalitzi el text que hem formatat:</p>
-<pre><code>System.out.println(&#34;\033[31;43;4mHello Red World!\033[0m&#34;);</code></pre>
+<p>Aquest codi conté alguns errors (<em>bugs</em>) que tractarem de corregir.</p>
+<p>Si l&#39;executem tal i com està ens sortirà el seguent <em>runtime-error</em>:</p>
+<pre><code>Exception in thread &#34;main&#34; java.lang.ArrayIndexOutOfBoundsException: -1
+        at com.company.Main.main(Main.java:10)</code></pre>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Colors i formats" duration="0">
-        <p>A continuació podem veure una taula amb els tots els codis dels atributs que podem utilitzar per a canviar el format, el color de fons, i el color del text:</p>
-<h2>Format</h2>
-<p><strong>Set</strong></p>
-<table>
-<tr><td colspan="1" rowspan="1"><p>Codi</p>
-</td><td colspan="1" rowspan="1"><p>Descripció</p>
-</td><td colspan="1" rowspan="1"><p>Exemple</p>
-</td><td colspan="1" rowspan="1"><p>Previsualització</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>1</p>
-</td><td colspan="1" rowspan="1"><p>Bold/Bright</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[1mBold&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Normal Bold" title="Normal Bold" style="max-width: 138.00px" src="img/d5dd71fa8e21eccf.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>2</p>
-</td><td colspan="1" rowspan="1"><p>Dim</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[2mDim&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Normal Dim" title="Normal Dim" style="max-width: 138.00px" src="img/2759208584b92620.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>4</p>
-</td><td colspan="1" rowspan="1"><p>Underlined</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[4mUnderlined&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Normal Underlined" title="Normal Underlined" style="max-width: 138.00px" src="img/ba799b8c0364ed62.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>5</p>
-</td><td colspan="1" rowspan="1"><p>Blink</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[5mBlink&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Normal Blink" title="Normal Blink" style="max-width: 138.00px" src="img/fb7aafdf1e327c4f.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>7</p>
-</td><td colspan="1" rowspan="1"><p>Reverse</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[7minverted&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Normal inverted" title="Normal inverted" style="max-width: 138.00px" src="img/5aed58737bcdfe3d.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>8</p>
-</td><td colspan="1" rowspan="1"><p>Hidden</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[8mHidden&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Normal Hidden" title="Normal Hidden" style="max-width: 138.00px" src="img/86ac36fb3149bcf5.png"></p>
-</td></tr>
-</table>
-<p><strong>Reset</strong></p>
-<table>
-<tr><td colspan="1" rowspan="1"><p>Codi</p>
-</td><td colspan="1" rowspan="1"><p>Descripció</p>
-</td><td colspan="1" rowspan="1"><p>Exemple</p>
-</td><td colspan="1" rowspan="1"><p>Previsualització</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>0</p>
-</td><td colspan="1" rowspan="1"><p>Reset all attributes</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;\033[0mNormal Text&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Normal Text" title="Normal Text" style="max-width: 195.00px" src="img/eaeab4499c6f0856.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>21</p>
-</td><td colspan="1" rowspan="1"><p>Reset bold/bright</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[1mBold \033[21mNormal&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Normal Bold Normal" title="Normal Bold Normal" style="max-width: 195.00px" src="img/384e1ec6dfca437f.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>22</p>
-</td><td colspan="1" rowspan="1"><p>Reset dim</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[2mDim \033[22mNormal&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Normal Dim Normal" title="Normal Dim Normal" style="max-width: 195.00px" src="img/c7c4491b42fbe4e.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>24</p>
-</td><td colspan="1" rowspan="1"><p>Reset underlined</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[4mUnderlined \033[24mNormal&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Normal Underlined Normal" title="Normal Underlined Normal" style="max-width: 195.00px" src="img/9389d8af8f423895.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>25</p>
-</td><td colspan="1" rowspan="1"><p>Reset blink</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[5mBlink \033[25mNormal&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Normal Blink Normal" title="Normal Blink Normal" style="max-width: 195.00px" src="img/f22d77da8422bca3.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>27</p>
-</td><td colspan="1" rowspan="1"><p>Reset reverse</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[7minverted \033[27mNormal&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Normal inverted Normal" title="Normal inverted Normal" style="max-width: 195.00px" src="img/48ba464c32fb7fb4.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>28</p>
-</td><td colspan="1" rowspan="1"><p>Reset hidden</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[8mHidden \033[28mNormal&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Normal Hidden Normal" title="Normal Hidden Normal" style="max-width: 195.00px" src="img/5c71d8cf9967b6fe.png"></p>
-</td></tr>
-</table>
-<h2>Color del text</h2>
-<table>
-<tr><td colspan="1" rowspan="1"><p>Codi</p>
-</td><td colspan="1" rowspan="1"><p>Color</p>
-</td><td colspan="1" rowspan="1"><p>Exemple</p>
-</td><td colspan="1" rowspan="1"><p>Previsualització</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>39</p>
-</td><td colspan="1" rowspan="1"><p>Default</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[39mDefault&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Default" title="Default Default" style="max-width: 171.00px" src="img/4c61a937f012cdbb.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>30</p>
-</td><td colspan="1" rowspan="1"><p>Black</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[30mBlack&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Black" title="Default Black" style="max-width: 171.00px" src="img/46cc12569cd7e5ed.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>31</p>
-</td><td colspan="1" rowspan="1"><p>Red</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[31mRed&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Red" title="Default Red" style="max-width: 171.00px" src="img/e2c7dd9c614f5172.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>32</p>
-</td><td colspan="1" rowspan="1"><p>Green</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[32mGreen&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Green" title="Default Green" style="max-width: 171.00px" src="img/fb040d55a8ad6d2e.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>33</p>
-</td><td colspan="1" rowspan="1"><p>Yellow</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[33mYellow&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Yellow" title="Default Yellow" style="max-width: 171.00px" src="img/50934de2f4221ffb.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>34</p>
-</td><td colspan="1" rowspan="1"><p>Blue</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[34mBlue&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Blue" title="Default Blue" style="max-width: 171.00px" src="img/989d6f0883b137f.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>35</p>
-</td><td colspan="1" rowspan="1"><p>Magenta</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[35mMagenta&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Magenta" title="Default Magenta" style="max-width: 171.00px" src="img/442f5af7f66fe017.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>36</p>
-</td><td colspan="1" rowspan="1"><p>Cyan</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[36mCyan&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Cyan" title="Default Cyan" style="max-width: 171.00px" src="img/c254fb4c1aa158d9.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>37</p>
-</td><td colspan="1" rowspan="1"><p>Light gray</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[37mLight gray&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Light gray" title="Default Light gray" style="max-width: 171.00px" src="img/1c7f9ea132d6dc30.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>90</p>
-</td><td colspan="1" rowspan="1"><p>Dark gray</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[90mDark gray&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Dark gray" title="Default Dark gray" style="max-width: 171.00px" src="img/773bcd7dfad196dc.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>91</p>
-</td><td colspan="1" rowspan="1"><p>Light red</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[91mLight red&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Light red" title="Default Light red" style="max-width: 171.00px" src="img/a816a48a5b02038b.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>92</p>
-</td><td colspan="1" rowspan="1"><p>Light green</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[92mLight green&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Light green" title="Default Light green" style="max-width: 171.00px" src="img/cee79de8aa43bd94.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>93</p>
-</td><td colspan="1" rowspan="1"><p>Light yellow</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[93mLight yellow&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Light yellow" title="Default Light yellow" style="max-width: 171.00px" src="img/ebb01a783c3e09c1.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>94</p>
-</td><td colspan="1" rowspan="1"><p>Light blue</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[94mLight blue&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Light blue" title="Default Light blue" style="max-width: 171.00px" src="img/74fdafaa4f4ea076.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>95</p>
-</td><td colspan="1" rowspan="1"><p>Light magenta</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[95mLight magenta&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Light magenta" title="Default Light magenta" style="max-width: 171.00px" src="img/331ca3936b7de599.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>96</p>
-</td><td colspan="1" rowspan="1"><p>Light cyan</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[96mLight cyan&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Light cyan" title="Default Light cyan" style="max-width: 171.00px" src="img/c139efe845cea50d.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>97</p>
-</td><td colspan="1" rowspan="1"><p>White</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[97mWhite&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default White" title="Default White" style="max-width: 171.00px" src="img/a25f29802fb51c6f.png"></p>
-</td></tr>
-</table>
-<h2>Color del fons</h2>
-<table>
-<tr><td colspan="1" rowspan="1"><p>Codi</p>
-</td><td colspan="1" rowspan="1"><p>Color</p>
-</td><td colspan="1" rowspan="1"><p>Exemple</p>
-</td><td colspan="1" rowspan="1"><p>Previsualització</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>49</p>
-</td><td colspan="1" rowspan="1"><p>Default</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[49mDefault&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Default" title="Default Default" style="max-width: 170.00px" src="img/67aa24411ae7041d.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>40</p>
-</td><td colspan="1" rowspan="1"><p>Black</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[40mBlack&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Black" title="Default Black" style="max-width: 170.00px" src="img/1770c33e34171c4c.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>41</p>
-</td><td colspan="1" rowspan="1"><p>Red</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[41mRed&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Red" title="Default Red" style="max-width: 170.00px" src="img/9a0c37a10c66bf4e.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>42</p>
-</td><td colspan="1" rowspan="1"><p>Green</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[42mGreen&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Green" title="Default Green" style="max-width: 170.00px" src="img/10c9985c08f5220a.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>43</p>
-</td><td colspan="1" rowspan="1"><p>Yellow</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[43mYellow&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Yellow" title="Default Yellow" style="max-width: 170.00px" src="img/9686266b6685690a.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>44</p>
-</td><td colspan="1" rowspan="1"><p>Blue</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[44mBlue&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Blue" title="Default Blue" style="max-width: 170.00px" src="img/7fa08017984416eb.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>45</p>
-</td><td colspan="1" rowspan="1"><p>Magenta</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[45mMagenta&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Magenta" title="Default Magenta" style="max-width: 170.00px" src="img/bffcc1ed65d5bc32.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>46</p>
-</td><td colspan="1" rowspan="1"><p>Cyan</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[46mCyan&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Cyan" title="Default Cyan" style="max-width: 170.00px" src="img/ccc13bf6cb35f390.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>47</p>
-</td><td colspan="1" rowspan="1"><p>Light gray</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[47mLight gray&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Light gray" title="Default Light gray" style="max-width: 170.00px" src="img/fe44037d122b7fca.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>100</p>
-</td><td colspan="1" rowspan="1"><p>Dark gray</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[100mDark gray&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Dark gray" title="Default Dark gray" style="max-width: 170.00px" src="img/191e6b18d76f2dab.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>101</p>
-</td><td colspan="1" rowspan="1"><p>Light red</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[101mLight red&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Light red" title="Default Light red" style="max-width: 170.00px" src="img/c58fb07da20bfdad.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>102</p>
-</td><td colspan="1" rowspan="1"><p>Light green</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[102mLight green&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Light green" title="Default Light green" style="max-width: 170.00px" src="img/eae2fbc5a5471ac0.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>103</p>
-</td><td colspan="1" rowspan="1"><p>Light yellow</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[103mLight yellow&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Light yellow" title="Default Light yellow" style="max-width: 170.00px" src="img/6a4e92db34d3b88.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>104</p>
-</td><td colspan="1" rowspan="1"><p>Light blue</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[104mLight blue&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Light blue" title="Default Light blue" style="max-width: 170.00px" src="img/9202a0b8ee529208.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>105</p>
-</td><td colspan="1" rowspan="1"><p>Light magenta</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[105mLight magenta&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Light magenta" title="Default Light magenta" style="max-width: 170.00px" src="img/249a3afde5e9091e.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>106</p>
-</td><td colspan="1" rowspan="1"><p>Light cyan</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[106mLight cyan&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default Light cyan" title="Default Light cyan" style="max-width: 170.00px" src="img/1283b13939bb3f46.png"></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>107</p>
-</td><td colspan="1" rowspan="1"><p>White</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[107mWhite&#34;</code></p>
-</td><td colspan="1" rowspan="1"><p><img alt="Default White" title="Default White" style="max-width: 170.00px" src="img/d78a0498e0edd456.png"></p>
-</td></tr>
-</table>
+      <google-codelab-step label="Breakpoints" duration="0">
+        <p>Els <em>breakpoints </em>són punts en els que podem aturar l&#39;execució d&#39;un programa, i observar pas a pas el seu comportament.</p>
+<p>Per a afegir un breakpoint, només cal posar el cursor sobre la línia on el volem posar i prèmer <code>Ctrl+F8</code>.</p>
+<p>També ho podem fer amb el ratolí, fent click sobre el panell gris que hi ha just al costat del codi:</p>
+<p><img style="max-width: 669.00px" src="img/499f4e0c06396984.png"></p>
+<p>Quan afegim un breakpoint, s&#39;indica amb un cercle vermell.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Iniciar la depuració" duration="0">
+        <p>Una cop afegit els breakpoints desitjats, es pot iniciar la depuració de l&#39;aplicació.</p>
+<p>Per a iniciar-la fem click a l&#39;icona Debug (<img style="max-width: 20.00px" src="img/f79b7b2a362e7eb4.png">) o premem <code>Ctrl+F9</code>.</p>
+<p>IntelliJ llançará la sessión de depuració. Compilarà i executarà l&#39;aplicació, suspenent-la al primer breakpoint. Podem veure dues coses que han canviat:</p>
+<ul>
+<li>La primera cosa que ha canviat és el color de la primera línea amb un breakpoint. Ara es veurà de color blau:</li>
+</ul>
+<p><img style="max-width: 736.40px" src="img/d18f028a9af82893.png"></p>
+<p>Això significa que l&#39;execució ha arribat al breakpoint i s&#39;ha parat <strong>abans</strong> d&#39;executar la sentència.</p>
+<ul>
+<li>A la part inferior de la finestra, ha sorgit el <code>Debug Tool Window</code>, amb molta informació sobre l&#39;execució del programa.</li>
+</ul>
+<p><img style="max-width: 736.40px" src="img/7f94ea1be59b7b32.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Execució pas a pas" duration="0">
+        <p>Anem a fer un pas en l&#39;execució del programa. Fes click sobre la icona <img alt="icons actions traceOver svg" style="max-width: 20.00px" src="img/948c7b91032d34b9.png">, o simplement prem <code>F8</code>.</p>
+<p>La següent instrucció es posa en blau:</p>
+<p><img style="max-width: 736.40px" src="img/d13a4d44e2601478.png"></p>
+<p>Al panell <strong>Variables</strong>, podem veure ja on és l&#39;error del nostre programa: la variable <code>i</code> té el valor <code>0</code>, així que quan tractem d&#39;accedir a la posició <code>i-1</code> de <code>myArray</code>, l&#39;índex està fora dels límits (IndexOutOfBoundsException).</p>
+<p>Així doncs, deduïm que l&#39;error del nostra programa es dona quan la variable <code>i</code> té el valor <code>0</code>, i el podem corregir per a que comenci pel valor <code>1</code>:</p>
+<pre><code>public class Main {
+
+   public static void main(String[] args) {
+
+       int[] myArray = { 100, 50, 25, 12, 6, 3, 1 };
+
+       for (int i = 1; i &lt; myArray.length; i++) {
+           if (myArray[i] == myArray[i-1]/2){
+               System.out.println(myArray[i] + &#34; es la meitat de &#34; + myArray[i-1]);
+           }
+       }
+   }
+}</code></pre>
+<h2>Breakpoints condicionals</h2>
+<p>Ja hem corregit l&#39;error d&#39;execució (runtime-error) del programa. Però ara tenim un error molt més subtil que és més dificil de trobar.</p>
+<p>Si executem el programa, ens dona el següent resultat:</p>
+<pre><code>50 es la meitat de 100
+25 es la meitat de 50
+12 es la meitat de 25
+6 es la meitat de 12
+3 es la meitat de 6
+1 es la meitat de 3</code></pre>
+<p>Tenim un error extrany quan diu &#34;12 es la meitat de 25&#34;, perquè ens diu això? Sabem que la meitat de 25 és 12.5 i no 12. ¿Què està passant?</p>
+<p>Podem tornar a depurar el programa i anar pas a pas fins que s&#39;arribi al número 12, què és el que ens està donant el bug.</p>
+<p>Una altra opció, es afegir un breakpoint condicional, de forma que l&#39;execució s&#39;aturi justament quan s&#39;arribi al número 12.</p>
+<p>Per a fegir un breakpoint condicional, fem click-dreta sobre el breakpoint i afegim la condició desitjada. En el nostre cas, ens interessa que es pari quan el valor de <code>myArray[i]</code> sigui <code>12</code>:</p>
+<p><img style="max-width: 669.00px" src="img/b37763d429101704.png"></p>
+<p>Si iniciem la depuració, l&#39;execució del programa s&#39;aturarà en el breakpoint, solament quan es compleixi la condició myArray[i] = 12. </p>
+<p>A la finestra <strong>Variables</strong>, podem veure el valor actual de totes les variables i afegir les expressions que desitjem.</p>
+<p>Podem veure que:</p>
+<p><code>myArray[i] = 12</code></p>
+<p><code>myArray[i-1] = 25</code></p>
+<p>Afegirem l&#39;expressió <code>myArray[i-1]/2</code> per veure quin és el resultat d&#39;aquesta divisió. Fem click al botó <img style="max-width: 21.00px" src="img/d333bcfbab2f579b.png">:</p>
+<p><img style="max-width: 736.40px" src="img/aee4a760e1fc6a0b.png"></p>
+<p>Ja podem veure l&#39;error! L&#39;expressió <code>myArray[i-1]/2</code> dona com a resultat <code>12</code>. Ara ens podem adonar de que hauriem d&#39;haver realitzat una conversió a <code>float</code>, ja que el tipus <code>int</code> no té xifres decimals...</p>
+<pre><code>public class Main {
+
+   public static void main(String[] args) {
+
+       int[] myArray = { 100, 50, 25, 12, 6, 3, 1 };
+
+       for (int i = 1; i &lt; myArray.length; i++) {
+           if (myArray[i] == (float) myArray[i-1]/2){
+               System.out.println(myArray[i] + &#34; es la meitat de &#34; + myArray[i-1]);
+           }
+       }
+   }
+}</code></pre>
 
 
       </google-codelab-step>
