@@ -25,74 +25,78 @@
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p>El objetivo de esta práctica es empezar a usar los conceptos de Clase y Objeto. Consiste en desarrollar una aplicación que muestre un dibujo simple hecho con figuras geométricas.</p>
+        <p>L&#39;objectiu d&#39;aquesta pràctica és començar a usar els conceptes de Classe i Objecte. Consisteix en desenvolupar una aplicació que mostri un dibuix simple fet amb figures geomètriques.</p>
 <p><img style="max-width: 257.15px" src="img/d464d034dbdf63c.png"></p>
-<p>En el dibujo vemos una casa (muro, tejado y ventana) sobre la tierra y un sol en el cielo.</p>
-<p>El dibujo se compondrá de los siguientes <strong>Objetos</strong>: <em>sun, sky, earth, wall, window </em>y<em> roof</em></p>
-<p>Estos objetos estarán clasificados en las siguientes <strong>Clases</strong>: <em>Circle</em>, <em>Rectangle </em>y <em>Triangle</em></p>
+<p>Al dibuix veiem una casa (mur, teulada i finestra) sobre la terra i un sol al cel.</p>
+<p>El dibuix es composarà dls següents <strong>Objectes</strong>: <em>sun, sky, earth, wall, window </em>y<em> roof</em></p>
+<p>Aquests objectes estaran classificados en les següents <strong>Classes</strong>: <em>Circle</em>, <em>Rectangle </em>y <em>Triangle</em></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Inicia el IntelliJ y crea un nuevo proyecto llamado &#34;Figuras&#34;. Recuerda marcar la opción &#34;Create project from template&#34; y selecciona la plantilla &#34;Command Line App&#34;.</p>
-<p>Para crear objetos, primero hay que definir la clase. A partir de la clase se crean los objetos.</p>
-<p>Empezaremos por el objeto <em>sun</em>, que es de la clase <em>Circle</em>.</p>
+        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Figuras&#34;. Recorda marcar la opció &#34;Create project from template&#34; i selecciona la plantilla &#34;Command Line App&#34;.</p>
+<p>Per a crear objectes, primer s&#39;ha de definir la classe. A partir de la classe es creen els objects.</p>
+<p>Començarem per l&#39;object <em>sun</em>, que és de la classe <em>Circle</em>.</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Crea la clase Circle" duration="0">
-        <p>Haz click-derecho sobre el <em>package </em>&#34;com.company&#34;, y selecciona las opciones &#34;New&#34;, &#34;Java Class&#34;:</p>
+      <google-codelab-step label="Crea la classe Circle" duration="0">
+        <p>Fes click-dreta sobre el <em>package </em>&#34;com.company&#34;, i selecciona les opcions &#34;New&#34; -&gt; &#34;Java Class&#34;:</p>
 <p><img style="max-width: 658.00px" src="img/fc86c3561f1cf3ad.png"></p>
-<p>Como nombre de la Clase introduce &#34;Circle&#34;  (es importante que el nombre de las clases empiece en mayúscula)</p>
-<p>Pulsa &#34;OK&#34;.</p>
+<p>Com a nom de la Classe introdueix &#34;Circle&#34;  (és important que el nom de les classes comenci amb majúscula)</p>
+<p>Polsa &#34;OK&#34;.</p>
 <p><img style="max-width: 374.00px" src="img/1ad29e5133869ca0.png"></p>
-<p>Observa que se ha creado el fichero <code>Circle.java</code>, con la definición de la clase <code>Circle</code>:</p>
+<p>Observa que s&#39;ha creat el fitxer <code>Circle.java</code>, amb la definició de la classe <code>Circle</code>:</p>
 <pre><code>class Circle {
 }</code></pre>
-<p>Una vez definida la clase <code>Circle</code>, se pueden crear objetos de esta clase. Vamos a crear el objeto <em>sun</em>:</p>
+<p>Un cop definida la classe <code>Circle</code>, es poden crear objectes d&#39;aquesta classe. Anem a crear l&#39;objecte <em>sun</em>:</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Crea el objeto sun" duration="0">
-        <p>Ve al archivo <code>Main.java</code> y dentro del método  <code>main</code> añade el código para crear el objeto  <code>sun</code>.</p>
+      <google-codelab-step label="Crea l&#39;objecte sun" duration="0">
+        <p>Ves l&#39;arxiu <code>Main.java</code> i dintre del mètode  <code>main</code> afegeix el códi per a crear l&#39;object  <code>sun</code>.</p>
 <pre><code>public class Main {
    public static void main(String[] args) {
        Circle sun = new Circle();
    }
 }</code></pre>
-<p>Definiremos el estado de los objetos de clase <code>Circle</code> (como el objeto <code>sun</code>), con los siguientes campos:</p>
-<ul>
-<li>Longitud del radio</li>
-<li>Posición: coordenadas X e Y</li>
-<li>Color </li>
-</ul>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Define los campos de la clase Circle" duration="0">
-        <p>Ve al archivo <code>Circle.java</code> y añade los siguientes campos a la clase <code>Circle</code>:</p>
+      <google-codelab-step label="Defineix els camps de la Classe Circle" duration="0">
+        <p>Definirem l&#39;estat dels objectes de classe <code>Circle</code> (com l&#39;objecte <em><code>sun</code></em>), amb els següients camps:</p>
+<ul>
+<li>Longitud del radi</li>
+<li>Posició: coordenades X i Y</li>
+<li>Color </li>
+</ul>
+<p>Ves a l&#39;arxiu <code>Circle.java</code> i afegeix els següents camps a la classe <code>Circle</code>:</p>
 <pre><code>public class Circle {
    int radius;
    int positionX;
    int positionY;
    Color color;
 }</code></pre>
-<p>Habrás notado que la palabra  <code>Color</code> aparece en rojo. Es debido a que no está definida la clase <code>Color</code>. Sin embargo, esta clase no la crearemos nosotros, sino que la usaremos de la biblioteca <code>java.awt</code></p>
-<p>Para importar la clase <code>Color</code> de la biblioteca <code>java.awt</code> sigue estos pasos:</p>
+<p>Haurás notat que la paraula  <code>Color</code> apareix en vermell. És degut a que no està definida la classe <code>Color</code>. No obstant, aquesta classe no la crearem nosaltres, sinò que la usarem de la biblioteca <code>java.awt</code></p>
+<p>Per a importar la classe <code>Color</code> de la biblioteca <code>java.awt</code> segueix aquestes passes:</p>
 <ol type="1" start="1">
-<li>Coloca el cursor sobre la palabra <code>Color</code></li>
-<li>Mueve el cursor con las flechas del teclado</li>
-<li>Cuando la palabra <code>Color</code> esté subrayada, aparecerá un mensaje azul sobre ella. Pulsa <code>Alt+Intro</code></li>
-<li>Aparecerá una lista debajo con las bibliotecas que incluyen la clase <code>Color</code>. Selecciona la biblioteca Color (java.awt)</li>
+<li>Coloca el cursor sobre la paraula <code>Color</code></li>
+<li>Mou el cursor amb les fletxes del teclat</li>
+<li>Quan la paraula <code>Color</code> estigui subratllada, apareixerà un meissatge blau sobre ella. Polsa <code>Alt+Intro</code></li>
+<li>Apareixerà una llista a sota amb les biblioteques que inclouen la classe <code>Color</code>. Selecciona la biblioteca <code>Color (java.awt)</code></li>
 </ol>
 <p><img style="max-width: 427.00px" src="img/d4715880603d610e.png"></p>
-<p>Ahora el objeto <code>sun</code> ya tiene los campos de la clase <code>Circle</code>, así que podemos definir su estado</p>
-<p><strong>⏩ Define el estado del objeto </strong><strong><em>sun</em></strong></p>
-<p>Ve al archivo Main.java y asigna los siguientes valores a los campos que definen el estado del objeto <code>sun</code>:</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Defineix l&#39;estat de l&#39;objecte sun" duration="0">
+        <p>Ara l&#39;objecte <code>sun</code> ja té els camps de la classe <code>Circle</code>, així que podems definir el seu estat.</p>
+<p>Ves a l&#39;arxiu Main.java i assigna els següents valors als camps que defineixen l&#39;estat de l&#39;objecte <code>sun</code>:</p>
 <pre><code>public class Main {
    public static void main(String[] args){
        Circle sun = new Circle();
@@ -102,78 +106,14 @@
        sun.color = Color.YELLOW;
    }
 }</code></pre>
-<p>Ya tenemos creado el objeto <code>sun</code>, y hemos definido su estado. Sigamos con el resto de objetos de nuestro dibujo. </p>
-<p>Seguimos con los objetos <code>window</code> y <code>earth</code>. Como son de la clase <code>Circle</code>, que ya está definida, ya podemos crearlos.</p>
-<p><strong>⏩ Crea los objetos </strong><strong><em>window </em></strong><strong>y </strong><strong><em>earth </em></strong><strong>y define su estado</strong></p>
-<p>Añade el siguiente código al método  <code>main</code>  (justo a continuación del código del objeto  <code>sun</code>):</p>
-<pre><code>public class Main {
-   public static void main(String[] args){
-       Circle sun = new Circle();
-       sun.color = Color.YELLOW;
-       sun.positionX = 440;
-       sun.positionY = 50;
-       sun.radius = 40;
+<p>Ja tenim creat l&#39;objecte <code>sun</code>, i hem definit el seu estat. </p>
 
-       Circle window = new Circle();
-       window.color = Color.GRAY;
-       window.positionX = 240;
-       window.positionY = 215;
-       window.radius = 10;
 
-       Circle earth = new Circle();
-       earth.color = Color.GREEN;
-       earth.positionX = -300;
-       earth.positionY = 250;
-       earth.radius = 600;
-   }
-}</code></pre>
-<p>Una vez creados todos los objetos de tipo círculo, seguiremos con los rectángulos (<em>wall</em>, <em>sky</em>) y triángulos (<em>roof</em>).</p>
-<p><strong>⏩Define las clases </strong><strong><em>Rectangle </em></strong><strong>y </strong><strong><em>Triangle</em></strong><strong>.</strong></p>
-<p>Crea las clases <code>Rectangle</code> y <code>Triangle</code>, y añade en ellas los campos que definen su estado.</p>
-<pre><code>public class Rectangle {
-   int width;
-   int height;
-   int positionX;
-   int positionY;
-   Color color;
-}</code></pre>
-<pre><code>public class Triangle {
-   int width;
-   int height;
-   int positionX;
-   int positionY;
-   Color color;
-}</code></pre>
-<p><strong>⏩ Crea los objetos </strong><strong><em>sky</em></strong><strong>, </strong><strong><em>wall </em></strong><strong>y </strong><strong><em>roof</em></strong></p>
-<p>Vuelve al archivo Main.java y añade el siguiente código:</p>
-<pre><code>Rectangle wall = new Rectangle();
-wall.width = 100;
-wall.height = 80;
-wall.positionX = 200;
-wall.positionY = 200;
-wall.color = Color.WHITE;
-
-Rectangle sky = new Rectangle();
-sky.width = 600;
-sky.height = 400;
-sky.positionX = 0;
-sky.positionY = 0;
-sky.color = Color.CYAN;
-
-Triangle roof = new Triangle();
-roof.width = 100;
-roof.height = 50;
-roof.positionX = 200;
-roof.positionY = 150;
-roof.color = Color.RED;</code></pre>
-<p>Hemos terminado de crear los objetos que componen nuestro dibujo.</p>
-<p>Una forma de entender las clases es verlas como si fuesen un molde a partir del cual se crean los objetos. En el molde se definen los campos que tendrán los objetos que se creen a partir de él. Una vez creados los objetos, se pueden modificar los valores de los campos que definen su estado.</p>
-<p><img style="max-width: 736.10px" src="img/83bb163ca260a6cc.png"></p>
-<p>Los objetos se almacenan en la memoria del ordenador. Como es evidente, en la memoria no se pueden dibujar círulos, rectángulos, ni triángulos. En realidad lo que se almacena en memoria es la información sobre estos objetos, es decir los valores de sus campos. Una representación más adecuada de los objetos sería esta:</p>
-<p><img style="max-width: 736.10px" src="img/e5951ac7b9a9be14.png"></p>
-<p>Para dibujar los objetos en la pantalla utilizaremos la clase JFrame, de la biblioteca gráfica Swing, para crear una ventana que será nuestro lienzo (<em>canvas</em>). De momento no es necesario que entiendas nada de esta clase. Simplemente copia y pega.</p>
-<p><strong>⏩ Crea la clase </strong><strong><code>Canvas </code></strong></p>
-<p>Crea una clase nueva llamada &#34;Canvas&#34; y escribe en ella el siguiente código:</p>
+      </google-codelab-step>
+    
+      <google-codelab-step label="Pinta l&#39;objecte sun" duration="0">
+        <p>Per a dibuixar els objectes a la pantalla utilizarem la Classe <code>JFrame</code>, de la biblioteca gràfica <code>Swing</code>, per a crear una finestra que serà el nostre llenç (<em>canvas</em>). De moment no és necesari que comprenguis aquesta Classe. Simplement copia i enganxa.</p>
+<p>Crea una Classe nova anomenada &#34;Canvas&#34; i escriu en ella el següent codi:</p>
 <pre><code>public class Canvas extends javax.swing.JFrame {
    static Graphics2D g;
 
@@ -210,17 +150,109 @@ roof.color = Color.RED;</code></pre>
                3);
    }
 }</code></pre>
-<p><strong>⏩ Usa la clase  </strong><strong><code>Canvas</code></strong><strong> para dibujar las figuras </strong></p>
-<p>Añade al método  <code>main</code>  el siguiente código:</p>
-<pre><code>Canvas.draw(sky);
-Canvas.draw(earth);
-Canvas.draw(sun);
-Canvas.draw(wall);
-Canvas.draw(window);
-Canvas.draw(roof);</code></pre>
-<p><strong>⏩ Ejecuta el programa</strong></p>
-<p>Pulsa sobre el botón &#34;Run&#34;:</p>
+<h2>Usa la Classe  <code>Canvas </code>per a dibuixar les figures </h2>
+<p>Afegeix al métode  <code>main</code>  el següent codi:</p>
+<pre><code>Canvas.draw(sun);</code></pre>
+<h2>Executa el programa</h2>
+<p>Polsa sobre el botó &#34;Run&#34;:</p>
 <p><img style="max-width: 196.00px" src="img/5b594bb33856b06a.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea els objectes window i earth" duration="0">
+        <p>Seguim amb la resta d&#39;objectes del nostre dibuix. </p>
+<p>Seguim amb els objectes <code>window</code> i <code>earth</code>. Com són de la Classe <code>Circle</code>, que ja està definida, ja podem crear-los.</p>
+<p>Afegeix el següent codi al métode  <code>main</code>  (just a continuació del codi de l&#39;objecte  <code>sun</code>):</p>
+<pre><code>public class Main {
+   public static void main(String[] args){
+       Circle sun = new Circle();
+       sun.color = Color.YELLOW;
+       sun.positionX = 440;
+       sun.positionY = 50;
+       sun.radius = 40;
+
+       Circle window = new Circle();
+       window.color = Color.GRAY;
+       window.positionX = 240;
+       window.positionY = 215;
+       window.radius = 10;
+
+       Circle earth = new Circle();
+       earth.color = Color.GREEN;
+       earth.positionX = -300;
+       earth.positionY = 250;
+       earth.radius = 600;
+   }
+}</code></pre>
+<h2>Usa la Classe  <code>Canvas </code>para dibujar las figuras </h2>
+<p>afegeix al método  <code>main</code>  el següent codi:</p>
+<pre><code>Canvas.draw(earth);
+Canvas.draw(window);</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Defineix las Classes Rectangle y Triangle." duration="0">
+        <p>Una vez creados todos los objectes de tipo círculo, seguiremos con los rectángulos (<em>wall</em>, <em>sky</em>) y triángulos (<em>roof</em>).</p>
+<p>Crea las Classes <code>Rectangle</code> y <code>Triangle</code>, y afegeix en ellas los campos que definen su estado.</p>
+<pre><code>public class Rectangle {
+   int width;
+   int height;
+   int positionX;
+   int positionY;
+   Color color;
+}</code></pre>
+<pre><code>public class Triangle {
+   int width;
+   int height;
+   int positionX;
+   int positionY;
+   Color color;
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea los objectes sky, wall y roof" duration="0">
+        <p>Vuelve al arxiu Main.java y afegeix el següent codi:</p>
+<pre><code>Rectangle wall = new Rectangle();
+wall.width = 100;
+wall.height = 80;
+wall.positionX = 200;
+wall.positionY = 200;
+wall.color = Color.WHITE;
+
+Rectangle sky = new Rectangle();
+sky.width = 600;
+sky.height = 400;
+sky.positionX = 0;
+sky.positionY = 0;
+sky.color = Color.CYAN;
+
+Triangle roof = new Triangle();
+roof.width = 100;
+roof.height = 50;
+roof.positionX = 200;
+roof.positionY = 150;
+roof.color = Color.RED;</code></pre>
+<p>Hemos terminado de crear los objectes que componen nuestro dibujo.</p>
+<p>Una forma de entender las Classes es verlas como si fuesen un molde a partir del cual se crean los objectes. En el molde se definen los campos que tendrán los objectes que se creen a partir de él. Una vez creados los objectes, se pueden modificar los valores de los campos que definen su estado.</p>
+<h2>Usa la Classe  <code>Canvas </code>para dibujar las figuras </h2>
+<p>afegeix al método  <code>main</code>  el següent codi:</p>
+<pre><code>Canvas.draw(sky);
+Canvas.draw(wall);
+Canvas.draw(roof);</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Comprenent les Classes i els Objectes" duration="0">
+        <p>Les Classes es poden entendre com una plantilla a partir de la qual es poden crear Objectes. Cada Objecte és una còpia diferent de la plantilla. Per tant cada Objecte té una còpia dels camps que s&#39;han definit a la Classe. Es poden assignar diferents valors a cada camp de cada Objecte de forma independent.</p>
+<p>El següent gràfic explica les Classes i Objectes que s&#39;han creat per a fer el dibuix:</p>
+<p><img style="max-width: 736.10px" src="img/83bb163ca260a6cc.png"></p>
+<p>Els objectes s&#39;emmagatzemen a la memòria de l&#39;ordinador. Com és evident, a la memòria no s&#39;hi poden dibuixar cercles, rectangles, ni triangles. En realitat el que s&#39;està emmagatzemant en memòria és la informació sobre aquests objectes, és a dir els valors dels sus camps. Una representació més adequada dels objectes seria aquesta:</p>
+<p><img style="max-width: 736.10px" src="img/e5951ac7b9a9be14.png"></p>
 
 
       </google-codelab-step>
