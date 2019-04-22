@@ -51,13 +51,13 @@
 <p>Observa que s&#39;ha creat el fitxer <code>Circle.java</code>, amb la definició de la classe <code>Circle</code>:</p>
 <pre><code>class Circle {
 }</code></pre>
-<p>Un cop definida la classe <code>Circle</code>, es poden crear objectes d&#39;aquesta classe. Anem a crear l&#39;objecte <em>sun</em>:</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea l&#39;objecte sun" duration="0">
-        <p>Ves l&#39;arxiu <code>Main.java</code> i dintre del mètode  <code>main</code> afegeix el códi per a crear l&#39;object  <code>sun</code>.</p>
+        <p>Un cop definida la classe <code>Circle</code>, es poden crear objectes d&#39;aquesta classe. Anem a crear l&#39;objecte <em>sun</em>:</p>
+<p>Ves l&#39;arxiu <code>Main.java</code> i dintre del mètode  <code>main</code> afegeix el códi per a crear l&#39;object  <code>sun</code>.</p>
 <pre><code>public class Main {
    public static void main(String[] args) {
        Circle sun = new Circle();
@@ -67,8 +67,8 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Defineix els camps de la Classe Circle" duration="0">
-        <p>Definirem l&#39;estat dels objectes de classe <code>Circle</code> (com l&#39;objecte <em><code>sun</code></em>), amb els següients camps:</p>
+      <google-codelab-step label="Defineix els camps de la classe Circle" duration="0">
+        <p>Definirem l&#39;estat dels objectes de classe <code>Circle</code> (com l&#39;objecte <code>sun</code>), amb els següients camps:</p>
 <ul>
 <li>Longitud del radi</li>
 <li>Posició: coordenades X i Y</li>
@@ -96,7 +96,7 @@
     
       <google-codelab-step label="Defineix l&#39;estat de l&#39;objecte sun" duration="0">
         <p>Ara l&#39;objecte <code>sun</code> ja té els camps de la classe <code>Circle</code>, així que podems definir el seu estat.</p>
-<p>Ves a l&#39;arxiu Main.java i assigna els següents valors als camps que defineixen l&#39;estat de l&#39;objecte <code>sun</code>:</p>
+<p>Ves a l&#39;arxiu <code>Main.java</code> i assigna els següents valors als camps que defineixen l&#39;estat de l&#39;objecte <code>sun</code>:</p>
 <pre><code>public class Main {
    public static void main(String[] args){
        Circle sun = new Circle();
@@ -150,8 +150,8 @@
                3);
    }
 }</code></pre>
-<h2>Usa la Classe  <code>Canvas </code>per a dibuixar les figures </h2>
-<p>Afegeix al métode  <code>main</code>  el següent codi:</p>
+<h2>Usa la classe  <code>Canvas </code>per a dibuixar les figures </h2>
+<p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
 <pre><code>Canvas.draw(sun);</code></pre>
 <h2>Executa el programa</h2>
 <p>Polsa sobre el botó &#34;Run&#34;:</p>
@@ -163,7 +163,7 @@
       <google-codelab-step label="Crea els objectes window i earth" duration="0">
         <p>Seguim amb la resta d&#39;objectes del nostre dibuix. </p>
 <p>Seguim amb els objectes <code>window</code> i <code>earth</code>. Com són de la Classe <code>Circle</code>, que ja està definida, ja podem crear-los.</p>
-<p>Afegeix el següent codi al métode  <code>main</code>  (just a continuació del codi de l&#39;objecte  <code>sun</code>):</p>
+<p>Afegeix el següent codi al mètode  <code>main</code>  (just a continuació del codi de l&#39;objecte  <code>sun</code>):</p>
 <pre><code>public class Main {
    public static void main(String[] args){
        Circle sun = new Circle();
@@ -185,17 +185,17 @@
        earth.radius = 600;
    }
 }</code></pre>
-<h2>Usa la Classe  <code>Canvas </code>para dibujar las figuras </h2>
-<p>afegeix al método  <code>main</code>  el següent codi:</p>
+<h2>Usa la classe  <code>Canvas </code>per a dibuixar les figures </h2>
+<p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
 <pre><code>Canvas.draw(earth);
 Canvas.draw(window);</code></pre>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Defineix las Classes Rectangle y Triangle." duration="0">
-        <p>Una vez creados todos los objectes de tipo círculo, seguiremos con los rectángulos (<em>wall</em>, <em>sky</em>) y triángulos (<em>roof</em>).</p>
-<p>Crea las Classes <code>Rectangle</code> y <code>Triangle</code>, y afegeix en ellas los campos que definen su estado.</p>
+      <google-codelab-step label="Defineix les classes Rectangle i Triangle." duration="0">
+        <p>Un cop creats tots els objectes de tipus cercle, seguirem amb els rectangles (<em>wall</em>, <em>sky</em>) i triangles (<em>roof</em>).</p>
+<p>Crea les classes <code>Rectangle</code> i <code>Triangle</code>, i afegeix en elles els camps que defineixen el seu estat.</p>
 <pre><code>public class Rectangle {
    int width;
    int height;
@@ -214,8 +214,8 @@ Canvas.draw(window);</code></pre>
 
       </google-codelab-step>
     
-      <google-codelab-step label="Crea los objectes sky, wall y roof" duration="0">
-        <p>Vuelve al arxiu Main.java y afegeix el següent codi:</p>
+      <google-codelab-step label="Crea els objectes sky, wall i roof" duration="0">
+        <p>Torna a l&#39;arxiu <code>Main.java</code> i afegeix el següent codi:</p>
 <pre><code>Rectangle wall = new Rectangle();
 wall.width = 100;
 wall.height = 80;
@@ -236,10 +236,8 @@ roof.height = 50;
 roof.positionX = 200;
 roof.positionY = 150;
 roof.color = Color.RED;</code></pre>
-<p>Hemos terminado de crear los objectes que componen nuestro dibujo.</p>
-<p>Una forma de entender las Classes es verlas como si fuesen un molde a partir del cual se crean los objectes. En el molde se definen los campos que tendrán los objectes que se creen a partir de él. Una vez creados los objectes, se pueden modificar los valores de los campos que definen su estado.</p>
-<h2>Usa la Classe  <code>Canvas </code>para dibujar las figuras </h2>
-<p>afegeix al método  <code>main</code>  el següent codi:</p>
+<h2>Usa la Classe  <code>Canvas </code>per a dibuixar les figures </h2>
+<p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
 <pre><code>Canvas.draw(sky);
 Canvas.draw(wall);
 Canvas.draw(roof);</code></pre>
