@@ -26,14 +26,20 @@
     
       <google-codelab-step label="Introducció" duration="0">
         <h2><img style="max-width: 166.70px" src="img/2501f78d7d121a45.png"></h2>
-<p>En este curso utilizaremos IntelliJ IDEA como nuestro Entorno Integrado de Desarrollo (IDE), que facilita el proceso de desarrollo de software. Las tareas de escribir, compilar y ejecutar un programa, se realizan todas dentro del IDE. Además proporciona herramientas muy útiles como &#34;Resaltado de codigo&#34;, &#34;Autocompletado&#34;, &#34;Detección de errores&#34;, &#34;Deupración&#34; ¡y muchísimas otras que iremos viendo y descubriendo!</p>
+<p>En aquest curs utilitzarem IntelliJ IDEA com el nostre Entorn Integrat de Desenvolupament (IDE), que facilita el procés de desenvolupament de software. Les tasques d&#39;escriure, compilar i executar un programa, es realitzen totes dintre de l&#39;IDE. A més a més proporciona eines molt útils com &#34;Resaltat de codi&#34;, &#34;Autocompletat&#34;, &#34;Detecció d&#39;errores&#34;, &#34;Deupració&#34; ¡i moltíssimes altres que anirem veient i descobrient!</p>
+<p>Què aprendràs</p>
+<ul>
+<li>El procés de desnvolupament de programes amb tecnologia Java</li>
+<li>Compilar un programa a partir del codi font</li>
+<li>Executar un programa compilat</li>
+</ul>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Instal·la IntelliJ IDEA Community Edition" duration="0">
         <h2>Descarrega </h2>
-<p>Pots descarregar IntelliJ IDEA Community Edition de la web de JetBrains: </p>
+<p>Pots descarregar <strong>IntelliJ IDEA Community Edition</strong> de la web de JetBrains: </p>
 <p><a href="https://www.jetbrains.com/idea/download/" target="_blank"><paper-button class="colored" raised>IntelliJ IDEA Community Edition</paper-button></a></p>
 <aside class="warning"><p><strong>Important</strong>: Assegura&#39;t de descarregar la versió Community (botó negre).</p>
 </aside>
@@ -42,21 +48,20 @@
 <h2>Instal·la </h2>
 <p>Executa la seguent comanda per a iniciar IntelliJ IDEA. </p>
 <pre>idea-IC-172.3757.52/bin/idea.sh</pre>
-<p>El primer cop s&#39;iniciarà amb l&#39;instal·lador.</p>
-<p>Segueix els passos que s&#39;indiquen</p>
-<p>1 - No importar configuración anterior</p>
+<p>El primer cop s&#39;iniciarà amb l&#39;instal·lador. Segueix els passos que s&#39;indiquen</p>
+<p>1 - No importar configuració anterior</p>
 <p><img style="max-width: 477.70px" src="img/4a6400f3b6e9deaa.png"></p>
-<p>2 - Aceptar la Política de Privacidad</p>
+<p>2 - Acceptar la Política de Privacitat</p>
 <p><img style="max-width: 470.70px" src="img/3e615cf8bc54b43a.png"></p>
-<p>3 - Elegir un tema (a tu gusto)</p>
+<p>3 - Elscollir un tema (al teu gust)</p>
 <p><img style="max-width: 480.74px" src="img/2c0f9699007678c3.png"></p>
-<p>4 - Crear un acceso en el Escritorio</p>
+<p>4 - Crear un accés a l&#39;Escriptori</p>
 <p><img style="max-width: 481.71px" src="img/2a31e6521abb2509.png"></p>
-<p>5 - Configurar un script de lanzamiento (no es necesario)</p>
+<p>5 - Configurar un script de llançament (no és necessari)</p>
 <p><img style="max-width: 481.70px" src="img/5b2b51bd77638432.png"></p>
-<p>6 - Instalar plugins por defecto (no es necesario instalar ninguno)</p>
+<p>6 - Instal·lar plugins per defecte (no és necessari instal·lar-ne cap)</p>
 <p><img style="max-width: 480.91px" src="img/e1c9b2027a27ea8f.png"></p>
-<p>7 - Instalar plugins destacados (no es necesario instalar ninguno)</p>
+<p>7 - Instal·lar plugins destacats (no és necessari instalar-ne cap)</p>
 <p><img style="max-width: 481.70px" src="img/ab189364c7e6959e.png"></p>
 
 
@@ -64,26 +69,26 @@
     
       <google-codelab-step label="Crea un Projecte" duration="0">
         <p><img style="max-width: 480.66px" src="img/2a7f29a19b3298e2.png"></p>
-<p>1 - Establece el SDK, pulsando el botón &#34;New...&#34;</p>
+<p>1 - Estableix l&#39;SDK, pulsant el botó &#34;New...&#34;</p>
 <p><img style="max-width: 480.89px" src="img/34f0b39949b09c88.png"></p>
-<p>Elige el JDK:</p>
+<p>Selecciona el directori on tens el JDK :</p>
 <p><img style="max-width: 481.70px" src="img/fa373932c2d5229.png"></p>
-<aside class="special"><p><strong>Nota:</strong> Puede ser recomendable poner la carpeta <code>jdk1.8.0_144</code> dentro de la carpeta <code>idea-IC-172.3735.52</code>, para de esta forma tener todo en una misma carpeta.</p>
+<aside class="special"><p><strong>Nota:</strong> Pot ser recomanable posar la carpeta <code>jdk1.8.0_144</code> dintre de la carpeta <code>idea-IC-172.3735.52</code>, per a d&#39;aquesta forma tenir tot en una mateixa carpeta.</p>
 </aside>
-<p>2 - Crea un proyecto desde la plantilla &#34;Command Line App&#34;</p>
+<p>2 - Crea un projece des de la plantilla &#34;Command Line App&#34;</p>
 <p><img style="max-width: 481.87px" src="img/460223fa3dcb1150.png"></p>
-<p>3 - Pon el nombre <code>HelloWorldApp</code> a tu proyecto.</p>
+<p>3 - Posa el nom <code>HelloWorldApp</code> al teu projecte.</p>
 <p><img style="max-width: 480.89px" src="img/909bb1ec4aa26fb7.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Escriu, compila i executa el programa HelloWorldApp" duration="0">
-        <p>1 - Borra la línea donde pone:</p>
+        <p>1 - Borra la línea on hi diu:</p>
 <pre><code>// write your code here</code></pre>
-<p>Y escribe el código que muestra el mensaje &#34;Hello World!&#34;:</p>
+<p>I escriu el códi que mostra el missatge &#34;Hello World!&#34;:</p>
 <pre><code>System.out.println(&#34;Hello World!&#34;);</code></pre>
-<p>2 - Compila y ejecuta el programa pulsando el boton &#34;Run&#34; ( <img style="max-width: 19.00px" src="img/523eca6211b514fd.png"> )</p>
+<p>2 - Compila i executa el programa pulsant el botó &#34;Run&#34; ( <img style="max-width: 19.00px" src="img/523eca6211b514fd.png"> )</p>
 <p><img style="max-width: 480.24px" src="img/edb0118fd21c1c8d.png"></p>
 
 

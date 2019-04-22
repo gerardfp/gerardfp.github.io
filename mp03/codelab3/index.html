@@ -26,7 +26,7 @@
     
       <google-codelab-step label="Introducció" duration="0">
         <p>El objetivo de esta práctica es empezar a usar los conceptos de Clase y Objeto. Consiste en desarrollar una aplicación que muestre un dibujo simple hecho con figuras geométricas.</p>
-<p><img style="max-width: 257.15px" src="img\d464d034dbdf63c.png"></p>
+<p><img style="max-width: 257.15px" src="img/d464d034dbdf63c.png"></p>
 <p>En el dibujo vemos una casa (muro, tejado y ventana) sobre la tierra y un sol en el cielo.</p>
 <p>El dibujo se compondrá de los siguientes <strong>Objetos</strong>: <em>sun, sky, earth, wall, window </em>y<em> roof</em></p>
 <p>Estos objetos estarán clasificados en las siguientes <strong>Clases</strong>: <em>Circle</em>, <em>Rectangle </em>y <em>Triangle</em></p>
@@ -44,10 +44,10 @@
     
       <google-codelab-step label="Crea la clase Circle" duration="0">
         <p>Haz click-derecho sobre el <em>package </em>&#34;com.company&#34;, y selecciona las opciones &#34;New&#34;, &#34;Java Class&#34;:</p>
-<p><img style="max-width: 658.00px" src="img\fc86c3561f1cf3ad.png"></p>
+<p><img style="max-width: 658.00px" src="img/fc86c3561f1cf3ad.png"></p>
 <p>Como nombre de la Clase introduce &#34;Circle&#34;  (es importante que el nombre de las clases empiece en mayúscula)</p>
 <p>Pulsa &#34;OK&#34;.</p>
-<p><img style="max-width: 374.00px" src="img\1ad29e5133869ca0.png"></p>
+<p><img style="max-width: 374.00px" src="img/1ad29e5133869ca0.png"></p>
 <p>Observa que se ha creado el fichero <code>Circle.java</code>, con la definición de la clase <code>Circle</code>:</p>
 <pre><code>class Circle {
 }</code></pre>
@@ -89,7 +89,7 @@
 <li>Cuando la palabra <code>Color</code> esté subrayada, aparecerá un mensaje azul sobre ella. Pulsa <code>Alt+Intro</code></li>
 <li>Aparecerá una lista debajo con las bibliotecas que incluyen la clase <code>Color</code>. Selecciona la biblioteca Color (java.awt)</li>
 </ol>
-<p><img style="max-width: 427.00px" src="img\d4715880603d610e.png"></p>
+<p><img style="max-width: 427.00px" src="img/d4715880603d610e.png"></p>
 <p>Ahora el objeto <code>sun</code> ya tiene los campos de la clase <code>Circle</code>, así que podemos definir su estado</p>
 <p><strong>⏩ Define el estado del objeto </strong><strong><em>sun</em></strong></p>
 <p>Ve al archivo Main.java y asigna los siguientes valores a los campos que definen el estado del objeto <code>sun</code>:</p>
@@ -168,9 +168,9 @@ roof.positionY = 150;
 roof.color = Color.RED;</code></pre>
 <p>Hemos terminado de crear los objetos que componen nuestro dibujo.</p>
 <p>Una forma de entender las clases es verlas como si fuesen un molde a partir del cual se crean los objetos. En el molde se definen los campos que tendrán los objetos que se creen a partir de él. Una vez creados los objetos, se pueden modificar los valores de los campos que definen su estado.</p>
-<p><img style="max-width: 736.10px" src="img\83bb163ca260a6cc.png"></p>
+<p><img style="max-width: 736.10px" src="img/83bb163ca260a6cc.png"></p>
 <p>Los objetos se almacenan en la memoria del ordenador. Como es evidente, en la memoria no se pueden dibujar círulos, rectángulos, ni triángulos. En realidad lo que se almacena en memoria es la información sobre estos objetos, es decir los valores de sus campos. Una representación más adecuada de los objetos sería esta:</p>
-<p><img style="max-width: 736.10px" src="img\e5951ac7b9a9be14.png"></p>
+<p><img style="max-width: 736.10px" src="img/e5951ac7b9a9be14.png"></p>
 <p>Para dibujar los objetos en la pantalla utilizaremos la clase JFrame, de la biblioteca gráfica Swing, para crear una ventana que será nuestro lienzo (<em>canvas</em>). De momento no es necesario que entiendas nada de esta clase. Simplemente copia y pega.</p>
 <p><strong>⏩ Crea la clase </strong><strong><code>Canvas </code></strong></p>
 <p>Crea una clase nueva llamada &#34;Canvas&#34; y escribe en ella el siguiente código:</p>
@@ -220,7 +220,7 @@ Canvas.draw(window);
 Canvas.draw(roof);</code></pre>
 <p><strong>⏩ Ejecuta el programa</strong></p>
 <p>Pulsa sobre el botón &#34;Run&#34;:</p>
-<p><img style="max-width: 196.00px" src="img\5b594bb33856b06a.png"></p>
+<p><img style="max-width: 196.00px" src="img/5b594bb33856b06a.png"></p>
 
 
       </google-codelab-step>

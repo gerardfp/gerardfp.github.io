@@ -27,27 +27,27 @@
       <google-codelab-step label="Introducció" duration="0">
         <p>L&#39;objectiu d&#39;aquest CodeLab és la iniciació a l&#39;ús de formularis en interfícies gràfiques.</p>
 <p>Realitzarem una Calculadora d&#39;operacions lògiques binaries.</p>
-<p><img style="max-width: 264.00px" src="img\5bb76568a1678271.png"></p>
+<p><img style="max-width: 264.00px" src="img/5bb76568a1678271.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
         <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Calculadora&#34;.</p>
-<p><img style="max-width: 548.00px" src="img\1f77c27e0b506e0f.png"></p>
-<p><img style="max-width: 548.00px" src="img\8556ac2bd86adfea.png"></p>
-<p><img style="max-width: 550.00px" src="img\821e9c109875504b.png"></p>
+<p><img style="max-width: 548.00px" src="img/1f77c27e0b506e0f.png"></p>
+<p><img style="max-width: 548.00px" src="img/8556ac2bd86adfea.png"></p>
+<p><img style="max-width: 550.00px" src="img/821e9c109875504b.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el GUIForm" duration="0">
         <p>Fes click-dreta sobre el package &#34;com.company&#34; i selecciona -&gt; <strong>NEW </strong>-&gt; <strong>GUI Form</strong></p>
-<p><img style="max-width: 732.00px" src="img\3e5ef17c8cd93107.png"></p>
+<p><img style="max-width: 732.00px" src="img/3e5ef17c8cd93107.png"></p>
 <p>En el diàleg &#34;New GUI Form&#34; introdueix les següents dades:</p>
-<p><img style="max-width: 363.00px" src="img\25bd1aceeff1d5d7.png"></p>
+<p><img style="max-width: 363.00px" src="img/25bd1aceeff1d5d7.png"></p>
 <p>Un cop creat el GUIForm, s&#39;obrirà l&#39;entorn gràfic de disseny:</p>
-<p><img style="max-width: 736.40px" src="img\816f052029ecf12c.png"></p>
+<p><img style="max-width: 736.40px" src="img/816f052029ecf12c.png"></p>
 <p>Aquest entorn permet arrossegar i soltar components al formulari. Hi podem veure tres seccions:</p>
 <ol type="1" start="1">
 <li>Component Tree - mostra la vista jeràrquica dels components que s&#39;han afegit al formulari. Per a cada component permet definir les seves propietats (Property | Value)</li>
@@ -61,10 +61,10 @@
       <google-codelab-step label="Disseny del GUI Form" duration="0">
         <h2>Visualitzador de resultats</h2>
 <p>Arrossega un <code>JTextField</code> desde la paleta i solta&#39;l en l&#39;àrea de disseny. Estableix a la propietat &#34;Field name&#34; el valor &#34;<strong>resultat</strong>&#34; :</p>
-<p><img style="max-width: 736.40px" src="img\18ec616da5a79bf8.png"></p>
+<p><img style="max-width: 736.40px" src="img/18ec616da5a79bf8.png"></p>
 <h2>Botons</h2>
 <p>Afegeix els components <code>JButton</code> de la paleta a l&#39;àrea de disseny. Distribuieix-los en la graella de la següent forma:</p>
-<p><img style="max-width: 736.40px" src="img\3a3d3af6cc28d772.png"></p>
+<p><img style="max-width: 736.40px" src="img/3a3d3af6cc28d772.png"></p>
 <p>Estableix les següents propietats als botons:</p>
 <p>Button1: &#34;text&#34;=<strong>AC</strong>, &#34;field name&#34;=<strong>ACButton</strong></p>
 <p>Button2: &#34;text&#34;=<strong>NOT</strong>, &#34;field name&#34;=<strong>NOTButton</strong></p>
@@ -73,7 +73,7 @@
 <p>Button5: &#34;text&#34;=<strong>0</strong>, &#34;field name&#34;=<strong>a0Button</strong></p>
 <p>Button6: &#34;text&#34;=<strong>1</strong>, &#34;field name&#34;=<strong>a1Button</strong></p>
 <p>Pots veure una previsualització de l&#39;aspecte del Formulari fent click-dreta sobre el disseny i selecionant &#34;Preview&#34;:</p>
-<p><img style="max-width: 736.40px" src="img\fa2c3fccc7603dd3.png"></p>
+<p><img style="max-width: 736.40px" src="img/fa2c3fccc7603dd3.png"></p>
 <h2>Establir el nom del JPanel</h2>
 <p>Com a pas previ, per a fer funcionar el formulari es requereix establir el camp &#34;nom&#34; del component JPanel: </p>
 <p>Selecciona el <code>JPanel</code> a la finestra Component Tree i canvia la propietat &#34;<strong>nom</strong>&#34; a <strong><code>calcView.</code></strong></p>
@@ -100,7 +100,7 @@ public class Calculadora {
       <google-codelab-step label="Fer funcionar el GUIForm" duration="0">
         <p>Per tal de fer que el formulari funcioni es requereix crear un <code>JFrame</code>. Crearem el mètode main() que serà el responsable de crear-lo quan s&#39;executi el programa.</p>
 <p>A l&#39;editor de codi de l&#39;arxiu <code>Calculadora.java</code>, fest click-dreta i selecciona -&gt; <strong>Generate</strong> -&gt; <strong>Form.main()</strong></p>
-<p><img style="max-width: 529.00px" src="img\72e0c6a62d89c879.png"></p>
+<p><img style="max-width: 529.00px" src="img/72e0c6a62d89c879.png"></p>
 <p>Ara ja es pot executar el mètode <code>Calculadora.main()</code>, fent click-dreta i seleccionant -&gt; <strong>Run Calculadora.main()</strong></p>
 
 
@@ -109,7 +109,7 @@ public class Calculadora {
       <google-codelab-step label="Fer funcionar els botons de la calculadora" duration="0">
         <p>Per respondre als clicks dels botons i realitzar les operacions, cal afegir un Listener a cadascun d&#39;ells. El Listener es l&#39;acció que s&#39;executa quan es fa click al botó.</p>
 <p>Afegeix un Listener a cada botó fent click-dreta sobre ells i seleccionant -&gt; <strong>Create Listener -&gt; Action Listener</strong></p>
-<p><img style="max-width: 736.40px" src="img\5aa2b53ab2a9f227.png"></p>
+<p><img style="max-width: 736.40px" src="img/5aa2b53ab2a9f227.png"></p>
 <p>Després d&#39;afegir un <code>Listener</code> a cada botó, s&#39;haurà afegit a l&#39;arxiu <code>Calculadora.java</code> el següent codi:</p>
 <h3>Calculadora.java</h3>
 <pre><code>public Calculadora() {

@@ -1,14 +1,14 @@
 {
   "environment": "web",
-  "source": "10fDEk_ithFT5RD6rbpxg59aqqRCuiz1ERg9LqoX4Lqo",
+  "source": "1wLfWk0VDU68IrhkAwjdJJkbhPHa_dUGE9GkooVEGxHY",
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2019-01-31T16:49:32Z",
-  "id": "mp03/ide",
+  "updated": "2019-02-10T23:05:39Z",
+  "id": "mp03/codelab3",
   "duration": 0,
-  "title": "Entorn Integrat de Desenvolupament",
-  "summary": "Entorn Integrat de Desenvolupament",
+  "title": "Drawing with Java",
+  "summary": "Drawing with Java",
   "theme": "java",
   "status": [
     "draft"
@@ -18,5 +18,5 @@
   ],
   "tags": [],
   "feedback": "https://github.com/gerardfp",
-  "url": "mp03/ide"
+  "url": "mp03/codelab3"
 }

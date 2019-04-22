@@ -1,14 +1,14 @@
 {
   "environment": "web",
-  "source": "1vioN9oFJt6puatsA7xGw4gNt1k_WNW_Dp1_vPySnpiQ",
+  "source": "10fDEk_ithFT5RD6rbpxg59aqqRCuiz1ERg9LqoX4Lqo",
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2019-01-31T16:47:13Z",
-  "id": "mp03/jdk",
+  "updated": "2019-02-10T23:14:35Z",
+  "id": "mp03/codelab2",
   "duration": 0,
-  "title": "Java Development Kit",
-  "summary": "Java Development Kit",
+  "title": "Entorn Integrat de Desenvolupament",
+  "summary": "Entorn Integrat de Desenvolupament",
   "theme": "java",
   "status": [
     "draft"
@@ -18,5 +18,5 @@
   ],
   "tags": [],
   "feedback": "https://github.com/gerardfp",
-  "url": "mp03/jdk"
+  "url": "mp03/codelab2"
 }

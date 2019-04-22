@@ -1,14 +1,14 @@
 {
   "environment": "web",
-  "source": "1o8rc7OlcDHDKFQZK8NtT1sdpCr8fdkaXhVhx4FUjEOs",
+  "source": "1vioN9oFJt6puatsA7xGw4gNt1k_WNW_Dp1_vPySnpiQ",
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2019-02-10T23:04:29Z",
-  "id": "mp03/formgui",
+  "updated": "2019-02-10T23:18:58Z",
+  "id": "mp03/codelab1",
   "duration": 0,
-  "title": "FormGUI",
-  "summary": "Drawing with Java",
+  "title": "Java Development Kit",
+  "summary": "Java Development Kit",
   "theme": "java",
   "status": [
     "draft"
@@ -18,5 +18,5 @@
   ],
   "tags": [],
   "feedback": "https://github.com/gerardfp",
-  "url": "mp03/formgui"
+  "url": "mp03/codelab1"
 }
