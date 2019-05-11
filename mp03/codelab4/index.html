@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Conversió entre Números i Strings</title>
+  <title>FormGUI</title>
   <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../../elements/codelab.html">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
@@ -20,75 +20,221 @@
 </head>
 <body unresolved class="fullbleed">
 
-  <google-codelab title="Conversió entre Números i Strings"
+  <google-codelab title="FormGUI"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p>L&#39;objectiu d&#39;aquest CodeLab és aprendre el mètodes que ofereix JAVA per a la conversió entre tipus numèrics (int, float,...) i Strings.</p>
-<p>Ja coneixes l&#39;ús dels mètodes <code>print</code> i  <code>println</code> per a impressió de cadenes a la sortida estàndard (<code>System.out</code>). </p>
-<p>Atès que tots els números es poden convertir en cadenes, podeu utilitzar aquests mètodes per imprimir una barreja arbitrària de cadenes i nombres. El llenguatge de programació Java té altres mètodes, però, que us permeten exercir molt més control sobre la vostra impressió.</p>
+        <p>L&#39;objectiu d&#39;aquest CodeLab és la iniciació a l&#39;ús de formularis en interfícies gràfiques.</p>
+<p>Realitzarem una Calculadora d&#39;operacions lògiques binaries.</p>
+<p><img style="max-width: 264.00px" src="img/5bb76568a1678271.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Formatting&#34;.</p>
-<p><img style="max-width: 616.00px" src="img\792ed00254716d13.png"></p>
-<p><img style="max-width: 616.00px" src="img\7b9b5bf8a5d2dd19.png"></p>
-<p><img style="max-width: 736.40px" src="img\eb9372ba941daaeb.png"></p>
+        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Calculadora&#34;.</p>
+<p><img style="max-width: 548.00px" src="img/1f77c27e0b506e0f.png"></p>
+<p><img style="max-width: 548.00px" src="img/8556ac2bd86adfea.png"></p>
+<p><img style="max-width: 550.00px" src="img/821e9c109875504b.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Convertir Strings a números" duration="0">
-        <p>Sovint, un programa acaba amb dades numèriques en un objecte tipus String: un valor introduït per l&#39;usuari, per exemple.</p>
-<p>Podem convertir aquest String al seu valor numeric amb el mètode <code>valueOf</code>.</p>
-<pre><code>String sEnter = &#34;10&#34;;
-int enter = Integer.valueOf(sEnter);
-
-String sDecimal = &#34;10.99&#34;;
-float decimal = Float.valueOf(sDecimal);
-
-String sBoolea = &#34;true&#34;;
-boolean boolea = Boolean.valueOf(sBoolea);</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Convertir números a Strings" duration="0">
-        <p>Per convertir números a Strings hi ha varies opcions:</p>
-<p>La primera és utilitzar la concatenació:</p>
-<pre><code>int numero = 1000;
-
-String sNumero = &#34;&#34;+numero;</code></pre>
-<p>També es pot utilitzar el mètode <code>valueOf</code> de la classe String.</p>
-<pre><code>int numero = 1000;
-
-String sNumero = String.valueOf(numero);</code></pre>
-<p>O també, el mètode toString de les classes numèriques:</p>
-<pre><code>int enter = 1000;
-float decimal = 99.876f;
-
-String sEnter = Integer.toString(enter);
-String sDecimal = Float.toString(decimal);</code></pre>
+      <google-codelab-step label="Crea el GUIForm" duration="0">
+        <p>Fes click-dreta sobre el package &#34;com.company&#34; i selecciona -&gt; <strong>NEW </strong>-&gt; <strong>GUI Form</strong></p>
+<p><img style="max-width: 732.00px" src="img/3e5ef17c8cd93107.png"></p>
+<p>En el diàleg &#34;New GUI Form&#34; introdueix les següents dades:</p>
+<p><img style="max-width: 363.00px" src="img/25bd1aceeff1d5d7.png"></p>
+<p>Un cop creat el GUIForm, s&#39;obrirà l&#39;entorn gràfic de disseny:</p>
+<p><img style="max-width: 736.40px" src="img/816f052029ecf12c.png"></p>
+<p>Aquest entorn permet arrossegar i soltar components al formulari. Hi podem veure tres seccions:</p>
+<ol type="1" start="1">
+<li>Component Tree - mostra la vista jeràrquica dels components que s&#39;han afegit al formulari. Per a cada component permet definir les seves propietats (Property | Value)</li>
+<li>Design area - la vista gràfica del formulari. Els components s&#39;afegeixen arrossegant-los en aquesta àrea</li>
+<li>Palette -  conté tots els components disponibles que es poden afegir al formulari</li>
+</ol>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Caràcter a String" duration="0">
-        <p>Un cas especial és el tipus <code>char</code>, que es pot interpretar com un número (el seu codi) o com una lletra:</p>
-<pre><code>char caracter = &#39;a&#39;;
+      <google-codelab-step label="Disseny del GUI Form" duration="0">
+        <h2>Visualitzador de resultats</h2>
+<p>Arrossega un <code>JTextField</code> desde la paleta i solta&#39;l en l&#39;àrea de disseny. Estableix a la propietat &#34;Field name&#34; el valor &#34;<strong>resultat</strong>&#34; :</p>
+<p><img style="max-width: 736.40px" src="img/18ec616da5a79bf8.png"></p>
+<h2>Botons</h2>
+<p>Afegeix els components <code>JButton</code> de la paleta a l&#39;àrea de disseny. Distribuieix-los en la graella de la següent forma:</p>
+<p><img style="max-width: 736.40px" src="img/3a3d3af6cc28d772.png"></p>
+<p>Estableix les següents propietats als botons:</p>
+<p>Button1: &#34;text&#34;=<strong>AC</strong>, &#34;field name&#34;=<strong>ACButton</strong></p>
+<p>Button2: &#34;text&#34;=<strong>NOT</strong>, &#34;field name&#34;=<strong>NOTButton</strong></p>
+<p>Button3: &#34;text&#34;=<strong>OR</strong>, &#34;field name&#34;=<strong>ORButton</strong></p>
+<p>Button4: &#34;text&#34;=<strong>AND</strong>, &#34;field name&#34;=<strong>ANDButton</strong></p>
+<p>Button5: &#34;text&#34;=<strong>0</strong>, &#34;field name&#34;=<strong>a0Button</strong></p>
+<p>Button6: &#34;text&#34;=<strong>1</strong>, &#34;field name&#34;=<strong>a1Button</strong></p>
+<p>Pots veure una previsualització de l&#39;aspecte del Formulari fent click-dreta sobre el disseny i selecionant &#34;Preview&#34;:</p>
+<p><img style="max-width: 736.40px" src="img/fa2c3fccc7603dd3.png"></p>
+<h2>Establir el nom del JPanel</h2>
+<p>Com a pas previ, per a fer funcionar el formulari es requereix establir el camp &#34;nom&#34; del component JPanel: </p>
+<p>Selecciona el <code>JPanel</code> a la finestra Component Tree i canvia la propietat &#34;<strong>nom</strong>&#34; a <strong><code>calcView.</code></strong></p>
+<p>Fent click sobre l&#39;arxiu Calculadora.java s&#39;haurien de mostrar els següents components inserits:</p>
+<h3>Calculadora.java</h3>
+<pre><code>package com.company;
 
-System.out.println(caracter); // com a lletra
-System.out.println(2 + caracter);  // com a número</code></pre>
-<p>Podem forçar la interpretació d&#39;un char com una lletra amb Character.toString(), i com un número amb Character.getNumericValue()</p>
-<pre><code>char caracter = &#39;a&#39;;
+import javax.swing.*;
 
-System.out.println(caracter);
-System.out.println(&#34;&gt;&#34; + caracter);
-System.out.println(2 + Character.toString(caracter));
-System.out.println(&#34;&gt;&#34; + Character.getNumericValue(caracter));</code></pre>
+public class Calculadora {
+   private JTextField textField1;
+   private JButton ACButton;
+   private JButton NOTButton;
+   private JButton ORButton;
+   private JButton ANDButton;
+   private JButton a0Button;
+   private JButton a1Button;
+   private JPanel calcView;
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Fer funcionar el GUIForm" duration="0">
+        <p>Per tal de fer que el formulari funcioni es requereix crear un <code>JFrame</code>. Crearem el mètode main() que serà el responsable de crear-lo quan s&#39;executi el programa.</p>
+<p>A l&#39;editor de codi de l&#39;arxiu <code>Calculadora.java</code>, fest click-dreta i selecciona -&gt; <strong>Generate</strong> -&gt; <strong>Form.main()</strong></p>
+<p><img style="max-width: 529.00px" src="img/72e0c6a62d89c879.png"></p>
+<p>Ara ja es pot executar el mètode <code>Calculadora.main()</code>, fent click-dreta i seleccionant -&gt; <strong>Run Calculadora.main()</strong></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Fer funcionar els botons de la calculadora" duration="0">
+        <p>Per respondre als clicks dels botons i realitzar les operacions, cal afegir un Listener a cadascun d&#39;ells. El Listener es l&#39;acció que s&#39;executa quan es fa click al botó.</p>
+<p>Afegeix un Listener a cada botó fent click-dreta sobre ells i seleccionant -&gt; <strong>Create Listener -&gt; Action Listener</strong></p>
+<p><img style="max-width: 736.40px" src="img/5aa2b53ab2a9f227.png"></p>
+<p>Després d&#39;afegir un <code>Listener</code> a cada botó, s&#39;haurà afegit a l&#39;arxiu <code>Calculadora.java</code> el següent codi:</p>
+<h3>Calculadora.java</h3>
+<pre><code>public Calculadora() {
+   ACButton.addActionListener(new ActionListener() {
+       @Override
+       public void actionPerformed(ActionEvent e) {
+
+       }
+   });
+   NOTButton.addActionListener(new ActionListener() {
+       @Override
+       public void actionPerformed(ActionEvent e) {
+
+       }
+   });
+   ORButton.addActionListener(new ActionListener() {
+       @Override
+       public void actionPerformed(ActionEvent e) {
+
+       }
+   });
+   ANDButton.addActionListener(new ActionListener() {
+       @Override
+       public void actionPerformed(ActionEvent e) {
+
+       }
+   });
+   a0Button.addActionListener(new ActionListener() {
+       @Override
+       public void actionPerformed(ActionEvent e) {
+
+       }
+   });
+   a1Button.addActionListener(new ActionListener() {
+       @Override
+       public void actionPerformed(ActionEvent e) {
+
+       }
+   });
+   eqButton.addActionListener(new ActionListener() {
+       @Override
+       public void actionPerformed(ActionEvent e) {
+
+       }
+   });
+}</code></pre>
+<p>El pas següent és realitzar les operacions binàries seleccionades per l&#39;usuari.</p>
+<p>Crearem dues variables de tipus <code>String</code> per a emmagatzemar els valor que l&#39;usuari introdueix com a operands, i una variable de tipus <code>int</code> per a emmagatzemar la operació.</p>
+<pre><code>private String operand1 =&#34;&#34;, operand2 =&#34;&#34;;
+private int operator = 0;</code></pre>
+<h2>Botons 0 i 1</h2>
+<p>L&#39;acció a prendre quan es fa click als botons 0 i 1, és afegir un 0 o un 1 a l&#39;<code>operand1</code>:, actualitzant el display:</p>
+<pre><code>a0Button.addActionListener(new ActionListener() {
+   @Override
+   public void actionPerformed(ActionEvent e) {
+       operand1 += 0;
+       textField1.setText(operand1);
+   }
+});
+a1Button.addActionListener(new ActionListener() {
+   @Override
+   public void actionPerformed(ActionEvent e) {
+       operand1 += 1;
+       textField1.setText(operand1);
+   }
+});</code></pre>
+<h2>Botó NOT</h2>
+<p>El <code>NOTButton</code> realitza la operació NOT sobre l&#39;<code>operand1</code>, i escriu el resultat al display:</p>
+<pre><code>NOTButton.addActionListener(new ActionListener() {
+   @Override
+   public void actionPerformed(ActionEvent e) {
+       int decimal = Integer.parseInt(operand1, 2);
+       int result = ~decimal;
+       textField1.setText(Integer.toBinaryString(result));
+   }
+});</code></pre>
+<h2>Botons OR i AND</h2>
+<p>Aquests botons emmagatzemen el valor del display com a <code>operand2</code>, i netejen el valor de l&#39;<code>operand1</code> de forma que l&#39;usuari puga introduir un segon operand. També estableixen la operació a realitzar OR/AND en la variable <code>operator</code>.</p>
+<pre><code>ORButton.addActionListener(new ActionListener() {
+   @Override
+   public void actionPerformed(ActionEvent e) {
+       operator = 1;
+       operand2 = operand1;
+       operand1 = &#34;&#34;;
+       textField1.setText(&#34;&#34;);
+   }
+});
+ANDButton.addActionListener(new ActionListener() {
+   @Override
+   public void actionPerformed(ActionEvent e) {
+       operator = 2;
+       operand2 = operand1;
+       operand1 = &#34;&#34;;
+       textField1.setText(&#34;&#34;);
+
+   }
+});</code></pre>
+<h2>Botó resultat</h2>
+<p>El botó resultat realitza la operació establerta en la variable <code>operator</code> amb l&#39;<code>operand1</code> i l&#39;<code>operand2</code>, i estableix el resultat al display:</p>
+<pre><code>eqButton.addActionListener(new ActionListener() {
+   @Override
+   public void actionPerformed(ActionEvent e) {
+       if(operator == 1){
+           int decimal1 = Integer.parseInt(operand1, 2);
+           int decimal2 = Integer.parseInt(operand2, 2);
+           int result = decimal1 | decimal2;
+           textField1.setText(Integer.toBinaryString(result));
+       } else if(operator == 2){
+           int decimal1 = Integer.parseInt(operand1, 2);
+           int decimal2 = Integer.parseInt(operand2, 2);
+           int result = decimal1 &amp; decimal2;
+           textField1.setText(Integer.toBinaryString(result));
+       }
+   }
+});</code></pre>
+<h2>Botó AC</h2>
+<p>El botó AC reseteja el valor de les variables operand1 i operand2, i del display:</p>
+<pre><code>ACButton.addActionListener(new ActionListener() {
+   @Override
+   public void actionPerformed(ActionEvent e) {
+       operand1 = &#34;&#34;;
+       operand2 = &#34;&#34;;
+       textField1.setText(operand1);
+   }
+});</code></pre>
 
 
       </google-codelab-step>
