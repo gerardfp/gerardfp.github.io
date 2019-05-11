@@ -29,7 +29,7 @@
     
       <google-codelab-step label="Introducció" duration="0">
         <p class="image-container"><img style="width: 600.00px" src="img\e5677be4336d334b.png"></p>
-<p>L&#39;objectiu d&#39;aquest CodeLab és utilitzar la API java.time per al tractament de dates i hores.</p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és utilitzar la API <code>java.time</code> per al tractament de dates i hores.</p>
 <p>El temps sembla un tema senzill; fins i tot un rellotge barat pot proporcionar una data i una hora bastant exactes. No obstant això, amb un examen més detallat, ens adonem de les subtils complexitats i de molts factors que afecten la comprensió del temps. Per exemple, el resultat d&#39;afegir un mes al 31 de gener és diferent per a un any de traspàs que per a altres anys. Les zones horàries també afegeixen complexitat. Per exemple, un país pot entrar i sortir de l&#39;horari d&#39;estiu un o més copa a l&#39;any o pot saltar l&#39;horari d&#39;estiu completament durant un any.</p>
 
 
@@ -45,13 +45,13 @@
       </google-codelab-step>
     
       <google-codelab-step label="LocalDateTime" duration="0">
-        <p>La classe <code>LocalDateTime</code> gestiona tant la data com l&#39;hora, sense una zona horària. És una de les classes bàsiques de l&#39;API Date-Time. Aquesta classe s&#39;utilitza per representar la data (mes-dia-any) juntament amb el temps (hora-minut-segon-nanosegon)</p>
+        <p>La classe <code>LocalDateTime</code> gestiona tant la data com l&#39;hora, sense una zona horària. És una de les classes bàsiques de l&#39;API <code>java.time</code>. Aquesta classe s&#39;utilitza per representar la data (mes-dia-any) juntament amb el temps (hora-minut-segon-nanosegon)</p>
 <p>Vegem un exemple:</p>
 <pre><code>System.out.printf(&#34;now: %s%n&#34;, LocalDateTime.now());
 System.out.printf(&#34;Apr 15, 1994 @ 11:30am: %s%n&#34;, LocalDateTime.of(1994, Month.APRIL, 15, 11, 30));
 System.out.printf(&#34;6 months from now: %s%n&#34;, LocalDateTime.now().plusMonths(6));
 System.out.printf(&#34;6 months ago: %s%n&#34;, LocalDateTime.now().minusMonths(6));</code></pre>
-<p>La llista completa de mètodes que proporciona la classe LocalDateTime la podem trobar a <a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html" target="_blank">https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html</a></p>
+<p>La llista completa de mètodes que proporciona la classe <code>LocalDateTime</code> la podem trobar a <a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html" target="_blank">https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html</a></p>
 <p>Aquí en destaquem aquestes:</p>
 <table>
 <tr><td colspan="1" rowspan="1"><p><code>now()</code></p>
