@@ -28,7 +28,7 @@
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p class="image-container"><img style="width: 300.00px" src="img\936889c215a5efe7.png"></p>
+        <p class="image-container"><img style="width: 267.50px" src="img\33f6cf6e98a8e9a4.png"></p>
 <p>L&#39;objectiu d&#39;aquest CodeLab és aprendre l&#39;ús de la classe Random per a la generació de nombres aleatoris.</p>
 <p>Quan es desenvolupen aplicacions, molt sovint es necesiten nombres aleatoris. Per exemple en la programació de molts jocs, aplicacions de criptografia, per a usar com identificadors, etc.</p>
 <p>Java proporciona suport per a la generació de nombres aleatoris a través de la classe <code>java.util.Random</code>, i la classe SecureRandom per a aplicacions que necessiten aleatorietat criptogràfica. </p>
@@ -73,7 +73,7 @@ public class Main {
    }
 }</code></pre>
 <p>Podem veure que en cada execució del programa el valor de les variables canvia aleatòriament.</p>
-<p>La crida sense paràmetres als mètodes nextInt(), nextLong(), nextDouble(), ..., retorna un valor dintre del rang de posibles valors del tipus de dades:</p>
+<p>La crida sense paràmetres als mètodes <code>nextInt()</code>, <code>nextLong()</code>, <code>nextDouble()</code>, ..., retorna un valor dintre del rang de posibles valors del tipus de dades.</p>
 
 
       </google-codelab-step>
@@ -94,7 +94,7 @@ int aleatoriEnter = random.nextInt(superior-inferior)+inferior;</code></pre>
     
       <google-codelab-step label="String aleatori" duration="0">
         <p>Per a generar un String aleatori tenim diverses opcions.</p>
-<p>Una seria generar un String amb caràcters entre un rang ASCII:</p>
+<p>Una opció és generar un String amb caràcters entre un rang ASCII:</p>
 <pre><code>int inferior = 97; // letter &#39;a&#39;
 int superior = 122; // letter &#39;z&#39;
 int targetStringLength = 10;
@@ -107,7 +107,7 @@ for (int i = 0; i &lt; generatedLength; i++) {
    generated += (char) characterCode;
 }
 System.out.println(generated);</code></pre>
-<p>Una altra opció seria predefinir els possibles caracters que ha de tenir l&#39;String:</p>
+<p>Una altra opció és predefinir els possibles caracters que ha de tenir l&#39;String:</p>
 <pre><code>Random random = new Random();
 String upper = &#34;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#34;;
 String lower = upper.toLowerCase();
