@@ -4,11 +4,11 @@
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2019-02-10T23:18:58Z",
+  "updated": "2019-05-11T11:39:52Z",
   "id": "mp03/codelab1",
   "duration": 0,
   "title": "Java Development Kit",
-  "summary": "Java Development Kit",
+  "summary": "jdk",
   "theme": "java",
   "status": [
     "draft"

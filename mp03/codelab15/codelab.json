@@ -4,11 +4,11 @@
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2019-05-10T10:25:19Z",
+  "updated": "2019-05-11T11:40:54Z",
   "id": "mp03/codelab15",
   "duration": 0,
   "title": "FormGUI",
-  "summary": "Drawing with Java",
+  "summary": "formgui",
   "theme": "java",
   "status": [
     "draft"

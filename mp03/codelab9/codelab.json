@@ -4,11 +4,11 @@
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2019-05-10T10:33:48Z",
+  "updated": "2019-05-11T11:40:44Z",
   "id": "mp03/codelab9",
   "duration": 0,
   "title": "Depuració",
-  "summary": "Drawing with Java",
+  "summary": "debugger",
   "theme": "java",
   "status": [
     "draft"

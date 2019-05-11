@@ -4,11 +4,11 @@
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2019-05-11T09:42:09Z",
+  "updated": "2019-05-11T11:39:07Z",
   "id": "mp03/codelab6",
   "duration": 0,
   "title": "Formatació d'Strings",
-  "summary": "Drawing with Java",
+  "summary": "format",
   "theme": "java",
   "status": [
     "draft"

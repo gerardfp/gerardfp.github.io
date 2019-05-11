@@ -4,11 +4,11 @@
   "format": "html",
   "prefix": "../../",
   "mainga": "UA-49880327-14",
-  "updated": "2019-05-10T11:42:54Z",
+  "updated": "2019-05-11T11:40:26Z",
   "id": "mp03/codelab7",
   "duration": 0,
   "title": "ANSI/VT100 colors",
-  "summary": "Drawing with Java",
+  "summary": "ansicolors",
   "theme": "java",
   "status": [
     "draft"
