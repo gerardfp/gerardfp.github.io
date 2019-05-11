@@ -1,0 +1,167 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Formatació d&#39;Strings</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Formatació d&#39;Strings"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p><img style="max-width: 197.00px" src="img\9de977e17551fc23.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és aprendre el mètodes que ofereix JAVA per a la formatació de text.</p>
+<p>Ja coneixes l&#39;ús dels mètodes <code>print</code> i  <code>println</code> per a impressió de cadenes a la sortida estàndard (<code>System.out</code>). </p>
+<p>Atès que tots els números es poden convertir en cadenes, podeu utilitzar aquests mètodes per imprimir una barreja arbitrària de cadenes i nombres. El llenguatge de programació Java té altres mètodes, però, que us permeten exercir molt més control sobre la vostra impressió.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Formatting&#34;.</p>
+<p><img style="max-width: 616.00px" src="img\792ed00254716d13.png"></p>
+<p><img style="max-width: 616.00px" src="img\7b9b5bf8a5d2dd19.png"></p>
+<p><img style="max-width: 736.40px" src="img\eb9372ba941daaeb.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Els mètodes printf i format" duration="0">
+        <p>Els mètodes <code>System.out.printf</code> i <code>System.out.format</code> són equivalents entre sí.</p>
+<p>Aquests mètodes permeten especificar el format que ha de tenir un text.</p>
+<p>Entre els aspectes més importants de la formatació trobem, l&#39;espaiat, l&#39;alineació i el nombre de decimals.</p>
+<p>Vegem un exemple:</p>
+<pre><code>public class Main {
+
+   public static void main(String[] args) {
+
+       String text = &#34;hello&#34;;
+       int numero = 1234;
+       float decimal = 56.789f;
+
+       System.out.format(&#34;%10s&#34;, text);
+       System.out.format(&#34;%10d&#34;, numero);
+       System.out.format(&#34;%10f&#34;, decimal);
+
+       System.out.println(); System.out.println();
+
+       System.out.format(&#34;%-10s&#34;, text);
+       System.out.format(&#34;%-10d&#34;, numero);
+       System.out.format(&#34;%-10f&#34;, decimal);
+
+       System.out.println(); System.out.println();
+
+       System.out.format(&#34;%-10.2f%10.2f&#34;, decimal, decimal);
+   }
+}</code></pre>
+<p>Observa com s&#39;ha formatat el text de sortida:</p>
+<pre>     hello      1234 56,789001
+
+hello     1234      56,789001 
+
+56,79          56,79</pre>
+<p>El sifnificat dels especificadors és el següent:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>%10s</p>
+</td><td colspan="1" rowspan="1"><p>String amb una amplada de 10 caracters</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>%10d</p>
+</td><td colspan="1" rowspan="1"><p>Enter amb una amplada de 10 caracters</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>%10f</p>
+</td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>%-10s</p>
+</td><td colspan="1" rowspan="1"><p>String amb una amplada de 10 caracters, aliniat a l&#39;esquerra</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>%-10d</p>
+</td><td colspan="1" rowspan="1"><p>Enter amb una amplada de 10 caracters, aliniat a l&#39;esquerra</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>%-10f</p>
+</td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters, aliniat a l&#39;esquerra</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>%-10.2f</p>
+</td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters, aliniat a l&#39;esquerra, i amb dos decimals</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>%10.2f</p>
+</td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters, amb dos decimals</p>
+</td></tr>
+</table>
+<p>Podem generalitzar els especificadors així:</p>
+<pre><code>% alineació amplada decimals tipus</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Combinar text i format" duration="0">
+        <p>Dintre de la cadena de format podem posar-hi també els caracters que desitjem.</p>
+<pre><code>System.out.format(&#34;|%-10s|%10d|%10.2f|&#34;, text, enter, decimal);</code></pre>
+<p>Un truc interessant és utilitzar el format per a repetir espais en blanc:</p>
+<pre><code>System.out.format(&#34;hola%10smon&#34;,&#34;&#34;);</code></pre>
+<p>fa que el valor generat sigui major o igual a <code>4</code> i inferior a <code>15</code> (és a dir, entre <code>4</code> i <code>14</code>).</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="String.format()" duration="0">
+        <p>El mètode <code>format</code> de la classe <code>String</code>, es pot usar exactament igual que <code>System.out.format</code>.</p>
+<p>Aquest mètode no imprimeix per pantalla el resultat de la formatació, i el podem utilitzar com ens convingui.</p>
+<pre><code>String textFormatat = String.format(&#34;|%-10s|%10d|%10.2f|&#34;, text, enter, decimal);
+
+System.out.println(textFormatat);</code></pre>
+<p>Similar al truc anterior, podem usar String.format jutament amb replace, per a repetir qualsevol caracter:</p>
+<pre><code>String guions = String.format(&#34;%50s&#34;, &#34;&#34;).replace(&#34; &#34;, &#34;-&#34;);
+
+System.out.println(guions);</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>

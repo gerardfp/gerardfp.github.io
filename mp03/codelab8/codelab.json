@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1mYWLHpP9wTITItBcB3t1Lho_7VjLuD9A686Iqf-6LdU",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-05-11T11:29:13Z",
+  "id": "mp03/codelab8",
+  "duration": 0,
+  "title": "Data i hora",
+  "summary": "Drawing with Java",
+  "theme": "java",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Java"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp03/codelab8"
+}

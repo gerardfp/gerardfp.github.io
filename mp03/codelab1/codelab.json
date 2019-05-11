@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1vioN9oFJt6puatsA7xGw4gNt1k_WNW_Dp1_vPySnpiQ",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-02-10T23:18:58Z",
+  "id": "mp03/codelab1",
+  "duration": 0,
+  "title": "Java Development Kit",
+  "summary": "Java Development Kit",
+  "theme": "java",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Java"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp03/codelab1"
+}

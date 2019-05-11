@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "13xh1FtSOa8Fqih3wWsqSZSmi3z0WdLg5TTBceeLpgX4",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-05-10T10:52:22Z",
+  "id": "mp03/codelab5",
+  "duration": 0,
+  "title": "Random",
+  "summary": "Drawing with Java",
+  "theme": "java",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Java"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp03/codelab5"
+}

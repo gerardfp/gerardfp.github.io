@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1k-cnU25VI8Ef4Wxi5DNXF5amLnpMIz4fuds5Iuw6BqQ",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-05-10T10:33:48Z",
+  "id": "mp03/codelab9",
+  "duration": 0,
+  "title": "Depuració",
+  "summary": "Drawing with Java",
+  "theme": "java",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Java"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp03/codelab9"
+}

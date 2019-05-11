@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1o8rc7OlcDHDKFQZK8NtT1sdpCr8fdkaXhVhx4FUjEOs",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-05-10T10:25:19Z",
+  "id": "mp03/codelab15",
+  "duration": 0,
+  "title": "FormGUI",
+  "summary": "Drawing with Java",
+  "theme": "java",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Java"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp03/codelab15"
+}

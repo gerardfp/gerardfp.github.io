@@ -1,0 +1,157 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Random</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Random"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p><img style="max-width: 300.00px" src="img\936889c215a5efe7.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és aprendre l&#39;ús de la classe Random per a la generació de nombres aleatoris.</p>
+<p>Quan es desenvolupen aplicacions, molt sovint es necesiten nombres aleatoris. Per exemple en la programació de molts jocs, aplicacions de criptografia, per a usar com identificadors, etc.</p>
+<p>Java proporciona suport per a la generació de nombres aleatoris a través de la classe <code>java.util.Random</code>, i la classe SecureRandom per a aplicacions que necessiten aleatorietat criptogràfica. </p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Random&#34;.</p>
+<p><img style="max-width: 616.00px" src="img\792ed00254716d13.png"></p>
+<p><img style="max-width: 616.00px" src="img\7b9b5bf8a5d2dd19.png"></p>
+<p><img style="max-width: 616.00px" src="img\75e73f797c40060f.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="La classe Random" duration="0">
+        <p>Per a generar nombres aleatoris, crea en primer lloc una instància de la classe <code>Random</code>, i després crida a un dels mètdodes generadors, com <code>nextInt()</code>, <code>nextDouble()</code>,  <code>nextLong()</code> ... </p>
+<p>Fem una prova:</p>
+<pre><code>import java.util.Random;
+
+public class Main {
+
+   public static void main(String[] args) {
+       Random random = new Random();
+
+       int aleatoriEnter = random.nextInt();
+
+       double aleatoriDouble = random.nextDouble();
+
+       float aleatoriFloat = random.nextFloat();
+
+       boolean aleatoriBoolean = random.nextBoolean();
+
+       long aleatoriLong = random.nextLong();
+
+       System.out.println(aleatoriEnter);
+       System.out.println(aleatoriDouble);
+       System.out.println(aleatoriFloat);
+       System.out.println(aleatoriBoolean);
+       System.out.println(aleatoriLong);
+   }
+}</code></pre>
+<p>Podem veure que en cada execució del programa el valor de les variables canvia aleatòriament.</p>
+<p>La crida sense paràmetres als mètodes nextInt(), nextLong(), nextDouble(), ..., retorna un valor dintre del rang de posibles valors del tipus de dades:</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Dintre d&#39;un rang" duration="0">
+        <p>Per a establir un límit superior, al rang de valors que es generen, podem passar com a parámetre aquest límit.</p>
+<p>Per exemple, la crida a <code>nextInt()</code> amb el parámetre <code>10</code>:</p>
+<pre><code>int aleatoriEnter = random.nextInt(10);</code></pre>
+<p>fa que el valor generat sigui més petit que <code>10</code> (és a dir, entre 0 i 9).</p>
+<p>Per a establir un límit inferior i un superior:</p>
+<pre><code>int inferior = 4;
+int superior = 15;
+int aleatoriEnter = random.nextInt(superior-inferior)+inferior;</code></pre>
+<p>fa que el valor generat sigui major o igual a <code>4</code> i inferior a <code>15</code> (és a dir, entre <code>4</code> i <code>14</code>).</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="String aleatori" duration="0">
+        <p>Per a generar un String aleatori tenim diverses opcions.</p>
+<p>Una seria generar un String amb caràcters entre un rang ASCII:</p>
+<pre><code>int inferior = 97; // letter &#39;a&#39;
+int superior = 122; // letter &#39;z&#39;
+int targetStringLength = 10;
+Random random = new Random();
+
+String generated = &#34;&#34;;
+int generatedLength = 10;
+for (int i = 0; i &lt; generatedLength; i++) {
+   int characterCode = random.nextInt(superior-inferior)+inferior;
+   generated += (char) characterCode;
+}
+System.out.println(generated);</code></pre>
+<p>Una altra opció seria predefinir els possibles caracters que ha de tenir l&#39;String:</p>
+<pre><code>Random random = new Random();
+String upper = &#34;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#34;;
+String lower = upper.toLowerCase();
+String digits = &#34;0123456789&#34;;
+
+String allChars = upper+lower+digits;
+
+String generated =&#34;&#34;;
+int generatedLength = 10;
+for (int i = 0; i &lt; generatedLength; i++) {
+   generated += allChars.charAt(random.nextInt(allChars.length()));
+}
+
+System.out.println(generated);</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>

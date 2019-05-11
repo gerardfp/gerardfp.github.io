@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1wLfWk0VDU68IrhkAwjdJJkbhPHa_dUGE9GkooVEGxHY",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-04-22T12:54:05Z",
+  "id": "mp03/codelab3",
+  "duration": 0,
+  "title": "Drawing with Java",
+  "summary": "Drawing with Java",
+  "theme": "java",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Java"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp03/codelab3"
+}

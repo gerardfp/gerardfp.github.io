@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "1hkHBTCg-JEXzbWEls-fMqAMvusx3mnE4w0LeiN2jYcM",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-05-10T11:42:54Z",
+  "id": "mp03/codelab7",
+  "duration": 0,
+  "title": "ANSI/VT100 colors",
+  "summary": "Drawing with Java",
+  "theme": "java",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Java"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp03/codelab7"
+}

@@ -1,0 +1,256 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Data i hora</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Data i hora"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p>L&#39;objectiu d&#39;aquest CodeLab és utilitzar la API java.time per al tractament de dates i hores.</p>
+<p>El temps sembla un tema senzill; fins i tot un rellotge barat pot proporcionar una data i una hora bastant exactes. No obstant això, amb un examen més detallat, ens adonem de les subtils complexitats i de molts factors que afecten la comprensió del temps. Per exemple, el resultat d&#39;afegir un mes al 31 de gener és diferent per a un any de traspàs que per a altres anys. Les zones horàries també afegeixen complexitat. Per exemple, un país pot entrar i sortir de l&#39;horari d&#39;estiu un o més copa a l&#39;any o pot saltar l&#39;horari d&#39;estiu completament durant un any.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Datetime&#34;.</p>
+<p><img style="max-width: 577.00px" src="img\7bf1c856c39baf4c.png"></p>
+<p><img style="max-width: 582.00px" src="img\dbdf5844d88c2f2c.png"></p>
+<p><img style="max-width: 581.00px" src="img\445456501a19440.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="LocalDateTime" duration="0">
+        <p>La classe <code>LocalDateTime</code> gestiona tant la data com l&#39;hora, sense una zona horària. És una de les classes bàsiques de l&#39;API Date-Time. Aquesta classe s&#39;utilitza per representar la data (mes-dia-any) juntament amb el temps (hora-minut-segon-nanosegon)</p>
+<p>Vegem un exemple:</p>
+<pre><code>System.out.printf(&#34;now: %s%n&#34;, LocalDateTime.now());
+System.out.printf(&#34;Apr 15, 1994 @ 11:30am: %s%n&#34;, LocalDateTime.of(1994, Month.APRIL, 15, 11, 30));
+System.out.printf(&#34;6 months from now: %s%n&#34;, LocalDateTime.now().plusMonths(6));
+System.out.printf(&#34;6 months ago: %s%n&#34;, LocalDateTime.now().minusMonths(6));</code></pre>
+<p>La llista completa de mètodes que proporciona la classe LocalDateTime la podem trobar a <a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html" target="_blank">https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html</a></p>
+<p>Aquí en destaquem aquestes:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>now()</code></p>
+</td><td colspan="1" rowspan="1"><p>Obté la data-hora actuals</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>of(year, month, dayOfMonth, hour, minute, second)</code></p>
+</td><td colspan="1" rowspan="1"><p>Obté la data-hora especificades</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>parse(text, formatter)</code></p>
+</td><td colspan="1" rowspan="1"><p>Obté la data-hora a partir d&#39;un text en base a un format</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>isEqual(other)</code></p>
+</td><td colspan="1" rowspan="1"><p>Compara dues data-hores</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>isAfter(other)</code></p>
+</td><td colspan="1" rowspan="1"><p>Comprova si la data-hora és posterior a una altra</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>iSBefore(other)</code></p>
+</td><td colspan="1" rowspan="1"><p>Comprova si la data-hora és anterior a una altra</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>until(other, units)</code></p>
+</td><td colspan="1" rowspan="1"><p>Calcula difèrencia entre la data-hora i una altra, en les unitats especificades (anys, mesos, dies, hores, minuts, segons,...)</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>getDayOfMonth()</code></p>
+</td><td colspan="1" rowspan="1"><p>Obté el dia del mes de la data-hora</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>getMonth()</code></p>
+</td><td colspan="1" rowspan="1"><p>Obté el mes de la data-hora</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>getYear()</code></p>
+</td><td colspan="1" rowspan="1"><p>Obté l&#39;any de la data-hora</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>getHour()</code></p>
+</td><td colspan="1" rowspan="1"><p>Obté l&#39;hora de la data-hora</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>getMinute()</code></p>
+</td><td colspan="1" rowspan="1"><p>Obté els minuts de la data-hora</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>getSecond()</code></p>
+</td><td colspan="1" rowspan="1"><p>Obté els segons de la data-hora</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>minusDays(days)</code></p>
+</td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre de dies</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>minusMonths(months)</code></p>
+</td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre de mesos</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>minusYears(years)</code></p>
+</td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre d&#39;anys</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>minusHours(hours)</code></p>
+</td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre d&#39;hores</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>minusMinutes(minutes)</code></p>
+</td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre de minuts</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>minusSeconds(seconds)</code></p>
+</td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre de segons</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>plusDays(days)</code></p>
+</td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre de dies</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>plusMonths(months)</code></p>
+</td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre de mesos</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>plusYears(years)</code></p>
+</td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre d&#39;anys</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>plusHours(hours)</code></p>
+</td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre d&#39;hores</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>plusMinutes(minutes)</code></p>
+</td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre de minuts</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>plusSeconds(seconds)</code></p>
+</td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre de segons</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Obtenir la Data i Hora" duration="0">
+        <h2>Data i hora actuals</h2>
+<pre><code>System.out.printf(&#34;now: %s%n&#34;, LocalDateTime.now());</code></pre>
+<pre><code>LocalDateTime dataHoraActual = LocalDateTime.now();
+System.out.printf(&#34;now: %s%n&#34;,dataHoraActual);</code></pre>
+<h2>Data i hora específica</h2>
+<pre><code>LocalDateTime deuMaigDosmilUnaTresDos = LocalDateTime.of(2000, Month.APRIL, 1, 3, 2);</code></pre>
+<h2>Data i hora a partir d&#39;un string</h2>
+<p>És necessari definir el format en que en que tenim la data-hora:</p>
+<pre><code>String datahoraText = &#34;1/12/2019 1:20:59&#34;;
+
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&#34;d/M/y H:m:s&#34;);
+
+LocalDateTime datahora = LocalDateTime.parse(datahoraText, formatter);</code></pre>
+<pre><code>% alineació amplada decimals tipus</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Comparar Data-hora" duration="0">
+        <h2>Anterior o posterior</h2>
+<pre><code>String datahoraText1 = &#34;1/12/2000 0:0:0&#34;;
+String datahoraText2 = &#34;1/12/2020 0:0:0&#34;;
+
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&#34;d/M/y H:m:s&#34;);
+
+LocalDateTime datahora1 = LocalDateTime.parse(datahoraText1, formatter);
+LocalDateTime datahora2 = LocalDateTime.parse(datahoraText2, formatter);
+
+System.out.println(datahora1.isAfter(datahora2));
+System.out.println(datahora1.isBefore(datahora2));</code></pre>
+<h2>Diferència entre dates</h2>
+<pre><code>LocalDateTime fromDateTime = LocalDateTime.of(1984, 12, 16, 7, 45, 55);
+LocalDateTime toDateTime = LocalDateTime.of(2014, 9, 10, 6, 40, 45);
+
+long years = fromDateTime.until( toDateTime, ChronoUnit.YEARS);
+fromDateTime = fromDateTime.plusYears( years );
+
+long months = fromDateTime.until( toDateTime, ChronoUnit.MONTHS);
+fromDateTime = fromDateTime.plusMonths( months );
+
+long days = fromDateTime.until( toDateTime, ChronoUnit.DAYS);
+fromDateTime = fromDateTime.plusDays( days );
+
+
+long hours = fromDateTime.until( toDateTime, ChronoUnit.HOURS);
+fromDateTime = fromDateTime.plusHours( hours );
+
+long minutes = fromDateTime.until( toDateTime, ChronoUnit.MINUTES);
+fromDateTime = fromDateTime.plusMinutes( minutes );
+
+long seconds = fromDateTime.until( toDateTime, ChronoUnit.SECONDS);
+
+System.out.println( years + &#34; years &#34; +
+       months + &#34; months &#34; +
+       days + &#34; days &#34; +
+       hours + &#34; hours &#34; +
+       minutes + &#34; minutes &#34; +
+       seconds + &#34; seconds.&#34;);</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Obtenir parts d&#39;una Data-hora" duration="0">
+        <pre><code>System.out.println(
+       ara.getDayOfMonth() + &#34; &#34; +
+       ara.getMonth() + &#34; &#34; +
+       ara.getYear() + &#34; &#34; +
+       ara.getHour() + &#34; &#34; +
+       ara.getMinute() + &#34; &#34; +
+       ara.getSecond()
+);</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Manipular una data hora" duration="0">
+        <pre><code>LocalDateTime dh = LocalDateTime.of(2020, 1, 1, 12, 35, 59);
+System.out.println(dh);
+
+dh = dh.plusMonths(2);
+System.out.println(dh);
+
+dh.plusYears(1000);      // Atencio: no hem modificat &#39;dh&#39;
+System.out.println(dh);  //
+
+dh = dh.minusSeconds(10000000);
+System.out.println(dh);</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>

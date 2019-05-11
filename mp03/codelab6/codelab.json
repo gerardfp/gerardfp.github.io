@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "source": "15Q63gOGcmGUySB8WeAreqT-8DyrkmLnpqvLaGlOtHmw",
+  "format": "html",
+  "prefix": "../../",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-05-11T09:42:09Z",
+  "id": "mp03/codelab6",
+  "duration": 0,
+  "title": "Formatació d'Strings",
+  "summary": "Drawing with Java",
+  "theme": "java",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Java"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp03/codelab6"
+}

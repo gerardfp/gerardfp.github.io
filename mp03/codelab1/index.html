@@ -1,0 +1,125 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Java Development Kit</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Java Development Kit"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p><img style="max-width: 385.23px" src="img\a09a4539e9a22a3a.png"></p>
+<p>El Java Development Kit proporciona eines de desenvolupament per a la creació de programes JAVA.</p>
+<p>Què aprendràs</p>
+<ul>
+<li>El procés de desnvolupament de programes amb tecnologia Java</li>
+<li>Compilar un programa a partir del codi font</li>
+<li>Executar un programa compilat</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Obtenir el JDK" duration="0">
+        <h2>Descarrega el JDK</h2>
+<p>Trobarás el JDK oficial d&#39;Oracle al següent enllaç: </p>
+<p><a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank"><paper-button class="colored" raised>Oracle Java Development Kit (JDK)</paper-button></a></p>
+<aside class="warning"><p><strong>Important</strong>: Has de tenir en compte l&#39;arquitectura de l&#39;ordinador (x84/x64) i el Sistema Operatiu.</p>
+</aside>
+<p>✅ Comprova que s&#39;ha descarregat l&#39;arxiu a la carpeta de baixades</p>
+<h2>Descomprimeix l&#39;arxiu al teu directori personal</h2>
+<p>Obre l&#39;arxiu descarregat amb el Gestor d&#39;Arxivadors i extreu el contingut a la teva Carpeta Personal</p>
+<h2>Prova el compilador i l&#39;intèrpret</h2>
+<p>Comprova que pots executar el compilador i l&#39;intèrpret, fent que mostrin la seva versió. Per a fer-ho, obre un terminal i executa les següents comandes:</p>
+<p>1 - Executa el <strong>compilador</strong> amb l&#39;opción que mostra la versió:</p>
+<pre>jdk1.8.0_144/bin/javac -version</pre>
+<p>✅ Comprova que mostra la versió</p>
+<p>2 - Executa l&#39;<strong>intèrpret</strong> amb l&#39;opció que mostra la versió:</p>
+<pre>jdk1.8.0_144/bin/java -version</pre>
+<p>✅ Comprova que mostra la versió</p>
+<p>Si tot ha anat correctament, t&#39;haurà sortit un resultat com aquest:</p>
+<p><img style="max-width: 722.00px" src="img\ced9aeadbdf507a9.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Hello World!" duration="0">
+        <p>Vamos a realizar ahora una pequeña aproximación al proceso de desarrollo que hemos visto anteriormente.</p>
+<p>En resumen, el proceso de desarrollo es el siguiente: </p>
+<ol type="1" start="1">
+<li>Escribimos el código fuente en un archivo de texto</li>
+<li>Compilamos el código fuente mediante el compilador <code>javac</code>, que lo traduce a bytecode.</li>
+<li>Ejecutamos el programa compilado con la Java Virtual Machine <code>java</code></li>
+</ol>
+<p><img style="max-width: 618.30px" src="img\9cafc0189cc97020.png"></p>
+<h2>Escribe el código fuente del programa &#34;Hola Mundo&#34;</h2>
+<p>Abre un editor de texto sin formato, como gedit, y crea un archivo en tu carpeta personal, con el nombre  <strong><code>HelloWorldApp.java</code></strong></p>
+<p>Copia el siguiente código y guarda los cambios:</p>
+<pre><code>class HelloWorldApp {
+    public static void main(String[] args) {
+        System.out.println(&#34;Hello World!&#34;); // Display the string.
+    }
+}</code></pre>
+<aside class="special"><p>  Nota:Teclea todo el código, comandos y nombres de fichero exactamente como se muestran. Tanto el compilador (javac) como el lanzador (java) son case-sensitive, así que debes poner las mayúsculas correctamente.</p>
+<p><code>HelloWorldApp</code>  <strong><em>no</em></strong> es lo mismo que  <code>helloworldapp</code></p>
+</aside>
+<h2>Compila el archivo con el código fuente</h2>
+<p>Usa el siguiente comando en el terminal para compilar el archivo de código fuente que acabas de crear:</p>
+<pre>jdk1.8.0_144/bin/javac HelloWorldApp.java</pre>
+<p>Este comando habrá generado un fichero llamado <strong><code>HelloWorldApp.class</code></strong> con el <em>bytecode </em>de tu programa. Compruébalo.</p>
+<h2>Ejecuta el programa con la Máquina Virtual de Java</h2>
+<pre>jdk1.8.0_144/bin/java HelloWorldApp</pre>
+<p>¡Felicidades! ¡Has ejecutado tu primer programa!</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>

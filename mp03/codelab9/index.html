@@ -1,0 +1,189 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Depuració</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Depuració"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p><img style="max-width: 225.00px" src="img\f18ce81cce164ddb.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és la iniciació a l&#39;ús de depurador (<em>debugger</em>).</p>
+<p>La depuració de programes és el procés d&#39;identificar i corregir errors de programació (<em>bugs</em>).</p>
+<p>IntelliJ proporciona una ampli ventall d&#39;eines per a la depuració del codi. Es pot trobar una guia exhaustiva al següent enllaç: <a href="https://www.jetbrains.com/help/idea/debugging-code.html" target="_blank">https://www.jetbrains.com/help/idea/debugging-code.html</a> </p>
+<p>En aquest codelab ens iniciarem en l&#39;ús de:</p>
+<ul>
+<li>Breakpoints</li>
+<li>Watches</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Debugger&#34;.</p>
+<p><img style="max-width: 548.00px" src="img\1f77c27e0b506e0f.png"></p>
+<p><img style="max-width: 548.00px" src="img\8556ac2bd86adfea.png"></p>
+<p><img style="max-width: 548.00px" src="img\78e32da7f723506.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Pica el codi" duration="0">
+        <p>El següent codi tracta de comprovar si cada element d&#39;un array és la meitat de l&#39;anterior:</p>
+<pre><code>public class Main {
+
+   public static void main(String[] args) {
+
+       int[] myArray = { 100, 50, 25, 12, 6, 3, 1 };
+
+       for (int i = 0; i &lt; myArray.length; i++) {
+           if (myArray[i] == myArray[i-1]/2){
+               System.out.println(myArray[i] + &#34; es la meitat de &#34; + myArray[i-1]);
+           }
+       }
+   }
+}</code></pre>
+<p>Aquest codi conté alguns errors (<em>bugs</em>) que tractarem de corregir.</p>
+<p>Si l&#39;executem tal i com està ens sortirà el seguent <em>runtime-error</em>:</p>
+<pre><code>Exception in thread &#34;main&#34; java.lang.ArrayIndexOutOfBoundsException: -1
+        at com.company.Main.main(Main.java:10)</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Breakpoints" duration="0">
+        <p>Els <em>breakpoints </em>són punts en els que podem aturar l&#39;execució d&#39;un programa, i observar pas a pas el seu comportament.</p>
+<p>Per a afegir un breakpoint, només cal posar el cursor sobre la línia on el volem posar i prèmer <code>Ctrl+F8</code>.</p>
+<p>També ho podem fer amb el ratolí, fent click sobre el panell gris que hi ha just al costat del codi:</p>
+<p><img style="max-width: 669.00px" src="img\499f4e0c06396984.png"></p>
+<p>Quan afegim un breakpoint, s&#39;indica amb un cercle vermell.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Iniciar la depuració" duration="0">
+        <p>Una cop afegit els breakpoints desitjats, es pot iniciar la depuració de l&#39;aplicació.</p>
+<p>Per a iniciar-la fem click a l&#39;icona Debug (<img style="max-width: 20.00px" src="img\f79b7b2a362e7eb4.png">) o premem <code>Ctrl+F9</code>.</p>
+<p>IntelliJ llançará la sessión de depuració. Compilarà i executarà l&#39;aplicació, suspenent-la al primer breakpoint. Podem veure dues coses que han canviat:</p>
+<ul>
+<li>La primera cosa que ha canviat és el color de la primera línea amb un breakpoint. Ara es veurà de color blau:</li>
+</ul>
+<p><img style="max-width: 736.40px" src="img\d18f028a9af82893.png"></p>
+<p>Això significa que l&#39;execució ha arribat al breakpoint i s&#39;ha parat <strong>abans</strong> d&#39;executar la sentència.</p>
+<ul>
+<li>A la part inferior de la finestra, ha sorgit el <code>Debug Tool Window</code>, amb molta informació sobre l&#39;execució del programa.</li>
+</ul>
+<p><img style="max-width: 736.40px" src="img\7f94ea1be59b7b32.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Execució pas a pas" duration="0">
+        <p>Anem a fer un pas en l&#39;execució del programa. Fes click sobre la icona <img alt="icons actions traceOver svg" style="max-width: 20.00px" src="img\948c7b91032d34b9.png">, o simplement prem <code>F8</code>.</p>
+<p>La següent instrucció es posa en blau:</p>
+<p><img style="max-width: 736.40px" src="img\d13a4d44e2601478.png"></p>
+<p>Al panell <strong>Variables</strong>, podem veure ja on és l&#39;error del nostre programa: la variable <code>i</code> té el valor <code>0</code>, així que quan tractem d&#39;accedir a la posició <code>i-1</code> de <code>myArray</code>, l&#39;índex està fora dels límits (IndexOutOfBoundsException).</p>
+<p>Així doncs, deduïm que l&#39;error del nostra programa es dona quan la variable <code>i</code> té el valor <code>0</code>, i el podem corregir per a que comenci pel valor <code>1</code>:</p>
+<pre><code>public class Main {
+
+   public static void main(String[] args) {
+
+       int[] myArray = { 100, 50, 25, 12, 6, 3, 1 };
+
+       for (int i = 1; i &lt; myArray.length; i++) {
+           if (myArray[i] == myArray[i-1]/2){
+               System.out.println(myArray[i] + &#34; es la meitat de &#34; + myArray[i-1]);
+           }
+       }
+   }
+}</code></pre>
+<h2>Breakpoints condicionals</h2>
+<p>Ja hem corregit l&#39;error d&#39;execució (runtime-error) del programa. Però ara tenim un error molt més subtil que és més dificil de trobar.</p>
+<p>Si executem el programa, ens dona el següent resultat:</p>
+<pre><code>50 es la meitat de 100
+25 es la meitat de 50
+12 es la meitat de 25
+6 es la meitat de 12
+3 es la meitat de 6
+1 es la meitat de 3</code></pre>
+<p>Tenim un error extrany quan diu &#34;12 es la meitat de 25&#34;, perquè ens diu això? Sabem que la meitat de 25 és 12.5 i no 12. ¿Què està passant?</p>
+<p>Podem tornar a depurar el programa i anar pas a pas fins que s&#39;arribi al número 12, què és el que ens està donant el bug.</p>
+<p>Una altra opció, es afegir un breakpoint condicional, de forma que l&#39;execució s&#39;aturi justament quan s&#39;arribi al número 12.</p>
+<p>Per a fegir un breakpoint condicional, fem click-dreta sobre el breakpoint i afegim la condició desitjada. En el nostre cas, ens interessa que es pari quan el valor de <code>myArray[i]</code> sigui <code>12</code>:</p>
+<p><img style="max-width: 669.00px" src="img\b37763d429101704.png"></p>
+<p>Si iniciem la depuració, l&#39;execució del programa s&#39;aturarà en el breakpoint, solament quan es compleixi la condició myArray[i] = 12. </p>
+<p>A la finestra <strong>Variables</strong>, podem veure el valor actual de totes les variables i afegir les expressions que desitjem.</p>
+<p>Podem veure que:</p>
+<p><code>myArray[i] = 12</code></p>
+<p><code>myArray[i-1] = 25</code></p>
+<p>Afegirem l&#39;expressió <code>myArray[i-1]/2</code> per veure quin és el resultat d&#39;aquesta divisió. Fem click al botó <img style="max-width: 21.00px" src="img\d333bcfbab2f579b.png">:</p>
+<p><img style="max-width: 736.40px" src="img\aee4a760e1fc6a0b.png"></p>
+<p>Ja podem veure l&#39;error! L&#39;expressió <code>myArray[i-1]/2</code> dona com a resultat <code>12</code>. Ara ens podem adonar de que hauriem d&#39;haver realitzat una conversió a <code>float</code>, ja que el tipus <code>int</code> no té xifres decimals...</p>
+<pre><code>public class Main {
+
+   public static void main(String[] args) {
+
+       int[] myArray = { 100, 50, 25, 12, 6, 3, 1 };
+
+       for (int i = 1; i &lt; myArray.length; i++) {
+           if (myArray[i] == (float) myArray[i-1]/2){
+               System.out.println(myArray[i] + &#34; es la meitat de &#34; + myArray[i-1]);
+           }
+       }
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>
