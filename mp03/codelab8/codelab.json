@@ -1,14 +1,14 @@
 {
   "environment": "web",
-  "source": "1mYWLHpP9wTITItBcB3t1Lho_7VjLuD9A686Iqf-6LdU",
   "format": "html",
-  "prefix": "../../",
+  "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2019-05-11T11:39:30Z",
   "id": "mp03/codelab8",
   "duration": 0,
   "title": "Data i hora",
   "summary": "datetime",
+  "source": "1mYWLHpP9wTITItBcB3t1Lho_7VjLuD9A686Iqf-6LdU",
   "theme": "java",
   "status": [
     "draft"

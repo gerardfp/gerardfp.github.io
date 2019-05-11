@@ -1,14 +1,14 @@
 {
   "environment": "web",
-  "source": "10fDEk_ithFT5RD6rbpxg59aqqRCuiz1ERg9LqoX4Lqo",
   "format": "html",
-  "prefix": "../../",
+  "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2019-05-11T11:40:01Z",
   "id": "mp03/codelab2",
   "duration": 0,
   "title": "Entorn Integrat de Desenvolupament",
   "summary": "ide",
+  "source": "10fDEk_ithFT5RD6rbpxg59aqqRCuiz1ERg9LqoX4Lqo",
   "theme": "java",
   "status": [
     "draft"

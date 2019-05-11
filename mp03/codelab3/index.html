@@ -7,26 +7,29 @@
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
   <title>Drawing with Java</title>
-  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../../elements/codelab.html">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <style is="custom-style">
-    body {
-      font-family: "Roboto",sans-serif;
-      background: var(--google-codelab-background, #F8F9FA);
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
     }
   </style>
-  
 </head>
-<body unresolved class="fullbleed">
-
-  <google-codelab title="Drawing with Java"
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="mp03/codelab3"
+                  title="Drawing with Java"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
         <p>L&#39;objectiu d&#39;aquesta pràctica és començar a usar els conceptes de Classe i Objecte. Consisteix en desenvolupar una aplicació que mostri un dibuix simple fet amb figures geomètriques.</p>
-<p><img style="max-width: 257.15px" src="img\d464d034dbdf63c.png"></p>
+<p class="image-container"><img style="width: 257.15px" src="img\d464d034dbdf63c.png"></p>
 <p>Al dibuix veiem una casa (mur, teulada i finestra) sobre la terra i un sol al cel.</p>
 <p>El dibuix es composarà dls següents <strong>Objectes</strong>: <em>sun, sky, earth, wall, window </em>y<em> roof</em></p>
 <p>Aquests objectes estaran classificados en les següents <strong>Classes</strong>: <em>Circle</em>, <em>Rectangle </em>y <em>Triangle</em></p>
@@ -44,10 +47,10 @@
     
       <google-codelab-step label="Crea la classe Circle" duration="0">
         <p>Fes click-dreta sobre el <em>package </em>&#34;com.company&#34;, i selecciona les opcions &#34;New&#34; -&gt; &#34;Java Class&#34;:</p>
-<p><img style="max-width: 658.00px" src="img\fc86c3561f1cf3ad.png"></p>
+<p class="image-container"><img style="width: 658.00px" src="img\fc86c3561f1cf3ad.gif"></p>
 <p>Com a nom de la Classe introdueix &#34;Circle&#34;  (és important que el nom de les classes comenci amb majúscula)</p>
 <p>Polsa &#34;OK&#34;.</p>
-<p><img style="max-width: 374.00px" src="img\1ad29e5133869ca0.png"></p>
+<p class="image-container"><img style="width: 374.00px" src="img\1ad29e5133869ca0.png"></p>
 <p>Observa que s&#39;ha creat el fitxer <code>Circle.java</code>, amb la definició de la classe <code>Circle</code>:</p>
 <pre><code>class Circle {
 }</code></pre>
@@ -89,7 +92,7 @@
 <li>Quan la paraula <code>Color</code> estigui subratllada, apareixerà un meissatge blau sobre ella. Polsa <code>Alt+Intro</code></li>
 <li>Apareixerà una llista a sota amb les biblioteques que inclouen la classe <code>Color</code>. Selecciona la biblioteca <code>Color (java.awt)</code></li>
 </ol>
-<p><img style="max-width: 427.00px" src="img\d4715880603d610e.png"></p>
+<p class="image-container"><img style="width: 427.00px" src="img\d4715880603d610e.gif"></p>
 
 
       </google-codelab-step>
@@ -150,12 +153,12 @@
                3);
    }
 }</code></pre>
-<h2>Usa la classe  <code>Canvas </code>per a dibuixar les figures </h2>
+<h2 is-upgraded>Usa la classe  <code>Canvas </code>per a dibuixar les figures </h2>
 <p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
 <pre><code>Canvas.draw(sun);</code></pre>
-<h2>Executa el programa</h2>
+<h2 is-upgraded>Executa el programa</h2>
 <p>Polsa sobre el botó &#34;Run&#34;:</p>
-<p><img style="max-width: 196.00px" src="img\5b594bb33856b06a.png"></p>
+<p class="image-container"><img style="width: 196.00px" src="img\5b594bb33856b06a.png"></p>
 
 
       </google-codelab-step>
@@ -185,7 +188,7 @@
        earth.radius = 600;
    }
 }</code></pre>
-<h2>Usa la classe  <code>Canvas </code>per a dibuixar les figures </h2>
+<h2 is-upgraded>Usa la classe  <code>Canvas </code>per a dibuixar les figures </h2>
 <p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
 <pre><code>Canvas.draw(earth);
 Canvas.draw(window);</code></pre>
@@ -236,7 +239,7 @@ roof.height = 50;
 roof.positionX = 200;
 roof.positionY = 150;
 roof.color = Color.RED;</code></pre>
-<h2>Usa la Classe  <code>Canvas </code>per a dibuixar les figures </h2>
+<h2 is-upgraded>Usa la Classe  <code>Canvas </code>per a dibuixar les figures </h2>
 <p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
 <pre><code>Canvas.draw(sky);
 Canvas.draw(wall);
@@ -248,42 +251,19 @@ Canvas.draw(roof);</code></pre>
       <google-codelab-step label="Comprenent les Classes i els Objectes" duration="0">
         <p>Les Classes es poden entendre com una plantilla a partir de la qual es poden crear Objectes. Cada Objecte és una còpia diferent de la plantilla. Per tant cada Objecte té una còpia dels camps que s&#39;han definit a la Classe. Es poden assignar diferents valors a cada camp de cada Objecte de forma independent.</p>
 <p>El següent gràfic explica les Classes i Objectes que s&#39;han creat per a fer el dibuix:</p>
-<p><img style="max-width: 736.10px" src="img\83bb163ca260a6cc.png"></p>
+<p class="image-container"><img style="width: 736.10px" src="img\83bb163ca260a6cc.png"></p>
 <p>Els objectes s&#39;emmagatzemen a la memòria de l&#39;ordinador. Com és evident, a la memòria no s&#39;hi poden dibuixar cercles, rectangles, ni triangles. En realitat el que s&#39;està emmagatzemant en memòria és la informació sobre aquests objectes, és a dir els valors dels sus camps. Una representació més adequada dels objectes seria aquesta:</p>
-<p><img style="max-width: 736.10px" src="img\e5951ac7b9a9be14.png"></p>
+<p class="image-container"><img style="width: 736.10px" src="img\e5951ac7b9a9be14.png"></p>
 
 
       </google-codelab-step>
     
   </google-codelab>
 
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-49880327-14', 'auto');
-
-    (function() {
-      var gaCodelab = '';
-      if (gaCodelab) {
-        ga('create', gaCodelab, 'auto', {name: 'codelab'});
-      }
-
-      var gaView;
-      var parts = location.search.substring(1).split('&');
-      for (var i = 0; i < parts.length; i++) {
-        var param = parts[i].split('=');
-        if (param[0] === 'viewga') {
-          gaView = param[1];
-          break;
-        }
-      }
-      if (gaView && gaView !== gaCodelab) {
-        ga('create', gaView, 'auto', {name: 'view'});
-      }
-    })();
-  </script>
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
 
 </body>
 </html>

@@ -1,14 +1,14 @@
 {
   "environment": "web",
-  "source": "1hkHBTCg-JEXzbWEls-fMqAMvusx3mnE4w0LeiN2jYcM",
   "format": "html",
-  "prefix": "../../",
+  "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2019-05-11T11:40:26Z",
   "id": "mp03/codelab7",
   "duration": 0,
   "title": "ANSI/VT100 colors",
   "summary": "ansicolors",
+  "source": "1hkHBTCg-JEXzbWEls-fMqAMvusx3mnE4w0LeiN2jYcM",
   "theme": "java",
   "status": [
     "draft"

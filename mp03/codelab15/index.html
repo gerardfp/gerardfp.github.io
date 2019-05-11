@@ -7,47 +7,50 @@
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
   <title>FormGUI</title>
-  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../../elements/codelab.html">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <style is="custom-style">
-    body {
-      font-family: "Roboto",sans-serif;
-      background: var(--google-codelab-background, #F8F9FA);
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
     }
   </style>
-  
 </head>
-<body unresolved class="fullbleed">
-
-  <google-codelab title="FormGUI"
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="mp03/codelab15"
+                  title="FormGUI"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
         <p>L&#39;objectiu d&#39;aquest CodeLab és la iniciació a l&#39;ús de formularis en interfícies gràfiques.</p>
 <p>Realitzarem una Calculadora d&#39;operacions lògiques binaries.</p>
-<p><img style="max-width: 264.00px" src="img\5bb76568a1678271.png"></p>
+<p class="image-container"><img style="width: 264.00px" src="img\5bb76568a1678271.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
         <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Calculadora&#34;.</p>
-<p><img style="max-width: 548.00px" src="img\1f77c27e0b506e0f.png"></p>
-<p><img style="max-width: 548.00px" src="img\8556ac2bd86adfea.png"></p>
-<p><img style="max-width: 550.00px" src="img\821e9c109875504b.png"></p>
+<p class="image-container"><img style="width: 548.00px" src="img\1f77c27e0b506e0f.png"></p>
+<p class="image-container"><img style="width: 548.00px" src="img\8556ac2bd86adfea.png"></p>
+<p class="image-container"><img style="width: 550.00px" src="img\821e9c109875504b.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el GUIForm" duration="0">
         <p>Fes click-dreta sobre el package &#34;com.company&#34; i selecciona -&gt; <strong>NEW </strong>-&gt; <strong>GUI Form</strong></p>
-<p><img style="max-width: 732.00px" src="img\3e5ef17c8cd93107.png"></p>
+<p class="image-container"><img style="width: 732.00px" src="img\3e5ef17c8cd93107.png"></p>
 <p>En el diàleg &#34;New GUI Form&#34; introdueix les següents dades:</p>
-<p><img style="max-width: 363.00px" src="img\25bd1aceeff1d5d7.png"></p>
+<p class="image-container"><img style="width: 363.00px" src="img\25bd1aceeff1d5d7.png"></p>
 <p>Un cop creat el GUIForm, s&#39;obrirà l&#39;entorn gràfic de disseny:</p>
-<p><img style="max-width: 736.40px" src="img\816f052029ecf12c.png"></p>
+<p class="image-container"><img style="width: 736.40px" src="img\816f052029ecf12c.png"></p>
 <p>Aquest entorn permet arrossegar i soltar components al formulari. Hi podem veure tres seccions:</p>
 <ol type="1" start="1">
 <li>Component Tree - mostra la vista jeràrquica dels components que s&#39;han afegit al formulari. Per a cada component permet definir les seves propietats (Property | Value)</li>
@@ -59,12 +62,12 @@
       </google-codelab-step>
     
       <google-codelab-step label="Disseny del GUI Form" duration="0">
-        <h2>Visualitzador de resultats</h2>
+        <h2 is-upgraded>Visualitzador de resultats</h2>
 <p>Arrossega un <code>JTextField</code> desde la paleta i solta&#39;l en l&#39;àrea de disseny. Estableix a la propietat &#34;Field name&#34; el valor &#34;<strong>resultat</strong>&#34; :</p>
-<p><img style="max-width: 736.40px" src="img\18ec616da5a79bf8.png"></p>
-<h2>Botons</h2>
+<p class="image-container"><img style="width: 736.40px" src="img\18ec616da5a79bf8.png"></p>
+<h2 is-upgraded>Botons</h2>
 <p>Afegeix els components <code>JButton</code> de la paleta a l&#39;àrea de disseny. Distribuieix-los en la graella de la següent forma:</p>
-<p><img style="max-width: 736.40px" src="img\3a3d3af6cc28d772.png"></p>
+<p class="image-container"><img style="width: 736.40px" src="img\3a3d3af6cc28d772.gif"></p>
 <p>Estableix les següents propietats als botons:</p>
 <p>Button1: &#34;text&#34;=<strong>AC</strong>, &#34;field name&#34;=<strong>ACButton</strong></p>
 <p>Button2: &#34;text&#34;=<strong>NOT</strong>, &#34;field name&#34;=<strong>NOTButton</strong></p>
@@ -73,12 +76,12 @@
 <p>Button5: &#34;text&#34;=<strong>0</strong>, &#34;field name&#34;=<strong>a0Button</strong></p>
 <p>Button6: &#34;text&#34;=<strong>1</strong>, &#34;field name&#34;=<strong>a1Button</strong></p>
 <p>Pots veure una previsualització de l&#39;aspecte del Formulari fent click-dreta sobre el disseny i selecionant &#34;Preview&#34;:</p>
-<p><img style="max-width: 736.40px" src="img\fa2c3fccc7603dd3.png"></p>
-<h2>Establir el nom del JPanel</h2>
+<p class="image-container"><img style="width: 736.40px" src="img\fa2c3fccc7603dd3.gif"></p>
+<h2 is-upgraded>Establir el nom del JPanel</h2>
 <p>Com a pas previ, per a fer funcionar el formulari es requereix establir el camp &#34;nom&#34; del component JPanel: </p>
 <p>Selecciona el <code>JPanel</code> a la finestra Component Tree i canvia la propietat &#34;<strong>nom</strong>&#34; a <strong><code>calcView.</code></strong></p>
 <p>Fent click sobre l&#39;arxiu Calculadora.java s&#39;haurien de mostrar els següents components inserits:</p>
-<h3>Calculadora.java</h3>
+<h3 is-upgraded>Calculadora.java</h3>
 <pre><code>package com.company;
 
 import javax.swing.*;
@@ -100,7 +103,7 @@ public class Calculadora {
       <google-codelab-step label="Fer funcionar el GUIForm" duration="0">
         <p>Per tal de fer que el formulari funcioni es requereix crear un <code>JFrame</code>. Crearem el mètode main() que serà el responsable de crear-lo quan s&#39;executi el programa.</p>
 <p>A l&#39;editor de codi de l&#39;arxiu <code>Calculadora.java</code>, fest click-dreta i selecciona -&gt; <strong>Generate</strong> -&gt; <strong>Form.main()</strong></p>
-<p><img style="max-width: 529.00px" src="img\72e0c6a62d89c879.png"></p>
+<p class="image-container"><img style="width: 529.00px" src="img\72e0c6a62d89c879.gif"></p>
 <p>Ara ja es pot executar el mètode <code>Calculadora.main()</code>, fent click-dreta i seleccionant -&gt; <strong>Run Calculadora.main()</strong></p>
 
 
@@ -109,9 +112,9 @@ public class Calculadora {
       <google-codelab-step label="Fer funcionar els botons de la calculadora" duration="0">
         <p>Per respondre als clicks dels botons i realitzar les operacions, cal afegir un Listener a cadascun d&#39;ells. El Listener es l&#39;acció que s&#39;executa quan es fa click al botó.</p>
 <p>Afegeix un Listener a cada botó fent click-dreta sobre ells i seleccionant -&gt; <strong>Create Listener -&gt; Action Listener</strong></p>
-<p><img style="max-width: 736.40px" src="img\5aa2b53ab2a9f227.png"></p>
+<p class="image-container"><img style="width: 736.40px" src="img\5aa2b53ab2a9f227.gif"></p>
 <p>Després d&#39;afegir un <code>Listener</code> a cada botó, s&#39;haurà afegit a l&#39;arxiu <code>Calculadora.java</code> el següent codi:</p>
-<h3>Calculadora.java</h3>
+<h3 is-upgraded>Calculadora.java</h3>
 <pre><code>public Calculadora() {
    ACButton.addActionListener(new ActionListener() {
        @Override
@@ -160,7 +163,7 @@ public class Calculadora {
 <p>Crearem dues variables de tipus <code>String</code> per a emmagatzemar els valor que l&#39;usuari introdueix com a operands, i una variable de tipus <code>int</code> per a emmagatzemar la operació.</p>
 <pre><code>private String operand1 =&#34;&#34;, operand2 =&#34;&#34;;
 private int operator = 0;</code></pre>
-<h2>Botons 0 i 1</h2>
+<h2 is-upgraded>Botons 0 i 1</h2>
 <p>L&#39;acció a prendre quan es fa click als botons 0 i 1, és afegir un 0 o un 1 a l&#39;<code>operand1</code>:, actualitzant el display:</p>
 <pre><code>a0Button.addActionListener(new ActionListener() {
    @Override
@@ -176,7 +179,7 @@ a1Button.addActionListener(new ActionListener() {
        textField1.setText(operand1);
    }
 });</code></pre>
-<h2>Botó NOT</h2>
+<h2 is-upgraded>Botó NOT</h2>
 <p>El <code>NOTButton</code> realitza la operació NOT sobre l&#39;<code>operand1</code>, i escriu el resultat al display:</p>
 <pre><code>NOTButton.addActionListener(new ActionListener() {
    @Override
@@ -186,7 +189,7 @@ a1Button.addActionListener(new ActionListener() {
        textField1.setText(Integer.toBinaryString(result));
    }
 });</code></pre>
-<h2>Botons OR i AND</h2>
+<h2 is-upgraded>Botons OR i AND</h2>
 <p>Aquests botons emmagatzemen el valor del display com a <code>operand2</code>, i netejen el valor de l&#39;<code>operand1</code> de forma que l&#39;usuari puga introduir un segon operand. També estableixen la operació a realitzar OR/AND en la variable <code>operator</code>.</p>
 <pre><code>ORButton.addActionListener(new ActionListener() {
    @Override
@@ -207,7 +210,7 @@ ANDButton.addActionListener(new ActionListener() {
 
    }
 });</code></pre>
-<h2>Botó resultat</h2>
+<h2 is-upgraded>Botó resultat</h2>
 <p>El botó resultat realitza la operació establerta en la variable <code>operator</code> amb l&#39;<code>operand1</code> i l&#39;<code>operand2</code>, i estableix el resultat al display:</p>
 <pre><code>eqButton.addActionListener(new ActionListener() {
    @Override
@@ -225,7 +228,7 @@ ANDButton.addActionListener(new ActionListener() {
        }
    }
 });</code></pre>
-<h2>Botó AC</h2>
+<h2 is-upgraded>Botó AC</h2>
 <p>El botó AC reseteja el valor de les variables operand1 i operand2, i del display:</p>
 <pre><code>ACButton.addActionListener(new ActionListener() {
    @Override
@@ -241,33 +244,10 @@ ANDButton.addActionListener(new ActionListener() {
     
   </google-codelab>
 
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-49880327-14', 'auto');
-
-    (function() {
-      var gaCodelab = '';
-      if (gaCodelab) {
-        ga('create', gaCodelab, 'auto', {name: 'codelab'});
-      }
-
-      var gaView;
-      var parts = location.search.substring(1).split('&');
-      for (var i = 0; i < parts.length; i++) {
-        var param = parts[i].split('=');
-        if (param[0] === 'viewga') {
-          gaView = param[1];
-          break;
-        }
-      }
-      if (gaView && gaView !== gaCodelab) {
-        ga('create', gaView, 'auto', {name: 'view'});
-      }
-    })();
-  </script>
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
 
 </body>
 </html>

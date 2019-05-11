@@ -1,14 +1,14 @@
 {
   "environment": "web",
-  "source": "15Q63gOGcmGUySB8WeAreqT-8DyrkmLnpqvLaGlOtHmw",
   "format": "html",
-  "prefix": "../../",
+  "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2019-05-11T11:39:07Z",
   "id": "mp03/codelab6",
   "duration": 0,
   "title": "Formatació d'Strings",
   "summary": "format",
+  "source": "15Q63gOGcmGUySB8WeAreqT-8DyrkmLnpqvLaGlOtHmw",
   "theme": "java",
   "status": [
     "draft"

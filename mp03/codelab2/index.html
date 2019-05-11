@@ -7,25 +7,28 @@
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
   <title>Entorn Integrat de Desenvolupament</title>
-  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../../elements/codelab.html">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <style is="custom-style">
-    body {
-      font-family: "Roboto",sans-serif;
-      background: var(--google-codelab-background, #F8F9FA);
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
     }
   </style>
-  
 </head>
-<body unresolved class="fullbleed">
-
-  <google-codelab title="Entorn Integrat de Desenvolupament"
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="mp03/codelab2"
+                  title="Entorn Integrat de Desenvolupament"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <h2><img style="max-width: 166.70px" src="img\2501f78d7d121a45.png"></h2>
+        <h2 is-upgraded><img style="width: 166.70px" src="img\2501f78d7d121a45.png"></h2>
 <p>En aquest curs utilitzarem IntelliJ IDEA com el nostre Entorn Integrat de Desenvolupament (IDE), que facilita el procés de desenvolupament de software. Les tasques d&#39;escriure, compilar i executar un programa, es realitzen totes dintre de l&#39;IDE. A més a més proporciona eines molt útils com &#34;Resaltat de codi&#34;, &#34;Autocompletat&#34;, &#34;Detecció d&#39;errores&#34;, &#34;Deupració&#34; ¡i moltíssimes altres que anirem veient i descobrient!</p>
 <p>Què aprendràs</p>
 <ul>
@@ -38,47 +41,47 @@
       </google-codelab-step>
     
       <google-codelab-step label="Instal·la IntelliJ IDEA Community Edition" duration="0">
-        <h2>Descarrega </h2>
+        <h2 is-upgraded>Descarrega </h2>
 <p>Pots descarregar <strong>IntelliJ IDEA Community Edition</strong> de la web de JetBrains: </p>
 <p><a href="https://www.jetbrains.com/idea/download/" target="_blank"><paper-button class="colored" raised>IntelliJ IDEA Community Edition</paper-button></a></p>
 <aside class="warning"><p><strong>Important</strong>: Assegura&#39;t de descarregar la versió Community (botó negre).</p>
 </aside>
 <p>✅ Comprova que s&#39;ha descarregat l&#39;arxiu</p>
-<h2>Descomprimeix</h2>
-<h2>Instal·la </h2>
+<h2 is-upgraded>Descomprimeix</h2>
+<h2 is-upgraded>Instal·la </h2>
 <p>Executa la seguent comanda per a iniciar IntelliJ IDEA. </p>
 <pre>idea-IC-172.3757.52/bin/idea.sh</pre>
 <p>El primer cop s&#39;iniciarà amb l&#39;instal·lador. Segueix els passos que s&#39;indiquen</p>
 <p>1 - No importar configuració anterior</p>
-<p><img style="max-width: 477.70px" src="img\4a6400f3b6e9deaa.png"></p>
+<p class="image-container"><img style="width: 477.70px" src="img\4a6400f3b6e9deaa.png"></p>
 <p>2 - Acceptar la Política de Privacitat</p>
-<p><img style="max-width: 470.70px" src="img\3e615cf8bc54b43a.png"></p>
+<p class="image-container"><img style="width: 470.70px" src="img\3e615cf8bc54b43a.png"></p>
 <p>3 - Elscollir un tema (al teu gust)</p>
-<p><img style="max-width: 480.74px" src="img\2c0f9699007678c3.png"></p>
+<p class="image-container"><img style="width: 480.74px" src="img\2c0f9699007678c3.png"></p>
 <p>4 - Crear un accés a l&#39;Escriptori</p>
-<p><img style="max-width: 481.71px" src="img\2a31e6521abb2509.png"></p>
+<p class="image-container"><img style="width: 481.71px" src="img\2a31e6521abb2509.png"></p>
 <p>5 - Configurar un script de llançament (no és necessari)</p>
-<p><img style="max-width: 481.70px" src="img\5b2b51bd77638432.png"></p>
+<p class="image-container"><img style="width: 481.70px" src="img\5b2b51bd77638432.png"></p>
 <p>6 - Instal·lar plugins per defecte (no és necessari instal·lar-ne cap)</p>
-<p><img style="max-width: 480.91px" src="img\e1c9b2027a27ea8f.png"></p>
+<p class="image-container"><img style="width: 480.91px" src="img\e1c9b2027a27ea8f.png"></p>
 <p>7 - Instal·lar plugins destacats (no és necessari instalar-ne cap)</p>
-<p><img style="max-width: 481.70px" src="img\ab189364c7e6959e.png"></p>
+<p class="image-container"><img style="width: 481.70px" src="img\ab189364c7e6959e.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea un Projecte" duration="0">
-        <p><img style="max-width: 480.66px" src="img\2a7f29a19b3298e2.png"></p>
+        <p class="image-container"><img style="width: 480.66px" src="img\2a7f29a19b3298e2.png"></p>
 <p>1 - Estableix l&#39;SDK, pulsant el botó &#34;New...&#34;</p>
-<p><img style="max-width: 480.89px" src="img\34f0b39949b09c88.png"></p>
+<p class="image-container"><img style="width: 480.89px" src="img\34f0b39949b09c88.png"></p>
 <p>Selecciona el directori on tens el JDK :</p>
-<p><img style="max-width: 481.70px" src="img\fa373932c2d5229.png"></p>
+<p class="image-container"><img style="width: 481.70px" src="img\fa373932c2d5229.png"></p>
 <aside class="special"><p><strong>Nota:</strong> Pot ser recomanable posar la carpeta <code>jdk1.8.0_144</code> dintre de la carpeta <code>idea-IC-172.3735.52</code>, per a d&#39;aquesta forma tenir tot en una mateixa carpeta.</p>
 </aside>
 <p>2 - Crea un projece des de la plantilla &#34;Command Line App&#34;</p>
-<p><img style="max-width: 481.87px" src="img\460223fa3dcb1150.png"></p>
+<p class="image-container"><img style="width: 481.87px" src="img\460223fa3dcb1150.png"></p>
 <p>3 - Posa el nom <code>HelloWorldApp</code> al teu projecte.</p>
-<p><img style="max-width: 480.89px" src="img\909bb1ec4aa26fb7.png"></p>
+<p class="image-container"><img style="width: 480.89px" src="img\909bb1ec4aa26fb7.png"></p>
 
 
       </google-codelab-step>
@@ -88,41 +91,18 @@
 <pre><code>// write your code here</code></pre>
 <p>I escriu el códi que mostra el missatge &#34;Hello World!&#34;:</p>
 <pre><code>System.out.println(&#34;Hello World!&#34;);</code></pre>
-<p>2 - Compila i executa el programa pulsant el botó &#34;Run&#34; ( <img style="max-width: 19.00px" src="img\523eca6211b514fd.png"> )</p>
-<p><img style="max-width: 480.24px" src="img\edb0118fd21c1c8d.png"></p>
+<p>2 - Compila i executa el programa pulsant el botó &#34;Run&#34; ( <img style="width: 19.00px" src="img\523eca6211b514fd.png"> )</p>
+<p class="image-container"><img style="width: 480.24px" src="img\edb0118fd21c1c8d.png"></p>
 
 
       </google-codelab-step>
     
   </google-codelab>
 
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-49880327-14', 'auto');
-
-    (function() {
-      var gaCodelab = '';
-      if (gaCodelab) {
-        ga('create', gaCodelab, 'auto', {name: 'codelab'});
-      }
-
-      var gaView;
-      var parts = location.search.substring(1).split('&');
-      for (var i = 0; i < parts.length; i++) {
-        var param = parts[i].split('=');
-        if (param[0] === 'viewga') {
-          gaView = param[1];
-          break;
-        }
-      }
-      if (gaView && gaView !== gaCodelab) {
-        ga('create', gaView, 'auto', {name: 'view'});
-      }
-    })();
-  </script>
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
 
 </body>
 </html>
