@@ -1,0 +1,127 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Entrada des de fitxer</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="mp03/codelab10"
+                  title="Entrada des de fitxer"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p class="image-container"><img style="width: 630.00px" src="img\b30c1464d3c63e37.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és conèixer les possibilitats de la classe Scanner per a llegir dades d&#39;entrada des d&#39;un fitxer.</p>
+<p>En molts casos, quan provem un programa, ens veiem obligat a introduir per teclat una vegada i una altra les mateixes dades. Això ralenteix el nostre treball. En aquest CodeLab veurem com posar aquestes dades en un fitxer i llegir-les directament.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;ScannerFile&#34;.</p>
+<p class="image-container"><img style="width: 548.00px" src="img\1f77c27e0b506e0f.png"></p>
+<p class="image-container"><img style="width: 548.00px" src="img\8556ac2bd86adfea.png"></p>
+<p class="image-container"><img style="width: 548.00px" src="img\9566203c85696eb2.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Pica el codi" duration="0">
+        <p>Imagina que estàs tractant de fer un programa per a gestionar alumnes. De moment, tens una mica de codi per mostrar un menu d&#39;opcions, per a donar d&#39;alta alumnes, i llistar els alumnes.</p>
+<pre><code>import java.util.Scanner;
+
+class Alumne {
+   String nom, cognoms;
+}
+
+public class Main {
+
+   public static void main(String[] args) {
+       Scanner scanner = new Scanner(System.in);
+
+       Alumne[] alumnes = new Alumne[10];
+       int posicio = 0;
+
+       while(true) {
+           System.out.println();
+           System.out.println(&#34;GESTIO ALUMNES&#34;);
+           System.out.println(&#34;a) Introduir alumne&#34;);
+           System.out.println(&#34;b) Llistar alumnes&#34;);
+           System.out.println();
+
+           String opcio = scanner.nextLine();
+
+           switch (opcio) {
+               case &#34;a&#34;:
+                   alumnes[posicio] = new Alumne();
+
+                   System.out.println(&#34;Nom: &#34;);
+                   alumnes[posicio].nom = scanner.nextLine();
+                   System.out.println(&#34;Cognoms: &#34;);
+                   alumnes[posicio].cognoms = scanner.nextLine();
+
+                   posicio++;
+                   break;
+               case &#34;b&#34;:
+                   System.out.println(&#34;Llistat d&#39;alumnes&#34;);
+                   for (int i = 0; i &lt; posicio; i++) {
+                       System.out.println(alumnes[i].cognoms + &#34;, &#34; + alumnes[i].nom);
+                   }
+                   break;
+               default:
+                   return;
+           }
+       }
+   }
+}</code></pre>
+<p>Cada cop que fas una modificació el codi, executes el programa i introdueixes les dades per veure com va funcionant el programa. </p>
+<p class="image-container"><img style="width: 440.00px" src="img\9872fbe4789f8798.png"></p>
+<p>Això significa una valuosa pèrdua de temps, que podem evitar posant les dades d&#39;entrada en un arxiu i llegint les dades directament de l&#39;arxiu</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el fitxer" duration="0">
+        <p>Crea un arixu de text al directori arrel de projecte i introdueix les dades</p>
+<p class="image-container"><img style="width: 346.00px" src="img\5237049726bcaafe.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Llegeix les dades del fitxer" duration="0">
+        <p>Modifica la construcció de l&#39;Scanner per a que en lloc de System.in, tingui com a origen el fitxer:</p>
+<pre><code>Scanner scanner = new Scanner(new File(&#34;dades&#34;));</code></pre>
+<p>Es mostrarà un error subratllat en vermell. Polsa <code>Alt+INTRO</code> i selecciona l&#39;opció &#34;Add exception to method signature&#34;:</p>
+<p class="image-container"><img style="width: 445.00px" src="img\90e28af9b18fc49.png"></p>
+<p>Ja està, això és tot el que has de fer, ara ja pots executar el teu programa i fer tantes proves com vulguis, sense haver d&#39;introduir cada cop les dades.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>
