@@ -87,9 +87,10 @@
       </google-codelab-step>
     
       <google-codelab-step label="Editor Shortcuts" duration="0">
-        <table>
-<tr><td colspan="1" rowspan="1"><p><strong>Action</strong></p>
-</td><td colspan="1" rowspan="1"><p><strong>Description</strong></p>
+        <p>La taula següent mostra alguns <em>shortcuts</em> relacionats amb l&#39;edició del codi:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Acció</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Shortcut</strong></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>Moure una línia de codi, o vàries línies seleccionades</p>
 </td><td colspan="1" rowspan="1"><p><code>Ctrl+Shift+Up</code></p>
@@ -102,111 +103,95 @@
 </td><td colspan="1" rowspan="1"><p><code>Ctrl+Y</code></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>Comentar o descomentar una línia de codi</p>
-</td><td colspan="1" rowspan="1"><p>Ctrl+/</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+/</code></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>Coment un block de codi</p>
-</td><td colspan="1" rowspan="1"><p>Ctrl+Shift+/</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Find in the currently opened file</p>
-</td><td colspan="1" rowspan="1"><p>Ctrl+F</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+Shift+/</code></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>Find and replace in the current file</p>
-</td><td colspan="1" rowspan="1"><p>Ctrl+R</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Next occurrence</p>
-</td><td colspan="1" rowspan="1"><p>F3</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Previous occurrence</p>
-</td><td colspan="1" rowspan="1"><p>Shift+F3</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Navigate between opened tabs</p>
-</td><td colspan="1" rowspan="1"><p>Alt+Right Alt+Left</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Navigate back/forward</p>
-</td><td colspan="1" rowspan="1"><p>Ctrl+Alt+LeftCtrl+Alt+Right</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Expand or collapse a code block in the editor</p>
-</td><td colspan="1" rowspan="1"><p>Ctrl+NumPad PlusCtrl+NumPad -</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Create new...</p>
-</td><td colspan="1" rowspan="1"><p>Alt+Insert</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+R</code></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>Surround with</p>
-</td><td colspan="1" rowspan="1"><p>Ctrl+Alt+T</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Highlight usages of a symbol</p>
-</td><td colspan="1" rowspan="1"><p>Ctrl+F7</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+Alt+T</code></p>
 </td></tr>
 </table>
+<h2 is-upgraded>Refactorització</h2>
+<p>En moltes ocasions ens trobem que hem de canviar el nom d&#39;una variable, o una classe, que hem utilitzat en molts llocs del programa. Canviar el nom a mà a cada lloc pot ser molt lent.</p>
+<p>Una forma eficient de fer-ho és amb la refactorització.</p>
+<p>Col·loca el cursor sobre la variable o classe a la que li vols canviar el nom i fes <code>Shift+F6</code></p>
+<p class="image-container"><img style="width: 340.00px" src="img\8ab5ccdbfc513fb7.gif"></p>
+<aside class="special"><p>La refactorització és una de les eines més potents que ofereix un IDE:</p>
+<p><a href="https://www.jetbrains.com/help/idea/refactoring-source-code.html" target="_blank">https://www.jetbrains.com/help/idea/refactoring-source-code.html</a> </p>
+</aside>
+<h2 is-upgraded>Estil de codi i format</h2>
+<p>IntelliJ IDEA aplica automàticament l&#39;estil de codi que s&#39;ha configurat a la configuració de l&#39;<a href="https://www.jetbrains.com/help/idea/settings-code-style.html" target="_blank">Estil de codi a</a> mesura que s&#39;edita i, en la majoria dels casos, no cal que es cridi explícitament l&#39;acció del <em>codi reformat</em> .</p>
+<p>Dreceres de format útils:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Acció</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Shortcut</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Reformat del codi</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+Alt+L</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Línies de sagnat automàtic</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+Alt+I</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Optimitzeu les importacions</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+Alt+O</code></p>
+</td></tr>
+</table>
+<p>Tingueu en compte que, per defecte, IntelliJ IDEA utilitza espais regulars per a sagnats en lloc de tabulacions. Si teniu fitxers amb molts sagnats, és possible que vulgueu optimitzar la seva mida si activeu l&#39; opció &#34;Utilitza el caràcter de tabulació&#34; a la <a href="https://www.jetbrains.com/help/idea/code-style-java.html" target="_blank">configuració d&#39;estil de codi Java</a> .</p>
+<p>Per obtenir més informació, consulteu <a href="https://www.jetbrains.com/help/idea/reformat-and-rearrange-code.html" target="_blank">Reforma de codi font</a> .</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Documenta el codi" duration="0">
-        <pre><code>/**
-* La classe AritmeticUtils proporciona mètdoes per a
-* realitzar operacions aritmètiques.
-*
-* @author Gerard Falco
-* @version 1.0
-* @since 2020-01-01
-*/
-class AritmeticUtils {
-   /**
-    * Aquest mètode s&#39;usa per a sumar dos enters
-    *
-    * @param a El primer sumand
-    * @param b El segon sumand
-    * @return Retorna la suma del primer i el segon sumand
-    */
-   int suma(int a, int b){
-       return a+b;
-   }
+      <google-codelab-step label="Intentions" duration="0">
+        <p>Mentre treballem a l&#39;editor, IntelliJ IDEA analitza el codi, cerca maneres d&#39;optimitzar-lo i detecta problemes potencials i reals.</p>
+<p>Tan aviat com l&#39;IDE ​​trobi una manera d&#39;alterar el codi, es mostra la icona <img alt="icona de bombeta groga" style="width: 32.00px" src="img\bf52395f0c994582.png">a l&#39;editor situat al costat de la línia actual. Si feu clic en aquesta icona, podeu veure les <em>intent actions</em> disponibles per a aquesta unitat de codi. Les <em>intent actions</em> cobreixen un ampli ventall de situacions, des d&#39;advertiments fins a suggeriments d&#39;optimització. Podeu <a href="https://www.jetbrains.com/help/idea/intention-actions.html#intention-settings" target="_blank">veure la llista completa d&#39;intensions i desactivar-los</a> a la configuració.</p>
+<p>Un exemple d&#39;intent action és &#34;Invertir un if&#34;:</p>
+<p class="image-container"><img style="width: 340.00px" src="img\f3520aa7d669a6a1.gif"></p>
+<p>La icona<img alt="la icona Fixació ràpida" style="width: 32.00px" src="img\aed71a42525b6601.png"> indica que IntelliJ IDEA ha detectat un problema i us demana que seleccioneu una correcció associada: <em>una solució ràpida</em> .</p>
+<p>Un exemple de soució ràpida és &#34;Canviar el tipus de variable&#34;:</p>
+<p class="image-container"><img style="width: 340.00px" src="img\ab741e42bf73ee05.gif"></p>
 
-   /**
-    * Aquest mètode s&#39;usa per a multiplicar dos enters
-    *
-    * @param a El primer factor
-    * @param b El segon factor
-    * @return Retorna la multiplicació del primer i el segon factor
-    */
-   int multiplica(int a, int b){
-       return a*b;
-   }
 
-   /**
-    * Aquest mètode s&#39;usa per a comparar si un nombre es major a un altre
-    *
-    * @param a El primer nombre
-    * @param b El segon nombre
-    * @return Retorna true si el primer nombre és major al segon, i fals si no ho és.
-    */
-   boolean esMajor(int a, int b){
-       return a &gt; b;
-   }
-}</code></pre>
-<aside class="special"><p><strong>Best Practices</strong></p>
-<ul>
-<li>&#34;Lo bueno, si breve, dos veces bueno&#34;</li>
-<li>Actualitza la documentació quan modifiquis el codi</li>
-<li>Elimina documentació obsoleta</li>
-<li>Prefereix allò bò a allò perfecte</li>
-<li>Descriu el resultat, no el procediment</li>
-</ul>
-</aside>
-<h2 is-upgraded>Genera la documentació</h2>
-<p>Ves al menú <code>Tools</code> &gt; <code>Generate JavaDoc...</code></p>
-<p class="image-container"><img style="width: 246.00px" src="img\523a7efc560f281c.png"></p>
-<p>Configura la generació de la Documentació: </p>
-<ul>
-<li>Marca els tags que vols incloure (@author i @version)</li>
-<li>Especifica el directori on es generaran els fitxers HTML</li>
-</ul>
-<p class="image-container"><img style="width: 530.00px" src="img\c092f1fbd65f254b.png"></p>
-<p>Ja tenim preparada la nostra documentació, i la podem veure al navegador web.</p>
-<aside class="special"><p>Javadoc permet incloure codi HTML directament en els <em>doc comments</em>. Pots incloure qualsevol element HTML que el navegador suporti.</p>
-</aside>
-<p class="image-container"><img style="width: 518.00px" src="img\5c39986fb837075e.png"></p>
+      </google-codelab-step>
+    
+      <google-codelab-step label="Live templates" duration="0">
+        <p>Mitjançant la utilització de <em>live templates</em>, podem inserir construccions usades freqüentment al codi. Per exemple, bucles, condicions, diverses declaracions o declaracions d&#39;impressió. Per ampliar un fragment de codi, escriviu la <em>template abbreviation</em> corresponent i premeu <code>Tab</code>.</p>
+<p>Live templates útils:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Abbreviation</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Expands to</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>psvm</p>
+</td><td colspan="1" rowspan="1"><p>public static void main(String[] args){</p>
+<p>}</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>sout</p>
+</td><td colspan="1" rowspan="1"><p>System.out.println();</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>fori</p>
+</td><td colspan="1" rowspan="1"><p>for (int i = 0; i &lt; ; i++) {</p>
+<p>}</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ifn</p>
+</td><td colspan="1" rowspan="1"><p>if (var == null) {</p>
+<p>}</p>
+</td></tr>
+</table>
+<h2 is-upgraded>Afegir Live Templates</h2>
+<p>IntelliJ ens permet afegit els nous <em>Live Templates</em> per al codi que utilitzem més sovint.</p>
+<p>Ves a <code>File</code> &gt; <code>Settings</code> &gt; <code>Editor</code> &gt; <code>Live Templates</code></p>
+<p class="image-container"><img style="width: 729.00px" src="img\dbfd126a8d8cecc9.png"></p>
+<p>Fes click a la icona <img style="width: 19.00px" src="img\e11119a3765ff60.png"></p>
+<p>Abbreviation: <code>scn</code></p>
+<p>Template text: <code>Scanner scanner = new Scanner(System.in);</code></p>
+<p class="image-container"><img style="width: 548.00px" src="img\d64b1978b87c2f62.png"></p>
+<p>Defineix el context JAVA</p>
+<p class="image-container"><img style="width: 129.00px" src="img\770e366f86cdd1cd.png"></p>
+<p>Ja està, ara per a crear un Scanner només has de teclejar <code>scn</code> i polsar <code>Tab</code>.</p>
 
 
       </google-codelab-step>
