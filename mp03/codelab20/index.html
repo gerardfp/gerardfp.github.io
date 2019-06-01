@@ -30,16 +30,16 @@
       <google-codelab-step label="Introducció" duration="0">
         <p class="image-container"><img style="width: 545.00px" src="img\c9226141cf31d377.png"></p>
 <p>L&#39;objectiu d&#39;aquest CodeLab és utlitzar Gradle per a automatitzar la construcció d&#39;una aplicació.</p>
-<p>Gradle és un sistema d&#39;automatització de construcció d&#39;aplicacions. Permet configurar les tasques de construcció i l&#39;ordre en que s&#39;han d&#39;executar. Incorpora un sistema de gestió de dependències que suporta el repository de llibreries <a href="https://mvnrepository.com/" target="_blank">Maven</a>. En aquest repository trobem milers de llibreries amb diverses utilitats que podem incorporar als nostres projectes.</p>
+<p>Gradle és un sistema d&#39;automatització de construcció d&#39;aplicacions. Permet configurar les tasques de construcció i l&#39;ordre en que s&#39;han d&#39;executar. Incorpora un sistema de gestió de dependències que suporta el repositori de llibreries <a href="https://mvnrepository.com/" target="_blank">Maven</a>. En aquest repositori trobem milers de llibreries amb diverses utilitats que podem incorporar als nostres projectes.</p>
 <p>D&#39;aquesta forma és molt fàcil incorporar una llibreria externa a un projecte. Habitualment, només cal indicar el nom i  la versió de la llibreria que volem incorporar i Gradle la descarregarà i la incorporarà al projecte.</p>
-<p>En aquest CodeLab instal·larem, a mode d&#39;exemple, la llibreria d&#39;acces a un base de dades SQLite.</p>
+<p>En aquest CodeLab instal·larem, a mode d&#39;exemple, la llibreria d&#39;accés a un base de dades SQLite.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
         <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;DependenciaGradle&#34;.</p>
-<p>Selecciona &#34;Gradle&#34; com a tipus de projecte:</p>
+<p>Selecciona &#34;<code>Gradle</code>&#34; com a tipus de projecte:</p>
 <p class="image-container"><img style="width: 560.00px" src="img\f93c4cf5d31f8f86.png"></p>
 <p>Introdueix les següents dades del projecte:</p>
 <p>GroupId: <code>com.example</code></p>
@@ -57,7 +57,7 @@
         <p>Crea un nou mòdul de projecte. Ves al menu <code>File</code> &gt; <code>Add</code> &gt; <code>Module...</code> i segueix les instruccions habituals per a crear un mòdul Java:</p>
 <p class="image-container"><img style="width: 548.00px" src="img\41044031c7841fbd.png"></p>
 <p class="image-container"><img style="width: 548.00px" src="img\84cabb4caa62d3c2.png"></p>
-<p>A la carpeta del mòdul que tot just s&#39;ha creat, afegeix una nova classe Java, que contindrà la classe Main del projecte:</p>
+<p>A la carpeta del mòdul que tot just s&#39;ha creat, afegeix una nova classe Java, que contindrà la classe <code>Main</code> del projecte:</p>
 <p class="image-container"><img style="width: 637.00px" src="img\37d3415586b264b.png"></p>
 <p>Posa-li de nom <code>Main</code>:</p>
 <p class="image-container"><img style="width: 347.00px" src="img\f12af2b5d85ebce7.png"></p>
