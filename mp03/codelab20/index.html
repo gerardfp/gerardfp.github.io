@@ -77,10 +77,11 @@
 <p class="image-container"><img style="width: 418.00px" src="img\5ea1e0246ef3b074.png"></p>
 <p>La llibreria d&#39;exemple que instal·larem és aquesta: <a href="https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc" target="_blank">https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc</a></p>
 <p>Cal afegir doncs aquesta dependencia a l&#39;arxiu <code>build.gradle</code> en la secció <code>dependencies</code></p>
-<p><code>dependencies {</code></p>
-<p><code>   testCompile </code><strong><code>group</code></strong><code>: </code><strong><code>&#39;junit&#39;</code></strong><code>, </code><strong><code>name</code></strong><code>: </code><strong><code>&#39;junit&#39;</code></strong><code>, </code><strong><code>version</code></strong><code>: </code><strong><code>&#39;4.12&#39;</code></strong></p>
-<p><code>implementation </code><strong><code>group</code></strong><code>:</code><strong><code>&#39;org.xerial&#39;</code></strong><code>, </code><strong><code>name</code></strong><code>:</code><strong><code>&#39;sqlite-jdbc&#39;</code></strong><code>, </code><strong><code>version</code></strong><code>:</code><strong><code>&#39;3.27.2.1&#39;</code></strong></p>
-<p><code>}</code></p>
+<pre>dependencies {
+   testCompile group: &#39;junit&#39;, name: &#39;junit&#39;, version: &#39;4.12&#39;
+
+   implementation group:&#39;org.xerial&#39;, name:&#39;sqlite-jdbc&#39;, version:&#39;3.27.2.1&#39;
+}</pre>
 <aside class="special"><p><strong>Versions: </strong>Un dels aspectes que més dificultat comporten és la compatibilitat de versions entre diferentes dependencies. Cal anar amb compte en que totes les dependencies que afegim a un projecte siguin compatibles entre sí.</p>
 </aside>
 <p>Un cop afegida la llibreria refresquem el projecte Gradle per a aplicar els canvis:</p>
