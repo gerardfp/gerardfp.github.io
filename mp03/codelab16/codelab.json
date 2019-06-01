@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-06-01T18:12:17Z",
+  "id": "mp03/codelab16",
+  "duration": 0,
+  "title": "Refactoring",
+  "summary": "refactoring",
+  "source": "1DxFPe_9qg9QRbbIE1ha629E3F-KyZ1MSl8_lQ31jtQQ",
+  "theme": "java",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Java"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp03/codelab16"
+}
