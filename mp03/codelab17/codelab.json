@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-06-01T19:04:42Z",
+  "id": "mp03/codelab17",
+  "duration": 0,
+  "title": "JUnit",
+  "summary": "junit",
+  "source": "1jEy25Q-n5j-lxR6LeNRA4zj_QekgzSqCIhTdW7gUt0s",
+  "theme": "java",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Java"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp03/codelab17"
+}
