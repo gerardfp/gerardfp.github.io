@@ -15,5 +15,6 @@ claat-windows-amd64.exe export 11OE8xPPyQSQbmFjo4Vf2TSy-9BtJ2qJWGhbwQH8PW7k
 claat-windows-amd64.exe export 1o8rc7OlcDHDKFQZK8NtT1sdpCr8fdkaXhVhx4FUjEOs
 
 claat-windows-amd64.exe export 1DxFPe_9qg9QRbbIE1ha629E3F-KyZ1MSl8_lQ31jtQQ
+claat-windows-amd64.exe export 1jEy25Q-n5j-lxR6LeNRA4zj_QekgzSqCIhTdW7gUt0s
 
 claat-windows-amd64.exe export 10J1EM0Cmx214oF7fX84Bl0mph1EnchuYrxzMCPebfV0
