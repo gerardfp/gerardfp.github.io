@@ -1,0 +1,123 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Deploy JAR</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="mp03/codelab19"
+                  title="Deploy JAR"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p class="image-container"><img style="width: 256.00px" src="img\2d4debd975b47dc4.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és aprendre a exportar i importar llibreries en format JAR.</p>
+<p>El format de fitxer Java™ Archive (JAR) permet agrupar diversos fitxers en un únic fitxer d&#39;arxiu. Normalment, un fitxer JAR conté els fitxers de classe i els recursos auxiliars associats a miniaplicacions i aplicacions.</p>
+<p>Els fitxers JAR estan empaquetats amb el format de fitxer ZIP, de manera que  es poden utilitzar per a tasques com la compressió de dades sense pèrdua, l&#39;arxiu, la descompressió i el desembalatge d&#39;arxius.</p>
+<p>En aquest CodeLab crearem una mini-llibreria que exportarem a un arxiu JAR, i que podrem importar més endavant en altres projectes.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;DeployJar&#34;.</p>
+<p class="image-container"><img style="width: 548.00px" src="img\d58f62df7ba3cab3.png"></p>
+<p class="image-container"><img style="width: 548.00px" src="img\55626fec151c2c6.png"></p>
+<p class="image-container"><img style="width: 548.00px" src="img\de2fc4c708239275.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Programa la llibreria" duration="0">
+        <p>La llibreria que anem a programar és molt simple, ja que només és una prova. Es tracta d&#39;una classe anomenada Banner que té un mètode per a mostrar nombres a l&#39;estil d&#39;un <em>Matrix Display</em>.</p>
+<p>Exemple: </p>
+<pre><code>Banner.println(34545);</code></pre>
+<p class="image-container"><img style="width: 274.00px" src="img\e0addd9a7ac3cddc.png"></p>
+<p>El codi de la llibreria és aquest:</p>
+<pre><code>public class Banner {
+   private static String[][] gl = {
+           {&#34;#####&#34;,&#34;#   #&#34;,&#34;#   #&#34;,&#34;#   #&#34;,&#34;#####&#34; }, //0
+           {&#34;  ## &#34;,&#34; # # &#34;,&#34;   # &#34;,&#34;   # &#34;,&#34;   # &#34; }, //1
+           {&#34;#####&#34;,&#34;    #&#34;,&#34;#####&#34;,&#34;#    &#34;,&#34;#####&#34; }, //2
+           {&#34;#####&#34;,&#34;    #&#34;,&#34; ####&#34;,&#34;    #&#34;,&#34;#####&#34; }, //3
+           {&#34;#    &#34;,&#34;#   #&#34;,&#34;#####&#34;,&#34;    #&#34;,&#34;    #&#34; }, //4
+           {&#34;#####&#34;,&#34;#    &#34;,&#34;#####&#34;,&#34;    #&#34;,&#34;#####&#34; }, //5
+           {&#34;#### &#34;,&#34;#    &#34;,&#34;#####&#34;,&#34;#   #&#34;,&#34;#####&#34; }, //6
+           {&#34;#####&#34;,&#34;    #&#34;,&#34;   # &#34;,&#34;  #  &#34;,&#34; #   &#34; }, //7
+           {&#34;#####&#34;,&#34;#   #&#34;,&#34;#####&#34;,&#34;#   #&#34;,&#34;#####&#34; }, //8
+           {&#34;#####&#34;,&#34;#   #&#34;,&#34;#####&#34;,&#34;    #&#34;,&#34;  ## &#34; }  //9
+
+   };
+
+   public static void println(int number){
+       String temp = Integer.toString(number);
+       Integer[] na = new Integer[temp.length()];
+       for (int i = 0; i &lt; temp.length(); i++) {
+           na[i] = temp.charAt(i) - &#39;0&#39;;
+       }
+       for(int i=0; i&lt;5; i++){
+           for(Integer d: na){
+               System.out.print(gl[d][i] + &#34;   &#34;);
+           }
+           System.out.println();
+       }
+   }
+}</code></pre>
+<p>Crea la classe Banner i copia el codi.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Exporta la llibreria" duration="0">
+        <h2 is-upgraded>Crea un Artifact Jar</h2>
+<p>Per a generar un arxiu JAR, primer s&#39;ha de configurar un Artifact de tipus JAR. Un Artifact és un conjunt de recursos que es poden posar en un mateix arxiu.</p>
+<p>Per a configurar l&#39;Artifact cal anar a: <code>File</code> &gt; <code>Project Structure...</code> &gt; <code>Artifacts</code> &gt; <img style="width: 21.00px" src="img\94ce938882ccb214.png"> &gt; <code>JAR</code> &gt; <code>From modules with dependencies...</code></p>
+<p class="image-container"><img style="width: 660.00px" src="img\1455eb7bebe72e3f.gif"></p>
+<h2 is-upgraded>Construeix el JAR</h2>
+<p>Un cop definit l&#39;Artifact JAR, ja podem construir l&#39;arxiu JAR amb la llibreria.</p>
+<p>Per fer-ho ves al menú <code>Build</code> &gt; <code>Build Artifacts...</code></p>
+<p>Seleciona l&#39;opció <code>Build</code></p>
+<p class="image-container"><img style="width: 194.00px" src="img\3d7c9da3d15cda60.png"></p>
+<p>A la carpeta out/artifacts ens haurà generat l&#39;arxiu JAR:</p>
+<p class="image-container"><img style="width: 240.00px" src="img\a360728d2ec0f347.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Importa la llibreria" duration="0">
+        <p>Ja tenim la llibreria exportada en un arxiu JAR, i ara podem importar-la en altres projectes.</p>
+<p>Per a afegir una llibreria JAR a un projecte cal anar a File &gt; Project Structure... &gt; Libraries &gt; <img style="width: 21.00px" src="img\94ce938882ccb214.png"> &gt; Java i seleccionar el directori on tenim l&#39;arxiu JAR:</p>
+<p class="image-container"><img style="width: 285.00px" src="img\ab336f50306759a8.png"></p>
+<p class="image-container"><img style="width: 642.00px" src="img\73179d9718b6ed14.png"></p>
+<p>Ja està tot, ja podríem usar la classe <code>Banner</code> en aquest projecte.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>
