@@ -136,6 +136,7 @@ shapeRenderer.rect(50,100,550, 40);</code></pre>
       <google-codelab-step label="Bouncing balls" duration="0">
         <p>Farem una petita demo en la que unes boles van rebotant per la finestra</p>
 <p class="image-container"><img style="width: 551.00px" src="img\b0a19f36d78e3a00.gif"></p>
+<p>Al mètode <code>render()</code> afegim cada cert temps aleatori, una nova bola a l&#39;array de boles. Els valors de posició, tamany, color i velocitat els generem també aleatòriament:</p>
 <pre><code>import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -176,6 +177,8 @@ public class MyGdxGame extends ApplicationAdapter {
      }
   }
 }</code></pre>
+<p>La lògica del moviment d&#39;una bola consisteix en anar augmentant la velocitat vertical en funció de la gravetat, y al mateix temps modificar la posició en funció de la velocitat.</p>
+<p>El rebot s&#39;aconsegueix comprovant quan la bola xoca amb el terra o amb una de les parets laterals:</p>
 <pre><code>import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
