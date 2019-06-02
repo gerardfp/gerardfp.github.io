@@ -3,12 +3,12 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2019-06-02T14:41:03Z",
-  "id": "mp03/codelab19",
+  "updated": "2019-06-02T21:34:40Z",
+  "id": "mp03/codelab21",
   "duration": 0,
-  "title": "Deploy JAR",
-  "summary": "deployjar",
-  "source": "1CbociHWSRWK6oZKFZWRkZ6QPnvJ3c1bHFuCacrO6MtI",
+  "title": "Android",
+  "summary": "refactoring",
+  "source": "1qEw6EQrA8cb20aqGWFunadU78HPyl79MaPKLdQGZcOs",
   "theme": "java",
   "status": [
     "draft"
@@ -18,5 +18,5 @@
   ],
   "tags": [],
   "feedback": "https://github.com/gerardfp",
-  "url": "mp03/codelab19"
+  "url": "mp03/codelab21"
 }
