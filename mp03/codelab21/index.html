@@ -33,7 +33,7 @@
 <p>IntelliJ IDEA proporciona el plugin Android Support. Aquest plugin ve incorporat i està activat per defecte. Incorpora moltes eines útils per al desenvolupament d&#39;aplicacions Android com:</p>
 <ul>
 <li>Editor grafic d&#39;interfícies</li>
-<li>Generació automàtique de codi d&#39;interficies</li>
+<li>Generació automàtica de codi d&#39;interficies</li>
 <li>Inspeccions de codi específiques d&#39;Android</li>
 <li>Configuracions per a l&#39;execució en terminals mòbils i dispositius virtuals</li>
 </ul>
@@ -49,18 +49,18 @@
 <p class="image-container"><img style="width: 626.00px" src="img\73f66968bcca0b60.png"></p>
 <p>Selecciona &#34;Empty Activity&#34; com a plantilla per a la pantalla principal:</p>
 <p class="image-container"><img style="width: 456.00px" src="img\7b8aa911334d9bf8.png"></p>
-<p>Posa-li el nom &#34;MainActivity&#34; a la pantalla principal:</p>
+<p>Posa-li el nom &#34;<code>MainActivity</code>&#34; a la pantalla principal:</p>
 <p class="image-container"><img style="width: 543.00px" src="img\f04ca015bd0f04f8.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Activities" duration="0">
-        <p>A l&#39;SDK Android les pantalles s&#39;anomenen <code>Activities</code>. Hi ha dos arxius fonamentals a l&#39;hora de programar una Activity.</p>
+        <p>A l&#39;SDK Android les pantalles s&#39;anomenen <em>Activities</em>. Hi ha dos arxius fonamentals a l&#39;hora de programar una Activity.</p>
 <p>A l&#39;arxiu a <code>MainActivity.java</code> programarem la lògica de l&#39;aplicació, és a dir, el comportament que volem que tingui.</p>
-<p>A l&#39;arxiu <code>activity_main.xml</code> programarem l&#39;interfície de l&#39;apliació, és a dir, l&#39;aspecte que volem que tingui.</p>
+<p>A l&#39;arxiu <code>activity_main.xml</code> programarem l&#39;interfície de l&#39;aplicació, és a dir, l&#39;aspecte que volem que tingui.</p>
 <p class="image-container"><img style="width: 417.00px" src="img\aac46f9ca226a009.png"></p>
-<p>Clicant l&#39;arxiu <code>MainActivity.java</code> s&#39;obrirà l&#39;editor de codi, on podrem escriure el codi en lleguatge Java.</p>
+<p>Clicant l&#39;arxiu <code>MainActivity.java</code> s&#39;obrirà l&#39;editor de codi, on podrem escriure el codi en llenguatge Java.</p>
 <p>Clicant l&#39;arxiu <code>activity_main.xml</code> s&#39;obrirà l&#39;editor gràfic d&#39;interfície d&#39;usuari, on podrem afegir els components que desitjem. A la finestra de l&#39;editor gràfic trobem la &#34;<strong>Palette</strong>&#34; amb tots els components que podem afegir, i el &#34;<strong>Component Tree</strong>&#34;, que ens mostra l&#39;estructura de components que ja hem afegit.</p>
 <p class="image-container"><img style="width: 508.00px" src="img\4ed202c426529598.png"></p>
 
@@ -79,10 +79,10 @@
 <li>Afegim els 9 botons, arrossegant-los desde la paleta fins al mòbil i disposant-los en 3 files i 3 columnes al GridLayout.<br><img style="width: 402.00px" src="img\740c894fce6f28b.png"><br></li>
 <li>El següent pas és identificar els 9 botons (posar un identificador als botons ens permetrà després treballar amb ells des del codi Java).<br>Per a identificar un botó, sel·leciona&#39;l i posa-li un nom a l&#39;atribut &#34;<code>ID</code>&#34; <br><img style="width: 237.00px" src="img\9f7b8d02bdc37ff6.png"><br><br>Posa aquests identificadors als botons:<br><img style="width: 265.00px" src="img\d79f77c8b36994d4.png"><br><br></li>
 <li>Elimina també el text dels botons. Busca l&#39;atribut <code>text</code> i elimina el text BUTTON.<br></li>
-<li>L&#39;ultim pas serà indicar quin mètode del codi Java s&#39;executarà quan es faci clic als botons. Busca l&#39;atribut &#34;<code>onClick</code>&#34; i posa el nom &#34;tirada&#34; (fes-ho per als 9 botons).<br><br><img style="width: 235.00px" src="img\5e84500f11c98e4.png"></li>
+<li>L&#39;ultim pas serà indicar quin mètode del codi Java s&#39;executarà quan es faci clic als botons. Busca l&#39;atribut <code>onClick</code> i posa el nom <code>tirada</code> (fes-ho per als 9 botons).<br><br><img style="width: 235.00px" src="img\5e84500f11c98e4.png"></li>
 </ol>
 <p>Ja tenim enllestida la interfície d&#39;usuari del Tres en ratlla. Tot i que encara no es pot realitzar ninguna acció al joc, ja podem provar com es veurà a un dispositiu mòbil.</p>
-<p>Executa la App fent clic al botó <img style="width: 21.00px" src="img\3bfdb75f5cd932d7.png">. Conecta el teu mòbil o seleciona el Dispositiu Virtual. Hauria de sortir una cosa semblant a això:</p>
+<p>Executa la App fent clic al botó <img style="width: 21.00px" src="img\3bfdb75f5cd932d7.png">. Connecta el teu mòbil o selecciona el <em>Dispositiu Virtual</em>. Hauria de sortir una cosa semblant a això:</p>
 <p class="image-container"><img style="width: 410.00px" src="img\2c4764709b5554f8.png"></p>
 
 

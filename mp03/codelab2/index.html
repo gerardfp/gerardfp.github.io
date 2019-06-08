@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Entorn Integrat de Desenvolupament</title>
+  <title>Dades simples</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,76 +23,78 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="mp03/codelab2"
-                  title="Entorn Integrat de Desenvolupament"
+                  title="Dades simples"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <h2 is-upgraded><img style="width: 166.70px" src="img\2501f78d7d121a45.png"></h2>
-<p>En aquest curs utilitzarem IntelliJ IDEA com el nostre Entorn Integrat de Desenvolupament (IDE), que facilita el procés de desenvolupament de software. Les tasques d&#39;escriure, compilar i executar un programa, es realitzen totes dintre de l&#39;IDE. A més a més proporciona eines molt útils com &#34;Resaltat de codi&#34;, &#34;Autocompletat&#34;, &#34;Detecció d&#39;errores&#34;, &#34;Deupració&#34; ¡i moltíssimes altres que anirem veient i descobrient!</p>
-<p>Què aprendràs</p>
-<ul>
-<li>El procés de desnvolupament de programes amb tecnologia Java</li>
-<li>Compilar un programa a partir del codi font</li>
-<li>Executar un programa compilat</li>
-</ul>
+        <p class="image-container"><img style="width: 386.00px" src="img\c162a1035cd4d90.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és aprendre el mètodes que ofereix JAVA per a la conversió entre tipus numèrics (<code>int</code>, <code>float</code>,...) i <code>Strings</code>.</p>
+<p>Ja coneixes l&#39;ús dels mètodes <code>print</code> i  <code>println</code> per a impressió de cadenes a la sortida estàndard (<code>System.out</code>). </p>
+<p>Atès que tots els números es poden convertir en cadenes, podeu utilitzar aquests mètodes per imprimir una barreja arbitrària de cadenes i nombres. El llenguatge de programació Java té altres mètodes, però, que us permeten exercir molt més control sobre la vostra impressió.</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Instal·la IntelliJ IDEA Community Edition" duration="0">
-        <h2 is-upgraded>Descarrega </h2>
-<p>Pots descarregar <strong>IntelliJ IDEA Community Edition</strong> de la web de JetBrains: </p>
-<p><a href="https://www.jetbrains.com/idea/download/" target="_blank"><paper-button class="colored" raised>IntelliJ IDEA Community Edition</paper-button></a></p>
-<aside class="warning"><p><strong>Important</strong>: Assegura&#39;t de descarregar la versió Community (botó negre).</p>
-</aside>
-<p>✅ Comprova que s&#39;ha descarregat l&#39;arxiu</p>
-<h2 is-upgraded>Descomprimeix</h2>
-<h2 is-upgraded>Instal·la </h2>
-<p>Executa la seguent comanda per a iniciar IntelliJ IDEA. </p>
-<pre>idea-IC-172.3757.52/bin/idea.sh</pre>
-<p>El primer cop s&#39;iniciarà amb l&#39;instal·lador. Segueix els passos que s&#39;indiquen</p>
-<p>1 - No importar configuració anterior</p>
-<p class="image-container"><img style="width: 477.70px" src="img\4a6400f3b6e9deaa.png"></p>
-<p>2 - Acceptar la Política de Privacitat</p>
-<p class="image-container"><img style="width: 470.70px" src="img\3e615cf8bc54b43a.png"></p>
-<p>3 - Elscollir un tema (al teu gust)</p>
-<p class="image-container"><img style="width: 480.74px" src="img\2c0f9699007678c3.png"></p>
-<p>4 - Crear un accés a l&#39;Escriptori</p>
-<p class="image-container"><img style="width: 481.71px" src="img\2a31e6521abb2509.png"></p>
-<p>5 - Configurar un script de llançament (no és necessari)</p>
-<p class="image-container"><img style="width: 481.70px" src="img\5b2b51bd77638432.png"></p>
-<p>6 - Instal·lar plugins per defecte (no és necessari instal·lar-ne cap)</p>
-<p class="image-container"><img style="width: 480.91px" src="img\e1c9b2027a27ea8f.png"></p>
-<p>7 - Instal·lar plugins destacats (no és necessari instalar-ne cap)</p>
-<p class="image-container"><img style="width: 481.70px" src="img\ab189364c7e6959e.png"></p>
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Inicia IntelliJ i crea un nou projecte &#34;Java&#34;..</p>
+<p class="image-container"><img style="width: 548.00px" src="img\d58f62df7ba3cab3.png"></p>
+<p>Marca l&#39;opció &#34;Command Line App&#34;:</p>
+<p class="image-container"><img style="width: 548.00px" src="img\55626fec151c2c6.png"></p>
+<p>Posa-li de nom &#34;DadesSimples&#34;:</p>
+<p class="image-container"><img style="width: 547.00px" src="img\6844b300f9d28141.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Crea un Projecte" duration="0">
-        <p class="image-container"><img style="width: 480.66px" src="img\2a7f29a19b3298e2.png"></p>
-<p>1 - Estableix l&#39;SDK, pulsant el botó &#34;New...&#34;</p>
-<p class="image-container"><img style="width: 480.89px" src="img\34f0b39949b09c88.png"></p>
-<p>Selecciona el directori on tens el JDK :</p>
-<p class="image-container"><img style="width: 481.70px" src="img\fa373932c2d5229.png"></p>
-<aside class="special"><p><strong>Nota:</strong> Pot ser recomanable posar la carpeta <code>jdk1.8.0_144</code> dintre de la carpeta <code>idea-IC-172.3735.52</code>, per a d&#39;aquesta forma tenir tot en una mateixa carpeta.</p>
-</aside>
-<p>2 - Crea un projece des de la plantilla &#34;Command Line App&#34;</p>
-<p class="image-container"><img style="width: 481.87px" src="img\460223fa3dcb1150.png"></p>
-<p>3 - Posa el nom <code>HelloWorldApp</code> al teu projecte.</p>
-<p class="image-container"><img style="width: 480.89px" src="img\909bb1ec4aa26fb7.png"></p>
+      <google-codelab-step label="Convertir Strings a números" duration="0">
+        <p>Sovint, un programa acaba amb dades numèriques en un objecte tipus String: un valor introduït per l&#39;usuari, per exemple.</p>
+<p>Podem convertir aquest String al seu valor numeric amb el mètode <code>valueOf</code>.</p>
+<pre><code>String sEnter = &#34;10&#34;;
+int enter = Integer.valueOf(sEnter);
+
+String sDecimal = &#34;10.99&#34;;
+float decimal = Float.valueOf(sDecimal);
+
+String sBoolea = &#34;true&#34;;
+boolean boolea = Boolean.valueOf(sBoolea);</code></pre>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Escriu, compila i executa el programa HelloWorldApp" duration="0">
-        <p>1 - Borra la línea on hi diu:</p>
-<pre><code>// write your code here</code></pre>
-<p>I escriu el códi que mostra el missatge &#34;Hello World!&#34;:</p>
-<pre><code>System.out.println(&#34;Hello World!&#34;);</code></pre>
-<p>2 - Compila i executa el programa pulsant el botó &#34;Run&#34; ( <img style="width: 19.00px" src="img\523eca6211b514fd.png"> )</p>
-<p class="image-container"><img style="width: 480.24px" src="img\edb0118fd21c1c8d.png"></p>
+      <google-codelab-step label="Convertir números a Strings" duration="0">
+        <p>Per convertir números a Strings hi ha varies opcions:</p>
+<p>La primera és utilitzar la concatenació:</p>
+<pre><code>int numero = 1000;
+
+String sNumero = &#34;&#34;+numero;</code></pre>
+<p>També es pot utilitzar el mètode <code>valueOf</code> de la classe String.</p>
+<pre><code>int numero = 1000;
+
+String sNumero = String.valueOf(numero);</code></pre>
+<p>O també, el mètode toString de les classes numèriques:</p>
+<pre><code>int enter = 1000;
+float decimal = 99.876f;
+
+String sEnter = Integer.toString(enter);
+String sDecimal = Float.toString(decimal);</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Caràcter a String" duration="0">
+        <p>Un cas especial és el tipus <code>char</code>, que es pot interpretar com un número (el seu codi) o com una lletra:</p>
+<pre><code>char caracter = &#39;a&#39;;
+
+System.out.println(caracter); // com a lletra
+System.out.println(2 + caracter);  // com a número</code></pre>
+<p>Podem forçar la interpretació d&#39;un char com una lletra amb Character.toString(), i com un número amb Character.getNumericValue()</p>
+<pre><code>char caracter = &#39;a&#39;;
+
+System.out.println(caracter);
+System.out.println(&#34;&gt;&#34; + caracter);
+System.out.println(2 + Character.toString(caracter));
+System.out.println(&#34;&gt;&#34; + Character.getNumericValue(caracter));</code></pre>
 
 
       </google-codelab-step>
