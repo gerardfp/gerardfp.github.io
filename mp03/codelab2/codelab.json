@@ -3,12 +3,12 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2019-06-07T14:16:21Z",
+  "updated": "2019-06-09T18:48:42Z",
   "id": "mp03/codelab2",
   "duration": 0,
-  "title": "Dades simples",
-  "summary": "types",
-  "source": "10fDEk_ithFT5RD6rbpxg59aqqRCuiz1ERg9LqoX4Lqo",
+  "title": "FormGUI",
+  "summary": "formgui",
+  "source": "1o8rc7OlcDHDKFQZK8NtT1sdpCr8fdkaXhVhx4FUjEOs",
   "theme": "java",
   "status": [
     "draft"

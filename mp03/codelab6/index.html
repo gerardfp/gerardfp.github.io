@@ -38,9 +38,9 @@
     
       <google-codelab-step label="Crea el projecte" duration="0">
         <p>Inicia IntelliJ i crea un nou projecte anomenat <code>Formatting</code>.</p>
-<p class="image-container"><img style="width: 616.00px" src="img\792ed00254716d13.png"></p>
-<p class="image-container"><img style="width: 616.00px" src="img\7b9b5bf8a5d2dd19.png"></p>
-<p class="image-container"><img style="width: 736.40px" src="img\eb9372ba941daaeb.png"></p>
+<p class="image-container"><img style="width: 548.00px" src="img\d58f62df7ba3cab3.png"></p>
+<p class="image-container"><img style="width: 548.00px" src="img\55626fec151c2c6.png"></p>
+<p class="image-container"><img style="width: 547.00px" src="img\f614225c9aeeaf66.png"></p>
 
 
       </google-codelab-step>
@@ -79,30 +79,30 @@
 hello     1234      56,789001 
 
 56,79          56,79</pre>
-<p>El sifnificat dels especificadors és el següent:</p>
+<p>El significat dels especificadors és el següent:</p>
 <table>
-<tr><td colspan="1" rowspan="1"><p>%10s</p>
+<tr><td colspan="1" rowspan="1"><p><code>%10s</code></p>
 </td><td colspan="1" rowspan="1"><p>String amb una amplada de 10 caracters</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p>%10d</p>
+<tr><td colspan="1" rowspan="1"><p><code>%10d</code></p>
 </td><td colspan="1" rowspan="1"><p>Enter amb una amplada de 10 caracters</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p>%10f</p>
+<tr><td colspan="1" rowspan="1"><p><code>%10f</code></p>
 </td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p>%-10s</p>
+<tr><td colspan="1" rowspan="1"><p><code>%-10s</code></p>
 </td><td colspan="1" rowspan="1"><p>String amb una amplada de 10 caracters, aliniat a l&#39;esquerra</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p>%-10d</p>
+<tr><td colspan="1" rowspan="1"><p><code>%-10d</code></p>
 </td><td colspan="1" rowspan="1"><p>Enter amb una amplada de 10 caracters, aliniat a l&#39;esquerra</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p>%-10f</p>
+<tr><td colspan="1" rowspan="1"><p><code>%-10f</code></p>
 </td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters, aliniat a l&#39;esquerra</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p>%-10.2f</p>
+<tr><td colspan="1" rowspan="1"><p><code>%-10.2f</code></p>
 </td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters, aliniat a l&#39;esquerra, i amb dos decimals</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p>%10.2f</p>
+<tr><td colspan="1" rowspan="1"><p><code>%10.2f</code></p>
 </td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters, amb dos decimals</p>
 </td></tr>
 </table>
@@ -113,22 +113,21 @@ hello     1234      56,789001
       </google-codelab-step>
     
       <google-codelab-step label="Combinar text i format" duration="0">
-        <p>Dintre de la cadena de format podem posar-hi també els caracters que desitjem.</p>
+        <p>Dintre de la cadena de format podem posar-hi també altres caracters que desitjem que es mostrin:</p>
 <pre><code>System.out.format(&#34;|%-10s|%10d|%10.2f|&#34;, text, enter, decimal);</code></pre>
 <p>Un truc interessant és utilitzar el format per a repetir espais en blanc:</p>
 <pre><code>System.out.format(&#34;hola%10smon&#34;,&#34;&#34;);</code></pre>
-<p>fa que el valor generat sigui major o igual a <code>4</code> i inferior a <code>15</code> (és a dir, entre <code>4</code> i <code>14</code>).</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="String.format()" duration="0">
         <p>El mètode <code>format</code> de la classe <code>String</code>, es pot usar exactament igual que <code>System.out.format</code>.</p>
-<p>Aquest mètode no imprimeix per pantalla el resultat de la formatació, i el podem utilitzar com ens convingui.</p>
+<p>Aquest mètode no imprimeix per pantalla el resultat de la formatació, sinò que retorna el text resultant. Aquest text el podem utilitzar com ens convingui.</p>
 <pre><code>String textFormatat = String.format(&#34;|%-10s|%10d|%10.2f|&#34;, text, enter, decimal);
 
 System.out.println(textFormatat);</code></pre>
-<p>Similar al truc anterior, podem usar String.format jutament amb replace, per a repetir qualsevol caracter:</p>
+<p>Similar al truc anterior, podem usar <code>String.format</code> juntament amb <code>replace</code>, per a repetir qualsevol caracter:</p>
 <pre><code>String guions = String.format(&#34;%50s&#34;, &#34;&#34;).replace(&#34; &#34;, &#34;-&#34;);
 
 System.out.println(guions);</code></pre>

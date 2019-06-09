@@ -3,12 +3,12 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2019-06-08T14:26:13Z",
-  "id": "mp03/codelab1",
+  "updated": "2019-06-09T18:48:36Z",
+  "id": "mp03/codelab222",
   "duration": 0,
-  "title": "Entorn Integrat de Desenvolupament",
-  "summary": "ide",
-  "source": "1vioN9oFJt6puatsA7xGw4gNt1k_WNW_Dp1_vPySnpiQ",
+  "title": "Dades simples",
+  "summary": "types",
+  "source": "10fDEk_ithFT5RD6rbpxg59aqqRCuiz1ERg9LqoX4Lqo",
   "theme": "java",
   "status": [
     "draft"
@@ -18,5 +18,5 @@
   ],
   "tags": [],
   "feedback": "https://github.com/gerardfp",
-  "url": "mp03/codelab1"
+  "url": "mp03/codelab222"
 }
