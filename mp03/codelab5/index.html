@@ -28,7 +28,8 @@
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p>L&#39;objectiu d&#39;aquest CodeLab és conèixer les possibilitats de la classe Scanner per a llegir dades d&#39;entrada des d&#39;un fitxer.</p>
+        <p class="image-container"><img style="width: 220.00px" src="img\f470a69726c01edf.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és conèixer les possibilitats de la classe Scanner per a llegir dades d&#39;entrada des d&#39;un fitxer.</p>
 <p>En molts casos, quan provem un programa, ens veiem obligat a introduir per teclat una vegada i una altra les mateixes dades. Això ralenteix el nostre treball. En aquest CodeLab veurem com posar aquestes dades en un fitxer i llegir-les directament.</p>
 
 
@@ -40,6 +41,8 @@
 <p class="image-container"><img style="width: 391.00px" src="img\81d54b310c0be67e.png"></p>
 <p>El projecte s&#39;obrirà de forma automàtica:</p>
 <p class="image-container"><img style="width: 650.00px" src="img\96040bc5130df996.png"></p>
+<p>Per a llançar les apps en el teu dispositiu mòbil necessitaràs la App <code>MIT AI2 Companion</code>. La pots instal·lar de la Play Store.</p>
+<p class="image-container"><img style="width: 512.00px" src="img\4a6fc51b4194a83c.png"></p>
 
 
       </google-codelab-step>
@@ -47,7 +50,8 @@
       <google-codelab-step label="Afegeix els components" duration="0">
         <p>A la part esquerra veuràs la paleta de components, organitzada en grups. Els components s&#39;afegeixen a la App arrossegant-los de la paleta a la pantalla del mòbil.</p>
 <p>Necessitaràs aquestes dues imatges, desa-les al teu ordinador amb els noms <code>alien.png</code> i <code>ship.png</code></p>
-<p class="image-container"><img style="width: 75.00px" src="img\8d9d99502ea79ff2.png"><img style="width: 75.00px" src="img\5ceafe2bafecc8f.png"></p>
+<p class="image-container"><img style="width: 75.00px" src="img\8d9d99502ea79ff2.png"></p>
+<p class="image-container"><img style="width: 75.00px" src="img\5ceafe2bafecc8f.png"></p>
 <p>Afegeix els següents components, i realitza en cadascun l&#39;Acció que s&#39;indica:</p>
 <table>
 <tr><td colspan="1" rowspan="1"><p><strong>Component</strong></p>
@@ -119,6 +123,9 @@
 </table>
 <p>Un cop afegits els components ha de quedar una estructura així:</p>
 <p class="image-container"><img style="width: 618.00px" src="img\2609d76f14999150.png"></p>
+<p>Prova la App seleccionant <code>Connect</code> &gt; <code>AI Companion</code></p>
+<p class="image-container"><img style="width: 302.00px" src="img\470b01579a3381f5.png"></p>
+<p>Al teu dispositiu mòbil inicia la MIT AI2 Companion i escaneja el CodiQR.</p>
 
 
       </google-codelab-step>
@@ -128,8 +135,40 @@
 <p class="image-container"><img style="width: 575.00px" src="img\aea39f2806582191.png"></p>
 <p>Per a afegir un Block, selecciona el component i arrossega el Block a la finestra de blocs.</p>
 <h2 is-upgraded>Moviment de la nau</h2>
-<p>En aquest joc, l&#39;usuari mourà la nau d&#39;un costat a un altre. Això significa que només canviarem la direcció <code>X</code> del sprite de coets. Per fer-ho, utilitzarem el gestor d&#39;esdeveniments RocketSprite.Dragged . Quan el coet s&#39;arrossega, ajustarem la propietat <code>X</code> per ser la <code>currentX</code> on hem arrossegat al sprite.</p>
-<p>Selecciona el component ShipSprite i arrossega el block</p>
+<p>En aquest joc, l&#39;usuari mourà la nau d&#39;un costat a un altre. Això significa que només canviarem la direcció <code>X</code> del sprite de coets. Per fer-ho, utilitzarem el gestor d&#39;esdeveniments <code>ShipSprite.Dragged</code> . Quan el coet s&#39;arrossega, ajustarem la propietat <code>X</code> per ser la <code>currentX</code> on hem arrossegat al sprite.</p>
+<p>Selecciona el component <code>ShipSprite</code> i arrossega el block <code>ShipSprite.Dragged</code>.</p>
+<p>Dintre d&#39;aquest block arrossega el block <code>ShipSprite.Set</code> I uneix-lo amb el block <code>Variables.Get</code></p>
+<p class="image-container"><img style="width: 442.00px" src="img\89b2e7e67bf0af22.png"></p>
+<h2 is-upgraded>Disparant la bala</h2>
+<p>Hi ha diverses funcions que volem que tingui la bala en aquest joc. Volem que dispari des de la nau, xoquin ambl&#39;alien i siga invisible després de la col·lisió i abans de ser disparat.</p>
+<p>Comencem utilitzant el bloc <code>Screen1.initialize</code> . Quan s&#39;inicialitza la pantalla, programarem la bala com a invisible. Ho fem fent la propietat de visibilitat de la bala a <code>False</code>.</p>
+<p>Arrosaga el block <code>Screen1.Initialize</code>, Afegeix-li el block <code>Bullet.Set</code> i uneix-lo amb el block <code>Logic.False</code></p>
+<p class="image-container"><img style="width: 343.00px" src="img\4895b6901c8b91f5.png"></p>
+<p>A continuació, volem assegurar-nos que la bala torna a aparèixer quan disparem des de la nau. Quan toquem la nau, volem que la bala comenci a moure&#39;s cap a l&#39;alien. Ho farem utilitzant el gestor d&#39; esdeveniments <code>ShipSprite.Touched</code> . Quan es toca la nau, no només volem fixar la bal en visible, sinó que també volem establir la velocitat i la direcció de la bala. La direcció és un valor de <code>0</code> a <code>360</code> que indica quina direcció ha d&#39;orientar al sprite. 0/360 es troba a l&#39;esquerra, 90 cap amunt, 180 a la dreta i 270 avall. La velocitat es mesura en píxels/seg.</p>
+<p class="image-container"><img style="width: 339.00px" src="img\7ee8cb59cde63ccc.png"></p>
+<p>L&#39;últim que hem de programar és el que passa quan la bala colpeja l&#39;alien. Utilitzarem el controlador d&#39;esdeveniments <code>Bullet.CollidedWith</code> . Aquest esdeveniment s&#39;executa sempre que la bala xoca amb un altre sprite. Atès que la nau es troba fixada en una posició <code>Y</code> al final de la pantalla, la bala no col·lisionarà mai amb la nau i només ho farà amb el plat. Quan es produeixi la col·lisió, volem que succeeixin dues coses. 1. La puntuació hauria d&#39;augmentar en <code>1</code>. 2. La bala hauria de ser invisible.</p>
+<p class="image-container"><img style="width: 598.00px" src="img\39ef993aaf89d9d9.png"></p>
+<p>Si has provat el joc, t&#39;hauràs adonat que una vegada es dispara la bala, no deixa disparar de nou. Hem de programar la bala per posar-la just en front de la nau quan el disparem. Podem fer-ho mitjançant el bloc <code>Bullet.MoveTo</code> .</p>
+<p>Modifica el block <code>ShipSprite.Touched</code> i afegeix-li el block <code>Bullet.MoveTo</code></p>
+<p class="image-container"><img style="width: 736.40px" src="img\960d23cd350cf3e9.png"></p>
+<p>Potser us heu adonat que si us no atinem l&#39;alien, la bala es desplaça a la part superior de la pantalla i hi queda enganxada fins que disparem de nou. Per fer que la bala desaparegui quan arribi a la vora superior del llenç, necessitem el gestor d&#39; esdeveniments <code>Bullet.EdgeReached</code> .</p>
+<p class="image-container"><img style="width: 343.00px" src="img\fa1274e302c8cd74.png"></p>
+<h2 is-upgraded>Moviment de l&#39;alien</h2>
+<p>Fem el joc una mica més difícil! Ara, quan la bala xoca amb l&#39;alien, canviem la seva ubicació. L&#39;alien mantindrà el mateix valor Y, de manera que només haurem de canviar el X. Podem fer-ho mitjançant el bloc aleatori.</p>
+<p>Modifica el block <code>Bullet.CollidedWith</code></p>
+<p class="image-container"><img style="width: 736.40px" src="img\5533fc19283f722d.png"></p>
+<p>Per fer-ho encara més difícil, també canviarem la posició de l&#39;alien quan el temporitzador acaba.</p>
+<p class="image-container"><img style="width: 736.40px" src="img\ca60618a7ce159.png"></p>
+<h2 is-upgraded>Reiniciar el joc</h2>
+<p>De vegades, els usuaris poden voler reiniciar el joc i restablir la seva puntuació. Quan això succeeix, haurem de tornar la puntuació a 0.</p>
+<p class="image-container"><img style="width: 328.00px" src="img\878927a734f19921.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Programa complet" duration="0">
+        <p>Aquí teniu el programa complet <strong>SpaceInvaders</strong></p>
+<p class="image-container"><img style="width: 713.00px" src="img\fcc2ec7672b2db3b.png"></p>
 
 
       </google-codelab-step>
