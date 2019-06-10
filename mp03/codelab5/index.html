@@ -46,13 +46,15 @@
     
       <google-codelab-step label="Afegeix els components" duration="0">
         <p>A la part esquerra veuràs la paleta de components, organitzada en grups. Els components s&#39;afegeixen a la App arrossegant-los de la paleta a la pantalla del mòbil.</p>
-<p>Afegeix els següents components:</p>
+<p>Necessitaràs aquestes dues imatges, desa-les al teu ordinador amb els noms <code>alien.png</code> i <code>ship.png</code></p>
+<p class="image-container"><img style="width: 75.00px" src="img\8d9d99502ea79ff2.png"><img style="width: 75.00px" src="img\5ceafe2bafecc8f.png"></p>
+<p>Afegeix els següents components, i realitza en cadascun l&#39;Acció que s&#39;indica:</p>
 <table>
-<tr><td colspan="1" rowspan="1"><p>Component</p>
-</td><td colspan="1" rowspan="1"><p>Grup de la paleta</p>
-</td><td colspan="1" rowspan="1"><p>Nom que li has de posar</p>
-</td><td colspan="1" rowspan="1"><p>Propòsit del component</p>
-</td><td colspan="1" rowspan="1"><p>Acció</p>
+<tr><td colspan="1" rowspan="1"><p><strong>Component</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Grup de la paleta</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Nom que li has de posar</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Propòsit del component</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Acció</strong></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>Canvas</p>
 </td><td colspan="1" rowspan="1"><p>Drawing and Animation</p>
@@ -60,7 +62,7 @@
 </td><td colspan="1" rowspan="1"><p>El fons on posarem els sprites</p>
 </td><td colspan="1" rowspan="1"><ul>
 <li>Canvia la propietat <code>Width</code> a <code>FillParent</code></li>
-<li>Canvia la propietat <code>Height</code> a <code>300</code></li>
+<li>Canvia la propietat <code>Height</code> a <code>300</code> píxels.</li>
 <li>Canvia la propietat <code>BackgroundColor</code> a <code>Black</code></li>
 </ul>
 </td></tr>
@@ -68,43 +70,66 @@
 </td><td colspan="1" rowspan="1"><p>Drawing and Animation</p>
 </td><td colspan="1" rowspan="1"><p><code>ShipSprite</code></p>
 </td><td colspan="1" rowspan="1"><p>La nau del joc</p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Carrega la  image <code>ship.png</code> i estableix la propietat <code>Picture</code> a <code>ship.png</code></li>
+<li>Estableix la propietat <code>Y</code> a <code>230</code></li>
+</ul>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>ImageSprite</p>
 </td><td colspan="1" rowspan="1"><p>Drawing and Animation</p>
 </td><td colspan="1" rowspan="1"><p><code>AlienSprite</code></p>
 </td><td colspan="1" rowspan="1"><p>L&#39;alien del joc</p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Carrega la  image <code>alien.png</code> i estableix la propietat <code>Picture</code> a <code>alien.png</code></li>
+</ul>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>BallSprite</p>
 </td><td colspan="1" rowspan="1"><p>Drawing and Animation</p>
 </td><td colspan="1" rowspan="1"><p><code>Bullet</code></p>
 </td><td colspan="1" rowspan="1"><p>La bala que dispara la nau</p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Canvia <code>PaintColor</code> a <code>Green </code></li>
+<li>Canvia <code>Radius</code> a <code>0</code></li>
+</ul>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>Clock</p>
-</td><td colspan="1" rowspan="1"><p>User Interface</p>
+</td><td colspan="1" rowspan="1"><p>Sensors</p>
 </td><td colspan="1" rowspan="1"><p><code>Clock1</code></p>
 </td><td colspan="1" rowspan="1"><p>Usarem el cronòmetre per moure l&#39;alien cada cert temps</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Horizontal Arrangement</p>
-</td><td colspan="1" rowspan="1"><p>Layout</p>
-</td><td colspan="1" rowspan="1"><p><code>HorizontalArrangement1</code></p>
-</td><td colspan="1" rowspan="1"><p>Contindrà <code>Label1</code> i <code>ScoreLabel</code></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Label</p>
-</td><td colspan="1" rowspan="1"><p>User Interface</p>
-</td><td colspan="1" rowspan="1"><p><code>Label1</code></p>
-</td><td colspan="1" rowspan="1"><p>Contindrà la paraula &#34;Score: &#34;</p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Canvia <code>TimerInterval</code> a <code>3000</code></li>
+</ul>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>Label</p>
 </td><td colspan="1" rowspan="1"><p>User Interface</p>
 </td><td colspan="1" rowspan="1"><p><code>ScoreLabel</code></p>
 </td><td colspan="1" rowspan="1"><p>Contindrà la puntuació actual</p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Canvia <code>Text</code> a <code>0</code></li>
+</ul>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>Button</p>
 </td><td colspan="1" rowspan="1"><p>User Interface</p>
 </td><td colspan="1" rowspan="1"><p><code>ResetButton</code></p>
 </td><td colspan="1" rowspan="1"><p>Reiniciarà el joc per a poder tornar a jugar</p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Canvia <code>Text</code> a <code>Reset</code></li>
+</ul>
 </td></tr>
 </table>
+<p>Un cop afegits els components ha de quedar una estructura així:</p>
+<p class="image-container"><img style="width: 618.00px" src="img\2609d76f14999150.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Programa el comportament dels components" duration="0">
+        <p>Per programar el comportament dels objectes canvia la vista a <code>Blocks</code>:</p>
+<p class="image-container"><img style="width: 575.00px" src="img\aea39f2806582191.png"></p>
+<p>Per a afegir un Block, selecciona el component i arrossega el Block a la finestra de blocs.</p>
+<h2 is-upgraded>Moviment de la nau</h2>
+<p>En aquest joc, l&#39;usuari mourà la nau d&#39;un costat a un altre. Això significa que només canviarem la direcció <code>X</code> del sprite de coets. Per fer-ho, utilitzarem el gestor d&#39;esdeveniments RocketSprite.Dragged . Quan el coet s&#39;arrossega, ajustarem la propietat <code>X</code> per ser la <code>currentX</code> on hem arrossegat al sprite.</p>
+<p>Selecciona el component ShipSprite i arrossega el block</p>
 
 
       </google-codelab-step>
