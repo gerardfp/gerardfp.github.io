@@ -3,12 +3,12 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2019-06-08T15:37:08Z",
+  "updated": "2019-06-09T20:24:28Z",
   "id": "mp03/codelab6",
   "duration": 0,
-  "title": "Formatació d'Strings",
-  "summary": "format",
-  "source": "15Q63gOGcmGUySB8WeAreqT-8DyrkmLnpqvLaGlOtHmw",
+  "title": "Indeterminisme",
+  "summary": "random",
+  "source": "13xh1FtSOa8Fqih3wWsqSZSmi3z0WdLg5TTBceeLpgX4",
   "theme": "java",
   "status": [
     "draft"

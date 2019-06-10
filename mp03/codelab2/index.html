@@ -45,7 +45,7 @@
       </google-codelab-step>
     
       <google-codelab-step label="Crea el GUIForm" duration="0">
-        <p>Fes clic-dreta sobre el package &#34;<code>com.company</code>&#34; i selecciona  <strong><code>NEW</code></strong><strong> </strong>-&gt; <strong><code>GUI Form</code></strong></p>
+        <p>Fes clic-dreta sobre el package &#34;<code>com.company</code>&#34; i selecciona  <code>NEW</code> &gt; <code>GUI Form</code></p>
 <p class="image-container"><img style="width: 732.00px" src="img\3e5ef17c8cd93107.png"></p>
 <p>En el diàleg &#34;New GUI Form&#34; introdueix les següents dades:</p>
 <p class="image-container"><img style="width: 363.00px" src="img\25bd1aceeff1d5d7.png"></p>
@@ -63,19 +63,19 @@
     
       <google-codelab-step label="Disseny del GUI Form" duration="0">
         <h2 is-upgraded>Visualitzador de resultats</h2>
-<p>Arrossega un <code>JTextField</code> desde la paleta i solta&#39;l en l&#39;àrea de disseny. Estableix a la propietat <code>Field name</code> el valor <strong><code>resultat</code></strong>:</p>
+<p>Arrossega un <code>JTextField</code> desde la paleta i solta&#39;l en l&#39;àrea de disseny. Estableix a la propietat <code>Field name</code> el valor <code>resultat</code>:</p>
 <p class="image-container"><img style="width: 736.40px" src="img\18ec616da5a79bf8.png"></p>
 <h2 is-upgraded>Botons</h2>
 <p>Afegeix els components <code>JButton</code> de la paleta a l&#39;àrea de disseny. Distribuieix-los en la graella de la següent forma:</p>
 <p class="image-container"><img style="width: 736.40px" src="img\3a3d3af6cc28d772.gif"></p>
 <p>Estableix les següents propietats als botons:</p>
-<p>Button1: <code>text</code>=<strong><code>AC</code></strong>, <code>field name</code>=<strong><code>ACButton</code></strong></p>
-<p>Button2: <code>text</code>=<strong><code>NOT</code></strong>, &#34;<code>field name</code>&#34;=<strong><code>NOTButton</code></strong></p>
-<p>Button3: &#34;<code>text</code>&#34;=<strong><code>OR</code></strong>, &#34;<code>field name</code>&#34;=<strong><code>ORButton</code></strong></p>
-<p>Button4: &#34;<code>text</code>&#34;=<strong><code>AND</code></strong>, &#34;<code>field name</code>&#34;=<strong><code>ANDButton</code></strong></p>
-<p>Button5: &#34;<code>text</code>&#34;=<strong><code>0</code></strong>, &#34;<code>field name</code>&#34;=<strong><code>a0Button</code></strong></p>
-<p>Button6: &#34;<code>text</code>&#34;=<strong><code>1</code></strong>, &#34;<code>field name</code>&#34;=<strong><code>a1Button</code></strong></p>
-<p>Pots veure una previsualització de l&#39;aspecte del Formulari fent clic-dreta sobre el disseny i selecionant &#34;Preview&#34;:</p>
+<p>Button1: <code>text</code>=<strong><code>AC</code></strong>,  <code>field name</code>=<strong><code>ACButton</code></strong></p>
+<p>Button2: <code>text</code>=<strong><code>NOT</code></strong>,  <code>field name</code>=<strong><code>NOTButton</code></strong></p>
+<p>Button3: <code>text</code>=<strong><code>OR</code></strong>,  <code>field name</code>=<strong><code>ORButton</code></strong></p>
+<p>Button4: <code>text</code>=<strong><code>AND</code></strong>,  <code>field name</code>=<strong><code>ANDButton</code></strong></p>
+<p>Button5: <code>text</code>=<strong><code>0</code></strong>,  <code>field name</code>=<strong><code>a0Button</code></strong></p>
+<p>Button6: <code>text</code>=<strong><code>1</code></strong>,  <code>field name</code>=<strong><code>a1Button</code></strong></p>
+<p>Pots veure una previsualització de l&#39;aspecte del Formulari fent clic-dreta sobre el disseny i selecionant <code>Preview</code>:</p>
 <p class="image-container"><img style="width: 736.40px" src="img\fa2c3fccc7603dd3.gif"></p>
 <h2 is-upgraded>Establir el nom del JPanel</h2>
 <p>Com a pas previ, per a fer funcionar el formulari es requereix establir el camp <code>nom</code> del component <code>JPanel</code>: </p>
@@ -102,9 +102,9 @@ public class Calculadora {
     
       <google-codelab-step label="Fer funcionar el GUIForm" duration="0">
         <p>Per tal de fer que el formulari funcioni es requereix crear un <code>JFrame</code>. Crearem el mètode <code>main()</code> que serà el responsable de crear-lo quan s&#39;executi el programa.</p>
-<p>A l&#39;editor de codi de l&#39;arxiu <code>Calculadora.java</code>, fes clic-dreta i selecciona <strong><code>Generate</code></strong> &gt; <strong><code>Form.main()</code></strong></p>
+<p>A l&#39;editor de codi de l&#39;arxiu <code>Calculadora.java</code>, fes clic-dreta i selecciona <code>Generate</code> &gt; <code>Form.main()</code></p>
 <p class="image-container"><img style="width: 529.00px" src="img\72e0c6a62d89c879.gif"></p>
-<p>Ara ja es pot executar el mètode <code>Calculadora.main()</code>. Fes clic-dreta i selecciona <strong><code>Run Calculadora.main()</code></strong></p>
+<p>Ara ja es pot executar el mètode <code>Calculadora.main()</code>. Fes clic-dreta i selecciona <code>Run Calculadora.main()</code></p>
 <p class="image-container"><img style="width: 532.00px" src="img\f5a6613c1bda170c.png"></p>
 
 
@@ -112,7 +112,7 @@ public class Calculadora {
     
       <google-codelab-step label="Fer funcionar els botons de la calculadora" duration="0">
         <p>Per respondre als clics dels botons i realitzar les operacions, cal afegir un <em>Listener </em>a cadascun d&#39;ells. El <em>Listener </em>és l&#39;acció que s&#39;executa quan es fa clic al botó.</p>
-<p>Afegeix un Listener a cada botó fent click-dreta sobre ells i seleccionant <strong><code>Create Listener</code></strong><strong>  &gt; </strong><strong><code>Action Listener</code></strong></p>
+<p>Afegeix un Listener a cada botó fent click-dreta sobre ells i seleccionant <code>Create Listener</code>  &gt; <code>Action Listener</code></p>
 <p class="image-container"><img style="width: 736.40px" src="img\5aa2b53ab2a9f227.gif"></p>
 <p>Després d&#39;afegir un <code>Listener</code> a cada botó, s&#39;haurà afegit a l&#39;arxiu <code>Calculadora.java</code> el següent codi:</p>
 <h3 is-upgraded>Calculadora.java</h3>

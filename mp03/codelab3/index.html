@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Dades compostes</title>
+  <title>Canvas</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,7 +23,7 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="mp03/codelab3"
-                  title="Dades compostes"
+                  title="Canvas"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
@@ -50,13 +50,13 @@
     
       <google-codelab-step label="Crea la classe Circle" duration="0">
         <p>Per a crear objectes, primer s&#39;ha de definir la classe. A partir de la classe es creen els objects.</p>
-<p>Començarem per l&#39;object <em>sun</em>, que és de la classe <em>Circle</em>.</p>
-<p>Fes click-dreta sobre el <em>package </em>&#34;<code>com.company</code>&#34;, i selecciona les opcions <code>New</code> &gt; <code>Java Class</code>:</p>
+<p>Començarem per l&#39;objecte <em>sun</em>, que és de la classe <em>Circle</em>.</p>
+<p>Fes clic-dreta sobre el <em>package </em><code>com.company</code>, i selecciona les opcions <code>New</code> &gt; <code>Java Class</code>:</p>
 <p class="image-container"><img style="width: 658.00px" src="img\fc86c3561f1cf3ad.gif"></p>
-<p>Com a nom de la Classe introdueix &#34;Circle&#34;</p>
+<p>Com a nom de la Classe introdueix <code>Circle</code></p>
 <aside class="warning"><p><strong>Important</strong>: El nom de les classes comença amb majúscula (UpperCamelCase)</p>
 </aside>
-<p>Polsa &#34;OK&#34;.</p>
+<p>Polsa OK.</p>
 <p class="image-container"><img style="width: 374.00px" src="img\1ad29e5133869ca0.png"></p>
 <p>Observa que s&#39;ha creat el fitxer <code>Circle.java</code>, amb la definició de la classe <code>Circle</code>:</p>
 <pre><code>class Circle {
@@ -67,7 +67,7 @@
     
       <google-codelab-step label="Crea l&#39;objecte sun" duration="0">
         <p>Un cop definida la classe <code>Circle</code>, es poden crear objectes d&#39;aquesta classe. Anem a crear l&#39;objecte <em>sun</em>:</p>
-<p>Ves l&#39;arxiu <code>Main.java</code> i dintre del mètode  <code>main</code> afegeix el códi per a crear l&#39;object  <code>sun</code>.</p>
+<p>Ves l&#39;arxiu <code>Main.java</code> i dintre del mètode  <code>main</code> afegeix el códi per a crear l&#39;objecte  <code>sun</code>.</p>
 <pre><code>public class Main {
    public static void main(String[] args) {
        Circle sun = new Circle();
@@ -164,7 +164,7 @@
 <p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
 <pre><code>Canvas.draw(sun);</code></pre>
 <h2 is-upgraded>Executa el programa</h2>
-<p>Polsa sobre el botó &#34;Run&#34;:</p>
+<p>Polsa sobre el botó <code>Run</code>:</p>
 <p class="image-container"><img style="width: 196.00px" src="img\5b594bb33856b06a.png"></p>
 
 
@@ -259,7 +259,7 @@ Canvas.draw(roof);</code></pre>
         <p>Les Classes es poden entendre com una plantilla a partir de la qual es poden crear Objectes. Cada Objecte és una còpia diferent de la plantilla. Per tant cada Objecte té una còpia dels camps que s&#39;han definit a la Classe. Es poden assignar diferents valors a cada camp de cada Objecte de forma independent.</p>
 <p>El següent gràfic explica les Classes i Objectes que s&#39;han creat per a fer el dibuix:</p>
 <p class="image-container"><img style="width: 736.10px" src="img\83bb163ca260a6cc.png"></p>
-<p>Els objectes s&#39;emmagatzemen a la memòria de l&#39;ordinador. Com és evident, a la memòria no s&#39;hi poden dibuixar cercles, rectangles, ni triangles. En realitat el que s&#39;està emmagatzemant en memòria és la informació sobre aquests objectes, és a dir els valors dels sus camps. Una representació més adequada dels objectes seria aquesta:</p>
+<p>Els objectes s&#39;emmagatzemen a la memòria de l&#39;ordinador. Com és evident, a la memòria no s&#39;hi poden dibuixar cercles, rectangles, ni triangles. En realitat el que s&#39;està emmagatzemant en memòria és la informació sobre aquests objectes, és a dir els valors dels seus camps. Una representació més adequada dels objectes seria aquesta:</p>
 <p class="image-container"><img style="width: 736.10px" src="img\e5951ac7b9a9be14.png"></p>
 
 

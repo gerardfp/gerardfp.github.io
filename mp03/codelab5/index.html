@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Random</title>
+  <title>AppInventor</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,105 +23,88 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="mp03/codelab5"
-                  title="Random"
+                  title="AppInventor"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p class="image-container"><img style="width: 267.50px" src="img\33f6cf6e98a8e9a4.png"></p>
-<p>L&#39;objectiu d&#39;aquest CodeLab és aprendre l&#39;ús de la classe Random per a la generació de nombres aleatoris.</p>
-<p>Quan es desenvolupen aplicacions, molt sovint es necesiten nombres aleatoris. Per exemple en la programació de molts jocs, aplicacions de criptografia, per a usar com identificadors, etc.</p>
-<p>Java proporciona suport per a la generació de nombres aleatoris a través de la classe <code>java.util.Random</code>, i la classe <code>SecureRandom</code> per a aplicacions que necessiten aleatorietat criptogràfica. </p>
+        <p>L&#39;objectiu d&#39;aquest CodeLab és conèixer les possibilitats de la classe Scanner per a llegir dades d&#39;entrada des d&#39;un fitxer.</p>
+<p>En molts casos, quan provem un programa, ens veiem obligat a introduir per teclat una vegada i una altra les mateixes dades. Això ralenteix el nostre treball. En aquest CodeLab veurem com posar aquestes dades en un fitxer i llegir-les directament.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Inicia IntelliJ i crea un nou projecte anomenat <code>Random</code>.</p>
-<p class="image-container"><img style="width: 616.00px" src="img\792ed00254716d13.png"></p>
-<p class="image-container"><img style="width: 616.00px" src="img\7b9b5bf8a5d2dd19.png"></p>
-<p class="image-container"><img style="width: 616.00px" src="img\75e73f797c40060f.png"></p>
+        <p>Accedeix al web <a href="http://ai2.appinventor.mit.edu/" target="_blank">http://ai2.appinventor.mit.edu</a> i registra&#39;t.</p>
+<p>Fes clic al botó <img style="width: 98.00px" src="img\320842939847637f.png">per a crear un nou projecte anomenat <code>SpaceInavaders</code></p>
+<p class="image-container"><img style="width: 391.00px" src="img\81d54b310c0be67e.png"></p>
+<p>El projecte s&#39;obrirà de forma automàtica:</p>
+<p class="image-container"><img style="width: 650.00px" src="img\96040bc5130df996.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="La classe Random" duration="0">
-        <p>Per a generar nombres aleatoris, crea en primer lloc una instància de la classe <code>Random</code>, i després crida a un dels mètdodes generadors, com <code>nextInt()</code>, <code>nextDouble()</code>,  <code>nextLong()</code> ... </p>
-<p>Fem una prova:</p>
-<pre><code>import java.util.Random;
-
-public class Main {
-
-   public static void main(String[] args) {
-       Random random = new Random();
-
-       int aleatoriEnter = random.nextInt();
-
-       double aleatoriDouble = random.nextDouble();
-
-       float aleatoriFloat = random.nextFloat();
-
-       boolean aleatoriBoolean = random.nextBoolean();
-
-       long aleatoriLong = random.nextLong();
-
-       System.out.println(aleatoriEnter);
-       System.out.println(aleatoriDouble);
-       System.out.println(aleatoriFloat);
-       System.out.println(aleatoriBoolean);
-       System.out.println(aleatoriLong);
-   }
-}</code></pre>
-<p>Podem veure que en cada execució del programa el valor de les variables canvia aleatòriament.</p>
-<p>La crida sense paràmetres als mètodes <code>nextInt()</code>, <code>nextLong()</code>, <code>nextDouble()</code>, ..., retorna un valor dintre del rang de posibles valors del tipus de dades.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Dintre d&#39;un rang" duration="0">
-        <p>Per a establir un límit superior, al rang de valors que es generen, podem passar com a parámetre aquest límit.</p>
-<p>Per exemple, la crida a <code>nextInt()</code> amb el parámetre <code>10</code>:</p>
-<pre><code>int aleatoriEnter = random.nextInt(10);</code></pre>
-<p>fa que el valor generat sigui més petit que <code>10</code> (és a dir, entre 0 i 9).</p>
-<p>Per a establir un límit inferior i un superior:</p>
-<pre><code>int inferior = 4;
-int superior = 15;
-int aleatoriEnter = random.nextInt(superior-inferior)+inferior;</code></pre>
-<p>fa que el valor generat sigui major o igual a <code>4</code> i inferior a <code>15</code> (és a dir, entre <code>4</code> i <code>14</code>).</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="String aleatori" duration="0">
-        <p>Per a generar un String aleatori tenim diverses opcions.</p>
-<p>Una opció és generar un String amb caràcters entre un rang ASCII:</p>
-<pre><code>int inferior = 97; // letter &#39;a&#39;
-int superior = 122; // letter &#39;z&#39;
-int targetStringLength = 10;
-Random random = new Random();
-
-String generated = &#34;&#34;;
-int generatedLength = 10;
-for (int i = 0; i &lt; generatedLength; i++) {
-   int characterCode = random.nextInt(superior-inferior)+inferior;
-   generated += (char) characterCode;
-}
-System.out.println(generated);</code></pre>
-<p>Una altra opció és predefinir els possibles caracters que ha de tenir l&#39;String:</p>
-<pre><code>Random random = new Random();
-String upper = &#34;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#34;;
-String lower = upper.toLowerCase();
-String digits = &#34;0123456789&#34;;
-
-String allChars = upper+lower+digits;
-
-String generated =&#34;&#34;;
-int generatedLength = 10;
-for (int i = 0; i &lt; generatedLength; i++) {
-   generated += allChars.charAt(random.nextInt(allChars.length()));
-}
-
-System.out.println(generated);</code></pre>
+      <google-codelab-step label="Afegeix els components" duration="0">
+        <p>A la part esquerra veuràs la paleta de components, organitzada en grups. Els components s&#39;afegeixen a la App arrossegant-los de la paleta a la pantalla del mòbil.</p>
+<p>Afegeix els següents components:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>Component</p>
+</td><td colspan="1" rowspan="1"><p>Grup de la paleta</p>
+</td><td colspan="1" rowspan="1"><p>Nom que li has de posar</p>
+</td><td colspan="1" rowspan="1"><p>Propòsit del component</p>
+</td><td colspan="1" rowspan="1"><p>Acció</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Canvas</p>
+</td><td colspan="1" rowspan="1"><p>Drawing and Animation</p>
+</td><td colspan="1" rowspan="1"><p><code>Canvas1</code></p>
+</td><td colspan="1" rowspan="1"><p>El fons on posarem els sprites</p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Canvia la propietat <code>Width</code> a <code>FillParent</code></li>
+<li>Canvia la propietat <code>Height</code> a <code>300</code></li>
+<li>Canvia la propietat <code>BackgroundColor</code> a <code>Black</code></li>
+</ul>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ImageSprite</p>
+</td><td colspan="1" rowspan="1"><p>Drawing and Animation</p>
+</td><td colspan="1" rowspan="1"><p><code>ShipSprite</code></p>
+</td><td colspan="1" rowspan="1"><p>La nau del joc</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ImageSprite</p>
+</td><td colspan="1" rowspan="1"><p>Drawing and Animation</p>
+</td><td colspan="1" rowspan="1"><p><code>AlienSprite</code></p>
+</td><td colspan="1" rowspan="1"><p>L&#39;alien del joc</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>BallSprite</p>
+</td><td colspan="1" rowspan="1"><p>Drawing and Animation</p>
+</td><td colspan="1" rowspan="1"><p><code>Bullet</code></p>
+</td><td colspan="1" rowspan="1"><p>La bala que dispara la nau</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Clock</p>
+</td><td colspan="1" rowspan="1"><p>User Interface</p>
+</td><td colspan="1" rowspan="1"><p><code>Clock1</code></p>
+</td><td colspan="1" rowspan="1"><p>Usarem el cronòmetre per moure l&#39;alien cada cert temps</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Horizontal Arrangement</p>
+</td><td colspan="1" rowspan="1"><p>Layout</p>
+</td><td colspan="1" rowspan="1"><p><code>HorizontalArrangement1</code></p>
+</td><td colspan="1" rowspan="1"><p>Contindrà <code>Label1</code> i <code>ScoreLabel</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Label</p>
+</td><td colspan="1" rowspan="1"><p>User Interface</p>
+</td><td colspan="1" rowspan="1"><p><code>Label1</code></p>
+</td><td colspan="1" rowspan="1"><p>Contindrà la paraula &#34;Score: &#34;</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Label</p>
+</td><td colspan="1" rowspan="1"><p>User Interface</p>
+</td><td colspan="1" rowspan="1"><p><code>ScoreLabel</code></p>
+</td><td colspan="1" rowspan="1"><p>Contindrà la puntuació actual</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Button</p>
+</td><td colspan="1" rowspan="1"><p>User Interface</p>
+</td><td colspan="1" rowspan="1"><p><code>ResetButton</code></p>
+</td><td colspan="1" rowspan="1"><p>Reiniciarà el joc per a poder tornar a jugar</p>
+</td></tr>
+</table>
 
 
       </google-codelab-step>

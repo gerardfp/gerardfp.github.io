@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Formatació d&#39;Strings</title>
+  <title>Indeterminisme</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,114 +23,105 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="mp03/codelab6"
-                  title="Formatació d&#39;Strings"
+                  title="Indeterminisme"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p class="image-container"><img style="width: 197.00px" src="img\9de977e17551fc23.png"></p>
-<p>L&#39;objectiu d&#39;aquest CodeLab és aprendre el mètodes que ofereix JAVA per a la formatació de text.</p>
-<p>Ja coneixes l&#39;ús dels mètodes <code>print</code> i  <code>println</code> per a impressió de cadenes a la sortida estàndard (<code>System.out</code>). </p>
-<p>Atès que tots els números es poden convertir en cadenes, podeu utilitzar aquests mètodes per imprimir una barreja arbitrària de cadenes i nombres. El llenguatge de programació Java té altres mètodes, però, que us permeten exercir molt més control sobre la vostra impressió.</p>
+        <p class="image-container"><img style="width: 267.50px" src="img\33f6cf6e98a8e9a4.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és aprendre l&#39;ús de la classe Random per a la generació de nombres aleatoris.</p>
+<p>Quan es desenvolupen aplicacions, molt sovint es necesiten nombres aleatoris. Per exemple en la programació de molts jocs, aplicacions de criptografia, per a usar com identificadors, etc.</p>
+<p>Java proporciona suport per a la generació de nombres aleatoris a través de la classe <code>java.util.Random</code>, i la classe <code>SecureRandom</code> per a aplicacions que necessiten aleatorietat criptogràfica. </p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Inicia IntelliJ i crea un nou projecte anomenat <code>Formatting</code>.</p>
-<p class="image-container"><img style="width: 548.00px" src="img\d58f62df7ba3cab3.png"></p>
-<p class="image-container"><img style="width: 548.00px" src="img\55626fec151c2c6.png"></p>
-<p class="image-container"><img style="width: 547.00px" src="img\f614225c9aeeaf66.png"></p>
+        <p>Inicia IntelliJ i crea un nou projecte anomenat <code>Random</code>.</p>
+<p class="image-container"><img style="width: 616.00px" src="img\792ed00254716d13.png"></p>
+<p class="image-container"><img style="width: 616.00px" src="img\7b9b5bf8a5d2dd19.png"></p>
+<p class="image-container"><img style="width: 616.00px" src="img\75e73f797c40060f.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Els mètodes printf i format" duration="0">
-        <p>Els mètodes <code>System.out.printf</code> i <code>System.out.format</code> són equivalents entre sí.</p>
-<p>Aquests mètodes permeten especificar el format que ha de tenir un text.</p>
-<p>Entre els aspectes més importants de la formatació trobem, l&#39;espaiat, l&#39;alineació i el nombre de decimals.</p>
-<p>Vegem un exemple:</p>
-<pre><code>public class Main {
+      <google-codelab-step label="La classe Random" duration="0">
+        <p>Per a generar nombres aleatoris, crea en primer lloc una instància de la classe <code>Random</code>, i després crida a un dels mètdodes generadors, com <code>nextInt()</code>, <code>nextDouble()</code>,  <code>nextLong()</code> ... </p>
+<p>Fem una prova:</p>
+<pre><code>import java.util.Random;
+
+public class Main {
 
    public static void main(String[] args) {
+       Random random = new Random();
 
-       String text = &#34;hello&#34;;
-       int numero = 1234;
-       float decimal = 56.789f;
+       int aleatoriEnter = random.nextInt();
 
-       System.out.format(&#34;%10s&#34;, text);
-       System.out.format(&#34;%10d&#34;, numero);
-       System.out.format(&#34;%10f&#34;, decimal);
+       double aleatoriDouble = random.nextDouble();
 
-       System.out.println(); System.out.println();
+       float aleatoriFloat = random.nextFloat();
 
-       System.out.format(&#34;%-10s&#34;, text);
-       System.out.format(&#34;%-10d&#34;, numero);
-       System.out.format(&#34;%-10f&#34;, decimal);
+       boolean aleatoriBoolean = random.nextBoolean();
 
-       System.out.println(); System.out.println();
+       long aleatoriLong = random.nextLong();
 
-       System.out.format(&#34;%-10.2f%10.2f&#34;, decimal, decimal);
+       System.out.println(aleatoriEnter);
+       System.out.println(aleatoriDouble);
+       System.out.println(aleatoriFloat);
+       System.out.println(aleatoriBoolean);
+       System.out.println(aleatoriLong);
    }
 }</code></pre>
-<p>Observa com s&#39;ha formatat el text de sortida:</p>
-<pre>     hello      1234 56,789001
-
-hello     1234      56,789001 
-
-56,79          56,79</pre>
-<p>El significat dels especificadors és el següent:</p>
-<table>
-<tr><td colspan="1" rowspan="1"><p><code>%10s</code></p>
-</td><td colspan="1" rowspan="1"><p>String amb una amplada de 10 caracters</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>%10d</code></p>
-</td><td colspan="1" rowspan="1"><p>Enter amb una amplada de 10 caracters</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>%10f</code></p>
-</td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>%-10s</code></p>
-</td><td colspan="1" rowspan="1"><p>String amb una amplada de 10 caracters, aliniat a l&#39;esquerra</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>%-10d</code></p>
-</td><td colspan="1" rowspan="1"><p>Enter amb una amplada de 10 caracters, aliniat a l&#39;esquerra</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>%-10f</code></p>
-</td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters, aliniat a l&#39;esquerra</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>%-10.2f</code></p>
-</td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters, aliniat a l&#39;esquerra, i amb dos decimals</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>%10.2f</code></p>
-</td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters, amb dos decimals</p>
-</td></tr>
-</table>
-<p>Podem generalitzar els especificadors així:</p>
-<pre><code>% alineació amplada decimals tipus</code></pre>
+<p>Podem veure que en cada execució del programa el valor de les variables canvia aleatòriament.</p>
+<p>La crida sense paràmetres als mètodes <code>nextInt()</code>, <code>nextLong()</code>, <code>nextDouble()</code>, ..., retorna un valor dintre del rang de posibles valors del tipus de dades.</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Combinar text i format" duration="0">
-        <p>Dintre de la cadena de format podem posar-hi també altres caracters que desitjem que es mostrin:</p>
-<pre><code>System.out.format(&#34;|%-10s|%10d|%10.2f|&#34;, text, enter, decimal);</code></pre>
-<p>Un truc interessant és utilitzar el format per a repetir espais en blanc:</p>
-<pre><code>System.out.format(&#34;hola%10smon&#34;,&#34;&#34;);</code></pre>
+      <google-codelab-step label="Dintre d&#39;un rang" duration="0">
+        <p>Per a establir un límit superior, al rang de valors que es generen, podem passar com a parámetre aquest límit.</p>
+<p>Per exemple, la crida a <code>nextInt()</code> amb el parámetre <code>10</code>:</p>
+<pre><code>int aleatoriEnter = random.nextInt(10);</code></pre>
+<p>fa que el valor generat sigui més petit que <code>10</code> (és a dir, entre 0 i 9).</p>
+<p>Per a establir un límit inferior i un superior:</p>
+<pre><code>int inferior = 4;
+int superior = 15;
+int aleatoriEnter = random.nextInt(superior-inferior)+inferior;</code></pre>
+<p>fa que el valor generat sigui major o igual a <code>4</code> i inferior a <code>15</code> (és a dir, entre <code>4</code> i <code>14</code>).</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="String.format()" duration="0">
-        <p>El mètode <code>format</code> de la classe <code>String</code>, es pot usar exactament igual que <code>System.out.format</code>.</p>
-<p>Aquest mètode no imprimeix per pantalla el resultat de la formatació, sinò que retorna el text resultant. Aquest text el podem utilitzar com ens convingui.</p>
-<pre><code>String textFormatat = String.format(&#34;|%-10s|%10d|%10.2f|&#34;, text, enter, decimal);
+      <google-codelab-step label="String aleatori" duration="0">
+        <p>Per a generar un String aleatori tenim diverses opcions.</p>
+<p>Una opció és generar un String amb caràcters entre un rang ASCII:</p>
+<pre><code>int inferior = 97; // letter &#39;a&#39;
+int superior = 122; // letter &#39;z&#39;
+int targetStringLength = 10;
+Random random = new Random();
 
-System.out.println(textFormatat);</code></pre>
-<p>Similar al truc anterior, podem usar <code>String.format</code> juntament amb <code>replace</code>, per a repetir qualsevol caracter:</p>
-<pre><code>String guions = String.format(&#34;%50s&#34;, &#34;&#34;).replace(&#34; &#34;, &#34;-&#34;);
+String generated = &#34;&#34;;
+int generatedLength = 10;
+for (int i = 0; i &lt; generatedLength; i++) {
+   int characterCode = random.nextInt(superior-inferior)+inferior;
+   generated += (char) characterCode;
+}
+System.out.println(generated);</code></pre>
+<p>Una altra opció és predefinir els possibles caracters que ha de tenir l&#39;String:</p>
+<pre><code>Random random = new Random();
+String upper = &#34;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#34;;
+String lower = upper.toLowerCase();
+String digits = &#34;0123456789&#34;;
 
-System.out.println(guions);</code></pre>
+String allChars = upper+lower+digits;
+
+String generated =&#34;&#34;;
+int generatedLength = 10;
+for (int i = 0; i &lt; generatedLength; i++) {
+   generated += allChars.charAt(random.nextInt(allChars.length()));
+}
+
+System.out.println(generated);</code></pre>
 
 
       </google-codelab-step>
