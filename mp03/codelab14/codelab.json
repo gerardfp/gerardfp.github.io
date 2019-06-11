@@ -3,12 +3,12 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2019-05-15T15:18:17Z",
+  "updated": "2019-06-10T20:52:55Z",
   "id": "mp03/codelab14",
   "duration": 0,
-  "title": "Javadoc",
-  "summary": "javadoc",
-  "source": "11OE8xPPyQSQbmFjo4Vf2TSy-9BtJ2qJWGhbwQH8PW7k",
+  "title": "Random \u0026 DateTime",
+  "summary": "datetime",
+  "source": "1mYWLHpP9wTITItBcB3t1Lho_7VjLuD9A686Iqf-6LdU",
   "theme": "java",
   "status": [
     "draft"

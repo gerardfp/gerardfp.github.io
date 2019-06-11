@@ -3,12 +3,12 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2019-06-09T21:35:42Z",
+  "updated": "2019-06-10T09:49:35Z",
   "id": "mp03/codelab10",
   "duration": 0,
-  "title": "Entrada des de fitxer",
-  "summary": "scannerfile",
-  "source": "1YU3UdK6AjxiV2BJfLBCuGgkRZ7UXOvd5TRDyz6ClvEs",
+  "title": "Dades d'entrada",
+  "summary": "input",
+  "source": "10fDEk_ithFT5RD6rbpxg59aqqRCuiz1ERg9LqoX4Lqo",
   "theme": "java",
   "status": [
     "draft"

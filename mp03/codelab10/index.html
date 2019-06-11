@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Entrada des de fitxer</title>
+  <title>Dades d&#39;entrada</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,22 +23,190 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="mp03/codelab10"
-                  title="Entrada des de fitxer"
+                  title="Dades d&#39;entrada"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p>L&#39;objectiu d&#39;aquest CodeLab és conèixer les possibilitats de la classe Scanner per a llegir dades d&#39;entrada des d&#39;un fitxer.</p>
-<p>En molts casos, quan provem un programa, ens veiem obligat a introduir per teclat una vegada i una altra les mateixes dades. Això ralenteix el nostre treball. En aquest CodeLab veurem com posar aquestes dades en un fitxer i llegir-les directament.</p>
+        <p class="image-container"><img style="width: 560.00px" src="img\5e9920ed1dccbe05.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és aprendre a llegir correctament i validar les dades d&#39;entrada d&#39;un programa.</p>
+<p>Quan implementem un programa no tenim control sobre les dades d&#39;entrada que rebrà. El desajust entre el tipus de dades que espera un programa i el tipus de dades que, efectivament, rep, és una font de errors molt comuna. Per exemple, un programa espera llegir de l&#39;entrada un nombre de tipus enter i el que es troba és una cadena de text. Aquesta circumstància és molt comú quan les dades d&#39;entrada les introdueix l&#39;usuari amb el teclat, encara que també es pot donar quan es llegeixen les dades d&#39;un fitxer o de la xarxa.</p>
+<p>Una norma bastant acceptada és la de llegir sempre l&#39;entrada com a text, i tractar de convertir-la al tipus desitjat dintre del programa.</p>
+<p>En aquest CodeLab programarem una petita aplicació de gestió d&#39;alumnes, i utilitzarem els mètodes de conversió de tipus que ofereix Java per a validar les dades.</p>
+<p>Per últim, aprendrem també a com facilitar la introducció repetitiva de dades quan estem desenvolupant un programa i hem d&#39;anar fent proves sobre el seu funcionament.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;ScannerFile&#34;.</p>
-<p class="image-container"><img style="width: 548.00px" src="img\1f77c27e0b506e0f.png"></p>
-<p class="image-container"><img style="width: 548.00px" src="img\8556ac2bd86adfea.png"></p>
-<p class="image-container"><img style="width: 548.00px" src="img\9566203c85696eb2.png"></p>
+        <p>Inicia IntelliJ i crea un nou projecte &#34;Java&#34;..</p>
+<p class="image-container"><img style="width: 566.00px" src="img\11bf860a7c11aee8.png"></p>
+<p>Marca l&#39;opció &#34;Command Line App&#34;:</p>
+<p class="image-container"><img style="width: 566.00px" src="img\a979a613157cd3d.png"></p>
+<p>Posa-li de nom <code>DadesEntrada</code></p>
+<p class="image-container"><img style="width: 566.00px" src="img\c43a910a9abd9162.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Implementa l&#39;aplicació" duration="0">
+        <p>Utilitzarem aquesta petita aplicació de gestió per a aprendre a tractar la validació de dades. Copia-la al teu projecte.</p>
+<pre><code>import java.util.Scanner;
+
+class Alumne {
+   String nom;
+   float nota;
+}
+
+public class Main {
+
+   public static void main(String[] args) {
+       Scanner scanner = new Scanner(System.in);
+
+       Alumne[] alumnes = new Alumne[10];
+       int posicio = 0;
+
+       while(true) {
+           System.out.println();
+           System.out.println(&#34;GESTIO ALUMNES&#34;);
+           System.out.println(&#34;a) Introduir alumne&#34;);
+           System.out.println(&#34;b) Llistar alumnes&#34;);
+           System.out.println();
+
+           String opcio = scanner.nextLine();
+
+           switch (opcio) {
+               case &#34;a&#34;:
+                   alumnes[posicio] = new Alumne();
+
+                   System.out.println(&#34;Nom: &#34;);
+                   alumnes[posicio].nom = scanner.nextLine();
+                   System.out.println(&#34;Nota: &#34;);
+                   alumnes[posicio].nota = scanner.nextFloat();
+                   scanner.nextLine(); // descartem l&#39;intro de després del float
+
+                   posicio++;
+                   break;
+               case &#34;b&#34;:
+                   System.out.println(&#34;Llistat d&#39;alumnes&#34;);
+                   for (int i = 0; i &lt; posicio; i++) {
+                       System.out.println(alumnes[i].nom + &#34;: &#34; + alumnes[i].nota);
+                   }
+                   break;
+               default:
+                   return;
+           }
+       }
+   }
+}</code></pre>
+<p>Prova l&#39;aplicació.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Valida les dades d&#39;entrada" duration="0">
+        <p>Quan llegim dades de tipus <code>String</code> amb el mètode <code>nextLine()</code>, no hi ha cap restricció al tipus de dada que es pot llegir. </p>
+<p>Però què passa si quan tractem de llegir la nota amb <code>nextFloat()</code> l&#39;usuari s&#39;equivoca i introdueix una lletra, per exemple?</p>
+<p class="image-container"><img style="width: 503.00px" src="img\c68d35efe6ad24fb.png"></p>
+<p>Ens trobem amb un desajust amb les dades d&#39;entrada (<code>InputMismatchException</code>).</p>
+<p>Una possible solució bastant comú és llegir les dades sempre amb <code>nextLine()</code> i tractar de convertir-les dintre del nostre programa. Hauríem de fer una cosa així:</p>
+<pre><code>nota = Float.parseFloat(scanner.nextLine());</code></pre>
+<p>Ara bé, això no soluciona -de moment- el problema, ja que si l&#39;usuari introdueix un text, el programa no fallarà en la lectura de dades, però sí en la conversió:</p>
+<p class="image-container"><img style="width: 680.00px" src="img\79dc836c14fee536.png"></p>
+<p>Ara l&#39;error és en el format de número (<code>NumberFormatException</code>), ja que la cadena <code>&#34;abc&#34;</code> no es pot convertir a tipus <code>float</code>.</p>
+<h2 is-upgraded>try-catch</h2>
+<p>Per a corregir aquest nou error hem de fer una petita introducció a la sentència de control <code>try-catch</code>.</p>
+<p>La sentència <code>try-catch</code>, és bastant semblant a la sentència <code>if-else</code>.</p>
+<p>El bloc de la sentència <code>catch</code> només s&#39;executa si alguna instrucció del bloc <code>try</code> genera una exepció.</p>
+<p>En el nostre exemple, podem posar en el bloc <code>try</code> la sentència que converteix l&#39;<code>String</code> a <code>float</code>. Si aquesta sentència <em>falla</em>, s&#39;executarà la sentència del bloc <code>catch</code>.</p>
+<pre><code>try {
+   nota = Float.parseFloat(scanner.nextLine());
+} catch (Exception e){
+   System.out.println(&#34;La nota introduïda no és valida&#34;);
+}</code></pre>
+<p>D&#39;aquesta manera el nostre programa no finalitzarà amb l&#39;exepció <code>NumberFormatException</code> sinò que mostrarà a l&#39;usuari un missatge indicant que la nota introduïda no és vàlida.</p>
+<p>Només queda una última consideració. El programa no fallarà però, amb quin valor quedarà la nota d&#39;aquell alumne? Efectivament, quedarà amb un <code>0.0</code>.</p>
+<p>Caldrà donar la opció a l&#39;usuari de tornar a introduir la nota fins que aquesta sigui vàlida. O dit en pensament computacional, caldrà tornar a demanar la nota a l&#39;usuari mentre (<code>while</code>) sigui invàlida.</p>
+<pre><code>do {
+   System.out.println(&#34;Nota: &#34;);
+   try {
+       alumnes[posicio].nota = Float.parseFloat(scanner.nextLine());
+       break;
+   } catch (Exception e) {
+       System.out.println(&#34;La nota introduïda no és valida&#34;);
+   }
+} while(true);</code></pre>
+<p>El programa complet queda finalment així:</p>
+<pre><code>import java.util.Scanner;
+
+class Alumne {
+   String nom;
+   float nota;
+}
+
+public class Main {
+
+   public static void main(String[] args) {
+       Scanner scanner = new Scanner(System.in);
+
+       Alumne[] alumnes = new Alumne[10];
+       int posicio = 0;
+
+       while(true) {
+           System.out.println();
+           System.out.println(&#34;GESTIO ALUMNES&#34;);
+           System.out.println(&#34;a) Introduir alumne&#34;);
+           System.out.println(&#34;b) Llistar alumnes&#34;);
+           System.out.println();
+
+           String opcio = scanner.nextLine();
+
+           switch (opcio) {
+               case &#34;a&#34;:
+                   alumnes[posicio] = new Alumne();
+
+                   System.out.println(&#34;Nom: &#34;);
+                   alumnes[posicio].nom = scanner.nextLine();
+
+                   do {
+                       System.out.println(&#34;Nota: &#34;);
+                       try {
+                           alumnes[posicio].nota = Float.parseFloat(scanner.nextLine());
+                           break;
+                       } catch (Exception e) {
+                           System.out.println(&#34;La nota introduïda no és valida&#34;);
+                       }
+                   } while(true);
+
+                   posicio++;
+                   break;
+               case &#34;b&#34;:
+                   System.out.println(&#34;Llistat d&#39;alumnes&#34;);
+                   for (int i = 0; i &lt; posicio; i++) {
+                       System.out.println(alumnes[i].nom + &#34;: &#34; + alumnes[i].nota);
+                   }
+                   break;
+               default:
+                   return;
+           }
+       }
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Llegeix les dades d&#39;un fitxer" duration="0">
+        <p>Cada cop que fas una modificació el codi, executes el programa i introdueixes les dades per veure com va funcionant el programa. </p>
+<p class="image-container"><img style="width: 433.00px" src="img\9370d0ed139aefd1.png"></p>
+<p>Això significa una valuosa pèrdua de temps, que podem evitar posant les dades d&#39;entrada en un arxiu i llegint les dades directament de l&#39;arxiu.</p>
+<p>Crea un arxiu de text al directori arrel de projecte (<code>New</code> &gt; <code>File</code>) i escriu les dades d&#39;entrada en el fitxer:</p>
+<p class="image-container"><img style="width: 467.00px" src="img\9b5d40657f1ea5e8.png"></p>
+<p>Modifica la construcció de l&#39;<code>Scanner</code> per a que en lloc de <code>System.in</code>, tingui com a origen el fitxer <code>dades</code>:</p>
+<pre><code>Scanner scanner = new Scanner(new File(&#34;dades&#34;));</code></pre>
+<p>Es mostrarà un error subratllat en vermell. Polsa <code>Alt+INTRO</code> i selecciona l&#39;opció &#34;Add exception to method signature&#34;:</p>
+<p class="image-container"><img style="width: 445.00px" src="img\90e28af9b18fc49.png"></p>
+<p>Ja està, això és tot el que has de fer, ara ja pots executar el teu programa i fer tantes proves com vulguis, sense haver d&#39;introduir cada cop les dades.</p>
 
 
       </google-codelab-step>

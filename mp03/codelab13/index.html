@@ -28,19 +28,19 @@
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p class="image-container"><img style="width: 197.00px" src="img\9de977e17551fc23.png"><img style="width: 362.00px" src="img\708be4bd5d6c1b3c.png"></p>
+        <p class="image-container"><img style="width: 504.00px" src="img\2271249e2789a0c4.png"></p>
 <p>L&#39;objectiu d&#39;aquest CodeLab és aprendre el mètodes que ofereix JAVA per a la formatació de text.</p>
-<p>Ja coneixes l&#39;ús dels mètodes <code>print</code> i  <code>println</code> per a impressió de cadenes a la sortida estàndard (<code>System.out</code>). </p>
-<p>Atès que tots els números es poden convertir en cadenes, podeu utilitzar aquests mètodes per imprimir una barreja arbitrària de cadenes i nombres. El llenguatge de programació Java té altres mètodes, però, que us permeten exercir molt més control sobre la vostra impressió.</p>
+<p>Veurem com podem controlar l&#39;espai que ocupa un valor quan s&#39;imprimeix, els digits que ha d&#39;ocupar, i per últim el color que ha de tenir.</p>
+<p>Desenvoluparem una petita aplicació per a generar tíquets d&#39;una botiga.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
         <p>Inicia IntelliJ i crea un nou projecte anomenat <code>Formatting</code>.</p>
-<p class="image-container"><img style="width: 548.00px" src="img\d58f62df7ba3cab3.png"></p>
-<p class="image-container"><img style="width: 548.00px" src="img\55626fec151c2c6.png"></p>
-<p class="image-container"><img style="width: 547.00px" src="img\f614225c9aeeaf66.png"></p>
+<p class="image-container"><img style="width: 566.00px" src="img\69998c3462f22edc.png"></p>
+<p class="image-container"><img style="width: 566.00px" src="img\a979a613157cd3d.png"></p>
+<p class="image-container"><img style="width: 566.00px" src="img\60909e4afea42958.png"></p>
 
 
       </google-codelab-step>
@@ -108,21 +108,13 @@ hello     1234      56,789001
 </table>
 <p>Podem generalitzar els especificadors així:</p>
 <pre><code>% alineació amplada decimals tipus</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Combinar text i format" duration="0">
-        <p>Dintre de la cadena de format podem posar-hi també altres caracters que desitjem que es mostrin:</p>
+<h2 is-upgraded>Combinar text i format</h2>
+<p>Dintre de la cadena de format podem posar-hi també altres caracters que desitjem que es mostrin:</p>
 <pre><code>System.out.format(&#34;|%-10s|%10d|%10.2f|&#34;, text, enter, decimal);</code></pre>
 <p>Un truc interessant és utilitzar el format per a repetir espais en blanc:</p>
 <pre><code>System.out.format(&#34;hola%10smon&#34;,&#34;&#34;);</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="String.format()" duration="0">
-        <p>El mètode <code>format</code> de la classe <code>String</code>, es pot usar exactament igual que <code>System.out.format</code>.</p>
+<h2 is-upgraded>String.format()</h2>
+<p>El mètode <code>format</code> de la classe <code>String</code>, es pot usar exactament igual que <code>System.out.format</code>.</p>
 <p>Aquest mètode no imprimeix per pantalla el resultat de la formatació, sinò que retorna el text resultant. Aquest text el podem utilitzar com ens convingui.</p>
 <pre><code>String textFormatat = String.format(&#34;|%-10s|%10d|%10.2f|&#34;, text, enter, decimal);
 
@@ -431,6 +423,75 @@ System.out.println(guions);</code></pre>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default White" title="Default White" style="width: 170.00px" src="img\d78a0498e0edd456.png"></p>
 </td></tr>
 </table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Aplicació de tíquets" duration="0">
+        <pre><code>import java.time.LocalDateTime;
+
+class Producte {
+   String descripcio;
+   float pes;
+   float pvp;
+}
+
+public class Main {
+
+   private static final String NOM_BOTIGA = &#34;Tuttifrutti S.L.&#34;;
+   private static final float IVA = 0.21f;
+
+   public static void main(String[] args) {
+       Producte[] productes = new Producte[4];
+
+       // Afegim productes a la llista
+       productes[0] = new Producte();
+       productes[0].descripcio = &#34;Poma&#34;;
+       productes[0].pes = 10.49f;
+       productes[0].pvp = 1.23f;
+
+       productes[1] = new Producte();
+       productes[1].descripcio = &#34;Maduixa&#34;;
+       productes[1].pes = 0.5f;
+       productes[1].pvp = 14.99f;
+
+       productes[2] = new Producte();
+       productes[2].descripcio = &#34;Kiwi&#34;;
+       productes[2].pes = 0.829f;
+       productes[2].pvp = 2.49f;
+
+       productes[3] = new Producte();
+       productes[3].descripcio = &#34;Taronja&#34;;
+       productes[3].pes = 12.1f;
+       productes[3].pvp = 0.99f;
+
+       // Imprimim el tiquet, calculant al mateix temps l&#39;import total
+       float baseImponible = 0;
+       System.out.printf(&#34;%s%n&#34;,NOM_BOTIGA);
+       System.out.printf(&#34;Data: %tD%n&#34;, LocalDateTime.now());
+       System.out.println();
+       System.out.printf(&#34;%-12s%8s%8s%8s%n&#34;, &#34;DESCRIPCIO&#34;, &#34;PES&#34;, &#34;PVP&#34;, &#34;IMPORT&#34;);
+       System.out.println(String.format(&#34;%36s&#34;, &#34;&#34;).replace(&#34; &#34;, &#34;-&#34;));
+       for (int i = 0; i &lt; productes.length; i++) {
+           float importProducte = productes[i].pes*productes[i].pvp;
+           baseImponible += importProducte;
+
+           System.out.printf(&#34;%-12s%8.2f%8.2f%8.2f%n&#34;,
+                   productes[i].descripcio,
+                   productes[i].pes,
+                   productes[i].pvp,
+                   importProducte);
+       }
+       System.out.println(String.format(&#34;%36s&#34;, &#34;&#34;).replace(&#34; &#34;, &#34;-&#34;));
+       System.out.printf(&#34;%29s%6.2f€%n&#34;, &#34;BASE IMPONIBLE&#34;, baseImponible);
+       System.out.printf(&#34;%29s%6.0f%%%n&#34;, &#34;IVA&#34;, IVA*100);
+       System.out.printf(&#34;%29s%6.2f€%n&#34;, &#34;TOTAL&#34;, baseImponible + baseImponible*IVA);
+       System.out.println();
+       System.out.printf(&#34;%30s%n&#34;, &#34;GRACIES PER LA SEVA VISITA&#34;);
+       System.out.printf(&#34;%22s%n&#34;, &#34;IVA INCLOS&#34;);
+   }
+}</code></pre>
+<h2 is-upgraded><img style="width: 288.00px" src="img\b1871e63ef9c50d4.png"></h2>
 
 
       </google-codelab-step>

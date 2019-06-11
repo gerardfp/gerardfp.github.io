@@ -28,100 +28,15 @@
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p class="image-container"><img style="width: 267.50px" src="img\33f6cf6e98a8e9a4.png"></p>
-<p>L&#39;objectiu d&#39;aquest CodeLab és aprendre l&#39;ús de la classe Random per a la generació de nombres aleatoris.</p>
-<p>Quan es desenvolupen aplicacions, molt sovint es necesiten nombres aleatoris. Per exemple en la programació de molts jocs, aplicacions de criptografia, per a usar com identificadors, etc.</p>
-<p>Java proporciona suport per a la generació de nombres aleatoris a través de la classe <code>java.util.Random</code>, i la classe <code>SecureRandom</code> per a aplicacions que necessiten aleatorietat criptogràfica. </p>
-
+        
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Inicia IntelliJ i crea un nou projecte anomenat <code>Random</code>.</p>
+        <p>Inicia IntelliJ i crea un nou projecte anomenat.</p>
 <p class="image-container"><img style="width: 616.00px" src="img\792ed00254716d13.png"></p>
 <p class="image-container"><img style="width: 616.00px" src="img\7b9b5bf8a5d2dd19.png"></p>
 <p class="image-container"><img style="width: 616.00px" src="img\75e73f797c40060f.png"></p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="La classe Random" duration="0">
-        <p>Per a generar nombres aleatoris, crea en primer lloc una instància de la classe <code>Random</code>, i després crida a un dels mètdodes generadors, com <code>nextInt()</code>, <code>nextDouble()</code>,  <code>nextLong()</code> ... </p>
-<p>Fem una prova:</p>
-<pre><code>import java.util.Random;
-
-public class Main {
-
-   public static void main(String[] args) {
-       Random random = new Random();
-
-       int aleatoriEnter = random.nextInt();
-
-       double aleatoriDouble = random.nextDouble();
-
-       float aleatoriFloat = random.nextFloat();
-
-       boolean aleatoriBoolean = random.nextBoolean();
-
-       long aleatoriLong = random.nextLong();
-
-       System.out.println(aleatoriEnter);
-       System.out.println(aleatoriDouble);
-       System.out.println(aleatoriFloat);
-       System.out.println(aleatoriBoolean);
-       System.out.println(aleatoriLong);
-   }
-}</code></pre>
-<p>Podem veure que en cada execució del programa el valor de les variables canvia aleatòriament.</p>
-<p>La crida sense paràmetres als mètodes <code>nextInt()</code>, <code>nextLong()</code>, <code>nextDouble()</code>, ..., retorna un valor dintre del rang de posibles valors del tipus de dades.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Dintre d&#39;un rang" duration="0">
-        <p>Per a establir un límit superior, al rang de valors que es generen, podem passar com a parámetre aquest límit.</p>
-<p>Per exemple, la crida a <code>nextInt()</code> amb el parámetre <code>10</code>:</p>
-<pre><code>int aleatoriEnter = random.nextInt(10);</code></pre>
-<p>fa que el valor generat sigui més petit que <code>10</code> (és a dir, entre 0 i 9).</p>
-<p>Per a establir un límit inferior i un superior:</p>
-<pre><code>int inferior = 4;
-int superior = 15;
-int aleatoriEnter = random.nextInt(superior-inferior)+inferior;</code></pre>
-<p>fa que el valor generat sigui major o igual a <code>4</code> i inferior a <code>15</code> (és a dir, entre <code>4</code> i <code>14</code>).</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="String aleatori" duration="0">
-        <p>Per a generar un String aleatori tenim diverses opcions.</p>
-<p>Una opció és generar un String amb caràcters entre un rang ASCII:</p>
-<pre><code>int inferior = 97; // letter &#39;a&#39;
-int superior = 122; // letter &#39;z&#39;
-int targetStringLength = 10;
-Random random = new Random();
-
-String generated = &#34;&#34;;
-int generatedLength = 10;
-for (int i = 0; i &lt; generatedLength; i++) {
-   int characterCode = random.nextInt(superior-inferior)+inferior;
-   generated += (char) characterCode;
-}
-System.out.println(generated);</code></pre>
-<p>Una altra opció és predefinir els possibles caracters que ha de tenir l&#39;String:</p>
-<pre><code>Random random = new Random();
-String upper = &#34;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#34;;
-String lower = upper.toLowerCase();
-String digits = &#34;0123456789&#34;;
-
-String allChars = upper+lower+digits;
-
-String generated =&#34;&#34;;
-int generatedLength = 10;
-for (int i = 0; i &lt; generatedLength; i++) {
-   generated += allChars.charAt(random.nextInt(allChars.length()));
-}
-
-System.out.println(generated);</code></pre>
 
 
       </google-codelab-step>

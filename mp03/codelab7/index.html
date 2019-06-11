@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>ANSI/VT100 colors</title>
+  <title>IntelliJ IDEA</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,22 +23,175 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="mp03/codelab7"
-                  title="ANSI/VT100 colors"
+                  title="IntelliJ IDEA"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p class="image-container"><img style="width: 362.00px" src="img\708be4bd5d6c1b3c.png"></p>
-<p>L&#39;objectiu d&#39;aquest CodeLab és conèixer les possibilitats que ofereixen els terminals ANSI/VT100 per a mostrar text en colors.</p>
+        <p class="image-container"><img style="width: 392.00px" src="img\9a01c209f8f3968d.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és conèixer algunes de les possibilitats que ofereix IntelliJ IDEA per a ser més productiu amb un ventall de funcions per al desenvolupament eficient.</p>
+<p>Les possibilitats que ofereix IntelliJ són gairebé infinites. Dominar-les totes és una tasca que triga anys. A més de totes les que ja incorpora es pot extendre amb plug-ins. En aquest CodeLab en veurem algunes d&#39;elles.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Debugger&#34;.</p>
-<p class="image-container"><img style="width: 616.00px" src="img\792ed00254716d13.png"></p>
-<p class="image-container"><img style="width: 616.00px" src="img\7b9b5bf8a5d2dd19.png"></p>
-<p class="image-container"><img style="width: 616.00px" src="img\16bbf2b26d0f540e.png"></p>
+        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;IntelliJIDEA&#34;.</p>
+<p class="image-container"><img style="width: 566.00px" src="img\69998c3462f22edc.png"></p>
+<p class="image-container"><img style="width: 566.00px" src="img\a979a613157cd3d.png"></p>
+<p class="image-container"><img style="width: 566.00px" src="img\62d7db589d3dbc3.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Tool Windows" duration="0">
+        <p>A IntelliJ trobem diverses <em>Tool Windows</em>.  Podem accedir a elles amb els següents <em>shortcuts</em>:</p>
+<p class="image-container"><img style="width: 178.00px" src="img\c1d9b2339d9d9cd3.png"></p>
+<h2 is-upgraded>Project</h2>
+<p>La <em>Tool Window</em> &#34;Project&#34; ens permet examinar el projecte des de diversos punts de vista i realitzar les tasques, com ara crear elements nous (directoris, fitxers, classes, etc.), obrir fitxers a l&#39;editor, navegar al fragment d&#39;interès del codi i molt més.</p>
+<p class="image-container"><img style="width: 196.00px" src="img\5e128e837f757d0f.png"></p>
+<p><a href="https://www.jetbrains.com/help/idea/project-tool-window.html" target="_blank">https://www.jetbrains.com/help/idea/project-tool-window.html</a></p>
+<h2 is-upgraded>Favorites</h2>
+<p>Ens permet gestionar llistes de favorits dels elements següents:</p>
+<ul>
+<li>Project Items. Cada llista de favorits de la finestra de l&#39;eina apareix amb la icona de l&#39;estrella <img alt="la icona del favorit" style="width: 32.00px" src="img\3c8e3d6305c00c50.png">.</li>
+<li>Bookmarks. La llista d&#39;adreces d&#39;interès està marcada amb <img alt="la icona de marcador" style="width: 32.00px" src="img\8b190de2449793f3.png">.</li>
+<li>Breakpoints. La llista dels punts d&#39;interrupció està marcada amb <img alt="la icona del punt de ruptura" style="width: 32.00px" src="img\a461eda6a947455d.png">.</li>
+</ul>
+<p class="image-container"><img style="width: 204.00px" src="img\1d78727b373e22bd.png"></p>
+<p><a href="https://www.jetbrains.com/help/idea/favorites-tool-window.html" target="_blank">https://www.jetbrains.com/help/idea/favorites-tool-window.html</a></p>
+<h2 is-upgraded>Run</h2>
+<p>Mostra la sortida generada per l&#39;aplicació. Si executeu diverses aplicacions, cadascuna es mostra en una pestanya.</p>
+<p class="image-container"><img style="width: 434.00px" src="img\c653a3816c2da126.png"></p>
+<p><a href="https://www.jetbrains.com/help/idea/run-tool-window.html" target="_blank">https://www.jetbrains.com/help/idea/run-tool-window.html</a></p>
+<h2 is-upgraded>Debug </h2>
+<p>Aquesta finestra de l&#39;eina està disponible quan comenceu a <a href="https://www.jetbrains.com/help/idea/debugging-code.html" target="_blank">depurar</a> .</p>
+<p>Mostra la sortida generada per la sessió de depuració de la aplicació. Si esteu depurant diverses aplicacions, es mostrarà la sortida de cada aplicació en una pestanya separada.</p>
+<p class="image-container"><img style="width: 374.00px" src="img\f0ac5c1168ea2ce4.png"></p>
+<p><a href="https://www.jetbrains.com/help/idea/debug-tool-window.html" target="_blank">https://www.jetbrains.com/help/idea/debug-tool-window.html</a></p>
+<h2 is-upgraded>Todo</h2>
+<p>Mostra els comentaris en el codi font amb el <a href="https://www.jetbrains.com/help/idea/using-todo.html" target="_blank">patró TODO</a>.</p>
+<p class="image-container"><img style="width: 466.00px" src="img\18f6b5f77abdb80d.png"></p>
+<p><a href="https://www.jetbrains.com/help/idea/todo-tool-window.html" target="_blank">https://www.jetbrains.com/help/idea/todo-tool-window.html</a></p>
+<h2 is-upgraded>Structure</h2>
+<p>Mostra l&#39;estructura de classes i mètodes del fitxer obert actualment a l&#39;editor</p>
+<p class="image-container"><img style="width: 195.00px" src="img\a7d5fd58b2674781.png"></p>
+<p><a href="https://www.jetbrains.com/help/idea/structure-tool-window-file-structure-popup.html" target="_blank">https://www.jetbrains.com/help/idea/structure-tool-window-file-structure-popup.html</a></p>
+<h2 is-upgraded>Version Control</h2>
+<p>Aquesta <em>Tool Window</em> està disponible si la <a href="https://www.jetbrains.com/help/idea/enabling-version-control.html" target="_blank">integració del Control de Versions està habilitada</a> per al projecte.</p>
+<p>Mostra diverses visualitzacions/pestanyes, que mostren informació relacionada amb el VCS i us permeten gestionar llistes de canvis, realitzar accions específiques de VCS, veure els canvis realitzats per altres membres de l&#39;equip, etc .</p>
+<p class="image-container"><img style="width: 468.00px" src="img\a33f23d807d761a2.png"></p>
+<p><a href="https://www.jetbrains.com/help/idea/version-control-tool-window.html" target="_blank">https://www.jetbrains.com/help/idea/version-control-tool-window.html</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Editor Shortcuts" duration="0">
+        <p>La taula següent mostra alguns <em>shortcuts</em> relacionats amb l&#39;edició del codi:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Acció</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Shortcut</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Moure una línia de codi, o vàries línies seleccionades</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+Shift+Up</code></p>
+<p><code>Ctrl+Shift+Down</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Duplicar una línia de codi</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+D</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Eliminar una línia de codi</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+Y</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Comentar o descomentar una línia de codi</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+/</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Coment un block de codi</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+Shift+/</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Find and replace in the current file</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+R</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Surround with</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+Alt+T</code></p>
+</td></tr>
+</table>
+<h2 is-upgraded>Refactorització</h2>
+<p>En moltes ocasions ens trobem que hem de canviar el nom d&#39;una variable, o una classe, que hem utilitzat en molts llocs del programa. Canviar el nom a mà a cada lloc pot ser molt lent.</p>
+<p>Una forma eficient de fer-ho és amb la refactorització.</p>
+<p>Col·loca el cursor sobre la variable o classe a la que li vols canviar el nom i fes <code>Shift+F6</code></p>
+<p class="image-container"><img style="width: 340.00px" src="img\8ab5ccdbfc513fb7.gif"></p>
+<aside class="special"><p>La refactorització és una de les eines més potents que ofereix un IDE:</p>
+<p><a href="https://www.jetbrains.com/help/idea/refactoring-source-code.html" target="_blank">https://www.jetbrains.com/help/idea/refactoring-source-code.html</a> </p>
+</aside>
+<h2 is-upgraded>Estil de codi i format</h2>
+<p>IntelliJ IDEA aplica automàticament l&#39;estil de codi que s&#39;ha configurat a la configuració de l&#39;<a href="https://www.jetbrains.com/help/idea/settings-code-style.html" target="_blank">Estil de codi a</a> mesura que s&#39;edita i, en la majoria dels casos, no cal que es cridi explícitament l&#39;acció del <em>codi reformat</em> .</p>
+<p>Dreceres de format útils:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Acció</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Shortcut</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Reformat del codi</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+Alt+L</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Línies de sagnat automàtic</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+Alt+I</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Optimitzeu les importacions</p>
+</td><td colspan="1" rowspan="1"><p><code>Ctrl+Alt+O</code></p>
+</td></tr>
+</table>
+<p>Tingueu en compte que, per defecte, IntelliJ IDEA utilitza espais regulars per a sagnats en lloc de tabulacions. Si teniu fitxers amb molts sagnats, és possible que vulgueu optimitzar la seva mida si activeu l&#39; opció &#34;Utilitza el caràcter de tabulació&#34; a la <a href="https://www.jetbrains.com/help/idea/code-style-java.html" target="_blank">configuració d&#39;estil de codi Java</a> .</p>
+<p>Per obtenir més informació, consulteu <a href="https://www.jetbrains.com/help/idea/reformat-and-rearrange-code.html" target="_blank">Reforma de codi font</a> .</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Intentions" duration="0">
+        <p>Mentre treballem a l&#39;editor, IntelliJ IDEA analitza el codi, cerca maneres d&#39;optimitzar-lo i detecta problemes potencials i reals.</p>
+<p>Tan aviat com l&#39;IDE ​​trobi una manera d&#39;alterar el codi, es mostra la icona <img alt="icona de bombeta groga" style="width: 32.00px" src="img\bf52395f0c994582.png">a l&#39;editor situat al costat de la línia actual. Si feu clic en aquesta icona, podeu veure les <em>intent actions</em> disponibles per a aquesta unitat de codi. Les <em>intent actions</em> cobreixen un ampli ventall de situacions, des d&#39;advertiments fins a suggeriments d&#39;optimització. Podeu <a href="https://www.jetbrains.com/help/idea/intention-actions.html#intention-settings" target="_blank">veure la llista completa d&#39;intensions i desactivar-los</a> a la configuració.</p>
+<p>Un exemple d&#39;intent action és &#34;Invertir un if&#34;:</p>
+<p class="image-container"><img style="width: 340.00px" src="img\f3520aa7d669a6a1.gif"></p>
+<p>La icona<img alt="la icona Fixació ràpida" style="width: 32.00px" src="img\aed71a42525b6601.png"> indica que IntelliJ IDEA ha detectat un problema i us demana que seleccioneu una correcció associada: <em>una solució ràpida</em> .</p>
+<p>Un exemple de soució ràpida és &#34;Canviar el tipus de variable&#34;:</p>
+<p class="image-container"><img style="width: 340.00px" src="img\ab741e42bf73ee05.gif"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Live templates" duration="0">
+        <p>Mitjançant la utilització de <em>live templates</em>, podem inserir construccions usades freqüentment al codi. Per exemple, bucles, condicions, diverses declaracions o declaracions d&#39;impressió. Per ampliar un fragment de codi, escriviu la <em>template abbreviation</em> corresponent i premeu <code>Tab</code>.</p>
+<p>Live templates útils:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Abbreviation</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Expands to</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>psvm</p>
+</td><td colspan="1" rowspan="1"><p>public static void main(String[] args){</p>
+<p>}</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>sout</p>
+</td><td colspan="1" rowspan="1"><p>System.out.println();</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>fori</p>
+</td><td colspan="1" rowspan="1"><p>for (int i = 0; i &lt; ; i++) {</p>
+<p>}</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ifn</p>
+</td><td colspan="1" rowspan="1"><p>if (var == null) {</p>
+<p>}</p>
+</td></tr>
+</table>
+<h2 is-upgraded>Afegir Live Templates</h2>
+<p>IntelliJ ens permet afegit els nous <em>Live Templates</em> per al codi que utilitzem més sovint.</p>
+<p>Ves a <code>File</code> &gt; <code>Settings</code> &gt; <code>Editor</code> &gt; <code>Live Templates</code></p>
+<p class="image-container"><img style="width: 729.00px" src="img\dbfd126a8d8cecc9.png"></p>
+<p>Fes click a la icona <img style="width: 19.00px" src="img\e11119a3765ff60.png"></p>
+<p>Abbreviation: <code>scn</code></p>
+<p>Template text: <code>Scanner scanner = new Scanner(System.in);</code></p>
+<p class="image-container"><img style="width: 548.00px" src="img\d64b1978b87c2f62.png"></p>
+<p>Defineix el context JAVA</p>
+<p class="image-container"><img style="width: 129.00px" src="img\770e366f86cdd1cd.png"></p>
+<p>Ja està, ara per a crear un Scanner només has de teclejar <code>scn</code> i polsar <code>Tab</code>.</p>
 
 
       </google-codelab-step>
