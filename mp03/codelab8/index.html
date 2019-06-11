@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Data i hora</title>
+  <title>Loops</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,204 +23,212 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="mp03/codelab8"
-                  title="Data i hora"
+                  title="Loops"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p class="image-container"><img style="width: 600.00px" src="img\e5677be4336d334b.png"></p>
-<p>L&#39;objectiu d&#39;aquest CodeLab és utilitzar la API <code>java.time</code> per al tractament de dates i hores.</p>
-<p>El temps sembla un tema senzill; fins i tot un rellotge barat pot proporcionar una data i una hora bastant exactes. No obstant això, amb un examen més detallat, ens adonem de les subtils complexitats i de molts factors que afecten la comprensió del temps. Per exemple, el resultat d&#39;afegir un mes al 31 de gener és diferent per a un any de traspàs que per a altres anys. Les zones horàries també afegeixen complexitat. Per exemple, un país pot entrar i sortir de l&#39;horari d&#39;estiu un o més copa a l&#39;any o pot saltar l&#39;horari d&#39;estiu completament durant un any.</p>
-
+        
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Datetime&#34;.</p>
-<p class="image-container"><img style="width: 577.00px" src="img\7bf1c856c39baf4c.png"></p>
-<p class="image-container"><img style="width: 582.00px" src="img\dbdf5844d88c2f2c.png"></p>
-<p class="image-container"><img style="width: 581.00px" src="img\445456501a19440.png"></p>
+        <p>Descarrega Processing de la seva web oficial:</p>
+<p><a href="https://processing.org/download/" target="_blank"><paper-button class="colored" raised><iron-icon icon="file-download"></iron-icon>Download Processing</paper-button></a></p>
+<p>Descomprimeix l&#39;arxiu que has descarregat i executa <code>Processing</code>.</p>
+<p>S&#39;obrirà l&#39;entorn de programació de Processing. Anomena i desa el projecte amb el nom <code>Loops</code></p>
+<p class="image-container"><img style="width: 386.00px" src="img\be736238ac447919.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="LocalDateTime" duration="0">
-        <p>La classe <code>LocalDateTime</code> gestiona tant la data com l&#39;hora, sense una zona horària. És una de les classes bàsiques de l&#39;API <code>java.time</code>. Aquesta classe s&#39;utilitza per representar la data (mes-dia-any) juntament amb el temps (hora-minut-segon-nanosegon)</p>
-<p>Vegem un exemple:</p>
-<pre><code>System.out.printf(&#34;now: %s%n&#34;, LocalDateTime.now());
-System.out.printf(&#34;Apr 15, 1994 @ 11:30am: %s%n&#34;, LocalDateTime.of(1994, Month.APRIL, 15, 11, 30));
-System.out.printf(&#34;6 months from now: %s%n&#34;, LocalDateTime.now().plusMonths(6));
-System.out.printf(&#34;6 months ago: %s%n&#34;, LocalDateTime.now().minusMonths(6));</code></pre>
-<p>La llista completa de mètodes que proporciona la classe <code>LocalDateTime</code> la podem trobar a <a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html" target="_blank">https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html</a></p>
-<p>Aquí en destaquem aquestes:</p>
+      <google-codelab-step label="Processing API" duration="0">
+        <p>Processing proporciona una API amb infinitud de mètodes a disposició del programador per a ser usats. En aquest CodeLab utilitzarem aquests:</p>
 <table>
-<tr><td colspan="1" rowspan="1"><p><code>now()</code></p>
-</td><td colspan="1" rowspan="1"><p>Obté la data-hora actuals</p>
+<tr><td colspan="1" rowspan="1"><p><code>size(width, height)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>width (int): amplada de la finestra</code></p>
+<p><code>height (int): alçada de la finestra</code></p>
+</td><td colspan="1" rowspan="1"><p>Defineix el tamany de la finestra</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>of(year, month, dayOfMonth, hour, minute, second)</code></p>
-</td><td colspan="1" rowspan="1"><p>Obté la data-hora especificades</p>
+<tr><td colspan="1" rowspan="1"><p><code>background(gray)</code></p>
+<p><code>background(r, g, b)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>gray (float): gris (0,255)</code></p>
+<p><code>r (float): vermell (0-255)</code></p>
+<p><code>g (float): verd (0-255)</code></p>
+<p><code>b (float): blau (0-255)</code></p>
+</td><td colspan="1" rowspan="1"><p>Defineix el color de fons</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>parse(text, formatter)</code></p>
-</td><td colspan="1" rowspan="1"><p>Obté la data-hora a partir d&#39;un text en base a un format</p>
+<tr><td colspan="1" rowspan="1"><p><code>fill(gray)</code></p>
+<p><code>fill(r, g, b)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>gray (float): gris (0,255)</code></p>
+<p><code>r (float): vermell (0-255)</code></p>
+<p><code>g (float): verd (0-255)</code></p>
+<p><code>b (float): blau (0-255)</code></p>
+</td><td colspan="1" rowspan="1"><p>Defineix el color en que s&#39;ompliràn les figures</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>isEqual(other)</code></p>
-</td><td colspan="1" rowspan="1"><p>Compara dues data-hores</p>
+<tr><td colspan="1" rowspan="1"><p><code>stroke(gray)</code></p>
+<p><code>stroke(r, g, b)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>gray (float): gris (0,255)</code></p>
+<p><code>r (float): vermell (0-255)</code></p>
+<p><code>g (float): verd (0-255)</code></p>
+<p><code>b (float): blau (0-255)</code></p>
+</td><td colspan="1" rowspan="1"><p>Defineix el color en que es dibuixaran les línies i les vores de les figures</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>isAfter(other)</code></p>
-</td><td colspan="1" rowspan="1"><p>Comprova si la data-hora és posterior a una altra</p>
+<tr><td colspan="1" rowspan="1"><p><code>strokeWeight(weight)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>weight (float): el gruixut del traç</code></p>
+</td><td colspan="1" rowspan="1"><p>Defineix el gruixut en que es dibuixaran les línies i les vores de les figures</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>iSBefore(other)</code></p>
-</td><td colspan="1" rowspan="1"><p>Comprova si la data-hora és anterior a una altra</p>
+<tr><td colspan="1" rowspan="1"><p><code>circle(x, y, d)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x (float): coordinada X</code></p>
+<p><code>y (float): coordinada Y</code></p>
+<p><code>d (float): diàmetre</code></p>
+</td><td colspan="1" rowspan="1"><p>Dibuixa un circle</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>until(other, units)</code></p>
-</td><td colspan="1" rowspan="1"><p>Calcula difèrencia entre la data-hora i una altra, en les unitats especificades (anys, mesos, dies, hores, minuts, segons,...)</p>
+<tr><td colspan="1" rowspan="1"><p><code>line(x1, y1, x2, y2)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x1 (float): coordinada X del primer punt</code></p>
+<p><code>y1 (float): coordinada Y del primer punt</code></p>
+<p><code>x2 (float): coordinada X del segon punt</code></p>
+<p><code>y2 (float): coordinada Y del segon punt</code></p>
+</td><td colspan="1" rowspan="1"><p>Dibuixa una línia</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>getDayOfMonth()</code></p>
-</td><td colspan="1" rowspan="1"><p>Obté el dia del mes de la data-hora</p>
+<tr><td colspan="1" rowspan="1"><p><code>point(x, y)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x (float): coordinada X</code></p>
+<p><code>y (float): coordinada Y</code></p>
+</td><td colspan="1" rowspan="1"><p>Dibuixa un punt</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>getMonth()</code></p>
-</td><td colspan="1" rowspan="1"><p>Obté el mes de la data-hora</p>
+<tr><td colspan="1" rowspan="1"><p><code>rect(x, y, width, height)</code></p>
+<p><code>rect(x, y, width, height, radius)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x (float): coordinada X</code></p>
+<p><code>y (float): coordinada Y</code></p>
+<p><code>width (float): amplada</code></p>
+<p><code>height (float): alçada</code></p>
+<p><code>radius (float): radi dels cantons </code></p>
+</td><td colspan="1" rowspan="1"><p>Dibuixa un rectangle</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>getYear()</code></p>
-</td><td colspan="1" rowspan="1"><p>Obté l&#39;any de la data-hora</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>getHour()</code></p>
-</td><td colspan="1" rowspan="1"><p>Obté l&#39;hora de la data-hora</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>getMinute()</code></p>
-</td><td colspan="1" rowspan="1"><p>Obté els minuts de la data-hora</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>getSecond()</code></p>
-</td><td colspan="1" rowspan="1"><p>Obté els segons de la data-hora</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>minusDays(days)</code></p>
-</td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre de dies</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>minusMonths(months)</code></p>
-</td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre de mesos</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>minusYears(years)</code></p>
-</td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre d&#39;anys</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>minusHours(hours)</code></p>
-</td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre d&#39;hores</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>minusMinutes(minutes)</code></p>
-</td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre de minuts</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>minusSeconds(seconds)</code></p>
-</td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre de segons</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>plusDays(days)</code></p>
-</td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre de dies</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>plusMonths(months)</code></p>
-</td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre de mesos</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>plusYears(years)</code></p>
-</td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre d&#39;anys</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>plusHours(hours)</code></p>
-</td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre d&#39;hores</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>plusMinutes(minutes)</code></p>
-</td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre de minuts</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>plusSeconds(seconds)</code></p>
-</td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre de segons</p>
+<tr><td colspan="1" rowspan="1"><p><code>triangle(x1, y1, x2, y2, x3, y3)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x1 (float): coordinada X del primer punt</code></p>
+<p><code>y1 (float): coordinada Y del primer punt</code></p>
+<p><code>x2 (float): coordinada X del segon punt</code></p>
+<p><code>y2 (float): coordinada Y del segon punt</code></p>
+<p><code>x3 (float): coordinada X del tercer punt</code></p>
+<p><code>y4 (float): coordinada Y del tercer punt</code></p>
+</td><td colspan="1" rowspan="1"><p>Dibuixa un triangle</p>
 </td></tr>
 </table>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Obtenir la Data i Hora" duration="0">
-        <h2 is-upgraded>Data i hora actuals</h2>
-<pre><code>System.out.printf(&#34;now: %s%n&#34;, LocalDateTime.now());</code></pre>
-<pre><code>LocalDateTime dataHoraActual = LocalDateTime.now();
-System.out.printf(&#34;now: %s%n&#34;,dataHoraActual);</code></pre>
-<h2 is-upgraded>Data i hora específica</h2>
-<pre><code>LocalDateTime deuMaigDosmilUnaTresDos = LocalDateTime.of(2000, Month.APRIL, 1, 3, 2);</code></pre>
-<h2 is-upgraded>Data i hora a partir d&#39;un string</h2>
-<p>És necessari definir el format en que en que tenim la data-hora:</p>
-<pre><code>String datahoraText = &#34;1/12/2019 1:20:59&#34;;
+      <google-codelab-step label="Dibuixant amb loops" duration="0">
+        <p>Començarem amb els rectangles.</p>
+<p>Dibuixar un rectangle és molt fàcil:</p>
+<pre><code>size(300, 200);  // finestra de 300x200
+background(0);   // fons negre
+stroke(255);     // traç blanc
+fill(0, 0);      // figures transparents
+strokeWeight(2); // gruixut del traç 2
 
-DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&#34;d/M/y H:m:s&#34;);
 
-LocalDateTime datahora = LocalDateTime.parse(datahoraText, formatter);</code></pre>
+rect(0, 25, 100, 150);</code></pre>
+<p class="image-container"><img style="width: 302.00px" src="img\9bf6418466b308d5.png"></p>
+<p>Dibuixar-ne varis també és molt fàcil. Només cal copiar la sentència  vàries vegades:</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+
+rect(0, 50, 100, 150);  
+rect(10, 50, 100, 150);  
+rect(20, 50, 100, 150);  
+rect(30, 50, 100, 150);  
+rect(40, 50, 100, 150);
+rect(50, 50, 100, 150);</code></pre>
+<p class="image-container"><img style="width: 302.00px" src="img\f91767b9a5bc64cd.png"></p>
+<p>Observa que en aquest codi, hi ha una sentència que es repeteix, on només varia el valor de la posició <code>X</code> del rectangle: <code>0, 10, 20, 30, 40</code></p>
+<p>Quan tenim un patró que es repeteix en un programa, on hi només hi ha petites variacions en cada repetició, aquest patró és subceptible de transformar-lo en un <em>loop</em>.</p>
+<p>Hem de detectar en què varia el patró i substituir allò que varia per una... <strong>variable!</strong></p>
+<p><code>rect(x, 50, 100, 150);  </code></p>
+<p>Ara cal definir aquesta variable quins valors prendrà en les successives iteracions del <em>loop</em>. És a dir, cal definir:</p>
+<ul>
+<li>Quin valor tindrà a l&#39;inici →  la <code>x</code> comença per <code>0</code> → <code>x=0</code></li>
+<li>Quina condició ha de complir el valor →  la <code>x</code> és sempre menor o igual a <code>50</code> → <code>x&lt;=0</code></li>
+<li>Com es modificarà en cada iteració →    en cada iteració la <code>x</code> va augmentant en <code>10</code> → <code>x += 10</code></li>
+</ul>
+<p>Així podem construir el bucle for:</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+for (int x=0; x &lt;= 50; x += 10){
+   rect(x, 25, 100, 150);  
+}</code></pre>
+<p>D&#39;aquesta manera, en lloc d&#39;especificar uns valors fixes per a dibuixar un rectangle, podem fer-ho amb valors canviants i dibuixar cada cop un rectangle diferent (en posició i tamany)</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);</code></pre>
+<pre>for (int x=0; x &lt;= 50; x += 10){
+   rect(x, x, x, x);  
+}</pre>
+<p class="image-container"><img style="width: 302.00px" src="img\b0d0fcb59fab2198.png"></p>
+<p>No sempre és fàcil (o inclús possible) trobar el patró que segueixen els valors, i això impossibilita poder usar un <em>loop</em>.</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+rect(30, 19, 33, 36);  
+rect(10, 47, 55, 97);  
+rect(17, 14, 37, 59);  
+rect(123, 91, 13, 49);  
+rect(80, 72, 48, 71);  
+rect(97, 171, 67, 3);  
+rect(41, 112, 138, 7);  </code></pre>
+<p class="image-container"><img style="width: 302.00px" src="img\fb8b0956fe8484ba.png"></p>
+<p>És possible que alguns valors es deriven d&#39;un mateix valor:</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+
+rect(0, 0, 0, 0);  
+rect(10, 20, 15, 5);  
+rect(20, 40, 25, 10);  
+rect(30, 60, 35, 15);  
+rect(40, 80, 45, 20);   
+rect(50, 100, 55, 25); 
+rect(60, 120, 65, 30); 
+rect(70, 140, 75, 35); </code></pre>
+<p class="image-container"><img style="width: 302.00px" src="img\50a4f44859e9439.png"></p>
+<p>En aquest cas podem observar:</p>
+<ul>
+<li>La posició <code>x</code> va augmentant de <code>10</code> en <code>10</code></li>
+<li>La posició <code>y</code> és el doble que la posició <code>x</code></li>
+<li>L&#39;<code>amplada</code> és la posició <code>x</code> més <code>5</code></li>
+<li>L&#39;<code>alça</code>da és la mitat de la posició <code>x</code></li>
+</ul>
+<p>De forma que podem transformar aquestes línies en un <em>loop</em>, amb els valors calculats a partir de la x (o qualsevol altre):</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+
+for (int x=0; x&lt;=70; x += 10){
+  rect(x, x*2, x+5, x/2);  
+}</code></pre>
+<h2 is-upgraded>Doble loops</h2>
+<p>En alguns casos ens trobem que alguns valors segueixen un patró, i altres valors en segueixen un altre de diferent. Veiem un exemple.</p>
+<p>En aquest dibuix podem trobar un patró entre la posició <code>x</code> i l&#39;<code>amplada</code> dels rectangles:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);</code></p>
+<p><code>rect(0,0,0,25);</code></p>
+<p><code>rect(1,0,1,25);</code></p>
+<p><code>rect(4,0,2,25);</code></p>
+<p><code>rect(9,0,3,25);</code></p>
+<p><code>rect(16,0,4,25);</code></p>
+<p><code>rect(25,0,5,25);</code></p>
+<p><code>rect(36,0,6,25);</code></p>
+<p><code>rect(49,0,7,25);</code></p>
+<p><code>rect(64,0,8,25);</code></p>
+<p><code>rect(81,0,9,25);</code></p>
+<p><code>rect(100,0,10,25);</code></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 302.00px" src="img\5a72417cf1043fe6.png"></p>
+</td></tr>
+</table>
+<p>El patró és efectivament que la posició és el quadrat de l&#39;amplada</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Comparar Data-hora" duration="0">
-        <h2 is-upgraded>Anterior o posterior</h2>
-<pre><code>String datahoraText1 = &#34;1/12/2000 0:0:0&#34;;
-String datahoraText2 = &#34;1/12/2020 0:0:0&#34;;
-
-DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&#34;d/M/y H:m:s&#34;);
-
-LocalDateTime datahora1 = LocalDateTime.parse(datahoraText1, formatter);
-LocalDateTime datahora2 = LocalDateTime.parse(datahoraText2, formatter);
-
-System.out.println(datahora1.isAfter(datahora2));
-System.out.println(datahora1.isBefore(datahora2));</code></pre>
-<h2 is-upgraded>Diferència entre dates</h2>
-<pre><code>LocalDateTime fromDateTime = LocalDateTime.of(1984, 12, 16, 7, 45, 55);
-LocalDateTime toDateTime = LocalDateTime.of(2014, 9, 10, 6, 40, 45);
-
-long years = fromDateTime.until( toDateTime, ChronoUnit.YEARS);
-fromDateTime = fromDateTime.plusYears( years );
-
-long months = fromDateTime.until( toDateTime, ChronoUnit.MONTHS);
-fromDateTime = fromDateTime.plusMonths( months );
-
-long days = fromDateTime.until( toDateTime, ChronoUnit.DAYS);
-fromDateTime = fromDateTime.plusDays( days );
-
-
-long hours = fromDateTime.until( toDateTime, ChronoUnit.HOURS);
-fromDateTime = fromDateTime.plusHours( hours );
-
-long minutes = fromDateTime.until( toDateTime, ChronoUnit.MINUTES);
-fromDateTime = fromDateTime.plusMinutes( minutes );
-
-long seconds = fromDateTime.until( toDateTime, ChronoUnit.SECONDS);
-
-System.out.println( years + &#34; years &#34; +
-       months + &#34; months &#34; +
-       days + &#34; days &#34; +
-       hours + &#34; hours &#34; +
-       minutes + &#34; minutes &#34; +
-       seconds + &#34; seconds.&#34;);</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Obtenir parts d&#39;una Data-hora" duration="0">
-        <pre><code>System.out.println(
-       ara.getDayOfMonth() + &#34; &#34; +
-       ara.getMonth() + &#34; &#34; +
-       ara.getYear() + &#34; &#34; +
-       ara.getHour() + &#34; &#34; +
-       ara.getMinute() + &#34; &#34; +
-       ara.getSecond()
-);</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Manipular una data hora" duration="0">
-        <pre><code>LocalDateTime dh = LocalDateTime.of(2020, 1, 1, 12, 35, 59);
-System.out.println(dh);
-
-dh = dh.plusMonths(2);
-System.out.println(dh);
-
-dh.plusYears(1000);      // Atencio: no hem modificat &#39;dh&#39;
-System.out.println(dh);  //
-
-dh = dh.minusSeconds(10000000);
-System.out.println(dh);</code></pre>
+      <google-codelab-step label="Loop art" duration="0">
+        <pre><code>for (int i=0; i&lt;height; i += 20){
+ for (int j=0; j&lt;width; j += 20){
+   fill(random(255), random(255), random(255));
+    triangle(j, i, i, j, 20, 20); 
+ }
+}</code></pre>
+<p class="image-container"><img style="width: 402.00px" src="img\f2427eef87bb134b.png"></p>
 
 
       </google-codelab-step>

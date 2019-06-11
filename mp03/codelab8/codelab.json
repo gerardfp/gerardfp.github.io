@@ -3,12 +3,12 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2019-05-11T13:53:24Z",
+  "updated": "2019-06-11T12:47:33Z",
   "id": "mp03/codelab8",
   "duration": 0,
-  "title": "Data i hora",
-  "summary": "datetime",
-  "source": "1mYWLHpP9wTITItBcB3t1Lho_7VjLuD9A686Iqf-6LdU",
+  "title": "Loops",
+  "summary": "loops",
+  "source": "1CbociHWSRWK6oZKFZWRkZ6QPnvJ3c1bHFuCacrO6MtI",
   "theme": "java",
   "status": [
     "draft"
