@@ -50,73 +50,73 @@
       <google-codelab-step label="Processing API" duration="0">
         <p>Processing proporciona una API amb infinitud de mètodes a disposició del programador per a ser usats. En aquest CodeLab utilitzarem aquests:</p>
 <table>
-<tr><td colspan="1" rowspan="1"><p><code>size(width, height)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>width (int): amplada de la finestra</code></p>
-<p><code>height (int): alçada de la finestra</code></p>
+<tr><td colspan="1" rowspan="1"><p><code>size(w, h)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>w: amplada de la finestra</code></p>
+<p><code>h: alçada de la finestra</code></p>
 </td><td colspan="1" rowspan="1"><p>Defineix el tamany de la finestra</p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p><code>background(gray)</code></p>
 <p><code>background(r, g, b)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>gray (float): gris (0,255)</code></p>
-<p><code>r (float): vermell (0-255)</code></p>
-<p><code>g (float): verd (0-255)</code></p>
-<p><code>b (float): blau (0-255)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>gray: gris (0,255)</code></p>
+<p><code>r: vermell (0-255)</code></p>
+<p><code>g: verd (0-255)</code></p>
+<p><code>b: blau (0-255)</code></p>
 </td><td colspan="1" rowspan="1"><p>Defineix el color de fons</p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p><code>fill(gray)</code></p>
 <p><code>fill(r, g, b)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>gray (float): gris (0,255)</code></p>
-<p><code>r (float): vermell (0-255)</code></p>
-<p><code>g (float): verd (0-255)</code></p>
-<p><code>b (float): blau (0-255)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>gray: gris (0,255)</code></p>
+<p><code>r: vermell (0-255)</code></p>
+<p><code>g: verd (0-255)</code></p>
+<p><code>b: blau (0-255)</code></p>
 </td><td colspan="1" rowspan="1"><p>Defineix el color en que s&#39;ompliràn les figures</p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p><code>stroke(gray)</code></p>
 <p><code>stroke(r, g, b)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>gray (float): gris (0,255)</code></p>
-<p><code>r (float): vermell (0-255)</code></p>
-<p><code>g (float): verd (0-255)</code></p>
-<p><code>b (float): blau (0-255)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>gray: gris (0,255)</code></p>
+<p><code>r: vermell (0-255)</code></p>
+<p><code>g: verd (0-255)</code></p>
+<p><code>b: blau (0-255)</code></p>
 </td><td colspan="1" rowspan="1"><p>Defineix el color en que es dibuixaran les línies i les vores de les figures</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>strokeWeight(weight)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>weight (float): el gruixut del traç</code></p>
+<tr><td colspan="1" rowspan="1"><p><code>strokeWeight(w)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>w: el gruixut del traç</code></p>
 </td><td colspan="1" rowspan="1"><p>Defineix el gruixut en que es dibuixaran les línies i les vores de les figures</p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p><code>circle(x, y, d)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>x (float): coordinada X</code></p>
-<p><code>y (float): coordinada Y</code></p>
-<p><code>d (float): diàmetre</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x: coordinada X</code></p>
+<p><code>y: coordinada Y</code></p>
+<p><code>d: diàmetre</code></p>
 </td><td colspan="1" rowspan="1"><p>Dibuixa un circle</p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p><code>line(x1, y1, x2, y2)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>x1 (float): coordinada X del primer punt</code></p>
-<p><code>y1 (float): coordinada Y del primer punt</code></p>
-<p><code>x2 (float): coordinada X del segon punt</code></p>
-<p><code>y2 (float): coordinada Y del segon punt</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x1: coordinada X del punt1</code></p>
+<p><code>y1: coordinada Y del punt1</code></p>
+<p><code>x2: coordinada X del punt2</code></p>
+<p><code>y2: coordinada Y del punt2</code></p>
 </td><td colspan="1" rowspan="1"><p>Dibuixa una línia</p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p><code>point(x, y)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>x (float): coordinada X</code></p>
-<p><code>y (float): coordinada Y</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x: coordinada X</code></p>
+<p><code>y: coordinada Y</code></p>
 </td><td colspan="1" rowspan="1"><p>Dibuixa un punt</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>rect(x, y, width, height)</code></p>
-<p><code>rect(x, y, width, height, radius)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>x (float): coordinada X</code></p>
-<p><code>y (float): coordinada Y</code></p>
-<p><code>width (float): amplada</code></p>
-<p><code>height (float): alçada</code></p>
-<p><code>radius (float): radi dels cantons </code></p>
+<tr><td colspan="1" rowspan="1"><p><code>rect(x, y, w, h)</code></p>
+<p><code>rect(x, y, w, h, r)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x: coordinada X</code></p>
+<p><code>y: coordinada Y</code></p>
+<p><code>w: amplada</code></p>
+<p><code>h: alçada</code></p>
+<p><code>r: radi dels cantons </code></p>
 </td><td colspan="1" rowspan="1"><p>Dibuixa un rectangle</p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p><code>triangle(x1, y1, x2, y2, x3, y3)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>x1 (float): coordinada X del primer punt</code></p>
-<p><code>y1 (float): coordinada Y del primer punt</code></p>
-<p><code>x2 (float): coordinada X del segon punt</code></p>
-<p><code>y2 (float): coordinada Y del segon punt</code></p>
-<p><code>x3 (float): coordinada X del tercer punt</code></p>
-<p><code>y4 (float): coordinada Y del tercer punt</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x1: coordinada X del punt1</code></p>
+<p><code>y1: coordinada Y del punt1</code></p>
+<p><code>x2: coordinada X del punt2</code></p>
+<p><code>y2: coordinada Y del punt2</code></p>
+<p><code>x3: coordinada X del punt3</code></p>
+<p><code>y4: coordinada Y del punt3</code></p>
 </td><td colspan="1" rowspan="1"><p>Dibuixa un triangle</p>
 </td></tr>
 </table>
@@ -148,30 +148,31 @@ rect(30, 50, 100, 150);
 rect(40, 50, 100, 150);
 rect(50, 50, 100, 150);</code></pre>
 <p class="image-container"><img style="width: 302.00px" src="img\f91767b9a5bc64cd.png"></p>
-<p>Observa que en aquest codi, hi ha una sentència que es repeteix, on només varia el valor de la posició <code>X</code> del rectangle: <code>0, 10, 20, 30, 40</code></p>
+<p>Observa que al codi anterior, hi ha una sentència que es repeteix, on només varia el valor de la posició <code>X</code> del rectangle: <code>0, 10, 20, 30, 40</code></p>
 <p>Quan tenim un patró que es repeteix en un programa, on hi només hi ha petites variacions en cada repetició, aquest patró és subceptible de transformar-lo en un <em>loop</em>.</p>
 <p>Hem de detectar en què varia el patró i substituir allò que varia per una... <strong>variable!</strong></p>
 <p><code>rect(x, 50, 100, 150);  </code></p>
-<p>Ara cal definir aquesta variable quins valors prendrà en les successives iteracions del <em>loop</em>. És a dir, cal definir:</p>
+<p>Ara cal definir quins valors prendrà aquesta variable en les successives iteracions del <em>loop</em>. És a dir, cal definir:</p>
 <ul>
-<li>Quin valor tindrà a l&#39;inici →  la <code>x</code> comença per <code>0</code> → <code>x=0</code></li>
-<li>Quina condició ha de complir el valor →  la <code>x</code> és sempre menor o igual a <code>50</code> → <code>x&lt;=0</code></li>
-<li>Com es modificarà en cada iteració →    en cada iteració la <code>x</code> va augmentant en <code>10</code> → <code>x += 10</code></li>
+<li>Quin valor tindrà a l&#39;inici →  la <code>x</code> comença per <code>0</code> (<code>x=0</code>)</li>
+<li>Quina condició ha de complir el valor →  la <code>x</code> és sempre menor o igual a <code>50</code> (<code>x&lt;=0</code>)</li>
+<li>Com es modificarà a cada iteració → en cada iteració la <code>x</code> va augmentant en <code>10</code> (<code>x += 10</code>)</li>
 </ul>
-<p>Així podem construir el bucle for:</p>
+<p>Així podem construir el bucle <code>for</code>:</p>
 <pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
 
 for (int x=0; x &lt;= 50; x += 10){
    rect(x, 25, 100, 150);  
 }</code></pre>
-<p>D&#39;aquesta manera, en lloc d&#39;especificar uns valors fixes per a dibuixar un rectangle, podem fer-ho amb valors canviants i dibuixar cada cop un rectangle diferent (en posició i tamany)</p>
+<p>D&#39;aquesta manera, en lloc d&#39;especificar uns valors fixes per a dibuixar un rectangle, podem fer-ho amb valors canviants i dibuixar cada cop un rectangle diferent en posició i tamany.</p>
+<p>Al següent exemple canviem els paràmetres posicióX, posicióY, amplada i alçada, en funció de la variable <code>x</code>:</p>
 <pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
 
 for (int x=0; x &lt;= 50; x += 10){
    rect(x, x, x, x);  
 }</code></pre>
 <p class="image-container"><img style="width: 302.00px" src="img\b0d0fcb59fab2198.png"></p>
-<p>No sempre és fàcil (o inclús possible) trobar el patró que segueixen els valors, i això impossibilita poder usar un <em>loop</em>.</p>
+<p>No sempre és fàcil (o inclús possible) trobar el patró que segueixen els valors, i això impossibilita poder usar un <em>loop</em>. Per exemple a la següent composició es fa difícil trobar un patro comú als valors:</p>
 <pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
 rect(30, 19, 33, 36);  
 rect(10, 47, 55, 97);  
@@ -181,7 +182,7 @@ rect(80, 72, 48, 71);
 rect(97, 171, 67, 3);  
 rect(41, 112, 138, 7);  </code></pre>
 <p class="image-container"><img style="width: 302.00px" src="img\fb8b0956fe8484ba.png"></p>
-<p>És possible que alguns valors es deriven d&#39;un mateix valor:</p>
+<p>Hi ha voltes que podem trobar patrons en els quals alguns valors es deriven d&#39;altres valors:</p>
 <pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
 
 rect(0, 0, 0, 0);  
@@ -200,7 +201,7 @@ rect(70, 140, 75, 35); </code></pre>
 <li>L&#39;<code>amplada</code> és la posició <code>x</code> més <code>5</code></li>
 <li>L&#39;<code>alça</code>da és la mitat de la posició <code>x</code></li>
 </ul>
-<p>De forma que podem transformar aquestes línies en un <em>loop</em>, amb els valors calculats a partir de la x (o qualsevol altre):</p>
+<p>De forma que podem transformar aquestes línies en un <em>loop</em>, amb els valors calculats a partir de la <code>x</code> (o qualsevol altre):</p>
 <pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
 
 for (int x=0; x&lt;=70; x += 10){
@@ -229,8 +230,8 @@ rect(100,0,10,25);</code></pre>
       </google-codelab-step>
     
       <google-codelab-step label="Ritmes amb loops" duration="0">
-        <p>Assegura&#39;t d&#39;haver instal·lat la llibreria sound i que has descarregat els sons <code>snare.wav</code> i <code>bass.wav</code></p>
-<p>Reproduir sons amb aquesta llibreria és molt fàcil. Només cal carregar els sons i donar-li a play(). Juguem amb el delay() per a crear el ritme:</p>
+        <p>Assegura&#39;t d&#39;haver instal·lat la llibreria <code>sound</code> i que has descarregat els sons <code>snare.wav</code> i <code>bass.wav</code></p>
+<p>Reproduir sons amb aquesta llibreria és molt fàcil. Només cal carregar els sons i donar-li a <code>play()</code>. Podem jugar amb el <code>delay()</code> per a crear el ritme:</p>
 <pre><code>import processing.sound.*;   // carreguem la llibreria sound
 
 SoundFile snare = new SoundFile(this, &#34;snare.wav&#34;);
@@ -259,8 +260,7 @@ delay(400);
 snare.play();
 delay(800);</code></pre>
 <p>We will, we will rock you </p>
-<p class="image-container"><img style="width: 570.00px" src="img\2c7df731d9fdb698.png"></p>
-<p class="image-container"><img style="width: 573.00px" src="img\95e335258aadb634.png"></p>
+<p class="image-container"><img style="width: 561.00px" src="img\e5512bd5ab9836fb.png"></p>
 <p>Aquí podem observar un patró que es va repetint. Fem un loop:</p>
 <pre><code>// Posa aquí el codi d&#39;inicialització
 
@@ -272,14 +272,10 @@ for (int i=0; i&lt;3; i++){
   snare.play();
   delay(800);  
 }</code></pre>
-<p class="image-container"><img style="width: 432.00px" src="img\7394ea20e0213127.png"></p>
-<p>for (int j=0; j&lt;3; j++){</p>
-<p>  bass.play(); delay(400);</p>
-<p>  bass.play(); delay(400);</p>
-<p>  snare.play(); delay(800);  </p>
-<p>}</p>
+<p class="image-container"><img style="width: 435.00px" src="img\268e1ef8ba8392b1.png"></p>
+<p class="image-container"><img style="width: 221.00px" src="img\df9f94a105cd1a8c.png"></p>
 <p>Amb un loop, hem repetit 3 cops les mateixes instruccions.</p>
-<p>Podríem repetir aquest <em>loop</em> durant tota la cançó, però seria una mica monòton. Cal posar un redoble:</p>
+<p>Podríem repetir aquest <em>loop</em> durant tota la cançó, però quedaria una mica monòtona... Cal posar un redoble:</p>
 <pre><code>for (int j=0; j&lt;3; j++){
   bass.play(); delay(400);
   bass.play(); delay(400);
@@ -292,61 +288,19 @@ snare.play(); delay(200);
 snare.play(); delay(200);  
 snare.play(); delay(200); 
 snare.play(); delay(200); </code></pre>
-<p class="image-container"><img style="width: 577.00px" src="img\16af5a4f00274033.png"></p>
-<p>for (int j=0; j&lt;3; j++){</p>
-<p>  bass.play(); delay(400);</p>
-<p>  bass.play(); delay(400);</p>
-<p>  snare.play(); delay(800);  </p>
-<p>}</p>
-<p>bass.play(); delay(400);</p>
-<p>bass.play(); delay(400);</p>
-<p>snare.play(); delay(200);  </p>
-<p>snare.play(); delay(200);  </p>
-<p>snare.play(); delay(200); </p>
-<p>snare.play(); delay(200); </p>
+<p class="image-container"><img style="width: 579.00px" src="img\c9d927b8179f8760.png"></p>
+<p class="image-container"><img style="width: 221.00px" src="img\d50453d707f9dc3.png"></p>
 <p>Observa que el l&#39;últim bloc (morat) és diferent als tres anteriors (taronja), no els podem incloure al mateix loop, ja que no segueixen el mateix patró. Repetim tres cops el patró taronja i un cop el patró morat.</p>
 <p>Podem encara filar més prim i tractar d&#39;extraure més patrons (coses que es repeteixen), per exemple els quatre snares del final:</p>
-<p class="image-container"><img style="width: 577.00px" src="img\9088e2ee60c5e939.png"></p>
-<p>for (int j=0; j&lt;3; j++){</p>
-<p>  bass.play(); delay(400);</p>
-<p>  bass.play(); delay(400);</p>
-<p>  snare.play(); delay(800);  </p>
-<p>}</p>
-<p>bass.play(); delay(400);</p>
-<p>bass.play(); delay(400);</p>
-<p>for (int m=0; m&lt;4; m++){</p>
-<p>  snare.play(); delay(200);  </p>
-<p>}</p>
+<p class="image-container"><img style="width: 579.00px" src="img\2e657989046aa531.png"></p>
+<p class="image-container"><img style="width: 223.00px" src="img\8c1c00c743c8ebe1.png"></p>
 <p>Anem a completar seguir una mica la cançò fent que tot aquest patró es repeteixi dues vegades:</p>
-<p class="image-container"><img style="width: 736.40px" src="img\95562cc9b13e3732.png"></p>
-<p>for (int t=0; t&lt;2; t++){</p>
-<p>  for (int j=0; j&lt;3; j++){</p>
-<p>    bass.play(); delay(400);</p>
-<p>    bass.play(); delay(400);</p>
-<p>    snare.play(); delay(800);  </p>
-<p>  }</p>
-<p>  bass.play(); delay(400);</p>
-<p>  bass.play(); delay(400);</p>
-<p>  for (int m=0; m&lt;4; m++){</p>
-<p>    snare.play(); delay(200);  </p>
-<p>  }</p>
-<p>}</p>
+<p class="image-container"><img style="width: 736.40px" src="img\31186cc4a4e18f0f.png"></p>
+<p class="image-container"><img style="width: 243.00px" src="img\3334700cbb37346c.png"></p>
 <p>I així podriem seguir fins completar la cancó fent loops dintre de loops... Però abans d&#39;acabar encara ens queda un petit patró en el codi:</p>
-<p class="image-container"><img style="width: 736.40px" src="img\8803d6b647f2f408.png"></p>
-<p>for (int t=0; t&lt;2; t++){</p>
-<p>  for (int j=0; j&lt;3; j++){</p>
-<p>    for (int w=0; w&lt;2; w++){</p>
-<p>      bass.play(); delay(400);</p>
-<p>    }</p>
-<p>    snare.play(); delay(800);  </p>
-<p>  }</p>
-<p>  for (int k=0; k&lt;2; k++){</p>
-<p>    bass.play(); delay(400);</p>
-<p>  }</p>
-<p>  for (int m=0; m&lt;4; m++){</p>
-<p>    snare.play(); delay(200);  </p>
-<p>  }</p>
-<p>}</p>
+<p class="image-container"><img style="width: 736.40px" src="img\47ebc9f5f9655abc.png"></p>
+<p class="image-container"><img style="width: 248.00px" src="img\85098b7957a875e7.png"></p>
+<p>I d&#39;aquesta forma, utilitzant <em>loops</em>, hem passat 30 cops de bateria a 9 instruccions de codi 👌</p>
 
 
       </google-codelab-step>
