@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Indeterminisme</title>
+  <title>Processing</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,20 +23,121 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="mp03/codelab6"
-                  title="Indeterminisme"
+                  title="Processing"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        
+        <p class="image-container"><img style="width: 400.00px" src="img\6a1afb9878e058eb.png"></p>
+<p><strong>Processing</strong> és una aplicació de codi obert amb un llenguatge per a la programació d&#39;imatges, animació, i so.</p>
+<p>La seva sintaxi, està basada en Java però és més senzilla. És utilitzat per estudiants, artistes, dissenyadors, arquitectes, investigadors i aficionats.</p>
+<p>En aquest CodeLab implementarem una aplicació, utilitzant Processing, per mostrar una galeria d&#39;imatges.</p>
+
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Inicia IntelliJ i crea un nou projecte anomenat.</p>
-<p class="image-container"><img style="width: 616.00px" src="img\792ed00254716d13.png"></p>
-<p class="image-container"><img style="width: 616.00px" src="img\7b9b5bf8a5d2dd19.png"></p>
-<p class="image-container"><img style="width: 616.00px" src="img\75e73f797c40060f.png"></p>
+        <p>Descarrega Processing de la seva web oficial:</p>
+<p><a href="https://processing.org/download/" target="_blank"><paper-button class="colored" raised><iron-icon icon="file-download"></iron-icon>Download Processing</paper-button></a></p>
+<p>Descomprimeix l&#39;arxiu que has descarregat i executa <code>Processing</code>.</p>
+<p>S&#39;obrirà l&#39;entorn de programació de Processing. Anomena i desa el projecte amb el nom <code>NasaGallery</code></p>
+<p class="image-container"><img style="width: 386.00px" src="img\68e78e151128c4c7.png"></p>
+<p>Necessitaràs aquestes imatges. Descarrega-les a la carpeta del projecte amb el nom indicat:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 109.00px" src="img\79a7d3555d11ae46.jpeg"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 109.00px" src="img\306506dba23f5b01.jpeg"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 109.00px" src="img\c1330316b075df96.jpeg"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 109.00px" src="img\72eb0da31f2d5fd7.jpeg"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 15.00px" src="img\eb22c23b06282f22.jpeg"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 15.00px" src="img\83c8fd517a1dc034.jpeg"></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>mercury.jpg</code></p>
+</td><td colspan="1" rowspan="1"><p><code>venus.jpg</code></p>
+</td><td colspan="1" rowspan="1"><p><code>earth.jpg</code></p>
+</td><td colspan="1" rowspan="1"><p><code>mars.jpg</code></p>
+</td><td colspan="1" rowspan="1"><p><code>prev.jpg</code></p>
+</td><td colspan="1" rowspan="1"><p><code>next.jpg</code></p>
+</td></tr>
+</table>
+<p class="image-container"><img style="width: 362.00px" src="img\ba2473ccfc03b149.png"></p>
+<aside class="special"><p>Utilitzem imatges de petit tamany però poden ser del tamany que desitjis.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Implementa l&#39;aplicació" duration="0">
+        <p>Un projecte Processing, té habitualment dos mètodes principals: <code>setup()</code> i <code>draw()</code></p>
+<p>El bloc del mètode <code>setup()</code> s&#39;executa un cop quan s&#39;executa el nostre projecte i té la finalitat de configurar aspectes com el tamany de la finestra i carregar els recursos que utilitzarà el nostre projecte (images, sons, ...).</p>
+<p>El bloc del mètode <code>draw()</code> s&#39;executa de forma repetida durant tota l&#39;execució del nostre projecte. En aquest mètode és on es dibuixen els elements que s&#39;han de veure a la pantalla, o es reprodueixen els sons, etc.</p>
+<p>Comencem amb un petit codi:</p>
+<pre><code>PImage img;
+
+void setup() {
+  size(180, 150);
+  img = loadImage(&#34;mercury.jpg&#34;);  
+}
+
+void draw() {
+  image(img, 15, 0);
+}</code></pre>
+<p class="image-container"><img style="width: 338.00px" src="img\13748e4203e5fcf3.png"></p>
+<p>Al mètode <code>setup()</code> establim el tamany de la pantalla de la nostra aplicació a 180 píxels d&#39;amplada i 150 d&#39;alçada. A continuació carreguem la imatge <code>mercury.jpg</code> a la variable <code>img</code>.</p>
+<p>Al mètode <code>draw()</code> dibuixem aquesta imatge a la posició <code>X=15</code> <code>Y=0</code></p>
+<p>Si executes la aplicació veuràs això:</p>
+<p class="image-container"><img style="width: 182.00px" src="img\c7e98230c94a887d.png"></p>
+<h2 is-upgraded>Avançar i retrocedir a la galeria</h2>
+<p>El següent pas serà afegir dos botons per a poder anar cap endavant i cap enrere en la llista d&#39;imatges.</p>
+<p>Primer haurem de carregar totes les imatges al mètode <code>setup()</code>. Tindrem la variable <code>img</code> que indicarà la imatge que s&#39;està mostrant actualment, que establirem inicialment a <code>mercury</code>.</p>
+<p>Al mètode <code>draw()</code> només hem de dibuixar la imatge indicada per la variable <code>img</code>, i també els botons d&#39;avançar i retrocedir.</p>
+<p>Per útlim, afegirem un tercer mètode mousePressed() que s&#39;executa un cop quan es fa clic al ratolí. En funció de la posició on s&#39;hagi fet clic (<code>mouseX</code>), mostrarem una imatge o una altra, depenent de quina s&#39;estigui mostrant actualment.</p>
+<p>El codi final quedarà així:</p>
+<pre><code>PImage img, mercury, venus, earth, mars, prev, next;
+
+void setup() {
+  size(180, 150);
+  mercury = loadImage(&#34;mercury.jpg&#34;);  
+  venus =  loadImage(&#34;venus.jpg&#34;);
+  earth = loadImage(&#34;earth.jpg&#34;);
+  mars = loadImage(&#34;mars.jpg&#34;);
+  
+  prev = loadImage(&#34;prev.jpg&#34;);
+  next = loadImage(&#34;next.jpg&#34;);
+  
+  img = mercury;
+}
+
+void draw() {
+  image(prev, 0, 0);
+  image(img, 15, 0);
+  image(next, 165, 0);
+}
+
+void mousePressed(){
+  if(mouseX &lt; 15){
+    if(img == mercury){
+       img = mars; 
+    } else if(img == venus){
+       img = mercury; 
+    } else if(img == earth){
+       img = venus; 
+    } else if(img == mars){
+       img = earth; 
+    }
+  } else if(mouseX &gt; 165){
+    if(img == mercury){
+       img = venus; 
+    } else if(img == venus){
+       img = earth; 
+    } else if(img == earth){
+       img = mars; 
+    } else if(img == mars){
+       img = mercury; 
+    }
+  }
+}</code></pre>
+<p>Aquest és el resultat final:</p>
+<p class="image-container"><img style="width: 200.00px" src="img\c68f2ccfa614eec7.gif"></p>
 
 
       </google-codelab-step>
