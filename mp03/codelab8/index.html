@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>IntelliJ IDEA</title>
+  <title>Loops</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,175 +23,400 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="mp03/codelab8"
-                  title="IntelliJ IDEA"
+                  title="Loops"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p class="image-container"><img style="width: 392.00px" src="img\9a01c209f8f3968d.png"></p>
-<p>L&#39;objectiu d&#39;aquest CodeLab és conèixer algunes de les possibilitats que ofereix IntelliJ IDEA per a ser més productiu amb un ventall de funcions per al desenvolupament eficient.</p>
-<p>Les possibilitats que ofereix IntelliJ són gairebé infinites. Dominar-les totes és una tasca que triga anys. A més de totes les que ja incorpora es pot extendre amb plug-ins. En aquest CodeLab en veurem algunes d&#39;elles.</p>
-
+        
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;IntelliJIDEA&#34;.</p>
-<p class="image-container"><img style="width: 566.00px" src="img\69998c3462f22edc.png"></p>
-<p class="image-container"><img style="width: 566.00px" src="img\a979a613157cd3d.png"></p>
-<p class="image-container"><img style="width: 566.00px" src="img\62d7db589d3dbc3.png"></p>
+        <p>Descarrega Processing de la seva web oficial:</p>
+<p><a href="https://processing.org/download/" target="_blank"><paper-button class="colored" raised><iron-icon icon="file-download"></iron-icon>Download Processing</paper-button></a></p>
+<p>Descomprimeix l&#39;arxiu que has descarregat i executa <code>Processing</code>.</p>
+<p>S&#39;obrirà l&#39;entorn de programació de Processing. Anomena i desa el projecte amb el nom <code>Loops</code></p>
+<p class="image-container"><img style="width: 386.00px" src="img\be736238ac447919.png"></p>
+<p>Instal·la també la llibreria Sound. Per fer-ho ves a <code>Herramientas</code> &gt; <code>Añadir Herramienta...</code></p>
+<p class="image-container"><img style="width: 649.00px" src="img\2ad5372c59d61ae4.png"></p>
+<p>També necessitaràs aquests dos sons, descarrega&#39;ls a la carpeta del projecte amb els noms que s&#39;indiquen:</p>
+<p><a href="https://freewavesamples.com/files/Korg-N1R-Snare-Drum.wav" target="_blank">https://freewavesamples.com/files/Korg-N1R-Snare-Drum.wav</a> <code>snare.wav</code></p>
+<p><a href="https://freewavesamples.com/files/Korg-N1R-Bass-Drum.wav" target="_blank">https://freewavesamples.com/files/Korg-N1R-Bass-Drum.wav</a> <code>bass.wav</code></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Tool Windows" duration="0">
-        <p>A IntelliJ trobem diverses <em>Tool Windows</em>.  Podem accedir a elles amb els següents <em>shortcuts</em>:</p>
-<p class="image-container"><img style="width: 178.00px" src="img\c1d9b2339d9d9cd3.png"></p>
-<h2 is-upgraded>Project</h2>
-<p>La <em>Tool Window</em> &#34;Project&#34; ens permet examinar el projecte des de diversos punts de vista i realitzar les tasques, com ara crear elements nous (directoris, fitxers, classes, etc.), obrir fitxers a l&#39;editor, navegar al fragment d&#39;interès del codi i molt més.</p>
-<p class="image-container"><img style="width: 196.00px" src="img\5e128e837f757d0f.png"></p>
-<p><a href="https://www.jetbrains.com/help/idea/project-tool-window.html" target="_blank">https://www.jetbrains.com/help/idea/project-tool-window.html</a></p>
-<h2 is-upgraded>Favorites</h2>
-<p>Ens permet gestionar llistes de favorits dels elements següents:</p>
-<ul>
-<li>Project Items. Cada llista de favorits de la finestra de l&#39;eina apareix amb la icona de l&#39;estrella <img alt="la icona del favorit" style="width: 32.00px" src="img\3c8e3d6305c00c50.png">.</li>
-<li>Bookmarks. La llista d&#39;adreces d&#39;interès està marcada amb <img alt="la icona de marcador" style="width: 32.00px" src="img\8b190de2449793f3.png">.</li>
-<li>Breakpoints. La llista dels punts d&#39;interrupció està marcada amb <img alt="la icona del punt de ruptura" style="width: 32.00px" src="img\a461eda6a947455d.png">.</li>
-</ul>
-<p class="image-container"><img style="width: 204.00px" src="img\1d78727b373e22bd.png"></p>
-<p><a href="https://www.jetbrains.com/help/idea/favorites-tool-window.html" target="_blank">https://www.jetbrains.com/help/idea/favorites-tool-window.html</a></p>
-<h2 is-upgraded>Run</h2>
-<p>Mostra la sortida generada per l&#39;aplicació. Si executeu diverses aplicacions, cadascuna es mostra en una pestanya.</p>
-<p class="image-container"><img style="width: 434.00px" src="img\c653a3816c2da126.png"></p>
-<p><a href="https://www.jetbrains.com/help/idea/run-tool-window.html" target="_blank">https://www.jetbrains.com/help/idea/run-tool-window.html</a></p>
-<h2 is-upgraded>Debug </h2>
-<p>Aquesta finestra de l&#39;eina està disponible quan comenceu a <a href="https://www.jetbrains.com/help/idea/debugging-code.html" target="_blank">depurar</a> .</p>
-<p>Mostra la sortida generada per la sessió de depuració de la aplicació. Si esteu depurant diverses aplicacions, es mostrarà la sortida de cada aplicació en una pestanya separada.</p>
-<p class="image-container"><img style="width: 374.00px" src="img\f0ac5c1168ea2ce4.png"></p>
-<p><a href="https://www.jetbrains.com/help/idea/debug-tool-window.html" target="_blank">https://www.jetbrains.com/help/idea/debug-tool-window.html</a></p>
-<h2 is-upgraded>Todo</h2>
-<p>Mostra els comentaris en el codi font amb el <a href="https://www.jetbrains.com/help/idea/using-todo.html" target="_blank">patró TODO</a>.</p>
-<p class="image-container"><img style="width: 466.00px" src="img\18f6b5f77abdb80d.png"></p>
-<p><a href="https://www.jetbrains.com/help/idea/todo-tool-window.html" target="_blank">https://www.jetbrains.com/help/idea/todo-tool-window.html</a></p>
-<h2 is-upgraded>Structure</h2>
-<p>Mostra l&#39;estructura de classes i mètodes del fitxer obert actualment a l&#39;editor</p>
-<p class="image-container"><img style="width: 195.00px" src="img\a7d5fd58b2674781.png"></p>
-<p><a href="https://www.jetbrains.com/help/idea/structure-tool-window-file-structure-popup.html" target="_blank">https://www.jetbrains.com/help/idea/structure-tool-window-file-structure-popup.html</a></p>
-<h2 is-upgraded>Version Control</h2>
-<p>Aquesta <em>Tool Window</em> està disponible si la <a href="https://www.jetbrains.com/help/idea/enabling-version-control.html" target="_blank">integració del Control de Versions està habilitada</a> per al projecte.</p>
-<p>Mostra diverses visualitzacions/pestanyes, que mostren informació relacionada amb el VCS i us permeten gestionar llistes de canvis, realitzar accions específiques de VCS, veure els canvis realitzats per altres membres de l&#39;equip, etc .</p>
-<p class="image-container"><img style="width: 468.00px" src="img\a33f23d807d761a2.png"></p>
-<p><a href="https://www.jetbrains.com/help/idea/version-control-tool-window.html" target="_blank">https://www.jetbrains.com/help/idea/version-control-tool-window.html</a></p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Editor Shortcuts" duration="0">
-        <p>La taula següent mostra alguns <em>shortcuts</em> relacionats amb l&#39;edició del codi:</p>
+      <google-codelab-step label="Processing API" duration="0">
+        <p>Processing proporciona una API amb infinitud de mètodes a disposició del programador per a ser usats. En aquest CodeLab utilitzarem aquests:</p>
 <table>
-<tr><td colspan="1" rowspan="1"><p><strong>Acció</strong></p>
-</td><td colspan="1" rowspan="1"><p><strong>Shortcut</strong></p>
+<tr><td colspan="1" rowspan="1"><p><code>size(width, height)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>width (int): amplada de la finestra</code></p>
+<p><code>height (int): alçada de la finestra</code></p>
+</td><td colspan="1" rowspan="1"><p>Defineix el tamany de la finestra</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p>Moure una línia de codi, o vàries línies seleccionades</p>
-</td><td colspan="1" rowspan="1"><p><code>Ctrl+Shift+Up</code></p>
-<p><code>Ctrl+Shift+Down</code></p>
+<tr><td colspan="1" rowspan="1"><p><code>background(gray)</code></p>
+<p><code>background(r, g, b)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>gray (float): gris (0,255)</code></p>
+<p><code>r (float): vermell (0-255)</code></p>
+<p><code>g (float): verd (0-255)</code></p>
+<p><code>b (float): blau (0-255)</code></p>
+</td><td colspan="1" rowspan="1"><p>Defineix el color de fons</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p>Duplicar una línia de codi</p>
-</td><td colspan="1" rowspan="1"><p><code>Ctrl+D</code></p>
+<tr><td colspan="1" rowspan="1"><p><code>fill(gray)</code></p>
+<p><code>fill(r, g, b)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>gray (float): gris (0,255)</code></p>
+<p><code>r (float): vermell (0-255)</code></p>
+<p><code>g (float): verd (0-255)</code></p>
+<p><code>b (float): blau (0-255)</code></p>
+</td><td colspan="1" rowspan="1"><p>Defineix el color en que s&#39;ompliràn les figures</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p>Eliminar una línia de codi</p>
-</td><td colspan="1" rowspan="1"><p><code>Ctrl+Y</code></p>
+<tr><td colspan="1" rowspan="1"><p><code>stroke(gray)</code></p>
+<p><code>stroke(r, g, b)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>gray (float): gris (0,255)</code></p>
+<p><code>r (float): vermell (0-255)</code></p>
+<p><code>g (float): verd (0-255)</code></p>
+<p><code>b (float): blau (0-255)</code></p>
+</td><td colspan="1" rowspan="1"><p>Defineix el color en que es dibuixaran les línies i les vores de les figures</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p>Comentar o descomentar una línia de codi</p>
-</td><td colspan="1" rowspan="1"><p><code>Ctrl+/</code></p>
+<tr><td colspan="1" rowspan="1"><p><code>strokeWeight(weight)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>weight (float): el gruixut del traç</code></p>
+</td><td colspan="1" rowspan="1"><p>Defineix el gruixut en que es dibuixaran les línies i les vores de les figures</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p>Coment un block de codi</p>
-</td><td colspan="1" rowspan="1"><p><code>Ctrl+Shift+/</code></p>
+<tr><td colspan="1" rowspan="1"><p><code>circle(x, y, d)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x (float): coordinada X</code></p>
+<p><code>y (float): coordinada Y</code></p>
+<p><code>d (float): diàmetre</code></p>
+</td><td colspan="1" rowspan="1"><p>Dibuixa un circle</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p>Find and replace in the current file</p>
-</td><td colspan="1" rowspan="1"><p><code>Ctrl+R</code></p>
+<tr><td colspan="1" rowspan="1"><p><code>line(x1, y1, x2, y2)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x1 (float): coordinada X del primer punt</code></p>
+<p><code>y1 (float): coordinada Y del primer punt</code></p>
+<p><code>x2 (float): coordinada X del segon punt</code></p>
+<p><code>y2 (float): coordinada Y del segon punt</code></p>
+</td><td colspan="1" rowspan="1"><p>Dibuixa una línia</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p>Surround with</p>
-</td><td colspan="1" rowspan="1"><p><code>Ctrl+Alt+T</code></p>
+<tr><td colspan="1" rowspan="1"><p><code>point(x, y)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x (float): coordinada X</code></p>
+<p><code>y (float): coordinada Y</code></p>
+</td><td colspan="1" rowspan="1"><p>Dibuixa un punt</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>rect(x, y, width, height)</code></p>
+<p><code>rect(x, y, width, height, radius)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x (float): coordinada X</code></p>
+<p><code>y (float): coordinada Y</code></p>
+<p><code>width (float): amplada</code></p>
+<p><code>height (float): alçada</code></p>
+<p><code>radius (float): radi dels cantons </code></p>
+</td><td colspan="1" rowspan="1"><p>Dibuixa un rectangle</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>triangle(x1, y1, x2, y2, x3, y3)</code></p>
+</td><td colspan="1" rowspan="1"><p><code>x1 (float): coordinada X del primer punt</code></p>
+<p><code>y1 (float): coordinada Y del primer punt</code></p>
+<p><code>x2 (float): coordinada X del segon punt</code></p>
+<p><code>y2 (float): coordinada Y del segon punt</code></p>
+<p><code>x3 (float): coordinada X del tercer punt</code></p>
+<p><code>y4 (float): coordinada Y del tercer punt</code></p>
+</td><td colspan="1" rowspan="1"><p>Dibuixa un triangle</p>
 </td></tr>
 </table>
-<h2 is-upgraded>Refactorització</h2>
-<p>En moltes ocasions ens trobem que hem de canviar el nom d&#39;una variable, o una classe, que hem utilitzat en molts llocs del programa. Canviar el nom a mà a cada lloc pot ser molt lent.</p>
-<p>Una forma eficient de fer-ho és amb la refactorització.</p>
-<p>Col·loca el cursor sobre la variable o classe a la que li vols canviar el nom i fes <code>Shift+F6</code></p>
-<p class="image-container"><img style="width: 340.00px" src="img\8ab5ccdbfc513fb7.gif"></p>
-<aside class="special"><p>La refactorització és una de les eines més potents que ofereix un IDE:</p>
-<p><a href="https://www.jetbrains.com/help/idea/refactoring-source-code.html" target="_blank">https://www.jetbrains.com/help/idea/refactoring-source-code.html</a> </p>
+<aside class="special"><p>Trobaràs tots els mètodes de la API aquí: <a href="https://processing.org/reference/" target="_blank">https://processing.org/reference/</a></p>
 </aside>
-<h2 is-upgraded>Estil de codi i format</h2>
-<p>IntelliJ IDEA aplica automàticament l&#39;estil de codi que s&#39;ha configurat a la configuració de l&#39;<a href="https://www.jetbrains.com/help/idea/settings-code-style.html" target="_blank">Estil de codi a</a> mesura que s&#39;edita i, en la majoria dels casos, no cal que es cridi explícitament l&#39;acció del <em>codi reformat</em> .</p>
-<p>Dreceres de format útils:</p>
-<table>
-<tr><td colspan="1" rowspan="1"><p><strong>Acció</strong></p>
-</td><td colspan="1" rowspan="1"><p><strong>Shortcut</strong></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Reformat del codi</p>
-</td><td colspan="1" rowspan="1"><p><code>Ctrl+Alt+L</code></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Línies de sagnat automàtic</p>
-</td><td colspan="1" rowspan="1"><p><code>Ctrl+Alt+I</code></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>Optimitzeu les importacions</p>
-</td><td colspan="1" rowspan="1"><p><code>Ctrl+Alt+O</code></p>
-</td></tr>
-</table>
-<p>Tingueu en compte que, per defecte, IntelliJ IDEA utilitza espais regulars per a sagnats en lloc de tabulacions. Si teniu fitxers amb molts sagnats, és possible que vulgueu optimitzar la seva mida si activeu l&#39; opció &#34;Utilitza el caràcter de tabulació&#34; a la <a href="https://www.jetbrains.com/help/idea/code-style-java.html" target="_blank">configuració d&#39;estil de codi Java</a> .</p>
-<p>Per obtenir més informació, consulteu <a href="https://www.jetbrains.com/help/idea/reformat-and-rearrange-code.html" target="_blank">Reforma de codi font</a> .</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Intentions" duration="0">
-        <p>Mentre treballem a l&#39;editor, IntelliJ IDEA analitza el codi, cerca maneres d&#39;optimitzar-lo i detecta problemes potencials i reals.</p>
-<p>Tan aviat com l&#39;IDE ​​trobi una manera d&#39;alterar el codi, es mostra la icona <img alt="icona de bombeta groga" style="width: 32.00px" src="img\bf52395f0c994582.png">a l&#39;editor situat al costat de la línia actual. Si feu clic en aquesta icona, podeu veure les <em>intent actions</em> disponibles per a aquesta unitat de codi. Les <em>intent actions</em> cobreixen un ampli ventall de situacions, des d&#39;advertiments fins a suggeriments d&#39;optimització. Podeu <a href="https://www.jetbrains.com/help/idea/intention-actions.html#intention-settings" target="_blank">veure la llista completa d&#39;intensions i desactivar-los</a> a la configuració.</p>
-<p>Un exemple d&#39;intent action és &#34;Invertir un if&#34;:</p>
-<p class="image-container"><img style="width: 340.00px" src="img\f3520aa7d669a6a1.gif"></p>
-<p>La icona<img alt="la icona Fixació ràpida" style="width: 32.00px" src="img\aed71a42525b6601.png"> indica que IntelliJ IDEA ha detectat un problema i us demana que seleccioneu una correcció associada: <em>una solució ràpida</em> .</p>
-<p>Un exemple de soució ràpida és &#34;Canviar el tipus de variable&#34;:</p>
-<p class="image-container"><img style="width: 340.00px" src="img\ab741e42bf73ee05.gif"></p>
+      <google-codelab-step label="Dibuixant amb loops" duration="0">
+        <p>Començarem amb els rectangles.</p>
+<p>Dibuixar un rectangle és molt fàcil:</p>
+<pre><code>size(300, 200);  // finestra de 300x200
+background(0);   // fons negre
+stroke(255);     // traç blanc
+fill(0, 0);      // figures transparents
+strokeWeight(2); // gruixut del traç 2
+
+
+rect(0, 25, 100, 150);</code></pre>
+<p class="image-container"><img style="width: 302.00px" src="img\9bf6418466b308d5.png"></p>
+<p>Dibuixar-ne varis també és molt fàcil. Només cal copiar la sentència  vàries vegades:</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+
+rect(0, 50, 100, 150);  
+rect(10, 50, 100, 150);  
+rect(20, 50, 100, 150);  
+rect(30, 50, 100, 150);  
+rect(40, 50, 100, 150);
+rect(50, 50, 100, 150);</code></pre>
+<p class="image-container"><img style="width: 302.00px" src="img\f91767b9a5bc64cd.png"></p>
+<p>Observa que en aquest codi, hi ha una sentència que es repeteix, on només varia el valor de la posició <code>X</code> del rectangle: <code>0, 10, 20, 30, 40</code></p>
+<p>Quan tenim un patró que es repeteix en un programa, on hi només hi ha petites variacions en cada repetició, aquest patró és subceptible de transformar-lo en un <em>loop</em>.</p>
+<p>Hem de detectar en què varia el patró i substituir allò que varia per una... <strong>variable!</strong></p>
+<p><code>rect(x, 50, 100, 150);  </code></p>
+<p>Ara cal definir aquesta variable quins valors prendrà en les successives iteracions del <em>loop</em>. És a dir, cal definir:</p>
+<ul>
+<li>Quin valor tindrà a l&#39;inici →  la <code>x</code> comença per <code>0</code> → <code>x=0</code></li>
+<li>Quina condició ha de complir el valor →  la <code>x</code> és sempre menor o igual a <code>50</code> → <code>x&lt;=0</code></li>
+<li>Com es modificarà en cada iteració →    en cada iteració la <code>x</code> va augmentant en <code>10</code> → <code>x += 10</code></li>
+</ul>
+<p>Així podem construir el bucle for:</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+
+for (int x=0; x &lt;= 50; x += 10){
+   rect(x, 25, 100, 150);  
+}</code></pre>
+<p>D&#39;aquesta manera, en lloc d&#39;especificar uns valors fixes per a dibuixar un rectangle, podem fer-ho amb valors canviants i dibuixar cada cop un rectangle diferent (en posició i tamany)</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+
+for (int x=0; x &lt;= 50; x += 10){
+   rect(x, x, x, x);  
+}</code></pre>
+<p class="image-container"><img style="width: 302.00px" src="img\b0d0fcb59fab2198.png"></p>
+<p>No sempre és fàcil (o inclús possible) trobar el patró que segueixen els valors, i això impossibilita poder usar un <em>loop</em>.</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+rect(30, 19, 33, 36);  
+rect(10, 47, 55, 97);  
+rect(17, 14, 37, 59);  
+rect(123, 91, 13, 49);  
+rect(80, 72, 48, 71);  
+rect(97, 171, 67, 3);  
+rect(41, 112, 138, 7);  </code></pre>
+<p class="image-container"><img style="width: 302.00px" src="img\fb8b0956fe8484ba.png"></p>
+<p>És possible que alguns valors es deriven d&#39;un mateix valor:</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+
+rect(0, 0, 0, 0);  
+rect(10, 20, 15, 5);  
+rect(20, 40, 25, 10);  
+rect(30, 60, 35, 15);  
+rect(40, 80, 45, 20);   
+rect(50, 100, 55, 25); 
+rect(60, 120, 65, 30); 
+rect(70, 140, 75, 35); </code></pre>
+<p class="image-container"><img style="width: 302.00px" src="img\50a4f44859e9439.png"></p>
+<p>En aquest cas podem observar:</p>
+<ul>
+<li>La posició <code>x</code> va augmentant de <code>10</code> en <code>10</code></li>
+<li>La posició <code>y</code> és el doble que la posició <code>x</code></li>
+<li>L&#39;<code>amplada</code> és la posició <code>x</code> més <code>5</code></li>
+<li>L&#39;<code>alça</code>da és la mitat de la posició <code>x</code></li>
+</ul>
+<p>De forma que podem transformar aquestes línies en un <em>loop</em>, amb els valors calculats a partir de la x (o qualsevol altre):</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+
+for (int x=0; x&lt;=70; x += 10){
+  rect(x, x*2, x+5, x/2);  
+}</code></pre>
+<h2 is-upgraded>Doble loops</h2>
+<p>En alguns casos ens trobem que alguns valors segueixen un patró, i altres valors en segueixen un altre de diferent. Veiem un exemple.</p>
+<p>En aquest dibuix podem trobar un patró entre la posició <code>x</code> i l&#39;<code>amplada</code> dels rectangles:</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+
+rect(0,0,0,25);
+rect(1,0,1,25);
+rect(4,0,2,25);
+rect(9,0,3,25);
+rect(16,0,4,25);
+rect(25,0,5,25);
+rect(36,0,6,25);
+rect(49,0,7,25);
+rect(64,0,8,25);
+rect(81,0,9,25);
+rect(100,0,10,25);</code></pre>
+<p>El patró és efectivament que la posició és el quadrat de l&#39;amplada</p>
+<p class="image-container"><img style="width: 302.00px" src="img\5a72417cf1043fe6.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Live templates" duration="0">
-        <p>Mitjançant la utilització de <em>live templates</em>, podem inserir construccions usades freqüentment al codi. Per exemple, bucles, condicions, diverses declaracions o declaracions d&#39;impressió. Per ampliar un fragment de codi, escriviu la <em>template abbreviation</em> corresponent i premeu <code>Tab</code>.</p>
-<p>Live templates útils:</p>
-<table>
-<tr><td colspan="1" rowspan="1"><p><strong>Abbreviation</strong></p>
-</td><td colspan="1" rowspan="1"><p><strong>Expands to</strong></p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>psvm</p>
-</td><td colspan="1" rowspan="1"><p>public static void main(String[] args){</p>
+      <google-codelab-step label="Ritmes amb loops" duration="0">
+        <p>Assegura&#39;t d&#39;haver instal·lat la llibreria sound i que has descarregat els sons <code>snare.wav</code> i <code>bass.wav</code></p>
+<p>Reproduir sons amb aquesta llibreria és molt fàcil. Només cal carregar els sons i donar-li a play(). Juguem amb el delay() per a crear el ritme:</p>
+<pre><code>import processing.sound.*;   // carreguem la llibreria sound
+
+SoundFile snare = new SoundFile(this, &#34;snare.wav&#34;);
+SoundFile bass = new SoundFile(this, &#34;bass.wav&#34;);
+delay(1000); // donem temps per a carregar els sons
+
+
+bass.play();
+delay(400);
+bass.play();
+delay(400);
+snare.play();
+delay(800);
+
+bass.play();
+delay(400);
+bass.play();
+delay(400);
+snare.play();
+delay(800);
+
+bass.play();
+delay(400);
+bass.play();
+delay(400);
+snare.play();
+delay(800);</code></pre>
+<p>We will, we will rock you </p>
+<p class="image-container"><img style="width: 570.00px" src="img\2c7df731d9fdb698.png"></p>
+<p class="image-container"><img style="width: 573.00px" src="img\95e335258aadb634.png"></p>
+<p>Aquí podem observar un patró que es va repetint. Fem un loop:</p>
+<pre><code>// Posa aquí el codi d&#39;inicialització
+
+for (int i=0; i&lt;3; i++){
+  bass.play();
+  delay(400);
+  bass.play();
+  delay(400);
+  snare.play();
+  delay(800);  
+}</code></pre>
+<p class="image-container"><img style="width: 432.00px" src="img\7394ea20e0213127.png"></p>
+<p>for (int j=0; j&lt;3; j++){</p>
+<p>  bass.play(); delay(400);</p>
+<p>  bass.play(); delay(400);</p>
+<p>  snare.play(); delay(800);  </p>
 <p>}</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>sout</p>
-</td><td colspan="1" rowspan="1"><p>System.out.println();</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>fori</p>
-</td><td colspan="1" rowspan="1"><p>for (int i = 0; i &lt; ; i++) {</p>
+<p>Amb un loop, hem repetit 3 cops les mateixes instruccions.</p>
+<p>Podríem repetir aquest <em>loop</em> durant tota la cançó, però seria una mica monòton. Cal posar un redoble:</p>
+<pre><code>for (int j=0; j&lt;3; j++){
+  bass.play(); delay(400);
+  bass.play(); delay(400);
+  snare.play(); delay(800);  
+}
+
+bass.play(); delay(400);
+bass.play(); delay(400);
+snare.play(); delay(200);  
+snare.play(); delay(200);  
+snare.play(); delay(200); 
+snare.play(); delay(200); </code></pre>
+<p class="image-container"><img style="width: 577.00px" src="img\16af5a4f00274033.png"></p>
+<p>for (int j=0; j&lt;3; j++){</p>
+<p>  bass.play(); delay(400);</p>
+<p>  bass.play(); delay(400);</p>
+<p>  snare.play(); delay(800);  </p>
 <p>}</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p>ifn</p>
-</td><td colspan="1" rowspan="1"><p>if (var == null) {</p>
+<p>bass.play(); delay(400);</p>
+<p>bass.play(); delay(400);</p>
+<p>snare.play(); delay(200);  </p>
+<p>snare.play(); delay(200);  </p>
+<p>snare.play(); delay(200); </p>
+<p>snare.play(); delay(200); </p>
+<p>Observa que el l&#39;últim bloc (morat) és diferent als tres anteriors (taronja), no els podem incloure al mateix loop, ja que no segueixen el mateix patró. Repetim tres cops el patró taronja i un cop el patró morat.</p>
+<p>Podem encara filar més prim i tractar d&#39;extraure més patrons (coses que es repeteixen), per exemple els quatre snares del final:</p>
+<p class="image-container"><img style="width: 577.00px" src="img\9088e2ee60c5e939.png"></p>
+<p>for (int j=0; j&lt;3; j++){</p>
+<p>  bass.play(); delay(400);</p>
+<p>  bass.play(); delay(400);</p>
+<p>  snare.play(); delay(800);  </p>
 <p>}</p>
-</td></tr>
-</table>
-<h2 is-upgraded>Afegir Live Templates</h2>
-<p>IntelliJ ens permet afegit els nous <em>Live Templates</em> per al codi que utilitzem més sovint.</p>
-<p>Ves a <code>File</code> &gt; <code>Settings</code> &gt; <code>Editor</code> &gt; <code>Live Templates</code></p>
-<p class="image-container"><img style="width: 729.00px" src="img\dbfd126a8d8cecc9.png"></p>
-<p>Fes click a la icona <img style="width: 19.00px" src="img\e11119a3765ff60.png"></p>
-<p>Abbreviation: <code>scn</code></p>
-<p>Template text: <code>Scanner scanner = new Scanner(System.in);</code></p>
-<p class="image-container"><img style="width: 548.00px" src="img\d64b1978b87c2f62.png"></p>
-<p>Defineix el context JAVA</p>
-<p class="image-container"><img style="width: 129.00px" src="img\770e366f86cdd1cd.png"></p>
-<p>Ja està, ara per a crear un Scanner només has de teclejar <code>scn</code> i polsar <code>Tab</code>.</p>
+<p>bass.play(); delay(400);</p>
+<p>bass.play(); delay(400);</p>
+<p>for (int m=0; m&lt;4; m++){</p>
+<p>  snare.play(); delay(200);  </p>
+<p>}</p>
+<p>Anem a completar seguir una mica la cançò fent que tot aquest patró es repeteixi dues vegades:</p>
+<p class="image-container"><img style="width: 736.40px" src="img\95562cc9b13e3732.png"></p>
+<p>for (int t=0; t&lt;2; t++){</p>
+<p>  for (int j=0; j&lt;3; j++){</p>
+<p>    bass.play(); delay(400);</p>
+<p>    bass.play(); delay(400);</p>
+<p>    snare.play(); delay(800);  </p>
+<p>  }</p>
+<p>  bass.play(); delay(400);</p>
+<p>  bass.play(); delay(400);</p>
+<p>  for (int m=0; m&lt;4; m++){</p>
+<p>    snare.play(); delay(200);  </p>
+<p>  }</p>
+<p>}</p>
+<p>I així podriem seguir fins completar la cancó fent loops dintre de loops... Però abans d&#39;acabar encara ens queda un petit patró en el codi:</p>
+<p class="image-container"><img style="width: 736.40px" src="img\8803d6b647f2f408.png"></p>
+<p>for (int t=0; t&lt;2; t++){</p>
+<p>  for (int j=0; j&lt;3; j++){</p>
+<p>    for (int w=0; w&lt;2; w++){</p>
+<p>      bass.play(); delay(400);</p>
+<p>    }</p>
+<p>    snare.play(); delay(800);  </p>
+<p>  }</p>
+<p>  for (int k=0; k&lt;2; k++){</p>
+<p>    bass.play(); delay(400);</p>
+<p>  }</p>
+<p>  for (int m=0; m&lt;4; m++){</p>
+<p>    snare.play(); delay(200);  </p>
+<p>  }</p>
+<p>}</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Loop art" duration="0">
+        <pre><code>size(200, 200);
+
+for(int i=0; i&lt;height; i+=10){
+  for(int j=0; j&lt;width; j+=10){
+     fill(random(255), random(255), random(255));
+     stroke(random(255));
+     rect(j, i, 10, 10);
+  }
+}</code></pre>
+<pre><code>size(200, 200);
+
+for(int i=0; i&lt;height; i+=10){
+  for(int j=0; j&lt;width; j+=10){
+     fill(random(255), random(255), random(255));
+     stroke(random(255));
+     triangle(j, i, j+5, i-10, j+10, i);
+  }
+}</code></pre>
+<pre><code>size(200, 200);
+
+for(int i=0; i&lt;height; i+=10){
+  for(int j=0; j&lt;width; j+=10){
+     fill(random(255), random(255), random(255));
+     stroke(random(255));
+     circle(j, i, 10);
+  }
+}</code></pre>
+<pre><code>for(int i=0; i&lt;height; i+=10){
+  for(int j=0; j&lt;width; j+=10){
+     stroke(random(255), random(255), random(255));
+     line(j, i, width, height);
+     stroke(random(255), random(255), random(255));
+     line(0, 0, j, i);
+     stroke(random(255), random(255), random(255));
+     line(0, height, j, i);
+     stroke(random(255), random(255), random(255));
+     line(width,0, j, i);
+  }
+}</code></pre>
+<pre><code>for (int i=0; i&lt;height; i += 20){
+  for (int j=0; j&lt;width; j += 20){
+    fill(random(255), random(255), random(255));
+    triangle(j, i, i, j, 20, 20); 
+  }
+}</code></pre>
+<p class="image-container"><img style="width: 402.00px" src="img\f2427eef87bb134b.png"></p>
+<pre><code>size(305, 375);
+
+stroke(0);
+strokeWeight(10);
+
+fill(255);
+rect(5, 5, 75, 81);
+rect(5, 95, 75, 190);
+rect(80, 180, 170, 190);
+rect(250, 270, 50, 40);
+
+fill(#ca4b2a);
+rect(80, 5, 220, 265);
+
+fill(#125093);
+rect(5, 270, 75, 100);
+
+fill(#fcea93);
+rect(250, 310, 50, 60);</code></pre>
 
 
       </google-codelab-step>

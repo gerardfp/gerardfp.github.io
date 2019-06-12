@@ -3,12 +3,12 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2019-05-11T14:05:04Z",
+  "updated": "2019-06-12T16:34:44Z",
   "id": "mp03/codelab9",
   "duration": 0,
-  "title": "Depuració",
-  "summary": "debugger",
-  "source": "1k-cnU25VI8Ef4Wxi5DNXF5amLnpMIz4fuds5Iuw6BqQ",
+  "title": "IntelliJ IDEA",
+  "summary": "intellij",
+  "source": "1LWoPoOnpmcI6cRPVY8VCrtFqfbJNMzGB65Wynf_fIuI",
   "theme": "java",
   "status": [
     "draft"

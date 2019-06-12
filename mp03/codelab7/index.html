@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Loops</title>
+  <title>Depuració</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,400 +23,137 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="mp03/codelab7"
-                  title="Loops"
+                  title="Depuració"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        
+        <p class="image-container"><img style="width: 371.00px" src="img\e0327dcb23af34d7.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és la iniciació a l&#39;ús de depurador (<em>debugger</em>).</p>
+<p>La depuració de programes és el procés d&#39;identificar i corregir errors de programació (<em>bugs</em>).</p>
+<p>IntelliJ proporciona una ampli ventall d&#39;eines per a la depuració del codi. Es pot trobar una guia exhaustiva al següent enllaç: <a href="https://www.jetbrains.com/help/idea/debugging-code.html" target="_blank">https://www.jetbrains.com/help/idea/debugging-code.html</a> </p>
+<p>En aquest codelab ens iniciarem en l&#39;ús de:</p>
+<ul>
+<li>Breakpoints</li>
+<li>Watches</li>
+</ul>
+
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Descarrega Processing de la seva web oficial:</p>
-<p><a href="https://processing.org/download/" target="_blank"><paper-button class="colored" raised><iron-icon icon="file-download"></iron-icon>Download Processing</paper-button></a></p>
-<p>Descomprimeix l&#39;arxiu que has descarregat i executa <code>Processing</code>.</p>
-<p>S&#39;obrirà l&#39;entorn de programació de Processing. Anomena i desa el projecte amb el nom <code>Loops</code></p>
-<p class="image-container"><img style="width: 386.00px" src="img\be736238ac447919.png"></p>
-<p>Instal·la també la llibreria Sound. Per fer-ho ves a <code>Herramientas</code> &gt; <code>Añadir Herramienta...</code></p>
-<p class="image-container"><img style="width: 649.00px" src="img\2ad5372c59d61ae4.png"></p>
-<p>També necessitaràs aquests dos sons, descarrega&#39;ls a la carpeta del projecte amb els noms que s&#39;indiquen:</p>
-<p><a href="https://freewavesamples.com/files/Korg-N1R-Snare-Drum.wav" target="_blank">https://freewavesamples.com/files/Korg-N1R-Snare-Drum.wav</a> <code>snare.wav</code></p>
-<p><a href="https://freewavesamples.com/files/Korg-N1R-Bass-Drum.wav" target="_blank">https://freewavesamples.com/files/Korg-N1R-Bass-Drum.wav</a> <code>bass.wav</code></p>
+        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Debugger&#34;.</p>
+<p class="image-container"><img style="width: 548.00px" src="img\1f77c27e0b506e0f.png"></p>
+<p class="image-container"><img style="width: 548.00px" src="img\8556ac2bd86adfea.png"></p>
+<p class="image-container"><img style="width: 548.00px" src="img\78e32da7f723506.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Processing API" duration="0">
-        <p>Processing proporciona una API amb infinitud de mètodes a disposició del programador per a ser usats. En aquest CodeLab utilitzarem aquests:</p>
-<table>
-<tr><td colspan="1" rowspan="1"><p><code>size(width, height)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>width (int): amplada de la finestra</code></p>
-<p><code>height (int): alçada de la finestra</code></p>
-</td><td colspan="1" rowspan="1"><p>Defineix el tamany de la finestra</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>background(gray)</code></p>
-<p><code>background(r, g, b)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>gray (float): gris (0,255)</code></p>
-<p><code>r (float): vermell (0-255)</code></p>
-<p><code>g (float): verd (0-255)</code></p>
-<p><code>b (float): blau (0-255)</code></p>
-</td><td colspan="1" rowspan="1"><p>Defineix el color de fons</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>fill(gray)</code></p>
-<p><code>fill(r, g, b)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>gray (float): gris (0,255)</code></p>
-<p><code>r (float): vermell (0-255)</code></p>
-<p><code>g (float): verd (0-255)</code></p>
-<p><code>b (float): blau (0-255)</code></p>
-</td><td colspan="1" rowspan="1"><p>Defineix el color en que s&#39;ompliràn les figures</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>stroke(gray)</code></p>
-<p><code>stroke(r, g, b)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>gray (float): gris (0,255)</code></p>
-<p><code>r (float): vermell (0-255)</code></p>
-<p><code>g (float): verd (0-255)</code></p>
-<p><code>b (float): blau (0-255)</code></p>
-</td><td colspan="1" rowspan="1"><p>Defineix el color en que es dibuixaran les línies i les vores de les figures</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>strokeWeight(weight)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>weight (float): el gruixut del traç</code></p>
-</td><td colspan="1" rowspan="1"><p>Defineix el gruixut en que es dibuixaran les línies i les vores de les figures</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>circle(x, y, d)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>x (float): coordinada X</code></p>
-<p><code>y (float): coordinada Y</code></p>
-<p><code>d (float): diàmetre</code></p>
-</td><td colspan="1" rowspan="1"><p>Dibuixa un circle</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>line(x1, y1, x2, y2)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>x1 (float): coordinada X del primer punt</code></p>
-<p><code>y1 (float): coordinada Y del primer punt</code></p>
-<p><code>x2 (float): coordinada X del segon punt</code></p>
-<p><code>y2 (float): coordinada Y del segon punt</code></p>
-</td><td colspan="1" rowspan="1"><p>Dibuixa una línia</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>point(x, y)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>x (float): coordinada X</code></p>
-<p><code>y (float): coordinada Y</code></p>
-</td><td colspan="1" rowspan="1"><p>Dibuixa un punt</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>rect(x, y, width, height)</code></p>
-<p><code>rect(x, y, width, height, radius)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>x (float): coordinada X</code></p>
-<p><code>y (float): coordinada Y</code></p>
-<p><code>width (float): amplada</code></p>
-<p><code>height (float): alçada</code></p>
-<p><code>radius (float): radi dels cantons </code></p>
-</td><td colspan="1" rowspan="1"><p>Dibuixa un rectangle</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>triangle(x1, y1, x2, y2, x3, y3)</code></p>
-</td><td colspan="1" rowspan="1"><p><code>x1 (float): coordinada X del primer punt</code></p>
-<p><code>y1 (float): coordinada Y del primer punt</code></p>
-<p><code>x2 (float): coordinada X del segon punt</code></p>
-<p><code>y2 (float): coordinada Y del segon punt</code></p>
-<p><code>x3 (float): coordinada X del tercer punt</code></p>
-<p><code>y4 (float): coordinada Y del tercer punt</code></p>
-</td><td colspan="1" rowspan="1"><p>Dibuixa un triangle</p>
-</td></tr>
-</table>
-<aside class="special"><p>Trobaràs tots els mètodes de la API aquí: <a href="https://processing.org/reference/" target="_blank">https://processing.org/reference/</a></p>
-</aside>
+      <google-codelab-step label="Pica el codi" duration="0">
+        <p>El següent codi tracta de comprovar si cada element d&#39;un array és la meitat de l&#39;anterior:</p>
+<pre><code>public class Main {
+
+   public static void main(String[] args) {
+
+       int[] myArray = { 100, 50, 25, 12, 6, 3, 1 };
+
+       for (int i = 0; i &lt; myArray.length; i++) {
+           if (myArray[i] == myArray[i-1]/2){
+               System.out.println(myArray[i] + &#34; es la meitat de &#34; + myArray[i-1]);
+           }
+       }
+   }
+}</code></pre>
+<p>Aquest codi conté alguns errors (<em>bugs</em>) que tractarem de corregir.</p>
+<p>Si l&#39;executem tal i com està ens sortirà el seguent <em>runtime-error</em>:</p>
+<pre><code>Exception in thread &#34;main&#34; java.lang.ArrayIndexOutOfBoundsException: -1
+        at com.company.Main.main(Main.java:10)</code></pre>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Dibuixant amb loops" duration="0">
-        <p>Començarem amb els rectangles.</p>
-<p>Dibuixar un rectangle és molt fàcil:</p>
-<pre><code>size(300, 200);  // finestra de 300x200
-background(0);   // fons negre
-stroke(255);     // traç blanc
-fill(0, 0);      // figures transparents
-strokeWeight(2); // gruixut del traç 2
+      <google-codelab-step label="Breakpoints" duration="0">
+        <p>Els <em>breakpoints </em>són punts en els que podem aturar l&#39;execució d&#39;un programa, i observar pas a pas el seu comportament.</p>
+<p>Per a afegir un breakpoint, només cal posar el cursor sobre la línia on el volem posar i prèmer <code>Ctrl+F8</code>.</p>
+<p>També ho podem fer amb el ratolí, fent click sobre el panell gris que hi ha just al costat del codi:</p>
+<p class="image-container"><img style="width: 669.00px" src="img\499f4e0c06396984.gif"></p>
+<p>Quan afegim un breakpoint, s&#39;indica amb un cercle vermell.</p>
 
 
-rect(0, 25, 100, 150);</code></pre>
-<p class="image-container"><img style="width: 302.00px" src="img\9bf6418466b308d5.png"></p>
-<p>Dibuixar-ne varis també és molt fàcil. Només cal copiar la sentència  vàries vegades:</p>
-<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
-
-rect(0, 50, 100, 150);  
-rect(10, 50, 100, 150);  
-rect(20, 50, 100, 150);  
-rect(30, 50, 100, 150);  
-rect(40, 50, 100, 150);
-rect(50, 50, 100, 150);</code></pre>
-<p class="image-container"><img style="width: 302.00px" src="img\f91767b9a5bc64cd.png"></p>
-<p>Observa que en aquest codi, hi ha una sentència que es repeteix, on només varia el valor de la posició <code>X</code> del rectangle: <code>0, 10, 20, 30, 40</code></p>
-<p>Quan tenim un patró que es repeteix en un programa, on hi només hi ha petites variacions en cada repetició, aquest patró és subceptible de transformar-lo en un <em>loop</em>.</p>
-<p>Hem de detectar en què varia el patró i substituir allò que varia per una... <strong>variable!</strong></p>
-<p><code>rect(x, 50, 100, 150);  </code></p>
-<p>Ara cal definir aquesta variable quins valors prendrà en les successives iteracions del <em>loop</em>. És a dir, cal definir:</p>
+      </google-codelab-step>
+    
+      <google-codelab-step label="Iniciar la depuració" duration="0">
+        <p>Una cop afegit els breakpoints desitjats, es pot iniciar la depuració de l&#39;aplicació.</p>
+<p>Per a iniciar-la fem click a l&#39;icona Debug (<img style="width: 20.00px" src="img\f79b7b2a362e7eb4.png">) o premem <code>Ctrl+F9</code>.</p>
+<p>IntelliJ llançará la sessión de depuració. Compilarà i executarà l&#39;aplicació, suspenent-la al primer breakpoint. Podem veure dues coses que han canviat:</p>
 <ul>
-<li>Quin valor tindrà a l&#39;inici →  la <code>x</code> comença per <code>0</code> → <code>x=0</code></li>
-<li>Quina condició ha de complir el valor →  la <code>x</code> és sempre menor o igual a <code>50</code> → <code>x&lt;=0</code></li>
-<li>Com es modificarà en cada iteració →    en cada iteració la <code>x</code> va augmentant en <code>10</code> → <code>x += 10</code></li>
+<li>La primera cosa que ha canviat és el color de la primera línea amb un breakpoint. Ara es veurà de color blau:</li>
 </ul>
-<p>Així podem construir el bucle for:</p>
-<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
-
-for (int x=0; x &lt;= 50; x += 10){
-   rect(x, 25, 100, 150);  
-}</code></pre>
-<p>D&#39;aquesta manera, en lloc d&#39;especificar uns valors fixes per a dibuixar un rectangle, podem fer-ho amb valors canviants i dibuixar cada cop un rectangle diferent (en posició i tamany)</p>
-<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
-
-for (int x=0; x &lt;= 50; x += 10){
-   rect(x, x, x, x);  
-}</code></pre>
-<p class="image-container"><img style="width: 302.00px" src="img\b0d0fcb59fab2198.png"></p>
-<p>No sempre és fàcil (o inclús possible) trobar el patró que segueixen els valors, i això impossibilita poder usar un <em>loop</em>.</p>
-<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
-rect(30, 19, 33, 36);  
-rect(10, 47, 55, 97);  
-rect(17, 14, 37, 59);  
-rect(123, 91, 13, 49);  
-rect(80, 72, 48, 71);  
-rect(97, 171, 67, 3);  
-rect(41, 112, 138, 7);  </code></pre>
-<p class="image-container"><img style="width: 302.00px" src="img\fb8b0956fe8484ba.png"></p>
-<p>És possible que alguns valors es deriven d&#39;un mateix valor:</p>
-<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
-
-rect(0, 0, 0, 0);  
-rect(10, 20, 15, 5);  
-rect(20, 40, 25, 10);  
-rect(30, 60, 35, 15);  
-rect(40, 80, 45, 20);   
-rect(50, 100, 55, 25); 
-rect(60, 120, 65, 30); 
-rect(70, 140, 75, 35); </code></pre>
-<p class="image-container"><img style="width: 302.00px" src="img\50a4f44859e9439.png"></p>
-<p>En aquest cas podem observar:</p>
+<p class="image-container"><img style="width: 736.40px" src="img\d18f028a9af82893.png"></p>
+<p>Això significa que l&#39;execució ha arribat al breakpoint i s&#39;ha parat <strong>abans</strong> d&#39;executar la sentència.</p>
 <ul>
-<li>La posició <code>x</code> va augmentant de <code>10</code> en <code>10</code></li>
-<li>La posició <code>y</code> és el doble que la posició <code>x</code></li>
-<li>L&#39;<code>amplada</code> és la posició <code>x</code> més <code>5</code></li>
-<li>L&#39;<code>alça</code>da és la mitat de la posició <code>x</code></li>
+<li>A la part inferior de la finestra, ha sorgit el <code>Debug Tool Window</code>, amb molta informació sobre l&#39;execució del programa.</li>
 </ul>
-<p>De forma que podem transformar aquestes línies en un <em>loop</em>, amb els valors calculats a partir de la x (o qualsevol altre):</p>
-<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
-
-for (int x=0; x&lt;=70; x += 10){
-  rect(x, x*2, x+5, x/2);  
-}</code></pre>
-<h2 is-upgraded>Doble loops</h2>
-<p>En alguns casos ens trobem que alguns valors segueixen un patró, i altres valors en segueixen un altre de diferent. Veiem un exemple.</p>
-<p>En aquest dibuix podem trobar un patró entre la posició <code>x</code> i l&#39;<code>amplada</code> dels rectangles:</p>
-<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
-
-rect(0,0,0,25);
-rect(1,0,1,25);
-rect(4,0,2,25);
-rect(9,0,3,25);
-rect(16,0,4,25);
-rect(25,0,5,25);
-rect(36,0,6,25);
-rect(49,0,7,25);
-rect(64,0,8,25);
-rect(81,0,9,25);
-rect(100,0,10,25);</code></pre>
-<p>El patró és efectivament que la posició és el quadrat de l&#39;amplada</p>
-<p class="image-container"><img style="width: 302.00px" src="img\5a72417cf1043fe6.png"></p>
+<p class="image-container"><img style="width: 736.40px" src="img\7f94ea1be59b7b32.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Ritmes amb loops" duration="0">
-        <p>Assegura&#39;t d&#39;haver instal·lat la llibreria sound i que has descarregat els sons <code>snare.wav</code> i <code>bass.wav</code></p>
-<p>Reproduir sons amb aquesta llibreria és molt fàcil. Només cal carregar els sons i donar-li a play(). Juguem amb el delay() per a crear el ritme:</p>
-<pre><code>import processing.sound.*;   // carreguem la llibreria sound
+      <google-codelab-step label="Execució pas a pas" duration="0">
+        <p>Anem a fer un pas en l&#39;execució del programa. Fes click sobre la icona <img alt="icons actions traceOver svg" style="width: 20.00px" src="img\948c7b91032d34b9.png">, o simplement prem <code>F8</code>.</p>
+<p>La següent instrucció es posa en blau:</p>
+<p class="image-container"><img style="width: 736.40px" src="img\d13a4d44e2601478.png"></p>
+<p>Al panell <strong>Variables</strong>, podem veure ja on és l&#39;error del nostre programa: la variable <code>i</code> té el valor <code>0</code>, així que quan tractem d&#39;accedir a la posició <code>i-1</code> de <code>myArray</code>, l&#39;índex està fora dels límits (IndexOutOfBoundsException).</p>
+<p>Així doncs, deduïm que l&#39;error del nostra programa es dona quan la variable <code>i</code> té el valor <code>0</code>, i el podem corregir per a que comenci pel valor <code>1</code>:</p>
+<pre><code>public class Main {
 
-SoundFile snare = new SoundFile(this, &#34;snare.wav&#34;);
-SoundFile bass = new SoundFile(this, &#34;bass.wav&#34;);
-delay(1000); // donem temps per a carregar els sons
+   public static void main(String[] args) {
 
+       int[] myArray = { 100, 50, 25, 12, 6, 3, 1 };
 
-bass.play();
-delay(400);
-bass.play();
-delay(400);
-snare.play();
-delay(800);
-
-bass.play();
-delay(400);
-bass.play();
-delay(400);
-snare.play();
-delay(800);
-
-bass.play();
-delay(400);
-bass.play();
-delay(400);
-snare.play();
-delay(800);</code></pre>
-<p>We will, we will rock you </p>
-<p class="image-container"><img style="width: 570.00px" src="img\2c7df731d9fdb698.png"></p>
-<p class="image-container"><img style="width: 573.00px" src="img\95e335258aadb634.png"></p>
-<p>Aquí podem observar un patró que es va repetint. Fem un loop:</p>
-<pre><code>// Posa aquí el codi d&#39;inicialització
-
-for (int i=0; i&lt;3; i++){
-  bass.play();
-  delay(400);
-  bass.play();
-  delay(400);
-  snare.play();
-  delay(800);  
+       for (int i = 1; i &lt; myArray.length; i++) {
+           if (myArray[i] == myArray[i-1]/2){
+               System.out.println(myArray[i] + &#34; es la meitat de &#34; + myArray[i-1]);
+           }
+       }
+   }
 }</code></pre>
-<p class="image-container"><img style="width: 432.00px" src="img\7394ea20e0213127.png"></p>
-<p>for (int j=0; j&lt;3; j++){</p>
-<p>  bass.play(); delay(400);</p>
-<p>  bass.play(); delay(400);</p>
-<p>  snare.play(); delay(800);  </p>
-<p>}</p>
-<p>Amb un loop, hem repetit 3 cops les mateixes instruccions.</p>
-<p>Podríem repetir aquest <em>loop</em> durant tota la cançó, però seria una mica monòton. Cal posar un redoble:</p>
-<pre><code>for (int j=0; j&lt;3; j++){
-  bass.play(); delay(400);
-  bass.play(); delay(400);
-  snare.play(); delay(800);  
-}
+<h2 is-upgraded>Breakpoints condicionals</h2>
+<p>Ja hem corregit l&#39;error d&#39;execució (runtime-error) del programa. Però ara tenim un error molt més subtil que és més dificil de trobar.</p>
+<p>Si executem el programa, ens dona el següent resultat:</p>
+<pre><code>50 es la meitat de 100
+25 es la meitat de 50
+12 es la meitat de 25
+6 es la meitat de 12
+3 es la meitat de 6
+1 es la meitat de 3</code></pre>
+<p>Tenim un error extrany quan diu &#34;12 es la meitat de 25&#34;, perquè ens diu això? Sabem que la meitat de 25 és 12.5 i no 12. ¿Què està passant?</p>
+<p>Podem tornar a depurar el programa i anar pas a pas fins que s&#39;arribi al número 12, què és el que ens està donant el bug.</p>
+<p>Una altra opció, es afegir un breakpoint condicional, de forma que l&#39;execució s&#39;aturi justament quan s&#39;arribi al número 12.</p>
+<p>Per a fegir un breakpoint condicional, fem click-dreta sobre el breakpoint i afegim la condició desitjada. En el nostre cas, ens interessa que es pari quan el valor de <code>myArray[i]</code> sigui <code>12</code>:</p>
+<p class="image-container"><img style="width: 669.00px" src="img\b37763d429101704.gif"></p>
+<p>Si iniciem la depuració, l&#39;execució del programa s&#39;aturarà en el breakpoint, solament quan es compleixi la condició myArray[i] = 12. </p>
+<p>A la finestra <strong>Variables</strong>, podem veure el valor actual de totes les variables i afegir les expressions que desitjem.</p>
+<p>Podem veure que:</p>
+<p><code>myArray[i] = 12</code></p>
+<p><code>myArray[i-1] = 25</code></p>
+<p>Afegirem l&#39;expressió <code>myArray[i-1]/2</code> per veure quin és el resultat d&#39;aquesta divisió. Fem click al botó <img style="width: 21.00px" src="img\d333bcfbab2f579b.png">:</p>
+<p class="image-container"><img style="width: 736.40px" src="img\aee4a760e1fc6a0b.gif"></p>
+<p>Ja podem veure l&#39;error! L&#39;expressió <code>myArray[i-1]/2</code> dona com a resultat <code>12</code>. Ara ens podem adonar de que hauriem d&#39;haver realitzat una conversió a <code>float</code>, ja que el tipus <code>int</code> no té xifres decimals...</p>
+<pre><code>public class Main {
 
-bass.play(); delay(400);
-bass.play(); delay(400);
-snare.play(); delay(200);  
-snare.play(); delay(200);  
-snare.play(); delay(200); 
-snare.play(); delay(200); </code></pre>
-<p class="image-container"><img style="width: 577.00px" src="img\16af5a4f00274033.png"></p>
-<p>for (int j=0; j&lt;3; j++){</p>
-<p>  bass.play(); delay(400);</p>
-<p>  bass.play(); delay(400);</p>
-<p>  snare.play(); delay(800);  </p>
-<p>}</p>
-<p>bass.play(); delay(400);</p>
-<p>bass.play(); delay(400);</p>
-<p>snare.play(); delay(200);  </p>
-<p>snare.play(); delay(200);  </p>
-<p>snare.play(); delay(200); </p>
-<p>snare.play(); delay(200); </p>
-<p>Observa que el l&#39;últim bloc (morat) és diferent als tres anteriors (taronja), no els podem incloure al mateix loop, ja que no segueixen el mateix patró. Repetim tres cops el patró taronja i un cop el patró morat.</p>
-<p>Podem encara filar més prim i tractar d&#39;extraure més patrons (coses que es repeteixen), per exemple els quatre snares del final:</p>
-<p class="image-container"><img style="width: 577.00px" src="img\9088e2ee60c5e939.png"></p>
-<p>for (int j=0; j&lt;3; j++){</p>
-<p>  bass.play(); delay(400);</p>
-<p>  bass.play(); delay(400);</p>
-<p>  snare.play(); delay(800);  </p>
-<p>}</p>
-<p>bass.play(); delay(400);</p>
-<p>bass.play(); delay(400);</p>
-<p>for (int m=0; m&lt;4; m++){</p>
-<p>  snare.play(); delay(200);  </p>
-<p>}</p>
-<p>Anem a completar seguir una mica la cançò fent que tot aquest patró es repeteixi dues vegades:</p>
-<p class="image-container"><img style="width: 736.40px" src="img\95562cc9b13e3732.png"></p>
-<p>for (int t=0; t&lt;2; t++){</p>
-<p>  for (int j=0; j&lt;3; j++){</p>
-<p>    bass.play(); delay(400);</p>
-<p>    bass.play(); delay(400);</p>
-<p>    snare.play(); delay(800);  </p>
-<p>  }</p>
-<p>  bass.play(); delay(400);</p>
-<p>  bass.play(); delay(400);</p>
-<p>  for (int m=0; m&lt;4; m++){</p>
-<p>    snare.play(); delay(200);  </p>
-<p>  }</p>
-<p>}</p>
-<p>I així podriem seguir fins completar la cancó fent loops dintre de loops... Però abans d&#39;acabar encara ens queda un petit patró en el codi:</p>
-<p class="image-container"><img style="width: 736.40px" src="img\8803d6b647f2f408.png"></p>
-<p>for (int t=0; t&lt;2; t++){</p>
-<p>  for (int j=0; j&lt;3; j++){</p>
-<p>    for (int w=0; w&lt;2; w++){</p>
-<p>      bass.play(); delay(400);</p>
-<p>    }</p>
-<p>    snare.play(); delay(800);  </p>
-<p>  }</p>
-<p>  for (int k=0; k&lt;2; k++){</p>
-<p>    bass.play(); delay(400);</p>
-<p>  }</p>
-<p>  for (int m=0; m&lt;4; m++){</p>
-<p>    snare.play(); delay(200);  </p>
-<p>  }</p>
-<p>}</p>
+   public static void main(String[] args) {
 
+       int[] myArray = { 100, 50, 25, 12, 6, 3, 1 };
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Loop art" duration="0">
-        <pre><code>size(200, 200);
-
-for(int i=0; i&lt;height; i+=10){
-  for(int j=0; j&lt;width; j+=10){
-     fill(random(255), random(255), random(255));
-     stroke(random(255));
-     rect(j, i, 10, 10);
-  }
+       for (int i = 1; i &lt; myArray.length; i++) {
+           if (myArray[i] == (float) myArray[i-1]/2){
+               System.out.println(myArray[i] + &#34; es la meitat de &#34; + myArray[i-1]);
+           }
+       }
+   }
 }</code></pre>
-<pre><code>size(200, 200);
-
-for(int i=0; i&lt;height; i+=10){
-  for(int j=0; j&lt;width; j+=10){
-     fill(random(255), random(255), random(255));
-     stroke(random(255));
-     triangle(j, i, j+5, i-10, j+10, i);
-  }
-}</code></pre>
-<pre><code>size(200, 200);
-
-for(int i=0; i&lt;height; i+=10){
-  for(int j=0; j&lt;width; j+=10){
-     fill(random(255), random(255), random(255));
-     stroke(random(255));
-     circle(j, i, 10);
-  }
-}</code></pre>
-<pre><code>for(int i=0; i&lt;height; i+=10){
-  for(int j=0; j&lt;width; j+=10){
-     stroke(random(255), random(255), random(255));
-     line(j, i, width, height);
-     stroke(random(255), random(255), random(255));
-     line(0, 0, j, i);
-     stroke(random(255), random(255), random(255));
-     line(0, height, j, i);
-     stroke(random(255), random(255), random(255));
-     line(width,0, j, i);
-  }
-}</code></pre>
-<pre><code>for (int i=0; i&lt;height; i += 20){
-  for (int j=0; j&lt;width; j += 20){
-    fill(random(255), random(255), random(255));
-    triangle(j, i, i, j, 20, 20); 
-  }
-}</code></pre>
-<p class="image-container"><img style="width: 402.00px" src="img\f2427eef87bb134b.png"></p>
-<pre><code>size(305, 375);
-
-stroke(0);
-strokeWeight(10);
-
-fill(255);
-rect(5, 5, 75, 81);
-rect(5, 95, 75, 190);
-rect(80, 180, 170, 190);
-rect(250, 270, 50, 40);
-
-fill(#ca4b2a);
-rect(80, 5, 220, 265);
-
-fill(#125093);
-rect(5, 270, 75, 100);
-
-fill(#fcea93);
-rect(250, 310, 50, 60);</code></pre>
 
 
       </google-codelab-step>
