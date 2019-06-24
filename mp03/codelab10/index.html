@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Dades d&#39;entrada</title>
+  <title>Arrays</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,190 +23,251 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="mp03/codelab10"
-                  title="Dades d&#39;entrada"
+                  title="Arrays"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p class="image-container"><img style="width: 560.00px" src="img\5e9920ed1dccbe05.png"></p>
-<p>L&#39;objectiu d&#39;aquest CodeLab és aprendre a llegir correctament i validar les dades d&#39;entrada d&#39;un programa.</p>
-<p>Quan implementem un programa no tenim control sobre les dades d&#39;entrada que rebrà. El desajust entre el tipus de dades que espera un programa i el tipus de dades que, efectivament, rep, és una font de errors molt comuna. Per exemple, un programa espera llegir de l&#39;entrada un nombre de tipus enter i el que es troba és una cadena de text. Aquesta circumstància és molt comú quan les dades d&#39;entrada les introdueix l&#39;usuari amb el teclat, encara que també es pot donar quan es llegeixen les dades d&#39;un fitxer o de la xarxa.</p>
-<p>Una norma bastant acceptada és la de llegir sempre l&#39;entrada com a text, i tractar de convertir-la al tipus desitjat dintre del programa.</p>
-<p>En aquest CodeLab programarem una petita aplicació de gestió d&#39;alumnes, i utilitzarem els mètodes de conversió de tipus que ofereix Java per a validar les dades.</p>
-<p>Per últim, aprendrem també a com facilitar la introducció repetitiva de dades quan estem desenvolupant un programa i hem d&#39;anar fent proves sobre el seu funcionament.</p>
+        <p>Kotlin és un llenguatge 100% compatible amb el JDK que proporciona una sintaxi més concisa i expressiva.</p>
+<p>Un dels camps en els quals més s&#39;utilitza Kotlin és per al desenvolupament d&#39;apliacions Android.</p>
+<p>En aquest CodeLab veurem un petita iniciació al llenguatge Kotlin, fent una comparació amb Java.</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Inicia IntelliJ i crea un nou projecte &#34;Java&#34;..</p>
-<p class="image-container"><img style="width: 566.00px" src="img\11bf860a7c11aee8.png"></p>
+        <p>Inicia IntelliJ i crea un nou projecte &#34;Java&#34;.</p>
+<p class="image-container"><img style="width: 566.00px" src="img\69998c3462f22edc.png"></p>
 <p>Marca l&#39;opció &#34;Command Line App&#34;:</p>
 <p class="image-container"><img style="width: 566.00px" src="img\a979a613157cd3d.png"></p>
-<p>Posa-li de nom <code>DadesEntrada</code></p>
+<p>Posa-li de nom <code>Arrays</code></p>
 <p class="image-container"><img style="width: 566.00px" src="img\c43a910a9abd9162.png"></p>
+<p>Necessitaràs aquestes imatges. Descarrega-les a la carpeta arrel del projecte, amb els noms indicats.</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 78.00px" src="img\e1790ace1aa1790d.jpeg"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 78.00px" src="img\39cc399917f833bc.jpeg"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 78.00px" src="img\bfc092291325566c.jpeg"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 78.00px" src="img\bd6c3f897cc1dddf.jpeg"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 78.00px" src="img\f80310f2051d02ea.jpeg"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 78.00px" src="img\28aa52d0bb93fa84.jpeg"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 78.00px" src="img\5701ca7301e4f9d4.jpeg"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 78.00px" src="img\cf7eb6a33b0f520a.jpeg"></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>cam.jpg</code></p>
+</td><td colspan="1" rowspan="1"><p><code>console.jpg</code></p>
+</td><td colspan="1" rowspan="1"><p><code>cpu.jpg</code></p>
+</td><td colspan="1" rowspan="1"><p><code>hdd.jpg</code></p>
+</td><td colspan="1" rowspan="1"><p><code>laptop.jpg</code></p>
+</td><td colspan="1" rowspan="1"><p><code>pendrive.jpg</code></p>
+</td><td colspan="1" rowspan="1"><p><code>printer.jpg</code></p>
+</td><td colspan="1" rowspan="1"><p><code>sdcard.jpg</code></p>
+</td></tr>
+</table>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Implementa l&#39;aplicació" duration="0">
-        <p>Utilitzarem aquesta petita aplicació de gestió per a aprendre a tractar la validació de dades. Copia-la al teu projecte.</p>
-<pre><code>import java.util.Scanner;
+      <google-codelab-step label="AddGenerator" duration="0">
+        <p>Una botiga d&#39;informàtica vol dur a terme una campanya de màrqueting online basada en descomptes dels seus productes. Han realitzat un disseny gràfic dels anuncis per a mostrar-los en una plataforma de publicitat online.</p>
+<p>Aquest és un model de l&#39;anunci que han dissenyat:</p>
+<p class="image-container"><img style="width: 308.00px" src="img\c45c8c62cd689623.png"></p>
+<p>A l&#39;anunci apareixen:</p>
+<ul>
+<li>La imatge del producte: <code>cam.jpg</code></li>
+<li>L&#39;adreça web de la botiga: <code>botigaonline.com</code></li>
+<li>El nom del producte: <code>Càmeres</code></li>
+<li>El descompte que s&#39;aplica: <code>30%</code></li>
+</ul>
+<p>El dissenyador gràfic ha realitzat el disseny utilitzant el format vectorial d&#39;imatges SVG. Aquest és el codi de l&#39;anunci:</p>
+<pre><code>&lt;svg width=&#34;300&#34; height=&#34;100&#34;&gt;
+  &lt;g&gt;
+    &lt;image href=&#34;file:///C:/Users/gerard/IdeaProjects/AddGenerator/cam.jpg&#34; height=&#34;100&#34; width=&#34;100&#34; /&gt;
+    &lt;text style=&#34;font-size:14px;fill:#000000;font-family:arial&#34;&gt;
+      &lt;tspan x=&#34;90&#34; y=&#34;20&#34;&gt;botigainformatica.com&lt;/tspan&gt;&lt;/text&gt;
+    &lt;text style=&#34;font-size:36px;fill:#000000;font-family:arial&#34;&gt;
+      &lt;tspan x=&#34;90&#34; y=&#34;60&#34;&gt;Càmeres&lt;/tspan&gt;&lt;/text&gt;
+    &lt;rect style=&#34;fill:#ff0000;&#34; width=&#34;160&#34; height=&#34;30&#34; x=&#34;70&#34; y=&#34;220&#34; transform=&#34;matrix(0.7,-0.7,0.7,0.7,0,0)&#34; /&gt;
+    &lt;text style=&#34;font-size:28px;fill:#ffffff;font-family:arial&#34; transform=&#34;matrix(0.7,-0.7,0.7,0.7,0,0)&#34;&gt;
+      &lt;tspan x=&#34;115&#34; y=&#34;245&#34;&gt;10%&lt;/tspan&gt;&lt;/text&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;</code></pre>
+<p>Fixa&#39;t en els elements que hi ha afegit:</p>
+<ul>
+<li>L&#39;element <code>&lt;image&gt;</code> amb la ruta al fitxer jpg</li>
+<li>L&#39;element <code>&lt;text&gt;</code> amb l&#39;adreça de la botiga</li>
+<li>L&#39;element <code>&lt;text&gt;</code> amb el nom del producte</li>
+<li>L&#39;element <code>&lt;rect&gt;</code> que defineix el rectangle de color vermell (amb una rotació de <code>0.7</code>)</li>
+<li>L&#39;element <code>&lt;text&gt;</code> amb el descompte del producte</li>
+</ul>
+<p>Ara la qüestió és que aquest anunci s&#39;ha de repetir per a cadascun dels productes que vol publicitar l&#39;empresa. Ja que l&#39;operació pot ser molt costosa, seria convenient automatitzar aquesta tasca amb un programa.</p>
+<p>Desenvoluparem l&#39;aplicació <code>AddGenerator</code> per a poder generar les diferents imatges dels anuncis d&#39;una forma eficient.</p>
 
-class Alumne {
-   String nom;
-   float nota;
-}
 
-public class Main {
+      </google-codelab-step>
+    
+      <google-codelab-step label="Plantilla de l&#39;anunci" duration="0">
+        <p>El primer pas és analitzar quins són els elements que caldrà canviar en l&#39;anunci original a l&#39;hora de generar la resta d&#39;anuncis.</p>
+<p>Aquí tenim dos anuncis, vejem les seves diferències:</p>
+<p class="image-container"><img style="width: 589.00px" src="img\3076e91ddf53120c.png"></p>
+<p>Podem veure que el varia d&#39;un anunci a un altre és:</p>
+<ul>
+<li>El nom del fitxer de la imatge del producte (la ruta i l&#39;extensió <code>jpg</code> no canvien)</li>
+<li>El nom del producte</li>
+<li>El descompte (només el número, no el símbol de percentatge)</li>
+</ul>
+<p>Així doncs ja podem realitzar un primer prototip del programa que ens permiti variar aquestes dades en el codi SVG:</p>
+<pre><code>public class Main {
 
    public static void main(String[] args) {
-       Scanner scanner = new Scanner(System.in);
+      String imatge = &#34;cam&#34;;
+      String nom = &#34;Càmeres&#34;;
+      int oferta = 10;
 
-       Alumne[] alumnes = new Alumne[10];
-       int posicio = 0;
+       String add = &#34;&lt;svg width=\&#34;300\&#34; height=\&#34;100\&#34;&gt;\n&#34; +
+               &#34;  &lt;g&gt;\n&#34; +
+               &#34;    &lt;image href=\&#34;file:///C:/Users/gerard/IdeaProjects/AddGenerator/&#34; + imatge + &#34;.jpg\&#34; height=\&#34;100\&#34; width=\&#34;100\&#34; /&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:14px;fill:#000000;font-family:arial\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;90\&#34; y=\&#34;20\&#34;&gt;botigainformatica.com&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:36px;fill:#000000;font-family:arial\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;90\&#34; y=\&#34;60\&#34;&gt;&#34; + nom + &#34;&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;    &lt;rect style=\&#34;fill:#ff0000;\&#34; width=\&#34;160\&#34; height=\&#34;30\&#34; x=\&#34;70\&#34; y=\&#34;220\&#34; transform=\&#34;matrix(0.7,-0.7,0.7,0.7,0,0)\&#34; /&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:28px;fill:#ffffff;font-family:arial\&#34; transform=\&#34;matrix(0.7,-0.7,0.7,0.7,0,0)\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;115\&#34; y=\&#34;245\&#34;&gt;&#34; + oferta + &#34;%&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;  &lt;/g&gt;\n&#34; +
+               &#34;&lt;/svg&gt;\n&#34;;
+       System.out.println(add);
+   }
+}</code></pre>
+<p>Fixa&#39;t en que hem utilitzat una variable per a cadascun del valors que varien en un anunci: <code>imatge</code>, <code>nom</code> i <code>oferta</code>. Així, per a generar un nou anunci només hem de canviar el nom d&#39;aquestes variables. De moment no sembla un gran avanç, ja que igualment hauríem d&#39;anar canviat a mà el valor de les variables per a generar els nous anuncis. De seguida veurem com automatitzar-ho. Abans tenim un petit problema, i és que el codi SVG s&#39;imprimeix per consola, però no es guarda en un fitxer (copiar i enganxar a mà el codi en un fitxer no és una opció encertada...).</p>
+<p>Per a que el codi SVG s&#39;emmagatzemi en un arxiu en lloc de que es mostri per la consola tenim moltes opcions. Una molt ràpida és redirigir la sortida de la consola a un arxiu usant una eina de l&#39;IDE.</p>
+<p>Per a redirigir la sortida de la consola a un arxiu, ves a <code>Run</code> &gt; <code>Edit configurations</code>. A la pestanya <code>Logs</code> trobaràs l&#39;opció <code>Save console output to file</code>, marca-la i especifica el fitxer de sortida <code>adds.html</code>.</p>
+<p class="image-container"><img style="width: 736.40px" src="img\5589b42747bc3561.png"></p>
+<p>Usarem el format HTML ja que així en sol document HTML podrem afegir diverses imatges SVG.</p>
+<p>Comprova que a l&#39;executar l&#39;aplicació es genera el fitxer <code>adds.html</code>. Obre&#39;l amb el navegador web i comprova que es mostra la imatge SVG correctament.</p>
+<p class="image-container"><img style="width: 458.00px" src="img\a224e0d6202d356d.png"></p>
+<p>Prova a canviar els valors de les variables, torna a executar el programa i recarrega (<code>F5</code>) la web al navegador.</p>
 
-       while(true) {
-           System.out.println();
-           System.out.println(&#34;GESTIO ALUMNES&#34;);
-           System.out.println(&#34;a) Introduir alumne&#34;);
-           System.out.println(&#34;b) Llistar alumnes&#34;);
-           System.out.println();
 
-           String opcio = scanner.nextLine();
+      </google-codelab-step>
+    
+      <google-codelab-step label="Reomplir la plantilla amb diferents productes" duration="0">
+        <p>El nostre objectiu ara és introduir totes les dades dels productes (imatges, noms i ofertes) i que el programa ens generi d&#39;un sol cop tots els anuncis.</p>
+<p>Una aproximació inicial a la solució podria ser repetir el codi que tenim per cada producte, canviant els valors de les variables. Una cosa semblant a aquesta:</p>
+<pre><code>public class Main {
 
-           switch (opcio) {
-               case &#34;a&#34;:
-                   alumnes[posicio] = new Alumne();
+   public static void main(String[] args) {
+       String imatge = &#34;cam&#34;;
+       String nom = &#34;Càmeres&#34;;
+       int oferta = 10;
+       System.out.println(&#34;&lt;svg width=\&#34;300\&#34; height=\&#34;100\&#34;&gt;\n&#34; +
+               &#34;  &lt;g&gt;\n&#34; +
+               &#34;    &lt;image href=\&#34;file:///C:/Users/gerard/IdeaProjects/AddGenerator/&#34; + imatge + &#34;.jpg\&#34; height=\&#34;100\&#34; width=\&#34;100\&#34; /&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:14px;fill:#000000;font-family:arial\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;90\&#34; y=\&#34;20\&#34;&gt;botigainformatica.com&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:36px;fill:#000000;font-family:arial\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;90\&#34; y=\&#34;60\&#34;&gt;&#34; + nom + &#34;&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;    &lt;rect style=\&#34;fill:#ff0000;\&#34; width=\&#34;160\&#34; height=\&#34;30\&#34; x=\&#34;70\&#34; y=\&#34;220\&#34; transform=\&#34;matrix(0.7,-0.7,0.7,0.7,0,0)\&#34; /&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:28px;fill:#ffffff;font-family:arial\&#34; transform=\&#34;matrix(0.7,-0.7,0.7,0.7,0,0)\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;115\&#34; y=\&#34;245\&#34;&gt;&#34; + oferta + &#34;%&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;  &lt;/g&gt;\n&#34; +
+               &#34;&lt;/svg&gt;\n&#34;);
 
-                   System.out.println(&#34;Nom: &#34;);
-                   alumnes[posicio].nom = scanner.nextLine();
-                   System.out.println(&#34;Nota: &#34;);
-                   alumnes[posicio].nota = scanner.nextFloat();
-                   scanner.nextLine(); // descartem l&#39;intro de després del float
+       imatge = &#34;console&#34;;
+       nom = &#34;Consoles&#34;;
+       oferta = 15;
+       System.out.println(&#34;&lt;svg width=\&#34;300\&#34; height=\&#34;100\&#34;&gt;\n&#34; +
+               &#34;  &lt;g&gt;\n&#34; +
+               &#34;    &lt;image href=\&#34;file:///C:/Users/gerard/IdeaProjects/AddGenerator/&#34; + imatge + &#34;.jpg\&#34; height=\&#34;100\&#34; width=\&#34;100\&#34; /&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:14px;fill:#000000;font-family:arial\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;90\&#34; y=\&#34;20\&#34;&gt;botigainformatica.com&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:36px;fill:#000000;font-family:arial\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;90\&#34; y=\&#34;60\&#34;&gt;&#34; + nom + &#34;&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;    &lt;rect style=\&#34;fill:#ff0000;\&#34; width=\&#34;160\&#34; height=\&#34;30\&#34; x=\&#34;70\&#34; y=\&#34;220\&#34; transform=\&#34;matrix(0.7,-0.7,0.7,0.7,0,0)\&#34; /&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:28px;fill:#ffffff;font-family:arial\&#34; transform=\&#34;matrix(0.7,-0.7,0.7,0.7,0,0)\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;115\&#34; y=\&#34;245\&#34;&gt;&#34; + oferta + &#34;%&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;  &lt;/g&gt;\n&#34; +
+               &#34;&lt;/svg&gt;\n&#34;);
 
-                   posicio++;
-                   break;
-               case &#34;b&#34;:
-                   System.out.println(&#34;Llistat d&#39;alumnes&#34;);
-                   for (int i = 0; i &lt; posicio; i++) {
-                       System.out.println(alumnes[i].nom + &#34;: &#34; + alumnes[i].nota);
-                   }
-                   break;
-               default:
-                   return;
-           }
+       imatge = &#34;laptop&#34;;
+       nom = &#34;Portàtils&#34;;
+       oferta = 30;
+       System.out.println(&#34;&lt;svg width=\&#34;300\&#34; height=\&#34;100\&#34;&gt;\n&#34; +
+               &#34;  &lt;g&gt;\n&#34; +
+               &#34;    &lt;image href=\&#34;file:///C:/Users/gerard/IdeaProjects/AddGenerator/&#34; + imatge + &#34;.jpg\&#34; height=\&#34;100\&#34; width=\&#34;100\&#34; /&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:14px;fill:#000000;font-family:arial\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;90\&#34; y=\&#34;20\&#34;&gt;botigainformatica.com&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:36px;fill:#000000;font-family:arial\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;90\&#34; y=\&#34;60\&#34;&gt;&#34; + nom + &#34;&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;    &lt;rect style=\&#34;fill:#ff0000;\&#34; width=\&#34;160\&#34; height=\&#34;30\&#34; x=\&#34;70\&#34; y=\&#34;220\&#34; transform=\&#34;matrix(0.7,-0.7,0.7,0.7,0,0)\&#34; /&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:28px;fill:#ffffff;font-family:arial\&#34; transform=\&#34;matrix(0.7,-0.7,0.7,0.7,0,0)\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;115\&#34; y=\&#34;245\&#34;&gt;&#34; + oferta + &#34;%&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;  &lt;/g&gt;\n&#34; +
+               &#34;&lt;/svg&gt;\n&#34;);
+
+       imatge = &#34;pendrive&#34;;
+       nom = &#34;Pendrives&#34;;
+       oferta = 25;
+       System.out.println(&#34;&lt;svg width=\&#34;300\&#34; height=\&#34;100\&#34;&gt;\n&#34; +
+               &#34;  &lt;g&gt;\n&#34; +
+               &#34;    &lt;image href=\&#34;file:///C:/Users/gerard/IdeaProjects/AddGenerator/&#34; + imatge + &#34;.jpg\&#34; height=\&#34;100\&#34; width=\&#34;100\&#34; /&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:14px;fill:#000000;font-family:arial\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;90\&#34; y=\&#34;20\&#34;&gt;botigainformatica.com&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:36px;fill:#000000;font-family:arial\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;90\&#34; y=\&#34;60\&#34;&gt;&#34; + nom + &#34;&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;    &lt;rect style=\&#34;fill:#ff0000;\&#34; width=\&#34;160\&#34; height=\&#34;30\&#34; x=\&#34;70\&#34; y=\&#34;220\&#34; transform=\&#34;matrix(0.7,-0.7,0.7,0.7,0,0)\&#34; /&gt;\n&#34; +
+               &#34;    &lt;text style=\&#34;font-size:28px;fill:#ffffff;font-family:arial\&#34; transform=\&#34;matrix(0.7,-0.7,0.7,0.7,0,0)\&#34;&gt;\n&#34; +
+               &#34;      &lt;tspan x=\&#34;115\&#34; y=\&#34;245\&#34;&gt;&#34; + oferta + &#34;%&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+               &#34;  &lt;/g&gt;\n&#34; +
+               &#34;&lt;/svg&gt;\n&#34;);
+   }
+}</code></pre>
+<p>I així obtenim aquest resultat:</p>
+<p class="image-container"><img style="width: 736.40px" src="img\4b242d21a573983a.png"></p>
+<p>Fixa&#39;t que el que estem fent al codi anterior és utilitzar sempre les mateixes variables (<code>String imatge</code>, <code>String nom</code>, <strong><code>int </code></strong><code>oferta</code>) i anar canviant el seu valor al llarg del programa (<code>cam</code>, <code>console</code>, <code>laptop</code>, <code>pendrive</code>, ...).</p>
+<p>És a dir, cadascuna d&#39;aquestes variables, per exemple la variable <code>imatge</code>, només té un valor en un moment donat, i el que anem fent és canviar aquest valor a mesura que avança el programa. Simplificant el codi, podem veure aquest patró:</p>
+<p class="image-container"><img style="width: 484.75px" src="img\1bbdeb97df5613f4.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Usant arrays" duration="0">
+        <p>Enlloc de tenir una variable a la que anem canviant el valor, el que ens permet fer un <code>array</code> és definir múltiples valors per a una variable, i agafar en cada moment el valor que ens interessi.</p>
+<p>Per a definir múltiples valors a la variable imatge cal separar-los amb comes i posar-los entre claus.</p>
+<p class="image-container"><img style="width: 501.00px" src="img\45fb9314d3a0be64.png"></p>
+<p>Cal indicar que la variable <code>imatges</code> ja no és de tipus <code>String</code>, si no de <strong>múltiples</strong> Strings. Això s&#39;indica amb uns corxets després del tipus String:</p>
+<p class="image-container"><img style="width: 501.00px" src="img\350d6111dc7b5dc8.png"></p>
+<p>Per a agafar el valor que desitjem de la variable <code>imatges</code> haurem d&#39;indicar la posició d&#39;aquest valor. <strong>Les posicions dels valors d&#39;un array comencen per </strong><strong><code>0</code></strong>. Així, per a agafar el primer valor <code>&#34;cam&#34;</code> caldrà indicar la posició <code>0</code>. El valor <code>&#34;console&#34;</code> té la posició <code>1</code>, el valor <code>&#34;laptop&#34;</code> la <code>2</code> i el valor <code>&#34;pendrive&#34;</code> la posició <code>3</code>.</p>
+<p class="image-container"><img style="width: 501.00px" src="img\eb4beb939e05cf72.png"></p>
+<p>Per a indicar quin valor volem agafar d&#39;un array és posa el seu índex entre corxets:</p>
+<p class="image-container"><img style="width: 606.25px" src="img\9d565f29e17c5391.png"></p>
+<p>Aquest codi és molt semblant al que havíem fet abans. Ara, enlloc de tenir una variable a la que anem canviant el seu valor i imprimir-la, tenim una variable amb múltiples valors i anem agafant aquests valors per a imprimir-los.</p>
+<p>Quina avantatge té aquest codi respecte a l&#39;anterior? Si ens fixem, estem repetint un patró. La instrucció System.out.println sempre és la mateixa i l&#39;únic que varia és la posició del valor que agafem de l&#39;array per a imprimir-lo. Podem transformar aquest patró en un <em>loop</em>.</p>
+<p class="image-container"><img style="width: 606.25px" src="img\cd7e18fbc97b0347.png"></p>
+<p>Si introduïm tots els possibles valors de les <code>imatges</code>, <code>noms</code> i <code>ofertes</code> en arrays, podem fer un loop sobre aquests valors per a generar els anuncis:</p>
+<pre><code>public class Main {
+
+   public static void main(String[] args) {
+       String[] imatges = {&#34;cam&#34;, &#34;console&#34;, &#34;laptop&#34;, &#34;pendrive&#34;};
+       String[] noms = {&#34;Càmeres&#34;, &#34;Consoles&#34;, &#34;Portàtils&#34;, &#34;Pendrives&#34;};
+       int[] ofertes = {10, 15, 30, 5};
+
+       for (int i = 0; i &lt; 4; i++) {
+           System.out.println(&#34;&lt;svg width=\&#34;300\&#34; height=\&#34;100\&#34;&gt;\n&#34; +
+                   &#34;  &lt;g&gt;\n&#34; +
+                   &#34;    &lt;image href=\&#34;file:///C:/Users/gerard/IdeaProjects/AddGenerator/&#34; + imatges[i] + &#34;.jpg\&#34; height=\&#34;100\&#34; width=\&#34;100\&#34; /&gt;\n&#34; +
+                   &#34;    &lt;text style=\&#34;font-size:14px;fill:#000000;font-family:arial\&#34;&gt;\n&#34; +
+                   &#34;      &lt;tspan x=\&#34;90\&#34; y=\&#34;20\&#34;&gt;botigainformatica.com&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+                   &#34;    &lt;text style=\&#34;font-size:36px;fill:#000000;font-family:arial\&#34;&gt;\n&#34; +
+                   &#34;      &lt;tspan x=\&#34;90\&#34; y=\&#34;60\&#34;&gt;&#34; + noms[i] + &#34;&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+                   &#34;    &lt;rect style=\&#34;fill:#ff0000;\&#34; width=\&#34;160\&#34; height=\&#34;30\&#34; x=\&#34;70\&#34; y=\&#34;220\&#34; transform=\&#34;matrix(0.7,-0.7,0.7,0.7,0,0)\&#34; /&gt;\n&#34; +
+                   &#34;    &lt;text style=\&#34;font-size:28px;fill:#ffffff;font-family:arial\&#34; transform=\&#34;matrix(0.7,-0.7,0.7,0.7,0,0)\&#34;&gt;\n&#34; +
+                   &#34;      &lt;tspan x=\&#34;115\&#34; y=\&#34;245\&#34;&gt;&#34; + ofertes[i] + &#34;%&lt;/tspan&gt;&lt;/text&gt;\n&#34; +
+                   &#34;  &lt;/g&gt;\n&#34; +
+                   &#34;&lt;/svg&gt;\n&#34;);
        }
    }
 }</code></pre>
-<p>Prova l&#39;aplicació.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Valida les dades d&#39;entrada" duration="0">
-        <p>Quan llegim dades de tipus <code>String</code> amb el mètode <code>nextLine()</code>, no hi ha cap restricció al tipus de dada que es pot llegir. </p>
-<p>Però què passa si quan tractem de llegir la nota amb <code>nextFloat()</code> l&#39;usuari s&#39;equivoca i introdueix una lletra, per exemple?</p>
-<p class="image-container"><img style="width: 503.00px" src="img\c68d35efe6ad24fb.png"></p>
-<p>Ens trobem amb un desajust amb les dades d&#39;entrada (<code>InputMismatchException</code>).</p>
-<p>Una possible solució bastant comú és llegir les dades sempre amb <code>nextLine()</code> i tractar de convertir-les dintre del nostre programa. Hauríem de fer una cosa així:</p>
-<pre><code>nota = Float.parseFloat(scanner.nextLine());</code></pre>
-<p>Ara bé, això no soluciona -de moment- el problema, ja que si l&#39;usuari introdueix un text, el programa no fallarà en la lectura de dades, però sí en la conversió:</p>
-<p class="image-container"><img style="width: 680.00px" src="img\79dc836c14fee536.png"></p>
-<p>Ara l&#39;error és en el format de número (<code>NumberFormatException</code>), ja que la cadena <code>&#34;abc&#34;</code> no es pot convertir a tipus <code>float</code>.</p>
-<h2 is-upgraded>try-catch</h2>
-<p>Per a corregir aquest nou error hem de fer una petita introducció a la sentència de control <code>try-catch</code>.</p>
-<p>La sentència <code>try-catch</code>, és bastant semblant a la sentència <code>if-else</code>.</p>
-<p>El bloc de la sentència <code>catch</code> només s&#39;executa si alguna instrucció del bloc <code>try</code> genera una exepció.</p>
-<p>En el nostre exemple, podem posar en el bloc <code>try</code> la sentència que converteix l&#39;<code>String</code> a <code>float</code>. Si aquesta sentència <em>falla</em>, s&#39;executarà la sentència del bloc <code>catch</code>.</p>
-<pre><code>try {
-   nota = Float.parseFloat(scanner.nextLine());
-} catch (Exception e){
-   System.out.println(&#34;La nota introduïda no és valida&#34;);
-}</code></pre>
-<p>D&#39;aquesta manera el nostre programa no finalitzarà amb l&#39;exepció <code>NumberFormatException</code> sinò que mostrarà a l&#39;usuari un missatge indicant que la nota introduïda no és vàlida.</p>
-<p>Només queda una última consideració. El programa no fallarà però, amb quin valor quedarà la nota d&#39;aquell alumne? Efectivament, quedarà amb un <code>0.0</code>.</p>
-<p>Caldrà donar la opció a l&#39;usuari de tornar a introduir la nota fins que aquesta sigui vàlida. O dit en pensament computacional, caldrà tornar a demanar la nota a l&#39;usuari mentre (<code>while</code>) sigui invàlida.</p>
-<pre><code>do {
-   System.out.println(&#34;Nota: &#34;);
-   try {
-       alumnes[posicio].nota = Float.parseFloat(scanner.nextLine());
-       break;
-   } catch (Exception e) {
-       System.out.println(&#34;La nota introduïda no és valida&#34;);
-   }
-} while(true);</code></pre>
-<p>El programa complet queda finalment així:</p>
-<pre><code>import java.util.Scanner;
-
-class Alumne {
-   String nom;
-   float nota;
-}
-
-public class Main {
-
-   public static void main(String[] args) {
-       Scanner scanner = new Scanner(System.in);
-
-       Alumne[] alumnes = new Alumne[10];
-       int posicio = 0;
-
-       while(true) {
-           System.out.println();
-           System.out.println(&#34;GESTIO ALUMNES&#34;);
-           System.out.println(&#34;a) Introduir alumne&#34;);
-           System.out.println(&#34;b) Llistar alumnes&#34;);
-           System.out.println();
-
-           String opcio = scanner.nextLine();
-
-           switch (opcio) {
-               case &#34;a&#34;:
-                   alumnes[posicio] = new Alumne();
-
-                   System.out.println(&#34;Nom: &#34;);
-                   alumnes[posicio].nom = scanner.nextLine();
-
-                   do {
-                       System.out.println(&#34;Nota: &#34;);
-                       try {
-                           alumnes[posicio].nota = Float.parseFloat(scanner.nextLine());
-                           break;
-                       } catch (Exception e) {
-                           System.out.println(&#34;La nota introduïda no és valida&#34;);
-                       }
-                   } while(true);
-
-                   posicio++;
-                   break;
-               case &#34;b&#34;:
-                   System.out.println(&#34;Llistat d&#39;alumnes&#34;);
-                   for (int i = 0; i &lt; posicio; i++) {
-                       System.out.println(alumnes[i].nom + &#34;: &#34; + alumnes[i].nota);
-                   }
-                   break;
-               default:
-                   return;
-           }
-       }
-   }
-}</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Llegeix les dades d&#39;un fitxer" duration="0">
-        <p>Cada cop que fas una modificació el codi, executes el programa i introdueixes les dades per veure com va funcionant el programa. </p>
-<p class="image-container"><img style="width: 433.00px" src="img\9370d0ed139aefd1.png"></p>
-<p>Això significa una valuosa pèrdua de temps, que podem evitar posant les dades d&#39;entrada en un arxiu i llegint les dades directament de l&#39;arxiu.</p>
-<p>Crea un arxiu de text al directori arrel de projecte (<code>New</code> &gt; <code>File</code>) i escriu les dades d&#39;entrada en el fitxer:</p>
-<p class="image-container"><img style="width: 467.00px" src="img\9b5d40657f1ea5e8.png"></p>
-<p>Modifica la construcció de l&#39;<code>Scanner</code> per a que en lloc de <code>System.in</code>, tingui com a origen el fitxer <code>dades</code>:</p>
-<pre><code>Scanner scanner = new Scanner(new File(&#34;dades&#34;));</code></pre>
-<p>Es mostrarà un error subratllat en vermell. Polsa <code>Alt+INTRO</code> i selecciona l&#39;opció &#34;Add exception to method signature&#34;:</p>
-<p class="image-container"><img style="width: 445.00px" src="img\90e28af9b18fc49.png"></p>
-<p>Ja està, això és tot el que has de fer, ara ja pots executar el teu programa i fer tantes proves com vulguis, sense haver d&#39;introduir cada cop les dades.</p>
+<p>El resultat és el mateix que el que havíem aconseguit abans, però ara el codi és més breu i ens permet modificacions més ràpidament</p>
 
 
       </google-codelab-step>
