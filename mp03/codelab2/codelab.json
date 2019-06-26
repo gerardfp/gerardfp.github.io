@@ -3,12 +3,12 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2019-06-10T21:01:44Z",
+  "updated": "2019-06-25T14:17:18Z",
   "id": "mp03/codelab2",
   "duration": 0,
-  "title": "FormGUI",
-  "summary": "formgui",
-  "source": "1o8rc7OlcDHDKFQZK8NtT1sdpCr8fdkaXhVhx4FUjEOs",
+  "title": "Dades Compostes",
+  "summary": "dadescompostes",
+  "source": "1wLfWk0VDU68IrhkAwjdJJkbhPHa_dUGE9GkooVEGxHY",
   "theme": "java",
   "status": [
     "draft"

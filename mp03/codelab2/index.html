@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>FormGUI</title>
+  <title>Dades Compostes</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,222 +23,244 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="mp03/codelab2"
-                  title="FormGUI"
+                  title="Dades Compostes"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p>L&#39;objectiu d&#39;aquest CodeLab és practicar les operacions booleanes i la conversió de tipus.</p>
-<p>Realitzarem una Calculadora d&#39;operacions lògiques binaries.</p>
-<p class="image-container"><img style="width: 264.00px" src="img\5bb76568a1678271.png"></p>
+        <p>L&#39;objectiu d&#39;aquesta pràctica és començar a usar els conceptes de Classe i Objecte. Consisteix en desenvolupar una aplicació que mostri un dibuix simple fet amb figures geomètriques.</p>
+<p class="image-container"><img style="width: 257.15px" src="img\d464d034dbdf63c.png"></p>
+<p>Al dibuix veiem una casa (mur, teulada i finestra) sobre la terra i un sol al cel.</p>
+<p>El dibuix es composarà dls següents <strong>Objectes</strong>: <em>sun, sky, earth, wall, window </em>y<em> roof</em></p>
+<p>Aquests objectes estaran classificados en les següents <strong>Classes</strong>: <em>Circle</em>, <em>Rectangle </em>y <em>Triangle</em></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Calculadora&#34;.</p>
-<p class="image-container"><img style="width: 566.00px" src="img\69998c3462f22edc.png"></p>
-<p class="image-container"><img style="width: 566.00px" src="img\a979a613157cd3d.png"></p>
-<p class="image-container"><img style="width: 566.00px" src="img\a67d982e68ca48d7.png"></p>
+        <p>Inicia IntelliJ i crea un nou projecte: </p>
+<p class="image-container"><img style="width: 548.00px" src="img\d58f62df7ba3cab3.png"></p>
+<p>Recorda marcar la opció &#34;<em>Create project from template</em>&#34; i selecciona la plantilla &#34;<em>Command Line App</em>&#34;:</p>
+<p class="image-container"><img style="width: 548.00px" src="img\55626fec151c2c6.png"></p>
+<p>Posa-li el nom <code>DadesCompostes</code>:</p>
+<p class="image-container"><img style="width: 547.00px" src="img\d5538c73f565e667.png"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Crea el GUIForm" duration="0">
-        <p>Fes clic-dreta sobre el package &#34;<code>com.company</code>&#34; i selecciona  <code>NEW</code> &gt; <code>GUI Form</code></p>
-<p class="image-container"><img style="width: 732.00px" src="img\3e5ef17c8cd93107.png"></p>
-<p>En el diàleg &#34;New GUI Form&#34; introdueix les següents dades:</p>
-<p class="image-container"><img style="width: 363.00px" src="img\25bd1aceeff1d5d7.png"></p>
-<p>Un cop creat el GUIForm, s&#39;obrirà l&#39;entorn gràfic de disseny:</p>
-<p class="image-container"><img style="width: 736.40px" src="img\816f052029ecf12c.png"></p>
-<p>Aquest entorn permet arrossegar i soltar components al formulari. Hi podem veure tres seccions:</p>
+      <google-codelab-step label="Crea la classe Circle" duration="0">
+        <p>Per a crear objectes, primer s&#39;ha de definir la classe. A partir de la classe es creen els objects.</p>
+<p>Començarem per l&#39;objecte <em>sun</em>, que és de la classe <em>Circle</em>.</p>
+<p>Fes clic-dreta sobre el <em>package </em><code>com.company</code>, i selecciona les opcions <code>New</code> &gt; <code>Java Class</code>:</p>
+<p class="image-container"><img style="width: 658.00px" src="img\fc86c3561f1cf3ad.gif"></p>
+<p>Com a nom de la Classe introdueix <code>Circle</code></p>
+<aside class="warning"><p><strong>Important</strong>: El nom de les classes comença amb majúscula (UpperCamelCase)</p>
+</aside>
+<p>Polsa OK.</p>
+<p class="image-container"><img style="width: 374.00px" src="img\1ad29e5133869ca0.png"></p>
+<p>Observa que s&#39;ha creat el fitxer <code>Circle.java</code>, amb la definició de la classe <code>Circle</code>:</p>
+<pre><code>class Circle {
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea l&#39;objecte sun" duration="0">
+        <p>Un cop definida la classe <code>Circle</code>, es poden crear objectes d&#39;aquesta classe. Anem a crear l&#39;objecte <em>sun</em>:</p>
+<p>Ves l&#39;arxiu <code>Main.java</code> i dintre del mètode  <code>main</code> afegeix el códi per a crear l&#39;objecte  <code>sun</code>.</p>
+<pre><code>public class Main {
+   public static void main(String[] args) {
+       Circle sun = new Circle();
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Defineix els camps de la classe Circle" duration="0">
+        <p>Definirem l&#39;estat dels objectes de classe <code>Circle</code> (com l&#39;objecte <code>sun</code>), amb els següents camps:</p>
+<ul>
+<li>Longitud del radi</li>
+<li>Posició: coordenades X i Y</li>
+<li>Color </li>
+</ul>
+<p>Ves a l&#39;arxiu <code>Circle.java</code> i afegeix els següents camps a la classe <code>Circle</code>:</p>
+<pre><code>public class Circle {
+   int radius;
+   int positionX;
+   int positionY;
+   Color color;
+}</code></pre>
+<p>Haurás notat que la paraula  <code>Color</code> apareix en vermell. És degut a que no està definida la classe <code>Color</code>. No obstant, aquesta classe no la crearem nosaltres, sinò que la usarem de la biblioteca <code>java.awt</code></p>
+<p>Per a importar la classe <code>Color</code> de la biblioteca <code>java.awt</code> segueix aquestes passes:</p>
 <ol type="1" start="1">
-<li><code>Component Tree</code> - mostra la vista jeràrquica dels components que s&#39;han afegit al formulari. Per a cada component permet definir les seves propietats (Property | Value)</li>
-<li><code>Design area</code> - la vista gràfica del formulari. Els components s&#39;afegeixen arrossegant-los en aquesta àrea</li>
-<li><code>Palette</code> -  conté tots els components disponibles que es poden afegir al formulari</li>
+<li>Coloca el cursor sobre la paraula <code>Color</code></li>
+<li>Mou el cursor amb les fletxes del teclat</li>
+<li>Quan la paraula <code>Color</code> estigui subratllada, apareixerà un meissatge blau sobre ella. Polsa <code>Alt+Intro</code></li>
+<li>Apareixerà una llista a sota amb les biblioteques que inclouen la classe <code>Color</code>. Selecciona la biblioteca <code>Color (java.awt)</code></li>
 </ol>
+<p class="image-container"><img style="width: 427.00px" src="img\d4715880603d610e.gif"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Disseny del GUI Form" duration="0">
-        <h2 is-upgraded>Visualitzador de resultats</h2>
-<p>Arrossega un <code>JTextField</code> desde la paleta i solta&#39;l en l&#39;àrea de disseny. Estableix a la propietat <code>Field name</code> el valor <code>resultat</code>:</p>
-<p class="image-container"><img style="width: 736.40px" src="img\18ec616da5a79bf8.png"></p>
-<h2 is-upgraded>Botons</h2>
-<p>Afegeix els components <code>JButton</code> de la paleta a l&#39;àrea de disseny. Distribuieix-los en la graella de la següent forma:</p>
-<p class="image-container"><img style="width: 736.40px" src="img\3a3d3af6cc28d772.gif"></p>
-<p>Estableix les següents propietats als botons:</p>
-<p>Button1: <code>text</code>=<strong><code>AC</code></strong>,  <code>field name</code>=<strong><code>ACButton</code></strong></p>
-<p>Button2: <code>text</code>=<strong><code>NOT</code></strong>,  <code>field name</code>=<strong><code>NOTButton</code></strong></p>
-<p>Button3: <code>text</code>=<strong><code>OR</code></strong>,  <code>field name</code>=<strong><code>ORButton</code></strong></p>
-<p>Button4: <code>text</code>=<strong><code>AND</code></strong>,  <code>field name</code>=<strong><code>ANDButton</code></strong></p>
-<p>Button5: <code>text</code>=<strong><code>0</code></strong>,  <code>field name</code>=<strong><code>a0Button</code></strong></p>
-<p>Button6: <code>text</code>=<strong><code>1</code></strong>,  <code>field name</code>=<strong><code>a1Button</code></strong></p>
-<p>Pots veure una previsualització de l&#39;aspecte del Formulari fent clic-dreta sobre el disseny i selecionant <code>Preview</code>:</p>
-<p class="image-container"><img style="width: 736.40px" src="img\fa2c3fccc7603dd3.gif"></p>
-<h2 is-upgraded>Establir el nom del JPanel</h2>
-<p>Com a pas previ, per a fer funcionar el formulari es requereix establir el camp <code>nom</code> del component <code>JPanel</code>: </p>
-<p>Selecciona el <code>JPanel</code> a la finestra <code>Component Tree</code> i canvia la propietat <strong><code>nom</code></strong> a <strong><code>calcView.</code></strong></p>
-<p>Si fas clic sobre l&#39;arxiu <code>Calculadora.java</code> s&#39;haurien de mostrar els següents components inserits:</p>
-<h3 is-upgraded>Calculadora.java</h3>
-<pre><code>package com.company;
+      <google-codelab-step label="Defineix l&#39;estat de l&#39;objecte sun" duration="0">
+        <p>Ara l&#39;objecte <code>sun</code> ja té els camps de la classe <code>Circle</code>, així que podems definir el seu estat.</p>
+<p>Ves a l&#39;arxiu <code>Main.java</code> i assigna els següents valors als camps que defineixen l&#39;estat de l&#39;objecte <code>sun</code>:</p>
+<pre><code>public class Main {
+   public static void main(String[] args){
+       Circle sun = new Circle();
+       sun.radius = 40;
+       sun.positionX = 440;
+       sun.positionY = 50;
+       sun.color = Color.YELLOW;
+   }
+}</code></pre>
+<p>Ja tenim creat l&#39;objecte <code>sun</code>, i hem definit el seu estat. </p>
 
-import javax.swing.*;
 
-public class Calculadora {
-   private JTextField textField1;
-   private JButton ACButton;
-   private JButton NOTButton;
-   private JButton ORButton;
-   private JButton ANDButton;
-   private JButton a0Button;
-   private JButton a1Button;
-   private JPanel calcView;
+      </google-codelab-step>
+    
+      <google-codelab-step label="Pinta l&#39;objecte sun" duration="0">
+        <p>Per a dibuixar els objectes a la pantalla utilizarem la Classe <code>JFrame</code>, de la biblioteca gràfica <code>Swing</code>, per a crear una finestra que serà el nostre llenç (<em>canvas</em>). De moment no és necesari que comprenguis aquesta Classe. Simplement copia i enganxa.</p>
+<p>Crea una Classe nova anomenada &#34;Canvas&#34; i escriu en ella el següent codi:</p>
+<pre><code>public class Canvas extends javax.swing.JFrame {
+   static Graphics2D g;
+
+   public Canvas() {
+       if (g != null) return;
+       setSize(600, 400);
+       setVisible(true);
+       setDefaultCloseOperation(EXIT_ON_CLOSE);
+       java.awt.Canvas canvas = new java.awt.Canvas();
+       canvas.setPreferredSize(new Dimension(600, 400));
+       canvas.setIgnoreRepaint(true);
+       add(canvas);
+       g = (Graphics2D) canvas.getGraphics();
+       pack();
+   }
+
+   public static void draw(Circle c) {
+       new Canvas();
+       g.setColor(c.color);
+       g.fillOval(c.positionX, c.positionY, c.radius * 2, c.radius * 2);
+   }
+
+   public static void draw(Rectangle r) {
+       new Canvas();
+       g.setColor(r.color);
+       g.fillRect(r.positionX, r.positionY, r.width, r.height);
+   }
+
+   public static void draw(Triangle t){
+       new Canvas();
+       g.setColor(t.color);
+       g.fillPolygon(new int[]{t.positionX,t.positionX+t.width/2,t.positionX+t.width},
+               new int[]{t.positionY+t.height,t.positionY,t.positionY+t.height},
+               3);
+   }
+}</code></pre>
+<h2 is-upgraded>Usa la classe  <code>Canvas </code>per a dibuixar les figures </h2>
+<p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
+<pre><code>Canvas.draw(sun);</code></pre>
+<h2 is-upgraded>Executa el programa</h2>
+<p>Polsa sobre el botó <code>Run</code>:</p>
+<p class="image-container"><img style="width: 196.00px" src="img\5b594bb33856b06a.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea els objectes window i earth" duration="0">
+        <p>Seguim amb la resta d&#39;objectes del nostre dibuix. </p>
+<p>Seguim amb els objectes <code>window</code> i <code>earth</code>. Com són de la Classe <code>Circle</code>, que ja està definida, ja podem crear-los.</p>
+<p>Afegeix el següent codi al mètode  <code>main</code>  (just a continuació del codi de l&#39;objecte  <code>sun</code>):</p>
+<pre><code>public class Main {
+   public static void main(String[] args){
+       Circle sun = new Circle();
+       sun.color = Color.YELLOW;
+       sun.positionX = 440;
+       sun.positionY = 50;
+       sun.radius = 40;
+
+       Circle window = new Circle();
+       window.color = Color.GRAY;
+       window.positionX = 240;
+       window.positionY = 215;
+       window.radius = 10;
+
+       Circle earth = new Circle();
+       earth.color = Color.GREEN;
+       earth.positionX = -300;
+       earth.positionY = 250;
+       earth.radius = 600;
+   }
+}</code></pre>
+<h2 is-upgraded>Usa la classe  <code>Canvas </code>per a dibuixar les figures </h2>
+<p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
+<pre><code>Canvas.draw(earth);
+Canvas.draw(window);</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Defineix les classes Rectangle i Triangle." duration="0">
+        <p>Un cop creats tots els objectes de tipus cercle, seguirem amb els rectangles (<em>wall</em>, <em>sky</em>) i triangles (<em>roof</em>).</p>
+<p>Crea les classes <code>Rectangle</code> i <code>Triangle</code>, i afegeix en elles els camps que defineixen el seu estat.</p>
+<pre><code>public class Rectangle {
+   int width;
+   int height;
+   int positionX;
+   int positionY;
+   Color color;
+}</code></pre>
+<pre><code>public class Triangle {
+   int width;
+   int height;
+   int positionX;
+   int positionY;
+   Color color;
 }</code></pre>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Fer funcionar el GUIForm" duration="0">
-        <p>Per tal de fer que el formulari funcioni es requereix crear un <code>JFrame</code>. Crearem el mètode <code>main()</code> que serà el responsable de crear-lo quan s&#39;executi el programa.</p>
-<p>A l&#39;editor de codi de l&#39;arxiu <code>Calculadora.java</code>, fes clic-dreta i selecciona <code>Generate</code> &gt; <code>Form.main()</code></p>
-<p class="image-container"><img style="width: 529.00px" src="img\72e0c6a62d89c879.gif"></p>
-<p>Ara ja es pot executar el mètode <code>Calculadora.main()</code>. Fes clic-dreta i selecciona <code>Run Calculadora.main()</code></p>
-<p class="image-container"><img style="width: 532.00px" src="img\f5a6613c1bda170c.png"></p>
+      <google-codelab-step label="Crea els objectes sky, wall i roof" duration="0">
+        <p>Torna a l&#39;arxiu <code>Main.java</code> i afegeix el següent codi:</p>
+<pre><code>Rectangle wall = new Rectangle();
+wall.width = 100;
+wall.height = 80;
+wall.positionX = 200;
+wall.positionY = 200;
+wall.color = Color.WHITE;
+
+Rectangle sky = new Rectangle();
+sky.width = 600;
+sky.height = 400;
+sky.positionX = 0;
+sky.positionY = 0;
+sky.color = Color.CYAN;
+
+Triangle roof = new Triangle();
+roof.width = 100;
+roof.height = 50;
+roof.positionX = 200;
+roof.positionY = 150;
+roof.color = Color.RED;</code></pre>
+<h2 is-upgraded>Usa la Classe  <code>Canvas </code>per a dibuixar les figures </h2>
+<p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
+<pre><code>Canvas.draw(sky);
+Canvas.draw(wall);
+Canvas.draw(roof);</code></pre>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Fer funcionar els botons de la calculadora" duration="0">
-        <p>Per respondre als clics dels botons i realitzar les operacions, cal afegir un <em>Listener </em>a cadascun d&#39;ells. El <em>Listener </em>és l&#39;acció que s&#39;executa quan es fa clic al botó.</p>
-<p>Afegeix un Listener a cada botó fent click-dreta sobre ells i seleccionant <code>Create Listener</code>  &gt; <code>Action Listener</code></p>
-<p class="image-container"><img style="width: 736.40px" src="img\5aa2b53ab2a9f227.gif"></p>
-<p>Després d&#39;afegir un <code>Listener</code> a cada botó, s&#39;haurà afegit a l&#39;arxiu <code>Calculadora.java</code> el següent codi:</p>
-<h3 is-upgraded>Calculadora.java</h3>
-<pre><code>public Calculadora() {
-   ACButton.addActionListener(new ActionListener() {
-       @Override
-       public void actionPerformed(ActionEvent e) {
-
-       }
-   });
-   NOTButton.addActionListener(new ActionListener() {
-       @Override
-       public void actionPerformed(ActionEvent e) {
-
-       }
-   });
-   ORButton.addActionListener(new ActionListener() {
-       @Override
-       public void actionPerformed(ActionEvent e) {
-
-       }
-   });
-   ANDButton.addActionListener(new ActionListener() {
-       @Override
-       public void actionPerformed(ActionEvent e) {
-
-       }
-   });
-   a0Button.addActionListener(new ActionListener() {
-       @Override
-       public void actionPerformed(ActionEvent e) {
-
-       }
-   });
-   a1Button.addActionListener(new ActionListener() {
-       @Override
-       public void actionPerformed(ActionEvent e) {
-
-       }
-   });
-   eqButton.addActionListener(new ActionListener() {
-       @Override
-       public void actionPerformed(ActionEvent e) {
-
-       }
-   });
-}</code></pre>
-<p>El pas següent és realitzar les operacions binàries seleccionades per l&#39;usuari.</p>
-<p>Crearem dues variables de tipus <code>String</code> per a emmagatzemar els valor que l&#39;usuari introdueix com a operands, i una variable de tipus <code>int</code> per a emmagatzemar la operació.</p>
-<pre><code>private String operand1 =&#34;&#34;, operand2 =&#34;&#34;;
-private int operator = 0;</code></pre>
-<h2 is-upgraded>Botons 0 i 1</h2>
-<p>L&#39;acció a prendre quan es fa clic als botons 0 i 1, és afegir un <code>0</code> o un <code>1</code> a l&#39;<code>operand1</code>, i actualitzar el display:</p>
-<pre><code>a0Button.addActionListener(new ActionListener() {
-   @Override
-   public void actionPerformed(ActionEvent e) {
-       operand1 += 0;
-       textField1.setText(operand1);
-   }
-});
-a1Button.addActionListener(new ActionListener() {
-   @Override
-   public void actionPerformed(ActionEvent e) {
-       operand1 += 1;
-       textField1.setText(operand1);
-   }
-});</code></pre>
-<h2 is-upgraded>Botó NOT</h2>
-<p>El <code>NOTButton</code> realitza la operació NOT sobre l&#39;<code>operand1</code>, i escriu el resultat al display:</p>
-<pre><code>NOTButton.addActionListener(new ActionListener() {
-   @Override
-   public void actionPerformed(ActionEvent e) {
-       int decimal = Integer.parseInt(operand1, 2);
-       int result = ~decimal;
-       textField1.setText(Integer.toBinaryString(result));
-   }
-});</code></pre>
-<h2 is-upgraded>Botons OR i AND</h2>
-<p>Aquests botons emmagatzemen el valor del display com a <code>operand2</code>, i netejen el valor de l&#39;<code>operand1</code> de forma que l&#39;usuari pugui introduir un segon operand. També estableixen la operació a realitzar OR/AND en la variable <code>operator</code>.</p>
-<pre><code>ORButton.addActionListener(new ActionListener() {
-   @Override
-   public void actionPerformed(ActionEvent e) {
-       operator = 1;
-       operand2 = operand1;
-       operand1 = &#34;&#34;;
-       textField1.setText(&#34;&#34;);
-   }
-});
-ANDButton.addActionListener(new ActionListener() {
-   @Override
-   public void actionPerformed(ActionEvent e) {
-       operator = 2;
-       operand2 = operand1;
-       operand1 = &#34;&#34;;
-       textField1.setText(&#34;&#34;);
-
-   }
-});</code></pre>
-<h2 is-upgraded>Botó resultat</h2>
-<p>El botó resultat realitza la operació establerta en la variable <code>operator</code> amb l&#39;<code>operand1</code> i l&#39;<code>operand2</code>, i estableix el resultat al display:</p>
-<pre><code>eqButton.addActionListener(new ActionListener() {
-   @Override
-   public void actionPerformed(ActionEvent e) {
-       if(operator == 1){
-           int decimal1 = Integer.parseInt(operand1, 2);
-           int decimal2 = Integer.parseInt(operand2, 2);
-           int result = decimal1 | decimal2;
-           textField1.setText(Integer.toBinaryString(result));
-       } else if(operator == 2){
-           int decimal1 = Integer.parseInt(operand1, 2);
-           int decimal2 = Integer.parseInt(operand2, 2);
-           int result = decimal1 &amp; decimal2;
-           textField1.setText(Integer.toBinaryString(result));
-       }
-   }
-});</code></pre>
-<h2 is-upgraded>Botó AC</h2>
-<p>El botó AC reseteja el valor de les variables <code>operand1</code> i <code>operand2</code>, i del display:</p>
-<pre><code>ACButton.addActionListener(new ActionListener() {
-   @Override
-   public void actionPerformed(ActionEvent e) {
-       operand1 = &#34;&#34;;
-       operand2 = &#34;&#34;;
-       textField1.setText(operand1);
-   }
-});</code></pre>
+      <google-codelab-step label="Comprenent les Classes i els Objectes" duration="0">
+        <p>Les Classes es poden entendre com una plantilla a partir de la qual es poden crear Objectes. Cada Objecte és una còpia diferent de la plantilla. Per tant cada Objecte té una còpia dels camps que s&#39;han definit a la Classe. Es poden assignar diferents valors a cada camp de cada Objecte de forma independent.</p>
+<p>El següent gràfic explica les Classes i Objectes que s&#39;han creat per a fer el dibuix:</p>
+<p class="image-container"><img style="width: 736.10px" src="img\83bb163ca260a6cc.png"></p>
+<p>Els objectes s&#39;emmagatzemen a la memòria de l&#39;ordinador. Com és evident, a la memòria no s&#39;hi poden dibuixar cercles, rectangles, ni triangles. En realitat el que s&#39;està emmagatzemant en memòria és la informació sobre aquests objectes, és a dir els valors dels seus camps. Una representació més adequada dels objectes seria aquesta:</p>
+<p class="image-container"><img style="width: 736.10px" src="img\e5951ac7b9a9be14.png"></p>
 
 
       </google-codelab-step>

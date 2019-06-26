@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Processing</title>
+  <title>Estructures de selecció</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,7 +23,7 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="mp03/codelab6"
-                  title="Processing"
+                  title="Estructures de selecció"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
@@ -68,7 +68,7 @@
     
       <google-codelab-step label="Implementa l&#39;aplicació" duration="0">
         <p>Un projecte Processing, té habitualment dos mètodes principals: <code>setup()</code> i <code>draw()</code></p>
-<p>El bloc del mètode <code>setup()</code> s&#39;executa un cop quan s&#39;executa el nostre projecte i té la finalitat de configurar aspectes com el tamany de la finestra i carregar els recursos que utilitzarà el nostre projecte (images, sons, ...).</p>
+<p>El bloc del mètode <code>setup()</code> s&#39;executa un cop quan s&#39;executa el nostre projecte i té la finalitat de configurar aspectes com el tamany de la finestra i carregar els recursos que utilitzarà el nostre projecte (imatges, sons, ...).</p>
 <p>El bloc del mètode <code>draw()</code> s&#39;executa de forma repetida durant tota l&#39;execució del nostre projecte. En aquest mètode és on es dibuixen els elements que s&#39;han de veure a la pantalla, o es reprodueixen els sons, etc.</p>
 <p>Comencem amb un petit codi:</p>
 <pre><code>PImage img;
@@ -82,7 +82,7 @@ void draw() {
   image(img, 15, 0);
 }</code></pre>
 <p class="image-container"><img style="width: 338.00px" src="img\13748e4203e5fcf3.png"></p>
-<p>Al mètode <code>setup()</code> establim el tamany de la pantalla de la nostra aplicació a 180 píxels d&#39;amplada i 150 d&#39;alçada. A continuació carreguem la imatge <code>mercury.jpg</code> a la variable <code>img</code>.</p>
+<p>Al mètode <code>setup()</code> establim el tamany de la pantalla de la nostra aplicació a <code>180</code> píxels d&#39;amplada i <code>150</code> d&#39;alçada. A continuació carreguem la imatge <code>mercury.jpg</code> a la variable <code>img</code>.</p>
 <p>Al mètode <code>draw()</code> dibuixem aquesta imatge a la posició <code>X=15</code> <code>Y=0</code></p>
 <p>Si executes la aplicació veuràs això:</p>
 <p class="image-container"><img style="width: 182.00px" src="img\c7e98230c94a887d.png"></p>
@@ -90,7 +90,7 @@ void draw() {
 <p>El següent pas serà afegir dos botons per a poder anar cap endavant i cap enrere en la llista d&#39;imatges.</p>
 <p>Primer haurem de carregar totes les imatges al mètode <code>setup()</code>. Tindrem la variable <code>img</code> que indicarà la imatge que s&#39;està mostrant actualment, que establirem inicialment a <code>mercury</code>.</p>
 <p>Al mètode <code>draw()</code> només hem de dibuixar la imatge indicada per la variable <code>img</code>, i també els botons d&#39;avançar i retrocedir.</p>
-<p>Per útlim, afegirem un tercer mètode mousePressed() que s&#39;executa un cop quan es fa clic al ratolí. En funció de la posició on s&#39;hagi fet clic (<code>mouseX</code>), mostrarem una imatge o una altra, depenent de quina s&#39;estigui mostrant actualment.</p>
+<p>Per útlim, afegirem un tercer mètode <code>mousePressed()</code> que s&#39;executa un cop quan es fa clic al ratolí. En funció de la posició on s&#39;hagi fet clic (<code>mouseX</code>), mostrarem una imatge o una altra, depenent de quina s&#39;estigui mostrant actualment.</p>
 <p>El codi final quedarà així:</p>
 <pre><code>PImage img, mercury, venus, earth, mars, prev, next;
 

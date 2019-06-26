@@ -28,7 +28,10 @@
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        
+        <p class="image-container"><img style="width: 423.00px" src="img\822c1f750aa9ac78.png"></p>
+<p>En la programació informàtica, un bucle és una seqüència d&#39;instruccions que es repeteix contínuament fins que s&#39;arriba a una determinada condició. Normalment, es fa un determinat procés, com ara obtenir un element de dades i canviar-lo, i després es comprova alguna condició, com si un comptador hagi arribat a un nombre prescrit. Si no ho fa, la següent instrucció en la seqüència és una instrucció per tornar a la primera instrucció de la seqüència i repetir la seqüència. Si s&#39;ha arribat a la condició, la següent instrucció &#34;cau&#34; a la següent instrucció seqüencial o branques fora del bucle. Un bucle és una idea fonamental de programació que s&#39;utilitza habitualment en l&#39;escriptura de programes.</p>
+<p>En aquest CodeLab utilitzarem els loops per a crear imatges artístiques i ritmes musicals.</p>
+
 
       </google-codelab-step>
     
@@ -136,7 +139,10 @@ fill(0, 0);      // figures transparents
 strokeWeight(2); // gruixut del traç 2
 
 
-rect(0, 25, 100, 150);</code></pre>
+rect(0, 25, 100, 150);   // el 0 és la posició x
+                         // el 25 és la posició y
+                         // el 100 és l&#39;amplada
+                         // el 150 és l&#39;alçada</code></pre>
 <p class="image-container"><img style="width: 302.00px" src="img\9bf6418466b308d5.png"></p>
 <p>Dibuixar-ne varis també és molt fàcil. Només cal copiar la sentència  vàries vegades:</p>
 <pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
@@ -158,20 +164,32 @@ rect(50, 50, 100, 150);</code></pre>
 <li>Quina condició ha de complir el valor →  la <code>x</code> és sempre menor o igual a <code>50</code> (<code>x&lt;=0</code>)</li>
 <li>Com es modificarà a cada iteració → en cada iteració la <code>x</code> va augmentant en <code>10</code> (<code>x += 10</code>)</li>
 </ul>
-<p>Així podem construir el bucle <code>for</code>:</p>
+<p>Així podem construir el bucle <code>while</code>:</p>
 <pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
 
-for (int x=0; x &lt;= 50; x += 10){
-   rect(x, 25, 100, 150);  
+int x=0;
+while (x &lt;= 50){
+  rect(x, 25, 100, 150);    
+
+  x += 10;
 }</code></pre>
+<p>En el següent diagrama de flux podem veure com les dues instruccions que estan dintre del bucle while, es van repetint mentre es compleix la condició <code>x&lt;=50</code></p>
+<p class="image-container"><img style="width: 276.00px" src="img\d10575a32c25b745.png"></p>
+<p>Com dintre del bucle anem canviant el valor de la variable <code>x</code>, cada cop el rectangle es dibuix a en una posició diferent.</p>
 <p>D&#39;aquesta manera, en lloc d&#39;especificar uns valors fixes per a dibuixar un rectangle, podem fer-ho amb valors canviants i dibuixar cada cop un rectangle diferent en posició i tamany.</p>
 <p>Al següent exemple canviem els paràmetres posicióX, posicióY, amplada i alçada, en funció de la variable <code>x</code>:</p>
+<p>Aquest cop utilitzarem un bucle for, que és equivalent al while però amb menys línies:</p>
 <pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
 
 for (int x=0; x &lt;= 50; x += 10){
    rect(x, x, x, x);  
 }</code></pre>
 <p class="image-container"><img style="width: 302.00px" src="img\b0d0fcb59fab2198.png"></p>
+<p>Aquest és el diagrama que explica el funcionament de l&#39;algorisme anterior.</p>
+<p class="image-container"><img style="width: 276.00px" src="img\e0338e357934f39c.png"></p>
+<p>Com usem la variable <code>x</code> per a especificar tant la posicioX com la posicióY, com l&#39;amplada i l&#39;alçada, cada cop es dibuixa un rectangle més a la dreta, més avall, i més gran.</p>
+<p>Observa que els bucles <code>while</code> i <code>for</code> són equivalents. De fet, el bucle <code>for</code> és una forma més concisa (amb una sola línia) del bucle <code>while</code>.</p>
+<p class="image-container"><img style="width: 607.00px" src="img\74a25e4b2b9e6a3e.png"></p>
 <p>No sempre és fàcil (o inclús possible) trobar el patró que segueixen els valors, i això impossibilita poder usar un <em>loop</em>. Per exemple a la següent composició es fa difícil trobar un patro comú als valors:</p>
 <pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
 rect(30, 19, 33, 36);  
@@ -207,9 +225,7 @@ rect(70, 140, 75, 35); </code></pre>
 for (int x=0; x&lt;=70; x += 10){
   rect(x, x*2, x+5, x/2);  
 }</code></pre>
-<h2 is-upgraded>Doble loops</h2>
-<p>En alguns casos ens trobem que alguns valors segueixen un patró, i altres valors en segueixen un altre de diferent. Veiem un exemple.</p>
-<p>En aquest dibuix podem trobar un patró entre la posició <code>x</code> i l&#39;<code>amplada</code> dels rectangles:</p>
+<p>Al següent dibuix podem trobar un patró entre la posicióX  i l&#39;<code>amplada</code> dels rectangles:</p>
 <pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
 
 rect(0,0,0,25);
@@ -223,8 +239,65 @@ rect(49,0,7,25);
 rect(64,0,8,25);
 rect(81,0,9,25);
 rect(100,0,10,25);</code></pre>
-<p>El patró és efectivament que la posició és el quadrat de l&#39;amplada</p>
+<p>El patró és, efectivament, que la posició és el quadrat de l&#39;amplada:</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+
+for (int i=0; i&lt;11; i++){
+ rect(i*i, 0, i, 25);
+}</code></pre>
 <p class="image-container"><img style="width: 302.00px" src="img\5a72417cf1043fe6.png"></p>
+<h2 is-upgraded>Doble loops</h2>
+<p>En alguns casos ens trobem que alguns valors segueixen un patró, i altres valors en segueixen un altre de diferent. Veiem un exemple.</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+
+rect(0,0,25,25);
+rect(50,0,25,25);
+rect(100,0,25,25);
+rect(150,0,25,25);
+
+rect(0,50,25,25);
+rect(50,50,25,25);
+rect(100,50,25,25);
+rect(150,50,25,25);
+
+rect(0,100,25,25);
+rect(50,100,25,25);
+rect(100,100,25,25);
+rect(150,100,25,25);
+
+rect(0,150,25,25);
+rect(50,150,25,25);
+rect(100,150,25,25);
+rect(150,150,25,25);</code></pre>
+<p>Aquest codi genera el següent dibuix:</p>
+<p class="image-container"><img style="width: 302.00px" src="img\ea384b3d2120c10a.png"></p>
+<p>Podem trobar un patró en els valors que passem a la funció <code>rect()</code>? Observem tres claus:</p>
+<ul>
+<li>El valor de l&#39;alçada i l&#39;amplada és sempre <code>25</code> (no varia)</li>
+<li>El valor de la posicióY va sumant <code>50</code> cada quatre instruccions</li>
+<li>El valor de la posicióX va sumant <code>50</code> cada instrucció, però torna a començar per 0 cada quatre instruccions</li>
+</ul>
+<p>Ignorem l&#39;alçada i l&#39;amplada, ja que sempre és <code>25</code> i no varia.</p>
+<p>Podem trobar una relació entre la posicióX i la posicióY? En aquest cas no, no hi ha cap relació. Els valors són independents un de l&#39;altre i no es pot calcular un a partir de l&#39;altre. Aleshores, què podem fer?</p>
+<p>Tractem de traure primer un patró i després veurem que fem amb l&#39;altre. El més senzill de traure, en principi, és el de la posicióY, ja que va sumant cada quatre instruccions, però no torna a començar com el de la posicióX.</p>
+<p>Programem així el patró que segueix la posicióY:</p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+
+for(int y=0; y&lt;=150; y+=50){
+  rect(0,y,25,25);
+  rect(50,y,25,25);
+  rect(100,y,25,25);
+  rect(150,y,25,25);
+}</code></pre>
+<p>Ara és més fàcil veure el patró de la posicióX. Podem substituir les quatre instruccions que hi ha dintre del <em>loop</em>, per un altre <em>loop</em>:</p>
+<p class="image-container"><img style="width: 596.00px" src="img\761ca8a75bcca96b.png"></p>
+<pre><code>size(300, 200); background(0); stroke(255); fill(0,0); strokeWeight(2);
+
+for(int y=0; y&lt;=150; y+=50){
+  for (int x=0; x&lt;=150; x+=50){
+    rect(x,y,25,25);
+  }
+}</code></pre>
 
 
       </google-codelab-step>
@@ -274,7 +347,7 @@ for (int i=0; i&lt;3; i++){
 }</code></pre>
 <p class="image-container"><img style="width: 435.00px" src="img\268e1ef8ba8392b1.png"></p>
 <p class="image-container"><img style="width: 221.00px" src="img\df9f94a105cd1a8c.png"></p>
-<p>Amb un loop, hem repetit 3 cops les mateixes instruccions.</p>
+<p>Amb un <em>loop</em>, hem repetit 3 cops les mateixes instruccions.</p>
 <p>Podríem repetir aquest <em>loop</em> durant tota la cançó, però quedaria una mica monòtona... Cal posar un redoble:</p>
 <pre><code>for (int j=0; j&lt;3; j++){
   bass.play(); delay(400);
@@ -290,14 +363,14 @@ snare.play(); delay(200);
 snare.play(); delay(200); </code></pre>
 <p class="image-container"><img style="width: 579.00px" src="img\c9d927b8179f8760.png"></p>
 <p class="image-container"><img style="width: 221.00px" src="img\d50453d707f9dc3.png"></p>
-<p>Observa que el l&#39;últim bloc (morat) és diferent als tres anteriors (taronja), no els podem incloure al mateix loop, ja que no segueixen el mateix patró. Repetim tres cops el patró taronja i un cop el patró morat.</p>
-<p>Podem encara filar més prim i tractar d&#39;extraure més patrons (coses que es repeteixen), per exemple els quatre snares del final:</p>
+<p>Observa que el l&#39;últim bloc (morat) és diferent als tres anteriors (taronja), no els podem incloure al mateix <em>loop</em>, ja que no segueixen el mateix patró. Repetim tres cops el patró taronja i un cop el patró morat.</p>
+<p>Podem encara filar més prim i tractar d&#39;extraure més patrons (coses que es repeteixen), per exemple els quatre <em>snares</em> del final:</p>
 <p class="image-container"><img style="width: 579.00px" src="img\2e657989046aa531.png"></p>
 <p class="image-container"><img style="width: 223.00px" src="img\8c1c00c743c8ebe1.png"></p>
 <p>Anem a completar seguir una mica la cançò fent que tot aquest patró es repeteixi dues vegades:</p>
 <p class="image-container"><img style="width: 736.40px" src="img\31186cc4a4e18f0f.png"></p>
 <p class="image-container"><img style="width: 243.00px" src="img\3334700cbb37346c.png"></p>
-<p>I així podriem seguir fins completar la cancó fent loops dintre de loops... Però abans d&#39;acabar encara ens queda un petit patró en el codi:</p>
+<p>I així podriem seguir fins completar la cancó fent <em>loops </em>dintre de <em>loops</em>... Però abans d&#39;acabar encara ens queda un petit patró en el codi:</p>
 <p class="image-container"><img style="width: 736.40px" src="img\47ebc9f5f9655abc.png"></p>
 <p class="image-container"><img style="width: 248.00px" src="img\85098b7957a875e7.png"></p>
 <p>I d&#39;aquesta forma, utilitzant <em>loops</em>, hem passat 30 cops de bateria a 9 instruccions de codi 👌</p>
@@ -306,7 +379,8 @@ snare.play(); delay(200); </code></pre>
       </google-codelab-step>
     
       <google-codelab-step label="Loop art" duration="0">
-        <pre><code>size(200, 200);
+        <p>A la web <a href="https://www.openprocessing.org/" target="_blank">https://www.openprocessing.org</a> trobaràs moltíssimes obres d&#39;art realitzades amb Processing. Aquí et poso algunes més bàsiques per que puguis estudiar-les.</p>
+<pre><code>size(200, 200);
 
 for(int i=0; i&lt;height; i+=10){
   for(int j=0; j&lt;width; j+=10){
@@ -315,6 +389,7 @@ for(int i=0; i&lt;height; i+=10){
      rect(j, i, 10, 10);
   }
 }</code></pre>
+<p class="image-container"><img style="width: 202.00px" src="img\45a11aeedd710a7f.png"></p>
 <pre><code>size(200, 200);
 
 for(int i=0; i&lt;height; i+=10){
@@ -324,6 +399,7 @@ for(int i=0; i&lt;height; i+=10){
      triangle(j, i, j+5, i-10, j+10, i);
   }
 }</code></pre>
+<p class="image-container"><img style="width: 202.00px" src="img\26f2489bd1d036b0.png"></p>
 <pre><code>size(200, 200);
 
 for(int i=0; i&lt;height; i+=10){
@@ -333,6 +409,7 @@ for(int i=0; i&lt;height; i+=10){
      circle(j, i, 10);
   }
 }</code></pre>
+<p class="image-container"><img style="width: 202.00px" src="img\42c88e6745ca08a0.png"></p>
 <pre><code>for(int i=0; i&lt;height; i+=10){
   for(int j=0; j&lt;width; j+=10){
      stroke(random(255), random(255), random(255));
@@ -345,6 +422,7 @@ for(int i=0; i&lt;height; i+=10){
      line(width,0, j, i);
   }
 }</code></pre>
+<p class="image-container"><img style="width: 202.00px" src="img\6eff59d1f91d98b3.png"></p>
 <pre><code>for (int i=0; i&lt;height; i += 20){
   for (int j=0; j&lt;width; j += 20){
     fill(random(255), random(255), random(255));
@@ -371,6 +449,7 @@ rect(5, 270, 75, 100);
 
 fill(#fcea93);
 rect(250, 310, 50, 60);</code></pre>
+<p class="image-container"><img style="width: 307.00px" src="img\da63faa7d631d289.png"></p>
 
 
       </google-codelab-step>
