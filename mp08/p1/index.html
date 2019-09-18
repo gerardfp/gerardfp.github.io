@@ -73,13 +73,17 @@
       <google-codelab-step label="Estructura del proyecto" duration="0">
         <p>Tu proyecto Android es una aplicación básica de &#34;Hello World&#34; que contiene algunos <strong>archivos por defecto</strong>. Veamos los más importantes:</p>
 <p class="image-container"><img style="width: 332.00px" src="img\af72340f862576f2.png"></p>
-<p><code>app/src/main/AndroidManifest.xml</code></p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><code>app/src/main/AndroidManifest.xml</code></p>
 <p>El <a href="https://developer.android.com/guide/topics/manifest/manifest-intro.html" target="_blank">archivo de manifiesto</a> describe las características fundamentales de la aplicación y define cada uno de sus componentes. Aquí especificaremos las Activities que tiene nuestra app y los permisos que requiere (Cámara, Contactos, Internet, etc.)</p>
-<p><code>app/src/main/java/com.example.helloworld/MainActivity.java</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>app/src/main/java/com.example.helloworld/MainActivity.java</code></p>
 <p>Contiene la definición de clase para la <strong>Activity</strong> (pantalla) principal. En este fichero programaremos el comportamiento de esta Activity.</p>
-<p><code>app/src/main/res/layout/activity_main.xml</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>app/src/main/res/layout/activity_main.xml</code></p>
 <p>Este archivo XML define el <em>layout </em>de la actividad, es decir los elementos (widgets) que tiene la pantalla. Por defecto, contiene un elemento <code>TextView</code> con el texto &#34;¡Hola mundo!&#34;.</p>
-<p><code>app/build.gradle</code></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p><code>app/build.gradle</code></p>
 <p>Android Studio utiliza Gradle para compilar y construir la aplicación. Hay un archivo  <code>build.gradle</code> para cada módulo del proyecto, así como un archivo <code>build.gradle</code> de todo el proyecto. Por lo general, sólo estaremos interesados en el archivo <code>build.gradle</code> para el módulo, en este caso el <code>app</code> o módulo de aplicación. Aquí es donde se encuentran las dependencias de construcción de la aplicación, incluyendo los ajustes <code>defaultConfig</code>:</p>
 <ul>
 <li><code>compiledSdkVersion</code> es la versión de la plataforma con la que va a compilar su aplicación. Por defecto, se establece en la última versión del SDK instalado en el ordenador.<br></li>
@@ -88,7 +92,8 @@
 <li><code>targetSdkVersion</code> indica la versión más alta de Android con la que ha probado su aplicación.</li>
 </ul>
 <p>Más adelante usaremos este fichero para instalar nuevas bibliotecas y componentes para nuestra App, en el apartado <code>dependencies</code>.</p>
-<p>Veamos también los subdirectorios <code>/res</code> que contienen los <a href="https://developer.android.com/guide/topics/resources/overview.html" target="_blank">recursos</a> para su aplicación:</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Veamos también los subdirectorios <code>/res</code> que contienen los <a href="https://developer.android.com/guide/topics/resources/overview.html" target="_blank">recursos</a> para su aplicación:</p>
 <p><code>drawable/</code></p>
 <p>Directorio de imágenes.</p>
 <p><code>layout/</code></p>
@@ -100,6 +105,8 @@
 <p>En el archivo <code>colors.xml</code> definiremos los colores de la app. </p>
 <p>En el archivo <code>strings.xml</code> definiremos todos los textos que se muestren en nuestra app.</p>
 <p>En el archivo <code>styles.xml</code> definiremos el tema de nuestra app.</p>
+</td></tr>
+</table>
 
 
       </google-codelab-step>
