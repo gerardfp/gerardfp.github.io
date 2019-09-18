@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-09-18T11:35:37Z",
+  "id": "mp08/android-studio",
+  "duration": 0,
+  "title": "P1 Android Studio",
+  "summary": "Programació Multimèdia i Dispositius Mòbils",
+  "source": "1lkG2lWrrlqVvcG9GdMwsiBsfKfZZaeutn6oqvl-MAdM",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp/MP08",
+  "url": "mp08/android-studio"
+}
