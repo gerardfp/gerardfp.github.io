@@ -7,20 +7,23 @@
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
   <title>Activity</title>
-  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../../elements/codelab.html">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <style is="custom-style">
-    body {
-      font-family: "Roboto",sans-serif;
-      background: var(--google-codelab-background, #F8F9FA);
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
     }
   </style>
-  
 </head>
-<body unresolved class="fullbleed">
-
-  <google-codelab title="Activity"
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="activity"
+                  title="Activity"
                   environment="web"
                   feedback-link="https://github.com/gerardfp">
     
@@ -31,301 +34,192 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Jerarquía de objetos para la construcción de Interfaces de usuario" duration="0">
-        <p>La interfaz gráfica de usuario para una aplicación para Android está construida usando una jerarquía de objetos <a href="https://developer.android.com/reference/android/view/View.html" target="_blank"><code>View</code></a> y <a href="https://developer.android.com/reference/android/view/ViewGroup.html" target="_blank"><code>ViewGroup</code></a>. Los objetos <a href="https://developer.android.com/reference/android/view/View.html" target="_blank"><code>View</code></a> son por lo general los widgets de interfaz de usuario tales como <a href="https://developer.android.com/guide/topics/ui/controls/button.html" target="_blank">botones</a> o <a href="https://developer.android.com/guide/topics/ui/controls/text.html" target="_blank">campos de texto</a>. Los objetos <a href="https://developer.android.com/reference/android/view/ViewGroup.html" target="_blank"><code>ViewGroup</code></a> son contenedores invisibles que definen cómo se distribuyen sus hijos, por ejemplo en una rejilla o una lista vertical.</p>
-<p>Android proporciona un vocabulario XML que corresponde a las subclases de <a href="https://developer.android.com/reference/android/view/View.html" target="_blank"><code>View</code></a> y <a href="https://developer.android.com/reference/android/view/ViewGroup.html" target="_blank"><code>ViewGroup</code></a> para que pueda definir la interfaz de usuario en XML usando una jerarquía de elementos de interfaz de usuario.</p>
-<p>Los Layout son subclases de la <a href="https://developer.android.com/reference/android/view/ViewGroup.html" target="_blank"><code>ViewGroup</code></a>. En este ejercicio, trabajará con una <a href="https://developer.android.com/reference/android/widget/LinearLayout.html" target="_blank"><code>LinearLayout</code></a>.</p>
-<p><img style="max-width: 533.33px" src="img\8115d34bac38108b.png"></p>
-<p><strong>Figura 1.</strong> Ilustración de cómo los objetos <a href="https://developer.android.com/reference/android/view/ViewGroup.html" target="_blank"><code>ViewGroup</code></a> forman ramas en el layout y contienen otros objetos <a href="https://developer.android.com/reference/android/view/View.html" target="_blank"><code>View</code></a>.</p>
+      <google-codelab-step label="Crea el proyecto" duration="0">
+        <p>Selecciona &#34;Empty Activity&#34; como plantilla para la MainActivity.</p>
+<p class="image-container"><img style="width: 403.00px" src="img\8eaeb22d21ad800a.png"></p>
+<p>Introduce los siguientes datos de configuración del proyecto.</p>
+<p class="image-container"><img style="width: 736.00px" src="img\c0418eb503dfad0f.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Activity principal" duration="0">
-        <p>En la activity principal, crearemos un <code>LinearLayout</code> que contendrá el <code>EditText</code> para introducir el nombre, y el <code>Button</code>.</p>
-<h2>Crear un LinearLayout</h2>
-<p>Desde el directorio <code>res/layout/</code>, abre el archivo <code>activity_main.xml</code>.<br><br>Este archivo XML define el layout de la activity. Por defecto, contiene el <code>TextView</code> &#34;Hello World&#34;.<br></p>
-<ol type="1" start="1">
-<li>Cuando se abre un archivo de diseño, se muestra por primera vez el editor de diseño en el <a href="https://developer.android.com/studio/write/layout-editor.html" target="_blank">Layout Editor</a> . Para esta lección, se trabaja directamente con el XML, por lo que debes hacer clic en la pestaña <strong>Texto</strong> para cambiar al editor de texto.<br></li>
-<li>Reemplazar el contenido del archivo XML con lo siguiente:<br></li>
-</ol>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;LinearLayout
-    xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-    xmlns:tools=&#34;http://schemas.android.com/tools&#34;
-    android:layout_width=&#34;match_parent&#34;
-    android:layout_height=&#34;match_parent&#34;
-    android:orientation=&#34;horizontal&#34;&gt;
-&lt;/LinearLayout&gt;</code></pre>
-<p><a href="https://developer.android.com/reference/android/widget/LinearLayout.html" target="_blank"><code>LinearLayout</code></a> es un grupo de views (una subclase de <a href="https://developer.android.com/reference/android/view/ViewGroup.html" target="_blank"><code>ViewGroup</code></a>) que distribuye sus hijas, ya sea en una orientación vertical u horizontal, según lo especificado en el atributo <a href="https://developer.android.com/reference/android/widget/LinearLayout.html#attr_android:orientation" target="_blank"><code>android:orientation</code></a>. Todos los hijos de <a href="https://developer.android.com/reference/android/widget/LinearLayout.html" target="_blank"><code>LinearLayout</code></a> aparecen en la pantalla en el orden en que aparecen en el XML.</p>
-<p>Otros dos atributos, <a href="https://developer.android.com/reference/android/view/View.html#attr_android:layout_width" target="_blank"><code>android:layout_width</code></a> y <a href="https://developer.android.com/reference/android/view/View.html#attr_android:layout_height" target="_blank"><code>android:layout_height</code></a>, se requieren para todas las vistas con el fin de especificar su tamaño.</p>
-<p>Debido a que el <a href="https://developer.android.com/reference/android/widget/LinearLayout.html" target="_blank"><code>LinearLayout</code></a> es la vista raíz del diseño, podría llenar toda la pantalla que está disponible para la aplicación mediante el establecimiento de la anchura y la altura en <code>&#34;match_parent&#34;</code>. Este valor declara que la vista debería ampliar su anchura o altura para <em>que coincida con</em> la anchura o la altura de la vista padre.</p>
-<h2>Añadir un EditText</h2>
-<p>En el archivo <code>activity_main.xml</code>, dentro del elemento <a href="https://developer.android.com/reference/android/widget/LinearLayout.html" target="_blank"><code>&lt;LinearLayout&gt;</code></a>, agrega el siguiente elemento <a href="https://developer.android.com/reference/android/widget/EditText.html" target="_blank"><code>&lt;EditText&gt;</code></a>:</p>
-<pre><code>&lt;LinearLayout
-    xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-    xmlns:tools=&#34;http://schemas.android.com/tools&#34;
-    android:layout_width=&#34;match_parent&#34;
-    android:layout_height=&#34;match_parent&#34;
-    android:orientation=&#34;horizontal&#34;&gt;
-    &lt;EditText android:id=&#34;@+id/edit_person_name&#34;
-        android:layout_width=&#34;wrap_content&#34;
-        android:layout_height=&#34;wrap_content&#34;
-        android:hint=&#34;Enter your name&#34; /&gt;
-&lt;/LinearLayout&gt;   </code></pre>
-<p>He aquí una descripción de los atributos que has añadido en el <a href="https://developer.android.com/reference/android/widget/EditText.html" target="_blank"><code>&lt;EditText&gt;</code></a>:</p>
-<p><a href="https://developer.android.com/reference/android/view/View.html#attr_android:id" target="_blank"><code>android:id</code></a></p>
-<p>Proporciona un identificador único para la vista, que se puede utilizar para hacer referencia al objeto desde el código de aplicación, por ejemplo, para leer y manipular el objeto (veremos esto en la próxima lección).<br></p>
-<p>La arroba ( <code>@</code> ) es necesaria para refierse a cualquier objeto de recurso de XML. Va seguido por el tipo de recurso ( <code>id</code> en este caso), una barra, y luego el nombre del recurso (<code>edit_person_name</code>).<br></p>
-<p>El signo más ( <code>+</code>) antes del tipo de recurso, sólo se necesita cuando se está definiendo un identificador de recursos. </p>
-<p>Al compilar la aplicación, el SDK utiliza el nombre de ID para crear un nuevo identificador de recursos en el archivo <code>gen/R.java</code> referente al elemento <a href="https://developer.android.com/reference/android/widget/EditText.html" target="_blank"><code>EditText</code></a>. Con el ID de recurso declarado una vez de esta manera, otras referencias al ID no necesitan el signo más. El uso del signo más es necesario sólo cuando se especifica un nuevo identificador de recursos y no es necesario para los recursos concretos, tales como <em>strings</em> o <em>layouts</em>.</p>
-<aside class="special"><p><strong>Objetos de recursos</strong></p>
-<p>Un objeto de recurso es un nombre (un número entero único) que está asociado con un recurso de la aplicación, como por ejemplo un mapa de bits, archivo de layout, o un string.</p>
-<p>Cada recurso tiene un objeto de recurso correspondiente que se define en el fichero <code>R.java</code> de su proyecto. Puede utilizar los nombres de objeto en la clase <code>R</code> para hacer referencia a los recursos, por ejemplo, cuando sea necesario especificar un valor string para el atributo <a href="https://developer.android.com/reference/android/widget/TextView.html#attr_android:hint" target="_blank">android:hint</a>. También puede crear identificadores de recursos arbitrarios que puedes asociar con una View utilizando el atributo <a href="https://developer.android.com/reference/android/view/View.html#attr_android:id" target="_blank">android:id</a>, que le permite hacer referencia a esa View desde otro código.<br></p>
-<p>Las herramientas del SDK generan el archivo <code>R.java</code> cada vez que se compila la app. Nunca se debe modificar este archivo manualmente.</p>
+        <p>La Activity Principal contendrá un botón con el texto &#34;Iniciar Registro&#34;, que nos llevará a la siguiente pantalla, la que pedirá los datos personales.</p>
+<p>En primer lugar añadiremos el <code>Button</code> en el <em>layout</em> de la <code>MainActivity</code>. (Más adelante haremos que que al hacer click en dicho botón se inicie la siguiente Activity).</p>
+<h2 is-upgraded>Añadir un Button al Layout de la MainActivity</h2>
+<p>Abre el archivo <code>activity_main.xml</code>, que se encuentra en el directorio  <code>res/layout/</code></p>
+<p><img style="width: 736.40px" src="img\e21934e487b522d.png"><br><br>Este archivo XML define el <em>layout </em>de la activity. Por defecto, contiene el <code>TextView</code> &#34;Hello World&#34;.<br></p>
+<aside class="special"><p>Para definir un <em>layout</em>, Android Studio proporciona un modo gráfico (<strong>Design</strong>) y otro en XML (<strong>Text</strong>). Para esta lección, se trabaja directamente con el XML, por lo que debes seleccionar la pestaña <strong>Text</strong>.</p>
 </aside>
-<p><a href="https://developer.android.com/reference/android/view/View.html#attr_android:layout_width" target="_blank"><code>android:layout_width</code></a> y <a href="https://developer.android.com/reference/android/view/View.html#attr_android:layout_height" target="_blank"><code>android:layout_height</code></a></p>
-<p>En lugar de utilizar tamaños específicos para la anchura y la altura, el valor <code>&#34;wrap_content&#34;</code> especifica que la View debe ser sólo tan grande como sea necesario para adaptarse a los contenidos. Si se usa en su lugar <code>&#34;match_parent&#34;</code>, entonces el elemento <a href="https://developer.android.com/reference/android/widget/EditText.html" target="_blank"><code>EditText</code></a> llenaría la pantalla, ya que podría coincidir con el tamaño de la matriz <a href="https://developer.android.com/reference/android/widget/LinearLayout.html" target="_blank"><code>LinearLayout</code></a>.</p>
-<p><a href="https://developer.android.com/reference/android/widget/TextView.html#attr_android:hint" target="_blank"><code>android:hint</code></a></p>
-<p>Este es un string predeterminado que se mostrará cuando el campo de texto esté vacío. En lugar de utilizar un string codificado como el valor, el valor <code>&#34;@string/edit_person_name&#34;</code> se refiere a un recurso String definido en un archivo separado. Debido a que se refiere a un recurso concreto (no sólo un identificador), no necesita el signo más. <strong>Sin embargo, debido a que no ha definido el recurso String, verás un error de compilación en un primer momento. Vas a arreglar esto en la siguiente sección mediante la definición del String.</strong></p>
-<aside class="special"><p><strong>Nota:</strong> Este recurso de cadena tiene el mismo nombre que el elemento ID: <code>edit_person_name</code>. Sin embargo, las referencias a los recursos siempre están en el ámbito por el tipo de recurso (por ejemplo, <code>id</code> o <code>string</code>), por lo que usar el mismo nombre no causa colisiones.</p>
-</aside>
-<h2>Añadir recursos String</h2>
-<p>Por defecto, tu proyecto Android incluye el archivo de recursos String  <code>res/values/strings.xml</code>. A continuación, vamos a añadir dos nuevos strings.<br></p>
-<ol type="1" start="1">
-<li>Desde el directorio <code>res/values/</code>, abre <code>strings.xml</code>.<br></li>
-<li>Añade dos strings para que el archivo quede así:<br></li>
-</ol>
+<p>Reemplaza el contenido del archivo XML con lo siguiente:<br></p>
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;resources&gt;
-    &lt;string name=&#34;app_name&#34;&gt;My First App&lt;/string&gt;
-    &lt;string name=&#34;edit_person_name&#34;&gt;Enter your name&lt;/string&gt;
-    &lt;string name=&#34;button_send_person_name&#34;&gt;Greet!&lt;/string&gt;
-&lt;/resources&gt;</code></pre>
-<p>Para mostrar texto en la interfaz de usuario, especifica siempre cada String como un recurso. Los recursos String permiten gestionar todo el texto de interfaz de usuario en un solo lugar, lo que hace que el texto sea más fácil de encontrar y actualizar. La externalización de los strings también permite localizar una aplicación a diferentes idiomas, proporcionando definiciones alternativas para cada recurso String.</p>
-<h2>Añadir un Button</h2>
-<p>Volver al archivo <code>activity_main.xml</code> y añadir un botón después del <a href="https://developer.android.com/reference/android/widget/EditText.html" target="_blank"><code>&lt;EditText&gt;</code></a>. El archivo debe tener este aspecto:</p>
-<pre><code>&lt;LinearLayout
-    xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-    xmlns:tools=&#34;http://schemas.android.com/tools&#34;
-    android:orientation=&#34;horizontal&#34;
-    android:layout_width=&#34;match_parent&#34;
-    android:layout_height=&#34;match_parent&#34;&gt;
-        &lt;EditText android:id=&#34;@+id/edit_person_name&#34;
-          android:layout_width=&#34;wrap_content&#34;
-          android:layout_height=&#34;wrap_content&#34;
-          android:hint=&#34;@string/edit_person_name&#34; /&gt;
-        &lt;Button
-          android:layout_width=&#34;wrap_content&#34;
-          android:layout_height=&#34;wrap_content&#34;
-          android:text=&#34;@string/button_send_person_name&#34; /&gt;
-&lt;/LinearLayout&gt;</code></pre>
-<aside class="special"><p><strong>Nota:</strong> Este botón no necesita el atributo <a href="https://developer.android.com/reference/android/view/View.html#attr_android:id" target="_blank">android:id</a>, ya que no se va a hacer referencia a él desde el código de la Activity.</p>
-</aside>
-<p>El layout está diseñado de modo que tanto el widget <a href="https://developer.android.com/reference/android/widget/EditText.html" target="_blank"><code>EditText</code></a> como el <a href="https://developer.android.com/reference/android/widget/Button.html" target="_blank"><code>Button</code></a> son solamente tan grandes como sea necesario para adaptarse a su contenido, tal como muestra la figura 2.</p>
-<p><img style="max-width: 313.00px" src="img\ad73e49368925e6d.png"></p>
-<p><strong>Figura 2. </strong>Los widgets <a href="https://developer.android.com/reference/android/widget/EditText.html" target="_blank"><code>EditText</code></a> y <a href="https://developer.android.com/reference/android/widget/Button.html" target="_blank"><code>Button</code></a> tienen sus anchuras establecidas en <code>&#34;wrap_content&#34;</code>.</p>
-<p>Esto funciona muy bien para el botón, pero no así para el campo de texto, ya que el usuario puede escribir algo más largo. Sería mejor llenar el ancho de la pantalla sin usar con el campo de texto. Puede hacer esto dentro de una <a href="https://developer.android.com/reference/android/widget/LinearLayout.html" target="_blank"><code>LinearLayout</code></a> con la propiedad <em>weight</em>, que se puede especificar mediante el atributo <a href="https://developer.android.com/reference/android/widget/LinearLayout.LayoutParams.html#weight" target="_blank"><code>android:layout_weight</code></a>.</p>
-<p>El valor weight (peso) es un número que especifica la cantidad del espacio restante que cada vista debe consumir, en relación con la cantidad consumida por las vistas hermanas. Es algo así como la cantidad de ingredientes en una receta de la bebida: &#34;2 partes de soda, 1 parte de jarabe&#34; significa que dos tercios de la bebida es sosa. Por ejemplo, si se le da a una vista un peso de 2 y a otra un peso de 1, la suma es 3, por lo que la primera vista llena 2/3 del espacio restante y la segunda vista llena el resto. Si se agrega una tercera vista y se le da un peso de 1, entonces la primera vista (con un peso de 2) ahora recibe 1/2 del espacio restante, mientras que los dos restantes obtienen, 1/4 cada uno.</p>
-<p>El peso por defecto para todas las Vistas es 0, por lo que si no se especifica ningún valor de peso superior a 0 a una vista, entonces esa vista llena cualquier espacio que quede después de que a todas las vistas se les haya dado el espacio que requieren.</p>
-<h2>Hacer que el EditText rellene el ancho de pantalla</h2>
-<p>En <code>activity_main.xml</code>, modifica el <a href="https://developer.android.com/reference/android/widget/EditText.html" target="_blank"><code>&lt;EditText&gt;</code></a> a fin de que los atributos se vean así:</p>
-<pre><code>&lt;EditText android:id=&#34;@+id/edit_person_name&#34;
-    android:layout_weight=&#34;1&#34;
-    android:layout_width=&#34;0dp&#34;
-    android:layout_height=&#34;wrap_content&#34;
-    android:hint=&#34;@string/edit_person_name&#34; /&gt;</code></pre>
-<p>Ajustar la anchura a cero (0dp) mejora el rendimiento de diseño porque el uso de <code>&#34;wrap_content&#34;</code> como anchura requiere que el sistema calcule una anchura, que es en última instancia irrelevante debido a que el valor de peso requiere otro cálculo de anchura para llenar el espacio restante.</p>
-<p><img style="max-width: 316.00px" src="img\a95f9c99efd84e34.png"></p>
-<p><strong>Figura 3. </strong>Al control <a href="https://developer.android.com/reference/android/widget/EditText.html" target="_blank"><code>EditText</code></a> se le ha dado todo el peso por diseño, por lo que llena el espacio restante en el <a href="https://developer.android.com/reference/android/widget/LinearLayout.html" target="_blank"><code>LinearLayout</code></a>.</p>
-<p>Así es como el archivo de diseño <code>activity_main.xml</code> completo debería ser ahora:<br></p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
    xmlns:tools=&#34;http://schemas.android.com/tools&#34;
-   android:orientation=&#34;horizontal&#34;
    android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;&gt;
-    &lt;EditText android:id=&#34;@+id/edit_person_name&#34;
-        android:layout_weight=&#34;1&#34;
-        android:layout_width=&#34;0dp&#34;
-        android:layout_height=&#34;wrap_content&#34;
-        android:hint=&#34;@string/edit_person_name&#34; /&gt;
-    &lt;Button
-        android:layout_width=&#34;wrap_content&#34;
-        android:layout_height=&#34;wrap_content&#34;
-        android:text=&#34;@string/button_send_person_name&#34; /&gt;
-&lt;/LinearLayout&gt;</code></pre>
-<h2>Ejecutar la aplicación</h2>
-<p>Este layout se aplica por defecto a la clase <a href="https://developer.android.com/reference/android/app/Activity.html" target="_blank"><code>Activity</code></a> que las herramientas del SDK generaron cuando se creó el proyecto.</p>
-<p>Para ejecutar la aplicación y ver los resultados, haga clic en <strong>Ejecutar &#39;app&#39; </strong><img style="max-width: 25.00px" src="img\5cddd1366b146a3c.png"> en la barra de herramientas.</p>
+   android:layout_height=&#34;match_parent&#34;
+   tools:context=&#34;.MainActivity&#34;&gt;
+
+   &lt;Button
+       android:id=&#34;@+id/button&#34;
+       android:layout_width=&#34;wrap_content&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:text=&#34;Button&#34;
+       app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
+       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+       app:layout_constraintRight_toRightOf=&#34;parent&#34;
+       app:layout_constraintTop_toTopOf=&#34;parent&#34; /&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre>
+<h2 is-upgraded>Hemos reemplazado el <code>TextView</code> que viene por defecto con un <code>Button</code>.</h2>
+<p>Si cambias a la pestaña <strong>Design</strong>, deberías ver una previsualización del <em>layout </em>como ésta:</p>
+<p class="image-container"><img style="width: 557.00px" src="img\62695f6505d33ddf.png"></p>
+<p>Cambiemos el texto que aparece en el botón por el de &#34;INICIAR REGISTRO&#34;. Para ello solamente debes modificar el atributo <code>android:text</code> (en el XML o en Diseño).</p>
+<p>Si bien, es una buena práctica añadir todas las cadenas de texto que tenga nuestra aplicación en el fichero de recursos <code>strings.xml</code> (para facilitar las traducciones, por ejemplo).</p>
+<p>Para hacerlo podemos hacer uso del <em>refactoring </em>de IntelliJ. Tan simple como hacer <code>Alt + Intro</code>:</p>
+<p class="image-container"><img style="width: 584.00px" src="img\d85a96ad0984d886.gif"></p>
+<p>Solamente hay que darle un nombre al recurso y automáticamente se creará la definición de este recurso en el archivo <code>strings.xml</code>:</p>
+<p class="image-container"><img style="width: 736.40px" src="img\b684762f69d53d5a.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Iniciar otra Activity" duration="0">
-        <p>Tenemos una aplicación que muestra una actividad (una sola pantalla) con un campo de texto y un botón. </p>
-<p>Vamos a añadir algo de código en <code>MainActivity</code> para que se inicie una nueva actividad cuando el usuario haga clic en el botón Enviar.</p>
-<h2>Responder al botón Enviar</h2>
+        <p>Por ahora únicamente tenemos una aplicación que muestra una Activity (una sola pantalla) con un botón. </p>
+<p>Vamos a añadir algo de código en <code>MainActivity</code> para que se inicie una nueva <em>activity</em> cuando el usuario haga clic en el botón &#34;INICIAR REGISTRO&#34;.</p>
+<h2 is-upgraded>Responder al botón INICIAR_REGISTRO</h2>
+<p>El comportamiento de una Activity se programa en el archivo JAVA de dicha Activity. Para hacer que el botón de la <code>MainActivity</code> haga algo, debemos añadir el código Java en el archivo <code>MainActivity.java</code>.</p>
+<p>Abre el archivo <code>MainActivity.java</code>:</p>
+<p class="image-container"><img style="width: 680.00px" src="img\349dca1107298a0c.png"></p>
+<aside class="special"><p>El método <code>onCreate()</code> de una Activity es ejecutado por el Sistema Android cuando se inicia una Activity. En este método definiremos qué debe hacer una Activity cuando se inicia.</p>
+</aside>
+<p>Lo que haremos cuando se inicie la MainActivity,, es &#34;<em>activar</em>&#34; el botón de forma que cuando se haga clic en él, nos lleve a la siguiente activity. Es decir, cuando se inicie la MainActivity haremos que se establezca la acción a realizar <strong>cuando se haga clic en el botón</strong>.</p>
+<p>Para añadir un comportamiento mediante código Java a un elemento definido en el layout XML (com en este caso, el botón), el primer paso es &#34;recuperar&#34; el elemento. Para ello usaremos el método <code>findViewById()</code>.</p>
 <ol type="1" start="1">
-<li>En el archivo <code>res/layout/activity_main.xml</code>, añadir el atributo <a href="https://developer.android.com/reference/android/view/View.html#attr_android:onClick" target="_blank"><code>android:onClick</code></a> al elemento <a href="https://developer.android.com/reference/android/widget/Button.html" target="_blank"><code>&lt;Button&gt;</code></a>, como se muestra a continuación:<br></li>
+<li><h3 is-upgraded>Recuperar el botón con findViewById():</h3>
+</li>
 </ol>
-<pre><code>&lt;Button
-   android:layout_width=&#34;wrap_content&#34;
-   android:layout_height=&#34;wrap_content&#34;
-   android:text=&#34;@string/button_send_person_name&#34;
-   android:onClick=&#34;sendPersonName&#34;/&gt;</code></pre>
+<p class="image-container"><img style="width: 584.00px" src="img\374ab53b411ee017.gif"></p>
+<p>En este código hemos usado el método <code>findViewById()</code>, al cuál le hemos pasado el identificador del botón que habíamos indicado en el XML, y hemos guardado el botón en la variable <code>botonIniciarRegistro</code>. </p>
+<p>De esta forma, la variable <code>botonIniciarRegistro</code> hace referencia al botón con el id <code>button</code> del layout <code>activity_main.xml</code></p>
+<p class="image-container"><img style="width: 736.40px" src="img\30564e2a055842d4.png"></p>
+<aside class="special"><p>Observa que para definir un <code>id</code> en un elemento del <em>layout</em>, hay que añadir el atributo <code>android:id</code> y escribir <code>@+id/</code> antes del nombre identificador.</p>
+</aside>
+<p>En este caso en el que solo hay un botón, no importa demasiado el identificador que se le asigne, pero a medida que una aplicación va creciendo es importante asignar identificadores que &#34;<strong>de verdad&#34;</strong> identifiquen al elemento.</p>
+<p>Para cambiar el id de un elemento, utiliza la refactorización:</p>
+<p>Pongámosle un identificador más adecuado al botón. Sitúate encima del identificador y presiona <code>SHIFT + F6</code> (o ve a <code>Refactor</code> &gt; <code>Rename</code>):</p>
+<p class="image-container"><img style="width: 736.40px" src="img\6f2ea4df68d78424.gif"></p>
 <ol type="1" start="2">
-<li>Este atributo indica al sistema que ha de llamar al método <code>sendPersonName()</code> en la Activity cada vez que un usuario haga clic en el botón.<br></li>
-<li>En el archivo <code>java/com.example.hellojohndoe/MainActivity.java</code>, agrega el método <code>sendPersonName()</code> al final, como se muestra a continuación:<br></li>
+<li><h3 is-upgraded>Añadir un Listener al bóton:</h3>
+</li>
 </ol>
-<pre><code>public class MainActivity extends AppCompatActivity { 
-    
-    @Override 
-    protected void onCreate(Bundle savedInstanceState) { 
-        super.onCreate(savedInstanceState);         
-        setContentView(R.layout.activity_main); 
-    } 
-
-    /* Se llama cuando el usuario hace clic en el botón Enviar */ 
-    public void sendPersonName(View view) { 
-        // Hacer algo en respuesta al botón 
-    } 
-}</code></pre>
-<ol type="1" start="4">
-<li>Para que el sistema empareje este método con el nombre de método dado a <a href="https://developer.android.com/reference/android/view/View.html#attr_android:onClick" target="_blank"><code>android:onClick</code></a>, la firma debe ser exactamente como se muestra. En concreto, el método debe:</li>
-</ol>
-<ul>
-<li>Ser público</li>
-<li>Tener un valor de retorno <strong><code>void </code></strong></li>
-<li>Tener una <a href="https://developer.android.com/reference/android/view/View.html" target="_blank"><code>View</code></a> como único parámetro (este será el <a href="https://developer.android.com/reference/android/view/View.html" target="_blank"><code>View</code></a> al que se hizo clic)</li>
-</ul>
-<p><br>A continuación, deberás rellenar este método para leer el contenido del campo de texto y entregar el texto a otra actividad.<br></p>
-<h2>Construir un Intent</h2>
-<p><br>Un <a href="https://developer.android.com/reference/android/content/Intent.html" target="_blank"><code>Intent</code></a> es un objeto que proporciona la unión entre los componentes separados (por ejemplo, dos actividades) en tiempo de ejecución. El <a href="https://developer.android.com/reference/android/content/Intent.html" target="_blank"><code>Intent</code></a> representa la &#34;intención de hacer algo&#34; de una aplicación. Puede utilizar los Intent para una amplia variedad de tareas, pero en esta lección, su <em>Intent</em> comienza otra actividad.<br></p>
-<p>En <code>MainActivity.java</code>, añadir el código que se muestra a continuación para <code>sendPersonName()</code>:<br></p>
-<pre><code>public class MainActivity extends AppCompatActivity {
-   public final static String EXTRA_PERSON_NAME = &#34;com.example.hellojohndoe.NAME&#34;;
-
-   @Override
-   protected void onCreate(Bundle savedInstanceState) {
-       super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_main);
-   }
-
-   /* Se llama cuando el usuario hace clic en el botón Enviar */
-   public void sendPersonName(View view) {
-       EditText editTextPersonName = (EditText) findViewById(R.id.edit_person_name);
-       String personName = editTextPersonName.getText().toString();
-
-       Intent intent = new Intent(this, GreetPersonActivity.class);
-       intent.putExtra(EXTRA_PERSON_NAME, personName);
-       startActivity(intent);
-   }
-}</code></pre>
-<aside class="warning"><p><strong>Nota:</strong> Android Studio podría mostrar errores <code>Cannot resolve symbol</code> debido a que el código hace referencia a clases como <a href="https://developer.android.com/reference/android/content/Intent.html" target="_blank">Intent</a> y <a href="https://developer.android.com/reference/android/widget/EditText.html" target="_blank">EditText</a> que no han sido importados. Para importar estas clases, puede 1) utilizar la funcionalidad de &#34;importación de clase&#34; de Android Studio pulsando Alt + Enter (Opción + Retorno en Mac) o 2) añadir manualmente las declaraciones de importación en la parte superior del archivo.</p>
-</aside>
-<p>Hay mucho que hacer en <code>sendPersonName()</code>, por lo que vamos a explicar lo que está pasando.<br></p>
-<p>El constructor de <a href="https://developer.android.com/reference/android/content/Intent.html" target="_blank"><code>Intent</code></a> toma dos parámetros:<br></p>
-<ul>
-<li>Un <a href="https://developer.android.com/reference/android/content/Context.html" target="_blank"><code>Context</code></a> como primer parámetro ( <code>this</code> se utiliza debido a que <a href="https://developer.android.com/reference/android/app/Activity.html" target="_blank"><code>Activity</code></a> es una subclase de <a href="https://developer.android.com/reference/android/content/Context.html" target="_blank"><code>Context</code></a>)<br></li>
-<li>La <a href="https://developer.android.com/reference/java/lang/Class.html" target="_blank"><code>Class</code></a> del componente de aplicación a la que el sistema debe proporcionar el <a href="https://developer.android.com/reference/android/content/Intent.html" target="_blank"><code>Intent</code></a> (en este caso, la actividad que debe ser iniciada).</li>
-</ul>
-<aside class="warning"><p><strong>Nota:</strong> La referencia al <code>GreetPersonActivity</code> generará un error en Android Studio debido a que la clase no existe todavía. Ignorar el error por el momento; ya que va a crear la clase pronto.</p>
-</aside>
-<p><br>El método <a href="https://developer.android.com/reference/android/content/Intent.html#putExtra(java.lang.String,%20java.lang.String)" target="_blank"><code>putExtra()</code></a> agrega el valor del <code>EditText</code> al Intent. Un <code>Intent</code> puede llevar tipos de datos como pares de clave-valor llamados <em>extras</em>. La clave es la constante pública <code>EXTRA_PERSON_NAME</code> (ha de ser pública ya que la actividad siguiente utiliza dicha clave para extraer el valor de texto). Es una buena práctica definir claves para extras utilizando el nombre del paquete de la aplicación como un prefijo. Esto asegura que las claves son únicas, en caso de que su aplicación interactúe con otras aplicaciones.</p>
-<p>El método <a href="https://developer.android.com/reference/android/app/Activity.html#startActivity(android.content.Intent)" target="_blank"><code>startActivity()</code></a> inicia una instancia de la clase <code>GreetPersonActivity</code> , especificada por el <a href="https://developer.android.com/reference/android/content/Intent.html" target="_blank"><code>Intent</code></a>. Ahora tienes que crear esta clase.</p>
-<h2>Crear la segunda actividad</h2>
+<p>Una vez tenemos la referencia al botón, podemos especificar la acción que se debe realizar al hacer click sobre él. Esto se hace mediante <em>listeners</em>. (Más adelante veremos con profundidad los <em>listeners</em>).</p>
+<p>Para añadir un <em>listener </em>a un botón que responda al click usamos el método <code>setOnClickListener()</code>, al cuál le pasaremos un objeto <code>View.OnClickListener</code>. En este objeto estará definido el método que se ejecutará cuando el usuario haga click en el botón:</p>
+<p class="image-container"><img style="width: 736.40px" src="img\8b60a966b232b8fd.gif"></p>
+<p>De esta forma hemos añadido un <code>OnClickListener</code> al botón. Lo que programemos dentro del método <code>onClick()</code> de este listener se ejecutará cuando se haga click en el botón.</p>
+<h2 is-upgraded>Construir un Intent</h2>
+<p><br>Para iniciar otra <em>Activity</em>, se usa un objeto de la clase <code>Intent</code>.</p>
+<p>Hay que crear un objeto de esta clase especificando la Activity que queremos iniciar, y luego pasarle el objeto Intent al método <code>startActivity()</code>.</p>
 <ol type="1" start="1">
-<li>En la ventana del <strong>Proyecto</strong>, haz clic en la carpeta de la <strong>Aplicación</strong> y selecciona <strong>Nueva&gt; Actividad&gt; Actividad vacía</strong>.<br></li>
-<li>En la ventana <strong>Configurar Actividad</strong>, escribe &#34;GreetPersonActivity&#34; para el <strong>Nombre de Actividad </strong>y haz clic en<strong> Finalizar<br></strong></li>
+<li>Construir el Intent:</li>
 </ol>
+<p class="image-container"><img style="width: 736.40px" src="img\a4aa7696541f3265.gif"></p>
+<ol type="1" start="2">
+<li>Llamar al método <code>startActivity()</code> y pasarle el intent:</li>
+</ol>
+<p class="image-container"><img style="width: 736.40px" src="img\e65af59ebed1a570.gif"></p>
+<aside class="warning"><p><strong>Nota:</strong> La referencia al <code>RegisterActivity</code> generará un error en Android Studio debido a que la clase no existe todavía. Ignorar el error por el momento; ya que va a crear la clase pronto.</p>
+</aside>
+<p>El método <a href="https://developer.android.com/reference/android/app/Activity.html#startActivity(android.content.Intent)" target="_blank"><code>startActivity()</code></a> inicia una instancia de la clase <code>RegisterActivity</code> , especificada por el <a href="https://developer.android.com/reference/android/content/Intent.html" target="_blank"><code>Intent</code></a>. Ahora tienes que crear esta clase.</p>
+<p>Hemos hecho en dos pasos la acción de abrir una Activity. Primero hemos creado el Intent, y después se lo hemos pasado a startActivity(). Se podría haber hecho en una sola línea así:</p>
+<pre><code>startActivity(new Intent(MainActivity.this, RegisterActivity.class));</code></pre>
+<h2 is-upgraded>Crear la segunda actividad</h2>
+<ol type="1" start="1">
+<li>En la ventana del <strong>Proyecto</strong>, haz clic en la carpeta de la <strong><code>app</code></strong><strong> </strong>y selecciona <strong><code>New</code></strong><strong> &gt; </strong><strong><code>Activity</code></strong><strong> &gt; </strong><strong><code>Empty Activity</code></strong>.</li>
+<li>En la ventana <strong>Configurar Actividad</strong>, escribe <code>RegisterActivity</code> para el <strong>Nombre de Actividad </strong>y haz clic en<strong> Finalizar<br></strong></li>
+</ol>
+<p class="image-container"><img style="width: 736.40px" src="img\3cefaa9fcc2c4b13.gif"></p>
 <p>Cuando creas una Activity de esta manera, Android Studio automáticamente hace tres cosas:<br></p>
 <ul>
-<li>Crea la clase <code>GreetPersonActivity.java</code> con la implementación requerida del método <a href="https://developer.android.com/reference/android/app/Activity.html#onCreate(android.os.Bundle)" target="_blank"><code>onCreate()</code></a>.<br></li>
-<li>Crea el archivo de diseño que corresponde a <code>activity_greet_person.xml<br></code></li>
+<li>Crea la clase <code>RegisterActivity.java</code> con la implementación requerida del método <a href="https://developer.android.com/reference/android/app/Activity.html#onCreate(android.os.Bundle)" target="_blank"><code>onCreate()</code></a>.<br></li>
+<li>Crea el archivo de layout <code>activity_register.xml<br></code></li>
 <li>Agrega el elemento <a href="https://developer.android.com/guide/topics/manifest/activity-element.html" target="_blank"><code>&lt;</code><code>A</code><code>ctivi</code><code>ty</code><code>&gt;</code></a> requerido en <code>AndroidManifest.xml</code>.</li>
 </ul>
-<p><br>Si ejecutas la aplicación y haces clic en el botón Enviar de la primera actividad, la segunda actividad se inicia, pero está vacía. </p>
-<p>Esto es porque la segunda actividad utiliza un <code>Layout</code> vacío predeterminado proporcionado por la plantilla.</p>
-<h2>Mostrar el mensaje</h2>
-<p>Ahora vas a modificar la segunda actividad para mostrar el mensaje que fue pasado por la primera actividad.</p>
-<ol type="1" start="1">
-<li>En <code>GreetPersonActivity.java</code>, añadir el siguiente código al método <code>onCreate()</code>:<br></li>
-</ol>
-<pre><code>@Override
-protected void onCreate(Bundle savedInstanceState) {
-   super.onCreate(savedInstanceState);
-   setContentView(R.layout.activity_greet_person);
-
-   Intent intent = getIntent();
-   String personName = intent.getStringExtra(MainActivity.EXTRA_PERSON_NAME);
-
-   TextView textView = new TextView(this);
-   textView.setTextSize(40);
-   textView.setText(&#34;HELLO &#34; + personName);
-
-   ViewGroup layout = (ViewGroup) findViewById(R.id.activity_greet_person);
-   layout.addView(textView);
-}</code></pre>
-<ol type="1" start="2">
-<li>Pulsa Alt + Enter (opción + retorno de Mac) para importar las clases que faltan.</li>
-</ol>
-<p>Hay mucho que explicar aquí:</p>
-<ol type="1" start="1">
-<li>La llamada <a href="https://developer.android.com/reference/android/app/Activity.html#getIntent()" target="_blank"><code>getIntent()</code></a> devuelve el <code>Intent</code> con la que se inició la actividad. Cada <a href="https://developer.android.com/reference/android/app/Activity.html" target="_blank"><code>Activity</code></a> es invocada por un <a href="https://developer.android.com/reference/android/content/Intent.html" target="_blank"><code>Intent</code></a>, independientemente de la forma en que el usuario navega allí. La llamada <a href="https://developer.android.com/reference/android/content/Intent.html#getStringExtra(java.lang.String)" target="_blank"><code>getStringExtra()</code></a> recupera los datos que se pusieron en la primera actividad.<br></li>
-<li>Se crea mediante programación una <a href="https://developer.android.com/reference/android/widget/TextView.html" target="_blank"><code>TextView</code></a> y se define su tamaño y su mensaje.<br></li>
-<li>Se agrega el <code>TextView</code> al layout identificado por <code>R.id.activity_greet_person</code>. Se hace un <em>cast</em> al layout <a href="https://developer.android.com/reference/android/view/ViewGroup.html" target="_blank"><code>ViewGroup</code></a>, ya que es la superclase de todos los layouts y contiene el método <a href="https://developer.android.com/reference/android/view/ViewGroup.html#addView(android.view.View)" target="_blank"><code>addView()</code></a>.</li>
-</ol>
-<aside class="warning"><p><strong>Nota:</strong> El diseño de XML generado por versiones anteriores de Android Studio podría no incluir el atributo <code>android:id</code>. </p>
-<p>La llamada <code>findViewById()</code> fallará si el layout no tiene el atributo <code>android:id</code>. Si este es el caso, abra el fichero <code>activity_greet_person.xml</code> y añada el atributo <code>android:id=&#34;@+id/activity_greet_person&#34;</code> al elemento de layout.</p>
-</aside>
-<p>Ahora puedes ejecutar la aplicación. Cuando se abra, escribe un nombre en el campo de texto y haz clic en <strong>Greet!</strong> . La segunda actividad reemplaza a la primera en la pantalla, mostrando el mensaje de saludo al nombre de la persona que ha introducido en la primera actividad.</p>
+<p><br>Si ejecutas la aplicación y haces clic en el botón Enviar de la primera actividad, la segunda actividad se inicia, pero está vacía. Esto es porque la segunda actividad utiliza un <code>Layout</code> vacío predeterminado proporcionado por la plantilla.</p>
+<p class="image-container"><img style="width: 256.00px" src="img\d0ec5bf6900b1620.gif"></p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Tarea" duration="0">
-        <p>Desarrolla una Aplicación que pida los datos de registro de una persona. Los datos se irán pidiendo en Activities sucesivas.</p>
-<p>En la primera Activity se pedirán los datos personales: <strong>Nombre y Apellidos.</strong></p>
-<p>Un botón &#34;Next&#34; permitirá pasar a la siguiente Activity.</p>
-<p>En la segunda Activity se pedirán los datos de contacto:<strong> Email y Teléfono.</strong></p>
-<p>Otro botón &#34;Next&#34; para pasar a la siguiente.</p>
-<p>En la tercera Acvtivity se pedirán los datos de pago: <strong>Numero de tarjeta</strong>.</p>
-<p>Un botón &#34;Finish&#34; para pasar a la última Activity.</p>
-<p>En la última Activity se mostrará una <strong>ficha </strong>con todos los datos de la persona.</p>
+      <google-codelab-step label="RegisterActivity" duration="0">
+        <p>Ahora modificaremos la segunda actividad para añadir el formulario de registro.</p>
+<p>A modo de ejemplo pediremos el nombre, email, telefono y password.</p>
+<h2 is-upgraded>Definir el Layout con los campos de registro</h2>
+<p>Abre el archivo de layout de la RegisterActivity, <code>activity_register.xml</code>.</p>
+<p>Agrega los campos de texto al layout.</p>
+<p>Si lo haces en modo Diseño, agrega un PlainText, un E-mail, un Phone y un Password. Y también un botón que ponga &#34;REGISTRAR&#34;. <strong>Recuerda poner unos identificadores adecuados a cada elemento</strong>.</p>
+<p>Si lo haces en modo Texto, simplemente copia y pega este codigo XML:</p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   android:orientation=&#34;vertical&#34;&gt;
+
+   &lt;EditText
+       android:id=&#34;@+id/userName&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:inputType=&#34;textPersonName&#34;
+       android:hint=&#34;Name&#34; /&gt;
+
+   &lt;EditText
+       android:id=&#34;@+id/userEmail&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:inputType=&#34;textEmailAddress&#34;
+       android:hint=&#34;Email&#34;/&gt;
+
+   &lt;EditText
+       android:id=&#34;@+id/userPhone&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:inputType=&#34;phone&#34;
+       android:hint=&#34;Phone&#34;/&gt;
+
+   &lt;EditText
+       android:id=&#34;@+id/userPassword&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:inputType=&#34;textPassword&#34;
+       android:hint=&#34;Password&#34;/&gt;
+  
+   &lt;Button
+       android:id=&#34;@+id/botonRegistrar&#34;
+       android:text=&#34;REGISTRAR&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;/&gt;
+  
+&lt;/LinearLayout&gt;</code></pre>
+<p>Hemos añadido 4 campos de texto y un botón. Todos ellos los hemos puesto dentro de un LinearLayout. </p>
+<p>Veamos algunos de los atributos:</p>
+<p>LinearLayout</p>
+<ul>
+<li>android:orientation=&#34;vertical&#34; hace que los elementos que estan dentro del layout se dispongan uno debajo de otro.</li>
+</ul>
+<p>EditText</p>
+<ul>
+<li><strong><code>android:layout_width=&#34;match_parent&#34;</code></strong> hace que </li>
+</ul>
 
 
       </google-codelab-step>
     
   </google-codelab>
 
-  <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-49880327-14', 'auto');
-
-    (function() {
-      var gaCodelab = '';
-      if (gaCodelab) {
-        ga('create', gaCodelab, 'auto', {name: 'codelab'});
-      }
-
-      var gaView;
-      var parts = location.search.substring(1).split('&');
-      for (var i = 0; i < parts.length; i++) {
-        var param = parts[i].split('=');
-        if (param[0] === 'viewga') {
-          gaView = param[1];
-          break;
-        }
-      }
-      if (gaView && gaView !== gaCodelab) {
-        ga('create', gaView, 'auto', {name: 'view'});
-      }
-    })();
-  </script>
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
 
 </body>
 </html>
