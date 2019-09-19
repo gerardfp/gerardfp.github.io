@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-09-19T11:43:23Z",
+  "id": "mp08/P2",
+  "duration": 0,
+  "title": "Activity",
+  "summary": "P2 Activity",
+  "source": "1Iq_xyPliwEVPE7Jde4bsVS3vMdUfTwZZovqiGfbrCVU",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp08/P2"
+}
