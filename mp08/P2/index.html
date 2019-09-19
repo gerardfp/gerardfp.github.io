@@ -156,9 +156,11 @@
 <p>A modo de ejemplo pediremos el nombre, email, telefono y password.</p>
 <h2 is-upgraded>Definir el Layout con los campos de registro</h2>
 <p>Abre el archivo de layout de la RegisterActivity, <code>activity_register.xml</code>.</p>
-<p>Agrega los campos de texto al layout.</p>
-<p>Si lo haces en modo Diseño, agrega un PlainText, un E-mail, un Phone y un Password. Y también un botón que ponga &#34;REGISTRAR&#34;. <strong>Recuerda poner unos identificadores adecuados a cada elemento</strong>.</p>
-<p>Si lo haces en modo Texto, simplemente copia y pega este codigo XML:</p>
+<p>Agrega los campos de texto al layout:</p>
+<ul>
+<li>Si lo haces en modo Diseño, agrega un PlainText, un E-mail, un Phone y un Password. Y también un botón que ponga &#34;REGISTRAR&#34;. <strong>Recuerda poner unos identificadores adecuados a cada elemento</strong>.</li>
+<li>Si lo haces en modo Texto, simplemente copia y pega este código XML:</li>
+</ul>
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    android:layout_width=&#34;match_parent&#34;
@@ -204,13 +206,85 @@
 <p>Veamos algunos de los atributos:</p>
 <p>LinearLayout</p>
 <ul>
-<li>android:orientation=&#34;vertical&#34; hace que los elementos que estan dentro del layout se dispongan uno debajo de otro.</li>
+<li><code>android:orientation=&#34;vertical&#34;</code> hace que los elementos que estan dentro del layout se dispongan uno debajo de otro.</li>
 </ul>
 <p>EditText</p>
 <ul>
-<li><strong><code>android:layout_width=&#34;match_parent&#34;</code></strong> hace que </li>
+<li><strong><code>android:layout_width=&#34;match_parent&#34;</code></strong> hace que el EditText tenga la misma anchura que su elemento padre (el LinearLayout).</li>
+<li><strong><code>android:inputType=&#34;textEmailAddress&#34;</code></strong> hace que el teclado que aparece al ponerse sobre el EditText tenga la tecla <code>@</code></li>
+<li><strong><code>android:inputType=&#34;phone&#34;</code></strong> hace que el teclado que aparece al ponerse sobre el EditText se numérico</li>
+<li><strong><code>android:inputType=&#34;textPassword&#34;</code></strong> hace que el texto que se introduce en el EditText quede ocultado.</li>
+<li><strong><code>android:hint</code></strong>  hace que aparezca en gris el titulo del campo, el cual desaparece cuando el usuario introduce texto.</li>
 </ul>
+<p>Ha quedado definido el layout de la activity de registro. Si abrimos la applicación veremos algo así:</p>
+<p class="image-container"><img style="width: 377.00px" src="img\88673902353b528.png"></p>
+<p>Evidentemente, al hacer click al botón, éste no responderá, ya que no hemos programado su comportamiento.</p>
 
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Responder al botón REGISTRAR" duration="0">
+        <p>Cuando el usuario pulse REGISTRAR, la acción a llevar a cabo será recoger los datos introducidos y enviarlos a la siguiente pantalla (activity) para que los muestre. (Habitualmente, en un aplicación lo normal sería guardar estos datos en una base de datos. Lo veremos más adelante).</p>
+<p>Los pasos a seguir serán pues estos:</p>
+<ol type="1" start="1">
+<li>Recuperar desde código Java el <code>botonRegistrar</code></li>
+<li>Añadir un <em>listener</em> al botón</li>
+<li>En la acción del <em>listener</em> poner el código que recoja los datos introducidos en los datos, inicie una nueva pantalla y le envíe los datos.</li>
+</ol>
+<h2 is-upgraded>Recuperar el botón con findViewById()</h2>
+<p>Parecido al que hemos hecho con el <code>botonIniciarRegistro</code> el código será este:</p>
+<pre><code>Button botonRegistrar = findViewById(R.id.botonRegistrar);</code></pre>
+<p class="image-container"><img style="width: 631.00px" src="img\7099e1f7d4a2635c.gif"></p>
+<h2 is-upgraded>Añadir un listener</h2>
+<p>Igual que con el <code>botonIniciarRegistro</code>:</p>
+<pre><code>botonRegistrar.setOnClickListener(new View.OnClickListener() {
+   @Override
+   public void onClick(View view) {
+      
+   }
+});</code></pre>
+<p class="image-container"><img style="width: 710.00px" src="img\5aa8026a15a3d8a0.gif"></p>
+<h2 is-upgraded>Recoger los datos de los campos</h2>
+<p>Tenemos que obtener los Strings que el usuario ha introducido en los campos (nombre, email, telefono y password).</p>
+<p>Para ello, primero recuperamos cada campo con <code>findViewById()</code> y luego extraemos el String de cada uno de ellos.</p>
+<ol type="1" start="1">
+<li>Recuperar los campos con <code>findViewById()</code></li>
+</ol>
+<pre><code>EditText editTextUserName = findViewById(R.id.userName);
+EditText editTextUserEmail = findViewById(R.id.userEmail);
+EditText editTextUserPhone = findViewById(R.id.userPhone);
+EditText editTextUserPassword = findViewById(R.id.userPassword);</code></pre>
+<p class="image-container"><img style="width: 710.00px" src="img\56dd47aaf63cd565.gif"></p>
+<ol type="1" start="2">
+<li>Extraer los Strings de los campos de texto</li>
+</ol>
+<pre><code>String userName = editTextUserName.getText().toString();
+String userEmail = editTextUserEmail.getText().toString();
+String userPhone = editTextUserPhone.getText().toString();
+String userPassword = editTextUserPassword.getText().toString();</code></pre>
+<p class="image-container"><img style="width: 710.00px" src="img\8b63cf426df98e71.gif"></p>
+<h2 is-upgraded>Construir un Intent</h2>
+<p>Para iniciar la siguiente pantalla (la que muestra los datos de registro) crearemos un <code>Intent</code>:</p>
+<pre><code>Intent intent = new Intent(RegisterActivity.this, ShowInfoActivity.class);</code></pre>
+<p class="image-container"><img style="width: 736.40px" src="img\905c74ff7a807e79.gif"></p>
+<aside class="warning"><p><strong>Nota: </strong><code>ShowInfoActivity</code> se mostrará como un error ya que todavía no hemos creado esta Activity.</p>
+</aside>
+<p>Para passarle los <em>Strings </em>a la <code>ShowInfoActivity</code>, en Android se hace poniendo esos datos en el <code>Intent</code> con el método <code>putExtra()</code>.</p>
+<p>Habrá que poner cada <em>String</em>, asignándole un identificador a cada uno.</p>
+<pre><code>intent.putExtra(&#34;USER_NAME&#34;, userName);
+intent.putExtra(&#34;USER_EMAIL&#34;, userEmail);
+intent.putExtra(&#34;USER_PHONE&#34;, userPhone);
+intent.putExtra(&#34;USER_PASSWORD&#34;, userPassword);</code></pre>
+<p class="image-container"><img style="width: 736.40px" src="img\778c9bd3ee0e3ced.gif"></p>
+<p>Una vez construido el <code>Intent</code> ya se lo podemos pasar al método <code>startActivity()</code>, el cual se encargará de iniciar la <code>ShowInfoActivity</code> pasándole el <code>Intent</code> con los datos que hemos puesto.</p>
+<pre><code>startActivity(intent);</code></pre>
+<p class="image-container"><img style="width: 736.40px" src="img\5fb651b1d518d0f2.gif"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ShowInfoActivity" duration="0">
+        
 
       </google-codelab-step>
     
