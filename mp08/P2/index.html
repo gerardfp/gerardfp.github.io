@@ -29,7 +29,14 @@
     
       <google-codelab-step label="Introducció" duration="0">
         <p>El objetivo de esta práctica es aprender a iniciar Activities. También aprenderás cómo pasar información de una <code>Activity</code> a otra.</p>
-<p>Desarrollarás una aplicación que muestra una Activity con un campo de texto y un botón. En el campo de texto se pedirá el nombre de una persona. Cuando se pulse el botón, el nombre introducido se mostrará en otra Activity, a modo de saludo.</p>
+<p>Desarrollarás una aplicación para rellenar un formulario de registro. La app constará de tres pantallas.</p>
+<ul>
+<li>En la primera habrá un botón &#34;INICIAR REGISTRO&#34; que nos llevará a la segunda pantalla.</li>
+<li>En la segunda pantalla estará el formulario de registro, donde el usuario introducirá sus datos. Cuando pulse el botón &#34;REGISTRAR&#34; irá a la última pantalla.</li>
+<li>En la última pantalla se mostrarán los datos introducidos.</li>
+</ul>
+<p class="image-container"><img style="width: 315.00px" src="img\bca32eddf81ea927.gif"></p>
+<p>Encontrarás el código completo de la aplicación aquí: <a href="https://github.com/gerardfp/P2" target="_blank">https://github.com/gerardfp/P2</a></p>
 
 
       </google-codelab-step>
@@ -139,7 +146,7 @@
 <li>En la ventana <strong>Configurar Actividad</strong>, escribe <code>RegisterActivity</code> para el <strong>Nombre de Actividad </strong>y haz clic en<strong> Finalizar<br></strong></li>
 </ol>
 <p class="image-container"><img style="width: 736.40px" src="img\3cefaa9fcc2c4b13.gif"></p>
-<p>Cuando creas una Activity de esta manera, Android Studio automáticamente hace tres cosas:<br></p>
+<p>Cuando creas una Activity de esta manera, Android Studio <strong>automáticamente </strong>hace tres cosas:<br></p>
 <ul>
 <li>Crea la clase <code>RegisterActivity.java</code> con la implementación requerida del método <a href="https://developer.android.com/reference/android/app/Activity.html#onCreate(android.os.Bundle)" target="_blank"><code>onCreate()</code></a>.<br></li>
 <li>Crea el archivo de layout <code>activity_register.xml<br></code></li>
@@ -258,6 +265,7 @@ EditText editTextUserPassword = findViewById(R.id.userPassword);</code></pre>
 <ol type="1" start="2">
 <li>Extraer los Strings de los campos de texto</li>
 </ol>
+<p>Para extraer los <em>Strings </em>de los campos de texto usaremos los métodos <code>getText().toString()</code>:</p>
 <pre><code>String userName = editTextUserName.getText().toString();
 String userEmail = editTextUserEmail.getText().toString();
 String userPhone = editTextUserPhone.getText().toString();
@@ -270,7 +278,7 @@ String userPassword = editTextUserPassword.getText().toString();</code></pre>
 <aside class="warning"><p><strong>Nota: </strong><code>ShowInfoActivity</code> se mostrará como un error ya que todavía no hemos creado esta Activity.</p>
 </aside>
 <p>Para passarle los <em>Strings </em>a la <code>ShowInfoActivity</code>, en Android se hace poniendo esos datos en el <code>Intent</code> con el método <code>putExtra()</code>.</p>
-<p>Habrá que poner cada <em>String</em>, asignándole un identificador a cada uno.</p>
+<p>Habrá que poner cada <em>String</em>, asignándole un <strong>identificador </strong>a cada uno.</p>
 <pre><code>intent.putExtra(&#34;USER_NAME&#34;, userName);
 intent.putExtra(&#34;USER_EMAIL&#34;, userEmail);
 intent.putExtra(&#34;USER_PHONE&#34;, userPhone);
@@ -284,7 +292,91 @@ intent.putExtra(&#34;USER_PASSWORD&#34;, userPassword);</code></pre>
       </google-codelab-step>
     
       <google-codelab-step label="ShowInfoActivity" duration="0">
-        
+        <p>Por último, nos queda crear la <code>ShowInfoActivity</code>, que recogerá los datos que la <code>RegisterActivity</code> ha puesto en el <code>Intent</code>, y los mostrará en pantalla.</p>
+<p>Para crear la Activity, de nuevo nos ponemos sobre la carpeta <strong><code>app</code></strong><strong> </strong>y seleccionamos <strong><code>New</code></strong><strong> &gt; </strong><strong><code>Activity</code></strong><strong> &gt; </strong><strong><code>Empty Activity</code></strong>.</p>
+<p>En el campo &#34;Activity Name&#34; escribimos <code>ShowInfoActivity</code>.</p>
+<aside class="special"><p>Te habrás dado cuenta que los nombres de las Activities simpre terminan con la palabra <em>Activity</em>. És una práctica habitual en el desarrollo Android.</p>
+</aside>
+<h2 is-upgraded>Layout</h2>
+<p>En el layout de la ShowInfoActivity (<code>activity_show_info.xml</code>), pondremos 4 TextView para mostrar el texto correspondiente a los datos de registro.</p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   tools:context=&#34;.ShowInfoActivity&#34;&gt;
+
+   &lt;LinearLayout
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;match_parent&#34;
+       android:orientation=&#34;vertical&#34;&gt;
+
+       &lt;TextView
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:text=&#34;Registro completado&#34;
+           android:textSize=&#34;36sp&#34; /&gt;
+
+       &lt;TextView
+           android:id=&#34;@+id/textViewUserName&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34; /&gt;
+
+       &lt;TextView
+           android:id=&#34;@+id/textViewUserEmail&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34; /&gt;
+
+       &lt;TextView
+           android:id=&#34;@+id/textViewUserPhone&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34; /&gt;
+
+       &lt;TextView
+           android:id=&#34;@+id/textViewUserPassword&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34; /&gt;
+   &lt;/LinearLayout&gt;
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre>
+<p>Observa que al primer <code>TextView</code> no le hemos puesto un identificador, ya que no es necesario debido a que no vamos a manipularlo desde el código Java.</p>
+<aside class="warning"><p><strong>Nota: </strong>En una aplicación &#34;real&#34; habría que disponer los TextView un poco más separados, no mostrar el password, etc. etc.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Mostrar los datos en los TextView" duration="0">
+        <p>El último paso ya es mostrar los datos de registro (nombre, email, telefono y password) en los TextView, para ello:</p>
+<ol type="1" start="1">
+<li>Extraeremos los datos del Intent (los datos los puso en el Intent la activity anterior)</li>
+<li>Pondremos los datos en los TextView</li>
+</ol>
+<h2 is-upgraded>Obtener los datos del Intent</h2>
+<p>Primero hay que obtener el Intent con <code>getIntent()</code>, y luego obtener cada dato utlizando su <strong>identificador </strong>(es decir, el identificador con que los pusimos en la RegisterActivity).</p>
+<pre><code>String userName = getIntent().getStringExtra(&#34;USER_NAME&#34;);
+String userEmail = getIntent().getStringExtra(&#34;USER_EMAIL&#34;);
+String userPhone = getIntent().getStringExtra(&#34;USER_PHONE&#34;);
+String userPassword = getIntent().getStringExtra(&#34;USER_PASSWORD&#34;);</code></pre>
+<p class="image-container"><img style="width: 691.00px" src="img\7bc241180af00b75.gif"></p>
+<h2 is-upgraded>Poner los datos en los TextView</h2>
+<p>Una vez tenemos los Strings con los datos, vamos a establecerlos en los TextView.</p>
+<p>Para ello, primero obtenemos una referencia a cada TextView con el método <code>findViewById()</code>.</p>
+<pre><code>TextView textViewName = findViewById(R.id.textViewUserName);
+TextView textViewEmail = findViewById(R.id.textViewUserEmail);
+TextView textViewPhone = findViewById(R.id.textViewUserPhone);
+TextView textViewPassword = findViewById(R.id.textViewUserPassword);</code></pre>
+<p class="image-container"><img style="width: 691.00px" src="img\4813d724cb09bf98.gif"></p>
+<p>Ahora usamos el método setText() de la clase TextView para establecer el texto de cada uno.</p>
+<pre><code>textViewName.setText(userName);
+textViewEmail.setText(userEmail);
+textViewPhone.setText(userPhone);
+textViewPassword.setText(userPassword);</code></pre>
+<p class="image-container"><img style="width: 691.00px" src="img\78526f506f9aceef.gif"></p>
+<p>NOTA: El código que hemos hecho en 3 pasos: (1) obtener el string del Intent (2) Obtener el TextView (3) establecer el texto, se podría haber hecho en 1 linea en lugar de 3:</p>
+<pre><code>((TextView) findViewById(R.id.textViewUserName)).setText(getIntent().getStringExtra(&#34;USER_NAME&#34;));</code></pre>
+<p>¡Y hasta aquí la practica de hoy!</p>
+
 
       </google-codelab-step>
     
