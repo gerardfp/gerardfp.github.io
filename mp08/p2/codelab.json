@@ -3,8 +3,8 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2019-09-20T08:11:27Z",
-  "id": "mp08/P2",
+  "updated": "2019-09-23T09:45:15Z",
+  "id": "mp08/p2",
   "duration": 0,
   "title": "Activity",
   "summary": "P2 Activity",
@@ -18,5 +18,5 @@
   ],
   "tags": [],
   "feedback": "https://github.com/gerardfp",
-  "url": "mp08/P2"
+  "url": "mp08/p2"
 }
