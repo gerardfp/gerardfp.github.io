@@ -216,12 +216,15 @@ public class MainActivity extends AppCompatActivity {
     }
 });</code></pre>
 <p><br>Ejecuta la aplicación y haz click sobre el botón. La <code>DialogActivity</code> se abrirá y ocultará parcialmente la <code>MainActivity</code>. El sistema ejecutará entonces el callback <code>onPause()</code> de la <code>MainActivity</code>, y ésta quedará en estado <em>Paused </em>hasta que se cierre el diálogo, momento en el que volverá al estado <em>Resumed</em>.</p>
-<aside class="special"><p><strong>Nota:</strong> Se pueden crear diálogos de múltiples formas en Android. Acabamos de ver una de ellas, que muestra una Activity con el Theme.Dialog, pero también se proveen clases específicas para crear diálogos.</p>
-<p><em>Si tienes curiosidad</em> sobre de qué otras formas se pueden crear diálogos, prueba ésta:</p>
+<aside class="special"><p>Nota: Se pueden crear diálogos de múltiples formas en Android. Acabamos de ver una de ellas, que muestra una Activity con el <code>Theme.Dialog</code>, pero también se proveen clases específicas para crear diálogos.</p>
+<p>Si tienes curiosidad sobre de qué otras formas se pueden crear diálogos, prueba ésta:</p>
 <ul>
-<li>Elimina el código que inicia la <code>DialogActivity</code> y añade el siguiente código para abrir un <code>AlertDialog</code>:<br></li>
+<li>Comenta el código que inicia la <code>DialogActivity</code> en listener del botón</li>
 </ul>
-<p><em><code>// startActivity(new Intent(MainActivity.this, DialogActivity.class));</code></em></p>
+<p><code>// startActivity(new Intent(MainActivity.this, DialogActivity.class))</code></p>
+<ul>
+<li>Añade el siguiente código para mostrar un <code>AlertDialog</code>:</li>
+</ul>
 <p><code>new AlertDialog.Builder(MainActivity.this).setMessage(&#34;hello&#34;).create().show();</code></p>
 <p><strong>Observa que este tipo de diálogos no modifican el estado de la Activity que los lanza.</strong></p>
 </aside>
@@ -298,20 +301,24 @@ protected void onRestoreInstanceState(Bundle savedInstanceState){
 <p>Para restaurar, el procedimiento es el mismo, pero esta vez en el método <code>onRestoreInstanceState()</code>. Seguiremos llamando a la implementación de la superclase para que siga realizando el guardado automático, pero también añadiremos una instrucción para que restaure el contenido del <code>TextView</code> a partir del dato guardado en el objeto <code>Bundle</code>. </p>
 <p>Hagámoslo:</p>
 <ol type="1" start="1">
-<li>Invalida el método <code>onSaveInstanceState()</code> con el siguiente código:<br></li>
+<li>Invalida los método <code>onSaveInstanceState()</code> y  <code>onRestoreInstanceState()</code> con el siguiente código:<br></li>
 </ol>
 <pre><code>@Override
-protected void onSaveInstanceState(Bundle savedInstanceState){
-    super.onSaveInstanceState(savedInstanceState);
-    savedInstanceState.putString(&#34;TextViewContent&#34;,  ((TextView) findViewById(R.id.text_view)).getText().toString());
-}</code></pre>
-<ol type="1" start="2">
-<li>Invalida el método <code>onRestoreInstanceState()</code>:<br></li>
-</ol>
-<pre><code>@Override
-protected void onRestoreInstanceState(Bundle savedInstanceState){
-    super.onRestoreInstanceState(savedInstanceState);
-    ((TextView) findViewById(R.id.text_view)).setText(savedInstanceState.getString(&#34;TextViewContent&#34;));
+public void onSaveInstanceState(Bundle outState) {
+   super.onSaveInstanceState(outState);
+   Log.e(TAG,&#34;onSaveInstanceState&#34;);
+
+   textView.setText(textView.getText() + &#34;\n&#34; + LocalDateTime.now() + &#34;: onSaveInstanceState&#34;);
+   outState.putString(&#34;REGISTRO&#34;, textView.getText().toString());
+}
+
+@Override
+protected void onRestoreInstanceState(Bundle savedInstanceState) {
+   super.onRestoreInstanceState(savedInstanceState);
+   Log.e(TAG,&#34;onRestoreInstanceState&#34;);
+
+   textView.setText(savedInstanceState.getString(&#34;REGISTRO&#34;));
+   textView.setText(textView.getText() + &#34;\n&#34; + LocalDateTime.now() + &#34;: onRestoreInstanceState&#34;);
 }</code></pre>
 <p>La forma de almacenar valores en el objeto <code>Bundle</code> es mediante pares clave/valor. En este ejemplo hemos puesto la clave de forma literal. Sería conveniente definir una constante en su lugar.</p>
 <h2 is-upgraded>El usuario presiona el botón &#34;Atrás&#34;</h2>
