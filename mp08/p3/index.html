@@ -222,10 +222,7 @@ public class MainActivity extends AppCompatActivity {
 <li>Elimina el código que inicia la <code>DialogActivity</code> y añade el siguiente código para abrir un <code>AlertDialog</code>:<br></li>
 </ul>
 <p><em><code>// startActivity(new Intent(MainActivity.this, DialogActivity.class));</code></em></p>
-<p><strong><code>new </code></strong><code>AlertDialog.Builder(MainActivity.</code><strong><code>this</code></strong><code>)</code></p>
-<p><code>       .setTitle(</code><strong><code>&#34;Dialog&#34;</code></strong><code>)</code></p>
-<p><code>       .setMessage(</code><strong><code>&#34;hello&#34;</code></strong><code>)</code></p>
-<p><code>       .create().show();</code></p>
+<p><strong><code>new </code></strong><code>AlertDialog.Builder(MainActivity.</code><strong><code>this</code></strong><code>).setTitle(</code><strong><code>&#34;Dialog&#34;</code></strong><code>).setMessage(</code><strong><code>&#34;hello&#34;</code></strong><code>).create().show();</code></p>
 <p><strong>Observa que este tipo de diálogos no modifican el estado de la Activity que los lanza.</strong></p>
 </aside>
 
