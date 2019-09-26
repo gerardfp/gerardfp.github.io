@@ -304,17 +304,18 @@ protected void onCreate(Bundle savedInstanceState) {
    Log.e(TAG,&#34;onCreate&#34;);
 
    textView = findViewById(R.id.textView);
-  
+
    textView.setText(getPreferences(MODE_PRIVATE).getString(&#34;REGISTRO&#34;, &#34;&#34;));
+
+   textView.setText(textView.getText() + &#34;\n&#34; + LocalDateTime.now() + &#34;: onCreate&#34;);
 
    findViewById(R.id.dialog_button).setOnClickListener(new View.OnClickListener() {
        @Override
        public void onClick(View view) {
            startActivity(new Intent(MainActivity.this, DialogActivity.class));
+           //new AlertDialog.Builder(MainActivity.this).setMessage(&#34;hello&#34;).create().show();
        }
    });
-
-   textView.setText(textView.getText() + &#34;\n&#34; + LocalDateTime.now() + &#34;: onCreate&#34;);
 }</code></pre>
 <ol type="1" start="3">
 <li>Elimina los métodos <code>onSaveInstanceState()</code> y <code>onRestoreInstanceState()</code>, ya que ahora el estado se guarda en de forma persistente en las <code>SharedPreferences</code> y no en el <code>Bundle</code>.</li>
