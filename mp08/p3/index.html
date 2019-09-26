@@ -88,13 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
        textView = findViewById(R.id.textView);
 
-       findViewById(R.id.dialog_button).setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               startActivity(new Intent(MainActivity.this, DialogActivity.class));
-           }
-       });
-
        textView.setText(textView.getText() + &#34;\n&#34; + LocalDateTime.now() + &#34;: onCreate&#34;);
    }
 
