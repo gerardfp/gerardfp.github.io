@@ -56,8 +56,12 @@
 <p>Cuando una actividad entra y sale de los diferentes estados, esto se notifica a través de diferentes métodos callback. Todos los métodos callback son enlaces que puedes invalidar (<em>Override</em>) para realizar las tareas correspondientes cuando cambia el estado de la actividad.</p>
 <p>El siguiente diagrama ilustra los camino que debe tomar una actividad entre estados. Los rectángulos grises representan los métodos callback que puedes implementar para realizar operaciones cuando la actividad cambie de estado.</p>
 <p class="image-container"><img style="width: 736.10px" src="img\8e9d6a837ae06998.png"></p>
-<h2 is-upgraded>Implementación de callbacks del ciclo de vida</h2>
-<p>Para implementar los callbacks del ciclo de vida echaremos mano del autocompletado. Por ejemplo, para implementar el callback <code>onStart()</code> haremos:</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Implementación de callbacks del ciclo de vida" duration="0">
+        <p>Para implementar los callbacks del ciclo de vida echaremos mano del autocompletado. Por ejemplo, para implementar el callback <code>onStart()</code> haremos:</p>
 <p class="image-container"><img style="width: 598.00px" src="img\4e56ce996c8cec59.gif"></p>
 <p>La siguiente actividad estructural incluye todos los métodos <em>callback </em>fundamentales del ciclo de vida.</p>
 <pre><code>import android.content.Intent;
@@ -139,24 +143,6 @@ public class MainActivity extends AppCompatActivity {
        Log.e(TAG,&#34;onDestroy&#34;);
 
        textView.setText(textView.getText() + &#34;\n&#34; + LocalDateTime.now() + &#34;: onDestroy&#34;);
-   }
-
-   @Override
-   public void onSaveInstanceState(Bundle outState) {
-       super.onSaveInstanceState(outState);
-       Log.e(TAG,&#34;onSaveInstanceState&#34;);
-
-       textView.setText(textView.getText() + &#34;\n&#34; + LocalDateTime.now() + &#34;: onSaveInstanceState&#34;);
-       outState.putString(&#34;REGISTRO&#34;, textView.getText().toString());
-   }
-
-   @Override
-   protected void onRestoreInstanceState(Bundle savedInstanceState) {
-       super.onRestoreInstanceState(savedInstanceState);
-       Log.e(TAG,&#34;onRestoreInstanceState&#34;);
-
-       textView.setText(savedInstanceState.getString(&#34;REGISTRO&#34;));
-       textView.setText(textView.getText() + &#34;\n&#34; + LocalDateTime.now() + &#34;: onRestoreInstanceState&#34;);
    }
 }</code></pre>
 <p>La imlementación de cada uno de los callbacks incluye unas instrucciones para &#34;anotar&#34; el registro, tanto en un TextView, como en el Logcat de Android Studio.</p>
@@ -270,8 +256,12 @@ protected void onRestoreInstanceState(Bundle savedInstanceState) {
 }</code></pre>
 <p>La forma de almacenar valores en el objeto <code>Bundle</code> es mediante pares clave/valor. En este ejemplo hemos puesto la clave de forma literal (<strong><code>&#34;REGISTRO&#34;</code></strong>). Sería conveniente definir una constante en su lugar.</p>
 <p>Observa sin embargo que el registro de los métodos <code>onStop</code>, <code>onDestroy</code>, <code>onCreate</code> y <code>onStart</code> no se quedan guardados en el TextView. Esto es debido a que el método <code>onSaveInstanceState</code> se llama justo después de <code>onPause</code> y el método <code>onRestoreInstanceState</code> se llama justo después de <code>onStart</code>.</p>
-<h2 is-upgraded>El usuario presiona el botón &#34;Atrás&#34;</h2>
-<p>Si una activity está en primer plano y el usuario presiona el botón &#34;Atrás&#34;, la Activity transita a través de los callbacks <code>onPause()</code>, <code>onStop()</code>, y <code>onDestroy()</code>. Además, el sistema finalizará la Aplicación, destruyendo el proceso de la Aplicación por completo.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="El botón &#34;Atrás&#34;" duration="0">
+        <p>Si una activity está en primer plano y el usuario presiona el botón &#34;Atrás&#34;, la Activity transita a través de los callbacks <code>onPause()</code>, <code>onStop()</code>, y <code>onDestroy()</code>. Además, el sistema finalizará la Aplicación, destruyendo el proceso de la Aplicación por completo.</p>
 <p><strong>Es importante tener en cuenta que el callback </strong><strong><code>onSaveInstanceState()</code></strong><strong> no se lanza en este caso.</strong></p>
 <p>Haz una prueba con la Aplicación anterior: introduce un texto y luego pulsa el botón &#34;Atrás&#34;. La aplicación se finalizará; si la abres de nuevo el texto habrá desaparecido.</p>
 <p>Hay ocasiones en que éste es el comportamiento deseado para una aplicación, pero en muchas otras el usuario espera seguir teniendo la aplicación tal y como la dejó después de pulsar el botón &#34;Atrás&#34;. Para conseguir esto tenemos dos opciones:</p>
