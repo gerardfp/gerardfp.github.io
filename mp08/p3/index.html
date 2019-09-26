@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
    }
 }</code></pre>
 <p>La imlementación de cada uno de los callbacks incluye unas instrucciones para &#34;anotar&#34; el registro, tanto en un TextView, como en el Logcat de Android Studio.</p>
-<aside class="special"><p><strong>Nota:</strong> La implementación que realices de estos métodos del ciclo de vida siempre deben llamar la implementación de la superclase antes de realizar cualquier otra tarea, como se muestra en los ejemplos anteriores.</p>
+<aside class="warning"><p>La implementación que realices de estos métodos del ciclo de vida siempre deben llamar la implementación de la superclase (<code>super</code>)  antes de realizar cualquier otra tarea, como se muestra en los ejemplos anteriores.</p>
 </aside>
 <p>Ejecuta esta aplicación y observa el registro que se va mostrando en el TextView. Haz diferentes operaciones que cambien el estado de la  actividad para observar la sucesión de llamadas <em>callback </em>de la Activity que el Sistema Android va llamando durante las transiciones de estado. Por ejemplo:</p>
 <ul>
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
 <li>Cierra la aplicación</li>
 </ul>
 <p>Observarás que la Activity transita entre los estados <strong>Resumed </strong>y <strong>Stopped</strong>, ejecutando lo sucesivos callbacks que conforman el camino entre ambos estados. Sin embargo, en ningún momento se habrá quedado en el estado <strong>Paused</strong>.</p>
-<aside class="special"><p><strong>La variable </strong><strong><code>TAG</code></strong><strong> que hemos usado para el método </strong><strong><code>Log.e()</code></strong><strong> es para poder filtrar los mensajes del Logcat, de forma que nos muestre solo los que tengan el texto </strong><strong><code>&#34;ABCD&#34;</code></strong><strong>.</strong></p>
+<aside class="special"><p>La variable <code>TAG</code> que hemos usado para el método <code>Log.e()</code> es para poder filtrar los mensajes del Logcat, de forma que nos muestre solo los que tengan el texto <code>&#34;ABCD&#34;</code>.</p>
 <p class="image-container"><img style="width: 689.00px" src="img\8da4fa2440dc9718.png"></p>
 </aside>
 
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
     }
 });</code></pre>
 <p><br>Ejecuta la aplicación y haz click sobre el botón. La <code>DialogActivity</code> se abrirá y ocultará parcialmente la <code>MainActivity</code>. El sistema ejecutará entonces el callback <code>onPause()</code> de la <code>MainActivity</code>, y ésta quedará en estado <strong>Paused </strong>hasta que se cierre el diálogo, momento en el que volverá al estado <em>Resumed</em>.</p>
-<aside class="special"><p>Nota: Se pueden crear diálogos de múltiples formas en Android. Acabamos de ver una de ellas, que muestra una Activity con el <code>Theme.Dialog</code>, pero también se proveen clases específicas para crear diálogos.</p>
+<aside class="special"><p>Se pueden crear diálogos de múltiples formas en Android. Acabamos de ver una de ellas, que muestra una Activity con el <code>Theme.Dialog</code>, pero también se proveen clases específicas para crear diálogos.</p>
 <p>Si tienes curiosidad sobre de qué otras formas se pueden crear diálogos, prueba ésta:</p>
 <ul>
 <li>Comenta el código que inicia la <code>DialogActivity</code> en listener del botón</li>
@@ -319,6 +319,12 @@ protected void onCreate(Bundle savedInstanceState) {
 <ol type="1" start="3">
 <li>Elimina los métodos <code>onSaveInstanceState()</code> y <code>onRestoreInstanceState()</code>, ya que ahora el estado se guarda en de forma persistente en las <code>SharedPreferences</code> y no en el <code>Bundle</code>.</li>
 </ol>
+<aside class="special"><p>En esta práctica hemos visto 2 formas de guardar el estado de una Activity.</p>
+<p>Usando los métodos <code>onSaveInstanceState</code> y <code>onRestoreInstanceState</code>, hemos podido guardar el estado de una Activity cuando el sistema la destruye y la vuelve a crear (bien por un cambio en la configuración, o por necesidad de liberar recursos). Sin embargo este método no sirve para guardar el estado cuando es el usuario el que cierra la aplicación.</p>
+<p>Usando la persistencia en disco (con <code>SharedPreferences)</code> hemos podido guardar el estado de la app en ambos casos.</p>
+<p>En futuras prácticas veremos otra solución consistente en utilizar un <code>ViewModel</code>.</p>
+<p>Para más info consulta: <a href="https://developer.android.com/topic/libraries/architecture/saving-states.html" target="_blank">https://developer.android.com/topic/libraries/architecture/saving-states.html</a></p>
+</aside>
 
 
       </google-codelab-step>
