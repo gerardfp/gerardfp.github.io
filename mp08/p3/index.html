@@ -57,6 +57,8 @@
 <p>El siguiente diagrama ilustra los camino que debe tomar una actividad entre estados. Los rectángulos grises representan los métodos callback que puedes implementar para realizar operaciones cuando la actividad cambie de estado.</p>
 <p class="image-container"><img style="width: 736.10px" src="img\8e9d6a837ae06998.png"></p>
 <h2 is-upgraded>Implementación de callbacks del ciclo de vida</h2>
+<p>Para implementar los callbacks del ciclo de vida echaremos mano del autocompletado. Por ejemplo, para implementar el callback <code>onStart()</code> haremos:</p>
+<p class="image-container"><img style="width: 598.00px" src="img\4e56ce996c8cec59.gif"></p>
 <p>La siguiente actividad estructural incluye todos los métodos <em>callback </em>fundamentales del ciclo de vida.</p>
 <pre><code>import android.content.Intent;
 import android.os.Bundle;
@@ -169,6 +171,9 @@ public class MainActivity extends AppCompatActivity {
 <li>Cierra la aplicación</li>
 </ul>
 <p>Observarás que la Activity transita entre los estados <strong>Resumed </strong>y <strong>Stopped</strong>, ejecutando lo sucesivos callbacks que conforman el camino entre ambos estados. Sin embargo, en ningún momento se habrá quedado en el estado <strong>Paused</strong>.</p>
+<aside class="special"><p><strong>La variable </strong><strong><code>TAG</code></strong><strong> que hemos usado para el método </strong><strong><code>Log.e()</code></strong><strong> es para poder filtrar los mensajes del Logcat, de forma que nos muestre solo los que tengan el texto </strong><strong><code>&#34;ABCD&#34;</code></strong><strong>.</strong></p>
+<p class="image-container"><img style="width: 689.00px" src="img\8da4fa2440dc9718.png"></p>
+</aside>
 
 
       </google-codelab-step>
@@ -215,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, DialogActivity.class));
     }
 });</code></pre>
-<p><br>Ejecuta la aplicación y haz click sobre el botón. La <code>DialogActivity</code> se abrirá y ocultará parcialmente la <code>MainActivity</code>. El sistema ejecutará entonces el callback <code>onPause()</code> de la <code>MainActivity</code>, y ésta quedará en estado <em>Paused </em>hasta que se cierre el diálogo, momento en el que volverá al estado <em>Resumed</em>.</p>
+<p><br>Ejecuta la aplicación y haz click sobre el botón. La <code>DialogActivity</code> se abrirá y ocultará parcialmente la <code>MainActivity</code>. El sistema ejecutará entonces el callback <code>onPause()</code> de la <code>MainActivity</code>, y ésta quedará en estado <strong>Paused </strong>hasta que se cierre el diálogo, momento en el que volverá al estado <em>Resumed</em>.</p>
 <aside class="special"><p>Nota: Se pueden crear diálogos de múltiples formas en Android. Acabamos de ver una de ellas, que muestra una Activity con el <code>Theme.Dialog</code>, pero también se proveen clases específicas para crear diálogos.</p>
 <p>Si tienes curiosidad sobre de qué otras formas se pueden crear diálogos, prueba ésta:</p>
 <ul>
@@ -233,69 +238,12 @@ public class MainActivity extends AppCompatActivity {
       </google-codelab-step>
     
       <google-codelab-step label="Guardar el estado de una Actividad" duration="0">
-        <p>El comportamiento predeterminado del sistema preserva el estado de una actividad cuando esta se detiene. De este modo, cuando los usuarios vuelven a una actividad anterior, su interfaz de usuario aparece como la habían dejado (por ejemplo, el texto introducido en un <code>EditText</code>). Sin embargo, tú puedes (y <strong>debes</strong>) retener de manera proactiva el estado de tus actividades utilizando métodos de callback, en caso de que la actividad se destruya y sea necesario volver a crearla.</p>
-<p>Cuando el sistema detiene una actividad (por ejemplo, cuando se inicia una actividad nueva o la tarea pasa a segundo plano), es posible que el sistema destruya esa actividad completamente si necesita recuperar memoria del sistema. Cuando esto sucede, se pierde la información sobre el estado de la actividad. No obstante, Android implementa de forma predeterminada un sistema de guardado y recuperación de esta información.</p>
+        <p>El comportamiento predeterminado del sistema preserva el estado de una actividad cuando esta se detiene. De este modo, cuando los usuarios vuelven a una actividad anterior, su interfaz de usuario aparece como la habían dejado (por ejemplo, el texto introducido en un <code>EditText</code>).</p>
+<p>Cuando el sistema detiene una actividad (por ejemplo, cuando se inicia una actividad nueva o la tarea pasa a segundo plano), <strong>es posible que el sistema destruya esa actividad</strong> completamente si necesita recuperar memoria del sistema. Cuando esto sucede, se pierde la información sobre el estado de la actividad. No obstante, Android implementa de forma predeterminada un sistema de guardado y recuperación de esta información.</p>
 <p>El proceso automático de guardar el estado de una Activity consiste en almacenar en un objeto de clase <code>Bundle</code> la información de los elementos de la Interfaz de Usuario (<code>EditText</code>, <code>Checkbox</code>, <code>RadioButton</code>, etc.) antes de que la Activity sea destruida, para después restaurar esos valores cuando se vuelve a crear.</p>
 <p>El guardado de datos tiene lugar en el método <code>onSaveInstanceState()</code>, y el de restauración en <code>onRestoreInstanceState()</code>.</p>
-<p>Observemos las llamadas que el sistema realiza a estos métodos de nuestra Activity:</p>
-<ol type="1" start="1">
-<li>Anula los métodos <code>onSaveInstanceState()</code> y <code>onRestoreInstanceState()</code>, de la clase <code>MainActivity</code>, de forma que sigan ejecutando los métodos originales de la superclase (llamando a <strong>super</strong>), pero añade antes una instrucción para que muestren un <code>Toast</code>.<br></li>
-</ol>
-<pre><code>@Override
-protected void onSaveInstanceState(Bundle savedInstanceState){
-   Toast.makeText(this, &#34;onSaveInstanceState&#34;, Toast.LENGTH_SHORT).show();
-   super.onSaveInstanceState(savedInstanceState);
-}
-
-@Override
-protected void onRestoreInstanceState(Bundle savedInstanceState){
-   Toast.makeText(this, &#34;onRestoreInstanceState&#34;, Toast.LENGTH_SHORT).show();
-   super.onRestoreInstanceState(savedInstanceState);
-}</code></pre>
-<ol type="1" start="2">
-<li>Añade un <code>&lt;EditText&gt;</code> al layout <code>activity_main.xml</code>:<br></li>
-</ol>
-<pre><code>&lt;EditText
-   android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;wrap_content&#34;
-   android:id=&#34;@+id/edit_text&#34;/&gt;</code></pre>
-<p><br>Ejecuta la aplicación. Introduce un texto en el <code>EditText</code>. Observa que al rotar la pantalla del móvil, el sistema destruye la Activity, y a continuación la vuelve a crear. No obstante el texto introducido en el <code>EditText</code> ha sido guardado y resturado automáticamente en los métodos correspondientes.</p>
-<p>Si comentas la llamada al método <code>onSaveInstanceState()</code> de la superclase <code>Activity</code> (o <code>AppCompatActivity</code>), y ejecutas la aplicación, observarás que ya no se guarda el estado del <code>EditText</code> cuando al rotar la pantalla se destruya y se vuelva a crear la Actividad.</p>
-<h2 is-upgraded>Guardar manualmente el estado de una Actividad</h2>
-<p>El proceso automático de guardar y restaurar el estado de una Activity se realiza para la mayoria de elementos de Interfaz de Usuario que provee Android. Sin embargo, en algunos casos debemos ser nosotros los que hagamos este proceso de forma &#34;manual&#34;.</p>
-<p>Veamos un ejemplo en el que no se guarda el estado de un elemento de la aplicación.</p>
-<p>Desarrollaremos una aplicación con un <code>TextView</code>, un <code>EditText</code> y un <code>Button</code>: el usuario introducirá un texto en el campo de texto y cuando pulse el botón, el texto introducido aparecerá en el TextView.</p>
-<ol type="1" start="1">
-<li>Coloca los siguientes elementos en layout <code>activity_main.xml</code>:<br></li>
-</ol>
-<pre><code>&lt;LinearLayout
-   android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;wrap_content&#34;
-   android:orientation=&#34;vertical&#34;&gt;
-   &lt;TextView
-       android:layout_width=&#34;wrap_content&#34;
-       android:layout_height=&#34;wrap_content&#34;
-       android:id=&#34;@+id/text_view&#34;/&gt;
-   &lt;EditText
-       android:layout_width=&#34;match_parent&#34;
-       android:layout_height=&#34;wrap_content&#34;
-       android:id=&#34;@+id/edit_text&#34;/&gt;
-   &lt;Button
-       android:layout_width=&#34;wrap_content&#34;
-       android:layout_height=&#34;wrap_content&#34;
-       android:text=&#34;Set Text&#34;
-       android:id=&#34;@+id/button&#34;/&gt;
-&lt;/LinearLayout&gt;</code></pre>
-<ol type="1" start="2">
-<li>Añade un listener al botón, en el callback <code>onCreate()</code>, para que establezca el texto del <code>EditText</code> en el <code>TextView</code>:<br></li>
-</ol>
-<pre><code>findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        ((TextView) findViewById(R.id.text_view)).setText(((EditText) findViewById(R.id.edit_text)).getText().toString());
-    }
-});</code></pre>
-<p>Ejecuta la aplicación. Introduce un texto y pulsa el botón. El texto aparece en el <code>TextView</code>. Pero, si rotas la pantalla el texto desaparece.</p>
+<p>El proceso automático de guardar y restaurar el estado de una Activity se realiza para la mayoria de elementos de Interfaz de Usuario que provee Android. <strong>Sin embargo, en algunos casos debemos ser nosotros los que hagamos este proceso de forma &#34;manual&#34;</strong>.</p>
+<p>Observa qué ocurre cuando cambias la orientación del movil entre vertical y horizontal: el valor del TextView se pierde. Esto es debido a que cunado ocurre un cambio en la configuración (en este caso la orientación del móvil) el Sistema Android destruye y vuelve a crear la actividad.</p>
 <p>El sistema automático de guardado y restauración de datos no ha guardado el text del <code>TextView</code>. Debemos hacerlo, pues, de forma manual nosotros mismos.</p>
 <p>Para guardar el contenido del <code>TextView</code>, invalidaremos el método <code>onSaveInstanceState()</code>, de forma que además de ejecutar la implementación de la superclase (<strong>super</strong>), también nos guarde en el objeto <code>Bundle</code> el contenido del <code>TextView</code>.</p>
 <p>Para restaurar, el procedimiento es el mismo, pero esta vez en el método <code>onRestoreInstanceState()</code>. Seguiremos llamando a la implementación de la superclase para que siga realizando el guardado automático, pero también añadiremos una instrucción para que restaure el contenido del <code>TextView</code> a partir del dato guardado en el objeto <code>Bundle</code>. </p>
@@ -320,10 +268,11 @@ protected void onRestoreInstanceState(Bundle savedInstanceState) {
    textView.setText(savedInstanceState.getString(&#34;REGISTRO&#34;));
    textView.setText(textView.getText() + &#34;\n&#34; + LocalDateTime.now() + &#34;: onRestoreInstanceState&#34;);
 }</code></pre>
-<p>La forma de almacenar valores en el objeto <code>Bundle</code> es mediante pares clave/valor. En este ejemplo hemos puesto la clave de forma literal. Sería conveniente definir una constante en su lugar.</p>
+<p>La forma de almacenar valores en el objeto <code>Bundle</code> es mediante pares clave/valor. En este ejemplo hemos puesto la clave de forma literal (<strong><code>&#34;REGISTRO&#34;</code></strong>). Sería conveniente definir una constante en su lugar.</p>
+<p>Observa sin embargo que el registro de los métodos <code>onStop</code>, <code>onDestroy</code>, <code>onCreate</code> y <code>onStart</code> no se quedan guardados en el TextView. Esto es debido a que el método <code>onSaveInstanceState</code> se llama justo después de <code>onPause</code> y el método <code>onRestoreInstanceState</code> se llama justo después de <code>onStart</code>.</p>
 <h2 is-upgraded>El usuario presiona el botón &#34;Atrás&#34;</h2>
 <p>Si una activity está en primer plano y el usuario presiona el botón &#34;Atrás&#34;, la Activity transita a través de los callbacks <code>onPause()</code>, <code>onStop()</code>, y <code>onDestroy()</code>. Además, el sistema finalizará la Aplicación, destruyendo el proceso de la Aplicación por completo.</p>
-<p>Es importante tener en cuenta que el callback <code>onSaveInstanceState()</code> no se lanza en este caso.</p>
+<p><strong>Es importante tener en cuenta que el callback </strong><strong><code>onSaveInstanceState()</code></strong><strong> no se lanza en este caso.</strong></p>
 <p>Haz una prueba con la Aplicación anterior: introduce un texto y luego pulsa el botón &#34;Atrás&#34;. La aplicación se finalizará; si la abres de nuevo el texto habrá desaparecido.</p>
 <p>Hay ocasiones en que éste es el comportamiento deseado para una aplicación, pero en muchas otras el usuario espera seguir teniendo la aplicación tal y como la dejó después de pulsar el botón &#34;Atrás&#34;. Para conseguir esto tenemos dos opciones:</p>
 <ol type="1" start="1">
@@ -334,50 +283,52 @@ public void onBackPressed() {
    moveTaskToBack(true);
 }</code></pre>
 <ol type="1" start="2">
-<li>Dejar el comportamiento por defecto del botón &#34;Atrás&#34;. En tal caso, tendremos que guardar y restaurar el estado de forma pesistente. Android provee diversos sistemas de almacenamiento persistente. Por ejemplo, ficheros y bases de datos. Esta vez, sin embargo, utilizaremos un mecanismo de guardado de datos persistente implementado en la clase <code>SharedPreferences</code>.<br><br>No te preocupes si ahora no entiendes del todo el funcionamiento de clase <code>SharedPreferences</code>, la veremos en otra práctica. De momento, vale con que entiendas que almacena datos usando pares clave/valor.<br><br>Implementemos la funcionalidad necesaria para que el contenido del <code>TextView</code> se alamacene y se restaure cuando la aplicación se cierre y se vuelva a abrir:</li>
+<li>Dejar el comportamiento por defecto del botón &#34;Atrás&#34;. En tal caso, tendremos que guardar y restaurar el estado <strong>de forma persistente</strong>. Android provee diversos sistemas de almacenamiento persistente. Por ejemplo, ficheros y bases de datos. Esta vez, sin embargo, utilizaremos un mecanismo de guardado de datos persistente implementado en la clase <code>SharedPreferences</code>.<br><br>No te preocupes si ahora no entiendes del todo el funcionamiento de clase <code>SharedPreferences</code>, la veremos en otra práctica. De momento, vale con que entiendas que almacena datos usando pares clave/valor.<br><br>Implementemos la funcionalidad necesaria para que el contenido del <code>TextView</code> se alamacene y se restaure cuando la aplicación se cierre y se vuelva a abrir:</li>
 </ol>
 <ol type="1" start="1">
-<li>Implementa dos métodos en la clase <code>MainActivity</code>, uno que guarde el estado del <code>TextView</code> en las <code>SharedPreferences</code>, y otro que lo restaure.<br></li>
-</ol>
-<pre><code>private void saveState(){
-    getPreferences(MODE_PRIVATE).edit()
-            .putString(&#34;TextViewContent&#34;, ((TextView) findViewById(R.id.text_view)).getText().toString())
-            .apply();
-}
-
-private void restoreState(){
-    ((TextView) findViewById(R.id.text_view)).setText(getPreferences(MODE_PRIVATE).getString(&#34;TextViewContent&#34;, &#34;&#34;));
-}</code></pre>
-<ol type="1" start="2">
-<li>Añade la llamada al método <code>saveState()</code> al callback <code>onPause()</code>:<br></li>
+<li>Modifica el método <code>onDestroy()</code> para que almacene el estado del TextView en las <code>SharedPreferences</code>:<br></li>
 </ol>
 <pre><code>@Override
-protected void onPause() {
-    saveState();
-    super.onPause();
-}</code></pre>
-<ol type="1" start="3">
-<li>Añade la llamada al método <code>restoreState()</code> al callback <code>onCreate()</code>:<br></li>
+protected void onDestroy() {
+   Log.e(TAG,&#34;onDestroy&#34;);
+
+   textView.setText(textView.getText() + &#34;\n&#34; + LocalDateTime.now() + &#34;: onDestroy&#34;);
+
+   getPreferences(MODE_PRIVATE)
+           .edit()
+           .putString(&#34;REGISTRO&#34;, textView.getText().toString())
+           .apply();
+
+   super.onDestroy();
+}
+</code></pre>
+<ol type="1" start="2">
+<li>Modifica <code>onCreate()</code> para que restaure el TextView con el estado guardado en las <code>SharedPreferences</code>:<br></li>
 </ol>
 <pre><code>@Override
 protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+   super.onCreate(savedInstanceState);
+   setContentView(R.layout.activity_main);
 
-    restoreState();
 
-    // ...other actions...
+   Log.e(TAG,&#34;onCreate&#34;);
+
+   textView = findViewById(R.id.textView);
+  
+   textView.setText(getPreferences(MODE_PRIVATE).getString(&#34;REGISTRO&#34;, &#34;&#34;));
+
+   findViewById(R.id.dialog_button).setOnClickListener(new View.OnClickListener() {
+       @Override
+       public void onClick(View view) {
+           startActivity(new Intent(MainActivity.this, DialogActivity.class));
+       }
+   });
+
+   textView.setText(textView.getText() + &#34;\n&#34; + LocalDateTime.now() + &#34;: onCreate&#34;);
 }</code></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Tarea" duration="0">
-        <p>Desarrolla una Aplicación que muestre un registro del Ciclo de Vida de su Actividad Principal.</p>
-<p>Cada vez que se llame a un callback del ciclo de vida de la <code>MainActivity</code>, se debe mostrar en la pantalla un registro con el nombre del callback que se ha llamado y la hora en que se ha hecho.</p>
-<p>Para mostrar el registro, puedes utilizar un <code>LinearLayout</code> en el que se vaya añadiendo un <code>TextView</code> por cada entrada del registro.</p>
-<p>No es necesario que el registro se mantenga cuando se cierre la aplicación y se vuelva a abrir, ni tampoco cuando la Activity se destruya y se vuelva a crear (por ejemplo al rotar el teléfono).</p>
-<p class="image-container"><img style="width: 267.00px" src="img\baac151008eeae9c.png"></p>
+<ol type="1" start="3">
+<li>Elimina los métodos <code>onSaveInstanceState()</code> y <code>onRestoreInstanceState()</code>, ya que ahora el estado se guarda en de forma persistente en las <code>SharedPreferences</code> y no en el <code>Bundle</code>.</li>
+</ol>
 
 
       </google-codelab-step>
