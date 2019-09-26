@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 <p>Implementaremos un Activity (a modo de diálogo) que oculte parcialmente la <code>MainActivity</code>, y la mantenga en estado <code>Paused</code>:</p>
 <ol type="1" start="1">
 <li>Crea una nueva Activity con el nombre <code>DialogActivity<br></code></li>
-<li>En el <code>AndroidManifest.xml</code> añade un atributo al elemento <a href="https://developer.android.com/guide/topics/manifest/activity-element.html" target="_blank"><code>&lt;</code><code>A</code><code>ctivi</code><code>ty</code><code>&gt;</code></a> que corresponde a la <code>DialogActivity</code>:</li>
+<li>En el <code>AndroidManifest.xml</code> añade un atributo al elemento <code>&lt;Activity&gt;</code> que corresponde a la <code>DialogActivity</code>:</li>
 </ol>
 <pre><code>android:theme=&#34;@style/Theme.AppCompat.Dialog&#34;</code></pre>
 <p class="image-container"><img style="width: 598.00px" src="img\48698f831df3eb59.gif"></p>
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
 <li>Elimina el código que inicia la <code>DialogActivity</code> y añade el siguiente código para abrir un <code>AlertDialog</code>:<br></li>
 </ul>
 <p><em><code>// startActivity(new Intent(MainActivity.this, DialogActivity.class));</code></em></p>
-<p><code>new AlertDialog.Builder(MainActivity.this).setTitle(&#34;Dialog&#34;).setMessage(&#34;hello&#34;).create().show();</code></p>
+<p><code>new AlertDialog.Builder(MainActivity.this).setMessage(&#34;hello&#34;).create().show();</code></p>
 <p><strong>Observa que este tipo de diálogos no modifican el estado de la Activity que los lanza.</strong></p>
 </aside>
 
