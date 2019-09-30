@@ -133,8 +133,8 @@ class ItemList {
        rating = itemView.findViewById(R.id.item_rating);
    }
 }</code></pre>
-<p class="image-container"><img style="width: 736.40px" src="img\7df245c629b20618.gif"></p>
-<aside class="special"><p>La clase ViewHolder la puedes crear en diversos sitios (Como clase interna de la clase MainActivity, en un fichero a parte, ...). Para este práctica lo más fácil es que la crees como clase interna de la MainActivity.</p>
+<p class="image-container"><img style="width: 736.40px" src="img\a829005f82a6efc4.gif"></p>
+<aside class="special"><p>La clase <code>ViewHolder</code> la puedes crear en diversos sitios (Como clase interna de la clase MainActivity, en un fichero a parte, ...). Para este práctica lo más fácil es que la crees como clase interna de la MainActivity.</p>
 </aside>
 
 
@@ -195,7 +195,7 @@ class ItemList {
 <p>En primer lugar obtenemos el <code>Item</code> del ArrayList que ocupa la posición que nos ha pasado el RecyclerView (es decir, la posicion del ViewHolder que hay que rellenar).</p>
 <p>A continuación rellenamos los TextView y el RatingBar del <code>ViewHolder</code> con los datos del <code>Item</code> que hemos sacado del ArrayList.</p>
 <p>Luego, establecemos el listener para el RatingBar de ese ViewHolder, que actualizará el rating del Item.</p>
-<p>Por último, establecemos un listener al ViewHolder para que cuando se haga click en él, abra una nueva activity (<code>DetailActivity</code>) en la que se mostrará el detalle de ese Ítem. A la DetailActivity le pasamos la posición dentro del array del Ítem en el que se ha hecho click.</p>
+<p>Por último, establecemos un listener al ViewHolder para que cuando se haga click en él, abra una nueva activity (<code>DetailActivity</code>) en la que se mostrará el detalle de ese Ítem. A la DetailActivity le pasamos la posición dentro del array del Ítem en el que se ha hecho click. La DetailActivity lo que tiene que hacer és sacar la posición del intent, acceder al Item que está en esa posición del ArrayList, y mostrar la información de ese Item: <a href="https://github.com/gerardfp/P5/blob/master/app/src/main/java/com/company/p5/DetailActivity.java" target="_blank">https://github.com/gerardfp/P5/blob/master/app/src/main/java/com/company/p5/DetailActivity.java</a></p>
 <aside class="special"><p>La variable <code>itemView</code> de la clase ViewHolder hace referencia a todo el ítem en sí.</p>
 </aside>
 <ul>
@@ -218,24 +218,32 @@ class ItemList {
 </table>
 <p>Para esta práctica usaremos el <code>LinearLayoutManager</code></p>
 <p>Añade el elemento <code>&lt;RecyclerView&gt;</code> al layout <code>activity_main.xml</code></p>
-<pre><code>&lt;android.support.v7.widget.RecyclerView
+<pre><code>&lt;androidx.recyclerview.widget.RecyclerView
    android:id=&#34;@+id/item_list&#34;
    android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;
-   android:scrollbars=&#34;vertical&#34; /&gt;</code></pre>
-<p>En el método <code>onCreate()</code> de la <code>MainActivity</code>, establece el <code>LinearLayoutManager</code> al <code>RecyclerView</code></p>
-<pre><code>@Override
-protected void onCreate(Bundle savedInstanceState) {
-   . . . .
+   android:layout_height=&#34;wrap_content&#34;/&gt;
+</code></pre>
+<p>En el método <code>onCreate()</code> de la <code>MainActivity</code> haremos lo siguiente:</p>
+<ol type="1" start="1">
+<li>Recuperar el RecyclerView del XML con <code>findViewById()</code></li>
+<li>Establecer el layout manager a <code>LinearLayoutManager</code> (en vertical)</li>
+<li>Que el adaptador (<em>el encargado de rellenar el RecyclerView</em>) sea nuestro <code>ItemsAdapter</code></li>
+</ol>
+<pre><code>public class MainActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView = findViewById(R.id.item_list);
-    recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    recyclerView.setAdapter(new ItemsAdapter());
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        . . . .
+ 
+        RecyclerView recyclerView = findViewById(R.id.item_list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new ItemsAdapter());
+    }
 }</code></pre>
-<p>Para mostrar un separador entre cada elemento del RecyclerView podemos usar la clase <code>DividerItemDecoration</code>:</p>
+<p>NOTA: Para mostrar un separador entre cada elemento del RecyclerView podemos usar la clase <code>DividerItemDecoration</code>:</p>
 <pre><code>@Override
 protected void onCreate(Bundle savedInstanceState) {
-   . . . .
+    . . . .
 
     RecyclerView recyclerView = findViewById(R.id.item_list);
     LinearLayoutManager layoutManager = new LinearLayoutManager(this);
