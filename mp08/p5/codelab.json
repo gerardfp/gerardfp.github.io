@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-09-30T22:44:20Z",
+  "id": "mp08/p5",
+  "duration": 0,
+  "title": "RecyclerView",
+  "summary": "RecyclerView",
+  "source": "1aDAy8i2NhoATJ6RSFyeNIkMYzxd8QAsJ6Op4bEmXlnM",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp08/p5"
+}

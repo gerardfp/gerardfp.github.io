@@ -1,0 +1,261 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>RecyclerView</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="mp08/p5"
+                  title="RecyclerView"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducción" duration="0">
+        <p>El objetivo de esta práctica es explicar el elemento <strong><code>RecyclerView</code></strong>.</p>
+<p>El widget <a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank"><code>RecyclerView</code></a> nos permite mostrar una lista de elementos y hacer scroll en ellos.</p>
+<p>Realizaremos una aplicación que mostrará una lista de Ítems. Cada Ítem tendrá un nombre, una descripción y un <em>rating</em>.</p>
+<p>Al hacer click sobre un ítem de la lista, se abrirá una nueva activity donde se mostrará el detalle de ese item.</p>
+<p class="image-container"><img style="width: 258.00px" src="img\c9cb7ade2599e3ba.gif"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el proyecto" duration="0">
+        <p>Selecciona &#34;Empty Activity&#34; como plantilla para la actividad principal.</p>
+<p>Añade las bibliotecas <code>RecyclerView</code> en el archivo <code>build.gradle (Module: app)</code></p>
+<pre><code>dependencies {
+   . . . .
+   implementation &#39;androidx.recyclerview:recyclerview:1.0.0&#39;
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Dataset" duration="0">
+        <p>El Dataset es el conjunto de datos que queremos mostrar en el RecyclerView. Pueden ser datos descargados de la red, obtenidos de una base de datos, de un fichero JSON, generados mediante código, etc. etc. etc.</p>
+<p>Para esta práctica utilizaremos como Dataset un <code>ArrayList</code>. Este ArrayList contendrá los elementos que hay que mostrar en el RecyclerView. Para esta práctica utilizamos un elemento genérico, llamado <code>Item</code>, pero en una aplicación real dependerá de la clase de objetos que se quieran mostrar (Contactos, Mensajes, Personajes, Películas, etc.)</p>
+<p>Crea la clase <strong><code>Item</code></strong> y añade los campos siguientes:</p>
+<pre><code>class Item {
+   String name;
+   String desc;
+   float rating;
+}</code></pre>
+<p>El ArrayList de Items será nuestra fuente de datos. Ya que este ArrayList debe ser único para toda la aplicación, lo crearemos como <code>static</code>. (<em>Sin embargo, ésta no es la mejor opción, en futuras prácticas veremos una forma más adecuada de hacerlo</em>).</p>
+<p>Crea una nueva clase llamada <code>ItemList</code>, y crea y inicializa el ArrayList con datos aleatorios:</p>
+<pre><code>import java.util.ArrayList;
+import java.util.List;
+
+class ItemList {
+   static List&lt;Item&gt; itemList = new ArrayList&lt;&gt;();
+
+   static {
+       for (int i = 0; i &lt; 200; i++) {
+           Item item = new Item();
+           item.name = &#34;Item &#34; + i;
+           item.desc = &#34;Description &#34; + i;
+           item.rating = (float) Math.random()*10;
+           itemList.add(item);
+       }
+   }
+}</code></pre>
+<p class="image-container"><img style="width: 250.00px" src="img\c3baeea9edda4f2.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ViewHolder" duration="0">
+        <p>El ViewHolder és la <strong>plantilla </strong>de cómo se mostrarán los elementos en el RecyclerView. Es decir, cada elemento del RecyclerView será una copia de la plantilla con los campos rellenados con los elementos del Dataset.</p>
+<p>Para crear el ViewHolder tenemos que crear:</p>
+<ul>
+<li>Un fichero con el Layout y</li>
+<li>Una clase que haga el <code>findViewById()</code> de cada elemento del layout que tenga que ser rellenado con datos.</li>
+</ul>
+<h2 is-upgraded>Layout viewholder_item.xml</h2>
+<p>Crea un nuevo fichero de layout llamado <code>viewholder_item.xml</code></p>
+<p class="image-container"><img style="width: 606.00px" src="img\7f3bbde9c5ea9b91.png"></p>
+<p>Este layout será la plantilla para un elemento del RecyclerView. Añadiremos los componentes que necesitemos: </p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   android:orientation=&#34;vertical&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;wrap_content&#34;
+   android:padding=&#34;8dp&#34;&gt;
+
+   &lt;TextView
+       android:id=&#34;@+id/item_name&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:textSize=&#34;24sp&#34;
+       android:textStyle=&#34;bold&#34; /&gt;
+
+   &lt;TextView
+       android:id=&#34;@+id/item_desc&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;/&gt;
+
+   &lt;RatingBar
+       android:id=&#34;@+id/item_rating&#34;
+       android:numStars=&#34;5&#34;
+       android:layout_width=&#34;wrap_content&#34;
+       android:layout_height=&#34;wrap_content&#34;/&gt;
+
+&lt;/LinearLayout&gt;</code></pre>
+<p>En este caso hemos añadido un TextView para el nombre, otro para la descripción y un RatingBar.</p>
+<p class="image-container"><img style="width: 723.00px" src="img\a3b7d75db84379de.png"></p>
+<h2 is-upgraded>Classe ItemViewHolder</h2>
+<p>Ahora hay que crear una clase que haga el <code>findViewById()</code> de cada elemento que haya que rellenar en la plantilla (con los datos de los Ítems del ArrayList). </p>
+<p>En nuestra plantilla los elementos a rellenar son los dos TextView y el RatingBar.</p>
+<pre><code>class ItemViewHolder extends RecyclerView.ViewHolder {
+   TextView name, desc;
+   RatingBar rating;
+
+   ItemViewHolder(@NonNull View itemView) {
+       super(itemView);
+       name = itemView.findViewById(R.id.item_name);
+       desc = itemView.findViewById(R.id.item_desc);
+       rating = itemView.findViewById(R.id.item_rating);
+   }
+}</code></pre>
+<p class="image-container"><img style="width: 736.40px" src="img\7df245c629b20618.gif"></p>
+<aside class="special"><p>La clase ViewHolder la puedes crear en diversos sitios (Como clase interna de la clase MainActivity, en un fichero a parte, ...). Para este práctica lo más fácil es que la crees como clase interna de la MainActivity.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Adapter" duration="0">
+        <p>El adaptador es el encargado de crear las copias de la plantilla y rellenarlas con los datos.</p>
+<p class="image-container"><img style="width: 705.07px" src="img\7efa555e1955a839.png"></p>
+<p>Crea una nueva clase llamada <code>ItemsAdapter</code> con el siguiente código:</p>
+<pre><code>class ItemsAdapter extends RecyclerView.Adapter&lt;ItemViewHolder&gt;{
+
+   @NonNull
+   @Override
+   public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+       return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_item, parent, false));
+   }
+
+   @Override
+   public void onBindViewHolder(@NonNull ItemViewHolder holder, final int position) {
+       
+       final Item item = ItemList.itemList.get(position);
+       
+       holder.name.setText(item.name);
+       holder.desc.setText(item.desc);
+       holder.rating.setRating(item.rating);
+
+       holder.rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+           @Override
+           public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+               item.rating = v;
+           }
+       });
+
+       holder.itemView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+               intent.putExtra(&#34;ITEM_POSITION&#34;, position);
+               startActivity(intent);
+           }
+       });
+   }
+
+   @Override
+   public int getItemCount() {
+       return ItemList.itemList.size();
+   }
+}</code></pre>
+<p class="image-container"><img style="width: 736.40px" src="img\75d9cdcc28349064.gif"></p>
+<p>El Adapter tiene 3 métodos:</p>
+<ul>
+<li><code>onCreateViewHolder()</code>: Este método es llamado por el RecyclerView cada vez que hay que <strong>crear </strong>una nueva copia de la plantilla para mostrar un nuevo elemento.</li>
+</ul>
+<p>Dentro de este método usamos el <code>LayoutInflater</code> para crear una copia de la plantilla <code>viewholder_item.xml</code>.<br>Se le pasa la copia de la plantilla a la clase <code>ItemViewHolder</code> para que haga los <code>findViewById()</code>.</p>
+<ul>
+<li><code>onBindViewHolder()</code>: Este método es llamado por el RecyclerView con el fin de <strong>rellenar </strong>una copia de la plantilla. La variable <code>holder</code> que nos pasa en el método es la copia de la plantilla que hay que rellenar, y la variable <code>position</code> es la posición que ocupa dentro del RecyclerView.</li>
+</ul>
+<p>En primer lugar obtenemos el <code>Item</code> del ArrayList que ocupa la posición que nos ha pasado el RecyclerView (es decir, la posicion del ViewHolder que hay que rellenar).</p>
+<p>A continuación rellenamos los TextView y el RatingBar del <code>ViewHolder</code> con los datos del <code>Item</code> que hemos sacado del ArrayList.</p>
+<p>Luego, establecemos el listener para el RatingBar de ese ViewHolder, que actualizará el rating del Item.</p>
+<p>Por último, establecemos un listener al ViewHolder para que cuando se haga click en él, abra una nueva activity (<code>DetailActivity</code>) en la que se mostrará el detalle de ese Ítem. A la DetailActivity le pasamos la posición dentro del array del Ítem en el que se ha hecho click.</p>
+<aside class="special"><p>La variable <code>itemView</code> de la clase ViewHolder hace referencia a todo el ítem en sí.</p>
+</aside>
+<ul>
+<li><code>getItemCount()</code>: Este método es llamado por el RecyclerView con el fin de saber cuántos elementos se tienen que mostrar. En nuestro caso retornamos el <code>size()</code> del ArrayList.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="RecyclerView" duration="0">
+        <p><a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank"><code>RecyclerView</code></a> proporciona estos 3 administradores de layout:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><a href="https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html" target="_blank">LinearLayoutManager</a><code> </code>muestra elementos en una lista de desplazamiento horizontal o vertical.</p>
+<p class="image-container"><img style="width: 146.70px" src="img\4ddefc2975a500a8.png"></p>
+</td><td colspan="1" rowspan="1"><p><a href="https://developer.android.com/reference/android/support/v7/widget/GridLayoutManager.html" target="_blank">GridLayoutManager</a><code> </code>muestra elementos en una cuadrícula.</p>
+<p class="image-container"><img style="width: 144.40px" src="img\fac440afb6f65950.png"></p>
+</td><td colspan="1" rowspan="1"><p><a href="https://developer.android.com/reference/android/support/v7/widget/StaggeredGridLayoutManager.html" target="_blank">StaggeredGridLayoutManager</a><code> </code>muestra elementos en una cuadrícula escalonada.</p>
+<p class="image-container"><img style="width: 143.70px" src="img\2a44143f4e286c2e.png"></p>
+</td></tr>
+</table>
+<p>Para esta práctica usaremos el <code>LinearLayoutManager</code></p>
+<p>Añade el elemento <code>&lt;RecyclerView&gt;</code> al layout <code>activity_main.xml</code></p>
+<pre><code>&lt;android.support.v7.widget.RecyclerView
+   android:id=&#34;@+id/item_list&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   android:scrollbars=&#34;vertical&#34; /&gt;</code></pre>
+<p>En el método <code>onCreate()</code> de la <code>MainActivity</code>, establece el <code>LinearLayoutManager</code> al <code>RecyclerView</code></p>
+<pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+   . . . .
+
+    RecyclerView recyclerView = findViewById(R.id.item_list);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    recyclerView.setAdapter(new ItemsAdapter());
+}</code></pre>
+<p>Para mostrar un separador entre cada elemento del RecyclerView podemos usar la clase <code>DividerItemDecoration</code>:</p>
+<pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+   . . . .
+
+    RecyclerView recyclerView = findViewById(R.id.item_list);
+    LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+    recyclerView.setLayoutManager(layoutManager);
+
+    recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),        layoutManager.getOrientation()));
+
+    recyclerView.setAdapter(new ItemsAdapter());
+
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>
