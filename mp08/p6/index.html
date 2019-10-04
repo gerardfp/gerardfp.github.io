@@ -42,7 +42,7 @@
         <p>Para usar el ViewModel hay que instalar la dependencia <code>lifecycle-extensions</code>.</p>
 <p>Puedes hacerlo automáticamente en AndroidStudio así:</p>
 <p class="image-container"><img style="width: 558.00px" src="img\c0c32b9abf647e05.gif"></p>
-<p>Si lo prefieres, también puedes añadir manualmente la siguiente línea a las <code>dependencies</code> del archivo <code>build.gradel (Module: app)</code>:</p>
+<p>Si lo prefieres, también puedes añadir manualmente la siguiente línea a las <code>dependencies</code> del archivo <code>build.gradle (Module: app)</code>:</p>
 <pre><code>implementation &#39;androidx.lifecycle:lifecycle-extensions:2.1.0&#39;</code></pre>
 
 
@@ -182,7 +182,7 @@
 <h2 is-upgraded>Código Java</h2>
 <p>Las variables <code>puntosA puntosB</code> se usan para acumular los puntos.</p>
 <p>Los TextView <code>marcadorA marcadorB</code> son donde se muestra la puntuación de cada equipo. Se usa el método <code>updateScores()</code> para actualizarlos.</p>
-<p>En el <code>onCreate()</code> hacemos los <code>findViewById()</code> y añadimos los listeners a los botones.</p>
+<p>En el <code>onCreate()</code> hacemos los <code>findViewById()</code> y añadimos los <em>listeners </em>a los botones.</p>
 <p>En el método <code>onClick()</code> actualizamos la puntuación dependiendo de en que botón se haya hecho click.</p>
 <pre><code>import android.os.Bundle;
 import android.view.View;
