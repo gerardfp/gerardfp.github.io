@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-10-04T11:11:51Z",
+  "id": "mp08/p6",
+  "duration": 0,
+  "title": "ViewModel",
+  "summary": "ViewModel",
+  "source": "1CQ7PO9znu6gMdHYVdfACzCRjuGjytnfbsU1m1Sn6WEk",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp08/p6"
+}
