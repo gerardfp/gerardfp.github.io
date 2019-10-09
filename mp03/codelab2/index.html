@@ -28,11 +28,11 @@
                   feedback-link="https://github.com/gerardfp">
     
       <google-codelab-step label="Introducció" duration="0">
-        <p>L&#39;objectiu d&#39;aquesta pràctica és començar a usar els conceptes de Classe i Objecte. Consisteix en desenvolupar una aplicació que mostri un dibuix simple fet amb figures geomètriques.</p>
+        <p>L&#39;objectiu d&#39;aquesta pràctica és començar a usar els conceptes de <strong>Classe </strong>i <strong>Objecte</strong>. Consisteix en desenvolupar una aplicació que mostri un dibuix simple fet amb figures geomètriques.</p>
 <p class="image-container"><img style="width: 257.15px" src="img\d464d034dbdf63c.png"></p>
 <p>Al dibuix veiem una casa (mur, teulada i finestra) sobre la terra i un sol al cel.</p>
-<p>El dibuix es composarà dls següents <strong>Objectes</strong>: <em>sun, sky, earth, wall, window </em>y<em> roof</em></p>
-<p>Aquests objectes estaran classificados en les següents <strong>Classes</strong>: <em>Circle</em>, <em>Rectangle </em>y <em>Triangle</em></p>
+<p>El dibuix es composarà dels següents <strong>Objectes</strong>: <em>sun, sky, earth, wall, window </em>y<em> roof</em></p>
+<p>Aquests objectes estaran classificats en les següents <strong>Classes</strong>: <em>Circle</em>, <em>Rectangle </em>y <em>Triangle</em></p>
 
 
       </google-codelab-step>
@@ -49,9 +49,9 @@
       </google-codelab-step>
     
       <google-codelab-step label="Crea la classe Circle" duration="0">
-        <p>Per a crear objectes, primer s&#39;ha de definir la classe. A partir de la classe es creen els objects.</p>
+        <p>Per a crear objectes, primer s&#39;ha de definir la classe. A partir de la classe es creen els objectes.</p>
 <p>Començarem per l&#39;objecte <em>sun</em>, que és de la classe <em>Circle</em>.</p>
-<p>Fes clic-dreta sobre el <em>package </em><code>com.company</code>, i selecciona les opcions <code>New</code> &gt; <code>Java Class</code>:</p>
+<p>Fes clic-dreta sobre el <em>package </em><code>com.company</code>, i selecciona les opcions <code>New</code> &gt; <code>Java class</code>:</p>
 <p class="image-container"><img style="width: 658.00px" src="img\fc86c3561f1cf3ad.gif"></p>
 <p>Com a nom de la Classe introdueix <code>Circle</code></p>
 <aside class="warning"><p><strong>Important</strong>: El nom de les classes comença amb majúscula (UpperCamelCase)</p>
@@ -66,7 +66,7 @@
       </google-codelab-step>
     
       <google-codelab-step label="Crea l&#39;objecte sun" duration="0">
-        <p>Un cop definida la classe <code>Circle</code>, es poden crear objectes d&#39;aquesta classe. Anem a crear l&#39;objecte <em>sun</em>:</p>
+        <p>Un cop definida la classe <code>Circle</code>, es poden crear objectes d&#39;aquesta classe. Anem a crear l&#39;objecte <em><code>sun</code></em>:</p>
 <p>Ves l&#39;arxiu <code>Main.java</code> i dintre del mètode  <code>main</code> afegeix el códi per a crear l&#39;objecte  <code>sun</code>.</p>
 <pre><code>public class Main {
    public static void main(String[] args) {
@@ -91,12 +91,12 @@
    int positionY;
    Color color;
 }</code></pre>
-<p>Haurás notat que la paraula  <code>Color</code> apareix en vermell. És degut a que no està definida la classe <code>Color</code>. No obstant, aquesta classe no la crearem nosaltres, sinò que la usarem de la biblioteca <code>java.awt</code></p>
+<p>Hauràs notat que la paraula  <code>Color</code> apareix en vermell. És degut a que no està definida la classe <code>Color</code>. No obstant, aquesta classe no la crearem nosaltres, sinò que la usarem de la biblioteca <code>java.awt</code></p>
 <p>Per a importar la classe <code>Color</code> de la biblioteca <code>java.awt</code> segueix aquestes passes:</p>
 <ol type="1" start="1">
 <li>Coloca el cursor sobre la paraula <code>Color</code></li>
 <li>Mou el cursor amb les fletxes del teclat</li>
-<li>Quan la paraula <code>Color</code> estigui subratllada, apareixerà un meissatge blau sobre ella. Polsa <code>Alt+Intro</code></li>
+<li>Quan la paraula <code>Color</code> estigui subratllada, apareixerà un missatge blau sobre ella. Polsa <code>Alt+Intro</code></li>
 <li>Apareixerà una llista a sota amb les biblioteques que inclouen la classe <code>Color</code>. Selecciona la biblioteca <code>Color (java.awt)</code></li>
 </ol>
 <p class="image-container"><img style="width: 427.00px" src="img\d4715880603d610e.gif"></p>
@@ -105,7 +105,7 @@
       </google-codelab-step>
     
       <google-codelab-step label="Defineix l&#39;estat de l&#39;objecte sun" duration="0">
-        <p>Ara l&#39;objecte <code>sun</code> ja té els camps de la classe <code>Circle</code>, així que podems definir el seu estat.</p>
+        <p>Ara l&#39;objecte <code>sun</code> ja té els camps de la classe <code>Circle</code>, així que podem definir el seu estat.</p>
 <p>Ves a l&#39;arxiu <code>Main.java</code> i assigna els següents valors als camps que defineixen l&#39;estat de l&#39;objecte <code>sun</code>:</p>
 <pre><code>public class Main {
    public static void main(String[] args){
@@ -123,42 +123,50 @@
     
       <google-codelab-step label="Pinta l&#39;objecte sun" duration="0">
         <p>Per a dibuixar els objectes a la pantalla utilizarem la Classe <code>JFrame</code>, de la biblioteca gràfica <code>Swing</code>, per a crear una finestra que serà el nostre llenç (<em>canvas</em>). De moment no és necesari que comprenguis aquesta Classe. Simplement copia i enganxa.</p>
-<p>Crea una Classe nova anomenada &#34;Canvas&#34; i escriu en ella el següent codi:</p>
-<pre><code>public class Canvas extends javax.swing.JFrame {
-   static Graphics2D g;
+<p>Crea una Classe nova anomenada <code>Canvas</code> i escriu en ella el següent codi:</p>
+<pre><code>import java.awt.*;
 
-   public Canvas() {
-       if (g != null) return;
-       setSize(600, 400);
-       setVisible(true);
-       setDefaultCloseOperation(EXIT_ON_CLOSE);
-       java.awt.Canvas canvas = new java.awt.Canvas();
-       canvas.setPreferredSize(new Dimension(600, 400));
-       canvas.setIgnoreRepaint(true);
-       add(canvas);
-       g = (Graphics2D) canvas.getGraphics();
-       pack();
-   }
+public class Canvas extends javax.swing.JFrame {
+    static Graphics2D g;
 
-   public static void draw(Circle c) {
-       new Canvas();
-       g.setColor(c.color);
-       g.fillOval(c.positionX, c.positionY, c.radius * 2, c.radius * 2);
-   }
+    public Canvas() {
+        setSize(600, 400);
+        setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        java.awt.Canvas canvas = new java.awt.Canvas();
+        canvas.setPreferredSize(new Dimension(600, 400));
+        canvas.setIgnoreRepaint(true);
+        add(canvas);
+        g = (Graphics2D) canvas.getGraphics();
+        pack();
+    }
 
-   public static void draw(Rectangle r) {
-       new Canvas();
-       g.setColor(r.color);
-       g.fillRect(r.positionX, r.positionY, r.width, r.height);
-   }
+    public static synchronized void draw(Circle c) {
+        if(g==null) {
+            new Canvas();
+            wait(200);
+        }
+        g.setColor(c.color);
+        g.fillOval(c.positionX, c.positionY, c.radius * 2, c.radius * 2);
+    }
 
-   public static void draw(Triangle t){
-       new Canvas();
-       g.setColor(t.color);
-       g.fillPolygon(new int[]{t.positionX,t.positionX+t.width/2,t.positionX+t.width},
-               new int[]{t.positionY+t.height,t.positionY,t.positionY+t.height},
-               3);
-   }
+    public static void draw(Rectangle r) {
+        new Canvas();
+        g.setColor(r.color);
+        g.fillRect(r.positionX, r.positionY, r.width, r.height);
+    }
+
+    public static void draw(Triangle t){
+        new Canvas();
+        g.setColor(t.color);
+        g.fillPolygon(new int[]{t.positionX,t.positionX+t.width/2,t.positionX+t.width},
+                new int[]{t.positionY+t.height,t.positionY,t.positionY+t.height},
+                3);
+    }
+
+    public static void wait(int millis){
+        try { Thread.sleep(millis); } catch (Exception e) {}
+    }
 }</code></pre>
 <h2 is-upgraded>Usa la classe  <code>Canvas </code>per a dibuixar les figures </h2>
 <p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
