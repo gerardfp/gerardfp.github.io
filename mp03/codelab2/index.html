@@ -133,7 +133,7 @@ public class Canvas extends javax.swing.JPanel {
    static Canvas canvas;
 
    static Graphics2D g;
-   List&lt;Object&gt; objects = new ArrayList&lt;&gt;();
+   static List&lt;Object&gt; objects = new ArrayList&lt;&gt;();
 
    public Canvas() {
        JFrame frame = new JFrame();
@@ -144,10 +144,8 @@ public class Canvas extends javax.swing.JPanel {
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    }
 
-   static synchronized void init(){
-       if(canvas==null) {
-           canvas = new Canvas();
-       }
+   static void init(){
+       if(canvas==null) canvas = new Canvas();
    }
 
    @Override
@@ -171,20 +169,21 @@ public class Canvas extends javax.swing.JPanel {
        }
    }
 
-   public static synchronized void draw(Circle c) {
+   public static void draw(Circle c) {
        init();
-       canvas.objects.add(c);
+       objects.add(c);
    }
 
-   public static synchronized void draw(Rectangle r) {
+   public static void draw(Rectangle r) {
        init();
-       canvas.objects.add(r);
+       objects.add(r);
    }
 
-   public static synchronized void draw(Triangle t){
+   public static void draw(Triangle t){
        init();
-       canvas.objects.add(t);
-   }</code></pre>
+       objects.add(t);
+   }
+}</code></pre>
 <h2 is-upgraded>Usa la classe  <code>Canvas </code>per a dibuixar les figures </h2>
 <p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
 <pre><code>Canvas.draw(sun);</code></pre>
