@@ -73,6 +73,7 @@
        Circle sun = new Circle();
    }
 }</code></pre>
+<p class="image-container"><img style="width: 736.40px" src="img\f1d56570fd08e5c2.gif"></p>
 
 
       </google-codelab-step>
@@ -131,7 +132,6 @@ import java.util.List;
 
 public class Canvas extends javax.swing.JPanel {
    static Canvas canvas;
-   static Graphics2D g;
    static List&lt;Object&gt; objects = new ArrayList&lt;&gt;();
 
    public Canvas() {
@@ -145,19 +145,19 @@ public class Canvas extends javax.swing.JPanel {
    @Override
    public void paint(Graphics g) {
        for(Object o: objects) try {
-           Class cl = o.getClass(); String cn = cl.getName();
-           if (!cn.endsWith(&#34;.Circle&#34;) &amp;&amp; !cn.endsWith(&#34;.Rectangle&#34;) &amp;&amp; !cn.endsWith(&#34;.Triangle&#34;)) continue;
-           int x = (int) cl.getDeclaredField(&#34;positionX&#34;).get(o);
-           int y = (int) cl.getDeclaredField(&#34;positionY&#34;).get(o);
-           g.setColor((Color) cl.getDeclaredField(&#34;color&#34;).get(o));
-           if (cn.endsWith(&#34;.Circle&#34;)) {
-               int r = (int) cl.getDeclaredField(&#34;radius&#34;).get(o);
+           Class c = o.getClass(); String n = c.getName();
+           if(!n.endsWith(&#34;.Circle&#34;)&amp;&amp;!n.endsWith(&#34;.Rectangle&#34;)&amp;&amp;!n.endsWith(&#34;.Triangle&#34;))continue;
+           int x = (int) c.getDeclaredField(&#34;positionX&#34;).get(o);
+           int y = (int) c.getDeclaredField(&#34;positionY&#34;).get(o);
+           g.setColor((Color) c.getDeclaredField(&#34;color&#34;).get(o));
+           if (n.endsWith(&#34;.Circle&#34;)) {
+               int r = (int) c.getDeclaredField(&#34;radius&#34;).get(o);
                g.fillOval(x, y, r * 2, r * 2);
            } else {
-               int w = (int) cl.getDeclaredField(&#34;width&#34;).get(o);
-               int h = (int) cl.getDeclaredField(&#34;height&#34;).get(o);
-               if (cn.endsWith(&#34;.Rectangle&#34;)) g.fillRect(x, y, w, h);
-               else g.fillPolygon(new int[]{x, x + w / 2, x + w}, new int[]{y + h, y, y + h}, 3);
+               int w = (int) c.getDeclaredField(&#34;width&#34;).get(o);
+               int h = (int) c.getDeclaredField(&#34;height&#34;).get(o);
+               if (n.endsWith(&#34;.Rectangle&#34;)) g.fillRect(x, y, w, h);
+               else g.fillPolygon(new int[]{x,x+w/2,x+w},new int[]{y+h,y,y+h},3);
            }
        } catch (Exception e){ e.printStackTrace(); }
    }
