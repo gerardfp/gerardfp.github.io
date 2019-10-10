@@ -131,57 +131,40 @@ import java.util.List;
 
 public class Canvas extends javax.swing.JPanel {
    static Canvas canvas;
-
    static Graphics2D g;
    static List&lt;Object&gt; objects = new ArrayList&lt;&gt;();
 
    public Canvas() {
        JFrame frame = new JFrame();
        frame.add(this);
-
        frame.setSize(600, 400);
        frame.setVisible(true);
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    }
 
-   static void init(){
-       if(canvas==null) canvas = new Canvas();
-   }
-
    @Override
    public void paint(Graphics g) {
-       for(Object o: objects){
-           if(o.getClass().getName().endsWith(&#34;.Circle&#34;)){
-               Circle c = (Circle) o;
-               g.setColor(c.color);
-               g.fillOval(c.positionX, c.positionY, c.radius * 2, c.radius * 2);
-           } else if(o.getClass().getName().endsWith(&#34;.Rectangle&#34;)){
-               Rectangle r = (Rectangle) o;
-               g.setColor(r.color);
-               g.fillRect(r.positionX, r.positionY, r.width, r.height);
-           } else if(o.getClass().getName().endsWith(&#34;.Triangle&#34;)){
-               Triangle t = (Triangle) o;
-               g.setColor(t.color);
-               g.fillPolygon(new int[]{t.positionX,t.positionX+t.width/2,t.positionX+t.width},
-                       new int[]{t.positionY+t.height,t.positionY,t.positionY+t.height},
-                       3);
+       for(Object o: objects) try {
+           Class cl = o.getClass(); String cn = cl.getName();
+           if (!cn.endsWith(&#34;.Circle&#34;) &amp;&amp; !cn.endsWith(&#34;.Rectangle&#34;) &amp;&amp; !cn.endsWith(&#34;.Triangle&#34;)) continue;
+           int x = (int) cl.getDeclaredField(&#34;positionX&#34;).get(o);
+           int y = (int) cl.getDeclaredField(&#34;positionY&#34;).get(o);
+           g.setColor((Color) cl.getDeclaredField(&#34;color&#34;).get(o));
+           if (cn.endsWith(&#34;.Circle&#34;)) {
+               int r = (int) cl.getDeclaredField(&#34;radius&#34;).get(o);
+               g.fillOval(x, y, r * 2, r * 2);
+           } else {
+               int w = (int) cl.getDeclaredField(&#34;width&#34;).get(o);
+               int h = (int) cl.getDeclaredField(&#34;height&#34;).get(o);
+               if (cn.endsWith(&#34;.Rectangle&#34;)) g.fillRect(x, y, w, h);
+               else g.fillPolygon(new int[]{x, x + w / 2, x + w}, new int[]{y + h, y, y + h}, 3);
            }
-       }
+       } catch (Exception e){ e.printStackTrace(); }
    }
 
-   public static void draw(Circle c) {
-       init();
+   public static void draw(Object c) {
+       if(canvas==null) canvas = new Canvas();
        objects.add(c);
-   }
-
-   public static void draw(Rectangle r) {
-       init();
-       objects.add(r);
-   }
-
-   public static void draw(Triangle t){
-       init();
-       objects.add(t);
    }
 }</code></pre>
 <h2 is-upgraded>Usa la classe  <code>Canvas </code>per a dibuixar les figures </h2>
