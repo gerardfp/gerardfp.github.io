@@ -1,0 +1,538 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Room Database</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="mp08/p7"
+                  title="Room Database"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducción" duration="0">
+        <p>Room proporciona una capa de abstracción para facilitar el acceso a bases de datos SQLite.</p>
+<p class="image-container"><img style="width: 242.00px" src="img\dedd81415125f61f.gif"></p>
+<p>Get the full code: <a href="https://github.com/gerardfp/room" target="_blank">https://github.com/gerardfp/room</a> </p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el proyecto" duration="0">
+        <p>Añade las dependencias para <code>Room</code> y <code>Lifecycle</code>.</p>
+<p>También las de <code>RecyclerView</code> y <code>Material</code>.</p>
+<h2 is-upgraded>Room</h2>
+<p class="image-container"><img style="width: 566.00px" src="img\3a52c2ffb974214e.gif"></p>
+<p>Dependencia en el archivo <code>build.gradle (Module: app)</code></p>
+<pre><code>implementation &#39;androidx.room:room-runtime:2.1.0&#39;
+annotationProcessor &#39;androidx.room:room-compiler:2.1.0&#39;</code></pre>
+<h2 is-upgraded>Lifecycle</h2>
+<p>Las Activities de la App accederan a la Base de datos a través de un ViewModel.</p>
+<p class="image-container"><img style="width: 558.00px" src="img\c0c32b9abf647e05.gif"></p>
+<p>Dependencia en el archivo <code>build.gradle (Module: app)</code></p>
+<pre><code>implementation &#39;androidx.lifecycle:lifecycle-extensions:2.1.0&#39;</code></pre>
+<h2 is-upgraded>RecyclerView i Material</h2>
+<p>La lista de tareas se mostrará en la Activity usando un <code>RecyclerView</code></p>
+<p>Para ir a la Activity de añadir una Tarea pulsaremos sobre el <code>FloatingActingButton</code>.</p>
+<pre><code>implementation &#39;androidx.recyclerview:recyclerview:1.0.0&#39;
+implementation &#39;com.google.android.material:material:1.0.0&#39;</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Análisis de la app" duration="0">
+        <p>La app guardará los datos en dos tablas: <code>tareas</code> i <code>prioridades</code>.</p>
+<p>Para obtener cada Tarea con el detalle de su prioridad, necesitaremos la siguiente Vista (consulta):</p>
+<pre><code>SELECT Tarea.id, Tarea.descripcion, Tarea.fecha, Prioridad.descripcion AS prioridad 
+FROM Tarea JOIN Prioridad ON Tarea.prioridadId = Prioridad.id</code></pre>
+<p class="image-container"><img style="width: 230.00px" src="img\4ba864896943f03d.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Room" duration="0">
+        <p>Para usar Room hay que crear los 3 componentes: Entidades, DAO y Database.</p>
+<ul>
+<li><a href="https://developer.android.com/training/data-storage/room/defining-data.html" target="_blank"><strong>Entidad:</strong></a> representa una <strong>tabla</strong> de la base de datos.</li>
+<li><a href="https://developer.android.com/training/data-storage/room/accessing-data.html" target="_blank"><strong>DAO:</strong></a> contiene los métodos con las <strong>consultas</strong> utilitzados para acceder a la base de datos</li>
+<li><a href="https://developer.android.com/reference/android/arch/persistence/room/Database.html" target="_blank"><strong>Base de datos:</strong></a> contiene el manejador de la base de datos.</li>
+</ul>
+<p>.<img style="width: 269.00px" src="img\3f9c35efb7f58df1.png"></p>
+<h2 is-upgraded>Entidades</h2>
+<p>Son las tablas y vistas de nuestra base de datos. Se crea una clase por cada tabla o vista. Se anotan dichas clases con <code>@Entity</code>.</p>
+<p><code>Tarea.java</code></p>
+<pre><code>import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
+@Entity(foreignKeys = @ForeignKey(entity = Prioridad.class,
+                                 parentColumns = &#34;id&#34;,
+                                 childColumns = &#34;prioridadId&#34;))
+public class Tarea {
+   @PrimaryKey(autoGenerate = true)
+   public int id;
+
+   public String descripcion;
+   public String fecha;
+   public int prioridadId;
+
+   public Tarea(String descripcion, String fecha, int prioridadId) {
+       this.descripcion = descripcion;
+       this.fecha = fecha;
+       this.prioridadId = prioridadId;
+   }
+}</code></pre>
+<p>Para el campo fecha, se podría usar un </p>
+<pre>TypeConverter</pre>
+<p> para convertir automáticamente entre Date y Long.</p>
+<p><a href="https://developer.android.com/training/data-storage/room/referencing-data" target="_blank">https://developer.android.com/training/data-storage/room/referencing-data</a></p>
+<p><code>Prioridad.java</code></p>
+<pre><code>import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
+public class Prioridad {
+   @PrimaryKey(autoGenerate = true)
+   public int id;
+   public String descripcion;
+
+   public Prioridad(String descripcion) {
+       this.descripcion = descripcion;
+   }
+
+   @Override
+   public String toString() {
+       return descripcion;
+   }
+}</code></pre>
+<aside class="special"><p>Para obtener más información sobre la definición de entidades, consulta: <a href="https://developer.android.com/training/data-storage/room/defining-data" target="_blank">https://developer.android.com/training/data-storage/room/defining-data</a></p>
+<p>Para la definición de relaciones: <a href="https://developer.android.com/training/data-storage/room/relationships" target="_blank">https://developer.android.com/training/data-storage/room/relationships</a></p>
+</aside>
+<p>También definiremos la Vista para el detalle de tareas:</p>
+<p><code>TareaDetalle.java</code></p>
+<pre><code>@DatabaseView(&#34;SELECT Tarea.id, Tarea.descripcion, Tarea.fecha, Prioridad.descripcion AS prioridad &#34; +
+       &#34;FROM Tarea JOIN Prioridad ON Tarea.prioridadId = Prioridad.id&#34;)
+public class TareaDetalle {
+   public int id;
+   public String descripcion;
+   public String fecha;
+   public String prioridad;
+}</code></pre>
+<h2 is-upgraded>DAO</h2>
+<p>En la clase DAO es donde definimos las consultas que necesitamos para acceder a nuestros datos.</p>
+<p><code>TareasDao.java</code></p>
+<pre><code>import com.company.p7.model.Prioridad;
+import com.company.p7.model.Tarea;
+import com.company.p7.model.TareaDetalle;
+
+import java.util.List;
+
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.Query;
+
+@Dao
+public abstract class TareasDao {
+
+   @Insert
+   public abstract void insertarPrioridad(Prioridad prioridad);
+
+   @Query(&#34;SELECT * FROM Prioridad&#34;)
+   public abstract LiveData&lt;List&lt;Prioridad&gt;&gt; getPrioridades();
+
+   @Insert
+   public abstract void insertarTarea(Tarea tarea);
+
+   @Query(&#34;SELECT * FROM TareaDetalle&#34;)
+   public abstract LiveData&lt;List&lt;TareaDetalle&gt;&gt; getTareasPrioridad();
+
+   @Query(&#34;DELETE FROM Tarea WHERE id=:id&#34;)
+   public abstract void deleteTarea(int id);
+}</code></pre>
+<h2 is-upgraded>Base de Datos</h2>
+<p>Usamos el patrón <strong><em>Singleton</em></strong> para obtener una instancia de la base de datos.</p>
+<p>Añadimos el callback para insertar los datos iniciales</p>
+<pre><code>@Database(entities = {Tarea.class, Prioridad.class}, views = {TareaDetalle.class}, version = 1)
+public abstract class TareasDatabase extends RoomDatabase {
+
+   private static TareasDatabase INSTANCE;
+
+   public abstract TareasDao tareasDao();
+
+   public static TareasDatabase getInstance(final Context context){
+       if(INSTANCE == null){
+           INSTANCE = Room.databaseBuilder(context, TareasDatabase.class, &#34;tareas-db&#34;)
+                   .fallbackToDestructiveMigration()
+                   .addCallback(new Callback() {
+                       @Override
+                       public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                           super.onCreate(db);
+                           insertarDatosIniciales(getInstance(context).tareasDao());
+                       }
+                   })
+                   .build();
+           INSTANCE.query(&#34;SELECT 1&#34;, null);
+       }
+       return INSTANCE;
+   }
+
+   static void insertarDatosIniciales(final TareasDao tareasDao){
+       AsyncTask.execute(new Runnable() {
+           @Override
+           public void run() {
+               tareasDao.insertarPrioridad(new Prioridad(&#34;ALTA&#34;));
+               tareasDao.insertarPrioridad(new Prioridad(&#34;MEDIA&#34;));
+               tareasDao.insertarPrioridad(new Prioridad(&#34;BAJA&#34;));
+           }
+       });
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ViewModel" duration="0">
+        <pre><code>import android.app.Application;
+import android.os.AsyncTask;
+
+import com.company.p7.db.TareasDao;
+import com.company.p7.db.TareasDatabase;
+import com.company.p7.model.Prioridad;
+import com.company.p7.model.Tarea;
+import com.company.p7.model.TareaDetalle;
+
+import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+
+public class TareasViewModel extends AndroidViewModel {
+   TareasDao tareasDao;
+
+   public TareasViewModel(@NonNull Application application) {
+       super(application);
+       tareasDao = TareasDatabase.getInstance(application).tareasDao();
+   }
+
+   public LiveData&lt;List&lt;Prioridad&gt;&gt; getPrioridades(){
+       return tareasDao.getPrioridades();
+   }
+
+   public LiveData&lt;List&lt;TareaDetalle&gt;&gt; getTareasPrioridad(){
+       return tareasDao.getTareasPrioridad();
+   }
+
+   public void insertarTarea(final Tarea tarea){
+       AsyncTask.execute(new Runnable() {
+           @Override
+           public void run() {
+               tareasDao.insertarTarea(tarea);
+           }
+       });
+   }
+
+   public void deleteTarea(final int id){
+       AsyncTask.execute(new Runnable() {
+           @Override
+           public void run() {
+               tareasDao.deleteTarea(id);
+           }
+       });
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Activities" duration="0">
+        <h2 is-upgraded>MainActivity</h2>
+<pre><code>import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.company.p7.R;
+import com.company.p7.model.TareaDetalle;
+import com.company.p7.viewmodel.TareasViewModel;
+
+import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class MainActivity extends AppCompatActivity {
+
+   TareasViewModel tareasViewModel;
+   TareasAdapter tareasAdapter;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_main);
+
+       tareasViewModel = ViewModelProviders.of(this).get(TareasViewModel.class);
+
+       findViewById(R.id.nuevaTarea).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               startActivity(new Intent(MainActivity.this, NuevaTareaActivity.class));
+           }
+       });
+
+       RecyclerView recyclerView = findViewById(R.id.recycler_tareas);
+       recyclerView.setLayoutManager(new LinearLayoutManager(this));
+       recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+       recyclerView.setAdapter(tareasAdapter = new TareasAdapter());
+
+       tareasViewModel.getTareasPrioridad().observe(this, new Observer&lt;List&lt;TareaDetalle&gt;&gt;() {
+           @Override
+           public void onChanged(List&lt;TareaDetalle&gt; queryResult) {
+               tareasAdapter.setList(queryResult);
+           }
+       });
+   }
+
+   class TareaViewHolder extends RecyclerView.ViewHolder {
+       TextView descripcion, fecha, prioridad;
+       ImageView trash;
+
+       public TareaViewHolder(@NonNull View itemView) {
+           super(itemView);
+           descripcion = itemView.findViewById(R.id.tarea_descripcion);
+           fecha = itemView.findViewById(R.id.tarea_fecha);
+           prioridad = itemView.findViewById(R.id.tarea_prioridad);
+           trash = itemView.findViewById(R.id.trash);
+       }
+   }
+
+   class TareasAdapter extends RecyclerView.Adapter&lt;TareaViewHolder&gt;{
+
+       List&lt;TareaDetalle&gt; tareaDetalles;
+
+       @NonNull
+       @Override
+       public TareaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+           return new TareaViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_tarea, parent, false));
+       }
+
+       @Override
+       public void onBindViewHolder(@NonNull TareaViewHolder holder, int position) {
+           final TareaDetalle tareaDetalle = tareaDetalles.get(position);
+
+           holder.descripcion.setText(tareaDetalle.descripcion);
+           holder.fecha.setText(tareaDetalle.fecha);
+           holder.prioridad.setText(tareaDetalle.prioridad);
+
+           holder.trash.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   tareasViewModel.deleteTarea(tareaDetalle.id);
+               }
+           });
+       }
+
+       @Override
+       public int getItemCount() {
+           return tareaDetalles != null ? tareaDetalles.size() : 0;
+       }
+
+       public void setList(List&lt;TareaDetalle&gt; list){
+           tareaDetalles = list;
+           notifyDataSetChanged();
+       }
+   }
+}</code></pre>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   tools:context=&#34;.view.MainActivity&#34;&gt;
+
+   &lt;androidx.recyclerview.widget.RecyclerView
+       android:id=&#34;@+id/recycler_tareas&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;/&gt;
+
+   &lt;com.google.android.material.floatingactionbutton.FloatingActionButton
+       android:id=&#34;@+id/nuevaTarea&#34;
+       android:layout_width=&#34;wrap_content&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:layout_gravity=&#34;bottom|end&#34;
+       android:layout_margin=&#34;16dp&#34;
+       app:srcCompat=&#34;@android:drawable/ic_input_add&#34; /&gt;
+
+&lt;/androidx.coordinatorlayout.widget.CoordinatorLayout&gt;</code></pre>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+   android:orientation=&#34;horizontal&#34; android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;wrap_content&#34;
+   android:padding=&#34;8dp&#34;&gt;
+
+   &lt;TextView
+       android:id=&#34;@+id/tarea_prioridad&#34;
+       android:layout_width=&#34;0dp&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:layout_weight=&#34;2&#34;/&gt;
+   &lt;TextView
+       android:id=&#34;@+id/tarea_descripcion&#34;
+       android:layout_width=&#34;0dp&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:layout_weight=&#34;10&#34; /&gt;
+   &lt;TextView
+       android:id=&#34;@+id/tarea_fecha&#34;
+       android:layout_width=&#34;0dp&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:layout_weight=&#34;3&#34; /&gt;
+
+   &lt;ImageView
+       android:id=&#34;@+id/trash&#34;
+       android:layout_width=&#34;wrap_content&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       app:srcCompat=&#34;@android:drawable/ic_menu_delete&#34; /&gt;
+&lt;/LinearLayout&gt;</code></pre>
+<h2 is-upgraded>NuevaTareaActivity</h2>
+<pre><code>import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import com.company.p7.R;
+import com.company.p7.model.Prioridad;
+import com.company.p7.model.Tarea;
+import com.company.p7.viewmodel.TareasViewModel;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
+public class NuevaTareaActivity extends AppCompatActivity {
+
+   TareasViewModel tareasViewModel;
+   EditText editTextDescripcion;
+   Spinner spinnerPrioridades;
+
+   int prioridad;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_nueva_tarea);
+
+       editTextDescripcion = findViewById(R.id.tarea_descripcion);
+       spinnerPrioridades = findViewById(R.id.tarea_prioridad);
+
+       tareasViewModel = ViewModelProviders.of(this).get(TareasViewModel.class);
+
+
+       findViewById(R.id.crear_tarea).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               if(editTextDescripcion.getText().toString().isEmpty()){
+                   editTextDescripcion.setError(&#34;Introduzca la descripción&#34;);
+                   return;
+               }
+               tareasViewModel.insertarTarea(new Tarea(editTextDescripcion.getText().toString(), LocalDateTime.now().format(DateTimeFormatter.ofPattern(&#34;yyyy-MM-dd&#34;)), prioridad));
+               finish();
+           }
+       });
+
+       tareasViewModel.getPrioridades().observe(this, new Observer&lt;List&lt;Prioridad&gt;&gt;() {
+           @Override
+           public void onChanged(final List&lt;Prioridad&gt; prioridads) {
+               for(Prioridad prioridad: prioridads) Log.e(&#34;ABCD&#34;, prioridad.toString() + &#34;  &#34; + prioridad.id);
+               spinnerPrioridades.setAdapter(new ArrayAdapter&lt;&gt;(NuevaTareaActivity.this, R.layout.support_simple_spinner_dropdown_item, prioridads));
+               spinnerPrioridades.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                   @Override
+                   public void onItemSelected(AdapterView&lt;?&gt; adapterView, View view, int i, long l) {
+                       prioridad = prioridads.get(i).id;
+                   }
+
+                   @Override
+                   public void onNothingSelected(AdapterView&lt;?&gt; adapterView) {}
+               });
+           }
+       });
+   }
+}</code></pre>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   tools:context=&#34;.view.NuevaTareaActivity&#34;&gt;
+
+   &lt;LinearLayout
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:orientation=&#34;vertical&#34;&gt;
+
+       &lt;EditText
+           android:id=&#34;@+id/tarea_descripcion&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:hint=&#34;Descripción&#34;/&gt;
+       &lt;Spinner
+           android:id=&#34;@+id/tarea_prioridad&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;/&gt;
+
+       &lt;Button
+           android:id=&#34;@+id/crear_tarea&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:text=&#34;AÑADIR TAREA&#34;/&gt;
+
+   &lt;/LinearLayout&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>

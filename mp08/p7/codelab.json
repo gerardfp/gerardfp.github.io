@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2019-10-14T09:37:17Z",
+  "id": "mp08/p7",
+  "duration": 0,
+  "title": "Room Database",
+  "summary": "Room",
+  "source": "1fiuK5vjtPHJa1x4-fDxxndi-dQyGrLZFQPUEhaw7eB4",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp08/p7"
+}
