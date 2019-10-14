@@ -84,7 +84,8 @@ FROM Tarea JOIN Prioridad ON Tarea.prioridadId = Prioridad.id</code></pre>
       </google-codelab-step>
     
       <google-codelab-step label="Entidades" duration="0">
-        <p>Son las tablas y vistas de nuestra base de datos. Se crea una clase por cada tabla o vista. Se anotan dichas clases con <code>@Entity</code> o @DatabaseView.</p>
+        <p>Son las tablas y vistas de nuestra base de datos. Se crea una clase por cada tabla o vista. Se anotan dichas clases con <code>@Entity</code> o <code>@DatabaseView</code>.</p>
+<p>Para nuestra app crearemos las dos clases correspondientes a las tablas (<code>Tarea</code> y <code>Prioridad</code>) y la clase de la vista (<code>TareaDetalle</code>).</p>
 <p><code>Tarea.java</code></p>
 <pre><code>import androidx.room.Entity;
 import androidx.room.ForeignKey;
