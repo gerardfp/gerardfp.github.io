@@ -32,7 +32,7 @@
 <p class="image-container"><img style="width: 269.00px" src="img\3f9c35efb7f58df1.png"></p>
 <p>Construiremos una aplicación de tipo Tareas Pendientes (TODO-List). Este tipo de aplicaciones son consideradas el HelloWorld de los <em>frameworks</em>.</p>
 <p class="image-container"><img style="width: 242.00px" src="img\dedd81415125f61f.gif"></p>
-<p>Get the full code: <a href="https://github.com/gerardfp/room" target="_blank">https://github.com/gerardfp/room</a> </p>
+<p>Get the full code: <a href="https://github.com/gerardfp/P7" target="_blank">https://github.com/gerardfp/P7</a> </p>
 
 
       </google-codelab-step>
@@ -84,7 +84,7 @@ FROM Tarea JOIN Prioridad ON Tarea.prioridadId = Prioridad.id</code></pre>
       </google-codelab-step>
     
       <google-codelab-step label="Entidades" duration="0">
-        <p>Son las tablas y vistas de nuestra base de datos. Se crea una clase por cada tabla o vista. Se anotan dichas clases con <code>@Entity</code>.</p>
+        <p>Son las tablas y vistas de nuestra base de datos. Se crea una clase por cada tabla o vista. Se anotan dichas clases con <code>@Entity</code> o @DatabaseView.</p>
 <p><code>Tarea.java</code></p>
 <pre><code>import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -268,6 +268,7 @@ public class TareasViewModel extends AndroidViewModel {
 
    public TareasViewModel(@NonNull Application application) {
        super(application);
+
        tareasDao = TareasDatabase.getInstance(application).tareasDao();
    }
 
@@ -275,8 +276,8 @@ public class TareasViewModel extends AndroidViewModel {
        return tareasDao.getPrioridades();
    }
 
-   public LiveData&lt;List&lt;TareaDetalle&gt;&gt; getTareasPrioridad(){
-       return tareasDao.getTareasPrioridad();
+   public LiveData&lt;List&lt;TareaDetalle&gt;&gt; getTareasDetalle(){
+       return tareasDao.getTareasDetalle();
    }
 
    public void insertarTarea(final Tarea tarea){
@@ -355,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
        recyclerView.setAdapter(tareasAdapter = new TareasAdapter());
 
-       tareasViewModel.getTareasPrioridad().observe(this, new Observer&lt;List&lt;TareaDetalle&gt;&gt;() {
+       tareasViewModel.getTareasDetalle().observe(this, new Observer&lt;List&lt;TareaDetalle&gt;&gt;() {
            @Override
            public void onChanged(List&lt;TareaDetalle&gt; queryResult) {
                tareasAdapter.setList(queryResult);
@@ -525,7 +526,6 @@ public class NuevaTareaActivity extends AppCompatActivity {
        tareasViewModel.getPrioridades().observe(this, new Observer&lt;List&lt;Prioridad&gt;&gt;() {
            @Override
            public void onChanged(final List&lt;Prioridad&gt; prioridads) {
-               for(Prioridad prioridad: prioridads) Log.e(&#34;ABCD&#34;, prioridad.toString() + &#34;  &#34; + prioridad.id);
                spinnerPrioridades.setAdapter(new ArrayAdapter&lt;&gt;(NuevaTareaActivity.this, R.layout.support_simple_spinner_dropdown_item, prioridads));
                spinnerPrioridades.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                    @Override
