@@ -101,10 +101,9 @@ public class Tarea {
        this.prioridadId = prioridadId;
    }
 }</code></pre>
-<p>Para el campo fecha, se debería usar un </p>
-<pre>TypeConverter</pre>
-<p> para convertir automáticamente entre Date y Long.</p>
+<aside class="warning"><p>Para el campo fecha, se debería usar un <code>TypeConverter</code> para convertir automáticamente entre Date y Long.</p>
 <p><a href="https://developer.android.com/training/data-storage/room/referencing-data" target="_blank">https://developer.android.com/training/data-storage/room/referencing-data</a></p>
+</aside>
 <p><code>Prioridad.java</code></p>
 <pre><code>import androidx.room.Entity;
 import androidx.room.PrimaryKey;
