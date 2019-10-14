@@ -60,6 +60,7 @@ implementation &#39;com.google.android.material:material:1.0.0&#39;</code></pre>
     
       <google-codelab-step label="Análisis de la app" duration="0">
         <p>La app guardará los datos en dos tablas: <code>tareas</code> i <code>prioridades</code>.</p>
+<p class="image-container"><img style="width: 513.00px" src="img\484d03b25aac4a8e.png"></p>
 <p>Para obtener cada Tarea con el detalle de su prioridad, necesitaremos la siguiente Vista (consulta):</p>
 <pre><code>SELECT Tarea.id, Tarea.descripcion, Tarea.fecha, Prioridad.descripcion AS prioridad 
 FROM Tarea JOIN Prioridad ON Tarea.prioridadId = Prioridad.id</code></pre>
@@ -69,7 +70,7 @@ FROM Tarea JOIN Prioridad ON Tarea.prioridadId = Prioridad.id</code></pre>
       </google-codelab-step>
     
       <google-codelab-step label="Room" duration="0">
-        <p>Para usar Room hay que crear los 3 componentes: Entidades, DAO y Database.</p>
+        <p>Para usar Room hay que crear 3 componentes: Entidades, DAO y Database.</p>
 <ul>
 <li><a href="https://developer.android.com/training/data-storage/room/defining-data.html" target="_blank"><strong>Entidad:</strong></a> representa una <strong>tabla</strong> de la base de datos.</li>
 <li><a href="https://developer.android.com/training/data-storage/room/accessing-data.html" target="_blank"><strong>DAO:</strong></a> contiene los métodos con las <strong>consultas</strong> utilitzados para acceder a la base de datos</li>
