@@ -38,8 +38,9 @@
       </google-codelab-step>
     
       <google-codelab-step label="Crea el proyecto" duration="0">
-        <p>Añade las dependencias para <code>Room</code> y <code>Lifecycle</code>.</p>
-<p>También las de <code>RecyclerView</code> y <code>Material</code>.</p>
+        <p>Establece la version mínima del SDK a 26:</p>
+<pre><code>minSdkVersion 26</code></pre>
+<p>Añade las siguientes dependencias:</p>
 <h2 is-upgraded>Room</h2>
 <p class="image-container"><img style="width: 566.00px" src="img\3a52c2ffb974214e.gif"></p>
 <p>Dependencia en el archivo <code>build.gradle (Module: app)</code></p>
@@ -135,7 +136,9 @@ public class Prioridad {
 </aside>
 <p>También definiremos la Vista para el detalle de tareas:</p>
 <p><code>TareaDetalle.java</code></p>
-<pre><code>@DatabaseView(&#34;SELECT Tarea.id, Tarea.descripcion, Tarea.fecha, Prioridad.descripcion AS prioridad &#34; +
+<pre><code>import androidx.room.DatabaseView;
+
+@DatabaseView(&#34;SELECT Tarea.id, Tarea.descripcion, Tarea.fecha, Prioridad.descripcion AS prioridad &#34; +
        &#34;FROM Tarea JOIN Prioridad ON Tarea.prioridadId = Prioridad.id&#34;)
 public class TareaDetalle {
    public int id;
@@ -150,12 +153,7 @@ public class TareaDetalle {
       <google-codelab-step label="DAO" duration="0">
         <p>En la clase DAO es donde definimos las consultas que necesitamos para acceder a nuestros datos.</p>
 <p><code>TareasDao.java</code></p>
-<pre><code>import com.company.p7.model.Prioridad;
-import com.company.p7.model.Tarea;
-import com.company.p7.model.TareaDetalle;
-
-import java.util.List;
-
+<pre><code>import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -205,7 +203,15 @@ public abstract class TareasDatabase extends RoomDatabase {
 }</code></pre>
 <p>Añadimos el callback para insertar los datos iniciales (las prioridades predeterminadas).</p>
 <p>Añadimos la opcion <code>fallbackToDestructiveMigration()</code>, que borrará las tablas y las volverá a crear cuando cambiemos el número de versión de la Base de Datos.</p>
-<pre><code>@Database(entities = {Tarea.class, Prioridad.class}, views = {TareaDetalle.class}, version = 1)
+<pre><code>import android.content.Context;
+import android.os.AsyncTask;
+import androidx.annotation.NonNull;
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+
+@Database(entities = {Tarea.class, Prioridad.class}, views = {TareaDetalle.class}, version = 1)
 public abstract class TareasDatabase extends RoomDatabase {
 
    private static TareasDatabase INSTANCE;
@@ -251,15 +257,7 @@ public abstract class TareasDatabase extends RoomDatabase {
 <p>Para las operaciones que retornan datos (como las consultas), usamos la clase <code>LiveData</code> en lugar de tareas en segundo plano.</p>
 <pre><code>import android.app.Application;
 import android.os.AsyncTask;
-
-import com.company.p7.db.TareasDao;
-import com.company.p7.db.TareasDatabase;
-import com.company.p7.model.Prioridad;
-import com.company.p7.model.Tarea;
-import com.company.p7.model.TareaDetalle;
-
 import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -318,13 +316,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.company.p7.R;
-import com.company.p7.model.TareaDetalle;
-import com.company.p7.viewmodel.TareasViewModel;
-
 import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -337,6 +329,7 @@ public class MainActivity extends AppCompatActivity {
 
    TareasViewModel tareasViewModel;
    TareasAdapter tareasAdapter;
+   List&lt;TareaDetalle&gt; tareaDetalleList;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -360,7 +353,8 @@ public class MainActivity extends AppCompatActivity {
        tareasViewModel.getTareasDetalle().observe(this, new Observer&lt;List&lt;TareaDetalle&gt;&gt;() {
            @Override
            public void onChanged(List&lt;TareaDetalle&gt; queryResult) {
-               tareasAdapter.setList(queryResult);
+               tareaDetalleList = queryResult;
+               tareasAdapter.notifyDataSetChanged();
            }
        });
    }
@@ -379,9 +373,6 @@ public class MainActivity extends AppCompatActivity {
    }
 
    class TareasAdapter extends RecyclerView.Adapter&lt;TareaViewHolder&gt;{
-
-       List&lt;TareaDetalle&gt; tareaDetalles;
-
        @NonNull
        @Override
        public TareaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -390,7 +381,7 @@ public class MainActivity extends AppCompatActivity {
 
        @Override
        public void onBindViewHolder(@NonNull TareaViewHolder holder, int position) {
-           final TareaDetalle tareaDetalle = tareaDetalles.get(position);
+           final TareaDetalle tareaDetalle = tareaDetalleList.get(position);
 
            holder.descripcion.setText(tareaDetalle.descripcion);
            holder.fecha.setText(tareaDetalle.fecha);
@@ -406,12 +397,7 @@ public class MainActivity extends AppCompatActivity {
 
        @Override
        public int getItemCount() {
-           return tareaDetalles != null ? tareaDetalles.size() : 0;
-       }
-
-       public void setList(List&lt;TareaDetalle&gt; list){
-           tareaDetalles = list;
-           notifyDataSetChanged();
+           return tareaDetalleList != null ? tareaDetalleList.size() : 0;
        }
    }
 }</code></pre>
@@ -419,10 +405,8 @@ public class MainActivity extends AppCompatActivity {
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
-   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
    android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;
-   tools:context=&#34;.view.MainActivity&#34;&gt;
+   android:layout_height=&#34;match_parent&#34;&gt;
 
    &lt;androidx.recyclerview.widget.RecyclerView
        android:id=&#34;@+id/recycler_tareas&#34;
@@ -442,7 +426,8 @@ public class MainActivity extends AppCompatActivity {
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
-   android:orientation=&#34;horizontal&#34; android:layout_width=&#34;match_parent&#34;
+   android:orientation=&#34;horizontal&#34; 
+   android:layout_width=&#34;match_parent&#34;
    android:layout_height=&#34;wrap_content&#34;
    android:padding=&#34;8dp&#34;&gt;
 
@@ -479,16 +464,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-
-import com.company.p7.R;
-import com.company.p7.model.Prioridad;
-import com.company.p7.model.Tarea;
-import com.company.p7.viewmodel.TareasViewModel;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -545,10 +523,8 @@ public class NuevaTareaActivity extends AppCompatActivity {
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
-   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
    android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;
-   tools:context=&#34;.view.NuevaTareaActivity&#34;&gt;
+   android:layout_height=&#34;match_parent&#34;&gt;
 
    &lt;LinearLayout
        android:layout_width=&#34;match_parent&#34;
