@@ -1,0 +1,405 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Retrofit &#43; Glide</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="mp08/p8"
+                  title="Retrofit &#43; Glide"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p>El objetivo de esta práctica es aprender a usar las librerías <a href="https://square.github.io/retrofit/" target="_blank">Retrofit</a> y <a href="https://github.com/bumptech/glide" target="_blank">Glide</a>.</p>
+<p>La librería <code>Retrofit</code> permite acceder a HTTP API REST.</p>
+<p>La librería <code>Glide</code> permite cargar imágenes.</p>
+<p>Desarrollaremos una App que consultará la <a href="https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/" target="_blank">API de iTunes</a> y mostrará, en dos Tabs separados, una lista de canciones y otra de películas.</p>
+<p class="image-container"><img style="width: 242.00px" src="img\ee3efbe7f1d0d4ce.gif"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el proyecto" duration="0">
+        <p>Escoge la plantilla &#34;<strong>Tabbed Activity</strong>&#34; para la MainActivity.</p>
+<p class="image-container"><img style="width: 131.00px" src="img\5b4e9d8a936736be.png"></p>
+<h2 is-upgraded>Dependencias</h2>
+<p>Añade las librerías <code>Retrofit</code> y <code>Glide</code> en las dependencias <code>build.gradle (Module: app)</code>:</p>
+<pre><code>implementation &#39;com.squareup.retrofit2:retrofit:2.6.2&#39;
+implementation &#39;com.squareup.retrofit2:converter-gson:2.6.2&#39;
+
+
+implementation &#39;com.github.bumptech.glide:glide:4.10.0&#39;
+annotationProcessor &#39;com.github.bumptech.glide:compiler:4.10.0&#39;</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="API Model" duration="0">
+        <p>La respuesta de la llamada a la API <a href="http://api.themoviedb.org/3/discover/movie?api_key=YOUR_API_KEY" target="_blank"><code>http://itunes.apple.com/search?term=beatles</code></a> es similar a la siguiente:</p>
+<p>*Se muestran únicamente los datos <strong>de interés</strong> para nuestra app</p>
+<pre><code>{
+    &#34;resultCount&#34;: 50,
+    &#34;results&#34;: [
+        {
+            &#34;artistName&#34;: &#34;The Beatles&#34;,
+            &#34;collectionName&#34;: &#34;Let It Be&#34;,
+            &#34;trackName&#34;: &#34;Let It Be&#34;,
+            &#34;artworkUrl100&#34;: &#34;https://mzstatic.com/image/39b2caf.jpg&#34;,
+        },
+        {
+            &#34;artistName&#34;: &#34;The Beatles&#34;,
+            &#34;collectionName&#34;: &#34;Abbey Road (2019 Mix)&#34;,
+            &#34;trackName&#34;: &#34;Here Comes the Sun&#34;,
+            &#34;artworkUrl100&#34;: &#34;https://mzstatic.com/image/6edbf5a8.jpg&#34;,
+        },
+    ]
+}</code></pre>
+<p>La respuesta es un objeto que contiene las siguientes variables:</p>
+<ul>
+<li><code>resultCount</code> de tipo <code>int</code></li>
+<li><code>results</code> de tipo <code>ArrayList</code></li>
+</ul>
+<p>Cada elemento del ArrayList <code>results</code> es un objeto que contiene la siguientes variables:</p>
+<ul>
+<li><code>artistName</code> de tipo <code>String</code></li>
+<li><code>collectionName</code> de tipo <code>String</code></li>
+<li><code>trackName</code> de tipo <code>String</code></li>
+<li><code>artworkUrl100</code> de tipo <code>String</code></li>
+</ul>
+<p>Así pues podemos modelar estos objetos con las siguientes clases, <strong>cogiendo únicamente los campos que nos interesen</strong>:</p>
+<pre><code>public class ItunesResponse {
+   public List&lt;Content&gt; results;
+}</code></pre>
+<pre><code>public class Content {
+   public String artistName;
+   public String trackName;
+   public String artworkUrl100;
+}</code></pre>
+<aside class="special"><p>Para organizar el código, crea estas dos clases dentro de un package llamado <code>model</code>.</p>
+<p class="image-container"><img style="width: 167.00px" src="img\35bbe171d270a8f2.png"></p>
+</aside>
+<p>A la hora de modelar un JSON, la regla a seguir es:</p>
+<p>Por cada  <code>{</code>  se ha de crear una clase, y por cada  <code>[</code>  un ArrayList:</p>
+<p class="image-container"><img style="width: 736.40px" src="img\4dd4e6a336dca544.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="API Calls" duration="0">
+        <p>Definimos las llamadas a la API en un Interface</p>
+<pre><code>import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
+
+public interface ItunesApi {
+   @GET(&#34;search/&#34;)
+   Call&lt;ItunesResponse&gt; buscar(@Query(&#34;term&#34;) String term);
+}</code></pre>
+<p>Retrofit transformará cada llamada al método <code>buscar()</code> en una llamada a la API.</p>
+<p>Con la anotación <code>@GET</code> indicamos la URL a la que se debe acceder. En este caso, la anotación <code>@GET(&#34;search/&#34;)</code> se transforma en la URL <a href="https://itunes.apple.com/search/" target="_blank"><code>https://itunes.apple.com/</code><strong><code>search/</code></strong></a></p>
+<p>La anotación <code>@Query</code> sirve para añadir parámetros a la URL. En este caso la anotación <code>@Query(&#34;term&#34;)</code> añadirá a la URL el parámetro <code>?term=</code>. El valor de este parámetro será el que le pasemos a la llamada a <code>buscar()</code>.</p>
+<p>Por ejemplo, si efectuamos la llamada <code>buscar(&#34;beatles&#34;)</code> se añadirá a la URL el parámetro <code>?term=beatles</code>, con lo cual la llamada quedará así <a href="https://itunes.apple.com/search/" target="_blank"><code>https://itunes.apple.com/</code><strong><code>search/?term=beatles/</code></strong></a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ApiModule" duration="0">
+        <p>Esta clase <code>MovidbModule</code>, no servirá para obtener el interface <code>MoviedbAPI</code>.</p>
+<p>Cabe destacar el método <code>baseUrl()</code> al cual le pasamos la URL de la API the <a href="http://themoviedb.org" target="_blank">TheMovieDb.org</a>.</p>
+<p>También se ha añadido un Interceptor, llamado <code>ApiKeyInterceptor</code> que interceptará cada llamada a la API, para añadirle el parámetro <code>api_key</code>.</p>
+<p>Por último se ha añadido otro interceptor llamado LoggingInterceptor, con el único propósito de mostrar en el LogCat cada llamada que se realiza a la API.</p>
+<pre><code>import android.util.Log;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class MoviedbModule {
+   static MoviedbAPI moviedbAPI;
+
+   public static MoviedbAPI getAPI(){
+       if(moviedbAPI == null){
+           final OkHttpClient client = new OkHttpClient.Builder()
+                   .addInterceptor(new LoggingInterceptor())
+                   .addInterceptor(new ApiKeyInterceptor())
+                   .connectTimeout(15, TimeUnit.SECONDS)
+                   .readTimeout(15,TimeUnit.SECONDS)
+                   .build();
+
+           Retrofit retrofit = new Retrofit.Builder()
+                   .baseUrl(&#34;http://api.themoviedb.org/&#34;)
+                   .client(client)
+                   .addConverterFactory(GsonConverterFactory.create())
+                   .build();
+
+           moviedbAPI = retrofit.create(MoviedbAPI.class);
+       }
+       return moviedbAPI;
+   }
+}
+
+class ApiKeyInterceptor implements Interceptor {
+   @Override
+   public okhttp3.Response intercept(Chain chain) throws IOException {
+       Request original = chain.request();
+       HttpUrl originalHttpUrl = original.url();
+
+       HttpUrl url = originalHttpUrl.newBuilder()
+               .addQueryParameter(&#34;api_key&#34;, &#34;YOUR_API_KEY&#34;)
+               .build();
+
+       Request.Builder requestBuilder = original.newBuilder()
+               .url(url);
+
+       Request request = requestBuilder.build();
+       return chain.proceed(request);
+   }
+}
+
+class LoggingInterceptor implements Interceptor {
+   @Override public okhttp3.Response intercept(Interceptor.Chain chain) throws IOException {
+       Request request = chain.request();
+
+       long t1 = System.nanoTime();
+       Log.e(&#34;INTERCEPTOR&#34;, String.format(&#34;Sending request %s on %s%n%s&#34;,
+               request.url(), chain.connection(), request.headers()));
+
+       okhttp3.Response response = chain.proceed(request);
+
+       long t2 = System.nanoTime();
+       Log.e(&#34;INTERCEPTOR---&#34;, String.format(&#34;Received response for %s in %.1fms%n%s&#34;,
+               response.request().url(), (t2 - t1) / 1e6d, response.headers()));
+
+       return response;
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="App architecture" duration="0">
+        <p class="image-container"><img style="width: 367.00px" src="img\2ea7ba0da371274.png"></p>
+<h2 is-upgraded>Repository</h2>
+<p>El repositorio realiza una llamada al método <code>getMovies()</code> de la <code>MoviedbAPI</code>, para obtener la lista de películas.</p>
+<p>En un prinicpio se retorna la variable <code>lista</code> vacía (sin películas), y cuando se recibe la respuesta desde <a href="http://themoviedb.org" target="_blank">TheMoviedb.org</a>, se rellena con las películas recibidas.</p>
+<aside class="special"><p>Desde la <code>MainActivity</code> se observara esta variable <code>lista</code> que se retorna, y en el momento en que se rellene, se actualizará el <code>RecyclerView</code>.</p>
+</aside>
+<pre><code>import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MoviedbRepository {
+   MoviedbAPI moviedbAPI;
+
+   public MoviedbRepository(){
+       moviedbAPI = MoviedbModule.getAPI();
+   }
+
+   public LiveData&lt;List&lt;Movie&gt;&gt; getMovies(){
+       final MutableLiveData&lt;List&lt;Movie&gt;&gt; lista = new MutableLiveData&lt;&gt;();
+
+       moviedbAPI.getMovies().enqueue(new Callback&lt;MoviesList&gt;() {
+           @Override
+           public void onResponse(Call&lt;MoviesList&gt; call, Response&lt;MoviesList&gt; response) {
+               lista.setValue(response.body().results);
+           }
+
+           @Override
+           public void onFailure(Call&lt;MoviesList&gt; call, Throwable t) {
+           }
+       });
+
+       return lista;
+   }
+}</code></pre>
+<h2 is-upgraded>ViewModel</h2>
+<pre><code>import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
+import java.util.List;
+
+public class MainViewModel extends AndroidViewModel {
+   private MoviedbRepository moviedbRepository;
+
+   public MainViewModel(@NonNull Application application) {
+       super(application);
+       moviedbRepository = new MoviedbRepository();
+   }
+
+   public LiveData&lt;List&lt;Movie&gt;&gt; getMovies(){
+       return moviedbRepository.getMovies();
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="GlideModule" duration="0">
+        <p>Esta clase nos permitirá utilizar la librería Glide para cargar imágenes.</p>
+<pre><code>import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+
+@GlideModule
+public final class MyAppGlideModule extends AppGlideModule {}</code></pre>
+<aside class="special"><p>Las imágenes se cargarán para cada película en el Adaptador del RecyclerView de la siguiente manera:</p>
+<p><strong><code>GlideApp.</code></strong><strong><em><code>with</code></em></strong><strong><code>(context).load(imageUrl).into(&lt;ImageView&gt;);</code></strong></p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="MainActivity &#43; RecyclerView" duration="0">
+        <p><code>main_activity.xml</code></p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;android.support.constraint.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;&gt;
+
+   &lt;android.support.v7.widget.RecyclerView
+       android:id=&#34;@+id/movieList&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34; /&gt;
+
+&lt;/android.support.constraint.ConstraintLayout&gt;</code></pre>
+<p><code>item_movie.xml</code></p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;LinearLayout
+   xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;wrap_content&#34;
+   android:orientation=&#34;vertical&#34;&gt;
+   &lt;TextView
+       android:id=&#34;@+id/movieTitle&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34; /&gt;
+   &lt;ImageView
+       android:id=&#34;@+id/movieImage&#34;
+       android:layout_width=&#34;wrap_content&#34;
+       android:layout_height=&#34;wrap_content&#34; /&gt;
+&lt;/LinearLayout&gt;</code></pre>
+<p><code>RecyclerView.Adapter</code></p>
+<p>Cuando se rellena un elemento de la lista (una película), se carga su Póster en el ImageView:</p>
+<pre><code>import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MovieListAdapter extends RecyclerView.Adapter&lt;MovieListAdapter.MovieListViewHolder&gt;{
+   public List&lt;Movie&gt; movieList = new ArrayList&lt;&gt;();
+
+   @NonNull
+   @Override
+   public MovieListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+       View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie, parent, false);
+       return new MovieListViewHolder(view);
+   }
+
+   @Override
+   public void onBindViewHolder(@NonNull MovieListViewHolder holder, int position) {
+       Movie movie = movieList.get(position);
+
+       holder.title.setText(movie.title);
+       GlideApp.with(holder.itemView.getContext()).load(&#34;https://image.tmdb.org/t/p/w500/&#34; + movie.poster_path).into(holder.poster);
+   }
+
+   @Override
+   public int getItemCount() {
+       return movieList.size();
+   }
+
+   class MovieListViewHolder extends RecyclerView.ViewHolder {
+       TextView title;
+       ImageView poster;
+       public MovieListViewHolder(View itemView) {
+           super(itemView);
+           title = itemView.findViewById(R.id.movieTitle);
+           poster = itemView.findViewById(R.id.movieImage);
+       }
+   }
+}</code></pre>
+<p><code>MainActivity</code></p>
+<pre><code>import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+
+   private MainViewModel mViewModel;
+   private RecyclerView mRecyclerView;
+   private MovieListAdapter mMovieListAdapter;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.main_activity);
+
+       mRecyclerView = findViewById(R.id.movieList);
+       mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+       mMovieListAdapter = new MovieListAdapter();
+       mRecyclerView.setAdapter(mMovieListAdapter);
+
+       mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+       mViewModel.getMovies().observe(this, new Observer&lt;List&lt;Movie&gt;&gt;() {
+           @Override
+           public void onChanged(@Nullable List&lt;Movie&gt; movies) {
+               mMovieListAdapter.movieList = movies;
+               mMovieListAdapter.notifyDataSetChanged();
+           }
+       });
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>
