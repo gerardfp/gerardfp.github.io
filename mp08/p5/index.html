@@ -58,11 +58,11 @@
    float rating;
 }</code></pre>
 <p>El ArrayList de Items será nuestra fuente de datos. Ya que este ArrayList debe ser único para toda la aplicación, lo crearemos como <code>static</code>. (<em>Sin embargo, ésta no es la mejor opción, en futuras prácticas veremos una forma más adecuada de hacerlo</em>).</p>
-<p>Crea una nueva clase llamada <code>ItemList</code>, y crea y inicializa el ArrayList con datos aleatorios:</p>
+<p>Crea una nueva clase llamada <code>Dataset</code>, y crea y inicializa el ArrayList con datos aleatorios:</p>
 <pre><code>import java.util.ArrayList;
 import java.util.List;
 
-class ItemList {
+class Dataset {
    static List&lt;Item&gt; itemList = new ArrayList&lt;&gt;();
 
    static {
@@ -155,7 +155,7 @@ class ItemList {
    @Override
    public void onBindViewHolder(@NonNull ItemViewHolder holder, final int position) {
        
-       final Item item = ItemList.itemList.get(position);
+       final Item item = Dataset.itemList.get(position);
        
        holder.name.setText(item.name);
        holder.desc.setText(item.desc);
@@ -195,7 +195,7 @@ class ItemList {
 <p>En primer lugar obtenemos el <code>Item</code> del ArrayList que ocupa la posición que nos ha pasado el RecyclerView (es decir, la posicion del ViewHolder que hay que rellenar).</p>
 <p>A continuación rellenamos los TextView y el RatingBar del <code>ViewHolder</code> con los datos del <code>Item</code> que hemos sacado del ArrayList.</p>
 <p>Luego, establecemos el listener para el RatingBar de ese ViewHolder, que actualizará el rating del Item.</p>
-<p>Por último, establecemos un listener al ViewHolder para que cuando se haga click en él, abra una nueva activity (<code>DetailActivity</code>) en la que se mostrará el detalle de ese Ítem. A la DetailActivity le pasamos la posición dentro del array del Ítem en el que se ha hecho click. La DetailActivity lo que tiene que hacer és sacar la posición del intent, acceder al Item que está en esa posición del ArrayList, y mostrar la información de ese Item: <a href="https://github.com/gerardfp/P5/blob/master/app/src/main/java/com/company/p5/DetailActivity.java" target="_blank">https://github.com/gerardfp/P5/blob/master/app/src/main/java/com/company/p5/DetailActivity.java</a></p>
+<p>Por último, establecemos un listener al ViewHolder para que cuando se haga click en él, abra una nueva activity (<code>DetailActivity</code>) en la que se mostrará el detalle de ese Ítem. A la <code>DetailActivity</code> le pasamos la posición dentro del array del Ítem en el que se ha hecho click. La <code>DetailActivity</code> lo que tiene que hacer és sacar la posición del intent, acceder al Item que está en esa posición del ArrayList, y mostrar la información de ese Item: <a href="https://github.com/gerardfp/P5/blob/master/app/src/main/java/com/company/p5/DetailActivity.java" target="_blank">https://github.com/gerardfp/P5/blob/master/app/src/main/java/com/company/p5/DetailActivity.java</a></p>
 <aside class="special"><p>La variable <code>itemView</code> de la clase ViewHolder hace referencia a todo el ítem en sí.</p>
 </aside>
 <ul>
@@ -221,13 +221,13 @@ class ItemList {
 <pre><code>&lt;androidx.recyclerview.widget.RecyclerView
    android:id=&#34;@+id/item_list&#34;
    android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;wrap_content&#34;/&gt;
-</code></pre>
+   android:layout_height=&#34;wrap_content&#34;
+   app:layoutManager=&#34;androidx.recyclerview.widget.LinearLayoutManager&#34;
+/&gt;</code></pre>
 <p>En el método <code>onCreate()</code> de la <code>MainActivity</code> haremos lo siguiente:</p>
 <ol type="1" start="1">
 <li>Recuperar el RecyclerView del XML con <code>findViewById()</code></li>
-<li>Establecer el layout manager a <code>LinearLayoutManager</code> (en vertical)</li>
-<li>Que el adaptador (<em>el encargado de rellenar el RecyclerView</em>) sea nuestro <code>ItemsAdapter</code></li>
+<li>Establecerle el adaptador <code>ItemsAdapter</code> (<em>el encargado de rellenar el RecyclerView</em>)</li>
 </ol>
 <pre><code>public class MainActivity extends AppCompatActivity {
 
@@ -236,7 +236,6 @@ class ItemList {
         . . . .
  
         RecyclerView recyclerView = findViewById(R.id.item_list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new ItemsAdapter());
     }
 }</code></pre>
@@ -246,10 +245,8 @@ protected void onCreate(Bundle savedInstanceState) {
     . . . .
 
     RecyclerView recyclerView = findViewById(R.id.item_list);
-    LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-    recyclerView.setLayoutManager(layoutManager);
 
-    recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),        layoutManager.getOrientation()));
+    recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),        DividerItemDecoration.VERTICAL));
 
     recyclerView.setAdapter(new ItemsAdapter());
 

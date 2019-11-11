@@ -184,33 +184,46 @@ public class ItunesApiModule {
       <google-codelab-step label="ViewModel" duration="0">
         <p class="image-container"><img style="width: 661.00px" src="img\3cc96e17b368b6bb.png"></p>
 <pre><code>import android.app.Application;
+
 import androidx.annotation.NonNull;
+import androidx.arch.core.util.Function;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainViewModel extends AndroidViewModel {
+
+   MutableLiveData&lt;String&gt; searchTerm = new MutableLiveData&lt;&gt;();
+
+   public LiveData&lt;ItunesResponse&gt; itunesResponse = Transformations.switchMap(searchTerm, new Function&lt;String, LiveData&lt;ItunesResponse&gt;&gt;() {
+       @Override
+       public LiveData&lt;ItunesResponse&gt; apply(String term) {
+           final MutableLiveData&lt;ItunesResponse&gt; itunesResponseMutableLiveData = new MutableLiveData&lt;&gt;();
+
+           ItunesApiModule.itunesApi.buscar(term).enqueue(new Callback&lt;ItunesResponse&gt;() {
+               @Override
+               public void onResponse(Call&lt;ItunesResponse&gt; call, Response&lt;ItunesResponse&gt; response) {
+                   itunesResponseMutableLiveData.postValue(response.body());
+               }
+
+               @Override
+               public void onFailure(Call&lt;ItunesResponse&gt; call, Throwable t) {}
+           });
+
+           return itunesResponseMutableLiveData;
+       }
+   });
+
    public MainViewModel(@NonNull Application application) {
        super(application);
    }
 
-   public LiveData&lt;ItunesResponse&gt; buscar(String term){
-       final MutableLiveData&lt;ItunesResponse&gt; itunesResponse = new MutableLiveData&lt;&gt;();
-
-       ItunesApiModule.itunesApi.buscar(term).enqueue(new Callback&lt;ItunesResponse&gt;() {
-           @Override
-           public void onResponse(Call&lt;ItunesResponse&gt; call, Response&lt;ItunesResponse&gt; response) {
-               itunesResponse.setValue(response.body());
-           }
-
-           @Override
-           public void onFailure(Call&lt;ItunesResponse&gt; call, Throwable t) {}
-       });
-
-       return itunesResponse;
+   public void setTerm(String term){
+       searchTerm.setValue(term);
    }
 }</code></pre>
 
@@ -275,9 +288,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -307,15 +323,16 @@ public class MainActivity extends AppCompatActivity {
 
            @Override
            public boolean onQueryTextChange(String s) {
-               mainViewModel.buscar(s).observe(MainActivity.this, new Observer&lt;ItunesResponse&gt;() {
-                   @Override
-                   public void onChanged(ItunesResponse itunesResponse) {
-                       contentList = itunesResponse.results; // if != null
-                       contentAdapter.notifyDataSetChanged();
-                   }
-               });
-
+               mainViewModel.setTerm(s);
                return false;
+           }
+       });
+
+       mainViewModel.itunesResponse.observe(MainActivity.this, new Observer&lt;ItunesResponse&gt;() {
+           @Override
+           public void onChanged(ItunesResponse itunesResponse) {
+               contentList = itunesResponse.results; // if != null
+               contentAdapter.notifyDataSetChanged();
            }
        });
    }
