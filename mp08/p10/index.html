@@ -290,6 +290,122 @@ public class MainActivity extends AppCompatActivity {
       </google-codelab-step>
     
       <google-codelab-step label="BottomNavigationView" duration="0">
+        <p>Añadiremos tres nuevas destinaciones que serán accesibles desde el BottomViewNavigation.<br><br>Las llamaremos <code>Bottom1Fragment</code>, <code>Bottom2Fragment</code> y <code>Bottom3Fragment</code>:</p>
+<p>Como paso previo, crea estas 3 destinaciones:</p>
+<p class="image-container"><img style="width: 383.00px" src="img\6eaa100b1fd8d46f.png"><br></p>
+<ol type="1" start="1">
+<li>Crea el archivo de menu para el BottomNavigationView (<code>bottom_nav_menu</code>):<br></li>
+</ol>
+<p><img style="width: 491.00px" src="img\a0c21bf466af9382.png"><br><br>Añade los 3 items al menu, para cada una de las destinaciones (<strong>el </strong><strong><code>id</code></strong><strong> del item debe coincidir con el </strong><strong><code>id</code></strong><strong> de la destinación</strong>):<br></p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;menu xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
+   &lt;item
+       android:id=&#34;@+id/bottom1Fragment&#34;
+       android:title=&#34;Bottom 1&#34; /&gt;
+   &lt;item
+       android:id=&#34;@+id/bottom2Fragment&#34;
+       android:title=&#34;Bottom 2&#34; /&gt;
+   &lt;item
+       android:id=&#34;@+id/bottom3Fragment&#34;
+       android:title=&#34;Bottom 3&#34; /&gt;
+&lt;/menu&gt;</code></pre>
+<ol type="1" start="2">
+<li>Añade el elemento BottomNavigationView al layout de la MainActivity (<code>activity_main.xml</code>):<br><br>Es importante que lo añadas <strong>justo antes</strong> del NavHostFragment<br></li>
+</ol>
+<pre><code>&lt;com.google.android.material.bottomnavigation.BottomNavigationView
+   android:id=&#34;@+id/bottom_nav_view&#34;
+   android:layout_width=&#34;0dp&#34;
+   android:layout_height=&#34;wrap_content&#34;
+   android:layout_marginStart=&#34;0dp&#34;
+   android:layout_marginEnd=&#34;0dp&#34;
+   android:background=&#34;?android:attr/windowBackground&#34;
+   app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
+   app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+   app:layout_constraintRight_toRightOf=&#34;parent&#34;
+   app:menu=&#34;@menu/bottom_nav_menu&#34; /&gt;</code></pre>
+<ol type="1" start="3">
+<li>Configura el BottomNavigationView en la <code>MainActivity.java</code>:<br><br>Añade al final del metodo <code>onCreate()</code> el siguiente código:<br></li>
+</ol>
+<pre><code>BottomNavigationView bottomNavView = findViewById(R.id.bottom_nav_view);
+NavigationUI.setupWithNavController(bottomNavView, navController);</code></pre>
+<p><br>Opcionalmente, configura estas 3 destinaciones como &#34;Top Level&#34;:<br></p>
+<pre><code>mAppBarConfiguration = new AppBarConfiguration.Builder(
+       R.id.drawer1Fragment, R.id.drawer2Fragment,
+       R.id.bottom1Fragment, R.id.bottom2Fragment, R.id.bottom3Fragment
+)
+       .setDrawerLayout(drawer)
+       .build();</code></pre>
+<ol type="1" start="4">
+<li>Opcionalmente, añade unos iconos en cada item del menu <code>bottom_nav_menu</code>:<br><br>Puedes seleccionar los que ya vienen por defecto, añadir tus propios iconos en la carpeta <code>drawable</code>, o hacer lo siguiente:<br><br><img style="width: 736.40px" src="img\420609a4cab804fb.gif"><br><br>Establece los iconos a los items:<br></li>
+</ol>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;menu xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
+   &lt;item
+       android:id=&#34;@+id/bottom1Fragment&#34;
+       android:icon=&#34;@drawable/ic_favorite_black_24dp&#34;
+       android:title=&#34;Bottom 1&#34; /&gt;
+   &lt;item
+       android:id=&#34;@+id/bottom2Fragment&#34;
+       android:icon=&#34;@drawable/ic_favorite_black_24dp&#34;
+       android:title=&#34;Bottom 2&#34; /&gt;
+   &lt;item
+       android:id=&#34;@+id/bottom3Fragment&#34;
+       android:icon=&#34;@drawable/ic_favorite_black_24dp&#34;
+       android:title=&#34;Bottom 3&#34; /&gt;
+&lt;/menu&gt;</code></pre>
+<p>Debería quedar así:</p>
+<p class="image-container"><img style="width: 241.00px" src="img\4209129c414e49ba.gif"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="OptionsMenu" duration="0">
+        <p>Añadiremos tres nuevas destinaciones que serán accesibles desde el Options Menu.<br><br>Las llamaremos <code>Options1Fragment</code>, <code>Options2Fragment</code> y <code>Options3Fragment</code>:</p>
+<p>Crea estas 3 destinaciones:</p>
+<ol type="1" start="1">
+<li>Añade los ítems al menu <code>main.xml</code>:<br></li>
+</ol>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;menu xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
+   &lt;item
+       android:id=&#34;@+id/options1Fragment&#34;
+       android:icon=&#34;@drawable/ic_favorite_black_24dp&#34;
+       android:title=&#34;Options 1&#34; /&gt;
+   &lt;item
+       android:id=&#34;@+id/options2Fragment&#34;
+       android:icon=&#34;@drawable/ic_favorite_black_24dp&#34;
+       android:title=&#34;Options 2&#34; /&gt;
+   &lt;item
+       android:id=&#34;@+id/options3Fragment&#34;
+       android:icon=&#34;@drawable/ic_favorite_black_24dp&#34;
+       android:title=&#34;Options 3&#34; /&gt;
+&lt;/menu&gt;</code></pre>
+<ol type="1" start="2">
+<li>Configura la navegación del Options Menu en la <code>MainActivity.java</code>:<br><br>Añade el siguiente callback a la clase <code>MainActivity</code>:<br></li>
+</ol>
+<pre><code>@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+   NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+   return NavigationUI.onNavDestinationSelected(item, navController)
+           || super.onOptionsItemSelected(item);
+}</code></pre>
+<ol type="1" start="3">
+<li>Opcionalmente añade estas destinaciones como Top Level:<br></li>
+</ol>
+<pre><code>mAppBarConfiguration = new AppBarConfiguration.Builder(
+       R.id.drawer1Fragment, R.id.drawer2Fragment,
+       R.id.bottom1Fragment, R.id.bottom2Fragment, R.id.bottom3Fragment,
+       R.id.options1Fragment, R.id.options2Fragment, R.id.options3Fragment
+)
+       .setDrawerLayout(drawer)
+       .build();</code></pre>
+<p>Debería quedar así:</p>
+<p class="image-container"><img style="width: 241.00px" src="img\b9f9ebf90631db29.gif"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="TabLayout y ViewPager" duration="0">
         
 
       </google-codelab-step>
