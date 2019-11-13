@@ -206,11 +206,8 @@ public class MainActivity extends AppCompatActivity {
       </google-codelab-step>
     
       <google-codelab-step label="Diseña el grafo de navegacion" duration="0">
-        <p>Añadiremos tres Destinaciones (Fragments) .</p>
-<ol type="1" start="1">
-<li>Añade las destinaciones al grafo de navegacion <code>mobile_navigation.xml</code>:</li>
-</ol>
-<p>Llama a estas destinaciones: <code>Drawer1Fragment</code>, <code>Drawer2Fragment</code>, <code>Drawer3Fragment</code></p>
+        <p>Añadiremos tres Destinaciones (Fragments)  al grafo de navegacion <code>mobile_navigation.xml</code>:</p>
+<p>Llamaremos a estas destinaciones: <code>Drawer1Fragment</code>, <code>Drawer2Fragment</code>, <code>Drawer3Fragment</code></p>
 <p class="image-container"><img style="width: 404.00px" src="img\3c20536e3c3f493a.png"></p>
 <p class="image-container"><img style="width: 480.00px" src="img\adff306b2f32b82f.png"></p>
 <p class="image-container"><img style="width: 710.00px" src="img\9ecc1b720f3e6bfc.png"></p>
@@ -240,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
 &lt;/menu&gt;</code></pre>
 <aside class="warning"><p>Los <code>id</code> de los items del menu tienen que coincidir con el <code>id</code> de las destinaciones</p>
 </aside>
-<ol type="1" start="2">
+<ol type="1" start="1">
 <li>En el archivo <code>MainActivity.java</code>, establece en la configuracion de la AppBar las destinaciones que serán &#34;Top Level&#34;:<br></li>
 </ol>
 <pre><code>mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -251,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
 <aside class="special"><p>En las destinaciones Top Level se mostrará el icono de acceso al menu <img style="width: 32.00px" src="img\989c818bc03fa169.png"> en la AppBar</p>
 <p>En las que no sean top level, se mostrará la flecha de volver <img style="width: 29.00px" src="img\b14ddb68d8c22b13.png"></p>
 </aside>
-<ol type="1" start="3">
+<ol type="1" start="2">
 <li>Opcionalmente <strong>diseña </strong>una cabecera para el Drawer (<code>nav_header_main.xml</code>):<br></li>
 </ol>
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
