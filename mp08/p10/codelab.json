@@ -3,12 +3,12 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2019-11-13T09:21:39Z",
-  "id": "mp08/p9",
+  "updated": "2019-11-13T12:03:17Z",
+  "id": "mp08/p10",
   "duration": 0,
-  "title": "Fragments",
+  "title": "Navigation",
   "summary": "Fragments",
-  "source": "1n3eFtZhFuDGozMf7EOF0wcmrfwwpaFY-q4N-YUQX-oU",
+  "source": "1-_w3B-bTSqsFRZGeTTp9rKjiW5n_rhcev9xU8e1TgaU",
   "theme": "android",
   "status": [
     "draft"
@@ -18,5 +18,5 @@
   ],
   "tags": [],
   "feedback": "https://github.com/gerardfp",
-  "url": "mp08/p9"
+  "url": "mp08/p10"
 }
