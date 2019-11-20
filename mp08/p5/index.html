@@ -32,7 +32,9 @@
 <p>El widget <a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank"><code>RecyclerView</code></a> nos permite mostrar una lista de elementos y hacer scroll en ellos.</p>
 <p>Realizaremos una aplicación que mostrará una lista de Ítems. Cada Ítem tendrá un nombre, una descripción y un <em>rating</em>.</p>
 <p>Al hacer click sobre un ítem de la lista, se abrirá una nueva activity donde se mostrará el detalle de ese item.</p>
+<p>CODE: <a href="https://github.com/gerardfp/recyclerview" target="_blank">https://github.com/gerardfp/recyclerview</a></p>
 <p class="image-container"><img style="width: 258.00px" src="img\c9cb7ade2599e3ba.gif"></p>
+<p class="image-container"><img style="width: 557.00px" src="img\62b623b75ed4578d.png"></p>
 
 
       </google-codelab-step>
@@ -41,9 +43,45 @@
         <p>Selecciona &#34;Empty Activity&#34; como plantilla para la actividad principal.</p>
 <p>Añade las bibliotecas <code>RecyclerView</code> en el archivo <code>build.gradle (Module: app)</code></p>
 <pre><code>dependencies {
-   . . . .
    implementation &#39;androidx.recyclerview:recyclerview:1.0.0&#39;
 }</code></pre>
+<ol type="1" start="1">
+<li>Crea el grafo de navegacion (<code>res/navigation/navigation.xml</code>):</li>
+</ol>
+<p class="image-container"><img style="width: 367.00px" src="img\fbb835e5a833970c.png"></p>
+<aside class="warning"><p>Android Studio te pedirá añadir la dependencia , en caso de que no la tuvieras ya añadida</p>
+<p class="image-container"><img style="width: 312.00px" src="img\d9d42ef6cc2006dd.png"></p>
+<p><code>implementation </code><strong><code>&#39;androidx.navigation:navigation-fragment:2.0.0&#39;</code></strong></p>
+<p><code>implementation </code><strong><code>&#39;androidx.navigation:navigation-ui:2.1.0&#39;</code></strong></p>
+</aside>
+<ol type="1" start="2">
+<li>Añade la destinación <code>ItemListFragment</code>:<br><br><img style="width: 340.00px" src="img\308ee90af4381430.png"></li>
+</ol>
+<p class="image-container"><img style="width: 489.00px" src="img\684072e674c0dbc7.png"></p>
+<p class="image-container"><img style="width: 372.00px" src="img\1d4ae73b6f38ecd2.png"><br></p>
+<ol type="1" start="3">
+<li>Añade el NavHost al layout de la MainActivity (<code>res/layout/activity_main.xml</code>):<br></li>
+</ol>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   tools:context=&#34;.MainActivity&#34;&gt;
+
+   &lt;fragment
+       android:id=&#34;@+id/nav_host_fragment&#34;
+       android:name=&#34;androidx.navigation.fragment.NavHostFragment&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;match_parent&#34;
+       app:defaultNavHost=&#34;true&#34;
+       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+       app:layout_constraintRight_toRightOf=&#34;parent&#34;
+       app:layout_constraintTop_toTopOf=&#34;parent&#34;
+       app:navGraph=&#34;@navigation/navigation&#34; /&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre>
 
 
       </google-codelab-step>
@@ -52,27 +90,41 @@
         <p>El Dataset es el conjunto de datos que queremos mostrar en el RecyclerView. Pueden ser datos descargados de la red, obtenidos de una base de datos, de un fichero JSON, generados mediante código, etc. etc. etc.</p>
 <p>Para esta práctica utilizaremos como Dataset un <code>ArrayList</code>. Este ArrayList contendrá los elementos que hay que mostrar en el RecyclerView. Para esta práctica utilizamos un elemento genérico, llamado <code>Item</code>, pero en una aplicación real dependerá de la clase de objetos que se quieran mostrar (Contactos, Mensajes, Personajes, Películas, etc.)</p>
 <p>Crea la clase <strong><code>Item</code></strong> y añade los campos siguientes:</p>
-<pre><code>class Item {
-   String name;
-   String desc;
-   float rating;
+<pre><code>public class Item {
+   public String name;
+   public String desc;
+   public float rating;
 }</code></pre>
-<p>El ArrayList de Items será nuestra fuente de datos. Ya que este ArrayList debe ser único para toda la aplicación, lo crearemos como <code>static</code>. (<em>Sin embargo, ésta no es la mejor opción, en futuras prácticas veremos una forma más adecuada de hacerlo</em>).</p>
-<p>Crea una nueva clase llamada <code>Dataset</code>, y crea y inicializa el ArrayList con datos aleatorios:</p>
-<pre><code>import java.util.ArrayList;
+<p>Los variables de datos y la lógica de la aplicación van el ViewModel, por tanto, es ahí donde crearemos el ArrayList de Items.</p>
+<ol type="1" start="1">
+<li>Crea una nueva clase llamada <code>MainViewModel</code> y añade en ella el ArrayList. Pondremos un metodo en el constructor que añada los Items:</li>
+</ol>
+<pre><code>import android.app.Application;
+import java.util.ArrayList;
 import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
-class Dataset {
-   static List&lt;Item&gt; itemList = new ArrayList&lt;&gt;();
+public class MainViewModel extends AndroidViewModel {
 
-   static {
+   MutableLiveData&lt;List&lt;Item&gt;&gt; itemList = new MutableLiveData&lt;&gt;();
+
+   public MainViewModel(@NonNull Application application) {
+       super(application);
+       cargarItems();
+   }
+
+   public void cargarItems(){
+       List&lt;Item&gt; items = new ArrayList&lt;&gt;();
        for (int i = 0; i &lt; 200; i++) {
            Item item = new Item();
            item.name = &#34;Item &#34; + i;
            item.desc = &#34;Description &#34; + i;
            item.rating = (float) Math.random()*10;
-           itemList.add(item);
+           items.add(item);
        }
+       itemList.setValue(items);
    }
 }</code></pre>
 <p class="image-container"><img style="width: 250.00px" src="img\c3baeea9edda4f2.png"></p>
@@ -88,7 +140,7 @@ class Dataset {
 <li>Una clase que haga el <code>findViewById()</code> de cada elemento del layout que tenga que ser rellenado con datos.</li>
 </ul>
 <h2 is-upgraded>Layout viewholder_item.xml</h2>
-<p>Crea un nuevo fichero de layout llamado <code>viewholder_item.xml</code></p>
+<p>Crea un nuevo fichero de layout llamado <code>res/layout/viewholder_item.xml</code></p>
 <p class="image-container"><img style="width: 606.00px" src="img\7f3bbde9c5ea9b91.png"></p>
 <p>Este layout será la plantilla para un elemento del RecyclerView. Añadiremos los componentes que necesitemos: </p>
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
@@ -146,6 +198,8 @@ class Dataset {
 <p>Crea una nueva clase llamada <code>ItemsAdapter</code> con el siguiente código:</p>
 <pre><code>class ItemsAdapter extends RecyclerView.Adapter&lt;ItemViewHolder&gt;{
 
+   List&lt;Item&gt; items;
+
    @NonNull
    @Override
    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -154,9 +208,9 @@ class Dataset {
 
    @Override
    public void onBindViewHolder(@NonNull ItemViewHolder holder, final int position) {
-       
-       final Item item = Dataset.itemList.get(position);
-       
+
+       final Item item = items.get(position);
+
        holder.name.setText(item.name);
        holder.desc.setText(item.desc);
        holder.rating.setRating(item.rating);
@@ -171,16 +225,20 @@ class Dataset {
        holder.itemView.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-               intent.putExtra(&#34;ITEM_POSITION&#34;, position);
-               startActivity(intent);
+               mainViewModel.selectedItem.setValue(item);
+               Navigation.findNavController(view).navigate(R.id.itemDetailFragment);
            }
        });
    }
 
    @Override
    public int getItemCount() {
-       return ItemList.itemList.size();
+       return items == null ? 0 : items.size();
+   }
+
+   public void setList(List&lt;Item&gt; items){
+       this.items = items;
+       notifyDataSetChanged();
    }
 }</code></pre>
 <p class="image-container"><img style="width: 736.40px" src="img\75d9cdcc28349064.gif"></p>
@@ -222,35 +280,138 @@ class Dataset {
    android:id=&#34;@+id/item_list&#34;
    android:layout_width=&#34;match_parent&#34;
    android:layout_height=&#34;wrap_content&#34;
-   app:layoutManager=&#34;androidx.recyclerview.widget.LinearLayoutManager&#34;
-/&gt;</code></pre>
-<p>En el método <code>onCreate()</code> de la <code>MainActivity</code> haremos lo siguiente:</p>
+   app:layoutManager=&#34;androidx.recyclerview.widget.LinearLayoutManager&#34; /&gt;</code></pre>
+<p>En el método <code>onViewCreated()</code> del <code>ItemListFragment</code> haremos lo siguiente:</p>
 <ol type="1" start="1">
 <li>Recuperar el RecyclerView del XML con <code>findViewById()</code></li>
 <li>Establecerle el adaptador <code>ItemsAdapter</code> (<em>el encargado de rellenar el RecyclerView</em>)</li>
 </ol>
-<pre><code>public class MainActivity extends AppCompatActivity {
+<pre><code>public class ItemListFragment extends Fragment {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        . . . .
- 
-        RecyclerView recyclerView = findViewById(R.id.item_list);
-        recyclerView.setAdapter(new ItemsAdapter());
-    }
+   MainViewModel mainViewModel;
+   ItemsAdapter itemsAdapter;
+
+   // ...   
+
+   @Override
+   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+       super.onViewCreated(view, savedInstanceState);
+
+       mainViewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
+
+       RecyclerView recyclerView = view.findViewById(R.id.item_list);
+       recyclerView.setAdapter(itemsAdapter = new ItemsAdapter());
+
+       mainViewModel.itemList.observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Item&gt;&gt;() {
+           @Override
+           public void onChanged(List&lt;Item&gt; items) {
+               itemsAdapter.setList(items);
+           }
+       });
+   }
+
+   // ...
 }</code></pre>
 <p>NOTA: Para mostrar un separador entre cada elemento del RecyclerView podemos usar la clase <code>DividerItemDecoration</code>:</p>
-<pre><code>@Override
-protected void onCreate(Bundle savedInstanceState) {
-    . . . .
+<pre><code>RecyclerView recyclerView = view.findViewById(R.id.item_list);
 
-    RecyclerView recyclerView = findViewById(R.id.item_list);
+recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
-    recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),        DividerItemDecoration.VERTICAL));
+recyclerView.setAdapter(new ItemsAdapter());</code></pre>
 
-    recyclerView.setAdapter(new ItemsAdapter());
 
+      </google-codelab-step>
+    
+      <google-codelab-step label="ItemDetailFragment" duration="0">
+        <p>Añade una nueva destinación llamada <code>ItemDetailFragment</code>.</p>
+<p><code>ItemDetailFragment.java</code></p>
+<pre><code>import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
+public class ItemDetailFragment extends Fragment {
+
+   public ItemDetailFragment() { }
+
+   @Override
+   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+       return inflater.inflate(R.layout.fragment_item_detail, container, false);
+   }
+
+   @Override
+   public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+       super.onViewCreated(view, savedInstanceState);
+
+       MainViewModel mainViewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
+
+       mainViewModel.selectedItem.observe(getViewLifecycleOwner(), new Observer&lt;Item&gt;() {
+           @Override
+           public void onChanged(final Item item) {
+               if(item == null) return;
+
+               TextView textViewName = view.findViewById(R.id.name);
+               TextView textViewDesc = view.findViewById(R.id.desc);
+               RatingBar ratingBar = view.findViewById(R.id.rating);
+
+               textViewName.setText(item.name);
+               textViewDesc.setText(item.desc);
+               ratingBar.setRating(item.rating);
+
+               ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                   @Override
+                   public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                       item.rating = v;
+                   }
+               });
+           }
+       });
+   }
 }</code></pre>
+<p><code>fragment_item_detail.xml</code></p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;FrameLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   tools:context=&#34;.ItemDetailFragment&#34;&gt;
+
+   &lt;LinearLayout
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:orientation=&#34;vertical&#34;&gt;
+
+       &lt;TextView
+           android:id=&#34;@+id/name&#34;
+           android:gravity=&#34;center&#34;
+           android:textSize=&#34;48sp&#34;
+           android:textStyle=&#34;bold&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34; /&gt;
+
+       &lt;RatingBar
+           android:id=&#34;@+id/rating&#34;
+           android:layout_width=&#34;wrap_content&#34;
+           android:layout_height=&#34;wrap_content&#34; /&gt;
+
+       &lt;TextView
+           android:id=&#34;@+id/desc&#34;
+           android:textSize=&#34;24sp&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34; /&gt;
+
+   &lt;/LinearLayout&gt;
+
+&lt;/FrameLayout&gt;</code></pre>
 
 
       </google-codelab-step>
