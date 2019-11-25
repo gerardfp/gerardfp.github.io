@@ -30,18 +30,18 @@
       <google-codelab-step label="Introducción" duration="0">
         <p>El objetivo de esta práctica es explicar el elemento <strong><code>RecyclerView</code></strong>.</p>
 <p>El widget <a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank"><code>RecyclerView</code></a> nos permite mostrar una lista de elementos y hacer scroll en ellos.</p>
-<p>Realizaremos una aplicación que mostrará una lista de Ítems. Cada Ítem tendrá un nombre, una descripción y un <em>rating</em>.</p>
-<p>Al hacer click sobre un ítem de la lista, se abrirá una nueva activity donde se mostrará el detalle de ese item.</p>
+<p>Realizaremos una aplicación que mostrará una lista de <code>Elementos</code>. Cada <code>Elemento</code> tendrá un <code>nombre</code>, una <code>descripci�</code>�n y una <code>valoraci�</code>�n.</p>
+<p>Al hacer click sobre un elemento de la lista, se navegará a otra destinación donde se mostrará el detalle de ese elemento.</p>
 <p>CODE: <a href="https://github.com/gerardfp/recyclerview" target="_blank">https://github.com/gerardfp/recyclerview</a></p>
 <p class="image-container"><img style="width: 258.00px" src="img\c9cb7ade2599e3ba.gif"></p>
-<p class="image-container"><img style="width: 557.00px" src="img\62b623b75ed4578d.png"></p>
+<p class="image-container"><img style="width: 557.00px" src="img\a1ce948836343005.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el proyecto" duration="0">
         <p>Selecciona &#34;Empty Activity&#34; como plantilla para la actividad principal.</p>
-<p>Añade las bibliotecas <code>RecyclerView</code> en el archivo <code>build.gradle (Module: app)</code></p>
+<p>0. Añade las bibliotecas <code>RecyclerView</code> en el archivo <code>build.gradle (Module: app)</code></p>
 <pre><code>dependencies {
    implementation &#39;androidx.recyclerview:recyclerview:1.0.0&#39;
 }</code></pre>
@@ -49,16 +49,16 @@
 <li>Crea el grafo de navegacion (<code>res/navigation/navigation.xml</code>):</li>
 </ol>
 <p class="image-container"><img style="width: 367.00px" src="img\fbb835e5a833970c.png"></p>
-<aside class="warning"><p>Android Studio te pedirá añadir la dependencia , en caso de que no la tuvieras ya añadida</p>
+<aside class="warning"><p>Android Studio te pedirá añadir la dependencia, en caso de que no la tuvieras ya añadida</p>
 <p class="image-container"><img style="width: 312.00px" src="img\d9d42ef6cc2006dd.png"></p>
 <p><code>implementation </code><strong><code>&#39;androidx.navigation:navigation-fragment:2.0.0&#39;</code></strong></p>
 <p><code>implementation </code><strong><code>&#39;androidx.navigation:navigation-ui:2.1.0&#39;</code></strong></p>
 </aside>
 <ol type="1" start="2">
-<li>Añade la destinación <code>ItemListFragment</code>:<br><br><img style="width: 340.00px" src="img\308ee90af4381430.png"></li>
+<li>Añade la destinación <code>ListaElementosFragment</code>:<br><br><img style="width: 340.00px" src="img\308ee90af4381430.png"></li>
 </ol>
-<p class="image-container"><img style="width: 489.00px" src="img\684072e674c0dbc7.png"></p>
-<p class="image-container"><img style="width: 372.00px" src="img\1d4ae73b6f38ecd2.png"><br></p>
+<p class="image-container"><img style="width: 495.00px" src="img\d466bad6c94de992.png"></p>
+<p class="image-container"><img style="width: 414.00px" src="img\ad5cac4acee5a583.png"><br></p>
 <ol type="1" start="3">
 <li>Añade el NavHost al layout de la MainActivity (<code>res/layout/activity_main.xml</code>):<br></li>
 </ol>
