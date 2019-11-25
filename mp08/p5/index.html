@@ -260,8 +260,11 @@ public class PrincipalViewModel extends AndroidViewModel {
 <li>Obtenemos el <code>Elemento</code> del ArrayList que ocupa la <code>position</code> que nos ha pasado el RecyclerView (es decir, la posicion del ViewHolder que hay que rellenar).<br></li>
 <li>Rellenamos los TextView y el RatingBar del <code>ViewHolder</code> con los datos del <code>Elemento</code> que hemos sacado del ArrayList.<br></li>
 <li>Establecemos el listener para el RatingBar que actualizará la valoración del Elemento.<br></li>
-<li>Establecemos un listener para todo el ViewHolder (la variable <code>itemView</code>), para que cuando se haga click en él, navegue al DetalleElementoFragment, donde se mostrará el detalle del elemento.<br><br>Previamente, habremos guardado el <code>Elemento</code> en la variable <code>elementoSeleccionado</code> del ViewModel. </li>
+<li>Establecemos un listener para todo el ViewHolder (la variable <code>itemView</code>), para que cuando se haga click en él, navegue al DetalleElementoFragment, donde se mostrará el detalle del elemento.</li>
 </ol>
+<p>Previamente, habremos guardado el <code>Elemento</code> en la variable <code>elementoSeleccionado</code> del ViewModel. <br></p>
+<aside class="special"><p>La variable <code>itemView</code> hace referencia a todo el ViewHolder en sí.</p>
+</aside>
 <ul>
 <li><code>getItemCount()</code>: Este método es llamado por el RecyclerView con el fin de saber cuántos elementos se tienen que mostrar. En nuestro caso retornamos el <code>size()</code> del ArrayList, o <code>0</code> si el ArrayList es <code>null</code>.</li>
 </ul>
