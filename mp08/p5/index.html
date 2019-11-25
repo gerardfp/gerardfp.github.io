@@ -132,6 +132,10 @@ public class PrincipalViewModel extends AndroidViewModel {
        }
        listaElementos.setValue(elementos);
    }
+
+   public void establecerElementoSeleccionado(Elemento elemento){
+       elementoSeleccionado.setValue(elemento);
+   }
 }
 </code></pre>
 <p class="image-container"><img style="width: 615.00px" src="img\90b862e28812580c.gif"></p>
@@ -392,11 +396,10 @@ app:spanCount=&#34;3&#34;</code></pre>
        });
    }
 
-   // class ElementoViewHolder ...
    // class ElementosAdapter ...
 }</code></pre>
-<aside class="special"><p>NOTA: Para mostrar un separador entre cada elemento del RecyclerView hemos usado un <code>DividerItemDecoration</code>:</p>
-<p><code>recyclerView.addItemDecoration(</code><strong><code>new </code></strong><code>DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.</code><strong><em><code>VERTICAL</code></em></strong><code>));</code></p>
+<aside class="special"><p>Para mostrar un separador entre cada elemento del RecyclerView usamos un <code>DividerItemDecoration</code>:</p>
+<p><code>recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));</code></p>
 </aside>
 
 
