@@ -280,14 +280,11 @@ public class PrincipalViewModel extends AndroidViewModel {
 </td></tr>
 </table>
 <p>El LayoutManager que deseamos utilizar lo podemos establecer con el atributo XML <strong><code>app:layoutManager</code></strong> en el elemento RecyclerView. El atributo <strong><code>app:spanCount</code></strong> indica el número de columnas.</p>
-<p><strong><code>&lt;androidx.recyclerview.widget.RecyclerView</code></strong></p>
-<p><strong><code>   app:layoutManager=&#34;androidx.recyclerview.widget.LinearLayoutManager&#34; /&gt;</code></strong></p>
-<p><strong><code>&lt;androidx.recyclerview.widget.RecyclerView</code></strong></p>
-<p><strong><code>   app:layoutManager=&#34;androidx.recyclerview.widget.GridLayoutManager&#34;</code></strong></p>
-<p><strong><code>   app:spanCount=&#34;3&#34; /&gt;</code></strong></p>
-<p><strong><code>&lt;androidx.recyclerview.widget.RecyclerView</code></strong></p>
-<p><strong><code>   app:layoutManager=&#34;androidx.recyclerview.widget.StaggeredGridLayoutManager&#34;</code></strong></p>
-<p><strong><code>   app:spanCount=&#34;3&#34; /&gt;</code></strong></p>
+<pre><code>app:layoutManager=&#34;androidx.recyclerview.widget.LinearLayoutManager&#34;</code></pre>
+<pre><code>app:layoutManager=&#34;androidx.recyclerview.widget.GridLayoutManager&#34;
+app:spanCount=&#34;3&#34;</code></pre>
+<pre><code>app:layoutManager=&#34;androidx.recyclerview.widget.StaggeredGridLayoutManager&#34;
+app:spanCount=&#34;3&#34;</code></pre>
 <p>Para esta práctica usaremos el <code>LinearLayoutManager</code></p>
 <p>Añade el elemento <code>&lt;RecyclerView&gt;</code> al layout <code>res/layout/fragment_lista_elementos.xml</code></p>
 <pre><code>&lt;androidx.recyclerview.widget.RecyclerView
@@ -295,43 +292,53 @@ public class PrincipalViewModel extends AndroidViewModel {
    android:layout_width=&#34;match_parent&#34;
    android:layout_height=&#34;wrap_content&#34;
    app:layoutManager=&#34;androidx.recyclerview.widget.LinearLayoutManager&#34; /&gt;</code></pre>
-<p>En el método <code>onViewCreated()</code> del <code>ItemListFragment</code> haremos lo siguiente:</p>
+<p>En el método <code>onViewCreated()</code> del <code>ListaElementosFragment</code> haremos lo siguiente:<br></p>
 <ol type="1" start="1">
-<li>Recuperar el RecyclerView del XML con <code>findViewById()</code></li>
-<li>Establecerle el adaptador <code>ItemsAdapter</code> (<em>el encargado de rellenar el RecyclerView</em>)</li>
+<li>Recuperar el RecyclerView del XML con <code>findViewById()<br></code></li>
+<li>Establecerle el adaptador <code>ElementosAdapter</code> (<em>el encargado de rellenar el RecyclerView</em>)</li>
 </ol>
-<pre><code>public class ItemListFragment extends Fragment {
+<pre><code>public class ListaElementosFragment extends Fragment {
 
-   MainViewModel mainViewModel;
-   ItemsAdapter itemsAdapter;
+   PrincipalViewModel principalViewModel;
+   NavController navController;
 
-   // ...   
+   ElementosAdapter elementosAdapter;
+
+   public ListaElementosFragment() {}
+
+   @Override
+   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+       return inflater.inflate(R.layout.fragment_lista_elementos, container, false);
+   }
 
    @Override
    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
        super.onViewCreated(view, savedInstanceState);
 
-       mainViewModel = ViewModelProviders.of(requireActivity()).get(MainViewModel.class);
+       principalViewModel = ViewModelProviders.of(requireActivity()).get(PrincipalViewModel.class);
+       navController = Navigation.findNavController(view);
 
-       RecyclerView recyclerView = view.findViewById(R.id.item_list);
-       recyclerView.setAdapter(itemsAdapter = new ItemsAdapter());
+       RecyclerView elementosRecyclerView = view.findViewById(R.id.recyclerview_listaElementos);
+       elementosRecyclerView.addItemDecoration(new DividerItemDecoration(elementosRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
-       mainViewModel.itemList.observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Item&gt;&gt;() {
+       elementosAdapter = new ElementosAdapter();
+       elementosRecyclerView.setAdapter(elementosAdapter);
+
+       principalViewModel.listaElementos.observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
            @Override
-           public void onChanged(List&lt;Item&gt; items) {
-               itemsAdapter.setList(items);
+           public void onChanged(List&lt;Elemento&gt; elementos) {
+               elementosAdapter.establecerListaElementos(elementos);
            }
        });
    }
 
-   // ...
+   // class ElementoViewHolder ...
+   // class ElementosAdapter ...
 }</code></pre>
-<p>NOTA: Para mostrar un separador entre cada elemento del RecyclerView podemos usar la clase <code>DividerItemDecoration</code>:</p>
-<pre><code>RecyclerView recyclerView = view.findViewById(R.id.item_list);
-
-recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
-
-recyclerView.setAdapter(new ItemsAdapter());</code></pre>
+<p>NOTA: Para mostrar un separador entre cada elemento del RecyclerView hemos usado un </p>
+<pre>DividerItemDecoration</pre>
+<p>:</p>
+<pre>recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));</pre>
 
 
       </google-codelab-step>
