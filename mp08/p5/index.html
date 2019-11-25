@@ -191,7 +191,7 @@ public class PrincipalViewModel extends AndroidViewModel {
 }</code></pre>
 <p class="image-container"><img style="width: 615.00px" src="img\7fa8a4fd5b9ef48c.gif"></p>
 <aside class="special"><p>La clase <code>ViewHolder</code> la puedes crear en diversos sitios (Como clase interna de la clase <code>ListaElementosFragment</code>, en un fichero a parte, ...). Para este práctica lo más fácil es que la crees como clase interna de la <code>ListaElementosFragment</code>.</p>
-<p><a href="https://github.com/gerardfp/recyclerview/blob/master/app/src/main/java/com/company/recyclerview/ListaElementosFragment.java#L58" target="_blank">https://github.com/gerardfp/recyclerview/blob/master/app/src/main/java/com/company/recyclerview/ListaElementosFragment.java#L58</a></p>
+<p><a href="https://github.com/gerardfp/recyclerview/blob/master/app/src/main/java/com/company/recyclerview/ListaElementosFragment.java#L58" target="_blank">ListaElementosFragment.java#L58</a></p>
 </aside>
 
 
@@ -249,20 +249,15 @@ public class PrincipalViewModel extends AndroidViewModel {
 <p class="image-container"><img style="width: 648.00px" src="img\c760f1261db0ed88.gif"></p>
 <p>El Adapter tiene 3 métodos:</p>
 <ul>
-<li><code>onCreateViewHolder()</code>: Este método es llamado por el RecyclerView cada vez que hay que <strong>crear </strong>una nueva copia de la plantilla para mostrar un nuevo elemento.</li>
-</ul>
-<p>Dentro de este método usamos el <code>LayoutInflater</code> para crear una copia de la plantilla <code>viewholder_elemento.xml</code>.<br></p>
-<p>Se retorna un objeto de clase <code>ElementoViewHolder</code>, al que le pasamos la copia de la plantilla para que haga los <code>findViewById()</code>.</p>
-<ul>
-<li><code>onBindViewHolder()</code>: Este método es llamado por el RecyclerView con el fin de <strong>rellenar </strong>una copia de la plantilla.<br><br>La variable <code>holder</code> que nos pasa en el método es la copia de la plantilla que hay que rellenar, y la variable <code>position</code> es la posición que ocupa dentro del RecyclerView.<br><br>En este método hacemos 3 cosas:</li>
+<li><code>onCreateViewHolder()</code>: Este método es llamado por el RecyclerView cada vez que hay que <strong>crear </strong>una nueva copia de la plantilla para mostrar un nuevo elemento.<br><br>Dentro de este método usamos el <code>LayoutInflater</code> para crear una copia de la plantilla <code>viewholder_elemento.xml</code>.<br><br>Se retorna un objeto de clase <code>ElementoViewHolder</code>, al que le pasamos la copia de la plantilla para que haga los <code>findViewById()</code>.</li>
+<li><code>onBindViewHolder()</code>: Este método es llamado por el RecyclerView con el fin de <strong>rellenar </strong>una copia de la plantilla.<br><br>La variable <code>holder</code> que nos pasan como parámetro es el ViewHolder (la copia de la plantilla) que hay que rellenar, y la variable <code>position</code> es la posición que ocupa dentro del RecyclerView.<br><br>En este método hacemos 3 cosas:</li>
 </ul>
 <ol type="1" start="1">
 <li>Obtenemos el <code>Elemento</code> del ArrayList que ocupa la <code>position</code> que nos ha pasado el RecyclerView (es decir, la posicion del ViewHolder que hay que rellenar).<br></li>
 <li>Rellenamos los TextView y el RatingBar del <code>ViewHolder</code> con los datos del <code>Elemento</code> que hemos sacado del ArrayList.<br></li>
 <li>Establecemos el listener para el RatingBar que actualizará la valoración del Elemento.<br></li>
-<li>Establecemos un listener para todo el ViewHolder (la variable <code>itemView</code>), para que cuando se haga click en él, navegue al DetalleElementoFragment, donde se mostrará el detalle del elemento.</li>
+<li>Establecemos un listener para todo el ViewHolder (la variable <code>itemView</code>), para que cuando se haga click en él, navegue al DetalleElementoFragment, donde se mostrará el detalle del elemento.<br><br>Previamente, habremos guardado el <code>Elemento</code> en la variable <code>elementoSeleccionado</code> del ViewModel. <br></li>
 </ol>
-<p>Previamente, habremos guardado el <code>Elemento</code> en la variable <code>elementoSeleccionado</code> del ViewModel. <br></p>
 <aside class="special"><p>La variable <code>itemView</code> hace referencia a todo el ViewHolder en sí.</p>
 </aside>
 <ul>
