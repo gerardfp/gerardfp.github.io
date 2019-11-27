@@ -29,10 +29,9 @@
     
       <google-codelab-step label="Introducción" duration="0">
         <p>Room proporciona una capa de abstracción para facilitar el acceso a bases de datos SQLite.</p>
-<p class="image-container"><img style="width: 269.00px" src="img\3f9c35efb7f58df1.png"></p>
 <p>Construiremos una aplicación de tipo Tareas Pendientes (TODO-List). Este tipo de aplicaciones son consideradas el HelloWorld de los <em>frameworks</em>.</p>
+<p>Get the full code: <a href="https://github.com/gerardfp/room" target="_blank">https://github.com/gerardfp/room</a> </p>
 <p class="image-container"><img style="width: 242.00px" src="img\dedd81415125f61f.gif"></p>
-<p>Get the full code: <a href="https://github.com/gerardfp/P7" target="_blank">https://github.com/gerardfp/P7</a> </p>
 
 
       </google-codelab-step>
@@ -78,6 +77,7 @@ FROM Tarea JOIN Prioridad ON Tarea.prioridadId = Prioridad.id</code></pre>
 <li><a href="https://developer.android.com/training/data-storage/room/accessing-data.html" target="_blank"><strong>DAO:</strong></a> contiene los métodos con las <strong>consultas</strong> utilitzados para acceder a la base de datos</li>
 <li><a href="https://developer.android.com/reference/android/arch/persistence/room/Database.html" target="_blank"><strong>Base de datos:</strong></a> contiene el manejador de la base de datos.</li>
 </ul>
+<p class="image-container"><img style="width: 269.00px" src="img\3f9c35efb7f58df1.png"></p>
 <p>El acceso a datos desde una <code>Activity</code> se realiza a través del <code>ViewModel</code>. Éste realizará las consultas usando el <code>DAO</code>.</p>
 <p class="image-container"><img style="width: 661.00px" src="img\d70c87ee4adbf135.png"></p>
 
@@ -253,6 +253,7 @@ public abstract class TareasDatabase extends RoomDatabase {
     
       <google-codelab-step label="ViewModel" duration="0">
         <p>El ViewModel expone métodos para ser usados desde las activities y realiza las acciones correspondientes sobre el DAO.</p>
+<p class="image-container"><img style="width: 661.00px" src="img\d70c87ee4adbf135.png"></p>
 <p>Es importante tener en cuenta que todas las operaciones se han de hacer en segundo plano, usando la clase <code>Executors</code> o <code>AsyncTask</code>.</p>
 <p>Para las operaciones que retornan datos (como las consultas), usamos la clase <code>LiveData</code> en lugar de tareas en segundo plano.</p>
 <pre><code>import android.app.Application;

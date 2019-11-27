@@ -29,10 +29,9 @@
     
       <google-codelab-step label="Introducción" duration="0">
         <p>La clase <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank"><code>ViewModel</code></a> está diseñada para <strong>almacenar y gestionar datos</strong> relacionados con la UI de forma consciente al ciclo de vida. La clase <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank"><code>ViewModel</code></a><code> </code>permite que los datos sobrevivan a cambios de configuración, como la rotación de la pantalla.</p>
-<p class="image-container"><img style="width: 522.00px" src="img\c5ef819a04c024e7.png"></p>
 <p>Realizaremos una pequeña aplicación que sirva para llevar la puntuación de un partido de basket.</p>
+<p>Código del proyecto: <a href="https://github.com/gerardfp/viewmodel" target="_blank">https://github.com/gerardfp/viewmodel</a></p>
 <p class="image-container"><img style="width: 566.00px" src="img\9826e5b627fd635c.gif"></p>
-<p>Código del proyecto: <a href="https://github.com/gerardfp/P6" target="_blank">https://github.com/gerardfp/P6</a></p>
 <p>Esta aplicación está basada en: <a href="https://medium.com/androiddevelopers/viewmodels-a-simple-example-ed5ac416317e" target="_blank">https://medium.com/androiddevelopers/viewmodels-a-simple-example-ed5ac416317e</a></p>
 
 
@@ -240,6 +239,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     
       <google-codelab-step label="ViewModel" duration="0">
         <p>La solución para que los datos sobrevivan a la rotación de la pantalla es, como hemos dicho, ponerlos en un ViewModel.</p>
+<p class="image-container"><img style="width: 522.00px" src="img\c5ef819a04c024e7.png"></p>
 <h2 is-upgraded>Crear la clase ViewModel</h2>
 <p>Para ello simplemente creamos una nueva clase que en este caso llamaremos <code>PuntuacionViewModel</code>, y hacemos que extienda la clase <code>AndroidViewModel</code>; Implementamos el constructor y ponemos en ella las variables que queramos:</p>
 <pre><code>import android.app.Application;
