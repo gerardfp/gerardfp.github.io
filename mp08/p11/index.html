@@ -61,11 +61,11 @@
 </aside>
 <ol type="1" start="1">
 <li>Selecciona <strong><code>Herramientas</code></strong><strong> &gt; </strong><strong><code>Firebase</code></strong> para abrir la ventana del <strong>Asistente</strong>.</li>
-<li>Haz clic en <strong>Authentication</strong>, y luego en &#34;<strong>Email and password authentication</strong>&#34;.</li>
+<li>Haz clic en <strong>Authentication</strong>, y luego en &#34;<strong>Email and password authentication</strong>&#34;.<br></li>
 </ol>
 <p class="image-container"><img style="width: 546.00px" src="img\a8dac09c5136e57a.png"></p>
 <ol type="1" start="3">
-<li>Haz clic en &#34;<strong>Connect to Firebase</strong>&#34;<br><img style="width: 339.00px" src="img\7e9110d209d0a785.png"><br>Selecciona una cuenta de Google y haz click en <img style="width: 103.00px" src="img\304cdd79c1e465a8.png"><br><br>En la ventana que aparece haz click en &#34;<strong>Connect to Firebase</strong>&#34;<br><br><img style="width: 673.00px" src="img\18cbdf472194f10.png"></li>
+<li>Haz clic en &#34;<strong>Connect to Firebase</strong>&#34;<br><br><img style="width: 339.00px" src="img\7e9110d209d0a785.png"><br>Selecciona una cuenta de Google y haz click en <img style="width: 103.00px" src="img\304cdd79c1e465a8.png"><br><br>En la ventana que aparece haz click en &#34;<strong>Connect to Firebase</strong>&#34;<br><br><img style="width: 673.00px" src="img\18cbdf472194f10.png"></li>
 </ol>
 
 
@@ -73,18 +73,18 @@
     
       <google-codelab-step label="Añade la Autenticacion con Firebase" duration="0">
         <ol type="1" start="1">
-<li>Haz clic en &#34;<strong>Add Firebase Authentication to your app</strong>&#34;<br><img style="width: 408.00px" src="img\3e2aed1459a22f33.png"></li>
+<li>Haz clic en &#34;<strong>Add Firebase Authentication to your app</strong>&#34;<br><br><img style="width: 408.00px" src="img\3e2aed1459a22f33.png"></li>
 </ol>
 <p>Haz clic en &#34;<strong>Accept changes</strong>&#34;</p>
 <p class="image-container"><img style="width: 630.00px" src="img\a08c10e3b6236e96.png"></p>
 <ol type="1" start="2">
 <li>Ve a la Consola de Firebase: <a href="https://console.firebase.google.com" target="_blank">https://console.firebase.google.com</a> </li>
 </ol>
-<p>Accede al proyecto<br><img style="width: 308.00px" src="img\685bc69ddb77cba0.png"></p>
+<p>Accede al proyecto<br><img style="width: 308.00px" src="img\685bc69ddb77cba0.png"><br></p>
 <ol type="1" start="3">
-<li>Ve al apartado &#34;<strong>Authentication</strong>&#34; <img style="width: 245.00px" src="img\86215678c582fd98.png"><br></li>
-<li>Haz clic en &#34;<strong>Setup sign-in method</strong>&#34; <img style="width: 191.00px" src="img\12a32cc1f08159d7.png"></li>
-<li>Activa &#34;Email/Password&#34; y &#34;Google&#34;<br><img style="width: 736.40px" src="img\81147dd7fba370f0.png"><br><img style="width: 736.40px" src="img\34207a9846fbf4b.png"></li>
+<li>Ve al apartado &#34;<strong>Authentication</strong>&#34; <br><br><img style="width: 245.00px" src="img\86215678c582fd98.png"><br></li>
+<li>Haz clic en &#34;<strong>Setup sign-in method</strong>&#34;<br><br> <img style="width: 191.00px" src="img\12a32cc1f08159d7.png"><br></li>
+<li>Activa &#34;Email/Password&#34; y &#34;Google&#34;<br><br><img style="width: 736.40px" src="img\81147dd7fba370f0.png"><br><img style="width: 736.40px" src="img\34207a9846fbf4b.png"></li>
 <li>Añade la siguiente dependencia en el archivo <code>build.gradle (Module: app)</code><br></li>
 </ol>
 <p><code>implementation </code><strong><code>&#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code></strong></p>
@@ -94,15 +94,15 @@
     
       <google-codelab-step label="Añade la base de datos Firestore" duration="0">
         <ol type="1" start="1">
-<li>Selecciona &#34;<strong>Firestore</strong>&#34; en el Assistente y haz clic en &#34;Read and write documents with Cloud Firestore&#34;<br><img style="width: 446.00px" src="img\45c79847bfa5818.png"></li>
-<li>Haz clic en &#34;<strong>Add Cloud Firestore to your app</strong>&#34;<br><img style="width: 336.00px" src="img\142c40811e0239e9.png"><br>Haz clic en &#34;<strong>Accept Changes</strong>&#34;<br><img style="width: 632.00px" src="img\a990e58323b963ca.png"></li>
-<li>Ve a la Consola de Firebase: <a href="https://console.firebase.google.com" target="_blank">https://console.firebase.google.com</a> </li>
-<li>Ve al apartado &#34;<strong>Database</strong>&#34; <img style="width: 233.00px" src="img\4e7dfecd4684ed7.png"></li>
-<li>Haz clic en &#34;<strong>Create database</strong>&#34; <img style="width: 151.00px" src="img\e099ff058fc452cb.png"></li>
-<li>Selecciona &#34;<strong>Start in production mode</strong>&#34; <img style="width: 241.00px" src="img\11cf372aae2ed15f.png"></li>
-<li>Selecciona &#34;<strong>eur3 (europe-west)</strong>&#34;<br><img style="width: 410.00px" src="img\f4a50867f08a39bb.png"></li>
-<li>Ve a la pestaña &#34;<strong>Rules</strong>&#34; <img style="width: 74.00px" src="img\5276c93b0ad56670.png"></li>
-<li>Cambia a <code>true</code> el permiso de escritura<br><img style="width: 353.00px" src="img\b72f51fcd2961fe1.png"><br>Publica los cambios en las reglas <img style="width: 97.00px" src="img\e9a8c6b1686f9861.png"></li>
+<li>Selecciona &#34;<strong>Firestore</strong>&#34; en el Assistente y haz clic en &#34;Read and write documents with Cloud Firestore&#34;<br><br><img style="width: 446.00px" src="img\45c79847bfa5818.png"><br></li>
+<li>Haz clic en &#34;<strong>Add Cloud Firestore to your app</strong>&#34;<br><br><img style="width: 336.00px" src="img\142c40811e0239e9.png"><br><br>Haz clic en &#34;<strong>Accept Changes</strong>&#34;<br><br><img style="width: 632.00px" src="img\a990e58323b963ca.png"><br></li>
+<li>Ve a la Consola de Firebase: <a href="https://console.firebase.google.com" target="_blank">https://console.firebase.google.com</a> <br></li>
+<li>Ve al apartado &#34;<strong>Database</strong>&#34; <br><br><img style="width: 233.00px" src="img\4e7dfecd4684ed7.png"><br></li>
+<li>Haz clic en &#34;<strong>Create database</strong>&#34;<br><br> <img style="width: 151.00px" src="img\e099ff058fc452cb.png"><br></li>
+<li>Selecciona &#34;<strong>Start in production mode</strong>&#34;<br><br> <img style="width: 241.00px" src="img\11cf372aae2ed15f.png"><br></li>
+<li>Selecciona &#34;<strong>eur3 (europe-west)</strong>&#34;<br><br><img style="width: 410.00px" src="img\f4a50867f08a39bb.png"><br></li>
+<li>Ve a la pestaña &#34;<strong>Rules</strong>&#34;<br><br> <img style="width: 74.00px" src="img\5276c93b0ad56670.png"><br></li>
+<li>Cambia a <code>true</code> el permiso de escritura<br><br><img style="width: 353.00px" src="img\b72f51fcd2961fe1.png"><br><br>Publica los cambios en las reglas <br><br><img style="width: 97.00px" src="img\e9a8c6b1686f9861.png"></li>
 </ol>
 
 
@@ -110,11 +110,12 @@
     
       <google-codelab-step label="Añade Storage" duration="0">
         <ol type="1" start="1">
-<li>Selecciona &#34;Storage&#34; en el Asistente y haz clic en &#34;<strong>Upload and download a file with Cloud Storage</strong>&#34;<br><img style="width: 570.00px" src="img\b3972a90cc1bb213.png"></li>
-<li>Haz clic en &#34;<strong>Add Cloud Storage to your app</strong>&#34;<br><img style="width: 337.00px" src="img\78dadec873317a2e.png"><br>Haz clic en &#34;<strong>Accept Changes</strong>&#34;<br><img style="width: 628.00px" src="img\54adf618abf1a04a.png"></li>
-<li>Activa <strong>Storage</strong> en la consola de firebase:<br><br>Ve a &#34;<strong>Storage</strong>&#34; <img style="width: 141.00px" src="img\490f08e4f7ef7812.png"><br><br>Haz clic en &#34;<strong>Get started</strong>&#34; <img style="width: 122.00px" src="img\99cd227866edaee4.png"><br><br>Haz clic en &#34;<strong>Next</strong>&#34;<img style="width: 603.00px" src="img\8433d449dc8fbeba.png"></li>
+<li>Selecciona &#34;Storage&#34; en el Asistente y haz clic en &#34;<strong>Upload and download a file with Cloud Storage</strong>&#34;<br><br><img style="width: 570.00px" src="img\b3972a90cc1bb213.png"><br></li>
+<li>Haz clic en &#34;<strong>Add Cloud Storage to your app</strong>&#34;<br><br><img style="width: 337.00px" src="img\78dadec873317a2e.png"><br><br>Haz clic en &#34;<strong>Accept Changes</strong>&#34;<br><br><img style="width: 628.00px" src="img\54adf618abf1a04a.png"><br></li>
+<li>Activa <strong>Storage</strong> en la consola de firebase:<br><br>Ve a &#34;<strong>Storage</strong>&#34;<br><br> <img style="width: 141.00px" src="img\490f08e4f7ef7812.png"><br><br>Haz clic en &#34;<strong>Get started</strong>&#34;<br><br> <img style="width: 122.00px" src="img\99cd227866edaee4.png"><br><br>Haz clic en &#34;<strong>Next</strong>&#34;<br><br><img style="width: 603.00px" src="img\8433d449dc8fbeba.png"></li>
 </ol>
-<p>        Selecciona &#34;<strong>eur3 (europe-west)</strong>&#34; y haz clic en &#34;<strong>Done</strong>&#34;<img style="width: 604.00px" src="img\59fda610d33b93be.png"></p>
+<p><br>        Selecciona &#34;<strong>eur3 (europe-west)</strong>&#34; y haz clic en &#34;<strong>Done</strong>&#34;</p>
+<p class="image-container"><img style="width: 604.00px" src="img\59fda610d33b93be.png"></p>
 
 
       </google-codelab-step>
