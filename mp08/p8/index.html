@@ -184,7 +184,6 @@ public class ItunesApiModule {
       <google-codelab-step label="ViewModel" duration="0">
         <p class="image-container"><img style="width: 661.00px" src="img\3cc96e17b368b6bb.png"></p>
 <pre><code>import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.AndroidViewModel;
@@ -197,64 +196,72 @@ import retrofit2.Response;
 
 public class MainViewModel extends AndroidViewModel {
 
-   MutableLiveData&lt;String&gt; searchTerm = new MutableLiveData&lt;&gt;();
+    MutableLiveData&lt;String&gt; terminoBusqueda = new MutableLiveData&lt;&gt;();
 
-   public LiveData&lt;ItunesResponse&gt; itunesResponse = Transformations.switchMap(searchTerm, new Function&lt;String, LiveData&lt;ItunesResponse&gt;&gt;() {
-       @Override
-       public LiveData&lt;ItunesResponse&gt; apply(String term) {
-           final MutableLiveData&lt;ItunesResponse&gt; itunesResponseMutableLiveData = new MutableLiveData&lt;&gt;();
+    public LiveData&lt;RespuestaItunes&gt; respuestaItunesLiveData = Transformations.switchMap(terminoBusqueda, new Function&lt;String, LiveData&lt;RespuestaItunes&gt;&gt;() {
+        @Override
+        public LiveData&lt;RespuestaItunes&gt; apply(String termino) {
+            final MutableLiveData&lt;RespuestaItunes&gt; respuestaItunesMutableLiveData = new MutableLiveData&lt;&gt;();
 
-           ItunesApiModule.itunesApi.buscar(term).enqueue(new Callback&lt;ItunesResponse&gt;() {
-               @Override
-               public void onResponse(Call&lt;ItunesResponse&gt; call, Response&lt;ItunesResponse&gt; response) {
-                   itunesResponseMutableLiveData.postValue(response.body());
-               }
+            ItunesApiModule.itunesApi.buscar(termino).enqueue(new Callback&lt;RespuestaItunes&gt;() {
+                @Override
+                public void onResponse(Call&lt;RespuestaItunes&gt; call, Response&lt;RespuestaItunes&gt; response) {
+                    respuestaItunesMutableLiveData.postValue(response.body());
+                }
 
-               @Override
-               public void onFailure(Call&lt;ItunesResponse&gt; call, Throwable t) {}
-           });
+                @Override
+                public void onFailure(Call&lt;RespuestaItunes&gt; call, Throwable t) {}
+            });
 
-           return itunesResponseMutableLiveData;
-       }
-   });
+            return respuestaItunesMutableLiveData;
+        }
+    });
 
-   public MainViewModel(@NonNull Application application) {
-       super(application);
-   }
+    public MainViewModel(@NonNull Application application) {
+        super(application);
+    }
 
-   public void setTerm(String term){
-       searchTerm.setValue(term);
-   }
+    public void establecerTerminoBusqueda(String termino){
+        terminoBusqueda.setValue(termino);
+    }
 }</code></pre>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="MainActivity" duration="0">
-        <p><code>main_activity.xml</code></p>
+      <google-codelab-step label="MainFragment" duration="0">
+        <p><code>fragment_main.xml</code></p>
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+&lt;FrameLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
    android:layout_width=&#34;match_parent&#34;
    android:layout_height=&#34;match_parent&#34;
-   android:layout_marginLeft=&#34;16dp&#34;
-   android:layout_marginRight=&#34;16dp&#34;
-   android:orientation=&#34;vertical&#34;&gt;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+   tools:context=&#34;.view.MainFragment&#34;&gt;
 
-   &lt;SearchView
-       android:id=&#34;@+id/search_term&#34;
+   &lt;LinearLayout
        android:layout_width=&#34;match_parent&#34;
-       android:layout_height=&#34;wrap_content&#34; /&gt;
+       android:layout_height=&#34;match_parent&#34;
+       android:layout_marginLeft=&#34;16dp&#34;
+       android:layout_marginRight=&#34;16dp&#34;
+       android:orientation=&#34;vertical&#34;&gt;
 
-   &lt;androidx.recyclerview.widget.RecyclerView
-       android:id=&#34;@+id/songs_list&#34;
-       android:layout_width=&#34;match_parent&#34;
-       android:layout_height=&#34;wrap_content&#34;
-       app:layoutManager=&#34;androidx.recyclerview.widget.GridLayoutManager&#34;
-       app:spanCount=&#34;2&#34;/&gt;
+       &lt;SearchView
+           android:id=&#34;@+id/searchview_termino&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34; /&gt;
 
-&lt;/LinearLayout&gt;</code></pre>
-<p><code>viewholder_content.xml</code></p>
+       &lt;androidx.recyclerview.widget.RecyclerView
+           android:id=&#34;@+id/recyclerview_contenidos&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           app:layoutManager=&#34;androidx.recyclerview.widget.GridLayoutManager&#34;
+           app:spanCount=&#34;2&#34;/&gt;
+
+   &lt;/LinearLayout&gt;
+
+&lt;/FrameLayout&gt;</code></pre>
+<p><code>viewholder_contenido.xml</code></p>
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    android:orientation=&#34;vertical&#34;
@@ -263,112 +270,122 @@ public class MainViewModel extends AndroidViewModel {
    android:layout_marginBottom=&#34;16dp&#34;&gt;
 
    &lt;TextView
-       android:id=&#34;@+id/song_artist&#34;
+       android:id=&#34;@+id/textview_artist&#34;
        android:layout_width=&#34;match_parent&#34;
        android:layout_height=&#34;wrap_content&#34;
        android:textSize=&#34;16sp&#34;/&gt;
    &lt;TextView
-       android:id=&#34;@+id/song_title&#34;
+       android:id=&#34;@+id/textview_title&#34;
        android:layout_width=&#34;match_parent&#34;
        android:layout_height=&#34;wrap_content&#34;
        android:textSize=&#34;20sp&#34;
        android:textStyle=&#34;bold&#34;/&gt;
    &lt;ImageView
-       android:id=&#34;@+id/song_image&#34;
+       android:id=&#34;@+id/textview_artwork&#34;
        android:layout_width=&#34;wrap_content&#34;
        android:layout_height=&#34;wrap_content&#34;
        android:adjustViewBounds=&#34;true&#34;/&gt;
 
 &lt;/LinearLayout&gt;</code></pre>
-<p><code>MainActivity.java</code></p>
+<p><code>MainFragment.java</code></p>
 <pre><code>import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
-import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
+public class MainFragment extends Fragment {
 
-public class MainActivity extends AppCompatActivity {
-
-   List&lt;Content&gt; contentList = new ArrayList&lt;&gt;();
-   ContentAdapter contentAdapter;
+   ContenidosAdapter contenidosAdapter;
    MainViewModel mainViewModel;
 
-   @Override
-   protected void onCreate(Bundle savedInstanceState) {
-       super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_main);
+   public MainFragment() { }
 
-       RecyclerView recyclerView = findViewById(R.id.songs_list);
-       recyclerView.setAdapter(contentAdapter = new ContentAdapter());
+   @Override
+   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+       return inflater.inflate(R.layout.fragment_main, container, false);
+   }
+
+   @Override
+   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+       super.onViewCreated(view, savedInstanceState);
 
        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
-       SearchView searchView = findViewById(R.id.search_term);
+       RecyclerView recyclerView = view.findViewById(R.id.recyclerview_contenidos);
+
+       contenidosAdapter = new ContenidosAdapter();
+       recyclerView.setAdapter(contenidosAdapter);
+
+       SearchView searchView = view.findViewById(R.id.searchview_termino);
        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
            @Override
            public boolean onQueryTextSubmit(String s) { return false; }
 
            @Override
            public boolean onQueryTextChange(String s) {
-               mainViewModel.setTerm(s);
+               mainViewModel.establecerTerminoBusqueda(s);
                return false;
            }
        });
 
-       mainViewModel.itunesResponse.observe(MainActivity.this, new Observer&lt;ItunesResponse&gt;() {
+       mainViewModel.respuestaItunesLiveData.observe(getViewLifecycleOwner(), new Observer&lt;RespuestaItunes&gt;() {
            @Override
-           public void onChanged(ItunesResponse itunesResponse) {
-               contentList = itunesResponse.results; // if != null
-               contentAdapter.notifyDataSetChanged();
+           public void onChanged(RespuestaItunes respuestaItunes) {
+               contenidosAdapter.establecerListaContenido(respuestaItunes.results); // if != null
            }
        });
    }
 
-   class ContentViewHolder extends RecyclerView.ViewHolder {
-       TextView title, artist;
-       ImageView image;
+   class ContenidosAdapter extends RecyclerView.Adapter&lt;ContenidosAdapter.ContenidoViewHolder&gt;{
 
-       public ContentViewHolder(@NonNull View itemView) {
-           super(itemView);
-           title = itemView.findViewById(R.id.song_title);
-           artist = itemView.findViewById(R.id.song_artist);
-           image = itemView.findViewById(R.id.song_image);
-       }
-   }
-
-   class ContentAdapter extends RecyclerView.Adapter&lt;ContentViewHolder&gt;{
+       List&lt;Contenido&gt; contenidoList;
 
        @NonNull
        @Override
-       public ContentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-           return new ContentViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_content, parent, false));
+       public ContenidoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+           return new ContenidoViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_contenido, parent, false));
        }
 
        @Override
-       public void onBindViewHolder(@NonNull ContentViewHolder holder, int position) {
-           Content content = contentList.get(position);
+       public void onBindViewHolder(@NonNull ContenidoViewHolder holder, int position) {
+           Contenido contenido = contenidoList.get(position);
 
-           holder.title.setText(content.trackName);
-           holder.artist.setText(content.artistName);
-           Glide.with(MainActivity.this).load(content.artworkUrl100).into(holder.image);
+           holder.titleTextView.setText(contenido.trackName);
+           holder.artistTextView.setText(contenido.artistName);
+           Glide.with(requireActivity()).load(contenido.artworkUrl100).into(holder.artworkImageView);
        }
 
        @Override
        public int getItemCount() {
-           return contentList.size();
+           return contenidoList == null ? 0 : contenidoList.size();
+       }
+
+       void establecerListaContenido(List&lt;Contenido&gt; list){
+           contenidoList = list;
+           notifyDataSetChanged();
+       }
+
+       class ContenidoViewHolder extends RecyclerView.ViewHolder {
+           TextView titleTextView, artistTextView;
+           ImageView artworkImageView;
+
+           public ContenidoViewHolder(@NonNull View itemView) {
+               super(itemView);
+               titleTextView = itemView.findViewById(R.id.textview_title);
+               artistTextView = itemView.findViewById(R.id.textview_artist);
+               artworkImageView = itemView.findViewById(R.id.textview_artwork);
+           }
        }
    }
 }</code></pre>

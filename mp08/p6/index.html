@@ -184,20 +184,32 @@
 <p>En el <code>onCreate()</code> hacemos los <code>findViewById()</code> y añadimos los <em>listeners </em>a los botones.</p>
 <p>En el método <code>onClick()</code> actualizamos la puntuación dependiendo de en que botón se haya hecho click.</p>
 <pre><code>import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainFragment extends Fragment  implements View.OnClickListener {
+
 
    int puntosA, puntosB;
    TextView marcadorA, marcadorB;
 
+   public MainFragment() {}
+
    @Override
-   protected void onCreate(Bundle savedInstanceState) {
-       super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_main);
+   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+       return inflater.inflate(R.layout.fragment_main, container, false);
+   }
+
+   @Override
+   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+       super.onViewCreated(view, savedInstanceState);
 
        marcadorA = findViewById(R.id.marcadorA);
        marcadorB = findViewById(R.id.marcadorB);
@@ -243,91 +255,111 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 <h2 is-upgraded>Crear la clase ViewModel</h2>
 <p>Para ello simplemente creamos una nueva clase que en este caso llamaremos <code>PuntuacionViewModel</code>, y hacemos que extienda la clase <code>AndroidViewModel</code>; Implementamos el constructor y ponemos en ella las variables que queramos:</p>
 <pre><code>import android.app.Application;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 public class PuntuacionViewModel extends AndroidViewModel {
 
-   int puntosA, puntosB;
+   MutableLiveData&lt;Integer&gt; puntosA = new MutableLiveData&lt;&gt;(0);
+   MutableLiveData&lt;Integer&gt; puntosB = new MutableLiveData&lt;&gt;(0);
 
    public PuntuacionViewModel(@NonNull Application application) {
        super(application);
    }
-}</code></pre>
+
+   void sumarA(int puntos){
+       puntosA.setValue(puntosA.getValue() + puntos);
+   }
+
+   void sumarB(int puntos){
+       puntosB.setValue(puntosB.getValue() + puntos);
+   }
+
+   void resetear(){
+       puntosA.setValue(0);
+       puntosB.setValue(0);
+   }
+}
+</code></pre>
 <p class="image-container"><img style="width: 566.00px" src="img\c3f5ae677b1cc3e7.gif"></p>
 <h2 is-upgraded>Acceder a los datos del ViewModel</h2>
-<p>Ahora desde la MainActivity queremos acceder a las variables <code>puntosA puntosB</code> que hemos puesto en el ViewModel.</p>
+<p>Ahora desde el MainFragment queremos acceder a las variables <code>puntosA puntosB</code> que hemos puesto en el ViewModel.</p>
 <p>Lo haremos en dos pasos, primero obtendremos el ViewModel y luego accederemos a sus variables:</p>
 <h3 is-upgraded>Obtener el ViewModel</h3>
 <p>Para obtener el ViewModel se usa la clase ViewModelProviders así:</p>
-<pre><code>ViewModelProviders.of(MainActivity.this).get(PuntuacionViewModel.class);</code></pre>
-<p>El parámetro del método <code>of()</code> es la Activity en la que estamos, y el parámetro del método <code>get()</code> es la clase del ViewModel que queremos obtener.</p>
+<pre><code>ViewModelProviders.of(requireActivity()).get(PuntuacionViewModel.class);</code></pre>
+<p>El parámetro del método <code>of()</code> es la Activity asociada al viewmodel, y el parámetro del método <code>get()</code> es la clase del ViewModel que queremos obtener.</p>
 <h3 is-upgraded>Acceder a las variables</h3>
-<p>Guardamos el ViewModel en una variable de la clase y accedemos a sus variables:</p>
-<pre><code>public class MainActivity extends AppCompatActivity {
-
-   PuntuacionViewModel puntuacionViewModel;
-
-   @Override
-   protected void onCreate(Bundle savedInstanceState) {
-
-       puntuacionViewModel = ViewModelProviders.of(MainActivity.this).get(PuntuacionViewModel.class);
-
-       puntuacionViewModel.puntosA
-              
-       puntuacionViewModel.puntosB</code></pre>
-<p>La MainActivity completa quedaría así:</p>
+<p>Todos los datos que tengamos en el ViewModel deben estar envueltos en una classa <code>LiveData</code> o <code>MutableLiveData</code>. </p>
+<p>Desde el Fragment debemos observar los datos, y hacer algo cuando cambien. En este caso, cuando las variables puntosA y puntosB cambien, actualizaremos el marcador correspondiente.</p>
 <pre><code>import android.os.Bundle;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
-
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainFragment extends Fragment  implements View.OnClickListener {
 
    TextView marcadorA, marcadorB;
    PuntuacionViewModel puntuacionViewModel;
 
+   public MainFragment() {}
+
    @Override
-   protected void onCreate(Bundle savedInstanceState) {
-       super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_main);
+   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+       return inflater.inflate(R.layout.fragment_main, container, false);
+   }
 
-       puntuacionViewModel = ViewModelProviders.of(MainActivity.this).get(PuntuacionViewModel.class);
+   @Override
+   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+       super.onViewCreated(view, savedInstanceState);
 
-       marcadorA = findViewById(R.id.marcadorA);
-       marcadorB = findViewById(R.id.marcadorB);
+       puntuacionViewModel = ViewModelProviders.of(requireActivity()).get(PuntuacionViewModel.class);
 
-       findViewById(R.id.add3A).setOnClickListener(this);
-       findViewById(R.id.add2A).setOnClickListener(this);
-       findViewById(R.id.add1A).setOnClickListener(this);
-       findViewById(R.id.add3B).setOnClickListener(this);
-       findViewById(R.id.add2B).setOnClickListener(this);
-       findViewById(R.id.add1B).setOnClickListener(this);
-       findViewById(R.id.reset).setOnClickListener(this);
+       marcadorA = view.findViewById(R.id.marcadorA);
+       marcadorB = view.findViewById(R.id.marcadorB);
 
-       updateScores();
+       view.findViewById(R.id.add3A).setOnClickListener(this);
+       view.findViewById(R.id.add2A).setOnClickListener(this);
+       view.findViewById(R.id.add1A).setOnClickListener(this);
+       view.findViewById(R.id.add3B).setOnClickListener(this);
+       view.findViewById(R.id.add2B).setOnClickListener(this);
+       view.findViewById(R.id.add1B).setOnClickListener(this);
+       view.findViewById(R.id.reset).setOnClickListener(this);
+
+       puntuacionViewModel.puntosA.observe(getViewLifecycleOwner(), new Observer&lt;Integer&gt;() {
+           @Override
+           public void onChanged(Integer integer) {
+               marcadorA.setText(String.valueOf(integer));
+           }
+       });
+
+       puntuacionViewModel.puntosB.observe(getViewLifecycleOwner(), new Observer&lt;Integer&gt;() {
+           @Override
+           public void onChanged(Integer integer) {
+               marcadorB.setText(String.valueOf(integer));
+           }
+       });
    }
 
    @Override
    public void onClick(View view) {
        switch (view.getId()){
-           case R.id.add3A: puntuacionViewModel.puntosA +=3; break;
-           case R.id.add2A: puntuacionViewModel.puntosA +=2; break;
-           case R.id.add1A: puntuacionViewModel.puntosA +=1; break;
-           case R.id.add3B: puntuacionViewModel.puntosB +=3; break;
-           case R.id.add2B: puntuacionViewModel.puntosB +=2; break;
-           case R.id.add1B: puntuacionViewModel.puntosB +=1; break;
-           case R.id.reset: puntuacionViewModel.puntosA = 0; puntuacionViewModel.puntosB = 0; break;
+           case R.id.add3A: puntuacionViewModel.sumarA(3); break;
+           case R.id.add2A: puntuacionViewModel.sumarA(2); break;
+           case R.id.add1A: puntuacionViewModel.sumarA(1); break;
+           case R.id.add3B: puntuacionViewModel.sumarB(3); break;
+           case R.id.add2B: puntuacionViewModel.sumarB(2); break;
+           case R.id.add1B: puntuacionViewModel.sumarB(1); break;
+           case R.id.reset: puntuacionViewModel.resetear(); break;
        }
-
-       updateScores();
-   }
-
-   private void updateScores() {
-       marcadorA.setText(String.valueOf(puntuacionViewModel.puntosA));
-       marcadorB.setText(String.valueOf(puntuacionViewModel.puntosB));
    }
 }</code></pre>
 
@@ -379,7 +411,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 <aside class="special"><p>Más info sobre <strong>Guardar el Estado de una UI</strong>: <a href="https://developer.android.com/topic/libraries/architecture/saving-states.html" target="_blank">https://developer.android.com/topic/libraries/architecture/saving-states.html</a></p>
 </aside>
 <p>En futuras prácticas aprenderemos cómo crear un <strong>Repositorio </strong>de datos que permita la lectura/escritura de datos de una base de datos o de un servicio de red.</p>
-<p class="image-container"><img style="width: 367.00px" src="img\38f53ff6ec78f4a6.png"></p>
+<p class="image-container"><img style="width: 596.70px" src="img\421dccf33250d2b3.png"></p>
 <aside class="special"><p>Obtén más info acerca de la Arquitectura de aplicación en <a href="https://developer.android.com/jetpack/docs/guide" target="_blank">https://developer.android.com/jetpack/docs/guide</a></p>
 </aside>
 

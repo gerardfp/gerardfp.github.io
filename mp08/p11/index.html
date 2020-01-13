@@ -1,0 +1,178 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Firebase setup</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="mp08/p11"
+                  title="Firebase setup"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducción" duration="0">
+        
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el proyecto" duration="0">
+        <p>Selecciona &#34;<strong>Empty Activity</strong>&#34; como plantilla para la activity principal.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Connecta la app a Firebase" duration="0">
+        <aside class="special"><p>Seguiremos este tutorial: <a href="https://firebase.google.com/docs/android/setup?authuser=0#assistant" target="_blank">https://firebase.google.com/docs/android/setup?authuser=0#assistant</a></p>
+</aside>
+<ol type="1" start="1">
+<li>Selecciona <strong><code>Herramientas</code></strong><strong> &gt; </strong><strong><code>Firebase</code></strong> para abrir la ventana del <strong>Asistente</strong>.</li>
+<li>Haz clic en <strong>Authentication</strong>, y luego en &#34;<strong>Email and password authentication</strong>&#34;.</li>
+</ol>
+<p class="image-container"><img style="width: 546.00px" src="img\a8dac09c5136e57a.png"></p>
+<ol type="1" start="3">
+<li>Haz clic en &#34;<strong>Connect to Firebase</strong>&#34;<br><img style="width: 339.00px" src="img\7e9110d209d0a785.png"><br>Selecciona una cuenta de Google y haz click en <img style="width: 103.00px" src="img\304cdd79c1e465a8.png"><br><br>En la ventana que aparece haz click en &#34;<strong>Connect to Firebase</strong>&#34;<br><br><img style="width: 673.00px" src="img\18cbdf472194f10.png"></li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Añade la Autenticacion con Firebase" duration="0">
+        <ol type="1" start="1">
+<li>Haz clic en &#34;<strong>Add Firebase Authentication to your app</strong>&#34;<br><img style="width: 408.00px" src="img\3e2aed1459a22f33.png"></li>
+</ol>
+<p>Haz clic en &#34;<strong>Accept changes</strong>&#34;</p>
+<p class="image-container"><img style="width: 630.00px" src="img\a08c10e3b6236e96.png"></p>
+<ol type="1" start="2">
+<li>Ve a la Consola de Firebase: <a href="https://console.firebase.google.com" target="_blank">https://console.firebase.google.com</a> </li>
+</ol>
+<p>Accede al proyecto<br><img style="width: 308.00px" src="img\685bc69ddb77cba0.png"></p>
+<ol type="1" start="3">
+<li>Ve al apartado &#34;<strong>Authentication</strong>&#34; <img style="width: 245.00px" src="img\86215678c582fd98.png"><br></li>
+<li>Haz clic en &#34;<strong>Setup sign-in method</strong>&#34; <img style="width: 191.00px" src="img\12a32cc1f08159d7.png"></li>
+<li>Activa &#34;Email/Password&#34; y &#34;Google&#34;<br><img style="width: 736.40px" src="img\81147dd7fba370f0.png"><br><img style="width: 736.40px" src="img\34207a9846fbf4b.png"></li>
+<li>Añade la siguiente dependencia en el archivo <code>build.gradle (Module: app)</code><br></li>
+</ol>
+<p><code>implementation </code><strong><code>&#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code></strong></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Añade la base de datos Firestore" duration="0">
+        <ol type="1" start="1">
+<li>Selecciona &#34;<strong>Firestore</strong>&#34; en el Assistente y haz clic en &#34;Read and write documents with Cloud Firestore&#34;<br><img style="width: 446.00px" src="img\45c79847bfa5818.png"></li>
+<li>Haz clic en &#34;<strong>Add Cloud Firestore to your app</strong>&#34;<br><img style="width: 336.00px" src="img\142c40811e0239e9.png"><br>Haz clic en &#34;<strong>Accept Changes</strong>&#34;<br><img style="width: 632.00px" src="img\a990e58323b963ca.png"></li>
+<li>Ve a la Consola de Firebase: <a href="https://console.firebase.google.com" target="_blank">https://console.firebase.google.com</a> </li>
+<li>Ve al apartado &#34;<strong>Database</strong>&#34; <img style="width: 233.00px" src="img\4e7dfecd4684ed7.png"></li>
+<li>Haz clic en &#34;<strong>Create database</strong>&#34; <img style="width: 151.00px" src="img\e099ff058fc452cb.png"></li>
+<li>Selecciona &#34;<strong>Start in production mode</strong>&#34; <img style="width: 241.00px" src="img\11cf372aae2ed15f.png"></li>
+<li>Selecciona &#34;<strong>eur3 (europe-west)</strong>&#34;<br><img style="width: 410.00px" src="img\f4a50867f08a39bb.png"></li>
+<li>Ve a la pestaña &#34;<strong>Rules</strong>&#34; <img style="width: 74.00px" src="img\5276c93b0ad56670.png"></li>
+<li>Cambia a <code>true</code> el permiso de escritura<br><img style="width: 353.00px" src="img\b72f51fcd2961fe1.png"><br>Publica los cambios en las reglas <img style="width: 97.00px" src="img\e9a8c6b1686f9861.png"></li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Añade Storage" duration="0">
+        <ol type="1" start="1">
+<li>Selecciona &#34;Storage&#34; en el Asistente y haz clic en &#34;<strong>Upload and download a file with Cloud Storage</strong>&#34;<br><img style="width: 570.00px" src="img\b3972a90cc1bb213.png"></li>
+<li>Haz clic en &#34;<strong>Add Cloud Storage to your app</strong>&#34;<br><img style="width: 337.00px" src="img\78dadec873317a2e.png"><br>Haz clic en &#34;<strong>Accept Changes</strong>&#34;<br><img style="width: 628.00px" src="img\54adf618abf1a04a.png"></li>
+<li>Activa <strong>Storage</strong> en la consola de firebase:<br><br>Ve a &#34;<strong>Storage</strong>&#34; <img style="width: 141.00px" src="img\490f08e4f7ef7812.png"><br><br>Haz clic en &#34;<strong>Get started</strong>&#34; <img style="width: 122.00px" src="img\99cd227866edaee4.png"><br><br>Haz clic en &#34;<strong>Next</strong>&#34;<img style="width: 603.00px" src="img\8433d449dc8fbeba.png"></li>
+</ol>
+<p>        Selecciona &#34;<strong>eur3 (europe-west)</strong>&#34; y haz clic en &#34;<strong>Done</strong>&#34;<img style="width: 604.00px" src="img\59fda610d33b93be.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Prueba que todo funciona" duration="0">
+        <p>Añadiremos un poco de código para probar que todo funciona...</p>
+<p>En el método <code>onCreate()</code> de la <code>MainActivity.java</code> añade el siguiente código:</p>
+<pre><code>// Authentication
+FirebaseAuth.getInstance().createUserWithEmailAndPassword(&#34;test@test.es&#34;, &#34;123456&#34;);
+
+FirebaseAuth.getInstance().signInWithEmailAndPassword(&#34;test@test.es&#34;, &#34;123456&#34;);
+
+
+// Database
+class Post {
+   public String title;
+   public String message;
+
+   Post(String t, String m){ title = t; message=m; }
+}
+
+FirebaseFirestore.getInstance().collection(&#34;posts&#34;).add(new Post(&#34;Hello&#34;, &#34;hello world!&#34;));
+
+
+// Storage
+byte[] bytes = {-1,-40,-1,-32,0,16,74,70,73,70,0,1,2,0,0,1,0,1,0,0,-1,-37,0,67,0,8,6,6,7,6,
+       5,8,7,7,7,9,9,8,10,12,20,13,12,11,11,12,25,18,19,15,20,29,26,31,30,29,26,28,28,32,
+       36,46,39,32,34,44,35,28,28,40,55,41,44,48,49,52,52,52,31,39,57,61,56,50,60,46,51,52,
+       50,-1,-37,0,67,1,9,9,9,12,11,12,24,13,13,24,50,33,28,33,50,50,50,50,50,50,50,50,50,
+       50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,
+       50,50,50,50,50,50,50,50,50,50,50,50,50,-1,-64,0,17,8,0,15,0,15,3,1,34,0,2,17,1,3,17,
+       1,-1,-60,0,31,0,0,1,5,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,2,3,4,5,6,7,8,9,10,11,-1,-60,0,
+       -75,16,0,2,1,3,3,2,4,3,5,5,4,4,0,0,1,125,1,2,3,0,4,17,5,18,33,49,65,6,19,81,97,7,34,
+       113,20,50,-127,-111,-95,8,35,66,-79,-63,21,82,-47,-16,36,51,98,114,-126,9,10,22,23,
+       24,25,26,37,38,39,40,41,42,52,53,54,55,56,57,58,67,68,69,70,71,72,73,74,83,84,85,86,
+       87,88,89,90,99,100,101,102,103,104,105,106,115,116,117,118,119,120,121,122,-125,
+       -124,-123,-122,-121,-120,-119,-118,-110,-109,-108,-107,-106,-105,-104,-103,-102,-94,
+       -93,-92,-91,-90,-89,-88,-87,-86,-78,-77,-76,-75,-74,-73,-72,-71,-70,-62,-61,-60,-59,
+       -58,-57,-56,-55,-54,-46,-45,-44,-43,-42,-41,-40,-39,-38,-31,-30,-29,-28,-27,-26,-25,
+       -24,-23,-22,-15,-14,-13,-12,-11,-10,-9,-8,-7,-6,-1,-60,0,31,1,0,3,1,1,1,1,1,1,1,1,1,
+       0,0,0,0,0,0,1,2,3,4,5,6,7,8,9,10,11,-1,-60,0,-75,17,0,2,1,2,4,4,3,4,7,5,4,4,0,1,2,
+       119,0,1,2,3,17,4,5,33,49,6,18,65,81,7,97,113,19,34,50,-127,8,20,66,-111,-95,-79,-63,
+       9,35,51,82,-16,21,98,114,-47,10,22,36,52,-31,37,-15,23,24,25,26,38,39,40,41,42,53,
+       54,55,56,57,58,67,68,69,70,71,72,73,74,83,84,85,86,87,88,89,90,99,100,101,102,103,
+       104,105,106,115,116,117,118,119,120,121,122,-126,-125,-124,-123,-122,-121,-120,-119,
+       -118,-110,-109,-108,-107,-106,-105,-104,-103,-102,-94,-93,-92,-91,-90,-89,-88,-87,
+       -86,-78,-77,-76,-75,-74,-73,-72,-71,-70,-62,-61,-60,-59,-58,-57,-56,-55,-54,-46,-45,
+       -44,-43,-42,-41,-40,-39,-38,-30,-29,-28,-27,-26,-25,-24,-23,-22,-14,-13,-12,-11,-10,
+       -9,-8,-7,-6,-1,-38,0,12,3,1,0,2,17,3,17,0,63,0,118,-85,-29,-117,29,93,87,82,-41,-76,
+       109,66,-14,11,-101,-77,5,-115,-101,121,50,71,-126,-85,36,91,109,-4,-45,-105,-14,-92,
+       -116,-77,-19,36,52,-123,119,0,66,-119,108,62,36,105,-2,19,-66,-123,-19,116,-19,70,
+       29,52,-38,-91,-35,-35,-110,60,47,28,118,-14,15,-35,-68,113,-119,113,19,-105,120,-55,
+       81,-73,43,35,51,41,59,72,-46,-15,61,-124,30,6,22,-9,23,105,101,109,111,4,-98,69,
+       -122,-83,53,-97,-38,54,68,119,-108,-73,-62,-80,-107,89,87,35,119,42,85,114,78,-25,
+       42,38,-16,-65,-123,-20,-4,101,100,-9,51,91,91,-51,-95,-33,74,102,-69,-71,-118,1,108,
+       53,2,-91,-107,81,85,91,-51,80,-78,2,-20,-50,65,-36,-72,27,-107,-50,-33,30,10,127,89,
+       -65,43,-65,-85,-73,-7,109,-78,-36,-19,110,62,-53,117,111,77,79,-1,-39};
+
+FirebaseStorage.getInstance().getReference(&#34;emoji.jpg&#34;).putBytes(bytes);
+</code></pre>
+<p>Comprueba que se ha creado el usuario:</p>
+<p class="image-container"><img style="width: 736.40px" src="img\b2877ca8481fa114.png"></p>
+<p>Comprueba que se ha añadido el <code>Post</code> en la base de datos:</p>
+<p class="image-container"><img style="width: 736.40px" src="img\41cfcddd3fbc18e6.png"></p>
+<p>Comprueba que se ha subido el fichero <code>emoji.jpg</code>:</p>
+<p class="image-container"><img style="width: 736.40px" src="img\a2c1f1e8cdf354c2.png"></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>

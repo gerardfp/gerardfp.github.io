@@ -3,12 +3,12 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2019-11-27T12:39:47Z",
-  "id": "mp08/p6",
+  "updated": "2020-01-13T09:28:24Z",
+  "id": "mp08/p11",
   "duration": 0,
-  "title": "ViewModel",
-  "summary": "ViewModel",
-  "source": "1CQ7PO9znu6gMdHYVdfACzCRjuGjytnfbsU1m1Sn6WEk",
+  "title": "Firebase setup",
+  "summary": "Firebase setup",
+  "source": "1ANcSRYRGkcPcYtTy5H3n2oEOzRLU-qT4QLWyyGjhWCY",
   "theme": "android",
   "status": [
     "draft"
@@ -18,5 +18,5 @@
   ],
   "tags": [],
   "feedback": "https://github.com/gerardfp",
-  "url": "mp08/p6"
+  "url": "mp08/p11"
 }
