@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-01-20T10:06:04Z",
+  "id": "mp08/p12",
+  "duration": 0,
+  "title": "Firebase auth",
+  "summary": "Firebase auth",
+  "source": "1UqgATdSEAgeUMBjKTWkblU7tweHQzBjRHuHg_os9zDQ",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp08/p12"
+}

@@ -1,0 +1,307 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Firebase auth</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="mp08/p12"
+                  title="Firebase auth"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducción" duration="0">
+        <p class="image-container"><img style="width: 232.00px" src="img\751a2e683b31ba1e.png"></p>
+<p>Firebase es una plataforma que provee una serie de servicios para el desarrollo de apps.</p>
+<p>Entre estos servicios encontramos:</p>
+<ul>
+<li>Firebase Analytics: análisis del uso de nuestras apps</li>
+<li>Firebase Cloud Messaging: mensajes y notificaciones para iOS y Android</li>
+<li><strong>Firebase Auth: autenticacion de usuarios</strong></li>
+<li>Firebase Realtime Database: base de datos en tiempo real</li>
+<li><strong>Cloud Firestore: base de datos NoSQL</strong></li>
+<li><strong>Firebase Storage: almacenamiento de ficheros</strong></li>
+<li>Firebase Hosting: hosting de páginas web</li>
+<li>ML Kit: funciones de machine learning</li>
+<li>Crashlytics: análisis de errores en la app</li>
+<li>Performance: análisis del rendimiento de la app</li>
+<li>Firebase Test Lab: testeo de la app</li>
+<li>Admob: integración de anuncios en la app</li>
+<li>Firebase Dynamic Links: enlaces para instalar la app, con información preintroducida</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el proyecto" duration="0">
+        <p>Selecciona &#34;<strong>Navigation Drawer Activity</strong>&#34; como plantilla para la activity principal.</p>
+<p class="image-container"><img style="width: 212.00px" src="img\c1ab005cc9375245.png"></p>
+<h2 is-upgraded>Elimina el <em>Boilerplate</em> generado por el asistente:</h2>
+<ol type="1" start="1">
+<li>Elimina el package <code>ui</code>:<br><img style="width: 416.00px" src="img\52145a86bbbef209.gif"></li>
+<li>Borra las Top-Level destinations del fichero <code>MainActivity.java</code>:<br><img style="width: 511.00px" src="img\5e01ee9fcbacf5fc.gif"></li>
+<li>Borra los archivos de layout de los fragments:<br><img style="width: 216.00px" src="img\2e1f13eec7c52b5b.gif"></li>
+<li>Borra todos los <code>item</code> del fichero <code>menu/activity_main_drawer.xml</code></li>
+<li>Borra todos los fragment del fichero <code>navigation/mobile_navigation.xml</code><br>Borra tambien el atributo <code>app:startDestination=&#34;@+id/nav_home&#34;</code></li>
+</ol>
+<h2 is-upgraded>Connecta la app a Firebase</h2>
+<ol type="1" start="1">
+<li>Selecciona <strong><code>Herramientas</code></strong><strong> &gt; </strong><strong><code>Firebase</code></strong> para abrir la ventana del <strong>Asistente</strong>.</li>
+<li>Haz clic en <strong>Authentication</strong>, y luego en &#34;<strong>Email and password authentication</strong>&#34;.<br></li>
+</ol>
+<p class="image-container"><img style="width: 546.00px" src="img\a8dac09c5136e57a.png"></p>
+<ol type="1" start="3">
+<li>Haz clic en &#34;<strong>Connect to Firebase</strong>&#34;<br><br><img style="width: 339.00px" src="img\7e9110d209d0a785.png"><br>Selecciona una cuenta de Google y haz click en <img style="width: 103.00px" src="img\304cdd79c1e465a8.png"><br><br>En la ventana que aparece selecciona un proyecto existente o crea uno nuevo. Haz click en &#34;<strong>Connect to Firebase</strong>&#34;<br><br><img style="width: 673.00px" src="img\18cbdf472194f10.png"></li>
+</ol>
+<h2 is-upgraded>Añade la Autenticacion con Firebase</h2>
+<ol type="1" start="1">
+<li>Haz clic en &#34;<strong>Add Firebase Authentication to your app</strong>&#34;<br><br><img style="width: 408.00px" src="img\3e2aed1459a22f33.png"></li>
+</ol>
+<p>Haz clic en &#34;<strong>Accept changes</strong>&#34;</p>
+<p class="image-container"><img style="width: 630.00px" src="img\a08c10e3b6236e96.png"></p>
+<ol type="1" start="2">
+<li>Ve a la Consola de Firebase: <a href="https://console.firebase.google.com" target="_blank">https://console.firebase.google.com</a> </li>
+</ol>
+<p>Accede al proyecto<br><img style="width: 308.00px" src="img\685bc69ddb77cba0.png"><br></p>
+<ol type="1" start="3">
+<li>Ve al apartado &#34;<strong>Authentication</strong>&#34; <br><br><img style="width: 245.00px" src="img\86215678c582fd98.png"><br></li>
+<li>Haz clic en &#34;<strong>Setup sign-in method</strong>&#34;<br><br> <img style="width: 191.00px" src="img\12a32cc1f08159d7.png"><br></li>
+<li>Activa &#34;Email/Password&#34; y &#34;Google&#34;<br><br><img style="width: 736.40px" src="img\81147dd7fba370f0.png"><br><img style="width: 736.40px" src="img\34207a9846fbf4b.png"></li>
+<li>Añade la siguiente dependencia en el archivo <code>build.gradle (Module: app)<br></code></li>
+</ol>
+<pre><code>implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code></pre>
+<p>Las dependencias del fichero build.gradle (Module: app) deberían quedar así:</p>
+<pre><code>implementation fileTree(dir: &#39;libs&#39;, include: [&#39;*.jar&#39;])
+implementation &#39;androidx.appcompat:appcompat:1.1.0&#39;
+implementation &#39;androidx.legacy:legacy-support-v4:1.0.0&#39;
+implementation &#39;com.google.android.material:material:1.0.0&#39;
+implementation &#39;androidx.constraintlayout:constraintlayout:1.1.3&#39;
+implementation &#39;androidx.navigation:navigation-fragment:2.1.0&#39;
+implementation &#39;androidx.navigation:navigation-ui:2.1.0&#39;
+implementation &#39;androidx.lifecycle:lifecycle-extensions:2.1.0&#39;
+implementation &#39;com.google.firebase:firebase-auth:19.2.0&#39;
+testImplementation &#39;junit:junit:4.12&#39;
+androidTestImplementation &#39;androidx.test.ext:junit:1.1.1&#39;
+androidTestImplementation &#39;androidx.test.espresso:espresso-core:3.2.0&#39;
+implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Diseño de la Interfaz de Usuario" duration="0">
+        <h2 is-upgraded>Destinaciones:</h2>
+<p>SignInFragment, SignOutFragment, RegisterFragment, ProfileFragment y HomeFragment</p>
+<p class="image-container"><img style="width: 492.00px" src="img\a353d84bc864c51d.png"></p>
+<h2 is-upgraded>Archivos de Layout:</h2>
+<p><code>fragment_sign_in.xml</code>:</p>
+<p class="image-container"><img style="width: 281.00px" src="img\7010b64d6984ed93.png"></p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   tools:context=&#34;.SignInFragment&#34;&gt;
+
+   &lt;LinearLayout
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:orientation=&#34;vertical&#34;
+       app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
+       app:layout_constraintEnd_toEndOf=&#34;parent&#34;
+       app:layout_constraintStart_toStartOf=&#34;parent&#34;
+       app:layout_constraintTop_toTopOf=&#34;parent&#34;
+       android:gravity=&#34;center_vertical|center_horizontal&#34;&gt;
+
+       &lt;TextView
+           android:id=&#34;@+id/textView2&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:text=&#34;Login with email/password&#34;/&gt;
+
+       &lt;EditText
+           android:id=&#34;@+id/emailEditText&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:hint=&#34;Email&#34;/&gt;
+
+       &lt;EditText
+           android:id=&#34;@+id/passwordEditText&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:hint=&#34;Password&#34;/&gt;
+
+       &lt;TextView
+           android:id=&#34;@+id/gotoCreateAccountTextView&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:text=&#34;Create account here&#34;/&gt;
+
+       &lt;View
+           android:id=&#34;@+id/view&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;1dp&#34;
+           android:layout_margin=&#34;48dp&#34;
+           android:background=&#34;@color/colorPrimaryDark&#34;/&gt;
+
+       &lt;TextView
+           android:id=&#34;@+id/textView3&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:text=&#34;Login with your Google account&#34;/&gt;
+
+       &lt;com.google.android.gms.common.SignInButton
+           android:id=&#34;@+id/signInButton&#34;
+           android:layout_width=&#34;wrap_content&#34;
+           android:layout_height=&#34;wrap_content&#34;/&gt;
+      
+   &lt;/LinearLayout&gt;
+  
+
+   &lt;ProgressBar
+       android:id=&#34;@+id/signInProgressBar&#34;
+       android:layout_width=&#34;wrap_content&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
+       app:layout_constraintEnd_toEndOf=&#34;parent&#34;
+       app:layout_constraintStart_toStartOf=&#34;parent&#34;
+       app:layout_constraintTop_toTopOf=&#34;parent&#34; /&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre>
+<p><code>fragment_register.xml</code>:</p>
+<p class="image-container"><img style="width: 283.00px" src="img\e2a2323f62a363a2.png"></p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   tools:context=&#34;.RegisterFragment&#34;
+   android:orientation=&#34;vertical&#34;&gt;
+
+   &lt;EditText
+       android:id=&#34;@+id/emailEditText&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:hint=&#34;Email&#34;/&gt;
+
+   &lt;EditText
+       android:id=&#34;@+id/passwordEditText&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:hint=&#34;Password&#34;/&gt;
+
+   &lt;Button
+       android:id=&#34;@+id/registerButton&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:text=&#34;Create account&#34;/&gt;
+
+&lt;/LinearLayout&gt;</code></pre>
+<p><code>fragment_profile.xml</code>:<br></p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;TextView xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   android:id=&#34;@+id/profileTextView&#34;&gt;
+&lt;/TextView&gt;</code></pre>
+<h2 is-upgraded>Menu drawer:</h2>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;menu xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   tools:showIn=&#34;navigation_view&#34;&gt;
+
+   &lt;group android:checkableBehavior=&#34;single&#34;&gt;
+       &lt;item
+           android:id=&#34;@+id/homeFragment&#34;
+           android:title=&#34;@string/menu_home&#34; /&gt;
+       &lt;item
+           android:id=&#34;@+id/profileFragment&#34;
+           android:title=&#34;@string/menu_home&#34; /&gt;
+       &lt;item
+           android:id=&#34;@+id/signOutFragment&#34;
+           android:title=&#34;@string/menu_home&#34; /&gt;
+   &lt;/group&gt;
+
+&lt;/menu&gt;</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Navegacion" duration="0">
+        <p>Añadir el NavController en cada fragment:</p>
+<pre><code>public class XXXXXXFragment extends Fragment {
+
+   NavController navController;   // &lt;-----------------
+
+   public XXXXXXFragment() {}
+
+   @Override
+   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+       return inflater.inflate(R.layout.fragment_XXXXXX, container, false);
+   }
+
+   @Override
+   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+       super.onViewCreated(view, savedInstanceState);
+
+       navController = Navigation.findNavController(view);  // &lt;-----------------
+   }
+}</code></pre>
+<p><code>SignInFragment.java</code>:</p>
+<p>Hacer que el enlace a &#34;Create account here&#34; lleve al RegisterFragment</p>
+<pre><code>view.findViewById(R.id.gotoCreateAccountTextView).setOnClickListener(new View.OnClickListener() {
+   @Override
+   public void onClick(View view) {
+       navController.navigate(R.id.registerFragment);
+   }
+});</code></pre>
+<p><code>activity_main_drawer.xml</code>:</p>
+<p>Añadir los siguientes items al menu:</p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;menu xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   tools:showIn=&#34;navigation_view&#34;&gt;
+
+   &lt;group android:checkableBehavior=&#34;single&#34;&gt;
+       &lt;item
+           android:id=&#34;@+id/homeFragment&#34;
+           android:title=&#34;@string/menu_home&#34; /&gt;
+       &lt;item
+           android:id=&#34;@+id/profileFragment&#34;
+           android:title=&#34;@string/menu_home&#34; /&gt;
+       &lt;item
+           android:id=&#34;@+id/signOutFragment&#34;
+           android:title=&#34;@string/menu_home&#34; /&gt;
+   &lt;/group&gt;
+
+&lt;/menu&gt;</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>
