@@ -266,12 +266,26 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
 }</code></pre>
 <p><code>SignInFragment.java</code>:</p>
 <p>Hacer que el enlace a &#34;Create account here&#34; lleve al RegisterFragment</p>
-<pre><code>view.findViewById(R.id.gotoCreateAccountTextView).setOnClickListener(new View.OnClickListener() {
+<pre><code>public class SignInFragment extends Fragment {
+
+   NavController navController;
+
+// ...
+
    @Override
-   public void onClick(View view) {
-       navController.navigate(R.id.registerFragment);
+   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+       super.onViewCreated(view, savedInstanceState);
+
+       navController = Navigation.findNavController(view);
+
+       view.findViewById(R.id.gotoCreateAccountTextView).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               navController.navigate(R.id.registerFragment);
+           }
+       });
    }
-});</code></pre>
+}</code></pre>
 <p><code>activity_main_drawer.xml</code>:</p>
 <p>Añadir los siguientes items al menu:</p>
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
@@ -292,6 +306,52 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
    &lt;/group&gt;
 
 &lt;/menu&gt;</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Registro con email/password" duration="0">
+        <p>Guardar los EditText como variables de clase:</p>
+<pre><code>public class RegisterFragment extends Fragment {
+   
+   private EditText emailEditText, passwordEditText;
+
+   // ...
+   
+   @Override
+   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+       
+       // ...
+
+       emailEditText = view.findViewById(R.id.emailEditText);
+       passwordEditText = view.findViewById(R.id.passwordEditText);
+   }
+}</code></pre>
+<p>Añadir el listener al boton &#34;CREATE ACCOUNT&#34;:</p>
+<pre><code>public class RegisterFragment extends Fragment {
+   private EditText emailEditText, passwordEditText;
+
+       // ...
+
+   @Override
+   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+       // ...
+
+       emailEditText = view.findViewById(R.id.emailEditText);
+       passwordEditText = view.findViewById(R.id.passwordEditText);
+
+       view.findViewById(R.id.registerButton).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               crearCuenta(emailEditText.getText().toString(), passwordEditText.getText().toString());
+           }
+       });
+   }
+
+   private void crearCuenta(String email, String password) {
+
+   }
+}</code></pre>
 
 
       </google-codelab-step>
