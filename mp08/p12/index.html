@@ -194,11 +194,24 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
 &lt;/LinearLayout&gt;</code></pre>
 <p><code>fragment_profile.xml</code>:<br></p>
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;TextView xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+&lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    android:layout_width=&#34;match_parent&#34;
    android:layout_height=&#34;match_parent&#34;
-   android:id=&#34;@+id/profileTextView&#34;&gt;
-&lt;/TextView&gt;</code></pre>
+   android:orientation=&#34;vertical&#34;&gt;
+
+   &lt;ImageView
+       android:id=&#34;@+id/photoImageView&#34;
+       android:layout_width=&#34;254dp&#34;
+       android:layout_height=&#34;wrap_content&#34;/&gt;
+   &lt;TextView
+       android:id=&#34;@+id/displayNameTextView&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;/&gt;
+   &lt;TextView
+       android:id=&#34;@+id/emailTextView&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34; /&gt;
+&lt;/LinearLayout&gt;</code></pre>
 <h2 is-upgraded>Menu drawer:</h2>
 <pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;menu xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
@@ -208,13 +221,13 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
    &lt;group android:checkableBehavior=&#34;single&#34;&gt;
        &lt;item
            android:id=&#34;@+id/homeFragment&#34;
-           android:title=&#34;@string/menu_home&#34; /&gt;
+           android:title=&#34;Home&#34; /&gt;
        &lt;item
            android:id=&#34;@+id/profileFragment&#34;
-           android:title=&#34;@string/menu_home&#34; /&gt;
+           android:title=&#34;Perfil&#34; /&gt;
        &lt;item
            android:id=&#34;@+id/signOutFragment&#34;
-           android:title=&#34;@string/menu_home&#34; /&gt;
+           android:title=&#34;Cerrar sesion&#34; /&gt;
    &lt;/group&gt;
 
 &lt;/menu&gt;</code></pre>
@@ -321,7 +334,7 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
        registerButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               crearCuenta(emailEditText.getText().toString(), passwordEditText.getText().toString());
+               crearCuenta();
            }
        });
    }
