@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-01-23T13:08:16Z",
+  "id": "mp08/p13",
+  "duration": 0,
+  "title": "Firebase Firestore",
+  "summary": "Firebase firestore",
+  "source": "1gGz-klrda5N2_dLZXWozqpAp-bfOKe3x2K4OyL_8b9k",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp08/p13"
+}
