@@ -266,9 +266,9 @@
        this.content = content;
    }
 }</code></pre>
-<p>En el método <code>publicar()</code> primero nos aseguramos de que se ha escrito algo, luego desactivamos el botón para que el usuario impaciente no le de dos veces y luego lo guardamos en la base de datos:</p>
+<p>En el método <code>publicar()</code> primero nos aseguramos de que se ha escrito algo, luego desactivamos el botón para que el usuario impaciente no le de dos veces, y luego lo guardamos en la base de datos:</p>
 <pre><code>private void publicar() {
-   final String postContent = postConentEditText.getText().toString();
+   String postContent = postConentEditText.getText().toString();
 
    if(TextUtils.isEmpty(postContent)){
        postConentEditText.setError(&#34;Required&#34;);
@@ -279,7 +279,7 @@
 
    guardarEnFirestore(postContent);
 }</code></pre>
-<p>El método <code>guardarEnFirestore()</code> primero obtiene el usuario que está logueado, luego crea un objeto Post con los datos necesarios, y por ultimo lo guarda en la colección <code>posts</code>. Cuando Firestore haya terminado de guardar el documento, navegamos atrás al HomeFragment.</p>
+<p>El método <code>guardarEnFirestore()</code> primero obtiene el usuario que está logueado, luego crea un objeto <code>Post</code> con los datos necesarios, y por ultimo lo guarda en la colección <code>posts</code>. Cuando Firestore haya terminado de guardar el documento, navegamos atrás al HomeFragment.</p>
 <pre><code>private void guardarEnFirestore(String postContent) {
    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -303,9 +303,7 @@
       <google-codelab-step label="Mostrar la lista de posts" duration="0">
         <p>El último paso será mostrar la colección de posts en un RecyclerView. Para ello, usaremos el Adaptador de la librería <a href="https://github.com/firebase/FirebaseUI-Android" target="_blank">FirebaseUI</a>. Añade la siguiente dependencia:</p>
 <pre><code>implementation &#39;com.firebaseui:firebase-ui-firestore:6.2.0&#39;</code></pre>
-<p>Comprueba también que tienes la dependencia </p>
-<pre>Glide</pre>
-<p>, ya que la necesitaremos para mostrar las fotos de los usuarios:</p>
+<p>Comprueba también que tienes la dependencia <a href="https://github.com/bumptech/glide" target="_blank">Glide</a>, ya que la necesitaremos para mostrar las fotos de los usuarios:</p>
 <pre><code>implementation &#39;com.github.bumptech.glide:glide:4.11.0&#39;
 annotationProcessor &#39;com.github.bumptech.glide:compiler:4.11.0&#39;</code></pre>
 <h2 is-upgraded>Clase PostViewHolder</h2>
@@ -322,10 +320,10 @@ annotationProcessor &#39;com.github.bumptech.glide:compiler:4.11.0&#39;</code></
        contentTextView = itemView.findViewById(R.id.contentTextView);
    }
 }</code></pre>
-<aside class="special"><p>Esta clase la podrías crear donde prefieras (un nuevo fichero, dentro de la clase HomeFragment, etc.), sin embargo esta vez la crearemos dentro de la clase <code>PostsAdapter</code> que programaremos a continuación.</p>
+<aside class="special"><p>Esta clase la podrías crear donde prefieras (un nuevo fichero, dentro de la clase HomeFragment, etc.), sin embargo esta vez la crearemos dentro de la clase <code>PostsAdapter</code>, que programaremos a continuación.</p>
 </aside>
 <h2 is-upgraded>Clase PostsAdapter</h2>
-<p>Haremos uso de la clase <code>FirestoreRecyclerAdapter</code> que hemos instalado anteriormente. </p>
+<p>Haremos uso de la clase <code>FirestoreRecyclerAdapter</code> que acabamos de instalar. </p>
 <p>El primer genérico es la clase de objetos correspondiente a los documentos que se van a mostrar, es decir, la clase <code>Post</code>. El segundo es la clase del ViewHolder.</p>
 <p class="image-container"><img style="width: 736.40px" src="img\99cfaf67072aeee5.gif"></p>
 <p>En el método <code>onCreateViewHolder()</code> retornamos el <code>PostViewHolder</code>, como siempre.</p>
@@ -362,7 +360,7 @@ annotationProcessor &#39;com.github.bumptech.glide:compiler:4.11.0&#39;</code></
 }</code></pre>
 <h2 is-upgraded>Establecer el Adaptador en el RecyclerView</h2>
 <p>Ya solo queda crear el objeto <code>PostsAdapter</code> y decirle al RecyclerView que lo use para rellenarse:</p>
-<p>Habrás notado que en el constructor del PostsAdapter hay que pasarle un objeto de clase FirestoreRecyclerOptions. En este objeto es precisamente donde se define la consulta que devuelve los datos con los que hay que rellenar el RecyclerView.</p>
+<p>Habrás notado que en el <strong>constructor</strong> del <code>PostsAdapter</code> hay que pasarle un objeto de clase <code>FirestoreRecyclerOptions</code>. En este objeto es precisamente donde se define la consulta que devuelve los datos con los que hay que rellenar el RecyclerView.</p>
 <p>La forma de hacerlo es la siguiente:</p>
 <pre><code>public class HomeFragment extends Fragment {
 
