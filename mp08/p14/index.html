@@ -1,0 +1,130 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Flutter Setup</title>
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../elements/codelab.html">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <style is="custom-style">
+    body {
+      font-family: "Roboto",sans-serif;
+      background: var(--google-codelab-background, #F8F9FA);
+    }
+  </style>
+  
+</head>
+<body unresolved class="fullbleed">
+
+  <google-codelab title="Flutter Setup"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducción" duration="0">
+        <p><img style="max-width: 646.00px" src="img/15d5155a30279bbf.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el proyecto Flutter" duration="0">
+        <p>Instala el plugin &#34;Flutter&#34;</p>
+<p><img style="max-width: 347.00px" src="img/55e4c4b5d03ab355.png"></p>
+<p>Crea un nuevo proyecto Flutter</p>
+<p><img style="max-width: 216.00px" src="img/26a0c543b3401244.png"></p>
+<p>Instala el SDK de Flutter</p>
+<p><img style="max-width: 521.00px" src="img/c505d9b7c07fea5b.png"></p>
+<h2>Crea un proyecto Firebase</h2>
+<ol type="1" start="1">
+<li>Accede a la consola de Firebase <a href="https://console.firebase.google.com" target="_blank">https://console.firebase.google.com</a><br></li>
+<li>Selecciona o crea un proyecto<br><img style="max-width: 310.00px" src="img/70c3876aa670ea61.png"></li>
+</ol>
+<p><img style="max-width: 356.00px" src="img/dda60682c34de293.png"></p>
+<ol type="1" start="3">
+<li>Crea tambien la base de datos &#34;Cloud Firestore&#34; y establece las reglas a <code>allow read, write;</code><br><br><br><br></li>
+</ol>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Connecta la app a Firebase" duration="0">
+        <p>Selecciona &#34;Android&#34;</p>
+<p><img style="max-width: 374.00px" src="img/45a7eed8ca26f8a1.png"></p>
+<ol type="1" start="1">
+<li>Registra la App<br>Encontrarás el &#34;<strong>package name</strong>&#34; en el fichero <code>AndroidManifest.xml</code></li>
+</ol>
+<p><img style="max-width: 287.00px" src="img/953e9d55e6788ea4.png"></p>
+<p><img style="max-width: 487.00px" src="img/5041eced60fa818.png"></p>
+<p>El <strong>certificado SHA-1</strong> se obtiene con el siguiente comando:</p>
+<pre>keytool -list -v -alias androiddebugkey -keystore ~/.android/debug.keystore</pre>
+<p><img style="max-width: 736.40px" src="img/128907cca10f445d.png"></p>
+<ol type="1" start="2">
+<li>Descarga el fichero google-services.json<br><img style="max-width: 270.00px" src="img/6d61a3bb5ad85d92.png"></li>
+</ol>
+<p>Arrastralo a la carpeta <code>flutter_app/android/app</code><br><br><img style="max-width: 281.00px" src="img/91d1998d9e5f43c.png"><br></p>
+<ol type="1" start="3">
+<li>Añade la siguiente linea al fichero <code>flutter_app/android/build.gradle</code>, en el apartado <code>buildscript &gt; dependencies</code><br></li>
+</ol>
+<pre>classpath &#39;com.google.gms:google-services:4.3.3&#39;</pre>
+<p><img style="max-width: 736.40px" src="img/1d11e31453164df6.png"><br></p>
+<ol type="1" start="4">
+<li>Añade la siguiente linea al fichero <code>flutter_app/android/app/build.gradle</code>:, debajo de la línea <code>apply plugin: &#39;com.android.application&#39;</code>:<br></li>
+</ol>
+<pre>apply plugin: &#39;com.google.gms.google-services&#39;</pre>
+<p><img style="max-width: 736.40px" src="img/fe6abcbab8f762e1.png"><br></p>
+<ol type="1" start="5">
+<li>Establece el minSdkVersion a un minimo de 21:<br><img style="max-width: 615.00px" src="img/277f4ccdd25dd116.png"></li>
+<li>Añade el plugin &#34;<strong>cloud_firestore</strong>&#34; en el fichero <code>flutter_app/pubspec.yaml</code>, en el apartado <code>dependendencies</code>:<br></li>
+</ol>
+<pre>cloud_firestore: ^0.13.3</pre>
+<p><img style="max-width: 467.00px" src="img/29f78ca3b9c4025a.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Prueba la app" duration="0">
+        <p><br>Añadiremos la siguiente línea de codigo para probar que se guardan datos en la base de datos:</p>
+<p>En el fichero <code>flutter_app/lib/main.dart</code> añade esta línea al método <code>_incrementCounter()</code>:</p>
+<pre><code>Firestore.instance.collection(&#34;counters&#34;).document(&#34;counterA&#34;).setData({&#39;clicks&#39;: _counter});</code></pre>
+<p><img style="max-width: 736.40px" src="img/71e5dd255c000dcc.png"></p>
+<p>Comprueba que cuando haces click en el botón<img style="max-width: 56.00px" src="img/a4adf57997ee489a.png"> se actualiza la base de datos:</p>
+<p><img style="max-width: 536.00px" src="img/fd99296ca581a7c4.png"></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-49880327-14', 'auto');
+
+    (function() {
+      var gaCodelab = '';
+      if (gaCodelab) {
+        ga('create', gaCodelab, 'auto', {name: 'codelab'});
+      }
+
+      var gaView;
+      var parts = location.search.substring(1).split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var param = parts[i].split('=');
+        if (param[0] === 'viewga') {
+          gaView = param[1];
+          break;
+        }
+      }
+      if (gaView && gaView !== gaCodelab) {
+        ga('create', gaView, 'auto', {name: 'view'});
+      }
+    })();
+  </script>
+
+</body>
+</html>
