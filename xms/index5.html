@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<style>
+    body {
+        margin: 0;
+    }
+    .wrapper {
+        display: grid;
+        grid-template-areas: "s1" "s2" "s3";
+        grid-template-rows: 2rem auto 2rem;        
+    }
+    .section1 {
+        grid-area: s1;
+        background-color: #F44336;
+    }
+    .section2 {
+        grid-area: s2;
+        background-color: #607D8B;
+    }
+    .section3 {
+        grid-area: s3;
+        background-color: #4CAF50;
+    }
+    .wrapper2 {
+        display: grid;
+        grid-gap: 10px;
+    }
+    .item {
+        background-color: #E91E63;
+        width: 100px;
+        height: 100px;
+    }
+</style>
+
+<div class="wrapper">
+    <div class="section1">Lorem ipsum dolor sit amet</div>
+    <div class="section2">
+        <div class="wrapper2">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+    </div>
+    <div class="section3">Lorem ipsum dolor sit amet</div>
+    
+</div>
