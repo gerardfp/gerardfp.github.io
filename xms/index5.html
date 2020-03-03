@@ -1,54 +1,77 @@
 <!DOCTYPE html>
 
 <style>
+    html {
+        height: 100%;
+    }
+
     body {
         margin: 0;
+        height: 100%;
     }
     .wrapper {
         display: grid;
-        grid-template-areas: "s1" "s2" "s3";
-        grid-template-rows: 2rem auto 2rem;        
+        grid-template-areas: 
+        "s1 s1 s1 s2"
+        "s3 s4 s5 s2"
+        "s6 s7 s8 s8"
+        ;
+        height: 100%;
+        grid-template-rows: 20% 20% 60%;
     }
     .section1 {
         grid-area: s1;
         background-color: #F44336;
+        width: 50%;
+        justify-self: center;
     }
     .section2 {
         grid-area: s2;
-        background-color: #607D8B;
+        background-color: #2196F3;
     }
     .section3 {
         grid-area: s3;
         background-color: #4CAF50;
+        overflow: auto;
     }
-    .wrapper2 {
-        display: grid;
-        grid-gap: 10px;
+    .section4 {
+        grid-area: s4;
+        background-color: #FFEB3B;
+        align-self: flex-start;
+        justify-self: flex-start;
     }
-    .item {
-        background-color: #E91E63;
-        width: 100px;
-        height: 100px;
+    .section5 {
+        grid-area: s5;
+        background-color: #9C27B0;
+        align-self: end;
+        justify-self: end;
+    }
+    .section6 {
+        grid-area: s6;
+        background-color: #009688;
+        align-self: flex-end;
+        justify-self: start;
+    }
+    .section7 {
+        grid-area: s7;
+        background-color: #FF9800;
+        align-self: center;
+    }
+    .section8 {
+        grid-area: s8;
+        background-color: #795548;
+        align-self: end;
+        justify-self: end;
     }
 </style>
 
 <div class="wrapper">
-    <div class="section1">Lorem ipsum dolor sit amet</div>
-    <div class="section2">
-        <div class="wrapper2">
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-            <div class="item"></div>
-        </div>
-    </div>
-    <div class="section3">Lorem ipsum dolor sit amet</div>
-    
+    <div class="section1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus interdum posuere lorem ipsum dolor.</div>
+    <div class="section2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus interdum posuere lorem ipsum dolor. Faucibus interdum posuere lorem ipsum dolor. Faucibus interdum posuere lorem ipsum dolor. Faucibus interdum posuere lorem ipsum dolor. Faucibus interdum posuere lorem ipsum dolor.</div>
+    <div class="section3">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus interdum posuere lorem ipsum dolor.</div>
+    <div class="section4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus interdum posuere lorem ipsum dolor.</div>
+    <div class="section5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus interdum posuere lorem ipsum dolor.</div>
+    <div class="section6">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus interdum posuere lorem ipsum dolor.</div>
+    <div class="section7">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus interdum posuere lorem ipsum dolor.</div>
+    <div class="section8">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus interdum posuere lorem ipsum dolor.</div>
 </div>
