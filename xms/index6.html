@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 
 <style>
-.wrapper {
+.explorer {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15ch, 1fr));
-    grid-gap: 2em;
+    grid-template-columns: repeat(10, 1fr);
+
+    list-style-type: none;
+    padding: 0;
 }
-.item {
-    background-color: aquamarine;
-    height: 100px;
+
+.explorer li {
+
 }
 </style>
 
-<div class="wrapper">
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-    <div class="item"></div>
-</div>
+<ul class="explorer">
+    <li><img src="archive.svg">
+    <li><img src="audio.svg">
+    <li><img src="excel.svg">
+    <li><img src="file.svg">
+    <li><img src="image.svg">
+    <li><img src="pdf.svg">
+    <li><img src="powerpoint.svg">
+    <li><img src="text.svg">
+    <li><img src="video.svg">
+    <li><img src="word.svg">
+</ul>
