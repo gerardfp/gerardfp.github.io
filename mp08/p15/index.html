@@ -52,7 +52,7 @@
 import &#39;package:flutter/material.dart&#39;;
 import &#39;package:http/http.dart&#39; as http;
 
-void main() =&gt; runApp(MyApp());
+main() =&gt; runApp(MyApp());
 
 class MyApp extends StatelessWidget {
 
@@ -78,7 +78,7 @@ class _Pantalla1State extends State&lt;Pantalla1&gt; {
  var citas = [];
 
  @override
- void initState() {
+ initState() {
    super.initState();
 
    descargarCitas();
@@ -105,7 +105,7 @@ class _Pantalla1State extends State&lt;Pantalla1&gt; {
 }</code></pre>
 <p>En la <code>Pantalla1</code> descargamos las citas y las mostramos en un ListView.</p>
 <p class="image-container"><img style="width: 474.00px" src="img\226787d9ad31c3a2.png"></p>
-<p>Al navegar a la <code>Pantalla2</code> le pasamos un HashMap en el parámetro <code>arguments</code>. Este HashMap tiene una clave ‘<code>argumento1</code>&#39; con el valor <code>quotes[‘ind</code>ex&#39;] (que a su vez es también un hashmap con las claves ‘<code>texto</code>&#39; y ‘<code>autor</code>&#39;)</p>
+<p>Al navegar a la <code>Pantalla2</code> le pasamos un hashmap en el parámetro <code>arguments</code>. Este HashMap tiene una clave <code>&#39;argumento1&#39;</code> con el valor <code>citas[index]</code> (que a su vez es también un hashmap con las claves <code>&#39;texto&#39;</code> y <code>&#39;autor&#39;</code>)</p>
 <p class="image-container"><img style="width: 474.00px" src="img\3791da8f4ce43c95.png"></p>
 <h2 is-upgraded>Pantalla2</h2>
 <pre><code>class Pantalla2 extends StatelessWidget {
@@ -123,12 +123,12 @@ class _Pantalla1State extends State&lt;Pantalla1&gt; {
    );
  }
 }</code></pre>
-<p>En la <code>Pantalla2</code> extraemos el hashmap con los argumentos (observa el <code>as Map</code>). Este hashmap contiene la clave <code>‘argumen</code>to1&#39; y su valor es el hashmap con el <code>‘te</code>xto&#39; y el <code>‘au</code>tor&#39;.</p>
+<p>En la <code>Pantalla2</code> extraemos el hashmap con los argumentos (observa el <code>as Map</code>). Este hashmap contiene la clave <code>&#39;argumento1&#39;</code> y su valor es el hashmap con el <code>&#39;texto&#39;</code> y el <code>&#39;autor&#39;</code>.</p>
 <p class="image-container"><img style="width: 474.00px" src="img\9fb8aaf6b3018eb4.png"></p>
-<p>Al navegar a la <code>Pantalla3</code>, esta vez le pasamos como <code>arguments</code> directamente el hashmap con el <code>‘te</code>xto&#39; y el <code>‘au</code>tor&#39;.</p>
+<p>Al navegar a la <code>Pantalla3</code>, esta vez le pasamos como <code>arguments</code> directamente el hashmap con el <code>&#39;texto&#39;</code> y el <code>&#39;autor&#39;</code>.</p>
 <p class="image-container"><img style="width: 295.70px" src="img\4e71e86dec22c6f2.png"></p>
 <h2 is-upgraded>Pantalla3</h2>
-<p>Los <code>arguments</code> que extraemos en la <code>Pantalla3</code> es directamente el hashmap con las claves <code>‘te</code>xto&#39; y <code>‘autor&#39;</code></p>
+<p>Los <code>arguments</code> que extraemos en la <code>Pantalla3</code> es directamente el hashmap con las claves <code>&#39;texto&#39;</code> y <code>&#39;autor&#39;</code></p>
 <p class="image-container"><img style="width: 232.70px" src="img\f1337a2c19375c76.png"></p>
 <pre><code>class Pantalla3 extends StatelessWidget {
  static var routeName = &#39;/pantalla3&#39;;
