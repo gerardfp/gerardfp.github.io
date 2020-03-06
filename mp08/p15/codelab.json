@@ -1,0 +1,22 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-03-06T10:55:19Z",
+  "id": "mp08/p15",
+  "duration": 0,
+  "title": "Flutter http",
+  "summary": "Flutter http",
+  "source": "1sfnzdCt3P9T0D04y3ZL3pGXeL98fNHu0j7Yrkzmdf6s",
+  "theme": "android",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "Android"
+  ],
+  "tags": [],
+  "feedback": "https://github.com/gerardfp",
+  "url": "mp08/p15"
+}
