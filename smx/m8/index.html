@@ -448,6 +448,267 @@ html, body {
 
       </google-codelab-step>
     
+      <google-codelab-step label="Flex item" duration="0">
+        <p><code>📁 /smx/m8/cssflex/flexitems/flexitems1/index.html</code></p>
+<p><a href="https://github.com/gerardfp/gerardfp.github.io/raw/master/smx/m8/games_images.zip" target="_blank"><paper-button class="colored" raised>Descarga game_images.zip</paper-button></a> </p>
+<p><a href="https://github.com/gerardfp/gerardfp.github.io/raw/master/smx/m8/fonts1.zip" target="_blank"><paper-button class="colored" raised>Descarga fonts1.zip</paper-button></a> </p>
+<pre>display
+flex-direction
+margin
+margin-top
+padding
+text-align</pre>
+<p class="image-container"><img style="width: 698.00px" src="img\35590b9d2e2b2654.png"></p>
+<pre>&lt;!DOCTYPE html&gt;
+
+&lt;style&gt;
+
+@font-face {
+    font-family: HennyPenny;
+    src: url(&#34;HennyPenny-Regular.ttf&#34;);
+}
+
+@font-face {
+    font-family: Bangers;
+    src: url(&#34;Bangers-Regular.ttf&#34;);
+}
+
+@font-face {
+    font-family: Spirax;
+    src: url(&#34;Spirax-Regular.ttf&#34;);
+}
+
+.game-grid {
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: repeat(auto-fill, 200px);
+    width: 75%;
+    margin: auto;
+    list-style-type: none;
+}
+
+.game-grid li {
+    border: 1px solid orange;
+}
+
+.game-image {
+    width: 100%;
+}
+
+.game-title {
+    font-family: &#34;HennyPenny&#34;;
+    background-color: orange;
+    color: white;
+}
+
+.game-link {
+    font-family: &#34;Bangers&#34;;
+    background-color: orangered;
+    color: white;
+}
+
+.game-description {
+    font-family: &#34;Spirax&#34;; 
+}
+
+&lt;/style&gt;
+
+&lt;ul class=&#34;game-grid&#34;&gt;
+    &lt;li&gt;
+        &lt;h2 class=&#34;game-title&#34;&gt;Game 1&lt;/h2&gt;
+        &lt;img class=&#34;game-image&#34; src=&#34;g1.jpg&#34;&gt;
+        &lt;p class=&#34;game-description&#34;&gt;Cras iaculis lorem a magna finibus, pulvinar egestas elit iaculis.&lt;/p&gt;
+        &lt;a class=&#34;game-link&#34; href=&#34;#&#34;&gt;Descarga Game 1&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;h2 class=&#34;game-title&#34;&gt;Game 2&lt;/h2&gt;
+        &lt;img class=&#34;game-image&#34; src=&#34;g2.jpg&#34;&gt;
+        &lt;p class=&#34;game-description&#34;&gt;Vestibulum eget imperdiet arcu, eu dignissim purus. Curabitur vel est scelerisque, interdum risus eget, bibendum libero. &lt;/p&gt;
+        &lt;a class=&#34;game-link&#34; href=&#34;#&#34;&gt;Descarga Game 2&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;h2 class=&#34;game-title&#34;&gt;Game 3&lt;/h2&gt;
+        &lt;img class=&#34;game-image&#34; src=&#34;g3.jpg&#34;&gt;
+        &lt;p class=&#34;game-description&#34;&gt;Nulla placerat vestibulum congue. Donec vel sapien tristique, consectetur turpis ac, dignissim purus. Curabitur eu ipsum arcu.&lt;/p&gt;
+        &lt;a class=&#34;game-link&#34; href=&#34;#&#34;&gt;Descarga Game 3&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;h2 class=&#34;game-title&#34;&gt;Game 4&lt;/h2&gt;
+        &lt;img class=&#34;game-image&#34; src=&#34;g4.jpg&#34;&gt;
+        &lt;p class=&#34;game-description&#34;&gt; Duis eleifend cursus urna, vel gravida ante mattis at. Sed efficitur vitae velit in tempus.&lt;/p&gt;
+        &lt;a class=&#34;game-link&#34; href=&#34;#&#34;&gt;Descarga Game 1&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;h2 class=&#34;game-title&#34;&gt;Game 5&lt;/h2&gt;
+        &lt;img class=&#34;game-image&#34; src=&#34;g5.jpg&#34;&gt;
+        &lt;p class=&#34;game-description&#34;&gt;Duis at elit nunc. Proin odio lorem, efficitur iaculis odio ut, vehicula gravida mauris. Vestibulum in elementum velit. Praesent ut quam porta risus iaculis venenatis.&lt;/p&gt;
+        &lt;a class=&#34;game-link&#34; href=&#34;#&#34;&gt;Descarga Game 5&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;h2 class=&#34;game-title&#34;&gt;Game 6&lt;/h2&gt;
+        &lt;img class=&#34;game-image&#34; src=&#34;g6.jpg&#34;&gt;
+        &lt;p class=&#34;game-description&#34;&gt;Cras iaculis lorem a magna finibus, pulvinar egestas elit iaculis.&lt;/p&gt;
+        &lt;a class=&#34;game-link&#34; href=&#34;#&#34;&gt;Descarga Game 6&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;h2 class=&#34;game-title&#34;&gt;Game 7&lt;/h2&gt;
+        &lt;img class=&#34;game-image&#34; src=&#34;g7.jpg&#34;&gt;
+        &lt;p class=&#34;game-description&#34;&gt;Vestibulum eget imperdiet arcu, eu dignissim purus. Curabitur vel est scelerisque, interdum risus eget, bibendum libero. &lt;/p&gt;
+        &lt;a class=&#34;game-link&#34; href=&#34;#&#34;&gt;Descarga Game 7&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+        &lt;h2 class=&#34;game-title&#34;&gt;Game 8&lt;/h2&gt;
+        &lt;img class=&#34;game-image&#34; src=&#34;g8.jpg&#34;&gt;
+        &lt;p class=&#34;game-description&#34;&gt;Nulla placerat vestibulum congue. Donec vel sapien tristique, consectetur turpis ac, dignissim purus. Curabitur eu ipsum arcu.&lt;/p&gt;
+        &lt;a class=&#34;game-link&#34; href=&#34;#&#34;&gt;Descarga Game 8&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Flex Header &amp; Footer" duration="0">
+        <p><code>📁 /smx/m8/cssflex/flexhf/flexhf1/index.html</code></p>
+<p><a href="https://github.com/gerardfp/gerardfp.github.io/raw/master/smx/m8/unreal_images.zip" target="_blank"><paper-button class="colored" raised>Descarga unreal_images.zip</paper-button></a> </p>
+<pre>display
+flex-wrap
+justify-content
+align-items
+margin-right
+margin-left
+margin-top
+padding</pre>
+<p class="image-container"><img style="width: 698.00px" src="img\382466865458ed05.gif"></p>
+<pre>&lt;!DOCTYPE html&gt;
+
+&lt;style&gt;
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family:fantasy;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.logo {
+    width: 50px;
+}
+
+.search-icon {
+    height: 1em;
+}
+
+input {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    padding: 8px;
+}
+
+.explorer {
+    width: 75%;
+    margin: auto;
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: repeat(auto-fill, 300px);
+}
+
+.explorer img {
+    width: 100%;
+}
+
+.header {
+    min-height: 50px;
+    margin-bottom: 20px;
+    background-color: #4a86cf;
+    border: 1px solid #3968a1;
+    color: white;
+}
+
+.header ul {
+
+}
+
+.header ul li {
+
+}
+
+.header ul li:last-child {
+
+}
+
+.footer {
+    background-color: black;
+    color: white;
+}
+
+&lt;/style&gt;
+
+&lt;div class=&#34;page&#34;&gt;
+    &lt;div class=&#34;header&#34;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;svg class=&#34;logo&#34; viewBox=&#34;0 0 640 512&#34;&gt;&lt;path fill=&#34;currentColor&#34; d=&#34;M622.34 153.2L343.4 67.5c-15.2-4.67-31.6-4.67-46.79 0L17.66 153.2c-23.54 7.23-23.54 38.36 0 45.59l48.63 14.94c-10.67 13.19-17.23 29.28-17.88 46.9C38.78 266.15 32 276.11 32 288c0 10.78 5.68 19.85 13.86 25.65L20.33 428.53C18.11 438.52 25.71 448 35.94 448h56.11c10.24 0 17.84-9.48 15.62-19.47L82.14 313.65C90.32 307.85 96 298.78 96 288c0-11.57-6.47-21.25-15.66-26.87.76-15.02 8.44-28.3 20.69-36.72L296.6 284.5c9.06 2.78 26.44 6.25 46.79 0l278.95-85.7c23.55-7.24 23.55-38.36 0-45.6zM352.79 315.09c-28.53 8.76-52.84 3.92-65.59 0l-145.02-44.55L128 384c0 35.35 85.96 64 192 64s192-28.65 192-64l-14.18-113.47-145.03 44.56z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;
+            &lt;li&gt;PuigHub
+            &lt;li&gt;Technologies
+            &lt;li&gt;Get Involved
+            &lt;li&gt;About Us
+            &lt;li&gt;&lt;svg class=&#34;search-icon&#34; viewBox=&#34;0 0 512 512&#34;&gt;&lt;path fill=&#34;currentColor&#34; d=&#34;M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;
+                &lt;input placeholder=&#34;Buscar&#34;&gt;
+        &lt;/ul&gt;
+&lt;/div&gt;
+    &lt;div class=&#34;body&#34;&gt;
+        &lt;ul class=&#34;explorer&#34;&gt;
+            &lt;li&gt;&lt;img src=&#34;i1.jpg&#34;&gt;
+            &lt;li&gt;&lt;img src=&#34;i2.jpg&#34;&gt;
+            &lt;li&gt;&lt;img src=&#34;i3.jpg&#34;&gt;
+            &lt;li&gt;&lt;img src=&#34;i4.jpg&#34;&gt;
+            &lt;li&gt;&lt;img src=&#34;i5.jpg&#34;&gt;
+            &lt;li&gt;&lt;img src=&#34;i6.jpg&#34;&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;footer&#34;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;The PuigHub Project
+                &lt;ul&gt;
+                    &lt;li&gt;Contact Us
+                    &lt;li&gt;About Us
+                    &lt;li&gt;Get Involved
+                    &lt;li&gt;Support PuigHub
+                    &lt;li&gt;Merchandise
+                    &lt;li&gt;The PuigHub Foundation
+                    &lt;li&gt;Code of Conduct
+                    &lt;li&gt;Privacy
+                &lt;/ul&gt;
+        &lt;/ul&gt;
+        &lt;ul&gt;
+            &lt;li&gt;Resources
+                &lt;ul&gt;
+                    &lt;li&gt;Documentation
+                    &lt;li&gt;Wiki
+                    &lt;li&gt;Developer Center
+                    &lt;li&gt;Mailing Lists
+                    &lt;li&gt;IRC Channels
+                    &lt;li&gt;Bug Tracker
+                    &lt;li&gt;Development Code
+                &lt;/ul&gt;
+        &lt;/ul&gt;
+        &lt;ul&gt;
+            &lt;li&gt;News
+                &lt;ul&gt;
+                    &lt;li&gt;Press Releases
+                    &lt;li&gt;Latest Release
+                    &lt;li&gt;Planet PuigHub
+                &lt;/ul&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+
+
+      </google-codelab-step>
+    
   </google-codelab>
 
   <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
