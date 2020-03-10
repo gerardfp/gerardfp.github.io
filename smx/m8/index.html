@@ -387,87 +387,43 @@ grid-template-rows
 grid-template-columns
 grid-gap</pre>
 <p class="image-container"><img style="width: 698.00px" src="img\7d9d10efdd4e2238.gif"></p>
-<pre>&lt;!DOCTYPE html&gt;
-&lt;style&gt;</pre>
-<pre><code>    </code></pre>
-<pre>html, body {
-   </pre>
-<pre><code>    </code></pre>
-<pre> height: 100%;
-    </pre>
-<pre><code>    </code></pre>
-<pre>margin: 0;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.page {
-    </pre>
-<pre><code>    </code></pre>
-<pre>min-height: 100%;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.header, .footer {
-    </pre>
-<pre><code>    </code></pre>
-<pre>background-color: black;
-    </pre>
-<pre><code>    </code></pre>
-<pre>color: white;
-    </pre>
-<pre><code>    </code></pre>
-<pre>padding: 2em;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.body {
-    </pre>
-<pre><code>    </code></pre>
-<pre>background-color: gray;
-    </pre>
-<pre><code>    </code></pre>
-<pre>padding: 1em;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.explorer {
-    </pre>
-<pre><code>    </code></pre>
-<pre>list-style-type: none;
-    </pre>
-<pre><code>    </code></pre>
-<pre>margin: auto;
-    </pre>
-<pre><code>    </code></pre>
-<pre>width: 75%;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.explorer li {
-    </pre>
-<pre><code>    </code></pre>
-<pre>box-shadow: 0px 0px 10px 1px black;
-    </pre>
-<pre><code>    </code></pre>
-<pre>display: flex;
-    </pre>
-<pre><code>    </code></pre>
-<pre>justify-items: center;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.explorer li img {
-    </pre>
-<pre><code>    </code></pre>
-<pre>width: 100%;</pre>
-<pre><code>    </code></pre>
-<pre>}
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;style&gt;
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
+    .page {
+        min-height: 100%;
+    }
+
+    .header, .footer {
+        background-color: black;
+        color: white;
+        padding: 2em;
+    }
+
+    .body {
+        background-color: gray;
+        padding: 1em;
+    }
+
+    .explorer {
+        list-style-type: none;
+        margin: auto;
+        width: 75%;
+    }
+
+    .explorer li {
+        box-shadow: 0px 0px 10px 1px black;
+        display: flex;
+        justify-items: center;
+    }
+
+    .explorer li img {
+        width: 100%;
+    }
 &lt;/style&gt;
 
 &lt;div class=&#34;page&#34;&gt;
@@ -489,7 +445,7 @@ grid-gap</pre>
         &lt;/ul&gt;
     &lt;/div&gt;
     &lt;div class=&#34;footer&#34;&gt;&lt;a href=&#34;https://www.deviantart.com/unreal-forever/gallery&#34;&gt;https://www.deviantart.com/unreal-forever/gallery&lt;/a&gt;&lt;/div&gt;
-&lt;/div&gt;</pre>
+&lt;/div&gt;</code></pre>
 
 
       </google-codelab-step>
@@ -501,38 +457,22 @@ flex-grow
 margin-left
 margin-right</pre>
 <p class="image-container"><img style="width: 698.00px" src="img\20c5e8b674367f06.gif"></p>
-<pre>&lt;!DOCTYPE html&gt;
+<pre><code>&lt;!DOCTYPE html&gt;
 
-&lt;style&gt;</pre>
-<pre><code>    </code></pre>
-<pre>.item {
-    </pre>
-<pre><code>    </code></pre>
-<pre>background-color: lightskyblue;
-    </pre>
-<pre><code>    </code></pre>
-<pre>height: 100px;
-    </pre>
-<pre><code>    </code></pre>
-<pre>width: 100px;
-    </pre>
-<pre><code>    </code></pre>
-<pre>margin: 2%;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.contenedor1 {}</pre>
-<pre><code>    </code></pre>
-<pre>.contenedor1 .item {}</pre>
-<pre><code>    </code></pre>
-<pre>.contenedor2 {}</pre>
-<pre><code>    </code></pre>
-<pre>.contenedor2 .centro {}</pre>
-<pre><code>    </code></pre>
-<pre>.contenedor3 {}</pre>
-<pre><code>    </code></pre>
-<pre>.contenedor3 .centro {}
+&lt;style&gt;
+    .item {
+        background-color: lightskyblue;
+        height: 100px;
+        width: 100px;
+        margin: 2%;
+    }
+
+    .contenedor1 {}
+    .contenedor1 .item {}
+    .contenedor2 {}
+    .contenedor2 .centro {}
+    .contenedor3 {}
+    .contenedor3 .centro {}
 &lt;/style&gt;
 
 &lt;div class=&#34;contenedor1&#34;&gt;
@@ -557,14 +497,14 @@ margin-right</pre>
     &lt;div class=&#34;item centro&#34;&gt;&lt;/div&gt;
     &lt;div class=&#34;item&#34;&gt;&lt;/div&gt;
     &lt;div class=&#34;item&#34;&gt;&lt;/div&gt;
-&lt;/div&gt;</pre>
+&lt;/div&gt;</code></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Flex items 2" duration="0">
         <p><code>📁 /smx/m8/cssflex/flexitems/flexitems2/index.html</code></p>
-<p><a href="https://github.com/gerardfp/gerardfp.github.io/raw/master/smx/m8/games_images.zip" target="_blank"><paper-button class="colored" raised>Descarga game_images.zip</paper-button></a> </p>
+<p><a href="https://github.com/gerardfp/gerardfp.github.io/raw/master/smx/m8/games_images.zip" target="_blank"><paper-button class="colored" raised>Descarga games_images.zip</paper-button></a> </p>
 <p><a href="https://github.com/gerardfp/gerardfp.github.io/raw/master/smx/m8/fonts1.zip" target="_blank"><paper-button class="colored" raised>Descarga fonts1.zip</paper-button></a> </p>
 <pre>display
 flex-direction
@@ -573,109 +513,55 @@ margin-top
 padding
 text-align</pre>
 <p class="image-container"><img style="width: 698.00px" src="img\35590b9d2e2b2654.png"></p>
-<pre>&lt;!DOCTYPE html&gt;
-&lt;style&gt;</pre>
-<pre><code>    </code></pre>
-<pre>@font-face {
-    </pre>
-<pre><code>    </code></pre>
-<pre>font-family: HennyPenny;</pre>
-<pre><code>    </code></pre>
-<pre>    src: url(&#34;HennyPenny-Regular.ttf&#34;);</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>@font-face {
-    </pre>
-<pre><code>    </code></pre>
-<pre>font-family: Bangers;</pre>
-<pre><code>    </code></pre>
-<pre>    src: url(&#34;Bangers-Regular.ttf&#34;);</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>@font-face {
-    </pre>
-<pre><code>    </code></pre>
-<pre>font-family: Spirax;
-    </pre>
-<pre><code>    </code></pre>
-<pre>src: url(&#34;Spirax-Regular.ttf&#34;);</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.game-grid {
-    </pre>
-<pre><code>    </code></pre>
-<pre>display: grid;</pre>
-<pre><code>    </code></pre>
-<pre>    grid-gap: 1em;</pre>
-<pre><code>    </code></pre>
-<pre>    grid-template-columns: repeat(auto-fill, 200px);
-    </pre>
-<pre><code>    </code></pre>
-<pre>width: 75%;</pre>
-<pre><code>    </code></pre>
-<pre>    margin: auto;
-    </pre>
-<pre><code>    </code></pre>
-<pre>list-style-type: none;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.game-grid li {
-    </pre>
-<pre><code>    </code></pre>
-<pre>border: 1px solid orange;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.game-image {
-    </pre>
-<pre><code>    </code></pre>
-<pre>width: 100%;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.game-title {
-    </pre>
-<pre><code>    </code></pre>
-<pre>font-family: &#34;HennyPenny&#34;;</pre>
-<pre><code>    </code></pre>
-<pre>    background-color: orange;
-    </pre>
-<pre><code>    </code></pre>
-<pre>color: white;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.game-link {
-    </pre>
-<pre><code>    </code></pre>
-<pre>font-family: &#34;Bangers&#34;;
-    </pre>
-<pre><code>    </code></pre>
-<pre>background-color: orangered;
-    </pre>
-<pre><code>    </code></pre>
-<pre>color: white;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.game-description {
-    </pre>
-<pre><code>    </code></pre>
-<pre>font-family: &#34;Spirax&#34;; </pre>
-<pre><code>    </code></pre>
-<pre>}
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;style&gt;
+    @font-face {
+        font-family: HennyPenny;
+        src: url(&#34;HennyPenny-Regular.ttf&#34;);
+    }
+
+    @font-face {
+        font-family: Bangers;
+        src: url(&#34;Bangers-Regular.ttf&#34;);
+    }
+
+    @font-face {
+        font-family: Spirax;
+        src: url(&#34;Spirax-Regular.ttf&#34;);
+    }
+
+    .game-grid {
+        display: grid;
+        grid-gap: 1em;
+        grid-template-columns: repeat(auto-fill, 200px);
+        width: 75%;
+        margin: auto;
+        list-style-type: none;
+    }
+
+    .game-grid li {
+        border: 1px solid orange;
+    }
+
+    .game-image {
+        width: 100%;
+    }
+
+    .game-title {
+        font-family: &#34;HennyPenny&#34;;
+        background-color: orange;
+        color: white;
+    }
+
+    .game-link {
+        font-family: &#34;Bangers&#34;;
+        background-color: orangered;
+        color: white;
+    }
+
+    .game-description {
+        font-family: &#34;Spirax&#34;; 
+    }
 &lt;/style&gt;
 
 &lt;ul class=&#34;game-grid&#34;&gt;
@@ -727,7 +613,7 @@ text-align</pre>
         &lt;p class=&#34;game-description&#34;&gt;Nulla placerat vestibulum congue. Donec vel sapien tristique, consectetur turpis ac, dignissim purus. Curabitur eu ipsum arcu.&lt;/p&gt;
         &lt;a class=&#34;game-link&#34; href=&#34;#&#34;&gt;Descarga Game 8&lt;/a&gt;
     &lt;/li&gt;
-&lt;/ul&gt;</pre>
+&lt;/ul&gt;</code></pre>
 
 
       </google-codelab-step>
@@ -744,138 +630,70 @@ margin-left
 margin-top
 padding</pre>
 <p class="image-container"><img style="width: 698.00px" src="img\382466865458ed05.gif"></p>
-<pre>&lt;!DOCTYPE html&gt;
+<pre><code>&lt;!DOCTYPE html&gt;
 
-&lt;style&gt;</pre>
-<pre><code>    </code></pre>
-<pre>html, body {
-    </pre>
-<pre><code>    </code></pre>
-<pre>height: 100%;</pre>
-<pre><code>    </code></pre>
-<pre>    margin: 0;
-    </pre>
-<pre><code>    </code></pre>
-<pre>font-family:fantasy;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>ul {
-    </pre>
-<pre><code>    </code></pre>
-<pre>list-style-type: none;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.logo {
-    </pre>
-<pre><code>    </code></pre>
-<pre>width: 50px;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.search-icon {
-    </pre>
-<pre><code>    </code></pre>
-<pre>height: 1em;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>input {
-    </pre>
-<pre><code>    </code></pre>
-<pre>background-color: transparent;
-    </pre>
-<pre><code>    </code></pre>
-<pre>color: #fff;
-    </pre>
-<pre><code>    </code></pre>
-<pre>border: none;
-    </pre>
-<pre><code>    </code></pre>
-<pre>padding: 8px;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.explorer {
-    </pre>
-<pre><code>    </code></pre>
-<pre>width: 75%;
-    </pre>
-<pre><code>    </code></pre>
-<pre>margin: auto;
-    </pre>
-<pre><code>    </code></pre>
-<pre>display: grid;</pre>
-<pre><code>    </code></pre>
-<pre>    grid-gap: 1em;
-    </pre>
-<pre><code>    </code></pre>
-<pre>grid-template-columns: repeat(auto-fill, 300px);</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.explorer img {
-    </pre>
-<pre><code>    </code></pre>
-<pre>width: 100%;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.header {
-    </pre>
-<pre><code>    </code></pre>
-<pre>min-height: 50px;
-    </pre>
-<pre><code>    </code></pre>
-<pre>margin-bottom: 20px;
-    </pre>
-<pre><code>    </code></pre>
-<pre>background-color: #4a86cf;
-    </pre>
-<pre><code>    </code></pre>
-<pre>border: 1px solid #3968a1;
-    </pre>
-<pre><code>    </code></pre>
-<pre>color: white;</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.header ul {
-</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.header ul li {
-</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.header ul li:last-child {
-</pre>
-<pre><code>    </code></pre>
-<pre>}
-</pre>
-<pre><code>    </code></pre>
-<pre>.footer {
-    </pre>
-<pre><code>    </code></pre>
-<pre>background-color: black;
-    </pre>
-<pre><code>    </code></pre>
-<pre>color: white;</pre>
-<pre><code>    </code></pre>
-<pre>}
+&lt;style&gt;
+    html, body {
+        height: 100%;
+        margin: 0;
+        font-family:fantasy;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    .logo {
+        width: 50px;
+    }
+
+    .search-icon {
+        height: 1em;
+    }
+
+    input {
+        background-color: transparent;
+        color: #fff;
+        border: none;
+        padding: 8px;
+    }
+
+    .explorer {
+        width: 75%;
+        margin: auto;
+        display: grid;
+        grid-gap: 1em;
+        grid-template-columns: repeat(auto-fill, 300px);
+    }
+
+    .explorer img {
+        width: 100%;
+    }
+
+    .header {
+        min-height: 50px;
+        margin-bottom: 20px;
+        background-color: #4a86cf;
+        border: 1px solid #3968a1;
+        color: white;
+    }
+
+    .header ul {
+
+    }
+
+    .header ul li {
+
+    }
+
+    .header ul li:last-child {
+
+    }
+
+    .footer {
+        background-color: black;
+        color: white;
+    }
 &lt;/style&gt;
 
 &lt;div class=&#34;page&#34;&gt;
@@ -935,8 +753,7 @@ padding</pre>
                 &lt;/ul&gt;
         &lt;/ul&gt;
     &lt;/div&gt;
-&lt;/div&gt;
-</pre>
+&lt;/div&gt;</code></pre>
 
 
       </google-codelab-step>
