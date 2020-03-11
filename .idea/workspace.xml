@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1d412252-0386-463a-b8b7-861867349a66" name="Default" comment="all" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mp08.bat">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="75" selection-start-line="15" selection-start-column="75" selection-end-line="15" selection-end-column="75" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/smx.bat">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="42" selection-end-column="75" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mp03.bat">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" selection-start-line="3" selection-end-line="3" selection-end-column="75" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/room.md" />
+        <option value="$PROJECT_DIR$/codeCopyToClipboard.js" />
+        <option value="$PROJECT_DIR$/elements/codelab.html" />
+        <option value="$PROJECT_DIR$/mp03/codelab10/index.html" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/mp03.bat" />
+        <option value="$PROJECT_DIR$/claat.bat" />
+        <option value="$PROJECT_DIR$/smx.bat" />
+        <option value="$PROJECT_DIR$/mp08.bat" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="gerardfp.github.io" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gerardfp.github.io" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gerardfp.github.io" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gerardfp.github.io" type="462c0819:PsiDirectoryNode" />
+              <item name="xms" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../AddressBook" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\gerard\IdeaProjects\gerardfp.github.io" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\gerard\IdeaProjects\gerardfp.github.io\offlinemp03" />
+      <recent name="C:\Users\gerard\IdeaProjects\gerardfp.github.io" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1d412252-0386-463a-b8b7-861867349a66" name="Default" comment="" />
+      <created>1540370371852</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1540370371852</updated>
+    </task>
+    <task id="LOCAL-00157" summary="all">
+      <created>1571143115765</created>
+      <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
+      <option name="project" value="LOCAL" />
+      <updated>1571143115765</updated>
+    </task>
+    <task id="LOCAL-00158" summary="all">
+      <created>1571649682709</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
+      <option name="project" value="LOCAL" />
+      <updated>1571649682710</updated>
+    </task>
+    <task id="LOCAL-00159" summary="all">
+      <created>1571659499247</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
+      <option name="project" value="LOCAL" />
+      <updated>1571659499248</updated>
+    </task>
+    <task id="LOCAL-00160" summary="all">
+      <created>1573133255057</created>
+      <option name="number" value="00160" />
+      <option name="presentableId" value="LOCAL-00160" />
+      <option name="project" value="LOCAL" />
+      <updated>1573133255058</updated>
+    </task>
+    <task id="LOCAL-00161" summary="all">
+      <created>1573476535752</created>
+      <option name="number" value="00161" />
+      <option name="presentableId" value="LOCAL-00161" />
+      <option name="project" value="LOCAL" />
+      <updated>1573476535753</updated>
+    </task>
+    <task id="LOCAL-00162" summary="all">
+      <created>1573480268264</created>
+      <option name="number" value="00162" />
+      <option name="presentableId" value="LOCAL-00162" />
+      <option name="project" value="LOCAL" />
+      <updated>1573480268265</updated>
+    </task>
+    <task id="LOCAL-00163" summary="all">
+      <created>1573646726262</created>
+      <option name="number" value="00163" />
+      <option name="presentableId" value="LOCAL-00163" />
+      <option name="project" value="LOCAL" />
+      <updated>1573646726262</updated>
+    </task>
+    <task id="LOCAL-00164" summary="all">
+      <created>1573646749451</created>
+      <option name="number" value="00164" />
+      <option name="presentableId" value="LOCAL-00164" />
+      <option name="project" value="LOCAL" />
+      <updated>1573646749451</updated>
+    </task>
+    <task id="LOCAL-00165" summary="all">
+      <created>1573646836251</created>
+      <option name="number" value="00165" />
+      <option name="presentableId" value="LOCAL-00165" />
+      <option name="project" value="LOCAL" />
+      <updated>1573646836251</updated>
+    </task>
+    <task id="LOCAL-00166" summary="all">
+      <created>1573646891105</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1573646891105</updated>
+    </task>
+    <task id="LOCAL-00167" summary="all">
+      <created>1573649440584</created>
+      <option name="number" value="00167" />
+      <option name="presentableId" value="LOCAL-00167" />
+      <option name="project" value="LOCAL" />
+      <updated>1573649440584</updated>
+    </task>
+    <task id="LOCAL-00168" summary="all">
+      <created>1573649640691</created>
+      <option name="number" value="00168" />
+      <option name="presentableId" value="LOCAL-00168" />
+      <option name="project" value="LOCAL" />
+      <updated>1573649640691</updated>
+    </task>
+    <task id="LOCAL-00169" summary="all">
+      <created>1573649717077</created>
+      <option name="number" value="00169" />
+      <option name="presentableId" value="LOCAL-00169" />
+      <option name="project" value="LOCAL" />
+      <updated>1573649717077</updated>
+    </task>
+    <task id="LOCAL-00170" summary="all">
+      <created>1573740109124</created>
+      <option name="number" value="00170" />
+      <option name="presentableId" value="LOCAL-00170" />
+      <option name="project" value="LOCAL" />
+      <updated>1573740109125</updated>
+    </task>
+    <task id="LOCAL-00171" summary="all">
+      <created>1573740550561</created>
+      <option name="number" value="00171" />
+      <option name="presentableId" value="LOCAL-00171" />
+      <option name="project" value="LOCAL" />
+      <updated>1573740550561</updated>
+    </task>
+    <task id="LOCAL-00172" summary="all">
+      <created>1574258106700</created>
+      <option name="number" value="00172" />
+      <option name="presentableId" value="LOCAL-00172" />
+      <option name="project" value="LOCAL" />
+      <updated>1574258106701</updated>
+    </task>
+    <task id="LOCAL-00173" summary="all">
+      <created>1574675137057</created>
+      <option name="number" value="00173" />
+      <option name="presentableId" value="LOCAL-00173" />
+      <option name="project" value="LOCAL" />
+      <updated>1574675137057</updated>
+    </task>
+    <task id="LOCAL-00174" summary="all">
+      <created>1574683425736</created>
+      <option name="number" value="00174" />
+      <option name="presentableId" value="LOCAL-00174" />
+      <option name="project" value="LOCAL" />
+      <updated>1574683425736</updated>
+    </task>
+    <task id="LOCAL-00175" summary="all">
+      <created>1574683530359</created>
+      <option name="number" value="00175" />
+      <option name="presentableId" value="LOCAL-00175" />
+      <option name="project" value="LOCAL" />
+      <updated>1574683530359</updated>
+    </task>
+    <task id="LOCAL-00176" summary="all">
+      <created>1574684462595</created>
+      <option name="number" value="00176" />
+      <option name="presentableId" value="LOCAL-00176" />
+      <option name="project" value="LOCAL" />
+      <updated>1574684462595</updated>
+    </task>
+    <task id="LOCAL-00177" summary="all">
+      <created>1574684934710</created>
+      <option name="number" value="00177" />
+      <option name="presentableId" value="LOCAL-00177" />
+      <option name="project" value="LOCAL" />
+      <updated>1574684934710</updated>
+    </task>
+    <task id="LOCAL-00178" summary="all">
+      <created>1574687518046</created>
+      <option name="number" value="00178" />
+      <option name="presentableId" value="LOCAL-00178" />
+      <option name="project" value="LOCAL" />
+      <updated>1574687518046</updated>
+    </task>
+    <task id="LOCAL-00179" summary="all">
+      <created>1574687564866</created>
+      <option name="number" value="00179" />
+      <option name="presentableId" value="LOCAL-00179" />
+      <option name="project" value="LOCAL" />
+      <updated>1574687564867</updated>
+    </task>
+    <task id="LOCAL-00180" summary="all">
+      <created>1574687959096</created>
+      <option name="number" value="00180" />
+      <option name="presentableId" value="LOCAL-00180" />
+      <option name="project" value="LOCAL" />
+      <updated>1574687959096</updated>
+    </task>
+    <task id="LOCAL-00181" summary="all">
+      <created>1574850160772</created>
+      <option name="number" value="00181" />
+      <option name="presentableId" value="LOCAL-00181" />
+      <option name="project" value="LOCAL" />
+      <updated>1574850160773</updated>
+    </task>
+    <task id="LOCAL-00182" summary="all">
+      <created>1578907899325</created>
+      <option name="number" value="00182" />
+      <option name="presentableId" value="LOCAL-00182" />
+      <option name="project" value="LOCAL" />
+      <updated>1578907899326</updated>
+    </task>
+    <task id="LOCAL-00183" summary="all">
+      <created>1578908499227</created>
+      <option name="number" value="00183" />
+      <option name="presentableId" value="LOCAL-00183" />
+      <option name="project" value="LOCAL" />
+      <updated>1578908499227</updated>
+    </task>
+    <task id="LOCAL-00184" summary="all">
+      <created>1578908809593</created>
+      <option name="number" value="00184" />
+      <option name="presentableId" value="LOCAL-00184" />
+      <option name="project" value="LOCAL" />
+      <updated>1578908809593</updated>
+    </task>
+    <task id="LOCAL-00185" summary="all">
+      <created>1579514914356</created>
+      <option name="number" value="00185" />
+      <option name="presentableId" value="LOCAL-00185" />
+      <option name="project" value="LOCAL" />
+      <updated>1579514914356</updated>
+    </task>
+    <task id="LOCAL-00186" summary="all">
+      <created>1579515419563</created>
+      <option name="number" value="00186" />
+      <option name="presentableId" value="LOCAL-00186" />
+      <option name="project" value="LOCAL" />
+      <updated>1579515419563</updated>
+    </task>
+    <task id="LOCAL-00187" summary="all">
+      <created>1579527811797</created>
+      <option name="number" value="00187" />
+      <option name="presentableId" value="LOCAL-00187" />
+      <option name="project" value="LOCAL" />
+      <updated>1579527811797</updated>
+    </task>
+    <task id="LOCAL-00188" summary="all">
+      <created>1579698963557</created>
+      <option name="number" value="00188" />
+      <option name="presentableId" value="LOCAL-00188" />
+      <option name="project" value="LOCAL" />
+      <updated>1579698963557</updated>
+    </task>
+    <task id="LOCAL-00189" summary="all">
+      <created>1579785013020</created>
+      <option name="number" value="00189" />
+      <option name="presentableId" value="LOCAL-00189" />
+      <option name="project" value="LOCAL" />
+      <updated>1579785013021</updated>
+    </task>
+    <task id="LOCAL-00190" summary="all">
+      <created>1579785351889</created>
+      <option name="number" value="00190" />
+      <option name="presentableId" value="LOCAL-00190" />
+      <option name="project" value="LOCAL" />
+      <updated>1579785351889</updated>
+    </task>
+    <task id="LOCAL-00191" summary="all">
+      <created>1579785655520</created>
+      <option name="number" value="00191" />
+      <option name="presentableId" value="LOCAL-00191" />
+      <option name="project" value="LOCAL" />
+      <updated>1579785655520</updated>
+    </task>
+    <task id="LOCAL-00192" summary="all">
+      <created>1583222849831</created>
+      <option name="number" value="00192" />
+      <option name="presentableId" value="LOCAL-00192" />
+      <option name="project" value="LOCAL" />
+      <updated>1583222849831</updated>
+    </task>
+    <task id="LOCAL-00193" summary="all">
+      <created>1583226027181</created>
+      <option name="number" value="00193" />
+      <option name="presentableId" value="LOCAL-00193" />
+      <option name="project" value="LOCAL" />
+      <updated>1583226027181</updated>
+    </task>
+    <task id="LOCAL-00194" summary="all">
+      <created>1583228396734</created>
+      <option name="number" value="00194" />
+      <option name="presentableId" value="LOCAL-00194" />
+      <option name="project" value="LOCAL" />
+      <updated>1583228396734</updated>
+    </task>
+    <task id="LOCAL-00195" summary="all">
+      <created>1583228529555</created>
+      <option name="number" value="00195" />
+      <option name="presentableId" value="LOCAL-00195" />
+      <option name="project" value="LOCAL" />
+      <updated>1583228529555</updated>
+    </task>
+    <task id="LOCAL-00196" summary="all">
+      <created>1583402399695</created>
+      <option name="number" value="00196" />
+      <option name="presentableId" value="LOCAL-00196" />
+      <option name="project" value="LOCAL" />
+      <updated>1583402399695</updated>
+    </task>
+    <task id="LOCAL-00197" summary="all">
+      <created>1583403008218</created>
+      <option name="number" value="00197" />
+      <option name="presentableId" value="LOCAL-00197" />
+      <option name="project" value="LOCAL" />
+      <updated>1583403008218</updated>
+    </task>
+    <task id="LOCAL-00198" summary="all">
+      <created>1583403084672</created>
+      <option name="number" value="00198" />
+      <option name="presentableId" value="LOCAL-00198" />
+      <option name="project" value="LOCAL" />
+      <updated>1583403084672</updated>
+    </task>
+    <task id="LOCAL-00199" summary="all">
+      <created>1583403148820</created>
+      <option name="number" value="00199" />
+      <option name="presentableId" value="LOCAL-00199" />
+      <option name="project" value="LOCAL" />
+      <updated>1583403148820</updated>
+    </task>
+    <task id="LOCAL-00200" summary="all">
+      <created>1583403328596</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
+      <option name="project" value="LOCAL" />
+      <updated>1583403328596</updated>
+    </task>
+    <task id="LOCAL-00201" summary="all">
+      <created>1583403766466</created>
+      <option name="number" value="00201" />
+      <option name="presentableId" value="LOCAL-00201" />
+      <option name="project" value="LOCAL" />
+      <updated>1583403766466</updated>
+    </task>
+    <task id="LOCAL-00202" summary="all">
+      <created>1583408415154</created>
+      <option name="number" value="00202" />
+      <option name="presentableId" value="LOCAL-00202" />
+      <option name="project" value="LOCAL" />
+      <updated>1583408415154</updated>
+    </task>
+    <task id="LOCAL-00203" summary="all">
+      <created>1583408582401</created>
+      <option name="number" value="00203" />
+      <option name="presentableId" value="LOCAL-00203" />
+      <option name="project" value="LOCAL" />
+      <updated>1583408582401</updated>
+    </task>
+    <task id="LOCAL-00204" summary="all">
+      <created>1583501962038</created>
+      <option name="number" value="00204" />
+      <option name="presentableId" value="LOCAL-00204" />
+      <option name="project" value="LOCAL" />
+      <updated>1583501962038</updated>
+    </task>
+    <task id="LOCAL-00205" summary="all">
+      <created>1583502735686</created>
+      <option name="number" value="00205" />
+      <option name="presentableId" value="LOCAL-00205" />
+      <option name="project" value="LOCAL" />
+      <updated>1583502735686</updated>
+    </task>
+    <option name="localTasksCounter" value="206" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25746268" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32928064" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.36511377" />
+      <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" weight="0.32824427" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32922733" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Maven Projects" order="7" />
+      <window_info anchor="right" id="Maven" order="8" />
+    </layout>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.bat" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="aa" />
+    <MESSAGE value="aad" />
+    <MESSAGE value="aada" />
+    <MESSAGE value="viewmodel" />
+    <MESSAGE value="room" />
+    <MESSAGE value="fragments" />
+    <MESSAGE value="firebase" />
+    <MESSAGE value="formgui" />
+    <MESSAGE value="intellij" />
+    <MESSAGE value="gradle" />
+    <MESSAGE value="refactoring" />
+    <MESSAGE value="junit" />
+    <MESSAGE value="libgdx" />
+    <MESSAGE value="deployjar" />
+    <MESSAGE value="android" />
+    <MESSAGE value="algorithm" />
+    <MESSAGE value="appinventor" />
+    <MESSAGE value="minesweeper" />
+    <MESSAGE value="loops" />
+    <MESSAGE value="arrays" />
+    <MESSAGE value="all" />
+    <option name="LAST_COMMIT_MESSAGE" value="all" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/room.md" />
+    <entry file="file://$PROJECT_DIR$/MP08/index.html" />
+    <entry file="file://$PROJECT_DIR$/offlinemp03/mp03/codelab15/index.md" />
+    <entry file="file://$PROJECT_DIR$/mp03/codelab10/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="51" selection-start-line="30" selection-start-column="51" selection-end-line="30" selection-end-column="51" />
+          <folding>
+            <element signature="e#1133#1138#0" expanded="true" />
+            <element signature="e#1275#1280#0" expanded="true" />
+            <element signature="e#1350#1355#0" expanded="true" />
+            <element signature="e#1394#1399#0" expanded="true" />
+            <element signature="e#1562#1567#0" expanded="true" />
+            <element signature="e#1594#1599#0" expanded="true" />
+            <element signature="e#1859#1864#0" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#1;n#google-codelab-step#1;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#2212#2217#0" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#3;n#google-codelab-step#1;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#5;n#google-codelab-step#1;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#0;n#td#0;n#tr#0;n#table#0;n#google-codelab-step#1;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#0;n#td#1;n#tr#0;n#table#0;n#google-codelab-step#1;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#0;n#td#2;n#tr#0;n#table#0;n#google-codelab-step#1;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#0;n#td#3;n#tr#0;n#table#0;n#google-codelab-step#1;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#0;n#td#0;n#tr#2;n#table#0;n#google-codelab-step#1;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#0;n#td#1;n#tr#2;n#table#0;n#google-codelab-step#1;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#0;n#td#2;n#tr#2;n#table#0;n#google-codelab-step#1;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#0;n#td#3;n#tr#2;n#table#0;n#google-codelab-step#1;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#2;n#google-codelab-step#2;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#5532#5536#0" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#2;n#google-codelab-step#3;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#8600#8604#0" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#8;n#google-codelab-step#3;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#10;n#google-codelab-step#3;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#12443#12447#0" expanded="true" />
+            <element signature="e#13928#13932#0" expanded="true" />
+            <element signature="e#15413#15417#0" expanded="true" />
+            <element signature="e#16900#16904#0" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#3;n#google-codelab-step#4;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#6;n#google-codelab-step#4;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#2;n#google-codelab-step#5;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#4;n#google-codelab-step#5;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#6;n#google-codelab-step#5;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#8;n#google-codelab-step#5;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#11;n#google-codelab-step#5;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#16;n#google-codelab-step#5;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#p#22;n#google-codelab-step#5;n#google-codelab#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mp03/codelab1/index.html~HEAD">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/offlinemp03/mp03.bat" />
+    <entry file="file://$PROJECT_DIR$/codeCopyToClipboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/offlinemp03/mp03/codelab15/index.html" />
+    <entry file="file://$PROJECT_DIR$/elements/codelab.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="29" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mp03/codelab8/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mp03/codelab1/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/codelab.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mp03.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/smx.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="42" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mp08.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="75" selection-start-line="15" selection-start-column="75" selection-end-line="15" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

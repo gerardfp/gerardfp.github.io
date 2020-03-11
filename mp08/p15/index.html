@@ -1,0 +1,157 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Flutter http</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="mp08/p15"
+                  title="Flutter http"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducción" duration="0">
+        <p class="image-container"><img style="width: 282.00px" src="img\212c8f8a62836f71.gif"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Setup" duration="0">
+        <p>Añadir la dependencia http:</p>
+<p><code>pubspec.yaml</code></p>
+<pre><code>dependencies:
+  http:</code></pre>
+<p><a href="https://pub.dev/packages/http" target="_blank">https://pub.dev/packages/http</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="App" duration="0">
+        <h2 is-upgraded>MyApp</h2>
+<p>En el widget <code>MyApp</code> definimos las rutas.</p>
+<p>También modificamos el tema, haciendo el texto más grande y azul.</p>
+<pre><code>import &#39;dart:convert&#39;;
+
+import &#39;package:flutter/material.dart&#39;;
+import &#39;package:http/http.dart&#39; as http;
+
+main() =&gt; runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+
+ build(context) =&gt; MaterialApp(
+   initialRoute: Pantalla1.routeName,
+   routes: {
+     Pantalla1.routeName : (context) =&gt; Pantalla1(),
+     Pantalla2.routeName : (context) =&gt; Pantalla2(),
+     Pantalla3.routeName : (context) =&gt; Pantalla3(),
+   },
+   theme: ThemeData(textTheme: TextTheme(bodyText2: TextStyle(fontSize: 18, color: Colors.blue, )))
+ );
+}</code></pre>
+<h2 is-upgraded>Pantalla1</h2>
+<pre><code>class Pantalla1 extends StatefulWidget {
+ static var routeName = &#34;/pantalla1&#34;;
+
+ @override
+ createState() =&gt; _Pantalla1State();
+}
+
+class _Pantalla1State extends State&lt;Pantalla1&gt; {
+ var citas = [];
+
+ @override
+ initState() {
+   super.initState();
+
+   descargarCitas();
+ }
+
+ descargarCitas() async {
+   var response = await http.get(&#39;https://raw.githubusercontent.com/gerardfp/quotes/master/citas.json&#39;);
+
+   setState(() {
+     citas = jsonDecode(response.body);
+   });
+ }
+
+ build(context) =&gt; Scaffold(
+   appBar: AppBar(),
+   body: ListView.builder(
+     itemCount: citas.length,
+     itemBuilder: (context, index) =&gt;  GestureDetector(
+       onTap: ()=&gt; Navigator.pushNamed(context, Pantalla2.routeName, arguments: {&#39;argumento1&#39;: citas[index]}),
+       child: Text(citas[index][&#39;texto&#39;])
+     )
+   ),
+ );
+}</code></pre>
+<p>En la <code>Pantalla1</code> descargamos las citas y las mostramos en un ListView.</p>
+<p class="image-container"><img style="width: 474.00px" src="img\226787d9ad31c3a2.png"></p>
+<p>Al navegar a la <code>Pantalla2</code> le pasamos un hashmap en el parámetro <code>arguments</code>. Este HashMap tiene una clave <code>&#39;argumento1&#39;</code> con el valor <code>citas[index]</code> (que a su vez es también un hashmap con las claves <code>&#39;texto&#39;</code> y <code>&#39;autor&#39;</code>)</p>
+<p class="image-container"><img style="width: 474.00px" src="img\3791da8f4ce43c95.png"></p>
+<h2 is-upgraded>Pantalla2</h2>
+<pre><code>class Pantalla2 extends StatelessWidget {
+ static var routeName = &#39;/pantalla2&#39;;
+
+ build(context) {
+   final argumentos = ModalRoute.of(context).settings.arguments as Map;
+
+   return Scaffold(
+     appBar: AppBar(),
+     body: GestureDetector(
+       onTap: ()=&gt; Navigator.pushNamed(context, Pantalla3.routeName, arguments: argumentos[&#39;argumento1&#39;]),
+       child: Text(argumentos[&#39;argumento1&#39;][&#39;texto&#39;]),
+     ),
+   );
+ }
+}</code></pre>
+<p>En la <code>Pantalla2</code> extraemos el hashmap con los argumentos (observa el <code>as Map</code>). Este hashmap contiene la clave <code>&#39;argumento1&#39;</code> y su valor es el hashmap con el <code>&#39;texto&#39;</code> y el <code>&#39;autor&#39;</code>.</p>
+<p class="image-container"><img style="width: 474.00px" src="img\9fb8aaf6b3018eb4.png"></p>
+<p>Al navegar a la <code>Pantalla3</code>, esta vez le pasamos como <code>arguments</code> directamente el hashmap con el <code>&#39;texto&#39;</code> y el <code>&#39;autor&#39;</code>.</p>
+<p class="image-container"><img style="width: 295.70px" src="img\4e71e86dec22c6f2.png"></p>
+<h2 is-upgraded>Pantalla3</h2>
+<p>Los <code>arguments</code> que extraemos en la <code>Pantalla3</code> es directamente el hashmap con las claves <code>&#39;texto&#39;</code> y <code>&#39;autor&#39;</code></p>
+<p class="image-container"><img style="width: 232.70px" src="img\f1337a2c19375c76.png"></p>
+<pre><code>class Pantalla3 extends StatelessWidget {
+ static var routeName = &#39;/pantalla3&#39;;
+
+ build(context) {
+   final cita = ModalRoute.of(context).settings.arguments as Map;
+
+   return Scaffold(
+     appBar: AppBar(),
+     body: Text(cita[&#39;autor&#39;]),
+   );
+ }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>
