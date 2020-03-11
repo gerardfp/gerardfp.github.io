@@ -1,34 +1,56 @@
 <!DOCTYPE html>
 
 <style>
+body, html { height: 100%; }
+
+
+
 .page {
-    display: grid;
-    grid: 100px 1fr / 100px 1fr 100px;
+        height: 100%;
+        display: grid;
+        grid: "hd hd hd" 100px "n1 bd n2" 1fr "ft ft ft"  100px / 100px 1fr 100px;
+    }
+
+    @media(width <= 500px){
+    .page {
+        height: 100%;
+        display: grid;
+        grid: "hd hd hd" 100px "n1 n1 n1" 1fr "bd bd n2" 1fr "ft ft ft"  100px / 100px 1fr 100px;
+    }
 }
 
 .header {
+    grid-area: hd;
     background-color: cadetblue;
 }
 
 .footer {
+    grid-area: ft;
     background-color: darkkhaki;
 }
 
-.sidebar {
+.nav1 {
+    grid-area: n1;
     background-color: darkseagreen;
 
 }
 
-.body {
-    background-color: lightcoral;
+.nav2 {
+    grid-area: n2;
+    background-color:lightsalmon;
+
 }
 
-
+.body {
+    grid-area: bd;
+    background-color: lightcoral;
+}
 </style>
 
 <div class="page">
     <div class="header"></div>
-    <div class="sidebar"></div>
+    <div class="nav1"></div>
     <div class="body"></div>
+    <div class="nav2"></div>
     <div class="footer"></div>
 </div>
