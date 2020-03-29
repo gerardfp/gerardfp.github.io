@@ -1,56 +1,93 @@
 <!DOCTYPE html>
-
+<meta charset="utf-8">
 <style>
-body, html { height: 100%; }
-
-
+body, html { height: 100%; margin: 0; font-family: Arial, Helvetica, sans-serif;}
 
 .page {
-        height: 100%;
-        display: grid;
-        grid: "hd hd hd" 100px "n1 bd n2" 1fr "ft ft ft"  100px / 100px 1fr 100px;
-    }
+    display: grid;
+    height: 100%;
+    grid: "header header header" auto
+          "nav1   body   nav2"   1fr
+          "footer footer footer" auto
+       /  200px   1fr    300px;
 
-    @media(width <= 500px){
-    .page {
-        height: 100%;
-        display: grid;
-        grid: "hd hd hd" 100px "n1 n1 n1" 1fr "bd bd n2" 1fr "ft ft ft"  100px / 100px 1fr 100px;
-    }
+    transition: grid 2s;
+
 }
 
 .header {
-    grid-area: hd;
-    background-color: cadetblue;
-}
-
-.footer {
-    grid-area: ft;
-    background-color: darkkhaki;
+    grid-area: header;
+    background-color: wheat;
 }
 
 .nav1 {
-    grid-area: n1;
-    background-color: darkseagreen;
-
+    grid-area: nav1;
+    background-image: linear-gradient(120deg, #346778, #992312);
 }
 
 .nav2 {
-    grid-area: n2;
-    background-color:lightsalmon;
-
+    grid-area: nav2;
+    background-color: yellow;
 }
 
 .body {
-    grid-area: bd;
-    background-color: lightcoral;
+    grid-area: body;
+    background-color: aqua;
 }
+
+.footer {
+    grid-area: footer;
+    background-color: blue;
+}
+
+.tal {
+    padding: 2em;
+    background-color: #20c997;
+}
+
+@media(width < 900px){
+    .page {
+        grid: "header header" auto
+            "nav2     nav2" auto
+            "nav1     body" 1fr
+            "footer   footer" auto
+        /   200px     1fr;
+    }   
+}
+
+@media(width < 500px){
+    .page {
+        grid: "header" auto
+            "nav2" auto
+            "nav1" auto
+            "body" 1fr
+            "footer" auto
+        /   1fr;
+    }   
+
+    .header {
+        background-color: blueviolet;
+    }
+}
+
 </style>
 
 <div class="page">
-    <div class="header"></div>
-    <div class="nav1"></div>
-    <div class="body"></div>
-    <div class="nav2"></div>
-    <div class="footer"></div>
+    <div class="header">héader</div>
+    <div class="nav1">nav1</div>
+    <div class="body">
+        <div class="tal">
+            Beef is an open source performance-oriented compiled programming language which has been built hand-in-hand with its IDE environment.
+            Binaries are available for Windows, and building from source is supported on Windows, Linux, and macOS.
+            View Documentation
+            Build from source     
+        </div>
+        <div class="">
+            Custom IDE
+            The Beef Development Tools include an IDE with a general-purpose debugger capable of debugging native applications written in any language.  
+        </div>
+
+    </div>
+    <div class="nav2">nav2</div>
+    <div class="footer">footer</div>
 </div>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<style>
+:root {
+    --color1: #6c63ff;
+    --color2: #575a89;
+    --color3: #2f2e41;
+    --color4: #e6e6e6;
+    --color5: #51B33D;
+    --color6: #FFE663;
+    --gradient1: linear-gradient(90deg, var(--color1), var(--color2));
+}
+
+@font-face {
+    font-family: Montserrat;
+    src: url("Montserrat-Regular.ttf");
+}
+
+@font-face {
+    font-family: Montserrat;
+    src: url("Montserrat-Bold.ttf");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: OpenSans;
+    src: url("OpenSans-Regular.ttf");
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: Montserrat;
+    scroll-behavior: smooth;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navegacion {
+    background-color: var(--color2);
+    color: white;
+    display: flex;
+    padding: 2em;
+    padding-top: 5em;
+    position: sticky;
+    top: -3em;
+    height: 8em;
+}
+
+.marca {
+    display: flex;
+    align-items: center;
+    column-gap: 1em;
+}
+
+.logo {
+    height: 100%;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.menuitem {
+    font-size: 0.75rem;
+    padding: 1em;
+    font-weight: bold;
+}
+
+.fondo-cabecera {
+    background-color: var(--color2);
+}
+
+.cabecera {
+    padding: 8em;
+    color: white;
+    text-align: center;
+}
+
+.titulo {
+    font-weight: bold;
+    font-size: 3em;
+    line-height: 1em;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.amet {
+    color: var(--color6);
+}
+
+.subtitulo {
+    text-align: center;
+    margin-bottom: 3em;
+    font-family: OpenSans;
+}
+
+.boton {
+    display: inline-block;
+    border-radius: 2rem;
+    background-color: var(--color5);
+    padding: 1em 2em 1em 2em;
+}
+
+.icono {
+    color: var(--color4);
+    font-size: 2em;
+    margin-left: 0.5em;
+}
+
+.seccion {
+    display: flex;
+    padding: 5em;
+    width: 1200px;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.fondo-seccion:nth-child(odd) .seccion {
+    flex-direction: row-reverse;
+}
+
+.fondo-seccion:nth-child(even) {
+    background-color: #e6e6e6;
+}
+
+.seccion-imagen {
+    flex-basis: 50%;
+    padding: 3em;
+}
+
+.seccion-texto {
+    flex-basis: 50%;
+    padding: 3em;
+}
+
+.seccion-descripcion {
+    font-family: OpenSans;
+}
+
+.fondo-pie {
+    background-color: var(--color3);
+}
+
+.pie {
+    display: flex;
+    color: white;
+    padding: 5em;
+    padding-top: 8em;
+    flex-wrap: wrap;
+    width: 1200px;
+    margin: auto;
+}
+
+</style>
+
+<div class="navegacion">
+    <div class="marca">
+        <svg class="logo" viewBox="0 0 512 512"><path style="fill:currentColor" d="M 0,262.19955 C 0,400.38708 114.38292,512 255.99984,512 396.52763,512 510.91054,400.38708 512,263.26252 c -1.08946,34.01555 -29.41292,60.59003 -64.27242,60.59003 -34.85949,0 -64.2724,-27.63755 -64.2724,-62.71598 0,-148.81743 0,71.57639 0,-74.05184 C 383.45518,83.975376 297.39572,0 191.72741,0 86.059463,0 0,83.975376 0,187.08473 l 0,75.11482 z m 95.773326,-109.1767 c 22.456824,0 40.893304,17.85475 40.754694,39.76775 l 0,55.72869 c 0,21.91279 -18.4365,39.76765 -40.754694,39.76765 -22.317856,0 -40.754688,-17.7196 -40.754688,-39.76765 l 0,-55.72869 c 0,-21.913 18.298209,-39.76775 40.754688,-39.76775 z m 119.471104,0 c 22.45662,0 40.89324,17.85475 40.75461,39.76775 l 0,55.72869 c 0,21.91279 -18.43661,39.76765 -40.75461,39.76765 -22.31785,0 -40.75469,-17.7196 -40.75469,-39.76765 l 0,-55.72869 c 0,-21.913 18.29822,-39.76775 40.75469,-39.76775 z" /></svg>
+        MyProject
+    </div>
+    <div class="menu">
+        <a class="menuitem" href="#aenean">AENEAN</a>
+        <a class="menuitem" href="#aliquam">ALIQUAM</a>
+        <a class="menuitem" href="#nulla">NULLA</a>
+    </div>
+</div>
+
+<div class="fondo-cabecera">
+    <div class="cabecera">
+        <h1 class="titulo">LOREM IPSUM<br>DOLOR SIT <span class="amet">AMET</span></h1>
+        <p class="subtitulo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <a class="boton" href="#">&#9733; Deserunt</a>
+        <a class="icono" href="#">&#9738;</a>
+        <a class="icono" href="#">&#9753;</a>
+        <a class="icono" href="#">&#9762;</a>
+    </div>
+</div>
+
+<div class="fondo-seccion">
+    <div class="seccion">
+        <img class="seccion-imagen" src="i1.svg">
+        <div class="seccion-texto">
+            <h1 class="seccion-titulo">What is Lorem Ipsum?</h1>
+            <p class="seccion-descripcion">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>    
+        </div>
+    </div>
+</div>
+
+<div class="fondo-seccion">
+    <div class="seccion" id="aenean">
+        <img class="seccion-imagen" src="i2.svg">
+        <div class="seccion-texto">
+            <h1 class="seccion-titulo">Why do we use it?</h1>
+            <p class="seccion-titulo">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
+        </div>
+    </div>
+</div>
+
+<div class="fondo-seccion">
+    <div class="seccion" id="aliquam">
+        <img class="seccion-imagen" src="i3.svg">
+        <div class="seccion-texto">
+            <h1 class="seccion-titulo">Where does it come from?</h1>
+            <p class="seccion-titulo">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>
+        </div>
+    </div>
+</div>
+
+<div class="fondo-seccion">
+    <div class="seccion" id="nulla">
+        <img class="seccion-imagen" src="i4.svg">
+        <div class="seccion-texto">
+            <h1 class="seccion-titulo">Where can I get some?</h1>
+            <p class="seccion-titulo">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+        </div>
+    </div>
+</div>
+
+<div class="fondo-pie">
+    <div class="pie">
+        <ul>
+            <li>MyProject
+                <ul>
+                    <li><a href="#">Ornare arcu</a></li>
+                    <li><a href="#">Rhoncus est</a></li>
+                    <li><a href="#">Cras pulvinar</a></li>
+                    <li><a href="#">Consectetur</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li>Maecenas
+                <ul>
+                    <li><a href="#">Commodo</a></li>
+                    <li><a href="#">Volutpat</a></li>
+                    <li><a href="#">Viverra</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li>Elit Ullamcorper
+                <ul>
+                    <li><a href="#">Semper Feugiat</a></li>
+                    <li><a href="#">Ac Tortor</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
