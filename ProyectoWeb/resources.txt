@@ -9,7 +9,5 @@ http://colormind.io/
 https://color.adobe.com/es/create
 
 
-
-
 Responsive sizes:
 https://docs.adobe.com/content/help/en/target/using/experiences/vec/mobile-viewports.html
