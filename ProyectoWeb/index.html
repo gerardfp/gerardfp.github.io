@@ -44,6 +44,9 @@ a {
     color: inherit;
 }
 
+img {
+    max-width: 100%;
+}
 
 
 
@@ -71,7 +74,7 @@ a {
     height: 2rem;
 }
 
-.menu-icon {
+.menu-icono {
     margin-left: auto;
     height: 2rem;
     cursor: pointer;
@@ -166,16 +169,11 @@ a {
 }
 
 .seccion-imagen {
-    width: 100%;
     padding: 1em;
 }
 
 .seccion-texto {
     padding: 1em;
-}
-
-.seccion-descripcion {
-    font-family: OpenSans;
 }
 
 .fondo-pie {
@@ -187,7 +185,6 @@ a {
     color: white;
     padding: 4rem 1em 2rem 1rem;
     flex-wrap: wrap;
-    /* width: 1200px; */
     margin: auto;
 }
 
@@ -249,7 +246,7 @@ a {
         // MY PROJECT
     </div>
     <div class="menu-button" onclick="toogleMenu()">
-        <svg class="menu-icon" viewBox="0 0 448 512"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
+        <svg class="menu-icono" viewBox="0 0 448 512"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>
     </div>
     <div id="menu" class="menu" onclick="toogleMenu()">
         <ul class="menu-items">
@@ -273,40 +270,48 @@ a {
 
 <div class="fondo-seccion">
     <div class="seccion">
-        <img class="seccion-imagen" src="i1.svg">
+        <div class="seccion-imagen">
+            <img src="i1.svg">
+        </div>
         <div class="seccion-texto">
-            <h1 class="seccion-titulo">What is Lorem Ipsum?</h1>
-            <p class="seccion-descripcion">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>    
+            <h1>What is Lorem Ipsum?</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>    
         </div>
     </div>
 </div>
 
 <div class="fondo-seccion" id="aenean">
     <div class="seccion">
-        <img class="seccion-imagen" src="i2.svg">
+        <div class="seccion-imagen">
+            <img src="i2.svg">
+        </div>
         <div class="seccion-texto">
-            <h1 class="seccion-titulo">Why do we use it?</h1>
-            <p class="seccion-titulo">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
+            <h1>Why do we use it?</h1>
+            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
         </div>
     </div>
 </div>
 
 <div class="fondo-seccion" id="aliquam">
     <div class="seccion">
-        <img class="seccion-imagen" src="i3.svg">
+        <div class="seccion-imagen">
+            <img src="i3.svg">
+        </div>
         <div class="seccion-texto">
-            <h1 class="seccion-titulo">Where does it come from?</h1>
-            <p class="seccion-titulo">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>
+            <h1>Where does it come from?</h1>
+            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>
         </div>
     </div>
 </div>
 
 <div class="fondo-seccion" id="nulla">
     <div class="seccion">
-        <img class="seccion-imagen" src="i4.svg">
+        <div class="seccion-imagen">
+            <img src="i4.svg">
+        </div>
         <div class="seccion-texto">
-            <h1 class="seccion-titulo">Where can I get some?</h1>
-            <p class="seccion-titulo">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+            <h1>Where can I get some?</h1>
+            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
         </div>
     </div>
 </div>
