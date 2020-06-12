@@ -1,14 +1,65 @@
-
 <!doctype html>
 
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <meta charset="UTF-8">
-</head>
-<body style="background-color: #565656">
+<style>
+body {}
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 300px);
+  grid-template-rows: repeat(auto-fit, 300px);
+  grid-gap: 10px;
+  width: 920px;
+  margin: auto;
+  margin-top: 300px;
+}
 
-</body>
-</html>
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+.smxm8 {
+  background-color: yellow;
+}
+
+.damm3 {
+  background-color: blue;
+}
+
+.damm8 {
+  background-color: red;
+}
+
+</style>
+
+<div class="grid">
+
+    <div class="item smxm8">
+      <a href="/smx/m8">
+        <div>
+          <h1>SMX M8</h1>
+          <h2>Aplicacions web</h2>
+        </div>
+      </a>
+    </div>
+
+  <div class="item damm3">
+    <div>
+      <h1>DAM M3</h1>
+      <h2>Programació</h2>
+    </div>
+  </div>
+  <div class="item damm8">
+    <div>
+      <h1>DAM M8</h1>
+      <h2>Aplicacions mòbils</h2>
+    </div>
+  </div>
+</div>
