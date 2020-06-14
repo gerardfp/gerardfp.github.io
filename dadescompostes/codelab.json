@@ -3,18 +3,18 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2020-06-12T13:56:57Z",
+  "updated": "2020-06-14T15:13:09Z",
   "id": "dadescompostes",
   "duration": 0,
   "title": "Dades Compostes",
   "summary": "dadescompostes",
   "source": "1wLfWk0VDU68IrhkAwjdJJkbhPHa_dUGE9GkooVEGxHY",
-  "theme": "programaci-",
+  "theme": "java",
   "status": [
     "draft"
   ],
   "category": [
-    "Programació"
+    "Java"
   ],
   "tags": [
     "java"
