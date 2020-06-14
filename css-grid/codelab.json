@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-06-14T11:33:21Z",
+  "id": "css-grid",
+  "duration": 0,
+  "title": "SMX-M8-UF5",
+  "summary": "css-grid",
+  "source": "1QZwQVtqipx6zSeEGxSZgVmJ3NTbUPr-60u6e93mywBI",
+  "theme": "web",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "feedback": "https://github.com/gerardfp",
+  "url": "css-grid"
+}
