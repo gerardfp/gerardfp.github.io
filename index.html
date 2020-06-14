@@ -90,71 +90,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <body id="app" is="body-bind" class="loading fullbleed ">
   <paper-header-panel id="main" mode="standard" main>
-    
     <div id="mainToolbar" class="paper-header">
       <div class="site-width layout horizontal">
+<!--
         <a href="/">
           <img src="/images/logo.png" class="logo-devs" alt="Codelabs Logo">
         </a>
+-->
         <div id="searchbar">
           <paper-input-container no-label-float>
             <paper-icon-button prefix icon="search"></paper-icon-button>
             <label>Search</label>
-            <input is="iron-input" bind-value="{{searchVal}}" on-keydown="onSearchKeyDown">
+            <input is="iron-input" bind-value="" on-keydown="onSearchKeyDown">
           </paper-input-container>
         </div>
       </div>
-    </div>
-    
 
-<!--
-    
-    <header id="banner" down$="[[_toBoolean(selectedFilter)]]">
-      <div class="site-width">
-        
-        <h2 class="banner-title">Welcome to Codelabs!</h2>
-        <div class="banner-description"
-             data-filter-selected$="[[_toBoolean(selectedFilter)]]">
-          <p class="banner-info">
-            Codelabs provide a guided, tutorial, hands-on
-            coding experience. Most codelabs will step you through the process
-            of building a small application, or adding a new feature to an
-            existing application.
-            <br>
-            <a href="https://github.com/googletools">Codelab tools on GitHub</a>
-          </p>
-          </div>
-      </div>
-    </header>
--->
-    <main>
-      <div id="filters" class="site-width layout horizontal center justified">
-
-<!--
-        <div id="sortby">
-          <paper-tabs selected="0" noink on-iron-activate="sortBy">
-            <paper-tab>A-Z</paper-tab>
-            <paper-tab>Recent</paper-tab>
-            <paper-tab>Duration</paper-tab>
-          </paper-tabs>
-        </div>
-
-        
-        <paper-dropdown-menu
-          label="Choose an event"
-          class="dropdown-filter"
-          no-label-float
-          noink no-animations
-        >
-          <paper-listbox
-            id="eventList"
-            slot="dropdown-content"
-            class="dropdown-content"
-          >
-          </paper-listbox>
-        </paper-dropdown-menu>
-        
---><paper-dropdown-menu
+      <div id="filters" class="site-width layout horizontal center justified"><paper-dropdown-menu
           label="Filter by category"
           class="dropdown-filter"
           no-label-float
@@ -173,7 +125,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 
           </paper-listbox>
         </paper-dropdown-menu></div>
+    </div>
 
+    <main>
       <card-sorter id="cards" class="site-width">
         
           
