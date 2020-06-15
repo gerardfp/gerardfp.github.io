@@ -3,18 +3,18 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2020-06-15T15:40:35Z",
+  "updated": "2020-06-15T17:04:19Z",
   "id": "conversio",
   "duration": 0,
   "title": "Operadors i conversió de tipus",
   "summary": "conversio",
   "source": "1o8rc7OlcDHDKFQZK8NtT1sdpCr8fdkaXhVhx4FUjEOs",
-  "theme": "dam-m3-programaci-",
+  "theme": "dam-m3-dam-m3-programaci-",
   "status": [
     "draft"
   ],
   "category": [
-    "dam-m3:Programació"
+    "dam-m3:DAM-M3-Programació"
   ],
   "tags": [
     "java"

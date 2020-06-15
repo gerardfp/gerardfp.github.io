@@ -3,12 +3,12 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2020-06-15T16:56:08Z",
-  "id": "lifecycle",
+  "updated": "2020-06-15T16:56:36Z",
+  "id": "android",
   "duration": 0,
-  "title": "Lifecycle callbacks",
-  "summary": "Lifecycle",
-  "source": "1akQbpZ0UszqfYVRH9VdN7pGH_HbyClBLLdQ0bMCN8xg",
+  "title": "Android projects",
+  "summary": "Android projects",
+  "source": "1lkG2lWrrlqVvcG9GdMwsiBsfKfZZaeutn6oqvl-MAdM",
   "theme": "dam-m8-dam-m8-aplicacions-m-bils",
   "status": [
     "draft"
@@ -19,6 +19,6 @@
   "tags": [
     "android"
   ],
-  "feedback": "https://github.com/gerardfp",
-  "url": "lifecycle"
+  "feedback": "https://github.com/gerardfp/mp08/android",
+  "url": "android"
 }
