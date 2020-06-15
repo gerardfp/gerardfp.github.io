@@ -92,11 +92,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <paper-header-panel id="main" mode="standard" main>
     <div id="mainToolbar" class="paper-header">
       <div class="site-width layout horizontal">
-<!--
+        <!--
         <a href="/">
           <img src="/images/logo.png" class="logo-devs" alt="Codelabs Logo">
         </a>
--->
+      -->
+        <div id="filters"><paper-dropdown-menu
+            label="Filter by category"
+            class="dropdown-filter"
+            no-label-float
+            noink no-animations
+          >
+            <paper-listbox
+              id="categorylist"
+              slot="dropdown-content"
+              class="dropdown-content"
+              on-iron-activate="onCategoryActivate"
+              attr-for-selected="filter"
+            >
+                <paper-item filter="Android">Android</paper-item>
+                  <paper-item filter="Java">Java</paper-item>
+                  <paper-item filter="web">web</paper-item>
+                  
+            </paper-listbox>
+          </paper-dropdown-menu></div>
         <div id="searchbar">
           <paper-input-container no-label-float>
             <paper-icon-button prefix icon="search"></paper-icon-button>
@@ -106,28 +125,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
       </div>
 
-      <div id="filters" class="site-width layout horizontal center justified"><paper-dropdown-menu
-          label="Filter by category"
-          class="dropdown-filter"
-          no-label-float
-          noink no-animations
-        >
-          <paper-listbox
-            id="categorylist"
-            slot="dropdown-content"
-            class="dropdown-content"
-            on-iron-activate="onCategoryActivate"
-            attr-for-selected="filter"
-          >
-              <paper-item filter="Android">Android</paper-item>
-                <paper-item filter="Java">Java</paper-item>
-                <paper-item filter="web">web</paper-item>
-                
-          </paper-listbox>
-        </paper-dropdown-menu></div>
+     
+
     </div>
 
     <main>
+      <div></div>
       <card-sorter id="cards" class="site-width">
         
           
