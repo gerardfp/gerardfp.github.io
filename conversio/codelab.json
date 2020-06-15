@@ -3,20 +3,22 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2020-06-14T15:17:17Z",
+  "updated": "2020-06-15T15:40:35Z",
   "id": "conversio",
   "duration": 0,
   "title": "Operadors i conversió de tipus",
   "summary": "conversio",
   "source": "1o8rc7OlcDHDKFQZK8NtT1sdpCr8fdkaXhVhx4FUjEOs",
-  "theme": "java",
+  "theme": "dam-m3-programaci-",
   "status": [
     "draft"
   ],
   "category": [
-    "Java"
+    "dam-m3:Programació"
   ],
-  "tags": [],
+  "tags": [
+    "java"
+  ],
   "feedback": "https://github.com/gerardfp",
   "url": "conversio"
 }

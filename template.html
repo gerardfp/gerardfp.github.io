@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<style>
+
+.Android {
+    background-image: url();
+}
+</style>
+
+<p>{{categoryName}}</p>
+{% for codelab in codelabs -%}
+
+    <a href="{{codelab.url}}">
+        <div class="card">
+            <span>{{codelab.title}}</span>
+            <div class="icon {{codelab.mainTag}}"></div>
+        </div>
+    </a>
+{%- endfor %}

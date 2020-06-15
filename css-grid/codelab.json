@@ -3,18 +3,19 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2020-06-14T11:33:21Z",
+  "updated": "2020-06-15T15:00:12Z",
   "id": "css-grid",
   "duration": 0,
-  "title": "SMX-M8-UF5",
+  "title": "CSS Grid",
   "summary": "css-grid",
   "source": "1QZwQVtqipx6zSeEGxSZgVmJ3NTbUPr-60u6e93mywBI",
-  "theme": "web",
+  "theme": "dam-m3-dam-m3-programaci-",
   "status": [
     "draft"
   ],
   "category": [
-    "web"
+    "dam-m3:DAM-M3-Programació",
+    "smx-m8:SMX-M8-Aplicacions web"
   ],
   "tags": [
     "web"

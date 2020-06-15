@@ -3,18 +3,18 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2020-06-14T15:04:04Z",
+  "updated": "2020-06-15T15:39:19Z",
   "id": "lifecycle",
   "duration": 0,
   "title": "Lifecycle callbacks",
   "summary": "Lifecycle",
   "source": "1akQbpZ0UszqfYVRH9VdN7pGH_HbyClBLLdQ0bMCN8xg",
-  "theme": "android",
+  "theme": "dam-m8-aplicacions-m-bils",
   "status": [
     "draft"
   ],
   "category": [
-    "Android"
+    "dam-m8:Aplicacions mòbils"
   ],
   "tags": [
     "android"
