@@ -2,6 +2,11 @@
 <meta charset="UTF-8">
 <style>
 
+:root {
+    --android-color: #239023;
+    --android-icon: url('/img/android.svg');
+}
+
 body {
     background-color: #eceff1;
     font-family: Arial, Helvetica, sans-serif;
@@ -12,21 +17,6 @@ a {
     color: inherit;
 }
 
-.android .icon {
-    background-image: url('/img/android.svg');
-}
-
-.android {
-    border-color: teal !important;
-}
-
-.icon {
-    background-position: 0 50%;
-    background-repeat: no-repeat;
-    background-size: 32px 32px;
-    height: 42px;
-    width: 42px;
-}
 
 .cards {
     display: grid;
@@ -38,15 +28,56 @@ a {
     background-color: white;
     padding: 1em;
     border-bottom: 5px solid;
+    border-radius: 2%;
+}
+
+.card-title {
+    font-size: 1.2em;
+}
+
+.card-description {
+    min-height: 2em;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.icon {
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    height: 42px;
+    width: 42px;
+}
+
+.button {
+    width: 96px;
+    height: 42px;
+    border-radius: 4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+
+.card.web{
+    border-color: var(--web-color);
+}
+
+.card.web .icon{
+    background-image: var(--web-icon);
+}
+
+.card.web .button{
+    background-color: var(--web-color);
 }
 </style>
 
 <p>SMX-M8-Aplicacions web</p>
 <div class="cards">
-<a href="/css-grid">
-        <div class="card web">
-            <span>CSS Grid</span>
-            <div class="icon"></div>
-        </div>
-    </a>
+
+
 </div>

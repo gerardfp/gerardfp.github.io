@@ -1,11 +1,126 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
-<h1>moduls index</h1>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+:root {
+    --mobils-color: #239023;
+    --mobils-image: url('/img/mobils.jpg');
+    --web-color: #234093;
+    --web-image: url('/img/web.jpg');
+    --programacio-color: #934023;
+    --programacio-image: url('/img/programacio.jpg');
+}
+
+body {
+    margin: 0;
+    background-color: #455a64;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.title {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 1em;
+    background-color: white;
+    color: #333;
+    box-shadow: 0 3px 6px -3px #bdbdbd;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: 400px;
+    grid-gap: 1em;
+    padding: 3em 1em 1em 1em;
+    margin: auto;
+    max-width: 400px;
+}
+
+
+
+@media(min-width: 1240px){
+    .cards {
+        grid-template-columns: 1fr 1fr 1fr; 
+        max-width: 1200px;
+    }
+}
+
+.card {
+    color: white;
+    background-color: white;
+    padding: 1em;
+    border-bottom: 5px solid;
+    border-radius: 2%;
+    height: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-y: 100px;
+}
+
+.card-title {
+    text-align: center;
+    font-size: 1.6em;
+}
+
+
+.image {
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    height: 42px;
+    width: 42px;
+}
+
+.card.mobils{
+    background-color: var(--mobils-color);
+    border-color: var(--mobils-color);
+    background-image: var(--mobils-image);
+}
+
+.card.web{
+    background-color: var(--web-color);
+    border-color: var(--web-color);
+    background-image: var(--web-image);
+}
+
+.card.programacio{
+    background-color: var(--programacio-color);
+    border-color: var(--programacio-color);
+    background-image: var(--programacio-image);
+}
+
+</style>
+
+<!-- <div class="title">
+    <span>DAM-M8-Aplicacions mòbils</span>
+</div> -->
+
+<div class="cards">
 
 <a href="/dam-m8">
-        <h2>DAM-M8-Aplicacions mòbils</h2>
-    </a><a href="/dam-m3">
-        <h2>DAM-M3-Programació</h2>
-    </a><a href="/smx-m8">
-        <h2>SMX-M8-Aplicacions web</h2>
+        <div class="card mobils">
+            <div class="card-title">
+                <span>DAM-M8-Aplicacions mòbils</span>
+            </div>
+        </div>
     </a>
+    <a href="/dam-m3">
+        <div class="card programacio">
+            <div class="card-title">
+                <span>DAM-M3-Programació</span>
+            </div>
+        </div>
+    </a><a href="/smx-m8">
+        <div class="card web">
+            <div class="card-title">
+                <span>SMX-M8-Aplicacions web</span>
+            </div>
+        </div>
+    </a>
+</div>

@@ -3,15 +3,15 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2020-06-16T13:41:50Z",
-  "id": "android",
+  "updated": "2020-06-16T14:05:07Z",
+  "id": "recyclerview",
   "duration": 0,
-  "title": "Android projects",
-  "summary": "Android projects",
-  "source": "1lkG2lWrrlqVvcG9GdMwsiBsfKfZZaeutn6oqvl-MAdM",
+  "title": "RecyclerView",
+  "summary": "RecyclerView",
+  "source": "1aDAy8i2NhoATJ6RSFyeNIkMYzxd8QAsJ6Op4bEmXlnM",
   "theme": "dam-m8-dam-m8-aplicacions-m-bils",
   "status": [
-    "1"
+    "draft"
   ],
   "category": [
     "dam-m8:DAM-M8-Aplicacions mòbils"
@@ -20,5 +20,5 @@
     "android"
   ],
   "feedback": "/dam-m8",
-  "url": "android"
+  "url": "recyclerview"
 }

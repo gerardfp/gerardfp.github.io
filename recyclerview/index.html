@@ -1,0 +1,516 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>RecyclerView</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="recyclerview"
+                  title="RecyclerView"
+                  environment="web"
+                  feedback-link="/dam-m8">
+    
+      <google-codelab-step label="Introducción" duration="0">
+        <p>El objetivo de esta práctica es explicar el elemento <strong><code>RecyclerView</code></strong>.</p>
+<p>El widget <a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank"><code>RecyclerView</code></a> nos permite mostrar una lista de elementos y hacer scroll en ellos.</p>
+<p>Realizaremos una aplicación que mostrará una lista de <code>Elementos</code>. Cada <code>Elemento</code> tendrá un <code>nombre</code>, una <code>descripcion</code> y una <code>valoracion</code>.</p>
+<p>Al hacer click sobre un elemento de la lista, se navegará a otra destinación donde se mostrará el detalle de ese elemento.</p>
+<p>CODE: <a href="https://github.com/gerardfp/recyclerview" target="_blank">https://github.com/gerardfp/recyclerview</a></p>
+<p class="image-container"><img style="width: 258.00px" src="img/7cd2aad9e031edfb.gif"></p>
+<p class="image-container"><img style="width: 557.00px" src="img/857a4bed7d66b4bb.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el proyecto" duration="0">
+        <p>Selecciona &#34;Empty Activity&#34; como plantilla para la actividad principal.</p>
+<p>Añade las bibliotecas <code>RecyclerView</code> en el archivo <code>build.gradle (Module: app)</code></p>
+<pre><code>dependencies {
+   implementation &#39;androidx.recyclerview:recyclerview:1.0.0&#39;
+}</code></pre>
+<ol type="1" start="1">
+<li>Crea el grafo de navegacion (<code>res/navigation/navigation.xml</code>):</li>
+</ol>
+<p class="image-container"><img style="width: 367.00px" src="img/2b805e768e3d4094.png"></p>
+<aside class="warning"><p>Android Studio te pedirá añadir la dependencia (en caso de que no la tuvieras ya añadida).</p>
+<p class="image-container"><img style="width: 312.00px" src="img/1a45dcf3cdaa022f.png"></p>
+<p><code>implementation </code><strong><code>&#39;androidx.navigation:navigation-fragment:2.0.0&#39;</code></strong></p>
+<p><code>implementation </code><strong><code>&#39;androidx.navigation:navigation-ui:2.1.0&#39;</code></strong></p>
+</aside>
+<ol type="1" start="2">
+<li>Añade el NavHost al layout de la MainActivity (<code>res/layout/activity_main.xml</code>):<br></li>
+</ol>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   tools:context=&#34;.MainActivity&#34;&gt;
+
+   &lt;fragment
+       android:id=&#34;@+id/nav_host_fragment&#34;
+       android:name=&#34;androidx.navigation.fragment.NavHostFragment&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;match_parent&#34;
+       app:defaultNavHost=&#34;true&#34;
+       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+       app:layout_constraintRight_toRightOf=&#34;parent&#34;
+       app:layout_constraintTop_toTopOf=&#34;parent&#34;
+       app:navGraph=&#34;@navigation/navigation&#34; /&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre>
+<ol type="1" start="3">
+<li>Añade la destinaciones <code>ListaElementosFragment</code> y <code>DetalleElementoFragment</code>:<br><br><img style="width: 340.00px" src="img/3bc8e24b54fb5473.png"></li>
+</ol>
+<p class="image-container"><img style="width: 495.00px" src="img/e3ff0026cc05fed2.png"></p>
+<p class="image-container"><img style="width: 487.00px" src="img/b61a6e289818af0b.png"></p>
+<p class="image-container"><img style="width: 596.00px" src="img/1f9080e35ce80c85.png"><br></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ViewModel" duration="0">
+        <p class="image-container"><img style="width: 557.00px" src="img/c6472ad0e38147c3.png"></p>
+<p>Los datos que queremos mostrar en el RecyclerView los tendremos guardados en un ArrayList. </p>
+<p>Para esta práctica rellenaremos el ArrayList con datos generados por código (con un <em>for</em>), pero podrían ser datos descargados de la red, obtenidos de una base de datos, de un fichero JSON, etc. etc. etc.</p>
+<p>Este ArrayList contendrá diversos objetos <code>Elemento</code> que hay que mostrar en el RecyclerView (en una aplicación real los objetos podrían ser de clase Contacto, Mensaje, Personaje, Película, Producto, etc.)</p>
+<p>Crea la clase <strong><code>Elemento</code></strong> y añade los campos siguientes:</p>
+<pre><code>public class Elemento {
+   public String nombre;
+   public String descripcion;
+   public float valoracion;
+}</code></pre>
+<p>Las variables de datos y la lógica de la aplicación van el ViewModel, por tanto, es ahí donde crearemos el ArrayList de Items.</p>
+<ol type="1" start="1">
+<li>Crea una nueva clase llamada <code>PrincipalViewModel</code> y añade en ella el ArrayList. En el constructor llamaremos a un método que añada los Elementos en el ArrayList:</li>
+</ol>
+<pre><code>import android.app.Application;
+import java.util.ArrayList;
+import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
+
+public class PrincipalViewModel extends AndroidViewModel {
+
+   MutableLiveData&lt;List&lt;Elemento&gt;&gt; listaElementos = new MutableLiveData&lt;&gt;();
+   MutableLiveData&lt;Elemento&gt; elementoSeleccionado = new MutableLiveData&lt;&gt;();
+
+
+   public PrincipalViewModel(@NonNull Application application) {
+       super(application);
+
+       rellenarListaElementos();
+   }
+
+   public void rellenarListaElementos(){
+       List&lt;Elemento&gt; elementos = new ArrayList&lt;&gt;();
+       for (int i = 0; i &lt; 200; i++) {
+           Elemento elemento = new Elemento();
+           elemento.nombre = &#34;Elemento &#34; + i;
+           elemento.descripcion = &#34;Descripcion &#34; + i;
+           elemento.valoracion = (float) Math.random()*10;
+           elementos.add(elemento);
+       }
+       listaElementos.setValue(elementos);
+   }
+
+   public void establecerElementoSeleccionado(Elemento elemento){
+       elementoSeleccionado.setValue(elemento);
+   }
+}
+</code></pre>
+<p class="image-container"><img style="width: 615.00px" src="img/2a565a5036476de9.gif"></p>
+<aside class="special"><p>El ArrayList de elementos <code>listaElementos</code> lo hemos envuelto en la clase <code>MutableLiveData</code>. Esto es para que desde el <code>ListaElementosFragment</code> se pueda <strong>observar</strong> este ArrayList.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ListaElementosFragment" duration="0">
+        <p>En este Fragment es donde se mostrará el ReyclerView con la lista de elementos.</p>
+<p>Para usar el RecyclerView hay que crear primero dos clases:</p>
+<ol type="1" start="1">
+<li>RecyclerView.ViewHolder</li>
+<li>RecyclerView.Adapter</li>
+</ol>
+<p>Estas clases las podemos crear en cualquier sitio (en otro fichero, un fichero existente, interno a otra clase, etc..).</p>
+<p>Ya que estas clases únicamente las vamos a usar dentro del <code>ListaElementosFragment</code>, las crearemos como clases internas. De esta forma, podrán acceder directamente a los objetos de la clase <code>ListaElementosFragment</code> que necesiten, sin necesidad de que se los pasemos como parámetros.</p>
+<p>Los objetos en cuestión a los que han de acceder són el <code>ViewModel</code> (para acceder a los datos) y el <code>NavController</code> (para navegar a otra destinación).</p>
+<p class="image-container"><img style="width: 533.00px" src="img/f8a8a427c5e96a5.png"></p>
+<p>Así pues, lo primero que haremos en el <code>ListaElementosFragment</code> será obtener el <code>ViewModel</code> y el <code>NavController</code>.</p>
+<pre><code>import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+public class ListaElementosFragment extends Fragment {
+
+   PrincipalViewModel principalViewModel;
+   NavController navController;
+
+   public ListaElementosFragment() {}
+
+   @Override
+   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+       return inflater.inflate(R.layout.fragment_lista_elementos, container, false);
+   }
+
+   @Override
+   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+       super.onViewCreated(view, savedInstanceState);
+
+       principalViewModel = ViewModelProviders.of(requireActivity()).get(PrincipalViewModel.class);
+       navController = Navigation.findNavController(view);
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="ViewHolder" duration="0">
+        <p class="image-container"><img style="width: 557.00px" src="img/d6edfb5a87476e42.png"></p>
+<p>El ViewHolder és la <strong>plantilla </strong>de cómo se mostrarán los elementos en el RecyclerView. Es decir, cada elemento del RecyclerView será una copia de la plantilla con los campos rellenados con los elementos del ArrayList.</p>
+<p>Para crear el ViewHolder tenemos que crear:</p>
+<ul>
+<li>Un fichero con el <strong>layout </strong>y</li>
+<li>Una <strong>clase </strong>que haga el <code>findViewById()</code> de cada elemento del layout que tenga que ser rellenado con datos.</li>
+</ul>
+<ol type="1" start="1">
+<li>Crea un nuevo fichero de layout llamado <code>(res/layout/viewholder_elemento.xml)</code>:</li>
+</ol>
+<p><img style="width: 606.00px" src="img/5790b758def6c969.png"><br><br>Este layout será la plantilla para un elemento del RecyclerView. Añadiremos los componentes que necesitemos. <br><br>En este caso añadiremos un TextView para el nombre, otro para la descripción y un RatingBar.<br></p>
+<p class="image-container"><img style="width: 682.70px" src="img/daeaf6ba272f43a4.png"></p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   android:orientation=&#34;vertical&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;wrap_content&#34;
+   android:padding=&#34;8dp&#34;&gt;
+   &lt;TextView
+       android:id=&#34;@+id/textview_nombre&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:textSize=&#34;24sp&#34;
+       android:textStyle=&#34;bold&#34; /&gt;
+   &lt;TextView
+       android:id=&#34;@+id/textview_descripcion&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;/&gt;
+   &lt;RatingBar
+       android:id=&#34;@+id/ratingbar_valoracion&#34;
+       android:numStars=&#34;5&#34;
+       android:layout_width=&#34;wrap_content&#34;
+       android:layout_height=&#34;wrap_content&#34;/&gt;
+&lt;/LinearLayout&gt;</code></pre>
+<ol type="1" start="2">
+<li>Crea la classe <code>ElementoViewHolder</code>: <br><br>Esta clase se encargará de hacer el <code>findViewById()</code> de cada <em>view</em> que haya que rellenar en la plantilla (con los datos de los Ítems del ArrayList). <br><br>En nuestra plantilla las <em>views</em> a rellenar son los dos TextView y el RatingBar.<br></li>
+</ol>
+<pre><code>class ElementoViewHolder extends RecyclerView.ViewHolder {
+   TextView nombreTextView, descripcionTextView;
+   RatingBar valoracionRatingBar;
+
+   ElementoViewHolder(@NonNull View itemView) {
+       super(itemView);
+       nombreTextView = itemView.findViewById(R.id.textview_nombre);
+       descripcionTextView = itemView.findViewById(R.id.textview_descripcion);
+       valoracionRatingBar = itemView.findViewById(R.id.ratingbar_valoracion);
+   }
+}</code></pre>
+<p class="image-container"><img style="width: 615.00px" src="img/da9284df033e661a.gif"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Adapter" duration="0">
+        <p>El adaptador es el encargado de crear las copias de la plantilla y rellenarlas con los datos.</p>
+<p class="image-container"><img style="width: 705.07px" src="img/d7aac992cf637eb9.png"></p>
+<p>Crea una nueva clase llamada <code>ElementosAdapter</code> con el siguiente código:</p>
+<pre><code>class ElementosAdapter extends RecyclerView.Adapter&lt;ElementosAdapter.ElementoViewHolder&gt;{
+
+   List&lt;Elemento&gt; elementos;
+
+   @NonNull
+   @Override
+   public ElementoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+       return new ElementoViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_elemento, parent, false));
+   }
+
+   @Override
+   public void onBindViewHolder(@NonNull ElementoViewHolder holder, final int position) {
+
+       final Elemento elemento = elementos.get(position);
+
+       holder.nombreTextView.setText(elemento.nombre);
+       holder.descripcionTextView.setText(elemento.descripcion);
+       holder.valoracionRatingBar.setRating(elemento.valoracion);
+
+       holder.valoracionRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+           @Override
+           public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+               elemento.valoracion = v;
+           }
+       });
+
+       holder.itemView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               principalViewModel.establecerElementoSeleccionado(elemento);
+               navController.navigate(R.id.detalleElementoFragment);
+           }
+       });
+   }
+
+   @Override
+   public int getItemCount() {
+       return elementos == null ? 0 : elementos.size();
+   }
+
+   public void establecerListaElementos(List&lt;Elemento&gt; elementos){
+       this.elementos = elementos;
+       notifyDataSetChanged();
+   }
+
+   class ElementoViewHolder extends RecyclerView.ViewHolder {
+       TextView nombreTextView, descripcionTextView;
+       RatingBar valoracionRatingBar;
+
+       public ElementoViewHolder(@NonNull View itemView) {
+           super(itemView);
+           nombreTextView = itemView.findViewById(R.id.textview_nombre);
+           descripcionTextView = itemView.findViewById(R.id.textview_descripcion);
+           valoracionRatingBar = itemView.findViewById(R.id.ratingbar_valoracion);
+       }
+   }
+}</code></pre>
+<p class="image-container"><img style="width: 666.00px" src="img/3c14052575c86ba4.gif"></p>
+<aside class="special"><p>Ya que la clase <code>ElementoViewHolder</code> solamente la necesitamos dentro de la clase <code>ElementosAdapter</code>, hemos hecho que sea <strong>interna</strong> a ella.</p>
+</aside>
+<p>El Adapter tiene 3 métodos:</p>
+<ul>
+<li><code>onCreateViewHolder()</code>: Este método es llamado por el RecyclerView cada vez que hay que <strong>crear </strong>una nueva copia de la plantilla para mostrar un nuevo elemento.<br><br>Dentro de este método usamos el <code>LayoutInflater</code> para crear una copia de la plantilla <code>viewholder_elemento.xml</code>.<br><br>Se retorna un objeto de clase <code>ElementoViewHolder</code>, al que le pasamos la copia de la plantilla para que haga los <code>findViewById()</code>.</li>
+<li><code>onBindViewHolder()</code>: Este método es llamado por el RecyclerView con el fin de <strong>rellenar </strong>una copia de la plantilla.<br><br>La variable <code>holder</code> que nos pasan como parámetro es el ViewHolder (la copia de la plantilla) que hay que rellenar, y la variable <code>position</code> es la posición que ocupa dentro del RecyclerView.<br><br>En este método hacemos 4 cosas:</li>
+</ul>
+<ol type="1" start="1">
+<li>Obtenemos el <code>Elemento</code> del ArrayList que ocupa la <code>position</code> que nos ha pasado el RecyclerView (es decir, la posicion del ViewHolder que hay que rellenar).<br></li>
+<li>Rellenamos los TextView y el RatingBar del <code>ViewHolder</code> con los datos del <code>Elemento</code> que hemos sacado del ArrayList.<br></li>
+<li>Establecemos el listener para el RatingBar que actualizará la valoración del Elemento.<br></li>
+<li>Establecemos un listener para todo el ViewHolder (la variable <code>itemView</code>), para que cuando se haga click en él, navegue al <code>DetalleElementoFragment</code>, donde se mostrará el detalle del elemento.<br><br>Previamente, habremos guardado el <code>Elemento</code> en la variable <code>elementoSeleccionado</code> del ViewModel. <br></li>
+</ol>
+<aside class="special"><p>La variable <code>itemView</code> hace referencia a todo el ViewHolder en sí.</p>
+</aside>
+<ul>
+<li><code>getItemCount()</code>: Este método es llamado por el RecyclerView con el fin de saber cuántos elementos se tienen que mostrar. En nuestro caso retornamos el <code>size()</code> del ArrayList, o <code>0</code> si el ArrayList es <code>null</code>.</li>
+</ul>
+<p>Hemos añadido un método extra <code>establecerListaElementos()</code>, que como su nombre indica, se encarga de establecer cuál es la lista de elementos que debe tener en cuenta este adaptador. Cuando se cambia la lista de elementos, este método llama a <code>notifyDataSetChanged()</code> lo cual hace que el adaptador vuelva a rellenar el RecyclerView con los nuevos datos del ArrayList.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="RecyclerView" duration="0">
+        <p><a href="https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html" target="_blank"><code>RecyclerView</code></a> proporciona estos 3 administradores de layout:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><a href="https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html" target="_blank">LinearLayoutManager</a><code> </code>muestra elementos en una lista de desplazamiento horizontal o vertical.</p>
+<p class="image-container"><img style="width: 146.70px" src="img/4ddefc2975a500a8.png"></p>
+</td><td colspan="1" rowspan="1"><p><a href="https://developer.android.com/reference/android/support/v7/widget/GridLayoutManager.html" target="_blank">GridLayoutManager</a><code> </code>muestra elementos en una cuadrícula.</p>
+<p class="image-container"><img style="width: 144.40px" src="img/fac440afb6f65950.png"></p>
+</td><td colspan="1" rowspan="1"><p><a href="https://developer.android.com/reference/android/support/v7/widget/StaggeredGridLayoutManager.html" target="_blank">StaggeredGridLayoutManager</a><code> </code>muestra elementos en una cuadrícula escalonada.</p>
+<p class="image-container"><img style="width: 143.70px" src="img/2a44143f4e286c2e.png"></p>
+</td></tr>
+</table>
+<p>El LayoutManager que deseamos utilizar lo podemos establecer con el atributo XML <strong><code>app:layoutManager</code></strong> en el elemento RecyclerView. El atributo <strong><code>app:spanCount</code></strong> indica el número de columnas.</p>
+<pre><code>app:layoutManager=&#34;androidx.recyclerview.widget.LinearLayoutManager&#34;</code></pre>
+<pre><code>app:layoutManager=&#34;androidx.recyclerview.widget.GridLayoutManager&#34;
+app:spanCount=&#34;3&#34;</code></pre>
+<pre><code>app:layoutManager=&#34;androidx.recyclerview.widget.StaggeredGridLayoutManager&#34;
+app:spanCount=&#34;3&#34;</code></pre>
+<p>Para esta práctica usaremos el <code>LinearLayoutManager</code></p>
+<p>Añade el elemento <code>&lt;RecyclerView&gt;</code> al layout <code>res/layout/fragment_lista_elementos.xml</code></p>
+<pre><code>&lt;androidx.recyclerview.widget.RecyclerView
+   android:id=&#34;@+id/item_list&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;wrap_content&#34;
+   app:layoutManager=&#34;androidx.recyclerview.widget.LinearLayoutManager&#34; /&gt;</code></pre>
+<p>En el método <code>onViewCreated()</code> del <code>ListaElementosFragment</code> haremos lo siguiente:<br></p>
+<ol type="1" start="1">
+<li>Recuperar el RecyclerView del XML con <code>findViewById()<br></code></li>
+<li>Establecerle el adaptador <code>ElementosAdapter</code> (<em>el encargado de rellenar el RecyclerView</em>)<br></li>
+<li>Observar el ArrayList de elementos (<code>listaElementos</code>) del ViewModel, y establecerlo en el adaptador</li>
+</ol>
+<pre><code>public class ListaElementosFragment extends Fragment {
+
+   PrincipalViewModel principalViewModel;
+   NavController navController;
+
+   ElementosAdapter elementosAdapter;
+
+   public ListaElementosFragment() {}
+
+   @Override
+   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+       return inflater.inflate(R.layout.fragment_lista_elementos, container, false);
+   }
+
+   @Override
+   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+       super.onViewCreated(view, savedInstanceState);
+
+       principalViewModel = ViewModelProviders.of(requireActivity()).get(PrincipalViewModel.class);
+       navController = Navigation.findNavController(view);
+
+       RecyclerView elementosRecyclerView = view.findViewById(R.id.recyclerview_listaElementos);
+       elementosRecyclerView.addItemDecoration(new DividerItemDecoration(elementosRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
+
+       elementosAdapter = new ElementosAdapter();
+       elementosRecyclerView.setAdapter(elementosAdapter);
+
+       principalViewModel.listaElementos.observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
+           @Override
+           public void onChanged(List&lt;Elemento&gt; elementos) {
+               elementosAdapter.establecerListaElementos(elementos);
+           }
+       });
+   }
+
+   // class ElementosAdapter ...
+}</code></pre>
+<aside class="special"><p>Para mostrar un separador entre cada elemento del RecyclerView usamos un <code>DividerItemDecoration</code>:</p>
+<p><code>recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));</code></p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="DetalleElementoFragment" duration="0">
+        <p>En la destinación <code>DetalleElementoFragment</code>, solamente tenemos que <strong>observar </strong>cuál es el elementoSeleccionado del ViewModel, y mostrar sus datos.</p>
+<p><code>DetalleElementoFragment.java</code></p>
+<pre><code>import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RatingBar;
+import android.widget.TextView;
+
+public class DetalleElementoFragment extends Fragment {
+
+   PrincipalViewModel principalViewModel;
+
+   TextView nombreTextView;
+   TextView descripcionTextView;
+   RatingBar valoracionRatingBar;
+
+   public DetalleElementoFragment() { }
+
+   @Override
+   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+       return inflater.inflate(R.layout.fragment_detalle_elemento, container, false);
+   }
+
+   @Override
+   public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+       super.onViewCreated(view, savedInstanceState);
+
+       principalViewModel = ViewModelProviders.of(requireActivity()).get(PrincipalViewModel.class);
+
+       nombreTextView = view.findViewById(R.id.textview_nombre);
+       descripcionTextView = view.findViewById(R.id.textview_descripcion);
+       valoracionRatingBar = view.findViewById(R.id.ratingbar_valoracion);
+
+       principalViewModel.elementoSeleccionado.observe(getViewLifecycleOwner(), new Observer&lt;Elemento&gt;() {
+           @Override
+           public void onChanged(final Elemento elemento) {
+               if(elemento == null) return;
+
+               nombreTextView.setText(elemento.nombre);
+               descripcionTextView.setText(elemento.descripcion);
+               valoracionRatingBar.setRating(elemento.valoracion);
+
+               valoracionRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                   @Override
+                   public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                       elemento.valoracion = v;
+                   }
+               });
+           }
+       });
+   }
+}</code></pre>
+<p><code>fragment_detalle_elemento.xml</code></p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;FrameLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   tools:context=&#34;.ItemDetailFragment&#34;&gt;
+
+   &lt;LinearLayout
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:orientation=&#34;vertical&#34;&gt;
+
+       &lt;TextView
+           android:id=&#34;@+id/name&#34;
+           android:gravity=&#34;center&#34;
+           android:textSize=&#34;48sp&#34;
+           android:textStyle=&#34;bold&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34; /&gt;
+
+       &lt;RatingBar
+           android:id=&#34;@+id/rating&#34;
+           android:layout_width=&#34;wrap_content&#34;
+           android:layout_height=&#34;wrap_content&#34; /&gt;
+
+       &lt;TextView
+           android:id=&#34;@+id/desc&#34;
+           android:textSize=&#34;24sp&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34; /&gt;
+
+   &lt;/LinearLayout&gt;
+
+&lt;/FrameLayout&gt;</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>

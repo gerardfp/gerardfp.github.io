@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
+:root {
+    --android-color: #239023;
+    --android-icon: url('/img/android.svg');
+}
+
 body {
+    margin: 0;
     background-color: #eceff1;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -12,12 +19,61 @@ a {
     color: inherit;
 }
 
-.android .icon {
-    background-image: url('/img/android.svg');
+.title {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 1em;
+    background-color: white;
+    color: #333;
+    box-shadow: 0 3px 6px -3px #bdbdbd;
 }
 
-.android {
-    border-color: teal !important;
+.cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1em;
+    padding: 1em;
+    margin: auto;
+}
+
+@media(min-width: 648px){
+    .cards {
+        grid-template-columns: 1fr 1fr; 
+    }
+}
+
+@media(min-width: 1024px){
+    .cards {
+        grid-template-columns: 1fr 1fr 1fr; 
+    }
+}
+
+@media(min-width: 1240px){
+    .cards {
+        grid-template-columns: 1fr 1fr 1fr; 
+        max-width: 1200px;
+    }
+}
+
+.card {
+    background-color: white;
+    padding: 1em;
+    border-bottom: 5px solid;
+    border-radius: 2%;
+}
+
+.card-title {
+    font-size: 1.2em;
+}
+
+.card-description {
+    min-height: 2em;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
 }
 
 .icon {
@@ -28,30 +84,139 @@ a {
     width: 42px;
 }
 
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 300px);
-    grid-gap: 1em;
+.button {
+    width: 96px;
+    height: 42px;
+    border-radius: 4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
 }
 
-.card {
-    background-color: white;
-    padding: 1em;
-    border-bottom: 5px solid;
+
+.card.android{
+    border-color: var(--android-color);
+}
+
+.card.android .icon{
+    background-image: var(--android-icon);
+}
+
+.card.android .button{
+    background-color: var(--android-color);
+}.card.android{
+    border-color: var(--android-color);
+}
+
+.card.android .icon{
+    background-image: var(--android-icon);
+}
+
+.card.android .button{
+    background-color: var(--android-color);
+}.card.android{
+    border-color: var(--android-color);
+}
+
+.card.android .icon{
+    background-image: var(--android-icon);
+}
+
+.card.android .button{
+    background-color: var(--android-color);
+}.card.android{
+    border-color: var(--android-color);
+}
+
+.card.android .icon{
+    background-image: var(--android-icon);
+}
+
+.card.android .button{
+    background-color: var(--android-color);
+}.card.android{
+    border-color: var(--android-color);
+}
+
+.card.android .icon{
+    background-image: var(--android-icon);
+}
+
+.card.android .button{
+    background-color: var(--android-color);
 }
 </style>
 
-<p>DAM-M8-Aplicacions mòbils</p>
+<div class="title">
+    <span>DAM-M8-Aplicacions mòbils</span>
+</div>
 <div class="cards">
+
 <a href="/android">
         <div class="card android">
-            <span>Android projects</span>
-            <div class="icon"></div>
+            <div class="card-title">
+                <span>Android projects</span>
+            </div>
+            <div class="card-description">
+
+            </div>
+            <div class="card-footer">
+                <div class="icon"></div>
+                <div class="button">Start</div>    
+            </div>
+        </div>
+    </a><a href="/navigation">
+        <div class="card android">
+            <div class="card-title">
+                <span>Activity</span>
+            </div>
+            <div class="card-description">
+
+            </div>
+            <div class="card-footer">
+                <div class="icon"></div>
+                <div class="button">Start</div>    
+            </div>
         </div>
     </a><a href="/lifecycle">
         <div class="card android">
-            <span>Lifecycle callbacks</span>
-            <div class="icon"></div>
+            <div class="card-title">
+                <span>Lifecycle callbacks</span>
+            </div>
+            <div class="card-description">
+
+            </div>
+            <div class="card-footer">
+                <div class="icon"></div>
+                <div class="button">Start</div>    
+            </div>
+        </div>
+    </a><a href="/widgets">
+        <div class="card android">
+            <div class="card-title">
+                <span>Widgets</span>
+            </div>
+            <div class="card-description">
+
+            </div>
+            <div class="card-footer">
+                <div class="icon"></div>
+                <div class="button">Start</div>    
+            </div>
+        </div>
+    </a><a href="/recyclerview">
+        <div class="card android">
+            <div class="card-title">
+                <span>RecyclerView</span>
+            </div>
+            <div class="card-description">
+
+            </div>
+            <div class="card-footer">
+                <div class="icon"></div>
+                <div class="button">Start</div>    
+            </div>
         </div>
     </a>
 </div>
