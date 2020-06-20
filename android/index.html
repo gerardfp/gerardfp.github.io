@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Android Studio</title>
+  <title>Android apps</title>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
@@ -23,14 +23,15 @@
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
   <google-codelab codelab-gaid=""
                   id="android"
-                  title="Android Studio"
+                  title="Android apps"
                   environment="web"
                   feedback-link="/dam-m8">
     
-      <google-codelab-step label="Introducción" duration="0">
+      <google-codelab-step label="Android apps" duration="0">
         <p class="image-container"><img style="width: 430.00px" src="img/5980356ca211d1b4.png"></p>
 <p>Esta práctica te enseña cómo crear tu primera aplicación para Android. Aprenderás cómo <strong>crear </strong>un proyecto de Android con Android Studio, y <strong>ejecutar </strong>una versión depurable de la aplicación.</p>
 <p>Desarrollaremos una App que consiste en un contador de clics:</p>
+<p class="image-container"><img style="width: 237.00px" src="img/16d3b5773c10a06e.gif"></p>
 
 
       </google-codelab-step>
@@ -52,11 +53,11 @@
 <li>Si has abierto un proyecto, ve a <strong><code>File</code></strong> &gt; <strong><code>New</code></strong> &gt; <strong><code>New project</code></strong>.<br></li>
 </ul>
 <ol type="1" start="2">
-<li>Elije la plantilla para la <code>Activity</code> (pantalla) principal de la App. Para esta práctica elije &#34;<strong>Basic Activity</strong>&#34;.</li>
+<li>Elije la plantilla para la <code>Activity</code> principal de la App. Para esta práctica elije &#34;<strong>Empty Activity</strong>&#34;.</li>
 </ol>
 <p class="image-container"><img style="width: 599.00px" src="img/26a91d65433c605.png"></p>
 <ol type="1" start="3">
-<li>Rellena los campos de la pantalla.<br><img style="width: 660.00px" src="img/27bd0025411d5d90.png"></li>
+<li>Rellena los campos de la pantalla.<br><img style="width: 661.00px" src="img/f707dbad21451ca3.png"></li>
 </ol>
 <aside class="special"><p><strong>Minimum SDK</strong>: es la versión de mínima de Android que deben tener los dispositivos para poder ejecutar la app. Para soportar el máximo de dispositivos que sea posible, se debe establecer a la versión más baja posible. Sin embargo, cuanto más baja es la versión menos características de android modernas puede utilizar la app..</p>
 </aside>
@@ -66,7 +67,7 @@
     
       <google-codelab-step label="Estructura del proyecto" duration="0">
         <p>El proyecto creado es una aplicación básica de &#34;Hello World&#34; que contiene algunos <strong>archivos por defecto</strong>. Veamos los más importantes:</p>
-<p class="image-container"><img style="width: 332.00px" src="img/77948a0c66797562.png"></p>
+<p class="image-container"><img style="width: 333.00px" src="img/e9aafb4329bd07df.png"></p>
 <table>
 <tr></tr>
 <tr><td colspan="1" rowspan="1"><p><strong><code>app/src/main/AndroidManifest.xml</code></strong></p>
@@ -108,7 +109,7 @@
     
       <google-codelab-step label="Ejecutar la App" duration="0">
         <p>Este es el aspecto de la App &#34;Hello World&#34;:</p>
-<p class="image-container"><img style="width: 256.00px" src="img/8a9cb5b053a78f83.png"></p>
+<p class="image-container"><img style="width: 248.34px" src="img/2977efb6683f6a96.png"></p>
 <h2 is-upgraded>Ejecutar en un dispositivo real</h2>
 <p>Configurar el móvil de la siguiente manera:</p>
 <ol type="1" start="1">
@@ -150,7 +151,7 @@
 <li>Haz doble click sobre el fichero <code>res/layout/activity_main.xml</code></li>
 <li>Haz click en el icono <img style="width: 53.00px" src="img/6d274adfbd3e3056.png"> (<em>o también Split...</em>)</li>
 </ol>
-<p class="image-container"><img style="width: 736.40px" src="img/3f0b5ee01987be5a.png"></p>
+<p class="image-container"><img style="width: 736.10px" src="img/3132c5a5d8301a3e.png"></p>
 <p>Modificaremos el layout de la siguiente forma:</p>
 <ul>
 <li>El TextView que actualmente contiene el texto &#34;Hello World&#34;, lo usaremos para mostrar el contador</li>
@@ -159,6 +160,7 @@
 <h2 is-upgraded>TextView</h2>
 <p>Para cambiar el texto de un TextView, hay que modificar el atributo <code>android:text</code>.</p>
 <p>Cambia el valor de este atributo al texto &#34;Has clicado 0 veces&#34;</p>
+<pre><code>android:text=&#34;Has clicado 0 veces&#34;</code></pre>
 <p class="image-container"><img style="width: 503.00px" src="img/eb1a93877d141ccb.png"></p>
 <h2 is-upgraded>Button</h2>
 <p>Añade también el <code>Button</code> que augmentará el contador:</p>
@@ -200,15 +202,7 @@
 <p>En la <code>constraintTop</code> la cosa cambia. Podemos ver que la <code>constraintTop</code> tira del botón <strong>hacia la parte inferior</strong> del TextView.</p>
 <p>Para hacer referencia al <em>elemento padre</em> hemos visto que podemos usar <code>parent</code>. Pero ¿cómo hacemos referencia al TextView? Para ello hay que asignarle un <strong>identificador</strong> al TextView.</p>
 <p>Para asignar un identificador a un elemento hay que usar el atributo <code>android:id</code>, y en el valor hay que poner <code>@+id/</code> antes del identificador que queramos asignarle. Para asignar el identificador &#34;contadorDeClics&#34; al TextView añadiremos pues el atributo <code>android:id=&#34;@+id/contadorDeClics&#34;</code>.</p>
-<pre><code>&lt;TextView
-   android:id=&#34;@+id/contadorDeClics&#34;
-   android:layout_width=&#34;wrap_content&#34;
-   android:layout_height=&#34;wrap_content&#34;
-   android:text=&#34;Has clicado 0 veces&#34;
-   app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
-   app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
-   app:layout_constraintRight_toRightOf=&#34;parent&#34;
-   app:layout_constraintTop_toTopOf=&#34;parent&#34; /&gt;</code></pre>
+<pre><code>android:id=&#34;@+id/contadorDeClics&#34;</code></pre>
 <p class="image-container"><img style="width: 629.00px" src="img/ff3031e37006d92f.gif"></p>
 <p>Ahora ya podemos añadir la <code>constraintTop</code> al botón y decirle que apunte hacia la parte inferior del TextView:</p>
 <pre><code>&lt;Button
@@ -222,6 +216,37 @@
    app:layout_constraintTop_toBottomOf=&#34;@+id/contadorDeClics&#34;/&gt;</code></pre>
 <aside class="special"><p>También hemos agragado el identificador <code>augmentarElContador</code> al botón. Ya que en el siguiente apartado haremos referencia a este botón desde el código Java.</p>
 </aside>
+<p>El código completo del layout quedará así:</p>
+<h3 is-upgraded><a href="https://github.com/gerardfp/ContadorDeClics/blob/master/app/src/main/res/layout/activity_main.xml" target="_blank">app/src/main/res/layout/activity_main.xml</a></h3>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   tools:context=&#34;.MainActivity&#34;&gt;
+
+   &lt;TextView
+       android:id=&#34;@+id/contadorDeClics&#34;
+       android:layout_width=&#34;wrap_content&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:text=&#34;Has clicado 0 veces&#34;
+       app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
+       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+       app:layout_constraintRight_toRightOf=&#34;parent&#34;
+       app:layout_constraintTop_toTopOf=&#34;parent&#34; /&gt;
+
+   &lt;Button
+       android:id=&#34;@+id/augmentarElContador&#34;
+       android:layout_width=&#34;wrap_content&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:text=&#34;Click me!&#34;
+       app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
+       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+       app:layout_constraintRight_toRightOf=&#34;parent&#34;
+       app:layout_constraintTop_toBottomOf=&#34;@+id/contadorDeClics&#34;/&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre>
 
 
       </google-codelab-step>
@@ -272,6 +297,7 @@
 <p><strong>Opcionalmente</strong>, se puede activar el ViewBinding para no tener que hacer las llamadas a findViewById para vincular los elementos del XML con las variables JAVA.</p>
 <p>Imagina que en lugar de 1 botón y 1 textview, tenemos 10 botones y 5 textviews... són 15 variables y 15 llamadas a findViewById !!</p>
 <p>Para activar el ViewBinding hay que ir al fichero <code>build.gradle (Module: app)</code> y añadir la siguiente configuración:</p>
+<h3 is-upgraded><a href="https://github.com/gerardfp/ContadorDeClics/blob/master/app/build.gradle" target="_blank"><strong>app/build.gradle</strong></a></h3>
 <pre>android {
    . . .
    viewBinding {
@@ -327,6 +353,7 @@
 <p>Ahora, dentro del método <code>onClick</code> del <em>listener</em>, solo hay que incrementar el contador y cambiar el texto del TextView. </p>
 <p>Para cambiar el texto hacemos una llamada al método <code>setText()</code> del TextView.</p>
 <p>Finalmente, el código de la aplicación queda así:</p>
+<h3 is-upgraded><a href="https://github.com/gerardfp/ContadorDeClics/blob/master/app/src/main/java/com/company/contadordeclics/MainActivity.java" target="_blank">app/src/main/java/com/company/contadordeclics/MainActivity.java</a></h3>
 <pre><code>public class MainActivity extends AppCompatActivity {
 
    int contador;
@@ -371,6 +398,22 @@
        });
    }
 }</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Proyecto" duration="0">
+        <h2 is-upgraded><img style="width: 13.00px" src="img/f22abb3936d9dac0.png"> P1-MultiContador</h2>
+<p>Desarrolla una app llamada &#34;P1 MultiContador&#34; que haga la función de un contador de personas.</p>
+<p class="image-container"><img style="width: 315.50px" src="img/8d90e83c091873a9.png"></p>
+<p>La app debe tener 4 contadores independientes y un contador global (que lleve la suma de los 4 contadores).</p>
+<p>Debe haber un botón de reset para cada contador y un botón de reset global que resetee los 4 contadores a la vez.</p>
+<p>Puedes utilizar la siguiente app como modelo para el multicontador</p>
+<p class="image-container"><img style="width: 272.00px" src="img/7990ed333c2f9dab.gif"></p>
+<p>En la siguiente imagen puedes ver las constraints que se han definido en el layout:</p>
+<p class="image-container"><img style="width: 719.00px" src="img/f1e68ec025fc4cae.png"></p>
+<p>Valida la disposición de los elementos en el ConstraintLayout utilizando el &#34;Layout Validator&#34;:</p>
+<p class="image-container"><img style="width: 736.10px" src="img/c586cd9dca89bdea.png"></p>
 
 
       </google-codelab-step>

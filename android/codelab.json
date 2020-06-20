@@ -3,15 +3,15 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2020-06-18T17:30:36Z",
+  "updated": "2020-06-20T15:09:34Z",
   "id": "android",
   "duration": 0,
-  "title": "Android Studio",
+  "title": "Android apps",
   "summary": "Android Studio",
   "source": "1lkG2lWrrlqVvcG9GdMwsiBsfKfZZaeutn6oqvl-MAdM",
   "theme": "dam-m8-dam-m8-aplicacions-m-bils",
   "status": [
-    "0"
+    "1"
   ],
   "category": [
     "dam-m8:DAM-M8-Aplicacions mòbils"
