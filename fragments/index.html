@@ -1,0 +1,126 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Fragments</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="fragments"
+                  title="Fragments"
+                  environment="web"
+                  feedback-link="/dam-m8">
+    
+      <google-codelab-step label="Fragments" duration="0">
+        <p>El objetivo de esta práctica es trabajar con <strong>Fragments</strong>.</p>
+<p>Un <a href="https://developer.android.com/reference/android/app/Fragment.html" target="_blank"><code>Fragment</code></a> representa un comportamiento o una parte de la interfaz de usuario en una <a href="https://developer.android.com/reference/android/app/Activity.html" target="_blank"><code>Activity</code></a>. </p>
+<p>Puedes combinar múltiples fragmentos en una sola actividad para crear una IU multipanel y volver a usar un fragmento en múltiples actividades. Puedes pensar en un fragmento como una sección modular de una actividad que tiene su ciclo de vida propio, recibe sus propios eventos de entrada y que puedes agregar o quitar mientras la actividad se esté ejecutando (algo así como una &#34;subactividad&#34; que puedes volver a usar en diferentes actividades).</p>
+<h2 is-upgraded><strong>Overview of Navigation</strong></h2>
+<p>The Navigation Component consists of three key parts, working together in harmony. They are:</p>
+<ol type="1" start="1">
+<li><strong>Navigation Graph</strong> (New XML resource) - This is a resource that contains all navigation-related information in one centralized location. This includes all the places in your app, known as <em>destinations</em>, and possible paths a user could take through your app.</li>
+<li><strong>NavHostFragment </strong>(Layout XML view) - This is a special widget you add to your layout. It displays different destinations from your Navigation Graph.</li>
+<li><strong>NavController </strong>(Kotlin/Java object) - This is an object that keeps track of the current position within the navigation graph. It orchestrates swapping destination content in the NavHostFragment as you move through a navigation graph.</li>
+</ol>
+<p>When you navigate, you&#39;ll use the NavController object, telling it where you want to go or what path you want to take in your Navigation Graph. The NavController will then show the appropriate destination in the NavHostFragment.</p>
+<p>CODE: <a href="https://github.com/gerardfp/P9/" target="_blank">https://github.com/gerardfp/P9/</a></p>
+<p class="image-container"><img style="width: 436.70px" src="img/af606f2eec6aaf3a.png"></p>
+<p class="image-container"><img style="width: 557.00px" src="img/ae63edba6ffdee29.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el proyecto" duration="0">
+        <p>Selecciona &#34;<strong>Empty Activity</strong>&#34; como plantilla para la MainActivity</p>
+<p>Añade las dependencias para incluir el soporte Navigation:</p>
+<pre><code>dependencies {
+  def nav_version = &#34;2.1.0&#34;
+ 
+  implementation &#34;androidx.navigation:navigation-fragment:$nav_version&#34;
+  implementation &#34;androidx.navigation:navigation-ui:$nav_version&#34;
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el Grafo de Navegación" duration="0">
+        <p>Añade 3 destinos al grafo de navegación</p>
+<p class="image-container"><img style="width: 611.00px" src="img/e156c72cca2fe4c0.gif"></p>
+<h2 is-upgraded>Añade los fragments al grafo de navegación</h2>
+<p>Abre el fichero <code>res/navigation/nav_graph.xml</code> en modo <img style="width: 59.00px" src="img/31ba50c25fd04aec.png">, y haz click sobre el icono &#34;<strong>New Destination</strong>&#34; <img style="width: 17.00px" src="img/4630cb239fc9d37b.png"></p>
+<p class="image-container"><img style="width: 736.40px" src="img/1ae033cc41249850.png"></p>
+<p>Haz click en &#34;<strong>Create new destination</strong>&#34;</p>
+<h2 is-upgraded><img style="width: 313.00px" src="img/3ecc4861e723bbec.png"></h2>
+<p>Seleciona &#34;<strong>Fragment (Blank)</strong>&#34; como plantilla para el Fragment:</p>
+<p class="image-container"><img style="width: 599.00px" src="img/11840df1fe14c150.png"></p>
+<p>Introduce el nombre <code>Onboarding1Fragment</code>:</p>
+<p class="image-container"><img style="width: 677.00px" src="img/fa125b95b4ebea7e.png"></p>
+<p>Repite el proceso para crear otro fragment <code>Onboarding2Fragment</code> y <code>HomeFragment</code></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Diseña de las pantallas" duration="0">
+        <p>Por defecto, el layout de los fragments creados contiene un <code>FrameLayout</code>. Este layout está pensado para contener un único child. Cambiémoslo por un <code>ConstraintLayout</code>:</p>
+<p>Abre el fichero <code>res/layout/fragment_onboarding1.xml</code> en modo &#34;Code&#34; y sustituye el FrameLayout por un ConstraintLayout:</p>
+<p class="image-container"><img style="width: 736.10px" src="img/26696c090d224e8f.gif"></p>
+<h2 is-upgraded>Añade las imágenes</h2>
+<p>Encima del directorio <code>app</code>, haz click-derecho y selecciona <code>New</code> &gt; <code>Vector Asset</code></p>
+<p class="image-container"><img style="width: 690.00px" src="img/6069e0cb451fd375.png"></p>
+<p class="image-container"><img style="width: 310.00px" src="img/e4407e8b59b366ab.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Añade el NavHost" duration="0">
+        <p class="image-container"><img style="width: 557.00px" src="img/6b3cc3c58736ab0.png"></p>
+<p>En el layout de la MainActivity (<code>activity_main.xml</code>) añade el &lt;fragment&gt; NavHost:</p>
+<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout
+   xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;&gt;
+
+   &lt;fragment
+       android:id=&#34;@+id/nav_host_fragment&#34;
+       android:name=&#34;androidx.navigation.fragment.NavHostFragment&#34;
+       android:layout_width=&#34;0dp&#34;
+       android:layout_height=&#34;0dp&#34;
+       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+       app:layout_constraintRight_toRightOf=&#34;parent&#34;
+       app:layout_constraintTop_toTopOf=&#34;parent&#34;
+       app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
+       app:defaultNavHost=&#34;true&#34;
+       app:navGraph=&#34;@navigation/nav_graph&#34; /&gt;
+
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>
