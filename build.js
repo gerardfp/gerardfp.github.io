@@ -16,7 +16,7 @@ for (let i = 0; i < codelabFiles.length; i++) {
 }
 
 for(const category in codelabs){
-    codelabs[category].codelabs.sort((a, b) => (a.status > b.status) ? 1 : -1)
+    codelabs[category].codelabs.sort((a, b) => (parseInt(a.status) > parseInt(b.status)) ? 1 : -1)
 }
 
 // const template = fs.readFileSync('tpt/moduls.html');

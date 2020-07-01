@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-07-01T12:49:25Z",
+  "id": "debugger",
+  "duration": 0,
+  "title": "Depuració",
+  "summary": "debugger",
+  "source": "1k-cnU25VI8Ef4Wxi5DNXF5amLnpMIz4fuds5Iuw6BqQ",
+  "theme": "dam-m3-dam-m3-programaci-",
+  "status": [
+    "6"
+  ],
+  "category": [
+    "dam-m3:DAM-M3-Programació"
+  ],
+  "tags": [
+    "java"
+  ],
+  "feedback": "https://github.com/gerardfp",
+  "url": "debugger"
+}

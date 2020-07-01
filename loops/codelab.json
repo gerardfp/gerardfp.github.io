@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-07-01T12:49:51Z",
+  "id": "loops",
+  "duration": 0,
+  "title": "Loops",
+  "summary": "loops",
+  "source": "1CbociHWSRWK6oZKFZWRkZ6QPnvJ3c1bHFuCacrO6MtI",
+  "theme": "dam-m3-dam-m3-programaci-",
+  "status": [
+    "7"
+  ],
+  "category": [
+    "dam-m3:DAM-M3-Programació"
+  ],
+  "tags": [
+    "java"
+  ],
+  "feedback": "https://github.com/gerardfp",
+  "url": "loops"
+}
