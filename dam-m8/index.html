@@ -5,9 +5,9 @@
 
 :root {
     --android-color: #239023;
-    --android-icon: url('/img/android.svg');
+    --android-icon: url('/_images/android.svg');
     --java-color: #4a148c;
-    --java-icon: url('/img/java.svg');
+    --java-icon: url('/_images/java.svg');
 }
 
 body {
@@ -34,7 +34,7 @@ a {
 .cards {
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: 1em;
+    grid-gap: 2em;
     padding: 1em;
     margin: auto;
 }
@@ -107,56 +107,6 @@ a {
 
 .card.android .button{
     background-color: var(--android-color);
-}.card.android{
-    border-color: var(--android-color);
-}
-
-.card.android .icon{
-    background-image: var(--android-icon);
-}
-
-.card.android .button{
-    background-color: var(--android-color);
-}.card.android{
-    border-color: var(--android-color);
-}
-
-.card.android .icon{
-    background-image: var(--android-icon);
-}
-
-.card.android .button{
-    background-color: var(--android-color);
-}.card.android{
-    border-color: var(--android-color);
-}
-
-.card.android .icon{
-    background-image: var(--android-icon);
-}
-
-.card.android .button{
-    background-color: var(--android-color);
-}.card.android{
-    border-color: var(--android-color);
-}
-
-.card.android .icon{
-    background-image: var(--android-icon);
-}
-
-.card.android .button{
-    background-color: var(--android-color);
-}.card.android{
-    border-color: var(--android-color);
-}
-
-.card.android .icon{
-    background-image: var(--android-icon);
-}
-
-.card.android .button{
-    background-color: var(--android-color);
 }
 </style>
 
@@ -165,10 +115,10 @@ a {
 </div>
 <div class="cards">
 
-<a href="/android">
+<a href="/apps">
         <div class="card android">
             <div class="card-title">
-                <span>Android apps</span>
+                <span>Apps</span>
             </div>
             <div class="card-description">
 
@@ -194,7 +144,7 @@ a {
     </a><a href="/navigation">
         <div class="card android">
             <div class="card-title">
-                <span>Activity</span>
+                <span>Navigation</span>
             </div>
             <div class="card-description">
 
@@ -204,10 +154,23 @@ a {
                 <div class="button">Start</div>    
             </div>
         </div>
-    </a><a href="/lifecycle">
+    </a><a href="/viewmodel">
         <div class="card android">
             <div class="card-title">
-                <span>Lifecycle callbacks</span>
+                <span>ViewModel</span>
+            </div>
+            <div class="card-description">
+
+            </div>
+            <div class="card-footer">
+                <div class="icon"></div>
+                <div class="button">Start</div>    
+            </div>
+        </div>
+    </a><a href="/livedata">
+        <div class="card android">
+            <div class="card-title">
+                <span>LiveData</span>
             </div>
             <div class="card-description">
 
@@ -230,10 +193,23 @@ a {
                 <div class="button">Start</div>    
             </div>
         </div>
-    </a><a href="/widgets">
+    </a><a href="/room">
         <div class="card android">
             <div class="card-title">
-                <span>Widgets</span>
+                <span>Room</span>
+            </div>
+            <div class="card-description">
+
+            </div>
+            <div class="card-footer">
+                <div class="icon"></div>
+                <div class="button">Start</div>    
+            </div>
+        </div>
+    </a><a href="/retrofit">
+        <div class="card android">
+            <div class="card-title">
+                <span>Retrofit</span>
             </div>
             <div class="card-description">
 

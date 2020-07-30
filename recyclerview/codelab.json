@@ -3,7 +3,7 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2020-06-16T14:05:07Z",
+  "updated": "2020-07-30T09:25:29Z",
   "id": "recyclerview",
   "duration": 0,
   "title": "RecyclerView",
@@ -11,7 +11,7 @@
   "source": "1aDAy8i2NhoATJ6RSFyeNIkMYzxd8QAsJ6Op4bEmXlnM",
   "theme": "dam-m8-dam-m8-aplicacions-m-bils",
   "status": [
-    "draft"
+    "6"
   ],
   "category": [
     "dam-m8:DAM-M8-Aplicacions mòbils"

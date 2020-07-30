@@ -11,7 +11,7 @@ for (let i = 0; i < codelabFiles.length; i++) {
         codelabs[categoryUrl] = codelabs[categoryUrl] || {categoryName: categoryName, categoryUrl: categoryUrl, codelabs: [], tags: []};
         codelab.mainTag = codelab.tags[0];
         codelabs[categoryUrl].codelabs.push(codelab);
-        codelabs[categoryUrl].tags.push(codelab.tags[0]);
+        if(codelabs[categoryUrl].tags.indexOf(codelab.tags[0]) === -1) codelabs[categoryUrl].tags.push(codelab.tags[0]);
     }
 }
 
@@ -24,7 +24,7 @@ for(const category in codelabs){
 // fs.writeFileSync(`index.html`, new Buffer.from(html)); 
 
 for(const category in codelabs){
-    const template = fs.readFileSync('tpt/modul.html');
+    const template = fs.readFileSync('_templates/modul.html');
     const html = swig.render(template.toString(), { locals: codelabs[category] });
     const dir = codelabs[category].categoryUrl;
 

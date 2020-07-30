@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<h1>moduls index</h1>
+
+{% for category in codelabs -%}
+
+    <a href="/{{category.categoryUrl}}">
+        <h2>{{category.categoryName}}</h2>
+    </a>
+{%- endfor %}
