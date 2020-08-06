@@ -8,6 +8,8 @@
     --android-icon: url('/android.svg');
     --java-color: #4a148c;
     --java-icon: url('/java.svg');
+    --firebase-color: #f57c00;
+    --firebase-icon: url('/firebase.svg');
 }
 
 body {
@@ -107,6 +109,16 @@ a {
 
 .card.android .button{
     background-color: var(--android-color);
+}.card.firebase{
+    border-color: var(--firebase-color);
+}
+
+.card.firebase .icon{
+    background-image: var(--firebase-icon);
+}
+
+.card.firebase .button{
+    background-color: var(--firebase-color);
 }
 </style>
 
@@ -210,6 +222,58 @@ a {
         <div class="card android">
             <div class="card-title">
                 <span>Retrofit</span>
+            </div>
+            <div class="card-description">
+
+            </div>
+            <div class="card-footer">
+                <div class="icon"></div>
+                <div class="button">Start</div>    
+            </div>
+        </div>
+    </a><a href="/firebase">
+        <div class="card firebase">
+            <div class="card-title">
+                <span>Firebase</span>
+            </div>
+            <div class="card-description">
+
+            </div>
+            <div class="card-footer">
+                <div class="icon"></div>
+                <div class="button">Start</div>    
+            </div>
+        </div>
+    </a><a href="/authentication">
+        <div class="card firebase">
+            <div class="card-title">
+                <span>Authentication</span>
+            </div>
+            <div class="card-description">
+
+            </div>
+            <div class="card-footer">
+                <div class="icon"></div>
+                <div class="button">Start</div>    
+            </div>
+        </div>
+    </a><a href="/firestore">
+        <div class="card firebase">
+            <div class="card-title">
+                <span>Firestore</span>
+            </div>
+            <div class="card-description">
+
+            </div>
+            <div class="card-footer">
+                <div class="icon"></div>
+                <div class="button">Start</div>    
+            </div>
+        </div>
+    </a><a href="/storage">
+        <div class="card firebase">
+            <div class="card-title">
+                <span>Storage</span>
             </div>
             <div class="card-description">
 

@@ -3,22 +3,22 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2020-07-30T09:26:58Z",
-  "id": "retrofit",
+  "updated": "2020-08-06T08:41:52Z",
+  "id": "storage",
   "duration": 0,
-  "title": "Retrofit",
-  "summary": "Retrofit",
-  "source": "1PGkr8ixee-pEHIknPeWPWFwGwos8xieJ44-ueyzFJfk",
+  "title": "Storage",
+  "summary": "Storage",
+  "source": "1pxgZBL5ykh86nK0jy2zc__SkWTlbuvPOcGmcsYK9vns",
   "theme": "dam-m8-dam-m8-aplicacions-m-bils",
   "status": [
-    "8"
+    "12"
   ],
   "category": [
     "dam-m8:DAM-M8-Aplicacions mòbils"
   ],
   "tags": [
-    "android"
+    "firebase"
   ],
   "feedback": "/dam-m8",
-  "url": "retrofit"
+  "url": "storage"
 }
