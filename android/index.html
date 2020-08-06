@@ -1,0 +1,219 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Android</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="android"
+                  title="Android"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p class="image-container"><img style="width: 240.00px" src="img/e9cb0f19f34b9556.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és coneixer les possibilitats d&#39;IntelliJ per a crear aplicacions Android.</p>
+<p>IntelliJ IDEA proporciona el plugin Android Support. Aquest plugin ve incorporat i està activat per defecte. Incorpora moltes eines útils per al desenvolupament d&#39;aplicacions Android com:</p>
+<ul>
+<li>Editor grafic d&#39;interfícies</li>
+<li>Generació automàtica de codi d&#39;interficies</li>
+<li>Inspeccions de codi específiques d&#39;Android</li>
+<li>Configuracions per a l&#39;execució en terminals mòbils i dispositius virtuals</li>
+</ul>
+<p>Realitzarem un petit joc, el Tres en ratlla, per a iniciar-nos en la programació Android.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Inicia IntelliJ i crea un nou projecte de tipus &#34;Android&#34; anomenat &#34;My Application&#34;.</p>
+<p class="image-container"><img style="width: 640.00px" src="img/3c5ea508afb6a9df.png"></p>
+<p>Selecciona la mínima versió d&#39;Android que suportarà l&#39;aplicació.</p>
+<p class="image-container"><img style="width: 626.00px" src="img/e1958c518f3ed3fc.png"></p>
+<p>Selecciona &#34;Empty Activity&#34; com a plantilla per a la pantalla principal:</p>
+<p class="image-container"><img style="width: 456.00px" src="img/f3fdd950c8610bcc.png"></p>
+<p>Posa-li el nom &#34;<code>MainActivity</code>&#34; a la pantalla principal:</p>
+<p class="image-container"><img style="width: 543.00px" src="img/826f7203d3ada99a.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Activities" duration="0">
+        <p>A l&#39;SDK Android les pantalles s&#39;anomenen <em>Activities</em>. Hi ha dos arxius fonamentals a l&#39;hora de programar una Activity.</p>
+<p>A l&#39;arxiu a <code>MainActivity.java</code> programarem la lògica de l&#39;aplicació, és a dir, el comportament que volem que tingui.</p>
+<p>A l&#39;arxiu <code>activity_main.xml</code> programarem l&#39;interfície de l&#39;aplicació, és a dir, l&#39;aspecte que volem que tingui.</p>
+<p class="image-container"><img style="width: 417.00px" src="img/b1e265b5efc90db3.png"></p>
+<p>Clicant l&#39;arxiu <code>MainActivity.java</code> s&#39;obrirà l&#39;editor de codi, on podrem escriure el codi en llenguatge Java.</p>
+<p>Clicant l&#39;arxiu <code>activity_main.xml</code> s&#39;obrirà l&#39;editor gràfic d&#39;interfície d&#39;usuari, on podrem afegir els components que desitjem. A la finestra de l&#39;editor gràfic trobem la &#34;<strong>Palette</strong>&#34; amb tots els components que podem afegir, i el &#34;<strong>Component Tree</strong>&#34;, que ens mostra l&#39;estructura de components que ja hem afegit.</p>
+<p class="image-container"><img style="width: 508.00px" src="img/c01f9f7a439c4a2f.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="activity_main.xml" duration="0">
+        <p>A l&#39;arxiu <code>activity_main.xml</code> afegirem els widgets (botons, text, imatges, ...) que volem que tingui la pantalla.</p>
+<p>Per al joc Tres en ratlla, afegirem 9 botons que simbolitzaran les caselles. Fes doble clic a l&#39;arxiu <code>activity_main.xml</code> perque s&#39;obri l&#39;editor gràfic.</p>
+<ol type="1" start="1">
+<li>Comencem eliminant el text &#34;Hello world!&#34; que ens ha creat automàticament.</li>
+</ol>
+<p class="image-container"><img style="width: 292.00px" src="img/1b3e75b468ee1d5f.png"></p>
+<ol type="1" start="2">
+<li>Afegim un <code>GridLayout</code>, que ens distribuirà els botons en una graella (3x3).<br>Arrossega el GridLayout desde la paleta fins a la pantalla en blanc del mòbil.<br><img style="width: 260.00px" src="img/9ca8bee66cf473a1.png"><br></li>
+<li>Afegim els 9 botons, arrossegant-los desde la paleta fins al mòbil i disposant-los en 3 files i 3 columnes al GridLayout.<br><img style="width: 402.00px" src="img/4fbdacd3e0e56fec.png"><br></li>
+<li>El següent pas és identificar els 9 botons (posar un identificador als botons ens permetrà després treballar amb ells des del codi Java).<br>Per a identificar un botó, sel·leciona&#39;l i posa-li un nom a l&#39;atribut &#34;<code>ID</code>&#34; <br><img style="width: 237.00px" src="img/459ea3e5b3cd7514.png"><br><br>Posa aquests identificadors als botons:<br><img style="width: 265.00px" src="img/807f37174032332a.png"><br><br></li>
+<li>Elimina també el text dels botons. Busca l&#39;atribut <code>text</code> i elimina el text BUTTON.<br></li>
+<li>L&#39;ultim pas serà indicar quin mètode del codi Java s&#39;executarà quan es faci clic als botons. Busca l&#39;atribut <code>onClick</code> i posa el nom <code>tirada</code> (fes-ho per als 9 botons).<br><br><img style="width: 235.00px" src="img/922e88e0f9a34a5e.png"></li>
+</ol>
+<p>Ja tenim enllestida la interfície d&#39;usuari del Tres en ratlla. Tot i que encara no es pot realitzar ninguna acció al joc, ja podem provar com es veurà a un dispositiu mòbil.</p>
+<p>Executa la App fent clic al botó <img style="width: 21.00px" src="img/bc95805f821bb419.png">. Connecta el teu mòbil o selecciona el <em>Dispositiu Virtual</em>. Hauria de sortir una cosa semblant a això:</p>
+<p class="image-container"><img style="width: 410.00px" src="img/da5e583475a31ed6.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="MainActivity.java" duration="0">
+        <p>Fes clic a l&#39;arxiu <code>MainActivity.java</code> perque s&#39;obri l&#39;editor de codi.</p>
+<h2 is-upgraded>Marcar les caselles</h2>
+<p>El primer pas per a programar la lògica de l&#39;aplicació és marcar les caselles amb una <code>X</code> o un <code>O</code>, segons el torn.</p>
+<p>Afegirem el camp torn a la classe, i l&#39;inicialitzarem amb una &#34;<code>X</code>&#34; </p>
+<pre><code>public class MainActivity extends AppCompatActivity {
+
+   String torn = &#34;X&#34;;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_main);
+   }
+}</code></pre>
+<p>Ara programarem el mètode tirada per a que respongui al clic dels botons i marqui el botó corresponent. També canviarem el torn al següent jugador. Abans de marcar una casella i passar el torn, caldrà comprovar que la casella està buida. En cas contrari, mostrarem un missatge d&#39;error.</p>
+<pre><code>public class MainActivity extends AppCompatActivity {
+
+   String torn = &#34;X&#34;;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_main);
+   }
+
+   public void tirada(View v){
+       Button b = (Button) v;
+
+       if(b.getText().toString().isEmpty()){
+           b.setText(torn);
+           torn = torn.equals(&#34;X&#34;) ? &#34;O&#34; : &#34;X&#34;;
+       } else {
+           Toast.makeText(this, &#34;Casella ocupada&#34;, Toast.LENGTH_SHORT).show();
+       }
+   }
+}</code></pre>
+<h2 is-upgraded>Comprovar guanyador</h2>
+<p>Ja només queda comprovar quan hi ha un guanyador de la partida. Si hi ha guanyador mostrem un <code>Toast</code> i reiniciem l&#39;Activity per a començar un nou joc.</p>
+<p>Finalment el codi queda així:</p>
+<pre><code>import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+   String torn = &#34;X&#34;;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setContentView(R.layout.activity_main);
+   }
+
+   public void tirada(View v){
+       Button b = (Button) v;
+
+       if(b.getText().toString().isEmpty()){
+           b.setText(torn);
+           comprovarGuanyador();
+           torn = torn.equals(&#34;X&#34;) ? &#34;O&#34; : &#34;X&#34;;
+       } else {
+           Toast.makeText(this,&#34;Casella ocupada&#34;, Toast.LENGTH_SHORT).show();
+       }
+   }
+
+   private void comprovarGuanyador() {
+       Button b1 = findViewById(R.id.button1);
+       Button b2 = findViewById(R.id.button2);
+       Button b3 = findViewById(R.id.button3);
+       Button b4 = findViewById(R.id.button4);
+       Button b5 = findViewById(R.id.button5);
+       Button b6 = findViewById(R.id.button6);
+       Button b7 = findViewById(R.id.button7);
+       Button b8 = findViewById(R.id.button8);
+       Button b9 = findViewById(R.id.button9);
+
+       String c1 = b1.getText().toString();
+       String c2 = b2.getText().toString();
+       String c3 = b3.getText().toString();
+       String c4 = b4.getText().toString();
+       String c5 = b5.getText().toString();
+       String c6 = b6.getText().toString();
+       String c7 = b7.getText().toString();
+       String c8 = b8.getText().toString();
+       String c9 = b9.getText().toString();
+
+       if(c1.equals(c2) &amp;&amp; c1.equals(c3) &amp;&amp; !c1.isEmpty()){
+           Toast.makeText(this,&#34;Guanyador &#34; + c1, Toast.LENGTH_SHORT).show();
+           recreate();
+       } else if(c1.equals(c4) &amp;&amp; c1.equals(c7) &amp;&amp; !c1.isEmpty()){
+           Toast.makeText(this,&#34;Guanyador &#34; + c1, Toast.LENGTH_SHORT).show();
+           recreate();
+       } else if(c1.equals(c5) &amp;&amp; c1.equals(c9) &amp;&amp; !c1.isEmpty()){
+           Toast.makeText(this,&#34;Guanyador &#34; + c1, Toast.LENGTH_SHORT).show();
+           recreate();
+       } else if(c2.equals(c5) &amp;&amp; c2.equals(c8) &amp;&amp; !c2.isEmpty()){
+           Toast.makeText(this,&#34;Guanyador &#34; + c2, Toast.LENGTH_SHORT).show();
+           recreate();
+       } else if(c3.equals(c6) &amp;&amp; c3.equals(c9) &amp;&amp; !c3.isEmpty()){
+           Toast.makeText(this,&#34;Guanyador &#34; + c3, Toast.LENGTH_SHORT).show();
+           recreate();
+       } else if(c3.equals(c5) &amp;&amp; c3.equals(c7) &amp;&amp; !c3.isEmpty()){
+           Toast.makeText(this,&#34;Guanyador &#34; + c3, Toast.LENGTH_SHORT).show();
+           recreate();
+       } else if(c4.equals(c5) &amp;&amp; c4.equals(c6) &amp;&amp; !c4.isEmpty()){
+           Toast.makeText(this,&#34;Guanyador &#34; + c4, Toast.LENGTH_SHORT).show();
+           recreate();
+       } else if(c7.equals(c8) &amp;&amp; c7.equals(c9) &amp;&amp; !c7.isEmpty()){
+           Toast.makeText(this,&#34;Guanyador &#34; + c7, Toast.LENGTH_SHORT).show();
+           recreate();
+       }
+   }
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>

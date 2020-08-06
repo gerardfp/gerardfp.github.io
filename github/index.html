@@ -1,0 +1,155 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Control de versions</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="github"
+                  title="Control de versions"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p class="image-container"><img style="width: 440.00px" src="img/b23415e20783ca52.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és utlitzar un Sistema de Control de Versions per a gestionar els nostres fitxers de codi.</p>
+<p>Un Sistema de Control de Versions ens permetrà tenir sempre disponible el nostre codi, i gestionar els canvis que hi anem realitzant.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;ControlVersions&#34;.</p>
+<p class="image-container"><img style="width: 548.00px" src="img/9301fcf1aef3ff38.png"></p>
+<p class="image-container"><img style="width: 548.00px" src="img/91cfc8cf95aa8004.png"></p>
+<p class="image-container"><img style="width: 548.00px" src="img/6fdb9ea4a34e66d9.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea un compte" duration="0">
+        <p>Utilitzarem un Sistema de Control de Versions al núvol, i d&#39;aquesta manera tindrem disponible el nostre codi allà on anem.</p>
+<p>Hi ha diverses opcions:</p>
+<p><a href="http://github.com" target="_blank">Github</a></p>
+<p><a href="http://gitlab.com" target="_blank">GitLab</a></p>
+<p><a href="http://bitbucket.org" target="_blank">Bitbucket</a></p>
+<p>Totes elles ofereixen unes funcionalitats similars.</p>
+<p>En aquest CodeLab utilitzarem Github. Si no tens un compte, crea-te&#39;n un.</p>
+<h2 is-upgraded>Instal·la git</h2>
+<p>Git és el programa que s&#39;encarrega de comunicar el nostre ordinador amb Github, per a enviar els canvis que realitzem al codi, o descarregar el codi que tenim allà.</p>
+<p>Descarrega i instal·la Git:</p>
+<p><a href="https://git-scm.com/downloads" target="_blank"><paper-button class="colored" raised><iron-icon icon="cloud_download"></iron-icon>Download Git</paper-button></a></p>
+<p>Amb Ubuntu:</p>
+<p><code>apt install git</code></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Comparteix el projecte" duration="0">
+        <p>Un cop creat el compte a GitHub i instal·lat git, ja podem compartir el nostre projecte a GitHub.</p>
+<p>Per a fer-ho ves a <code>VCS</code> &gt; <code>Import into Version Control</code> &gt; <code>Share Project on GitHub</code></p>
+<p class="image-container"><img style="width: 524.00px" src="img/262dbef49e9514ff.png"></p>
+<p>Es crearà un nou repositori de codi a GitHub per al teu projecte:</p>
+<p class="image-container"><img style="width: 402.00px" src="img/53528f05f0505070.png"></p>
+<p>Et demanarà quins arxius vols pujar al repositori de codi: </p>
+<p class="image-container"><img style="width: 448.00px" src="img/fea5c0b0da147d45.png"></p>
+<aside class="warning"><p><strong>Important</strong>: No marquis els arxius del directori <code>.idea</code>, ja que aquest arxius contenen la configuració del projecte per al teu ordinador, i aquesta configuració pot ser diferent en altres ordinadors.</p>
+</aside>
+<p>Un cop li hem donat a OK, el nostre codi es pujarà a GitHub.</p>
+<p class="image-container"><img style="width: 736.40px" src="img/30e5fdccd8fac12f.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Realitza canvis al codi" duration="0">
+        <p>Quan realitzem canvis al nostre codi, <code>git</code> s&#39;encarrega de gestionar-los, guardant-los localment o pujant-los a GitHub.</p>
+<p>Hi ha tres operacions bàsiques que permet realitzar git:</p>
+<p>commit: desa els canvis que hem realitzat al codi en l&#39;ordinador local.</p>
+<p>push: envia a GitHub els canvis que tenim desats al nostre ordinador.</p>
+<p>pull: actualitza els canvis que hi ha a GitHub i encara no tenim al nostre ordinador.</p>
+<p class="image-container"><img style="width: 736.40px" src="img/55a183a897e81d03.png"></p>
+<p>Realitza una modificació al codi i fes un &#34;Commit &amp; Push&#34;, per a enviar els canvis a GitHub.</p>
+<pre><code>public class Main {
+
+   public static void main(String[] args) {
+       System.out.println(&#34;git works&#34;);
+   }
+}</code></pre>
+<p>Un cop fet els canvis, fes click a la icona <img style="width: 24.00px" src="img/2cf83de17000a74.png"> per a fer el &#34;Commit &amp; Push&#34;:</p>
+<p>Descriu al &#34;Commit Message&#34; els canvis que has realitzat i clica &#34;Commit &amp; Push&#34;:</p>
+<p class="image-container"><img style="width: 510.00px" src="img/2f8f43262bcbd753.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Clona el repositori" duration="0">
+        <p>Ara que tenim el nostre projecte a GitHub podem clonar-lo <strong>en altres ordinadors</strong> i mantenir sempre sincronitzats el nostre codi.</p>
+<p>Per a clonar un repositori anem a <code>VCS</code> &gt; <code>Checkout from Version Control</code> &gt; <code>Git</code></p>
+<p class="image-container"><img style="width: 398.00px" src="img/5cdac72ae4452599.png"></p>
+<p>Ens demana la URL del repositori que volem clonar. Aquesta URL la trobarem a la pàgina principal del repositori a GitHub.</p>
+<p class="image-container"><img style="width: 394.00px" src="img/664fef815eaeb482.png"></p>
+<p>La copiem i l&#39;enganxem. Especifiquem també el directori del nostre ordinador on volem clonar el projecte:</p>
+<p class="image-container"><img style="width: 465.00px" src="img/2eece7669e325a15.png"></p>
+<p>Ja tenim clonat el nostre repositori. Ara podem fer canvis i pujar-los a GitHub. Per a mantenir sempre actualitzades els diferents clons que puguem tenir en diferents ordinadors, cal sempre realitzar la operació Update.</p>
+<p>Per a fer Update, fem click a la icona <img style="width: 24.00px" src="img/151091502258067d.png">.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Merge" duration="0">
+        <p>Un aspecte important de git és que gestiona els conflictes entre les diferents versions d&#39;un mateix arxiu que puguem tenir en els diferents clons. Fem una prova.</p>
+<p>Al projecte clonat (directori &#34;ControlVersionsClon&#34;) realitza una modificació:</p>
+<pre><code>public class Main {
+
+   public static void main(String[] args) {
+       System.out.println(&#34;git works&#34;);
+       System.out.println(&#34;git rocks&#34;);
+   }
+}</code></pre>
+<p>Fes un Push <img style="width: 24.00px" src="img/2cf83de17000a74.png">dels canvis.</p>
+<p>Ara torna al projecte originari (directori &#34;ControlVersions&#34;) i fes una altre petita modificació:</p>
+<pre><code>public class Main {
+
+   public static void main(String[] args) {
+       System.out.println(&#34;git works&#34;);
+       System.out.println(&#34;git forever&#34;);
+   }
+}</code></pre>
+<p> Fes un Update<img style="width: 24.00px" src="img/151091502258067d.png">.</p>
+<p>En aquest punt, git detecta que al teu ordinador hi ha canvis al teu codi que no estan a GitHub, i que hi ha canvis a GitHub que no estan al teu codi. Per tant s&#39;han de &#34;mesclar&#34; aquest canvis. Et mostra el següent diàleg per a que els mesclis:</p>
+<p class="image-container"><img style="width: 446.00px" src="img/554651c0c9b57e5e.png"></p>
+<p>Fent clic a &#34;Merge...&#34; s&#39;obrirà la següent finestra:</p>
+<p class="image-container"><img style="width: 736.40px" src="img/78061771a47771bf.png"></p>
+<p>A l&#39;esquerra apareixen el codi que tens al teu ordinador, a la dreta el codi que hi ha a GitHub, i al centre com vols que quedi la mescla dels dos codis:</p>
+<p>Es tracta bàsicament d&#39;anar fent clic a les creus <img style="width: 13.00px" src="img/45de7fe7ea04d47.png"> o les flextetes <img style="width: 14.00px" src="img/ecffe6a4776c785f.png"> per a afegir o eliminar el codi que desitjem.</p>
+<p>Un cop estiguem satisfets amb la mescla, fem click a &#34;Apply&#34;</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-08-06T09:02:25Z",
+  "id": "input",
+  "duration": 0,
+  "title": "Dades d'entrada",
+  "summary": "Input",
+  "source": "10fDEk_ithFT5RD6rbpxg59aqqRCuiz1ERg9LqoX4Lqo",
+  "theme": "dam-m3-dam-m3-programaci-",
+  "status": [
+    "14"
+  ],
+  "category": [
+    "dam-m3:DAM-M3-Programació"
+  ],
+  "tags": [
+    "java"
+  ],
+  "feedback": "https://github.com/gerardfp",
+  "url": "input"
+}

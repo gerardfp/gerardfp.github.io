@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-08-06T09:02:10Z",
+  "id": "datetime",
+  "duration": 0,
+  "title": "Random \u0026 DateTime",
+  "summary": "DateTime",
+  "source": "1mYWLHpP9wTITItBcB3t1Lho_7VjLuD9A686Iqf-6LdU",
+  "theme": "dam-m3-dam-m3-programaci-",
+  "status": [
+    "13"
+  ],
+  "category": [
+    "dam-m3:DAM-M3-Programació"
+  ],
+  "tags": [
+    "java"
+  ],
+  "feedback": "https://github.com/gerardfp",
+  "url": "datetime"
+}
