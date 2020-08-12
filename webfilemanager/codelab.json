@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-08-12T21:56:29Z",
+  "id": "webfilemanager",
+  "duration": 0,
+  "title": "Gestor d'arxius web",
+  "summary": "WebFileManager",
+  "source": "1yQU2LgoAP8bwXuC1Y6hVWWzHICnpSa4HUV9QtVKZcho",
+  "theme": "smx-m8-smx-m8-aplicacions-web",
+  "status": [
+    "2"
+  ],
+  "category": [
+    "smx-m8:SMX-M8-Aplicacions web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "feedback": "/smx-m8",
+  "url": "webfilemanager"
+}

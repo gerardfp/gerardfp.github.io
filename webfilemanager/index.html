@@ -1,0 +1,93 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Gestor d&#39;arxius web</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="webfilemanager"
+                  title="Gestor d&#39;arxius web"
+                  environment="web"
+                  feedback-link="/smx-m8">
+    
+      <google-codelab-step label="Gestor d&#39;arxius web" duration="0">
+        <p class="image-container"><img style="width: 675.00px" src="img/4942bcca096256f8.gif"></p>
+<h3 is-upgraded><a href="https://github.com/gerardfp/webfilemanager" target="_blank">https://github.com/gerardfp/webfilemanager</a> </h3>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el contenidor" duration="0">
+        <pre>lxc launch ubuntu:20.04 mywebfilemanager</pre>
+<pre>lxc exec mywebfilemanager bash</pre>
+<p>Instal·la els paquets necessaris</p>
+<pre>apt update
+apt install apache2 php</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Càrrega de fitxers" duration="0">
+        <pre><code>&lt;form id=&#34;upload-form&#34; enctype=&#34;multipart/form-data&#34; action=&#34;index.php&#34; method=&#34;POST&#34;&gt;
+    &lt;input id=&#34;file&#34; name=&#34;userfile&#34; type=&#34;file&#34; onchange=&#34;document.getElementById(&#39;upload-form&#39;).submit()&#34;/&gt;
+&lt;/form&gt;
+
+&lt;?php
+$uploaddir = &#39;uploads/&#39;;
+$uploadfile = $uploaddir . basename($_FILES[&#39;userfile&#39;][&#39;name&#39;]);
+
+move_uploaded_file($_FILES[&#39;userfile&#39;][&#39;tmp_name&#39;], $uploadfile);
+?&gt;</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Llistat de fitxers" duration="0">
+        <pre><code>&lt;?php
+if ($handle = opendir($uploaddir)) {
+            while (($file = readdir($handle)) !== false) {
+                    if ($file != &#34;.&#34; &amp;&amp; $file != &#34;..&#34;) {
+                                    echo &#34;&lt;p&gt;$file&lt;/p&gt;&#34;;
+                    }
+            }
+            closedir($handle);
+}
+?&gt;</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Esborrat de fitxers" duration="0">
+        <pre><code>if(isset($_GET[&#39;delete&#39;])){
+            unlink($uploaddir . $_GET[&#39;delete&#39;]);
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>

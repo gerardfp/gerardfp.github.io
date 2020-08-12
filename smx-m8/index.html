@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
 :root {
     --android-color: #239023;
-    --android-icon: url('/img/android.svg');
+    --android-icon: url('/android.svg');
+    --java-color: #4a148c;
+    --java-icon: url('/java.svg');
+    --firebase-color: #f57c00;
+    --firebase-icon: url('/firebase.svg');
+    --web-color: #4285f4;
+    --web-icon: url('/web.svg');
 }
 
 body {
+    margin: 0;
     background-color: #eceff1;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -17,11 +25,41 @@ a {
     color: inherit;
 }
 
+.title {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    padding: 1em;
+    background-color: white;
+    color: #333;
+    box-shadow: 0 3px 6px -3px #bdbdbd;
+}
 
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 300px);
-    grid-gap: 1em;
+    grid-template-columns: 1fr;
+    grid-gap: 2em;
+    padding: 1em;
+    margin: auto;
+}
+
+@media(min-width: 648px){
+    .cards {
+        grid-template-columns: 1fr 1fr; 
+    }
+}
+
+@media(min-width: 1024px){
+    .cards {
+        grid-template-columns: 1fr 1fr 1fr; 
+    }
+}
+
+@media(min-width: 1240px){
+    .cards {
+        grid-template-columns: 1fr 1fr 1fr; 
+        max-width: 1200px;
+    }
 }
 
 .card {
@@ -76,8 +114,36 @@ a {
 }
 </style>
 
-<p>SMX-M8-Aplicacions web</p>
+<div class="title">
+    <span>SMX-M8-Aplicacions web</span>
+</div>
 <div class="cards">
 
+<a href="/webapps">
+        <div class="card web">
+            <div class="card-title">
+                <span>Aplicacions WEB</span>
+            </div>
+            <div class="card-description">
 
+            </div>
+            <div class="card-footer">
+                <div class="icon"></div>
+                <div class="button">Start</div>    
+            </div>
+        </div>
+    </a><a href="/webfilemanager">
+        <div class="card web">
+            <div class="card-title">
+                <span>Gestor d&#39;arxius web</span>
+            </div>
+            <div class="card-description">
+
+            </div>
+            <div class="card-footer">
+                <div class="icon"></div>
+                <div class="button">Start</div>    
+            </div>
+        </div>
+    </a>
 </div>

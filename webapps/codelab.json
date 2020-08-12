@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-08-12T09:19:16Z",
+  "id": "webapps",
+  "duration": 0,
+  "title": "Aplicacions WEB",
+  "summary": "WebApps",
+  "source": "1EFX2rhBlAaYcNRdP1vPCmbuG9-2QWvEeRA2FGMetjDk",
+  "theme": "smx-m8-smx-m8-aplicacions-web",
+  "status": [
+    "1"
+  ],
+  "category": [
+    "smx-m8:SMX-M8-Aplicacions web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "feedback": "/smx-m8",
+  "url": "webapps"
+}
