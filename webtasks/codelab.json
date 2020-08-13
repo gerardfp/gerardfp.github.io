@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-08-13T14:43:05Z",
+  "id": "webtasks",
+  "duration": 0,
+  "title": "Gestor de tasques",
+  "summary": "WebTasks",
+  "source": "1i2e9WK1GrdwDg7her1KKQDbCdEEx-qlq6RPuDn6Mm5k",
+  "theme": "smx-m8-smx-m8-aplicacions-web",
+  "status": [
+    "1"
+  ],
+  "category": [
+    "smx-m8:SMX-M8-Aplicacions web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "feedback": "/smx-m8",
+  "url": "webtasks"
+}
