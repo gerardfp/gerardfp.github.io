@@ -3,15 +3,15 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2020-08-12T21:56:44Z",
-  "id": "webfilemanager",
+  "updated": "2020-08-13T10:12:21Z",
+  "id": "webcms",
   "duration": 0,
-  "title": "Gestor d'arxius web",
-  "summary": "WebFileManager",
-  "source": "1yQU2LgoAP8bwXuC1Y6hVWWzHICnpSa4HUV9QtVKZcho",
+  "title": "Gestor de continguts",
+  "summary": "WebCMS",
+  "source": "1EFX2rhBlAaYcNRdP1vPCmbuG9-2QWvEeRA2FGMetjDk",
   "theme": "smx-m8-smx-m8-aplicacions-web",
   "status": [
-    "2"
+    "3"
   ],
   "category": [
     "smx-m8:SMX-M8-Aplicacions web"
@@ -20,5 +20,5 @@
     "web"
   ],
   "feedback": "/smx-m8",
-  "url": "webfilemanager"
+  "url": "webcms"
 }

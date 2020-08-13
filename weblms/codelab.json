@@ -3,15 +3,15 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2020-08-12T09:19:16Z",
-  "id": "webapps",
+  "updated": "2020-08-13T10:12:50Z",
+  "id": "weblms",
   "duration": 0,
-  "title": "Aplicacions WEB",
-  "summary": "WebApps",
-  "source": "1EFX2rhBlAaYcNRdP1vPCmbuG9-2QWvEeRA2FGMetjDk",
+  "title": "Portal web d'aprenentatge",
+  "summary": "weblms",
+  "source": "1hDVF8EinVJgQQ8MFpXN_9EL-VaYHSyjvPQ0XreJywhw",
   "theme": "smx-m8-smx-m8-aplicacions-web",
   "status": [
-    "1"
+    "4"
   ],
   "category": [
     "smx-m8:SMX-M8-Aplicacions web"
@@ -20,5 +20,5 @@
     "web"
   ],
   "feedback": "/smx-m8",
-  "url": "webapps"
+  "url": "weblms"
 }
