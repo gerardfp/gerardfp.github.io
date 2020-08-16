@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-08-16T09:23:38Z",
+  "id": "webforum",
+  "duration": 0,
+  "title": "Forum",
+  "summary": "WebForum",
+  "source": "1vgGgqVPjVbUBXRK_RQMSFoCNwjqN8tHysv8d2KhgBVM",
+  "theme": "smx-m8-smx-m8-aplicacions-web",
+  "status": [
+    "2"
+  ],
+  "category": [
+    "smx-m8:SMX-M8-Aplicacions web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "feedback": "/smx-m8",
+  "url": "webforum"
+}

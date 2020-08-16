@@ -1,0 +1,206 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Forum</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="webforum"
+                  title="Forum"
+                  environment="web"
+                  feedback-link="/smx-m8">
+    
+      <google-codelab-step label="Forum" duration="0">
+        <h3 is-upgraded><a href="https://github.com/gerardfp/webforum" target="_blank">https://github.com/gerardfp/webforum</a> </h3>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el contenidor" duration="0">
+        <pre>lxc launch ubuntu:20.04 myweb</pre>
+<pre>lxc exec myweb bash</pre>
+<p>Instal·la els paquets necessaris</p>
+<pre>apt update
+apt install apache2 php mysql-server php-mysql</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea la base de dades" duration="0">
+        <pre>mysql -e &#34;
+DROP DATABASE IF EXISTS webforum_database;
+DROP USER IF EXISTS &#39;webforum_user&#39;@&#39;localhost&#39;;
+
+CREATE DATABASE webforum_database;
+CREATE USER &#39;webforum_user&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;webforum_password&#39;; 
+GRANT ALL PRIVILEGES ON webforum_database.* TO &#39;webforum_user&#39;@&#39;localhost&#39;; 
+FLUSH PRIVILEGES;
+CREATE TABLE webforum_database.posts(id INT AUTO_INCREMENT, post TEXT, replyto INT, PRIMARY KEY (id));
+&#34;</pre>
+<pre>mysql -e &#34;
+INSERT INTO webforum_database.posts VALUES (1, &#39;1 First Post&#39;, NULL);
+INSERT INTO webforum_database.posts VALUES (2, &#39;2 Second Post&#39;, NULL);
+INSERT INTO webforum_database.posts VALUES (3, &#39;2 1 First Reply to Second Post&#39;, 2);
+INSERT INTO webforum_database.posts VALUES (4, &#39;2 1 1 First Reply to First Reply to Second Post&#39;, 3);
+INSERT INTO webforum_database.posts VALUES (5, &#39;2 1 2 Second Reply to First Reply to Second Post&#39;, 4);
+INSERT INTO webforum_database.posts VALUES (6, &#39;2 2 Second Reply to Second Post&#39;, 2);
+INSERT INTO webforum_database.posts VALUES (7, &#39;1 1 First Reply to First Post&#39;, 1);
+INSERT INTO webforum_database.posts VALUES (8, &#39;1 2 Second Reply to First Post&#39;, 1);
+INSERT INTO webforum_database.posts VALUES (9, &#39;1 3 Third Reply to First Post&#39;, 1);
+INSERT INTO webforum_database.posts VALUES (10, &#39;1 2 1 First Reply to Second Reply to First Post&#39;, 8);
+INSERT INTO webforum_database.posts VALUES (11, &#39;1 3 1 First Reply to Third Reply to First Post&#39;, 9);
+INSERT INTO webforum_database.posts VALUES (12, &#39;1 3 1 1 First Reply to First Reply to Third Reply to First Post&#39;, 11);
+INSERT INTO webforum_database.posts VALUES (13, &#39;1 3 1 2 Second Reply to First Reply to Third Reply to First Post&#39;, 11);
+&#34;
+mysql -e &#34;SELECT * FROM webforum_database.posts;&#34;</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Programa la WebApp" duration="0">
+        <h3 is-upgraded><a href="https://github.com/gerardfp/webapps/blob/master/index.php" target="_blank">index.php</a> </h3>
+<pre><code>&lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;
+&lt;h1&gt;MY BLOG!&lt;/h1&gt;
+&lt;a href=&#39;new_post.php&#39;&gt;Crear nuevo post&lt;/a&gt;
+
+&lt;?php
+$mysqli = new mysqli(&#34;localhost&#34;, &#34;my_user&#34;, &#34;my_password&#34;, &#34;my_database&#34;);
+
+$res = $mysqli-&gt;query(&#34;SELECT * FROM posts&#34;);
+
+while ($row = $res-&gt;fetch_assoc()) {
+    echo &#34;&lt;h2&gt;&#34; . $row[&#39;title&#39;] . &#34;&lt;/h2&gt;\n&#34;;
+    echo &#34;&lt;p&gt;&#34; . $row[&#39;content&#39;] . &#34;&lt;/p&gt;\n&#34;;
+}
+?&gt;</code></pre>
+<h3 is-upgraded><a href="https://github.com/gerardfp/webapps/blob/master/new_post.php" target="_blank">new_post.php</a></h3>
+<pre><code>&lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;
+
+&lt;form id=&#34;form&#34; action=&#34;insert_post.php&#34; method=&#34;get&#34;&gt;
+            &lt;label for=&#34;title&#34;&gt;Titulo:&lt;/label&gt;
+            &lt;input id=&#34;title&#34; type=&#34;text&#34; name=&#34;title&#34; size=&#34;46&#34; required/&gt;
+            &lt;label for=&#34;content&#34;&gt;Contenido:&lt;/label&gt;
+            &lt;textarea id=&#34;content&#34; type=&#34;text&#34; name=&#34;content&#34; rows=&#34;8&#34; cols=&#34;64&#34; required&gt;&lt;/textarea&gt;
+            &lt;input id=&#34;submit&#34; type=&#34;submit&#34; value=&#34;Crear post&#34; disabled/&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+document.getElementById(&#39;form&#39;).addEventListener(&#34;keyup&#34;, () =&gt; {
+            document.getElementById(&#34;submit&#34;).disabled = !form.checkValidity();
+});
+&lt;/script&gt;</code></pre>
+<h3 is-upgraded><a href="https://github.com/gerardfp/webapps/blob/master/insert_post.php" target="_blank">insert_post.php</a></h3>
+<pre><code>&lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;
+
+&lt;?php
+$mysqli = new mysqli(&#34;localhost&#34;, &#34;my_user&#34;, &#34;my_password&#34;, &#34;my_database&#34;);
+
+$stmt = $mysqli-&gt;prepare(&#34;INSERT INTO posts VALUES (?,?)&#34;);
+
+$stmt-&gt;bind_param(&#34;ss&#34;, $titulo, $contenido);
+
+$titulo = $_GET[&#39;title&#39;];
+$contenido = $_GET[&#39;content&#39;];
+
+$stmt-&gt;execute();
+
+$stmt-&gt;close();
+
+echo &#34;&lt;h3&gt;Entrada añadida!&lt;/h3&gt;&#34;;
+echo &#34;&lt;a href=&#39;/&#39;&gt;Volver&lt;/a&gt;&#34;;
+?&gt;</code></pre>
+<h3 is-upgraded><a href="https://github.com/gerardfp/webapps/blob/master/style.css" target="_blank">style.css</a></h3>
+<pre><code>h1 {
+    background-color: #135e96;
+    color: white;
+    padding: 16px;
+}
+
+a {
+    background-color: #c9356e;
+    color: white;
+    padding: 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover {
+    background-color: #a9154e;
+}
+
+h2 {
+    color: #135e96;
+    padding-top: 64px;
+    border-bottom: 1px solid #135e96;
+}
+
+p {
+    background-color: #e1e1e9;
+    padding:32px;
+    border-radius: 4px;
+}
+
+h3 {
+    background-color: #f1f1f1;
+    border: 1px solid #919191;
+    border-left: 4px solid #46b450;
+    padding: 16px;
+}
+
+input, textarea {
+    display: block;
+    padding: 16px;
+}
+
+input[type=submit] {
+    background-color: #46b450;
+    color: white;
+    padding: 16px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #269430;
+}
+
+input[type=submit]:disabled {
+    background-color: gray;
+}
+
+label {
+    margin-top: 32px;
+}</code></pre>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>
