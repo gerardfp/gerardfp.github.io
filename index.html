@@ -23,16 +23,6 @@ a {
     color: inherit;
 }
 
-.title {
-    font-size: 2em;
-    font-weight: bold;
-    text-align: center;
-    padding: 1em;
-    background-color: white;
-    color: #333;
-    box-shadow: 0 3px 6px -3px #bdbdbd;
-}
-
 .cards {
     display: grid;
     grid-template-columns: 1fr;
@@ -40,87 +30,89 @@ a {
     padding: 3em 1em 1em 1em;
     margin: auto;
     max-width: 400px;
-}
-
-
-
-@media(min-width: 1240px){
-    .cards {
-        grid-template-columns: 1fr 1fr 1fr; 
-        max-width: 1200px;
-    }
+    transition: max-width .5s;
 }
 
 .card {
     color: white;
-    background-color: white;
-    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border-bottom: 5px solid;
     border-radius: 2%;
     height: 200px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position-y: 100px;
 }
 
-.card-title {
+.card h1 {
     text-align: center;
     font-size: 1.6em;
+    padding: 0.3em;
 }
 
-
-.image {
-    background-position: 0 50%;
-    background-repeat: no-repeat;
-    background-size: 32px 32px;
-    height: 42px;
-    width: 42px;
+.card img {
+    width: 100%;
+    max-height: 40%;
+    height: auto;
+    object-fit: cover;
 }
 
 .card.mobils{
     background-color: var(--mobils-color);
     border-color: var(--mobils-color);
-    background-image: var(--mobils-image);
 }
 
 .card.web{
     background-color: var(--web-color);
     border-color: var(--web-color);
-    background-image: var(--web-image);
 }
 
 .card.programacio{
     background-color: var(--programacio-color);
     border-color: var(--programacio-color);
-    background-image: var(--programacio-image);
+}
+
+@media(min-width: 768px){
+    .cards {
+        grid-template-columns: 1fr 1fr 1fr; 
+        max-width: 700px;
+    }
+
+    .card {
+        height: 250px;
+    }
+}
+
+@media(min-width: 1024px){
+    .cards {
+        max-width: 900px;
+    }
+}
+
+@media(min-width: 1240px){
+    .cards {
+        max-width: 1024px;
+    }
 }
 
 </style>
 
-<!-- <div class="title">
-    <span>DAM-M8-Aplicacions mòbils</span>
-</div> -->
-
 <div class="cards">
-
-<a href="/dam-m8">
+    <a href="/dam-m8">
         <div class="card mobils">
-            <div class="card-title">
-                <span>DAM-M8-Aplicacions mòbils</span>
-            </div>
+            <h1>DAM-M8-Aplicacions mòbils</h1>
+            <img src="mobils.jpg">
         </div>
     </a>
     <a href="/dam-m3">
         <div class="card programacio">
-            <div class="card-title">
-                <span>DAM-M3-Programació</span>
-            </div>
+            <h1>DAM-M3-Programació</h1>
+            <img src="programacio.jpg">
         </div>
-    </a><a href="/smx-m8">
+    </a>
+    <a href="/smx-m8">
         <div class="card web">
-            <div class="card-title">
-                <span>SMX-M8-Aplicacions web</span>
-            </div>
+            <h1>SMX-M8-Aplicacions web</h1>
+            <img src="web.jpg">
         </div>
     </a>
 </div>

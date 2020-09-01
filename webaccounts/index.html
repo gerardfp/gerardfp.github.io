@@ -1,0 +1,78 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Comptes d&#39;usuari</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="webaccounts"
+                  title="Comptes d&#39;usuari"
+                  environment="web"
+                  feedback-link="/smx-m8">
+    
+      <google-codelab-step label="Comptes d&#39;usuari" duration="0">
+        <h3 is-upgraded><a href="https://github.com/gerardfp/webaccounts" target="_blank">https://github.com/gerardfp/webaccounts</a> </h3>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el contenidor" duration="0">
+        <pre>lxc launch ubuntu:20.04 mywebfilemanager</pre>
+<pre>lxc exec mywebfilemanager bash</pre>
+<p>Instal·la els paquets necessaris</p>
+<pre>apt update
+apt install apache2 php</pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea la base de dades" duration="0">
+        <pre>mysql -e &#34;
+DROP DATABASE IF EXISTS webaccounts_database;
+DROP USER IF EXISTS &#39;webaccounts_user&#39;@&#39;localhost&#39;;
+
+CREATE DATABASE webaccounts_database;
+CREATE USER &#39;webaccounts_user&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;webaccounts_password&#39;;
+GRANT ALL PRIVILEGES ON webaccounts_database.* TO &#39;webaccounts_user&#39;@&#39;localhost&#39;;
+FLUSH PRIVILEGES;
+
+CREATE TABLE webaccounts_database.users (
+        id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        username VARCHAR(50) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL
+);
+&#34;</pre>
+<p>&lt;?php</p>
+<p>    echo password_hash(&#39;qwerty&#39;, PASSWORD_BCRYPT);</p>
+<p>?&gt;</p>
+<p>php -r &#34;echo password_hash(&#39;asdf&#39;, PASSWORD_BCRYPT);&#34;</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>
