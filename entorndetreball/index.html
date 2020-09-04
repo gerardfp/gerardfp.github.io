@@ -1,34 +1,27 @@
 <meta charset="utf-8">
-<link rel="stylesheet" href="estill.css">
-<link rel="stylesheet" href=".css/estil.css">
-<link rel="stylesheet" href=".highlight.js/default.min.css">
-<script src=".highlight.js/highlight.min.js"></script>
+<script src="/.js/script.js"></script>
+<link rel="stylesheet" href="/.highlight.js/default.min.css">
+<script src="/.highlight.js/highlight.min.js"></script>
+<link rel="stylesheet" href="/.css/estil.css">
 
-<titol>
-    Pràctica 1: Entorn de treball
-</titol>
+<section>
+    <h1>Pràctica 1: Entorn de treball</h1>
 
-<resum>
-    En aquesta pràctica aprendrem a utilitzar les eines necessàries per al desenvolupament web.    
-</resum>
+    <resum>En aquesta pràctica aprendrem a utilitzar les eines necessàries per al desenvolupament web.</resum>
 
-<avis>
-    En aquest curs utilitzarem el sistema operatiu Ubuntu 20.04. Si no el tens instal·lat, el pots utilitzar en una màquina virtual.
-</avis>
+    <avis>En aquest curs utilitzarem el sistema operatiu Ubuntu 20.04. Si no el tens instal·lat, el pots utilitzar en una màquina virtual.</avis>
 
-<p>
-    El software que necessitarem és:
-</p>
+    <p>El software que necessitarem és:</p>
+    <ul>
+        <li>Editor de text
+        <li>Navegador web
+        <li>Servidor web
+        <li>Repositori de codi
+    </ul>
+</section>
 
-<ul>
-    <li>Editor de text
-    <li>Navegador web
-    <li>Servidor web
-    <li>Repositori de codi
-</ul>
-
-<seccio>
-    <titol>Editor de text</titol>
+<section>
+    <h2>Editor de text</h2>
     <p>Probablement ja teniu un editor de text bàsic en l'equip. Per defecte, Windows inclou el Notepad i OS X ve amb TextEdit. 
         Les distribucions de Linux varien; Ubuntu ve amb gedit per defecte.</p>
     <p>Per al desenvolupament web, segurament treballareu millor amb altres eines que el NotePad o el TextEdit. 
@@ -38,21 +31,20 @@
         <p>Instal·la Visual Studio Code amb la següent comanda:</p>
         <terminal>
             <host>@host</host>
-            <comanda>
-                sudo snap install code --classic
-            </comanda>
+            <shell>sudo snap install code --classic</shell>
         </terminal>
         <p>Ho pots fer també mitjançant Ubuntu Software</p>
-        <codi>
-            void main(){
-                jajaj();
-            }
-        </codi>
+        <img src="img/image47.png">
+        <code>
+void main(){
+    jajaj("&lt;p&gt;hola&lt;/p&gt;");
+}
+        </code>
     </fer>
-</seccio>
+</section>
 
-<seccio>
-    <titol>Navegador web</titol>
+<section>
+    <h2>Navegador web</h2>
     <p>Existeixen diversos navegadors web, els més utlitzats són:</p>
     <ul>
         <li>Linux: Firefox, Chrome, Opera.
@@ -61,10 +53,143 @@
     </ul>
     <p>En aquest curs utilitzarem el navegador Firefox, que ja ve instal·lat per defecte a Ubuntu.</p>
 
-</seccio>
+</section>
 
-<seccio>
-    <titol>Servidor web</titol>
+<section>
+    <h2>Servidor web</h2>
     <p>Quan introduim una URL en un navegador-web, aquest realitza una petició al servidor-web, el qual respon amb la pàgina web solicitada.</p>
+    <img src="img/image46.png">
     <p>Així doncs, el servidor-web és un programa que s'encarrega de rebre sol·licituds de pàgines web, busca els fitxers de les pàgines sol·licitades, i els envia de tornada.</p>
-</seccio>
+    <p>Hi ha moltes opcions de programari que s'utilitza com a servidor web. La més freqüent és el servidor web Apache.</p>
+    <p>Instal·lar el servidor-web Apache a Ubuntu és molt senzill, ja que es troba als respositoris <command>apt</command>.</p>
+    <p>No obstant, utilitzarem el sistema de contenidors lxc, per tal d'aïllar el servidor-web del nostre sistema operatiu. D'aquesta forma podrem instal·lar diversos servidors-web i utilitzar-los en diferents pràctiques.</p>
+    <img src="img/image1.png">
+    <info>
+        <p>Els contenidors són molt similars a les màquines virtuals. Ofereixen entorns d'execució, aïllats del Sistema Operatiu amfitrió, amb el seus propis recursos (xarxa, sistema de fitxers, usuaris, etc...).</p>
+        <p>Per a + info, consulteu: Contenedores frente a máquinas virtuales</p>
+    </info>
+    <h3>Contenidors</h3>
+    <p>Així doncs, el primer pas és instal·lar el sistema de contenidors <command>lxc</command>.</p>
+    <fer>
+        <p>Instal·la <command>lxd</command> amb la següent comanda:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>sudo snap install lxd</shell>
+        </terminal>
+        <p>Inicialitza la configuració de lxd:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>sudo lxd init --auto</shell>
+        </terminal>
+    </fer>
+    <p>La utilització bàsica de <command>lxc</command> és:</p>
+    <ul>
+        <li>
+            <p>Per a <strong>crear</strong> un contenidor, únicament hem d'escollir un nom i executar la següent comanda. Per exemple, per a crear un contenidor anomenat <name>mycontainer</name>, executa al sistema host:</p>
+            <terminal>
+                <host>@host</host>
+                <shell>lxc launch ubuntu:20.04 mycontainer</shell>
+            </terminal>
+        </li>
+        <li>
+            <p>Per a <strong>accedir</strong> al contenidor mycontainer utilitza:</p>
+            <terminal>
+                <host>@host</host>
+                <shell>lxc exec mycontainer bash</shell>
+            </terminal>
+        </li>
+        <li>
+            <p>Per a <strong>sortir</strong> del contenidor, executa en el propi contenidor la comanda:</p>
+            <terminal>
+                <host>@mycontainer</host>
+                <shell>lxc exec mycontainer bash</shell>
+            </terminal>
+        </li>
+        <li>
+            <p>Per a <strong>llistar</strong> els contenidors que s'han creat, executa:</p>
+            <terminal>
+                <host>@host</host>
+                <shell>lxc list</shell>
+            </terminal>
+        </li>
+        <li>
+            <p>Per a <strong>engegar</strong> un contenidor:</p>
+            <terminal>
+                <host>@host</host>
+                <shell>lxc start mycontainer</shell>
+            </terminal>
+        </li>
+        <li>
+            <p>Per a <strong>aturar</strong> un contenidor:</p>
+            <terminal>
+                <host>@host</host>
+                <shell>lxc stop mycontainer</shell>
+            </terminal>
+        </li>
+        <li>
+            <p>Per a <strong>eliminar</strong> un contenidor (s'ha d'aturar prèviament):</p>
+            <terminal>
+                <host>@host</host>
+                <shell>lxc delete mycontainer</shell>
+            </terminal>
+        </li>
+    </ul>
+
+    <p>Un cop tenim instal·lat el sistema de contenidors, ja en podem crear un i instal·lar en ell un servidor-web Apache.</p>
+
+    <fer>
+        <p>Crea un contenidor anomenat <nom>mywebserver</nom></p>
+        <terminal>
+            <host>@host</host>
+            <shell>lxc launch ubuntu:20.04 mywebserver</shell>
+        </terminal>
+        
+        <p>Accedeix al contenidor:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>lxc exec mywebserver bash</shell>
+        </terminal>
+        
+        <p>Instal·la el servidor-web Apache dintre del contenidor:</p>
+        <terminal>
+            <host>root@mywebserver</host>
+            <shell>
+apt update
+apt install apache2
+            </shell>
+        </terminal>
+        
+        <p>Ara comprovarem que s'ha instal·lat correctament el servidor-web. Primer esbrina la ip del contenidor amb la comanda:</p>
+        <terminal>
+            <host>root@mywebserver</host>
+            <shell>ip a</shell>
+        </terminal>
+        
+        <p>Ens sortirà una informació semblant a aquesta:</p>
+        <terminal>
+            <host>root@mywebserver</host>
+            <shell>
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+            valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+            valid_lft forever preferred_lft forever
+21: eth0@if22: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc UP group default qlen 1000
+    link/ether 00:16:3e:5d:fc:ea brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet <em>10.161.122.237</em>/24 brd 10.50.84.255 scope global dynamic eth0
+            valid_lft 3572sec preferred_lft 3572sec
+    inet6 fd42:d5f9:400a:e1f8:216:3eff:fe5d:fcea/64 scope global dynamic mngtmpaddr
+            valid_lft 7197sec preferred_lft 3597sec
+    inet6 fe80::216:3eff:fe5d:fcea/64 scope link
+            valid_lft forever preferred_lft forever
+            </shell>
+            <code>
+                void main(){
+                    jajaj("<p>hola</p>");
+                }
+            </code>
+            
+        </terminal>
+    </fer>
+</section>

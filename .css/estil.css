@@ -1,4 +1,5 @@
 @import 'fonts.css';
+
 html {
     box-sizing: border-box;
 }
@@ -16,15 +17,14 @@ a {
     color: #e81c4f;
 }
 
-titol {
+h1 {
     font-size: 3em;
-    display: block;
     margin-top: 1em;
     padding: 1em;
     color: #333;
 }
 
-seccio titol {
+h2 {
     font-size: 2em;
 }
 
@@ -32,19 +32,19 @@ resum {
 
 }
 
-codi {
+code {
     display: block;
-    padding: 1em;
     background: #f5f7f9;
     border-bottom: 1px solid #d8dee9;
     color: #a7adba;  
     border-left: 2px solid #69c;
     font-family: 'Ubuntu mono';
+    white-space: pre;
+    margin: 1em 0;
 }
 
 terminal {
     font-family: 'Ubuntu mono';
-    border-radius: 4px;
     display: block;
 }
 
@@ -58,13 +58,19 @@ host {
     border-radius: 4px 4px 0px 0px;
 }
 
-comanda {
+shell {
     background-color: #300a24;
     color: white;
     font-weight: bold;
     display: block;
     padding: .5em;
     border-radius: 0px 0px 4px 4px;
+    font-family: 'Ubuntu mono';
+    white-space: pre;
+}
+
+shell em {
+    color: red;
 }
 
 fer {
@@ -73,4 +79,32 @@ fer {
     border-left: 2px solid orange;
     
     padding: 1em;
+}
+
+command {
+    background-color: #d2d2d2;
+    font-family: 'Ubuntu mono';
+    padding: .1em;
+}
+
+name {
+    background-color: lightcyan;
+    font-family: monospace;
+    padding: .1em;
+}
+
+avis {
+    display: block;
+    border: 1px solid #d8dee9;
+    border-left: 2px solid red;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+info {
+    display: block;
+    border: 1px solid #d8dee9;
+    border-left: 2px solid blue;
+    padding: 1em;  
+    margin: 1em 0;
 }
