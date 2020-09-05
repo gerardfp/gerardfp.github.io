@@ -20,12 +20,28 @@ a {
 h1 {
     font-size: 3em;
     margin-top: 1em;
-    padding: 1em;
+    padding-top: 1em;
     color: #333;
 }
 
 h2 {
     font-size: 2em;
+    margin-top: .8em;
+    padding-top: .8em;
+    color: #444;
+}
+
+h3 {
+    font-size: 1.6em;
+    margin-top: .6em;
+    padding-top: .6em;
+    color: #444;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    margin: 3em auto;
 }
 
 resum {
@@ -41,6 +57,19 @@ code {
     font-family: 'Ubuntu mono';
     white-space: pre;
     margin: 1em 0;
+}
+
+incode.hljs {
+    display: inline;
+    padding: .2em;
+}
+
+incode {
+    background: #f5f7f9;
+    color: #a7adba;  
+    font-family: 'Ubuntu mono';
+    white-space: pre;
+    
 }
 
 terminal {
@@ -69,7 +98,7 @@ shell {
     white-space: pre;
 }
 
-shell em {
+red {
     color: red;
 }
 
@@ -85,6 +114,7 @@ command {
     background-color: #d2d2d2;
     font-family: 'Ubuntu mono';
     padding: .1em;
+    white-space: nowrap;
 }
 
 name {
@@ -107,4 +137,44 @@ info {
     border-left: 2px solid blue;
     padding: 1em;  
     margin: 1em 0;
+}
+
+url {
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    padding: .1em .3em;
+}
+
+file, directory {
+    font-family: 'Ubuntu mono';
+    background-color: lightgoldenrodyellow;
+    padding: .1em;
+    white-space: nowrap;
+}
+
+kbd {
+    background-color: #eee;
+    border-radius: 4px;
+    border: 1px solid #b4b4b4;
+    /*
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
+    */
+    border-bottom: 3px solid #222;
+    color: #333;
+    display: inline-block;
+    font-size: .9em;
+    font-weight: 700;
+    line-height: 1;
+    padding: 3px 6px;
+    white-space: nowrap;
+}
+
+string {
+    color: green;
+}
+
+menu-item {
+    background-color: #f2f2f2;
+    padding: .1em 1.2em;
+    border: 1px solid #bbb;
 }
