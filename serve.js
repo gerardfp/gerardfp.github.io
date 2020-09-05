@@ -8,7 +8,7 @@ var file = new static.Server('.');
 require('http').createServer(function (request, response) {
     
     request.addListener('end', function () {
-        exec("node build.js");
+        //exec("node build.js");
         file.serve(request, response);
     }).resume();
 }).listen(8080);

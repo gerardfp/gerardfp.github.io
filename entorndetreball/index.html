@@ -1,11 +1,7 @@
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/sofi/js/script.js"></script>
-<link rel="stylesheet" href="/sofi/highlight.js/default.min.css">
-<script src="/sofi/highlight.js/highlight.min.js"></script>
+<script type="module" src="/sofi/js/script.js"></script>
 <link rel="stylesheet" href="/sofi/css/estil.css">
 
-<section>
+<header>
     <h1>Pràctica 1: Entorn de treball</h1>
 
     <resum>En aquesta pràctica aprendrem a utilitzar les eines necessàries per al desenvolupament web.</resum>
@@ -19,7 +15,7 @@
         <li>Servidor web
         <li>Repositori de codi
     </ul>
-</section>
+</header>
 
 <section>
     <h2>Editor de text</h2>
@@ -238,29 +234,37 @@ apt install apache2
 
     <h3>Accés als fitxers del contenidor</h3>
     <p>Així doncs, per a crear pàgines web el que haurem de fer és 
-        tocar els arxius de la carpeta <directory>/var/www/html</directory> del conenidor.
+        tocar els arxius de la carpeta <directory>/var/www/html</directory> 
+        del contenidor.
         <br>A l'exemple anterior hem modificat l'arxiu <file>index.html</file> 
-        directament en la consola del contenidor, utilitzant l'editor <inshell>nano</inshell>. 
+        directament en la consola del contenidor, utilitzant 
+        l'editor <inshell>nano</inshell>. 
         Aquest editor està molt bé per a arxius petits i canvis ràpids, 
-        però per a desenvolupar una web és molt millor utilitzar un editor com el Visual Studio Code.</p>
-    <p>Ara bé, el VSCode el tenim instal·lat al <strong>host</strong>, i des del host encara no 
-        tenim accés als fitxers del <strong>contenidor</strong>. El següent pas doncs serà habilitar 
+        però per a desenvolupar una web és molt millor utilitzar un editor 
+        com el Visual Studio Code.</p>
+    <p>Ara bé, el VSCode el tenim instal·lat al <strong>host</strong>, i 
+        des del host encara no 
+        tenim accés als fitxers del <strong>contenidor</strong>. El següent 
+        pas doncs serà habilitar 
         l'accés als fitxers del contenidor des del <strong>host</strong>. 
         Utilitzarem l'eina sshfs per tal d'aconseguir-ho.</p>
-    <p>SSHFS ens permet conectar una carpeta del <strong>contenidor</strong> amb una 
+    <p>SSHFS ens permet conectar una carpeta del <strong>contenidor</strong> 
+        amb una 
         carpeta del <strong>host</strong>, de forma que tot el que realitzem 
         en un costat també es fa a l'altre costat.</p>
     <img src="img/image28.png">
 
     <info>
     <p>Amb SSHFS, la comunicació entre el contenidor i el host es realitza 
-        mitjançant un canal <inshell>ssh</inshell>. Aquest canal requereix d'una 
+        mitjançant un canal <inshell>ssh</inshell>. Aquest canal requereix 
+        d'una 
         autenticació prèvia, bé sigui amb usuari/password o bé amb 
         clau publica/privada.</p>    
     </info>
 
     <fer>
-        <p>Instal·lem el programa <inshell>sshfs</inshell> al host amb la comanda:</p>
+        <p>Instal·lem el programa <inshell>sshfs</inshell> al host amb la 
+            comanda:</p>
         <terminal>
             <host>@host</host>
             <shell>sudo apt install sshfs</shell>
@@ -274,7 +278,8 @@ apt install apache2
 
         <p>El següent pas és copiar la <strong>clau-pública</strong> del host 
             al contenidor.
-            <br>Primer utilitzem <inshell>cat</inshell> per mostrar la clau-pública:</p>
+            <br>Primer utilitzem <inshell>cat</inshell> per mostrar la 
+            clau-pública:</p>
         <terminal>
             <host>@host</host>
             <shell>cat ~/.ssh/webserver.pub</shell>
@@ -287,8 +292,10 @@ apt install apache2
         <p>Ara cal enganxar aquesta clau dintre del fitxer 
             <file>/root/.ssh/authorized_keys</file> del contenidor.
             Escrivim <inshell>echo</inshell>, espai en blanc, enganxem 
-            la clau copiada polsant <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> 
-            i completem la comanda amb <inshell>&gt;&gt; authorized_keys </inshell></p>
+            la clau copiada polsant 
+            <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> 
+            i completem la comanda amb 
+            <inshell>&gt;&gt; authorized_keys </inshell></p>
 
         <terminal>
             <host>root@mywebserver</host>
@@ -318,7 +325,8 @@ echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
             <shell>sshfs root@<red>10.161.122.237</red>:/var/www/html ~/mywebserver_html</shell>
         </terminal>
 
-        <p>El primer cop que fem la connexió ens demanarà validar la autenticitat de la clau. Responem <inshell>yes</inshell>:</p>
+        <p>El primer cop que fem la connexió ens demanarà validar la autenticitat de la clau. 
+            Responem <inshell>yes</inshell>:</p>
         <img src="img/image41.png">
 
         <p>Un cop està feta la connexió, la carpeta 
@@ -410,5 +418,38 @@ git config --global user.email <red>johndoe@example.com</red>
         <img src="img/image29.png">
 
         <p>Per últim, comprovem que està seleccionat l'arxiu <file>index.html</file> i li donem a <img src="img/image34.png"></p>
+        <img src="img/image16.png">
+
+        <p>Si accedim a la url <url><red>monalisa</red>.github.io</url> podem veure publicada la web que acabem de pujar:</p>
+        <img src="img/image222.png">
+    </fer>
+
+    <p>Ara ja tenim muntat completament el nostre entorn de treball. Tenim el servidor-web Apache instal·lat al contenidor, amb el qual podem visualitzar en local els canvis que anem fent a la pàgina web, i un cop estiguem satisfets amb aquests canvis, podem publicar la web a GitHub Pages.</p>
+    <p>Acabarem aquesta pràctica realitzant un petit canvi a la web, i publicant-lo a GitHub Pages.</p>
+
+    <fer>
+        <p>Afegeix el següent codi al fitxer index.html (substitueix el teu nom d'usuari):</p>
+        <code xml>
+&lt;!DOCTYPE html&gt;
+&lt;title>My Github Page&lt;/title&gt;
+&lt;h1>Welcome to my Github Page&lt;/h1&gt;
+&lt;a href="https://github.com/<red>gerardfp</red>"&gt;View my Github Profile&lt;/a&gt;
+        </code>
+
+        <p>Per a pujar els canvis a GitHub fem clic 
+            sobre <img src="img/image5.png">, introdueix 
+            un comentari que descrigui els canvis 
+            realitzats i dona-li a <kbd>Ctrl</kbd>+<kbd>Intro</kbd>:</p>
+        <img src="img/image14.png">
+
+        <p>Clica "Always"</p>
+        <img src="img/image32.png">
+
+        <p>Per últim, fes clic sobre <img src="img/image25.png"> 
+            i selecciona <menu-item>Pull, Push</menu-item>&gt;<menu-item>Push</menu-item>:</p>
+        <img src="img/image19.png">
+
+        <p>Comprova que s'han publicat els canvis (pot trigar uns minuts):</p>
+        <img src="img/image22.png">
     </fer>
 </section>
