@@ -1,4 +1,5 @@
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="/sofi/js/script.js"></script>
 <link rel="stylesheet" href="/sofi/highlight.js/default.min.css">
 <script src="/sofi/highlight.js/highlight.min.js"></script>
@@ -61,7 +62,7 @@ void main(){
     <img src="img/image46.png">
     <p>Així doncs, el servidor-web és un programa que s'encarrega de rebre sol·licituds de pàgines web, busca els fitxers de les pàgines sol·licitades, i els envia de tornada.</p>
     <p>Hi ha moltes opcions de programari que s'utilitza com a servidor web. La més freqüent és el servidor web Apache.</p>
-    <p>Instal·lar el servidor-web Apache a Ubuntu és molt senzill, ja que es troba als respositoris <command>apt</command>.</p>
+    <p>Instal·lar el servidor-web Apache a Ubuntu és molt senzill, ja que es troba als respositoris <inshell>apt</inshell>.</p>
     <p>No obstant, utilitzarem el sistema de contenidors lxc, per tal d'aïllar el servidor-web del nostre sistema operatiu. D'aquesta forma podrem instal·lar diversos servidors-web i utilitzar-los en diferents pràctiques.</p>
     <img src="img/image1.png">
     <info>
@@ -69,9 +70,9 @@ void main(){
         <p>Per a + info, consulteu: Contenedores frente a máquinas virtuales</p>
     </info>
     <h3>Contenidors</h3>
-    <p>Així doncs, el primer pas és instal·lar el sistema de contenidors <command>lxc</command>.</p>
+    <p>Així doncs, el primer pas és instal·lar el sistema de contenidors <inshell>lxc</inshell>.</p>
     <fer>
-        <p>Instal·la <command>lxd</command> amb la següent comanda:</p>
+        <p>Instal·la <inshell>lxd</inshell> amb la següent comanda:</p>
         <terminal>
             <host>@host</host>
             <shell>sudo snap install lxd</shell>
@@ -82,7 +83,7 @@ void main(){
             <shell>sudo lxd init --auto</shell>
         </terminal>
     </fer>
-    <p>La utilització bàsica de <command>lxc</command> és:</p>
+    <p>La utilització bàsica de <inshell>lxc</inshell> és:</p>
     <ul>
         <li>
             <p>Per a <strong>crear</strong> un contenidor, únicament hem d'escollir un nom i executar la següent comanda. Per exemple, per a crear un contenidor anomenat <name>mycontainer</name>, executa al sistema host:</p>
@@ -187,7 +188,7 @@ apt install apache2
             </shell>
         </terminal>
 
-        <p>Copiem l'adreça IP que ens surt a l'adaptador <command>eth0</command> i l'enganxem a la barra d'adreces del Firefox del host:</p>
+        <p>Copiem l'adreça IP que ens surt a l'adaptador <inshell>eth0</inshell> i l'enganxem a la barra d'adreces del Firefox del host:</p>
         <img src="img/image2.png">
     </fer>
 
@@ -203,21 +204,21 @@ apt install apache2
         <shell>cat /var/www/html/index.html</shell>
     </terminal>
     <p>El que veurem és el codi HTML de la pàgina web "It works!". De moment no hem de saber res d'aquest codi. El que sí que anem a fer és canviar aquesta pàgina per una altra pàgina que crearem nosaltres.</p>
-    <p>Es tan fàcil com esborrar aquest arxiu i crear-ne un altre amb el mateix nom. Utilitzarem l'editor de text de la consola <command>nano</command>.</p>
+    <p>Es tan fàcil com esborrar aquest arxiu i crear-ne un altre amb el mateix nom. Utilitzarem l'editor de text de la consola <inshell>nano</inshell>.</p>
     <fer>
         <p>Esborra l'arxiu <file>/var/www/html/index.html</file>:</p>
         <terminal>
             <host>root@mywebserver</host>
             <shell>rm /var/www/html/index.html</shell>
         </terminal>
-        <p>Crea'n un de nou amb l'editor <command>nano</command>:</p>
+        <p>Crea'n un de nou amb l'editor <inshell>nano</inshell>:</p>
         <terminal>
             <host>root@mywebserver</host>
             <shell>nano /var/www/html/index.html</shell>
         </terminal>
         <p>Escriu el següent codi HTML:</p>
         <img src="img/image44.png">
-        <p>Polsa <kbd>Ctrl</kbd>+<kbd>O</kbd> per a guardar el fitxer, i després <kbd>Ctrl</kbd>+<kbd>X</kbd> per a sortir de <command>nano</command>.</p>
+        <p>Polsa <kbd>Ctrl</kbd>+<kbd>O</kbd> per a guardar el fitxer, i després <kbd>Ctrl</kbd>+<kbd>X</kbd> per a sortir de <inshell>nano</inshell>.</p>
         <p>Si ara tornem a posar l'adreça IP del contenidor a la barra del navegador veurem el següent:</p>
         <img src="img/image42.png">
     </fer>
@@ -239,7 +240,7 @@ apt install apache2
     <p>Així doncs, per a crear pàgines web el que haurem de fer és 
         tocar els arxius de la carpeta <directory>/var/www/html</directory> del conenidor.
         <br>A l'exemple anterior hem modificat l'arxiu <file>index.html</file> 
-        directament en la consola del contenidor, utilitzant l'editor <command>nano</command>. 
+        directament en la consola del contenidor, utilitzant l'editor <inshell>nano</inshell>. 
         Aquest editor està molt bé per a arxius petits i canvis ràpids, 
         però per a desenvolupar una web és molt millor utilitzar un editor com el Visual Studio Code.</p>
     <p>Ara bé, el VSCode el tenim instal·lat al <strong>host</strong>, i des del host encara no 
@@ -253,13 +254,13 @@ apt install apache2
 
     <info>
     <p>Amb SSHFS, la comunicació entre el contenidor i el host es realitza 
-        mitjançant un canal <command>ssh</command>. Aquest canal requereix d'una 
+        mitjançant un canal <inshell>ssh</inshell>. Aquest canal requereix d'una 
         autenticació prèvia, bé sigui amb usuari/password o bé amb 
         clau publica/privada.</p>    
     </info>
 
     <fer>
-        <p>Instal·lem el programa <command>sshfs</command> al host amb la comanda:</p>
+        <p>Instal·lem el programa <inshell>sshfs</inshell> al host amb la comanda:</p>
         <terminal>
             <host>@host</host>
             <shell>sudo apt install sshfs</shell>
@@ -273,7 +274,7 @@ apt install apache2
 
         <p>El següent pas és copiar la <strong>clau-pública</strong> del host 
             al contenidor.
-            <br>Primer utilitzem <command>cat</command> per mostrar la clau-pública:</p>
+            <br>Primer utilitzem <inshell>cat</inshell> per mostrar la clau-pública:</p>
         <terminal>
             <host>@host</host>
             <shell>cat ~/.ssh/webserver.pub</shell>
@@ -285,14 +286,14 @@ apt install apache2
 
         <p>Ara cal enganxar aquesta clau dintre del fitxer 
             <file>/root/.ssh/authorized_keys</file> del contenidor.
-            Escrivim <command>echo</command>, espai en blanc, enganxem 
+            Escrivim <inshell>echo</inshell>, espai en blanc, enganxem 
             la clau copiada polsant <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> 
-            i completem la comanda amb <command>>> /root/.ssh/authorized_keys</command></p>
+            i completem la comanda amb <inshell>&gt;&gt; authorized_keys </inshell></p>
 
         <terminal>
             <host>root@mywebserver</host>
             <shell>
-                echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
+echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
             </shell>
         </terminal>
 
@@ -317,11 +318,97 @@ apt install apache2
             <shell>sshfs root@<red>10.161.122.237</red>:/var/www/html ~/mywebserver_html</shell>
         </terminal>
 
-        <p>El primer cop que fem la connexió ens demanarà validar la autenticitat de la clau. Responem <command>yes</command>:</p>
+        <p>El primer cop que fem la connexió ens demanarà validar la autenticitat de la clau. Responem <inshell>yes</inshell>:</p>
         <img src="img/image41.png">
 
-        <p>Ara ja està feta la connexió, la carpeta 
+        <p>Un cop està feta la connexió, la carpeta 
             <directory>mywebserver_html</directory> del host i 
             la carpeta <directory>/var/www/html</directory> del contenidor estan sincronitzades.</p>
+    </fer>
+
+    <p>Ara que ja tenim accés a la carpeta del servidor-web ja podrem 
+        començar a desenvolupar pàgines web utilitzant VSCode.
+        <br>Pots provar-ho. Obre VSCode i selecciona <menu-item>File</menu-item> > <menu-item>Open Folder...</menu-item>:</p>
+        <img src="img/image36.png">
+    <p>Selecciona la carpeta <directory>mywebserver_html</directory>:</p>
+    <img src="img/image40.png">
+
+    <p>Fes canvis al fitxer <file>index.html</file> i guarda els canvis (<kbd>Ctrl</kbd>+<kbd>S</kbd>).</p>
+    <img src="img/image38.png">
+
+    <p>Comprova que la pàgina web s'actualitza.</p>
+    <img src="img/image20.png">
+</section>
+
+<section>
+    <h2>Repositori de codi</h2>
+
+    <p>Fins ara hem aconseguit crear l'entorn de treball de forma local en el nostre ordinador, de forma que ja podem desenvolupar webs. Però, a les webs que creem només es podrà accedir des del nostre ordinador. Si volem que les webs estiguin disponibles a Internet, necessitem un servidor-web que estigui exposat a la xarxa.</p>
+    <p>Hi ha moltes empreses que ofereixen aquest servei, algunes inclús de forma gratuïta. Nosaltres utilitzarem GitHub.</p>
+    <p>GitHub és una plataforma, que ens permet emmagatzemar el nostre codi i portar el control de les seves modificacions. A més a més, ofereix el servei GitHub Pages, que permet publicar les pàgines web que pujem a GitHub.</p>
+    
+    <p>Per utilitzar GitHub, el primer pas és crear un compte.</p>
+    <fer>
+        <p>Si no en tens un, accedeix a https://github.com/join i crea't un compte d'usuari.</p>
+    </fer>
+    
+    <p>Amb el compte d'usuari, ja ens podem preparar per a pujar les pàgines web a GitHub. Per a això, necessitem tenir instal·lat el programa git al nostre ordinador.</p>
+    <fer>
+        <p>Instal·la git amb la següent comanda:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>sudo apt install git</shell>
+        </terminal>
+
+        <p>Configura el teu nom i el teu email:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>
+git config --global user.name "<red>John Doe</red>"
+git config --global user.email <red>johndoe@example.com</red>
+            </shell>
+        </terminal>
+    </fer>
+
+    <p>Podem utilitzar <inshell>git</inshell> directament en la consola per a pujar el codi, però amb VSCode ho farem de forma més senzilla. Instal·larem l'Extensió "GitHub Pull Requests and Issues" que ens permetrà interactuar amb GitHub molt fàcilment des del propi VSCode.</p>
+    <fer>
+        <p>Instal·la l'Extensió "GitHub Pull Requests and Issues". Fes clic sobre el botó <img src="img/image21.png">, busca l'extensió i fes clic a <img src="img/image43.png">:</p>
+        <img src="img/image4.png">
+
+        <p>El següent pas és donar accés al nostre compte de GitHub. Fes clic a <img src="img/image26.png"> i després a <img src="img/image24.png">:</p>
+        <img src="img/image3.png">
+
+        <p>Clica "Allow":</p>
+        <img src="img/image45.png">
+
+        <p>Després fes clic a <img src="img/image33.png">, i accedeix amb el teu usuari/contrasenya.</p>
+
+        <p>Dona-li a "Abrir enlace":</p>
+        <img src="img/image37.png">
+
+        <p>I per últim a "Open":</p>
+        <img src="img/image31.png">
+    </fer>
+
+    <p>Ara ja tenim accés de VSCode al nostre compte de GitHub. 
+        Anem a provar que tot funciona correctament publicant una pàgina web.</p>
+
+    <fer>
+        Edita l'arxiu <file>index.html</file> i escriu el següent codi HTML:
+
+        <code>
+&lt;!DOCTYPE html&gt;
+&lt;title&gt;My Github Page&lt;/title&gt;
+&lt;h1&gt;Welcome to my Github Page&lt;/h1&gt;            
+        </code>
+
+        <img src="img/image18.png">
+
+        <p>Per a publicar-lo a GitHub, fes clic sobre <img src="img/image5.png"> i després a <img src="img/image6.png"> En el nom del repository has de posar el teu username seguit de .github.io i donar-li a "Publish to GitHub public repository".</p>
+
+        <p>Si el teu nom d'usuari és per exemple <name>monalisa</name>, el nom del repository quedaria com <name>monalisa.github.io</name></p>
+        <img src="img/image29.png">
+
+        <p>Per últim, comprovem que està seleccionat l'arxiu <file>index.html</file> i li donem a <img src="img/image34.png"></p>
     </fer>
 </section>

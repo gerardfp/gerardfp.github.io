@@ -44,6 +44,11 @@ img {
     margin: 3em auto;
 }
 
+p img {
+    display: inline;
+    margin: 0;
+}
+
 resum {
 
 }
@@ -85,6 +90,7 @@ host {
     text-align: center;
     padding: .2em;
     border-radius: 4px 4px 0px 0px;
+    font-size: 12px;
 }
 
 shell {
@@ -96,6 +102,8 @@ shell {
     border-radius: 0px 0px 4px 4px;
     font-family: 'Ubuntu mono';
     white-space: pre;
+    font-size: 12px;
+    overflow-x: auto;
 }
 
 red {
@@ -110,11 +118,11 @@ fer {
     padding: 1em;
 }
 
-command {
+inshell {
     background-color: #d2d2d2;
     font-family: 'Ubuntu mono';
     padding: .1em;
-    white-space: nowrap;
+    white-space: pre;
 }
 
 name {
