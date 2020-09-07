@@ -1,5 +1,4 @@
 @import 'fonts.css';
-/*@import '../highlight.js/default.min.css';*/
 @import '../prismjs/prism.css';
 
 html {
@@ -140,6 +139,13 @@ shell {
     overflow-x: auto;
 }
 
+inshell {
+    background-color: #d2d2d2;
+    font-family: 'Ubuntu mono';
+    padding: .1em;
+    white-space: pre;
+}
+
 red {
     color: red;
 }
@@ -147,16 +153,19 @@ red {
 fer {
     display: block;
     border: 1px solid #d8dee9;
-    border-left: 2px solid orange;
+    border-left: 2px solid green;
     
     padding: 1em;
 }
 
-inshell {
-    background-color: #d2d2d2;
-    font-family: 'Ubuntu mono';
-    padding: .1em;
-    white-space: pre;
+check {
+    display: block;
+}
+
+check::before {
+    content: '\1F5F8 ';
+    color: green;
+    margin-right: 1em;
 }
 
 name {
@@ -179,6 +188,15 @@ info {
     border-left: 2px solid blue;
     padding: 1em;  
     margin: 1em 0;
+}
+
+optional {
+    display: block;
+    border: 1px solid #d8dee9;
+    border-left: 2px solid orange;
+    padding: 1em;  
+    margin: 1em 0;
+
 }
 
 url {

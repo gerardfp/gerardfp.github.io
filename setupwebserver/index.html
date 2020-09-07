@@ -1,0 +1,75 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<section>
+    <h1>Preparar el servidor web</h1>
+
+        <p>Crea un contenidor anomenat <name><nom-contenidor>contenidor</nom-contenidor></name>:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>lxc launch ubuntu:20.04 <nom-contenidor>contenidor</nom-contenidor></shell>
+        </terminal>
+
+        <p>Accedeix al contenidor:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>lxc exec <nom-contenidor>contenidor</nom-contenidor> bash</shell>
+        </terminal>
+
+        <p>Instal·la el servidor-web Apache dintre del contenidor:</p>
+        <terminal>
+            <host>root@<nom-contenidor>contenidor</nom-contenidor></host>
+            <shell>
+apt update
+apt install apache2
+            </shell>
+        </terminal>
+
+        <p>Crea un parell de claus:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>ssh-keygen -f ~/.ssh/<nom-contenidor>contenidor</nom-contenidor> -N ""</shell>
+        </terminal>
+        
+        <p>Mostra la <strong>clau-pública</strong> generada:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>cat ~/.ssh/<nom-contenidor>contenidor</nom-contenidor>.pub</shell>
+        </terminal>
+
+        <p>Selecciona la clau-pública i copía-la (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>). 
+            <br>Enganxa-la al fitxer <file>/root/.ssh/authorized_keys</file> del contenidor:
+            </p>
+        <terminal>
+            <host>root@<nom-contenidor>contenidor</nom-contenidor></host>
+            <shell>echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> >> /root/.ssh/authorized_keys</shell>
+        </terminal>
+
+        <p>Crea una carpeta anomenada <nom-contenidor>contenidor</nom-contenidor> al host:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>mkdir ~/<nom-contenidor>contenidor</nom-contenidor></shell>
+        </terminal>
+
+        <p>Esbrina l'adreça IP del contenidor:</p>
+        <terminal>
+            <host>root@<nom-contenidor>contenidor</nom-contenidor></host>
+            <shell>ip a</shell>
+        </terminal>
+
+        <p>Sincronitza la carpeta <nom-contenidor>contenidor</nom-contenidor> del host 
+            amb la carpeta <directory>/var/www/html</directory> del contenidor 
+            (substitueix la IP de la comanda per la IP que tingui el teu contenidor):</p>
+        <terminal>
+            <host>@host</host>
+            <shell>sshfs root@<red>10.161.122.237</red>:/var/www/html ~/<nom-contenidor>contenidor</nom-contenidor></shell>
+        </terminal>
+
+        <p>Finalment obre la carpeta <directory><nom-contenidor>contenidor</nom-contenidor></directory> amb VSCode (<menu-item>File</menu-item> > <menu-item>Open Folder...</menu-item>). 
+            <br>Crea el document <file>index.html</file> i desenvolupa la web.</p>
+
+        <p>Pots anar veient els canvis posant la IP del contenidor en la barra d'adreces del Firefox.</p>
+</section>
