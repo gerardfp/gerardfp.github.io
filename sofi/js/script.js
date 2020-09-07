@@ -1,41 +1,53 @@
-import {hljs} from '../highlight.js/highlight.min.js';
+import {Prism} from '../prismjs/prism.js';
 
 document.addEventListener('DOMContentLoaded', (event) => {
 
-  // syntax highlight
-  document.querySelectorAll('code,incode,shell').forEach((block) => {
-    var i = 0;
-    if(block.childNodes[i] != null && block.childNodes[i].nodeType == Node.TEXT_NODE){
-      block.childNodes[i].textContent = block.childNodes[i].textContent.replace(/^\n/,'');
+  
+  // document.querySelectorAll('code,incode,shell').forEach((block) => {
+  //   var i = 0;
+  //   if(block.childNodes[i] != null && block.childNodes[i].nodeType == Node.TEXT_NODE){
+  //     block.childNodes[i].textContent = block.childNodes[i].textContent.replace(/^\n/,'');
+  //   }
+  //   i = block.childNodes.length-1;
+  //   if(block.childNodes[i] != null && block.childNodes[i].nodeType == Node.TEXT_NODE){
+  //     block.childNodes[i].textContent = block.childNodes[i].textContent.replace(/\s*$/,'');
+  //   }
+  // });
+
+  document.querySelectorAll('code,incode').forEach((block) => {
+    if(block.nodeName === 'CODE'){
+      var preWrap = document.createElement('pre');
+      block.parentNode.insertBefore(preWrap, block);
+      preWrap.appendChild(block);
     }
-    i = block.childNodes.length-1;
-    if(block.childNodes[i] != null && block.childNodes[i].nodeType == Node.TEXT_NODE){
-      block.childNodes[i].textContent = block.childNodes[i].textContent.replace(/\s*$/,'');
+
+    var attrs = block.getAttributeNames();
+    if(attrs[0] != null){
+      block.classList.add('language-' + attrs[0]);
     }
+    
+    Prism.highlightElement(block);
   });
 
-  document.querySelectorAll('code').forEach((block) => {
-    var attrs = block.getAttributeNames();
-    if(attrs[0] != null){
-      console.log(attrs[0]);
-      block.classList.add(attrs[0]);
+  document.querySelectorAll('shell').forEach((block) => {
+    if(block.nodeName === 'SHELL'){
+      var preWrap = document.createElement('pre');
+      block.parentNode.insertBefore(preWrap, block);
+      preWrap.appendChild(block);
     }
-    hljs.highlightBlock(block);
-  });
-  
-  document.querySelectorAll('incode').forEach((block) => {
-    var attrs = block.getAttributeNames();
-    if(attrs[0] != null){
-      console.log(attrs[0]);
-      block.classList.add(attrs[0]);
-    }
-    hljs.highlightBlock(block);
+    block.classList.add('language-bash');
+
+    // var attrs = block.getAttributeNames();
+    // if(attrs[0] != null){
+    //   block.classList.add('language-' + attrs[0]);
+    // }
+    
+    Prism.highlightElement(block);
   });
 
   //add meta 
-  document.head.insertAdjacentHTML('afterbegin', '<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">');
-  
-  var meta
+  //document.head.insertAdjacentHTML('afterbegin', '<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">');
+
 
   // add sidenav and nav
   var nav = document.createElement('nav');

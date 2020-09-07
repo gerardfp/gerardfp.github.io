@@ -1,0 +1,262 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+
+<header>
+    <h1>Pràctica 2: Inici en HTML</h1>
+
+    <resum>En aquesta <incode css>html {color: #f47612; }</incode>pràctica començarem amb els fonaments bàsics de l'HTML.</resum>
+
+    <code css>
+        aa {
+            color: navy;
+        }
+
+        b{
+
+        }
+    </code>
+    <code markup>
+        &lt;h1&gt;hola&lt;h1&gt;
+        &lt;h1 autocomplete="mek" class="jaja"&gt;hola&lt;h1&gt;
+    </code>
+    <p>Segueix aquests dos tutorials de la <strong>Mozilla Developer Network</strong>:</p>
+   
+    <ul>
+        <li><a href="https://developer.mozilla.org/ca/docs/Learn/HTML/Introducci%C3%B3_al_HTML/Getting_started">
+        Inici en HTML
+        </a>
+        <li><a href="https://developer.mozilla.org/ca/docs/Learn/HTML/Introducci%C3%B3_al_HTML/Qu%C3%A8_hi_ha_en_el_head_Metadades_en_HTML">
+        Què hi ha en el head? Metadades en HTML
+        </a>
+    </ul>
+
+    <p>La pràctica consisteix a crear una pàgina web que compleixi, al menys, els següents criteris:</p>
+
+    <ul>
+        <li>La pàgina ha de seguir la recomanació indicada a "Anatomia d'un document HTML"</li>
+        <li>Ha de contenir els següents elements HTML:
+            <ul>
+                <li>Una capçalera principal
+                <li>Dues capçaleres secundàries
+                <li>Paràgrafs
+                <li>Paraules destacadaes
+                <li>Enllaços que portin a altres pàgines d'internet
+                <li>Imatges
+                <li>Els caracters especials <string>&lt; &gt; " ' &</string> 
+                <li>Comentaris
+            </ul>
+        </li>
+        <li>A més a més s'hauràn d'especificar les següents metadades
+            <ul>
+                <li>Títol
+                <li>Codificació de caracters
+                <li>Autor
+                <li>Descripció
+                <li>Favicon
+                <li>Idioma principal del document
+            </ul>
+        </li>
+        <li>Per últim, s'hauran d'enllaçar dos arxius CSS i Javascript:
+            <ul>
+                <li><file>style.css</file></li>
+                <li><file>script.js</file></li>
+            </ul>
+            <p>El contingut dels arxius ha de ser aquest:</p>
+
+            <codefile>style.css</codefile>
+            <code css>
+html {
+    background: #fff;
+    width: 60em;
+    margin: 0 auto;
+}
+    
+body {
+    margin: 0;
+}
+    
+h1, h2, li {
+    font-family: sans;
+}
+    
+h1 {
+    background-color: #00684B;
+    color: white;
+    padding: 16px;
+    text-align: center;
+}
+    
+h2 {
+    background-color: #03a87c;
+    color: white;
+    padding: 8px 24px;
+    margin-top: 48px;
+}
+    
+em {
+    background-color: #FF9E05;
+    color:white;
+    padding: 2px;
+}
+    
+strong {
+    color: #FF9E05;
+}
+    
+a::after {
+    content: " \2BB5";
+}
+    
+img {
+    max-width: 100%;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+    
+ul {
+    background-color: #FF9E05;
+    padding: 8px 16px;
+}
+    
+ul:empty {
+    padding: 0;
+}
+    
+li {
+    font-weight: bold;
+    color: white;
+    background-color: #00684B;
+    padding: 16px;
+    margin: 8px;
+    list-style-type: none;
+    border-radius: 8px;
+    transition: transform .2s;
+}
+    
+li:hover {
+    transform: scale(1.01);
+}                
+            </code>
+
+            <codefile>script.js</codefile>
+            <code javascript>
+const list = document.createElement('ul');
+const info = document.createElement('p');
+    
+info.textContent = 'A sota hi ha una llista dinàmica. Clica aquí \u{1f4cc} per a afegir un nou item a la llista. Clica un item existent per a canviar el seu text.';
+    
+document.body.appendChild(info);
+document.body.appendChild(list);
+    
+info.onclick = () => {
+    const item = document.createElement('li');
+    item.textContent = prompt('Quin contingut vols que tingui l\'item?');
+    list.appendChild(item);
+    
+    item.onclick = (e) => {
+        item.textContent = prompt('Introdueix el nou contingut de l\'item');
+    }
+}     
+            </code>
+        </li>
+    </ul>
+
+    <p>Un cop creda la pàgina s'ha de publicar a GitHub Pages, 
+        amb el nom de repository <name>smx-m8-uf5-practica2</name>.</p>
+    <h3>Exemple</h3>
+    <img src="img/image8.png">
+</header>
+
+<section>
+    <h2>Prepara l'entorn de treball</h2>
+    <fer>
+        <p>Crea un contenidor anomenat <name>contenidor2</name>:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>lxc launch ubuntu:20.04 contenidor2</shell>
+        </terminal>
+
+        <p>Accedeix al contenidor:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>lxc exec contenidor2 bash</shell>
+        </terminal>
+
+        <p>Instal·la el servidor-web Apache dintre del contenidor:</p>
+        <terminal>
+            <host>root@contenidor2</host>
+            <shell>
+apt update
+apt install apache2
+            </shell>
+        </terminal>
+
+        <p>Crea un parell de claus:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>ssh-keygen -f ~/.ssh/contenidor2 -N ""</shell>
+        </terminal>
+        
+        <p>Mostra la <strong>clau-pública</strong> generada:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>cat ~/.ssh/contenidor2.pub</shell>
+        </terminal>
+
+        <p>Selecciona la clau-pública i copía-la (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd>). 
+            <br>Enganxa-la al fitxer <file>/root/.ssh/authorized_keys</file> del contenidor:
+            </p>
+        <terminal>
+            <host>root@contenidor2</host>
+            <shell>echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>C</kbd> >> /root/.ssh/authorized_keys</shell>
+        </terminal>
+
+        <p>Crea una carpeta anomenada <directory>practica2</directory> al host:</p>
+        <terminal>
+            <host>@host</host>
+            <shell>mkdir ~/practica2</shell>
+        </terminal>
+
+        <p>Esbrina l'adreça IP del contenidor:</p>
+        <terminal>
+            <host>root@contenidor2</host>
+            <shell>ip a</shell>
+        </terminal>
+
+        <p>Sincronitza la carpeta <directory>practica2</directory> del host 
+            amb la carpeta <directory>/var/www/html</directory> del contenidor 
+            (substitueix la IP de la comanda per la IP que tingui el teu contenidor):</p>
+        <terminal>
+            <host>@host</host>
+            <shell>sshfs root@<red>10.161.122.237</red>:/var/www/html ~/practica2</shell>
+        </terminal>
+
+        <p>Finalment obre la carpeta practica2 amb VSCode (<menu-item>File</menu-item> > <menu-item>Open Folder...</menu-item>). 
+            <br>Crea el document <file>index.html</file> i desenvolupa la pràctica.</p>
+
+        <p>Pots anar veient els canvis posant la IP del contenidor en la barra d'adreces del Firefox.</p>
+    </fer>
+</section>
+<section>
+    <h2>Publica la web a Github Pages</h2>
+        <p>Quan tinguis la pràctica avançada, publica-la a GitHub Pages. 
+            Hauràs d'anar realitzant <menu-item>commit/push</menu-item> a mesura que vagis fent canvis en la web.</p>
+    <fer>
+        <p>Per a publicar la pràctica en GitHub Pages, primer hauràs de publicar el repository a GitHub, 
+            fent clic sobre <img src="img/image10.png">. 
+            <br>Posa-li el nom <name>smx-m8-uf5-practica2</name> al repository.</p>
+
+        <p>Un cop estigui publicada a GitHub, ves a la pàgina del 
+            repository <url>https://github.com/<red>elteusuari</red>/smx-m8-uf5-practica2</url> i ahí fes 
+            clic a la pestanya <img src="img/image3.png">.
+            <br>Baixa avall fins a la secció "GitHub Pages". Desplega on diu <img src="img/image5.png"> en l'apartat Source
+            i selecciona la branca "master".</p>
+        <img src="img/image4.png">
+
+        <p>La pàgina quedarà publicada a la URL <url>https://<red>elteuusuari</red>.github.io/smx-m8-uf5-practica2</url></p>
+        <img src="img/image2.png">
+    </fer>
+</section>

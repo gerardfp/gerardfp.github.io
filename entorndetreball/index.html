@@ -1,3 +1,5 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="module" src="/sofi/js/script.js"></script>
 <link rel="stylesheet" href="/sofi/css/estil.css">
 
@@ -6,7 +8,7 @@
 
     <resum>En aquesta pràctica aprendrem a utilitzar les eines necessàries per al desenvolupament web.</resum>
 
-    <avis>En aquest curs utilitzarem el sistema operatiu Ubuntu 20.04. Si no el tens instal·lat, el pots utilitzar en una màquina virtual.</avis>
+    <avis>En aquest curs utilitzarem el sistema operatiu <a href="https://ubuntu.com">Ubuntu 20.04</a>. Si no el tens instal·lat, el pots utilitzar en una màquina virtual.</avis>
 
     <p>El software que necessitarem és:</p>
     <ul>
@@ -19,24 +21,23 @@
 
 <section>
     <h2>Editor de text</h2>
-    <p>Probablement ja teniu un editor de text bàsic en l'equip. Per defecte, Windows inclou el Notepad i OS X ve amb TextEdit. 
-        Les distribucions de Linux varien; Ubuntu ve amb gedit per defecte.</p>
+    <p>Probablement ja teniu un editor de text bàsic en l'equip. Per defecte, 
+        Windows inclou el <a href="https://en.wikipedia.org/wiki/Microsoft_Notepad">Notepad</a> 
+        i OS X ve amb <a href="https://en.wikipedia.org/wiki/TextEdit">TextEdit</a>. 
+        Les distribucions de Linux varien; Ubuntu 
+        ve amb <a href="https://en.wikipedia.org/wiki/Gedit">gedit</a> per defecte.</p>
     <p>Per al desenvolupament web, segurament treballareu millor amb altres eines que el NotePad o el TextEdit. 
-        Es recomana començar amb Visual Studio Code, que és un editor gratuït que ofereix vistes prèvies i suggeriments per al codi. 
+        Es recomana començar amb <a href="https://code.visualstudio.com/">Visual Studio Code</a>, 
+        que és un editor gratuït que ofereix vistes prèvies i suggeriments per al codi. 
         També hi han altres editors de text com Brackets, Atom, Sublime, etc.</p>
     <fer>
-        <p>Instal·la Visual Studio Code amb la següent comanda:</p>
+        <p>Instal·la <a href="https://code.visualstudio.com/">Visual Studio Code</a> amb la següent comanda:</p>
         <terminal>
             <host>@host</host>
             <shell>sudo snap install code --classic</shell>
         </terminal>
         <p>Ho pots fer també mitjançant Ubuntu Software</p>
         <img src="img/image47.png">
-        <code java>
-void main(){
-    jajaj("&lt;p&gt;hola&lt;/p&gt;");
-}
-        </code>
     </fer>
 </section>
 
@@ -54,16 +55,20 @@ void main(){
 
 <section>
     <h2>Servidor web</h2>
-    <p>Quan introduim una URL en un navegador-web, aquest realitza una petició al servidor-web, el qual respon amb la pàgina web solicitada.</p>
+    <p>Quan introduim una URL en un navegador-web, aquest realitza una petició al servidor-web, 
+        el qual respon amb la pàgina web solicitada.</p>
     <img src="img/image46.png">
-    <p>Així doncs, el servidor-web és un programa que s'encarrega de rebre sol·licituds de pàgines web, busca els fitxers de les pàgines sol·licitades, i els envia de tornada.</p>
-    <p>Hi ha moltes opcions de programari que s'utilitza com a servidor web. La més freqüent és el servidor web Apache.</p>
+    <p>Així doncs, el servidor-web és un programa que s'encarrega de rebre sol·licituds de pàgines web, 
+        busca els fitxers de les pàgines sol·licitades, i els envia de tornada.</p>
+    <p>Hi ha moltes opcions de programari que s'utilitza com a servidor web. 
+        La més freqüent és el servidor web <a href="https://www.apache.org/">Apache</a>.</p>
+    <img src="img/apache.png">
     <p>Instal·lar el servidor-web Apache a Ubuntu és molt senzill, ja que es troba als respositoris <inshell>apt</inshell>.</p>
-    <p>No obstant, utilitzarem el sistema de contenidors lxc, per tal d'aïllar el servidor-web del nostre sistema operatiu. D'aquesta forma podrem instal·lar diversos servidors-web i utilitzar-los en diferents pràctiques.</p>
+    <p>No obstant, utilitzarem el sistema de contenidors <a href="https://linuxcontainers.org/">lxc</a> (LinuxContainers), per tal d'aïllar el servidor-web del nostre sistema operatiu. D'aquesta forma podrem instal·lar diversos servidors-web i utilitzar-los en diferents pràctiques.</p>
     <img src="img/image1.png">
     <info>
         <p>Els contenidors són molt similars a les màquines virtuals. Ofereixen entorns d'execució, aïllats del Sistema Operatiu amfitrió, amb el seus propis recursos (xarxa, sistema de fitxers, usuaris, etc...).</p>
-        <p>Per a + info, consulteu: Contenedores frente a máquinas virtuales</p>
+        <p>Per a + info, consulteu: <a href="https://docs.microsoft.com/es-es/virtualization/windowscontainers/about/containers-vs-vm">Contenedores frente a máquinas virtuales</a></p>
     </info>
     <h3>Contenidors</h3>
     <p>Així doncs, el primer pas és instal·lar el sistema de contenidors <inshell>lxc</inshell>.</p>
@@ -186,6 +191,9 @@ apt install apache2
 
         <p>Copiem l'adreça IP que ens surt a l'adaptador <inshell>eth0</inshell> i l'enganxem a la barra d'adreces del Firefox del host:</p>
         <img src="img/image2.png">
+
+        <p>Si ens surt aquesta pàgina 👆 és que està correctament instal·lat. 
+            <span style="background-color: #cd214f; color: white;">It works!</span></p>
     </fer>
 
     <p>Ara que ja hem instal·lat el servidor web Apache, ja podríem començar a desenvolupar una pàgina web. En les properes pràctiques en farem moltes, però de moment anem a fer una pàgina de prova.</p>
@@ -225,11 +233,13 @@ apt install apache2
         <p>Fixa't que els navegadors no mostren el codi HTML. El codi HTML li indica al navegador quin contingut ha de mostrar i quina estructura ha de tenir.</p>
         <p>En el cas del fitxer <file>index.html</file>, 
             la etiqueta <incode xml>&lt;!DOCTYPE html&gt;</incode> i 
-            la etiqueta <incode xml>&lt;h1 class="mer"&gt;</incode>, 
+            la etiqueta <incode xml>&lt;h1&gt;</incode>, 
             no han aparegut a la pantalla del navegador. 
             La etiqueta <incode xml>&lt;h1&gt;</incode> li indica al Firefox que ha de 
             mostrar el text <string>Hello HTML Code!</string> en lletres grans i en negreta.</p>
-        <p>Si tens curiositat, aquí tens la llista completa d'etiquetes del llenguatge HTML: HTML Reference. En aquest curs n'aprendrem moltes d'elles, per crear formularis, taules, llistes, multimèdia, etc...</p>
+        <p>Si tens curiositat, aquí tens la llista completa 
+            d'etiquetes del llenguatge HTML: <a href="https://www.w3schools.com/tags/default.asp">HTML Reference</a>. 
+            En aquest curs n'aprendrem moltes d'elles, per crear formularis, taules, llistes, multimèdia, etc...</p>
     </info>
 
     <h3>Accés als fitxers del contenidor</h3>
@@ -247,7 +257,7 @@ apt install apache2
         tenim accés als fitxers del <strong>contenidor</strong>. El següent 
         pas doncs serà habilitar 
         l'accés als fitxers del contenidor des del <strong>host</strong>. 
-        Utilitzarem l'eina sshfs per tal d'aconseguir-ho.</p>
+        Utilitzarem l'eina <a href="https://github.com/libfuse/sshfs">sshfs</a> per tal d'aconseguir-ho.</p>
     <p>SSHFS ens permet conectar una carpeta del <strong>contenidor</strong> 
         amb una 
         carpeta del <strong>host</strong>, de forma que tot el que realitzem 
@@ -307,7 +317,7 @@ echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
         <p>La comanda ha de quedar similar a aquesta:</p>
         <img src="img/image27.png">
 
-        <p>Ara ja podem sincronitzar carpetes entre el host i el contenidor amb sshfs.
+        <p>Ara ja podem sincronitzar carpetes entre el host i el contenidor amb <inshell>sshfs</inshell>.
             <br>Crearem una carpeta al host:
             </p>
         
@@ -351,18 +361,25 @@ echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
 <section>
     <h2>Repositori de codi</h2>
 
-    <p>Fins ara hem aconseguit crear l'entorn de treball de forma local en el nostre ordinador, de forma que ja podem desenvolupar webs. Però, a les webs que creem només es podrà accedir des del nostre ordinador. Si volem que les webs estiguin disponibles a Internet, necessitem un servidor-web que estigui exposat a la xarxa.</p>
-    <p>Hi ha moltes empreses que ofereixen aquest servei, algunes inclús de forma gratuïta. Nosaltres utilitzarem GitHub.</p>
-    <p>GitHub és una plataforma, que ens permet emmagatzemar el nostre codi i portar el control de les seves modificacions. A més a més, ofereix el servei GitHub Pages, que permet publicar les pàgines web que pujem a GitHub.</p>
+    <p>Fins ara hem aconseguit crear l'entorn de treball de forma local en el nostre ordinador, 
+        de forma que ja podem desenvolupar webs. Però, a les webs que creem només es podrà 
+        accedir des del nostre ordinador. Si volem que les webs estiguin disponibles a Internet, 
+        necessitem un servidor-web que estigui exposat a la xarxa.</p>
+    <p>Hi ha moltes empreses que ofereixen aquest servei, algunes inclús de forma gratuïta. 
+        Nosaltres utilitzarem <a href="https://github.com/">GitHub</a>.</p>
+    <p>GitHub és una plataforma, que ens permet emmagatzemar el nostre codi i portar 
+        el control de les seves modificacions. A més a més, ofereix el servei 
+        <a href="https://pages.github.com/">GitHub Pages</a>, que permet publicar les pàgines web que pujem a GitHub.</p>
     
     <p>Per utilitzar GitHub, el primer pas és crear un compte.</p>
     <fer>
-        <p>Si no en tens un, accedeix a https://github.com/join i crea't un compte d'usuari.</p>
+        <p>Si no en tens un, accedeix a <a href="https://github.com/join">https://github.com/join</a> i crea't un compte d'usuari.</p>
     </fer>
     
-    <p>Amb el compte d'usuari, ja ens podem preparar per a pujar les pàgines web a GitHub. Per a això, necessitem tenir instal·lat el programa git al nostre ordinador.</p>
+    <p>Amb el compte d'usuari, ja ens podem preparar per a pujar les pàgines web a GitHub. 
+        Per a això, necessitem tenir instal·lat el programa <a href="https://git-scm.com/">git</a> al nostre ordinador.</p>
     <fer>
-        <p>Instal·la git amb la següent comanda:</p>
+        <p>Instal·la <inshell>git</inshell> amb la següent comanda:</p>
         <terminal>
             <host>@host</host>
             <shell>sudo apt install git</shell>
@@ -378,23 +395,28 @@ git config --global user.email <red>johndoe@example.com</red>
         </terminal>
     </fer>
 
-    <p>Podem utilitzar <inshell>git</inshell> directament en la consola per a pujar el codi, però amb VSCode ho farem de forma més senzilla. Instal·larem l'Extensió "GitHub Pull Requests and Issues" que ens permetrà interactuar amb GitHub molt fàcilment des del propi VSCode.</p>
+    <p>Podem utilitzar <inshell>git</inshell> directament en la consola per a pujar el codi, 
+        però amb VSCode ho farem de forma més senzilla. 
+        Instal·larem l'Extensió <a href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github">GitHub Pull Requests and Issues</a> que ens permetrà interactuar 
+        amb GitHub molt fàcilment des del propi VSCode.</p>
     <fer>
-        <p>Instal·la l'Extensió "GitHub Pull Requests and Issues". Fes clic sobre el botó <img src="img/image21.png">, busca l'extensió i fes clic a <img src="img/image43.png">:</p>
+        <p>Instal·la l'extensió "GitHub Pull Requests and Issues". 
+            <br>Fes clic sobre el botó <img src="img/image21.png">, busca l'extensió i fes clic a <img src="img/image43.png">:</p>
         <img src="img/image4.png">
 
-        <p>El següent pas és donar accés al nostre compte de GitHub. Fes clic a <img src="img/image26.png"> i després a <img src="img/image24.png">:</p>
+        <p>El següent pas és donar accés al nostre compte de GitHub. 
+            <br>Fes clic a <img src="img/image26.png"> i després a <img src="img/image24.png">:</p>
         <img src="img/image3.png">
 
-        <p>Clica "Allow":</p>
+        <p>Clica <menu-item>Allow</menu-item>:</p>
         <img src="img/image45.png">
 
         <p>Després fes clic a <img src="img/image33.png">, i accedeix amb el teu usuari/contrasenya.</p>
 
-        <p>Dona-li a "Abrir enlace":</p>
+        <p>Dona-li a <menu-item>Abrir enlace</menu-item>:</p>
         <img src="img/image37.png">
 
-        <p>I per últim a "Open":</p>
+        <p>I per últim a <menu-item>Open</menu-item>:</p>
         <img src="img/image31.png">
     </fer>
 
@@ -402,9 +424,9 @@ git config --global user.email <red>johndoe@example.com</red>
         Anem a provar que tot funciona correctament publicant una pàgina web.</p>
 
     <fer>
-        Edita l'arxiu <file>index.html</file> i escriu el següent codi HTML:
+        <p>Edita l'arxiu <file>index.html</file> i escriu el següent codi HTML:</p>
 
-        <code>
+        <code html>
 &lt;!DOCTYPE html&gt;
 &lt;title&gt;My Github Page&lt;/title&gt;
 &lt;h1&gt;Welcome to my Github Page&lt;/h1&gt;            
@@ -412,19 +434,27 @@ git config --global user.email <red>johndoe@example.com</red>
 
         <img src="img/image18.png">
 
-        <p>Per a publicar-lo a GitHub, fes clic sobre <img src="img/image5.png"> i després a <img src="img/image6.png"> En el nom del repository has de posar el teu username seguit de .github.io i donar-li a "Publish to GitHub public repository".</p>
+        <p>Per a publicar-lo a GitHub, fes clic sobre <img src="img/image5.png"> i després a <img src="img/image6.png">. 
+            <br>En el nom del repository has de posar el teu <red>username</red> seguit de <name>.github.io</name> 
+            i donar-li a <img src="img/publicrepo.png"></p>
 
-        <p>Si el teu nom d'usuari és per exemple <name>monalisa</name>, el nom del repository quedaria com <name>monalisa.github.io</name></p>
+        <p>Si el teu nom d'usuari és per exemple <name>monalisa</name>, el nom del repository 
+            quedaria com <name>monalisa.github.io</name></p>
         <img src="img/image29.png">
 
-        <p>Per últim, comprovem que està seleccionat l'arxiu <file>index.html</file> i li donem a <img src="img/image34.png"></p>
+        <p>Per últim, comprovem que està seleccionat l'arxiu <file>index.html</file> i li 
+            donem a <img src="img/image34.png"></p>
         <img src="img/image16.png">
 
-        <p>Si accedim a la url <url><red>monalisa</red>.github.io</url> podem veure publicada la web que acabem de pujar:</p>
+        <p>Si accedim a la url <url><red>monalisa</red>.github.io</url> podem veure publicada 
+            la web que acabem de pujar:</p>
         <img src="img/image222.png">
     </fer>
 
-    <p>Ara ja tenim muntat completament el nostre entorn de treball. Tenim el servidor-web Apache instal·lat al contenidor, amb el qual podem visualitzar en local els canvis que anem fent a la pàgina web, i un cop estiguem satisfets amb aquests canvis, podem publicar la web a GitHub Pages.</p>
+    <p>Ara ja tenim muntat completament el nostre entorn de treball. Tenim el servidor-web 
+        Apache instal·lat al contenidor, amb el qual podem visualitzar en local els canvis que 
+        anem fent a la pàgina web, i un cop estiguem satisfets amb aquests canvis, podem publicar 
+        la web a GitHub Pages.</p>
     <p>Acabarem aquesta pràctica realitzant un petit canvi a la web, i publicant-lo a GitHub Pages.</p>
 
     <fer>
@@ -442,7 +472,7 @@ git config --global user.email <red>johndoe@example.com</red>
             realitzats i dona-li a <kbd>Ctrl</kbd>+<kbd>Intro</kbd>:</p>
         <img src="img/image14.png">
 
-        <p>Clica "Always"</p>
+        <p>Clica <menu-item>Always</menu-item></p>
         <img src="img/image32.png">
 
         <p>Per últim, fes clic sobre <img src="img/image25.png"> 
