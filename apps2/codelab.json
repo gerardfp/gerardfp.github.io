@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-07-30T09:24:48Z",
+  "id": "apps",
+  "duration": 0,
+  "title": "Apps",
+  "summary": "Apps",
+  "source": "1lkG2lWrrlqVvcG9GdMwsiBsfKfZZaeutn6oqvl-MAdM",
+  "theme": "dam-m8-dam-m8-aplicacions-m-bils",
+  "status": [
+    "1"
+  ],
+  "category": [
+    "dam-m8:DAM-M8-Aplicacions mòbils"
+  ],
+  "tags": [
+    "android"
+  ],
+  "feedback": "/dam-m8",
+  "url": "apps"
+}

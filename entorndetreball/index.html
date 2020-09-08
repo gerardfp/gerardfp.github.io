@@ -9,7 +9,7 @@
 
     <resum>En aquesta pràctica aprendrem a utilitzar les eines necessàries per al desenvolupament web.</resum>
 
-    <avis>En aquest curs utilitzarem el sistema operatiu <a href="https://ubuntu.com">Ubuntu 20.04</a>. Si no el tens instal·lat, el pots utilitzar en una màquina virtual.</avis>
+    <warn>En aquest curs utilitzarem el sistema operatiu <a href="https://ubuntu.com">Ubuntu 20.04</a>. Si no el tens instal·lat, el pots utilitzar en una màquina virtual.</warn>
 
     <p>El software que necessitarem és:</p>
     <ul>
@@ -31,7 +31,7 @@
         Es recomana començar amb <a href="https://code.visualstudio.com/">Visual Studio Code</a>, 
         que és un editor gratuït que ofereix vistes prèvies i suggeriments per al codi. 
         També hi han altres editors de text com Brackets, Atom, Sublime, etc.</p>
-    <fer>
+    <work>
         <p>Instal·la <a href="https://code.visualstudio.com/">Visual Studio Code</a> amb la següent comanda:</p>
         <terminal>
             <host>@host</host>
@@ -43,7 +43,7 @@
         <!--
             https://code.visualstudio.com/docs/languages/css?WT.mc_id=vscodecandothat-dotcom-team
         -->
-    </fer>
+    </work>
 </section>
 
 <section>
@@ -77,7 +77,7 @@
     </info>
     <h3>Contenidors</h3>
     <p>Així doncs, el primer pas és instal·lar el sistema de contenidors <inshell>lxc</inshell>.</p>
-    <fer>
+    <work>
         <p>Instal·la <inshell>lxd</inshell> amb la següent comanda:</p>
         <terminal>
             <host>@host</host>
@@ -88,7 +88,7 @@
             <host>@host</host>
             <shell>sudo lxd init --auto</shell>
         </terminal>
-    </fer>
+    </work>
     <p>La utilització bàsica de <inshell>lxc</inshell> és:</p>
     <ul>
         <li>
@@ -99,7 +99,7 @@
             </terminal>
         </li>
         <li>
-            <p>Per a <strong>accedir</strong> al contenidor mycontainer utilitza:</p>
+            <p>Per a <strong>accedir</strong> al contenidor <name>mycontainer</name> utilitza:</p>
             <terminal>
                 <host>@host</host>
                 <shell>lxc exec mycontainer bash</shell>
@@ -144,7 +144,7 @@
 
     <p>Un cop tenim instal·lat el sistema de contenidors, ja en podem crear un i instal·lar en ell un servidor-web Apache.</p>
 
-    <fer>
+    <work>
         <p>Crea un contenidor anomenat <name>mywebserver</name></p>
         <terminal>
             <host>@host</host>
@@ -185,7 +185,7 @@ apt install apache2
           valid_lft forever preferred_lft forever
 21: eth0@if22: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc UP group default qlen 1000
     link/ether 00:16:3e:5d:fc:ea brd ff:ff:ff:ff:ff:ff link-netnsid 0
-    inet <red>10.161.122.237</red>/24 brd 10.50.84.255 scope global dynamic eth0
+    inet <replace>10.161.122.237</replace>/24 brd 10.50.84.255 scope global dynamic eth0
           valid_lft 3572sec preferred_lft 3572sec
     inet6 fd42:d5f9:400a:e1f8:216:3eff:fe5d:fcea/64 scope global dynamic mngtmpaddr
           valid_lft 7197sec preferred_lft 3597sec
@@ -199,12 +199,12 @@ apt install apache2
 
         <p>Si ens surt aquesta pàgina 👆 és que està correctament instal·lat. 
             <span style="background-color: #cd214f; color: white;">It works!</span></p>
-    </fer>
+    </work>
 
     <p>Ara que ja hem instal·lat el servidor web Apache, ja podríem començar a desenvolupar una pàgina web. En les properes pràctiques en farem moltes, però de moment anem a fer una pàgina de prova.</p>
     <p>Per a programar una pàgina web utilitzarem l'editor de textos Visual Studio Code. Però abans de poder fer-ho hem de realitzar uns pasos previs...</p>
     <p>Comencem per allò basic. Fins al moment tenim instal·lat al <strong>host</strong> el VisualStudioCode i el Firefox. En canvi, hem instal·lat el servidor Apache al <strong>contenidor</strong>.</p>
-    <p>Quan introduim la URL <url>http://<red>10.161.122.237</red></url> a la barra d'adreces, Firefox realitza una petició al servidor Apache que tenim al contenidor. El servidor respon al Firefox enviant-li la pàgina que s'ha de mostrar.</p>
+    <p>Quan introduim la URL <url>http://<replace>10.161.122.237</replace></url> a la barra d'adreces, Firefox realitza una petició al servidor Apache que tenim al contenidor. El servidor respon al Firefox enviant-li la pàgina que s'ha de mostrar.</p>
     <img src="img/image13.png">
     <p>Ara bé, quan diem que el servidor "envia la pàgina" al navegador Firefox, què significa exactament? <br>Doncs, el que li està enviant realment és el codi HTML que es troba al fitxer <file>/var/www/html/index.html</file> que hi ha al contenidor. El codi HTML descriu què s'ha de mostrar i com. Vegem aquest fitxer...</p>
     <p>Per veure el contingut d'aquest fitxer podem utilitzar aquesta comanda:</p>
@@ -214,7 +214,7 @@ apt install apache2
     </terminal>
     <p>El que veurem és el codi HTML de la pàgina web "It works!". De moment no hem de saber res d'aquest codi. El que sí que anem a fer és canviar aquesta pàgina per una altra pàgina que crearem nosaltres.</p>
     <p>Es tan fàcil com esborrar aquest arxiu i crear-ne un altre amb el mateix nom. Utilitzarem l'editor de text de la consola <inshell>nano</inshell>.</p>
-    <fer>
+    <work>
         <p>Esborra l'arxiu <file>/var/www/html/index.html</file>:</p>
         <terminal>
             <host>root@mywebserver</host>
@@ -230,7 +230,7 @@ apt install apache2
         <p>Polsa <kbd>Ctrl</kbd>+<kbd>O</kbd> per a guardar el fitxer, i després <kbd>Ctrl</kbd>+<kbd>X</kbd> per a sortir de <inshell>nano</inshell>.</p>
         <p>Si ara tornem a posar l'adreça IP del contenidor a la barra del navegador veurem el següent:</p>
         <img src="img/image42.png">
-    </fer>
+    </work>
 
     <p>Com hem vist, el servidor Apache envia al navegador Firefox el codi HTML que hi ha dintre del fitxer <file>/var/www/html/index.html</file>, i el Firefox mostra la pàgina que descriu aquest codi HTML. </p>
 
@@ -277,7 +277,7 @@ apt install apache2
         clau publica/privada.</p>    
     </info>
 
-    <fer>
+    <work>
         <p>Instal·lem el programa <inshell>sshfs</inshell> al host amb la 
             comanda:</p>
         <terminal>
@@ -301,7 +301,7 @@ apt install apache2
         </terminal>
 
         <p>A continuació, seleccionem amb el ratolí la clau-pública, 
-            fem clic-dreta i seleccionem <menu-item>Copiar</menu-item>:</p>
+            fem clic-dreta i seleccionem <menuoption>Copiar</menuoption>:</p>
         <img src="img/image12.png">
 
         <p>Ara cal enganxar aquesta clau dintre del fitxer 
@@ -337,7 +337,7 @@ echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
             (substitueix la IP de la comanda per la IP que tingui el teu contenidor)</p>
         <terminal>
             <host>@host</host>
-            <shell>sshfs root@<red>10.161.122.237</red>:/var/www/html ~/mywebserver_html</shell>
+            <shell>sshfs root@<replace>10.161.122.237</replace>:/var/www/html ~/mywebserver_html</shell>
         </terminal>
 
         <p>El primer cop que fem la connexió ens demanarà validar la autenticitat de la clau. 
@@ -347,11 +347,11 @@ echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
         <p>Un cop està feta la connexió, la carpeta 
             <directory>mywebserver_html</directory> del host i 
             la carpeta <directory>/var/www/html</directory> del contenidor estan sincronitzades.</p>
-    </fer>
+    </work>
 
     <p>Ara que ja tenim accés a la carpeta del servidor-web ja podrem 
         començar a desenvolupar pàgines web utilitzant VSCode.
-        <br>Pots provar-ho. Obre VSCode i selecciona <menu-item>File</menu-item> > <menu-item>Open Folder...</menu-item>:</p>
+        <br>Pots provar-ho. Obre VSCode i selecciona <menuoption>File</menuoption> > <menuoption>Open Folder...</menuoption>:</p>
         <img src="img/image36.png">
     <p>Selecciona la carpeta <directory>mywebserver_html</directory>:</p>
     <img src="img/image40.png">
@@ -377,13 +377,13 @@ echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
         <a href="https://pages.github.com/">GitHub Pages</a>, que permet publicar les pàgines web que pujem a GitHub.</p>
     
     <p>Per utilitzar GitHub, el primer pas és crear un compte.</p>
-    <fer>
+    <work>
         <p>Si no en tens un, accedeix a <a href="https://github.com/join">https://github.com/join</a> i crea't un compte d'usuari.</p>
-    </fer>
+    </work>
     
     <p>Amb el compte d'usuari, ja ens podem preparar per a pujar les pàgines web a GitHub. 
         Per a això, necessitem tenir instal·lat el programa <a href="https://git-scm.com/">git</a> al nostre ordinador.</p>
-    <fer>
+    <work>
         <p>Instal·la <inshell>git</inshell> amb la següent comanda:</p>
         <terminal>
             <host>@host</host>
@@ -394,17 +394,17 @@ echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
         <terminal>
             <host>@host</host>
             <shell>
-git config --global user.name "<red>John Doe</red>"
-git config --global user.email <red>johndoe@example.com</red>
+git config --global user.name "<replace>John Doe</replace>"
+git config --global user.email <replace>johndoe@example.com</replace>
             </shell>
         </terminal>
-    </fer>
+    </work>
 
     <p>Podem utilitzar <inshell>git</inshell> directament en la consola per a pujar el codi, 
         però amb VSCode ho farem de forma més senzilla. 
         Instal·larem l'Extensió <a href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github">GitHub Pull Requests and Issues</a> que ens permetrà interactuar 
         amb GitHub molt fàcilment des del propi VSCode.</p>
-    <fer>
+    <work>
         <p>Instal·la l'extensió "GitHub Pull Requests and Issues". 
             <br>Fes clic sobre el botó <img src="img/image21.png">, busca l'extensió i fes clic a <img src="img/image43.png">:</p>
         <img src="img/image4.png">
@@ -414,26 +414,26 @@ git config --global user.email <red>johndoe@example.com</red>
         <img src="img/image3.png">
 
         <optional>
-            <p>Si no et surt el botó <img src="img/image24.png">, també pots fer-ho fent clic sobre <img src="img/managevscode.png"> i després <menu-item>Sign in to use Github Pull Requests and Issues</menu-item></p>
+            <p>Si no et surt el botó <img src="img/image24.png">, també pots fer-ho fent clic sobre <img src="img/managevscode.png"> i després <menuoption>Sign in to use Github Pull Requests and Issues</menuoption></p>
             <img src="img/signingithub.png">    
         </optional>
 
-        <p>Clica <menu-item>Allow</menu-item>:</p>
+        <p>Clica <menuoption>Allow</menuoption>:</p>
         <img src="img/image45.png">
 
         <p>Després fes clic a <img src="img/image33.png">, i accedeix amb el teu usuari/contrasenya.</p>
 
-        <p>Dona-li a <menu-item>Abrir enlace</menu-item>:</p>
+        <p>Dona-li a <menuoption>Abrir enlace</menuoption>:</p>
         <img src="img/image37.png">
 
-        <p>I per últim a <menu-item>Open</menu-item>:</p>
+        <p>I per últim a <menuoption>Open</menuoption>:</p>
         <img src="img/image31.png">
-    </fer>
+    </work>
 
     <p>Ara ja tenim accés de VSCode al nostre compte de GitHub. 
         Anem a provar que tot funciona correctament publicant una pàgina web.</p>
 
-    <fer>
+    <work>
         <p>Edita l'arxiu <file>index.html</file> i escriu el següent codi HTML:</p>
 
         <code html>
@@ -445,7 +445,7 @@ git config --global user.email <red>johndoe@example.com</red>
         <img src="img/image18.png">
 
         <p>Per a publicar-lo a GitHub, fes clic sobre <img src="img/image5.png"> i després a <img src="img/image6.png">. 
-            <br>En el nom del repository has de posar el teu <red>username</red> seguit de <name>.github.io</name> 
+            <br>En el nom del repository has de posar el teu <replace>username</replace> seguit de <name>.github.io</name> 
             i donar-li a <img src="img/publicrepo.png"></p>
 
         <p>Per exemple, si el teu nom d'usuari és <name>monalisa</name>, el nom del repository 
@@ -456,10 +456,10 @@ git config --global user.email <red>johndoe@example.com</red>
             donem a <img src="img/image34.png"></p>
         <img src="img/image16.png">
 
-        <p>Si accedim a la url <url><red>monalisa</red>.github.io</url> podem veure publicada 
+        <p>Si accedim a la url <url><replace>monalisa</replace>.github.io</url> podem veure publicada 
             la web que acabem de pujar:</p>
         <img src="img/image222.png">
-    </fer>
+    </work>
 
     <p>Ara ja tenim muntat completament el nostre entorn de treball. Tenim el servidor-web 
         Apache instal·lat al contenidor, amb el qual podem visualitzar en local els canvis que 
@@ -467,13 +467,13 @@ git config --global user.email <red>johndoe@example.com</red>
         la web a GitHub Pages.</p>
     <p>Acabarem aquesta pràctica realitzant un petit canvi a la web, i publicant-lo a GitHub Pages.</p>
 
-    <fer>
+    <work>
         <p>Afegeix el següent codi al fitxer index.html (substitueix el teu nom d'usuari):</p>
         <code xml>
 &lt;!DOCTYPE html&gt;
 &lt;title>My Github Page&lt;/title&gt;
 &lt;h1>Welcome to my Github Page&lt;/h1&gt;
-&lt;a href="https://github.com/<red>gerardfp</red>"&gt;View my Github Profile&lt;/a&gt;
+&lt;a href="https://github.com/<replace>gerardfp</replace>"&gt;View my Github Profile&lt;/a&gt;
         </code>
 
         <p>Per a pujar els canvis a GitHub fem clic 
@@ -482,14 +482,14 @@ git config --global user.email <red>johndoe@example.com</red>
             realitzats i dona-li a <kbd>Ctrl</kbd>+<kbd>Intro</kbd>:</p>
         <img src="img/image14.png">
 
-        <p>Clica <menu-item>Always</menu-item></p>
+        <p>Clica <menuoption>Always</menuoption></p>
         <img src="img/image32.png">
 
         <p>Per últim, fes clic sobre <img src="img/image25.png"> 
-            i selecciona <menu-item>Pull, Push</menu-item>&gt;<menu-item>Push</menu-item>:</p>
+            i selecciona <menuoption>Pull, Push</menuoption>&gt;<menuoption>Push</menuoption>:</p>
         <img src="img/image19.png">
 
         <p>Comprova que s'han publicat els canvis (pot trigar uns minuts):</p>
         <img src="img/image22.png">
-    </fer>
+    </work>
 </section>

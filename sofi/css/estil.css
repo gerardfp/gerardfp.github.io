@@ -1,4 +1,4 @@
-@import 'fonts.css';
+@import '../fonts/fonts.css';
 @import '../prismjs/prism.css';
 
 html {
@@ -6,10 +6,14 @@ html {
 }
 
 body {
-    font-family: 'Roboto';
-    line-height: 1.5;
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 1.8;
     color: #555;
     margin: 0;
+}
+
+* {
+    border-color: white;
 }
 
 section {
@@ -25,7 +29,8 @@ header {
 }
 
 a {
-    color: #e81c4f;
+    color: #42b983; 
+    /* color: #e81c4f; */
 }
 
 h1 {
@@ -54,11 +59,18 @@ img {
     display: block;
     margin: 1.5em auto 3em auto;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    border: 8px solid;
+    border-color: white;
 }
 
 p img {
     display: inline;
-    margin: 0;
+    margin: 0 .2em;
+    border: 0;
+}
+
+ul, ol {
+    margin-bottom: 3em;
 }
 
 resum {
@@ -70,13 +82,44 @@ codefile {
     display: block;
     border: 1px solid #d8dee9;
     border-radius: 8px 8px 0px 0px;
-    font-family: 'Ubuntu mono';
-    padding: .5em 1em;
+    font-family: 'Consolas';
+    padding: .2em 1em;
     color: #555;
 }
 
-codefile:before {
-    content: '🗎 ';
+codefile::before {
+    content: '\f15c';
+    font-family: 'FASolid';
+    margin-right: .5em;
+}
+
+codefile a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a[href*='github']::before {
+    content: '\f09b';
+    font-family: 'FABrands';
+    margin-right: .5em;
+    text-decoration: none;
+}
+
+a::before {
+    text-decoration: none;
+    display: inline-block;
+}
+
+code {
+    font-size: 14px;
+}
+
+pre {
+    border-radius: 8px 8px 0px 0px;
+}
+
+terminal pre,  codefile + pre, codefile + div.code-toolbar pre{
+    border-radius: 0;
 }
 
 /* codi {
@@ -94,23 +137,17 @@ codefile:before {
 pre[class*="language-"] {
     margin-top: 0;
     margin-bottom: 1em;
+    font-size: 14px;
 }
 
 pre.language-bash {
     padding: 0;
 }
 
-incode {
-    background: #f5f7f9;
-    color: #a7adba;  
-    font-family: 'Ubuntu mono';
-    white-space: pre;
-    padding: .1em .5em;
-    
-}
+
 
 terminal {
-    font-family: 'Ubuntu mono';
+    font-family: 'Ubuntu mono', Consolas, monospace;
     display: block;
 }
 
@@ -133,85 +170,116 @@ shell {
     /* font-weight: bold; */
     display: block;
     padding: .5em;
-    font-family: 'Ubuntu mono';
+    font-family: 'Ubuntu mono', Consolas, monospace;
     white-space: pre;
     font-size: 14px;
     overflow-x: auto;
 }
 
-inshell {
-    background-color: #d2d2d2;
-    font-family: 'Ubuntu mono';
-    padding: .1em;
+
+
+
+
+
+
+
+
+incode {
+    background: #f5f7f9;
+    /* background: #2d2d2d;   */
+    font-family: 'Consolas';
     white-space: pre;
+    padding: .1em .5em;
+    border-radius: 4px;
 }
 
-red {
-    color: red;
-}
 
-fer {
-    display: block;
-    border: 1px solid #d8dee9;
-    border-left: 2px solid green;
-    
-    padding: 1em;
-}
-
-check {
-    display: block;
-}
-
-check::before {
-    content: '\1F5F8 ';
-    color: green;
-    margin-right: 1em;
-}
-
-name {
-    background-color: lightcyan;
-    font-family: 'Ubuntu mono';
-    padding: .1em;
-}
-
-avis {
-    display: block;
-    border: 1px solid #d8dee9;
-    border-left: 2px solid red;
-    padding: 1em;
-    margin: 1em 0;
-}
-
-info {
-    display: block;
-    border: 1px solid #d8dee9;
-    border-left: 2px solid blue;
-    padding: 1em;  
-    margin: 1em 0;
-}
-
-optional {
-    display: block;
-    border: 1px solid #d8dee9;
-    border-left: 2px solid orange;
-    padding: 1em;  
-    margin: 1em 0;
-
+inshell {
+    background-color: #dddddd;
+    font-family: 'Consolas';
+    padding: .1em .5em;
+    white-space: pre;
+    border-radius: 4px;
+    font-size: 1rem;
 }
 
 url {
     border: 1px solid lightgray;
     border-radius: 8px;
-    padding: .1em .3em;
+    padding: .3em .8em;
     white-space: nowrap;
 }
 
 file, directory {
-    font-family: 'Ubuntu mono';
-    background-color: lightgoldenrodyellow;
-    padding: .1em .3em;
+    font-family: 'Consolas';
+    background-color: #f5f7ab6a;
+    color: #333;
+    padding: .1em .5em;
+    margin: .3em;
     white-space: nowrap;
-    border: 1px dashed gray;
+    /* border: 1px dashed #3d3d37; */
+}
+
+file::before, directory::before {
+    font-family: 'FASolid';
+    margin-right: .5em;
+}
+
+file::before {
+    content: '\f15c';
+}
+
+directory::before {
+    content: '\f07c';
+}
+
+string {
+    font-family: 'Consolas';
+    font-size: 1rem;
+    background: #dde5da;
+    color: #2f9c0a;
+    padding: .1em .5em;
+    white-space: nowrap;
+    border-radius: 4px;
+    /* border: 1px dotted #3e4240; */
+}
+
+name {
+    /* background-color: #7afbff;
+    border: 1px dashed #353539; */
+    /* background-color: #7afbff; */
+    border: 1px solid #5cbbc1;
+    padding: .1em .5em;
+    border-radius: 4px;
+}
+
+replace {
+    border: 1px dotted #3e4240;
+    border-radius: 4px;
+    color: #c7254e;;
+    /* background: #f9f2f4; */
+    padding: .1em .5em;
+}
+
+shell replace, url replace, code replace, inshell replace, incode replace {
+    border: 0;
+    padding: 0;
+    background: none;
+}
+
+shell.language-bash .token {
+    color: unset;
+}
+
+menuoption {
+    background-color: #f2f2f2;
+    padding: .1em .5em;
+    border: 1px solid #bbb;
+    white-space: nowrap;
+}
+
+red {
+    color: red;
 }
 
 kbd {
@@ -221,25 +289,124 @@ kbd {
     /*
     box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
     */
-    border-bottom: 3px solid #222;
+    border-bottom: 2px solid #777;
     color: #333;
     display: inline-block;
-    font-size: .9em;
     font-weight: 700;
-
     padding: 0 6px;
     white-space: nowrap;
+    position: relative;
+    top: -2px;
 }
 
-string {
-    color: green;
+
+
+
+
+
+
+
+download a {
+    background: #1E8E3E;
+    border-radius: 4px;
+    padding: 1em;
+    color: white;
+    text-decoration: none;
 }
 
-menu-item {
-    background-color: #f2f2f2;
-    padding: .1em 1.2em;
-    border: 1px solid #bbb;
+download {
+    display: block;
+    margin: 3em 0;
 }
+
+
+check {
+    display: block;
+}
+
+check::before {
+    font-family: 'FASolid';
+    content: '\f058 ';
+    color: #189E49;
+    margin-right: 1em;
+}
+
+
+
+work, warn, info, optional {
+    position: relative;
+    border-radius: 8px 0px 0px 8px;
+}
+
+work::before, warn::before, info::before, optional::before {
+    position: absolute;
+    top: .8em;
+    left: -.8em;
+    color: #fff;
+    width: 1.6em;
+    height: 1.6em;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 1.6;
+}
+
+
+work {
+    display: block;
+    border: 1px solid #d8dee9;
+    border-left: 2px solid #189E49;
+    padding: 1em;
+}
+
+work::before {
+    font-family: 'FASolid';
+    content: '\f304';
+    background-color: #189E49;
+}
+
+warn {
+    display: block;
+    border: 1px solid #d8dee9;
+    border-left: 2px solid #f66;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+warn::before {
+    font-family: 'FASolid';
+    content: '\f12a';
+    background: #f66;
+    font-weight: bold;
+}
+
+info {
+    display: block;
+    border: 1px solid #d8dee9;
+    border-left: 2px solid #77CAE0;
+    padding: 1em;  
+    margin: 1em 0;
+}
+
+info::before {
+    content: '\2139';
+    background: #77CAE0;
+}
+
+optional {
+    display: block;
+    border: 1px solid #d8dee9;
+    border-left: 2px solid #FFA700;
+    padding: 1em;  
+    margin: 1em 0;
+}
+
+optional::before {
+    content: '\2325';
+    background-color: #FFA700;
+}
+
+
+
 
 sidenav {
     display: block;
@@ -259,7 +426,7 @@ sidenav {
 }
 
 sidenav.open {
-    width: 250px;
+    width: auto;
 }
 
 hamb-close {

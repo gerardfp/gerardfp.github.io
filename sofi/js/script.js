@@ -22,6 +22,7 @@ function syntaxHighlight(){
 
     var attrs = block.getAttributeNames();
     if(attrs[0] != null){
+      block.removeAttribute(attrs[0]);
       block.classList.add('language-' + attrs[0]);
     }
     
