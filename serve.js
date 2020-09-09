@@ -9,6 +9,7 @@ require('http').createServer(function (request, response) {
     
     request.addListener('end', function () {
         //exec("node build.js");
+        // response.setHeader('Access-Control-Allow-Origin', '*');
         file.serve(request, response);
     }).resume();
 }).listen(8080);

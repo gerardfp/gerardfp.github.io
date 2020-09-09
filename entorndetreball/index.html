@@ -7,38 +7,57 @@
 <header>
     <h1>Pràctica 1: Entorn de treball</h1>
 
-    <resum>En aquesta pràctica aprendrem a utilitzar les eines necessàries per al desenvolupament web.</resum>
+    <resum>
+        <p>En aquesta pràctica aprendrem a instal·lar i utilitzar les eines necessàries per al desenvolupament web.
+        A l'àmbit professional s'utilitzen una àmplia varietat d'eines, però nosaltres començarem amb les mínimes
+        necessàries que necessitarem per a aquest curs:</p>
+        <ul>
+            <li>Editor de text
+            <li>Navegador web
+            <li>Servidor web
+            <li>Repositori de codi
+        </ul>
+    </resum>
 
+    <tldr>
+        Començarem la pràctica instal·lant l'editor de text <strong>Visual Studio Code</strong>, 
+        que ens permetrà editar el codi HTML, i també interactuar amb la plataforma <strong>GitHub</strong>
+        (on podrem allotjar el codi).
+        També instal·larem el navegador web <strong>Firefox</strong>, i el servidor web <strong>Apache</strong> (que instal·larem
+        dintre d'un contenidor utilitzant <strong>LinuxContainers</strong>).
+    </tldr>
     <warn>En aquest curs utilitzarem el sistema operatiu <a href="https://ubuntu.com">Ubuntu 20.04</a>. Si no el tens instal·lat, el pots utilitzar en una màquina virtual.</warn>
-
-    <p>El software que necessitarem és:</p>
-    <ul>
-        <li>Editor de text
-        <li>Navegador web
-        <li>Servidor web
-        <li>Repositori de codi
-    </ul>
+    
 </header>
 
 <section>
     <h2>Editor de text</h2>
+    
+    
+
     <p>Probablement ja teniu un editor de text bàsic en l'equip. Per defecte, 
         Windows inclou el <a href="https://en.wikipedia.org/wiki/Microsoft_Notepad">Notepad</a> 
         i OS X ve amb <a href="https://en.wikipedia.org/wiki/TextEdit">TextEdit</a>. 
         Les distribucions de Linux varien; Ubuntu 
         ve amb <a href="https://en.wikipedia.org/wiki/Gedit">gedit</a> per defecte.</p>
     <p>Per al desenvolupament web, segurament treballareu millor amb altres eines que el NotePad o el TextEdit. 
-        Es recomana començar amb <a href="https://code.visualstudio.com/">Visual Studio Code</a>, 
-        que és un editor gratuït que ofereix vistes prèvies i suggeriments per al codi. 
-        També hi han altres editors de text com Brackets, Atom, Sublime, etc.</p>
+        Existeixen infinits programes que permeten editar codi. Entre els més utilitzats per al desenvolupament web
+        trobem Brackets, Atom, Sublime, WebStorm, etc.</p>
+
+    <p>Per a aquest curs, es recomana començar amb <a href="https://code.visualstudio.com/">Visual Studio Code</a>, 
+    que és un editor gratuït que ofereix vistes prèvies i suggeriments per al codi.</p>
+    
+    <img src="img/vscode.jpg">
+        
     <work>
-        <p>Instal·la <a href="https://code.visualstudio.com/">Visual Studio Code</a> amb la següent comanda:</p>
+        <p>Instal·la Visual Studio Code amb la següent comanda:</p>
         <terminal>
             <host>@host</host>
             <shell>sudo snap install code --classic</shell>
         </terminal>
-        <p>Ho pots fer també mitjançant Ubuntu Software</p>
-        <img src="img/image47.png">
+        <optional>
+            <p>Ho pots fer també mitjançant Ubuntu Software <img src="img/image47.png"></p>
+        </optional>
 
         <!--
             https://code.visualstudio.com/docs/languages/css?WT.mc_id=vscodecandothat-dotcom-team
@@ -54,31 +73,37 @@
         <li>Windows: Firefox, Chrome, Opera, Internet Explorer, Microsoft Edge 
         <li>Mac: Firefox, Chrome, Opera, Safari
     </ul>
-    <p>En aquest curs utilitzarem el navegador Firefox, que ja ve instal·lat per defecte a Ubuntu.</p>
+    <p>En aquest curs utilitzarem el navegador <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a>, que ja ve instal·lat per defecte a Ubuntu.</p>
 
+    <img src="img/firefox.png">
 </section>
 
 <section>
     <h2>Servidor web</h2>
     <p>Quan introduim una URL en un navegador-web, aquest realitza una petició al servidor-web, 
         el qual respon amb la pàgina web solicitada.</p>
-    <img src="img/image46.png">
+    <img src="img/servidorweb.png">
+
     <p>Així doncs, el servidor-web és un programa que s'encarrega de rebre sol·licituds de pàgines web, 
         busca els fitxers de les pàgines sol·licitades, i els envia de tornada.</p>
-    <p>Hi ha moltes opcions de programari que s'utilitza com a servidor web. 
+    
+        <p>Hi ha moltes opcions de programari que s'utilitzen com a servidor web. 
         La més freqüent és el servidor web <a href="https://www.apache.org/">Apache</a>.</p>
     <img src="img/apache.png">
+    
     <p>Instal·lar el servidor-web Apache a Ubuntu és molt senzill, ja que es troba als respositoris <inshell>apt</inshell>.</p>
-    <p>No obstant, utilitzarem el sistema de contenidors <a href="https://linuxcontainers.org/">lxc</a> (LinuxContainers), per tal d'aïllar el servidor-web del nostre sistema operatiu. D'aquesta forma podrem instal·lar diversos servidors-web i utilitzar-los en diferents pràctiques.</p>
+    <p>No obstant, utilitzarem el sistema de contenidors <a href="https://linuxcontainers.org/">LinuxContainers</a> (lxc), per tal d'aïllar el servidor-web del nostre sistema operatiu. D'aquesta forma podrem instal·lar diversos servidors-web i utilitzar-los en diferents pràctiques.</p>
     <img src="img/image1.png">
+    
     <info>
         <p>Els contenidors són molt similars a les màquines virtuals. Ofereixen entorns d'execució, aïllats del Sistema Operatiu amfitrió, amb el seus propis recursos (xarxa, sistema de fitxers, usuaris, etc...).</p>
         <p>Per a + info, consulteu: <a href="https://docs.microsoft.com/es-es/virtualization/windowscontainers/about/containers-vs-vm">Contenedores frente a máquinas virtuales</a></p>
     </info>
+    
     <h3>Contenidors</h3>
     <p>Així doncs, el primer pas és instal·lar el sistema de contenidors <inshell>lxc</inshell>.</p>
     <work>
-        <p>Instal·la <inshell>lxd</inshell> amb la següent comanda:</p>
+        <p>Instal·la <inshell>lxc</inshell> amb la següent comanda:</p>
         <terminal>
             <host>@host</host>
             <shell>sudo snap install lxd</shell>
@@ -195,25 +220,34 @@ apt install apache2
         </terminal>
 
         <p>Copiem l'adreça IP que ens surt a l'adaptador <inshell>eth0</inshell> i l'enganxem a la barra d'adreces del Firefox del host:</p>
-        <img src="img/image2.png">
+        <img src="img/itworks.png">
 
-        <p>Si ens surt aquesta pàgina 👆 és que està correctament instal·lat. 
+        <p>Si ens surt aquesta pàgina 👆 és que està correctament instal·lat: 
             <span style="background-color: #cd214f; color: white;">It works!</span></p>
     </work>
 
-    <p>Ara que ja hem instal·lat el servidor web Apache, ja podríem començar a desenvolupar una pàgina web. En les properes pràctiques en farem moltes, però de moment anem a fer una pàgina de prova.</p>
-    <p>Per a programar una pàgina web utilitzarem l'editor de textos Visual Studio Code. Però abans de poder fer-ho hem de realitzar uns pasos previs...</p>
-    <p>Comencem per allò basic. Fins al moment tenim instal·lat al <strong>host</strong> el VisualStudioCode i el Firefox. En canvi, hem instal·lat el servidor Apache al <strong>contenidor</strong>.</p>
-    <p>Quan introduim la URL <url>http://<replace>10.161.122.237</replace></url> a la barra d'adreces, Firefox realitza una petició al servidor Apache que tenim al contenidor. El servidor respon al Firefox enviant-li la pàgina que s'ha de mostrar.</p>
-    <img src="img/image13.png">
-    <p>Ara bé, quan diem que el servidor "envia la pàgina" al navegador Firefox, què significa exactament? <br>Doncs, el que li està enviant realment és el codi HTML que es troba al fitxer <file>/var/www/html/index.html</file> que hi ha al contenidor. El codi HTML descriu què s'ha de mostrar i com. Vegem aquest fitxer...</p>
-    <p>Per veure el contingut d'aquest fitxer podem utilitzar aquesta comanda:</p>
+    
+
+    <p>Quan introduim l'adreça IP del contenidor a la barra d'adreçes <url>http://<replace>10.161.122.237</replace></url>, Firefox realitza una petició al servidor Apache que tenim al contenidor. El servidor respon al Firefox enviant-li la pàgina que s'ha de mostrar.</p>
+    <img src="img/itworksresponse.png">
+
+    <p>Ara bé, quan diem que el servidor "envia la pàgina" al navegador Firefox, 
+        què significa exactament? 
+        <br>Doncs, el que li està enviant realment és el codi HTML que es troba 
+        al fitxer <file>/var/www/html/index.html</file> que hi ha al contenidor. 
+        Aquest codi HTML descriu què s'ha de mostrar i com. Vegem aquest fitxer...</p>
+    <p>Vegem el contingut d'aquest fitxer:</p>
     <terminal>
         <host>root@mywebserver</host>
         <shell>cat /var/www/html/index.html</shell>
     </terminal>
-    <p>El que veurem és el codi HTML de la pàgina web "It works!". De moment no hem de saber res d'aquest codi. El que sí que anem a fer és canviar aquesta pàgina per una altra pàgina que crearem nosaltres.</p>
-    <p>Es tan fàcil com esborrar aquest arxiu i crear-ne un altre amb el mateix nom. Utilitzarem l'editor de text de la consola <inshell>nano</inshell>.</p>
+
+    <p>El que veurem és el codi HTML de la pàgina web "It works!". De moment no hem 
+        de saber res d'aquest codi. El que sí que anem a fer és canviar aquesta 
+        pàgina per una altra pàgina que crearem nosaltres.</p>
+
+    <p>Es tan fàcil com esborrar aquest arxiu i crear-ne un altre amb el mateix nom. 
+        Utilitzarem l'editor de text de la consola <inshell>nano</inshell>.</p>
     <work>
         <p>Esborra l'arxiu <file>/var/www/html/index.html</file>:</p>
         <terminal>
@@ -228,14 +262,19 @@ apt install apache2
         <p>Escriu el següent codi HTML:</p>
         <img src="img/image44.png">
         <p>Polsa <kbd>Ctrl</kbd>+<kbd>O</kbd> per a guardar el fitxer, i després <kbd>Ctrl</kbd>+<kbd>X</kbd> per a sortir de <inshell>nano</inshell>.</p>
-        <p>Si ara tornem a posar l'adreça IP del contenidor a la barra del navegador veurem el següent:</p>
+        <p>Si ara tornem a posar l'adreça IP del contenidor a la barra del 
+            navegador veurem el següent:</p>
         <img src="img/image42.png">
     </work>
 
-    <p>Com hem vist, el servidor Apache envia al navegador Firefox el codi HTML que hi ha dintre del fitxer <file>/var/www/html/index.html</file>, i el Firefox mostra la pàgina que descriu aquest codi HTML. </p>
+    <p>Com hem vist, el servidor Apache envia al navegador Firefox el codi HTML 
+        que hi ha dintre del fitxer <file>/var/www/html/index.html</file>, i 
+        Firefox mostra la pàgina que descriu aquest codi HTML. </p>
 
     <info>
-        <p>Fixa't que els navegadors no mostren el codi HTML. El codi HTML li indica al navegador quin contingut ha de mostrar i quina estructura ha de tenir.</p>
+        <p>Fixa't que els navegadors no mostren el codi HTML. El codi HTML li 
+            indica al navegador quin contingut ha de mostrar i quina estructura 
+            ha de tenir.</p>
         <p>En el cas del fitxer <file>index.html</file>, 
             la etiqueta <incode xml>&lt;!DOCTYPE html&gt;</incode> i 
             la etiqueta <incode xml>&lt;h1&gt;</incode>, 
@@ -243,8 +282,10 @@ apt install apache2
             La etiqueta <incode xml>&lt;h1&gt;</incode> li indica al Firefox que ha de 
             mostrar el text <string>Hello HTML Code!</string> en lletres grans i en negreta.</p>
         <p>Si tens curiositat, aquí tens la llista completa 
-            d'etiquetes del llenguatge HTML: <a href="https://www.w3schools.com/tags/default.asp">HTML Reference</a>. 
-            En aquest curs n'aprendrem moltes d'elles, per crear formularis, taules, llistes, multimèdia, etc...</p>
+            d'etiquetes del llenguatge HTML: 
+            <a href="https://www.w3schools.com/tags/default.asp">HTML Reference</a>. 
+            En aquest curs n'aprendrem moltes d'elles, per crear formularis, taules, 
+            llistes, multimèdia, etc...</p>
     </info>
 
     <h3>Accés als fitxers del contenidor</h3>
@@ -262,12 +303,12 @@ apt install apache2
         tenim accés als fitxers del <strong>contenidor</strong>. El següent 
         pas doncs serà habilitar 
         l'accés als fitxers del contenidor des del <strong>host</strong>. 
-        Utilitzarem l'eina <a href="https://github.com/libfuse/sshfs">sshfs</a> per tal d'aconseguir-ho.</p>
-    <p>SSHFS ens permet conectar una carpeta del <strong>contenidor</strong> 
+        Utilitzarem l'eina <a noicon href="https://github.com/libfuse/sshfs">sshfs</a> per tal d'aconseguir-ho.</p>
+    <p>SSHFS ens permetrà <strong>connectar</strong> una carpeta del contenidor 
         amb una 
-        carpeta del <strong>host</strong>, de forma que tot el que realitzem 
+        carpeta del host, de forma que tot el que realitzem 
         en un costat també es fa a l'altre costat.</p>
-    <img src="img/image28.png">
+    <img src="img/sshfsfolder.png">
 
     <info>
     <p>Amb SSHFS, la comunicació entre el contenidor i el host es realitza 
@@ -306,7 +347,7 @@ apt install apache2
 
         <p>Ara cal enganxar aquesta clau dintre del fitxer 
             <file>/root/.ssh/authorized_keys</file> del contenidor.
-            Escrivim <inshell>echo</inshell>, espai en blanc, enganxem 
+            <br>Escrivim <inshell>echo</inshell>, espai en blanc, enganxem 
             la clau copiada polsant 
             <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> 
             i completem la comanda amb 
@@ -371,14 +412,14 @@ echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
         accedir des del nostre ordinador. Si volem que les webs estiguin disponibles a Internet, 
         necessitem un servidor-web que estigui exposat a la xarxa.</p>
     <p>Hi ha moltes empreses que ofereixen aquest servei, algunes inclús de forma gratuïta. 
-        Nosaltres utilitzarem <a href="https://github.com/">GitHub</a>.</p>
+        Nosaltres utilitzarem <a noicon href="https://github.com/">GitHub</a>.</p>
     <p>GitHub és una plataforma, que ens permet emmagatzemar el nostre codi i portar 
         el control de les seves modificacions. A més a més, ofereix el servei 
-        <a href="https://pages.github.com/">GitHub Pages</a>, que permet publicar les pàgines web que pujem a GitHub.</p>
+        <a noicon href="https://pages.github.com/">GitHub Pages</a>, que permet publicar les pàgines web que pujem a GitHub.</p>
     
     <p>Per utilitzar GitHub, el primer pas és crear un compte.</p>
     <work>
-        <p>Si no en tens un, accedeix a <a href="https://github.com/join">https://github.com/join</a> i crea't un compte d'usuari.</p>
+        <p>Si no en tens un, <a noicon href="https://github.com/join">crea't un compte d'usuari a GitHub</a>.</p>
     </work>
     
     <p>Amb el compte d'usuari, ja ens podem preparar per a pujar les pàgines web a GitHub. 
@@ -402,7 +443,7 @@ git config --global user.email <replace>johndoe@example.com</replace>
 
     <p>Podem utilitzar <inshell>git</inshell> directament en la consola per a pujar el codi, 
         però amb VSCode ho farem de forma més senzilla. 
-        Instal·larem l'Extensió <a href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github">GitHub Pull Requests and Issues</a> que ens permetrà interactuar 
+        Instal·larem l'extensió <a noicon href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github">GitHub Pull Requests and Issues</a> que ens permetrà interactuar 
         amb GitHub molt fàcilment des del propi VSCode.</p>
     <work>
         <p>Instal·la l'extensió "GitHub Pull Requests and Issues". 
@@ -421,7 +462,7 @@ git config --global user.email <replace>johndoe@example.com</replace>
         <p>Clica <menuoption>Allow</menuoption>:</p>
         <img src="img/image45.png">
 
-        <p>Després fes clic a <img src="img/image33.png">, i accedeix amb el teu usuari/contrasenya.</p>
+        <p>Després fes clic a <img noshadow src="img/image33.png">, i accedeix amb el teu usuari/contrasenya.</p>
 
         <p>Dona-li a <menuoption>Abrir enlace</menuoption>:</p>
         <img src="img/image37.png">
@@ -468,7 +509,8 @@ git config --global user.email <replace>johndoe@example.com</replace>
     <p>Acabarem aquesta pràctica realitzant un petit canvi a la web, i publicant-lo a GitHub Pages.</p>
 
     <work>
-        <p>Afegeix el següent codi al fitxer index.html (substitueix el teu nom d'usuari):</p>
+        <p>Afegeix el següent codi al fitxer <file>index.html</file> 
+            (substitueix el teu nom d'usuari):</p>
         <code xml>
 &lt;!DOCTYPE html&gt;
 &lt;title>My Github Page&lt;/title&gt;
@@ -476,7 +518,7 @@ git config --global user.email <replace>johndoe@example.com</replace>
 &lt;a href="https://github.com/<replace>gerardfp</replace>"&gt;View my Github Profile&lt;/a&gt;
         </code>
 
-        <p>Per a pujar els canvis a GitHub fem clic 
+        <p>Per a pujar els canvis a GitHub fes clic 
             sobre <img src="img/image5.png">, introdueix 
             un comentari que descrigui els canvis 
             realitzats i dona-li a <kbd>Ctrl</kbd>+<kbd>Intro</kbd>:</p>
