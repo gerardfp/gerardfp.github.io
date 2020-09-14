@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
   //add meta 
   //document.head.insertAdjacentHTML('afterbegin', '<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">');
   replaceParams();
-  
+  doQuizz();
+
 });
 
 function syntaxHighlight(){
@@ -105,4 +106,101 @@ function replaceParams(){
       });
     }
   }
+}
+
+
+
+
+
+
+
+function doQuizz(){
+  document.querySelectorAll('question').forEach(q => {
+    var qid = 'id' + Math.random().toString(36).substr(2, 9);
+    q.id = qid;
+
+    if(q.hasAttribute('single')){
+      doSingleQuestion(q);
+    } else if(q.hasAttribute('multi')){
+      doMultiQuestion(q);
+    }
+  });
+}
+
+function doSingleQuestion(q){
+  q.querySelectorAll('answer').forEach(a => {
+    var iid = 'id' + Math.random().toString(36).substr(2, 9);
+
+    var label = document.createElement('label');
+    label.textContent = a.textContent;
+    a.textContent = '';
+    label.setAttribute('for', iid);
+    a.appendChild(label);
+
+    var i = document.createElement('input');
+    i.id = iid;
+    i.type = 'radio';
+    i.name = q.id;
+    a.insertBefore(i, a.firstChild);
+  });
+
+  q.querySelectorAll('button').forEach((b) => {
+    b.onclick = () => {
+      q.querySelectorAll('answer').forEach((a) => {
+        a.querySelectorAll('input').forEach((i) => {
+          if(i.checked){
+            if(a.hasAttribute('correct')){
+              a.classList.add('right');
+              a.classList.add('was-correct');
+            } else {
+              a.classList.add('wrong');
+            }
+          } else {
+            if(a.hasAttribute('correct')){
+              a.classList.add('was-correct');
+            }
+          }
+        });
+      });
+    };
+  });
+}
+
+function doMultiQuestion(q){
+  q.querySelectorAll('answer').forEach(a => {
+    var iid = 'id' + Math.random().toString(36).substr(2, 9);
+
+    var label = document.createElement('label');
+    label.textContent = a.textContent;
+    a.textContent = '';
+    label.setAttribute('for', iid);
+    a.appendChild(label);
+
+    var i = document.createElement('input');
+    i.id = iid;
+    i.type = 'checkbox';
+    a.insertBefore(i, a.firstChild);
+  });
+
+  q.querySelectorAll('button').forEach((b) => {
+    b.onclick = () => {
+      q.querySelectorAll('answer').forEach((a) => {
+        a.querySelectorAll('input').forEach((i) => {
+          if(i.checked){
+            if(a.hasAttribute('correct')){
+              a.classList.add('right');
+              a.classList.add('was-correct');
+            } else {
+              a.classList.add('wrong');
+            }
+          } else {
+            if(a.hasAttribute('correct')){
+              a.classList.add('wrong');
+              a.classList.add('was-correct');
+            }
+          }
+        });
+      });
+    };
+  });
 }
