@@ -6,11 +6,11 @@
 
 <nav></nav>
 <header>
-    <h1>Pràctica 1: Entorn de treball</h1>
+    <h1>Entorn de treball</h1>
 
     <resum>
-        <p>En aquesta pràctica <file>/var/www/html</file> aprendrem a instal·lar i utilitzar les eines necessàries per al desenvolupament web.
-        A l'àmbit <directory>sfdfsd</directory> professional s'utilitzen una àmplia varietat d'eines, però nosaltres començarem amb les mínimes
+        <p>En aquesta pràctica aprendrem a instal·lar i utilitzar les eines necessàries per al desenvolupament web.</p>
+        <p>A l'àmbit professional s'utilitzen una àmplia varietat d'eines, però nosaltres començarem amb les mínimes
         necessàries que necessitarem per a aquest curs:</p>
         <ul>
             <li>Editor de text
@@ -99,11 +99,14 @@
     <img src="img/apache.png">
     
     <p>Instal·lar el servidor-web Apache a Ubuntu és molt senzill, ja que es troba als respositoris <inshell>apt</inshell>.</p>
-    <p>No obstant, utilitzarem el sistema de contenidors <a href="https://linuxcontainers.org/">LinuxContainers</a> (lxc), per tal d'aïllar el servidor-web del nostre sistema operatiu. D'aquesta forma podrem instal·lar diversos servidors-web i utilitzar-los en diferents pràctiques.</p>
+    <p>No obstant, utilitzarem el sistema de contenidors <a href="https://linuxcontainers.org/">LinuxContainers</a> (<inshell>lxc</inshell>), per tal 
+        d'aïllar el servidor-web del nostre sistema operatiu. D'aquesta forma podrem instal·lar diversos servidors-web i utilitzar-los 
+        en diferents pràctiques.</p>
     <img src="img/image1.png">
     
     <info>
-        <p>Els contenidors són molt similars a les màquines virtuals. Ofereixen entorns d'execució, aïllats del Sistema Operatiu amfitrió, amb el seus propis recursos (xarxa, sistema de fitxers, usuaris, etc...).</p>
+        <p>Els contenidors són molt similars a les màquines virtuals. Ofereixen entorns d'execució, aïllats del Sistema Operatiu amfitrió, amb el 
+            seus propis recursos (xarxa, sistema de fitxers, usuaris, etc...).</p>
         <p>Per a + info, consulteu: <a href="https://docs.microsoft.com/es-es/virtualization/windowscontainers/about/containers-vs-vm">Contenedores frente a máquinas virtuales</a></p>
     </info>
     
@@ -124,7 +127,8 @@
     <p>La utilització bàsica de <inshell>lxc</inshell> és:</p>
     <ul>
         <li>
-            <p>Per a <strong>crear</strong> un contenidor, únicament hem d'escollir un nom i executar la següent comanda. Per exemple, per a crear un contenidor anomenat <name>mycontainer</name>, executa al sistema host:</p>
+            <p>Per a <strong>crear</strong> un contenidor, únicament hem d'escollir un nom i executar la següent comanda. Per exemple, 
+                per a crear un contenidor anomenat <name>mycontainer</name>, executa al sistema host:</p>
             <terminal>
                 <host>@host</host>
                 <shell>lxc launch ubuntu:20.04 mycontainer</shell>
@@ -199,7 +203,7 @@ apt install apache2
         </terminal>
         
         <p>Ara comprovarem que s'ha instal·lat correctament el servidor-web. 
-            <br>Primer esbrina la ip del contenidor amb la comanda:</p>
+            <br>Primer esbrina la IP del contenidor amb la comanda:</p>
         <terminal>
             <host>root@mywebserver</host>
             <shell>ip a</shell>
@@ -235,14 +239,15 @@ apt install apache2
 
     
 
-    <p>Quan introduim l'adreça IP del contenidor a la barra d'adreçes <url>http://<replace>10.161.122.237</replace></url>, Firefox realitza una petició al servidor Apache que tenim al contenidor. El servidor respon al Firefox enviant-li la pàgina que s'ha de mostrar.</p>
+    <p>Quan introduim l'adreça IP del contenidor a la barra d'adreçes <url>http://<replace>10.161.122.237</replace></url>, Firefox realitza 
+        una petició al servidor Apache que tenim al contenidor. El servidor respon al Firefox enviant-li la pàgina que s'ha de mostrar.</p>
     <img src="img/itworksresponse.png">
 
     <p>Ara bé, quan diem que el servidor "envia la pàgina" al navegador Firefox, 
         què significa exactament? 
         <br>Doncs, el que li està enviant realment és el codi HTML que es troba 
         al fitxer <file>/var/www/html/index.html</file> que hi ha al contenidor. 
-        Aquest codi HTML descriu què s'ha de mostrar i com. Vegem aquest fitxer...</p>
+        Aquest codi HTML descriu què s'ha de mostrar i com.</p>
     <p>Vegem el contingut d'aquest fitxer:</p>
     <terminal>
         <host>root@mywebserver</host>
@@ -251,7 +256,7 @@ apt install apache2
 
     <p>El que veurem és el codi HTML de la pàgina web "It works!". De moment no hem 
         de saber res d'aquest codi. El que sí que anem a fer és canviar aquesta 
-        pàgina per una altra pàgina que crearem nosaltres.</p>
+        pàgina web per una altra pàgina que crearem nosaltres.</p>
 
     <p>Es tan fàcil com esborrar aquest arxiu i crear-ne un altre amb el mateix nom. 
         Utilitzarem l'editor de text de la consola <inshell>nano</inshell>.</p>
@@ -308,8 +313,7 @@ apt install apache2
     <p>Ara bé, el VSCode el tenim instal·lat al <strong>host</strong>, i 
         des del host encara no 
         tenim accés als fitxers del <strong>contenidor</strong>. El següent 
-        pas doncs serà habilitar 
-        l'accés als fitxers del contenidor des del <strong>host</strong>. 
+        pas serà, aleshores, habilitar l'accés als fitxers del contenidor des del <strong>host</strong>. 
         Utilitzarem l'eina <a noicon href="https://github.com/libfuse/sshfs">sshfs</a> per tal d'aconseguir-ho.</p>
     <p>SSHFS ens permetrà <strong>connectar</strong> una carpeta del contenidor 
         amb una 
@@ -322,18 +326,20 @@ apt install apache2
         mitjançant un canal <inshell>ssh</inshell>. Aquest canal requereix 
         d'una 
         autenticació prèvia, bé sigui amb usuari/password o bé amb 
-        clau publica/privada.</p>    
+        claus pública/privada.</p>    
     </info>
 
+    <p>A continuació instal·larem <inshell>sshfs</inshell> i configurarem l'accés amb claus pública/privada.</p>
+
     <work>
-        <p>Instal·lem el programa <inshell>sshfs</inshell> al host amb la 
+        <p>Instal·lem el programa <inshell>sshfs</inshell> al <strong>host</strong> amb la 
             comanda:</p>
         <terminal>
             <host>@host</host>
             <shell>sudo apt install sshfs</shell>
         </terminal>
 
-        <p>Crearem un parell de claus publica/privada per a l'autenticació:</p>
+        <p>Crearem un parell de claus pública/privada al <strong>host</strong>:</p>
         <terminal>
             <host>@host</host>
             <shell>ssh-keygen -f ~/.ssh/webserver -N ""</shell>
@@ -348,17 +354,22 @@ apt install apache2
             <shell>cat ~/.ssh/webserver.pub</shell>
         </terminal>
 
+        <observe>
+            <p>Observa que al directory <directory>~/.ssh</directory> s'han creat dos fitxers amb les claus. El fitxer acabat amb <inshell>.pub</inshell>
+            és la clau pública i l'altre és la clau privada</p>
+        </observe>
+
         <p>A continuació, seleccionem amb el ratolí la clau-pública, 
             fem clic-dreta i seleccionem <menuoption>Copiar</menuoption>:</p>
         <img src="img/image12.png">
 
         <p>Ara cal enganxar aquesta clau dintre del fitxer 
-            <file>/root/.ssh/authorized_keys</file> del contenidor.
+            <file>/root/.ssh/authorized_keys</file> del <strong>contenidor</strong>.
             <br>Escrivim <inshell>echo</inshell>, espai en blanc, enganxem 
             la clau copiada polsant 
             <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> 
             i completem la comanda amb 
-            <inshell>&gt;&gt; authorized_keys </inshell></p>
+            <inshell>&gt;&gt; /root/.ssh/authorized_keys</inshell></p>
 
         <terminal>
             <host>root@mywebserver</host>
@@ -388,7 +399,7 @@ echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
             <shell>sshfs root@<replace>10.161.122.237</replace>:/var/www/html ~/mywebserver_html</shell>
         </terminal>
 
-        <p>El primer cop que fem la connexió ens demanarà validar la autenticitat de la clau. 
+        <p>El primer cop que fem la connexió ens demanarà validar l'a 'autenticitat de la clau. 
             Responem <inshell>yes</inshell>:</p>
         <img src="img/image41.png">
 
@@ -404,7 +415,8 @@ echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
     <p>Selecciona la carpeta <directory>mywebserver_html</directory>:</p>
     <img src="img/image40.png">
 
-    <p>Fes canvis al fitxer <file>index.html</file> i guarda els canvis (<kbd>Ctrl</kbd>+<kbd>S</kbd>).</p>
+    <p>Fes canvis al fitxer <file>index.html</file> (per exemple, pots afegir, amb l'etiqueta <incode html>&lt;p&gt;</incode>, el paràgraf <string>VSCode rules!</string>).
+        <br>Guarda els canvis amb <kbd>Ctrl</kbd>+<kbd>S</kbd>.</p>
     <img src="img/image38.png">
 
     <p>Comprova que la pàgina web s'actualitza.</p>
@@ -416,7 +428,7 @@ echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
 
     <p>Fins ara hem aconseguit crear l'entorn de treball de forma local en el nostre ordinador, 
         de forma que ja podem desenvolupar webs. Però, a les webs que creem només es podrà 
-        accedir des del nostre ordinador. Si volem que les webs estiguin disponibles a Internet, 
+        accedir des del nostre ordinador (o la nostra xarxa local). Si volem que les webs estiguin disponibles a Internet, 
         necessitem un servidor-web que estigui exposat a la xarxa.</p>
     <p>Hi ha moltes empreses que ofereixen aquest servei, algunes inclús de forma gratuïta. 
         Nosaltres utilitzarem <a noicon href="https://github.com/">GitHub</a>.</p>
@@ -450,7 +462,8 @@ git config --global user.email <replace>johndoe@example.com</replace>
 
     <p>Podem utilitzar <inshell>git</inshell> directament en la consola per a pujar el codi, 
         però amb VSCode ho farem de forma més senzilla. 
-        Instal·larem l'extensió <a noicon href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github">GitHub Pull Requests and Issues</a> que ens permetrà interactuar 
+        Instal·larem l'extensió <a noicon href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github">GitHub 
+            Pull Requests and Issues</a> que ens permetrà interactuar 
         amb GitHub molt fàcilment des del propi VSCode.</p>
     <work>
         <p>Instal·la l'extensió "GitHub Pull Requests and Issues". 
@@ -462,7 +475,8 @@ git config --global user.email <replace>johndoe@example.com</replace>
         <img src="img/image3.png">
 
         <optional>
-            <p>Si no et surt el botó <img src="img/image24.png">, també pots fer-ho fent clic sobre <img src="img/managevscode.png"> i després <menuoption>Sign in to use Github Pull Requests and Issues</menuoption></p>
+            <p>Si no et surt el botó <img src="img/image24.png">, també pots fer-ho fent clic sobre <img src="img/managevscode.png"> i després 
+                <menuoption>Sign in to use Github Pull Requests and Issues</menuoption></p>
             <img src="img/signingithub.png">    
         </optional>
 
@@ -478,7 +492,7 @@ git config --global user.email <replace>johndoe@example.com</replace>
         <img src="img/image31.png">
     </work>
 
-    <p>Ara ja tenim accés de VSCode al nostre compte de GitHub. 
+    <p>Ara ja tenim accés amb VSCode al nostre compte de GitHub. 
         Anem a provar que tot funciona correctament publicant una pàgina web.</p>
 
     <work>
@@ -496,8 +510,8 @@ git config --global user.email <replace>johndoe@example.com</replace>
             <br>En el nom del repository has de posar el teu <replace>username</replace> seguit de <name>.github.io</name> 
             i donar-li a <img src="img/publicrepo.png"></p>
 
-        <p>Per exemple, si el teu nom d'usuari és <name>monalisa</name>, el nom del repository 
-            quedaria com <name>monalisa.github.io</name></p>
+        <p>Per exemple, si el teu nom d'usuari de GitHub és <name>monalisa</name>, el nom del repository 
+            quedaria <name>monalisa.github.io</name></p>
         <img src="img/image29.png">
 
         <p>Per últim, comprovem que està seleccionat l'arxiu <file>index.html</file> i li 
@@ -510,9 +524,10 @@ git config --global user.email <replace>johndoe@example.com</replace>
     </work>
 
     <p>Ara ja tenim muntat completament el nostre entorn de treball. Tenim el servidor-web 
-        Apache instal·lat al contenidor, amb el qual podem visualitzar en local els canvis que 
+        Apache instal·lat al contenidor, amb el qual podem visualitzar <em>en local</em> els canvis que 
         anem fent a la pàgina web, i un cop estiguem satisfets amb aquests canvis, podem publicar 
         la web a GitHub Pages.</p>
+        
     <p>Acabarem aquesta pràctica realitzant un petit canvi a la web, i publicant-lo a GitHub Pages.</p>
 
     <work>

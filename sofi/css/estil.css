@@ -356,12 +356,19 @@ check::before {
 
 
 
-work, warn, info, optional, tldr {
+
+
+
+work, warn, info, optional, tldr, observe {
+    display: block;
     position: relative;
     border-radius: 8px 0px 0px 8px;
+    border: 1px solid #d8dee9;
+    padding: 1em;
+    margin: 1em 0;
 }
 
-work::before, warn::before, info::before, optional::before, tldr::before {
+work::before, warn::before, info::before, optional::before, tldr::before, observe::before {
     position: absolute;
     top: .8em;
     left: -.8em;
@@ -375,10 +382,7 @@ work::before, warn::before, info::before, optional::before, tldr::before {
 
 
 work {
-    display: block;
-    border: 1px solid #d8dee9;
     border-left: 2px solid #189E49;
-    padding: 1em;
 }
 
 work::before {
@@ -388,11 +392,7 @@ work::before {
 }
 
 warn {
-    display: block;
-    border: 1px solid #d8dee9;
     border-left: 2px solid #f66;
-    padding: 1em;
-    margin: 1em 0;
 }
 
 warn::before {
@@ -403,11 +403,7 @@ warn::before {
 }
 
 info {
-    display: block;
-    border: 1px solid #d8dee9;
     border-left: 2px solid #77CAE0;
-    padding: 1em;  
-    margin: 1em 0;
 }
 
 info::before {
@@ -416,11 +412,7 @@ info::before {
 }
 
 optional {
-    display: block;
-    border: 1px solid #d8dee9;
     border-left: 2px solid #FFA700;
-    padding: 1em;  
-    margin: 1em 0;
 }
 
 optional::before {
@@ -428,13 +420,24 @@ optional::before {
     background-color: #FFA700;
 }
 
+observe {
+    border-left: 2px solid #2BD7E3;
+}
+
+observe::before {
+    font-family: 'FASolid';
+    content: '\f06e';
+    background-color: #2BD7E3;
+}
+
 tldr {
-    display: block;
     background:  #d8dee9;
     border-left: 2px solid #a8aea9;
-    padding: 1em;  
-    margin: 1em 0;
 }
+
+
+
+
 
 
 
