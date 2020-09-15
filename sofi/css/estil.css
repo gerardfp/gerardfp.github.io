@@ -241,6 +241,7 @@ file {
 directory {
     background: #fff59c;
 }
+
 file::before, directory::before {
     font-family: 'FASolid';
     margin-right: .5em;
@@ -275,6 +276,16 @@ name {
     padding: .1em .5em;
     border-radius: 4px;
 }
+
+tech {
+    font-family: 'Consolas';
+    background: #e8e9ea;
+    color: #0645ad;
+    padding: .1em .3em;
+    border-radius: 4px;
+    border: 1px solid #eaecf0;
+}
+
 
 replace {
     border: 1px dotted #3e4240;
