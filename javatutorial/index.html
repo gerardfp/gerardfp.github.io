@@ -7,31 +7,10 @@
 <header>
 <h1>Java Tutorial</h1>
 
-<quizz>
-    <question single>
-        <statement>Troba el literal invàlid</statement>
-        <answer correct>"10000000"</answer>
-        <answer>'10000000'</answer>
-        <answer>10_000_000</answer>
-        <answer>10000000</answer>
-        <button>Enviar</button>
-    </question>
-
-    <question multi>
-        <statement>Troba el literal invàlid</statement>
-        <answer correct>"10000000"</answer>
-        <answer correct>'10000000'</answer>
-        <answer>10_000_000</answer>
-        <answer>10000000</answer>
-        <button>Enviar</button>
-    </question>    
-</quizz>
-
 </header>
 
 <section>
     <h2>Hello world!</h2>
-    <!--
     <p>La tradició suggereix que el primer programa que es fa ha d'imprimir
         el text <string>Hello, World!</string> per pantalla. Així que som-hi!
     </p>
@@ -44,15 +23,87 @@
             }
         }
     </code>
-    -->
 
-    <quizz>
-        <question>
-            <statement>Troba el literal invàlid</statement>
-            <answer>"10000000"</answer>
-            <answer correct>'10000000'</answer>
-            <answer>10_000_000</answer>
-            <answer>10000000</answer>
-        </question>
-    </quizz>
+    <work>
+        Canvia el següent codi, i posa el teu nom en lloc de <string>&lt;nom&gt;</string> (e.g. <string>Joan</string>).
+        <br>La teva solució no ha d'incloure <string>&lt; &gt;</string>.
+
+        <embed src="https://repl.it/@GerardFalco1/e1?lite=true"  width="100%" height="350">
+    </work>
+</section>
+
+<section>
+    <h2>Literals bàsics</h2>
+
+    <h3>Literals</h3>
+    <p>Independentment de la seva <kbd>T</kbd> complexitat, un programa
+        sempre realitza operacions sobre números, texts i altres valors.
+        Aquests valors són anomenats <strong>literals</strong>.
+        Hi ha molts tipus de literals en Java, però pel moment ens
+        centrarem només en alguns d'ells: aquells que ens envolten
+        tot el temps en el dia a dia.
+    </p>
+    <p>Considerem els nombres enters, cadenes de text, i caracters
+        en el format en què s'escriuen en Java.
+    </p>
+
+    <h3>Nombres enters</h3>
+    <p>Aquests nombres s'utilitzen per a comptar coses al món real. I també,
+    els utilitzarem sovint en Java.</p>
+
+    <p>Aquí tens exemples de literals enters vàlids separats
+        per comes: <w>0, 1, 2, 10, 11, 100</w>.
+    </p>
+
+    <p>Si un valor enter conté molts dígits, podem afegir "guions baixos"
+        per a dividir el el nombre en blocs i augmentar la seva
+        legibilitat: <w>1_000_000</w>. És més legible que el mateix
+        valor escrit <w>1000000</w>.
+    </p>
+
+    <h3>Caracters</h3>
+    <p>Un simple caracter pot representar un dígit, una lletra o un altre símbol.
+        Per a escriure un caracter, utilitzem cometes simples així:
+        <w>'A', 'B', 'C', 'x', 'y', 'z', '0', '1', '2', '9'</w>.
+        Els literals caracter poden representar simbols d'un alfabet, digits de <w>'0'</w>
+        a <w>'9'</w>, espais en blanc <w>' '</w>, o altres símbols <w>'$'</w>.
+    </p>
+
+    <p>No s'han de confondre caracters que representen números (e.g. <w>'9'</w>),
+    amb els propis números (e.g. <w>9</w>).</p>
+
+    <p>Un caracter no pot incloure més d'un dígit, lletra o símbol perquè
+        només en pot representar un. Per exemple, <w>'abc'</w> o <w>'543'</w>,
+        són incorrectes perquè contenen massa caracters.
+    </p>
+
+    <h3>Strings</h3>
+    <p>Un string (<em>cadena</em>) és una seqüència de varis caracters.
+    Els Strings representen un text.</p>
+
+    <p>Per a escriure un string utilitzarem cometes dobles en lloc de simples.
+        Aquí hi ha alguns exemples vàlids: <w>"text"</w>, <w>"Vull aprendre Java"</w>,
+        <w>"123456"</w>, <w>"email123@mail.com"</w>. Un string que conté només
+        un caracter com <w>"A"</w> també és vàlid, per no s'ha de confondre amb
+        el caracter <w>'A'</w>.
+    <p>Pots veure que els strings poden incloure lletres, digits, espais, i altres caracters.</p>
+    </p>
+
+    <observe>
+        Recorda! No s'han de confondre aquests literals:
+        <ul>
+            <li><w>123</w> és un número enter, <w>"123"</w> és un String;</li>
+            <li><w>'A'</w> és un caracter, <w>"A"</w> és un String;</li>
+            <li><w>'1'</w> és un caracter, <w>1</w> és un número enter.</li>
+        </ul>
+    </observe>
+
+    <question single>
+        <text>dfsoifd</text>
+        <answer correct>dfs dsf</answer>
+        <answer>dfs dsf</answer>
+        <answer>dfs dsf</answer>
+        <answer>dfs dsf dfa</answer>
+        <button>Validar</button>
+    </question>
 </section>
