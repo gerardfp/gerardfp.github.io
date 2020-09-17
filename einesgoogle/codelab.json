@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2020-08-06T09:01:23Z",
+  "id": "android",
+  "duration": 0,
+  "title": "Eines Google",
+  "summary": "Eines Google",
+  "source": "1qEw6EQrA8cb20aqGWFunadU78HPyl79MaPKLdQGZcOs",
+  "theme": "dam-m3-dam-m3-programaci-",
+  "status": [
+    "100"
+  ],
+  "category": [
+    "smx-m8:SMX-M8-Aplicacions Web"
+  ],
+  "tags": [
+    "web"
+  ],
+  "feedback": "https://github.com/gerardfp",
+  "url": "einesgoogle"
+}
