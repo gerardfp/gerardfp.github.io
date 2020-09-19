@@ -117,6 +117,13 @@ a[href*='github']::before {
     text-decoration: none;
 }
 
+a[href*='hackerrank']::before {
+    content: '\f5f7';
+    font-family: 'FABrands';
+    margin-right: .5em;
+    text-decoration: none;
+}
+
 a::before {
     text-decoration: none;
     display: inline-block;
@@ -387,18 +394,18 @@ check::before {
 
 
 
-work, warn, info, optional, tldr, observe, question {
+work, warn, info, optional, tldr, observe, question, quizz {
     display: block;
     position: relative;
     border-radius: 8px 0px 0px 8px;
     border: 1px solid #d8dee9;
-    padding: 1em;
+    padding: 0 2em;
     margin: 2em 0;
 }
 
-work::before, warn::before, info::before, optional::before, tldr::before, observe::before, question::before {
+work::before, warn::before, info::before, optional::before, tldr::before, observe::before, question::before, quizz::before {
     position: absolute;
-    top: .8em;
+    top: 1em;
     left: -.8em;
     color: #fff;
     width: 1.6em;
@@ -471,6 +478,36 @@ question::before {
     font-family: 'FASolid';
     content: '\f128';
     background-color: #f9bc60;
+}
+
+quizz {
+    border-left: 2px solid #f9bc60;
+}
+
+quizz::before {
+    font-family: 'FASolid';
+    content: '\f128';
+    background-color: #f9bc60;
+}
+
+quizz question {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+quizz question::before {
+    content: none;
+    background-color: none;
+}
+
+quizz question + question {
+    border-top: 1px solid #d8dee9;
+    /* padding-top: 1em; */
+}
+
+statement {
+    margin: 1em 0;
 }
 
 

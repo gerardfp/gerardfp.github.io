@@ -17,20 +17,19 @@
         el text <string>Hello, World!</string> per pantalla. Així que som-hi!
     </p>
 
-    
     <code java>
         public class Main {
-            public static void main(String[] args){
+            public static void main(String[] args) {
                 System.out.println("Hello, World!");
             }
         }
     </code>
 
     <work>
-        Canvia el següent codi, i posa el teu nom en lloc de <string>&lt;nom&gt;</string> (e.g. <string>Joan</string>).
-        <br>La teva solució no ha d'incloure <string>&lt; &gt;</string>.
-
-        <!-- <embed src="https://repl.it/@GerardFalco1/e1?lite=true"  width="100%" height="350"> -->
+        <p>De moment no és necessari que comprenguis com funciona 
+            aquest codi. Així i tot, prova a resoldre aquest exercici:
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/hello-name-3">Hola, &lt;NOM&gt;!</a>
+        </p>
     </work>
 </section>
 
@@ -38,7 +37,7 @@
     <h2>Literals bàsics</h2>
 
     <h3>Literals</h3>
-    <p>Independentment de la seva <kbd>T</kbd> complexitat, un programa
+    <p>Independentment de la seva complexitat, un programa
         sempre realitza operacions sobre números, texts i altres valors.
         Aquests valors són anomenats <strong>literals</strong>.
         Hi ha molts tipus de literals en Java, però pel moment ens
@@ -92,7 +91,7 @@
     </p>
 
     <observe>
-        Recorda! No s'han de confondre aquests literals:
+        <p>Recorda! No s'han de confondre aquests literals:</p>
         <ul>
             <li><w>123</w> és un número enter, <w>"123"</w> és un String;</li>
             <li><w>'A'</w> és un caracter, <w>"A"</w> és un String;</li>
@@ -100,46 +99,165 @@
         </ul>
     </observe>
 
-    <question match>
-        <statement>Emparella els tipus de literals</statement>
-        <o>String</o><o>"464531######0207"</o>
-        <o>Número</o><o>100_000_000</o>
-        <o>Caracter</o><o>'H'</o>
-        <o>Literal invàlid</o><o>'text'</o>
-    </question>
+    <quizz>
+        <question match>
+            <statement>Emparella els tipus de literals</statement>
+            <o>String</o><o>"464531######0207"</o>
+            <o>Número</o><o>100_000_000</o>
+            <o>Caracter</o><o>'H'</o>
+            <o>Literal invàlid</o><o>'text'</o>
+        </question>
 
-    <question single>
-        <statement>Els caracters literals s'escriuen com</statement>
-        <o correct>'A', 'B', 'C',...</o>
-        <o>A, B, C, ...</o>
-        <o>{A}, {B}, {C}, ...</o>
-        <o>"A", "B", "C", ...</o>
-    </question>
+        <question single>
+            <statement>Els caracters literals s'escriuen com</statement>
+            <o correct>'A', 'B', 'C',...</o>
+            <o>A, B, C, ...</o>
+            <o>{A}, {B}, {C}, ...</o>
+            <o>"A", "B", "C", ...</o>
+        </question>
 
-    <question multi>
-        <statement>Selecciona els literals <strong>string</strong> vàlids</statement>
-        <o>443</o>
-        <o>'q'</o>
-        <o correct>"q"</o>
-        <o>'5'</o>
-        <o correct>"text"</o>
-        <o correct>"2312"</o>
-    </question>
+        <question multi>
+            <statement>Selecciona els literals <strong>string</strong> vàlids</statement>
+            <o>443</o>
+            <o>'q'</o>
+            <o correct>"q"</o>
+            <o>'5'</o>
+            <o correct>"text"</o>
+            <o correct>"2312"</o>
+        </question>
 
-    <question multi>
-        <statement>Selecciona les sentències que <strong>NO</strong> són vàlides</statement>
-        <o correct>"123456" és un número</o>
-        <o>"1" és un string</o>
-        <o>'8' és un caracter</o>
-        <o>1 és un número</o>
-    </question>
+        <question multi>
+            <statement>Selecciona les sentències que <strong>NO</strong> són vàlides</statement>
+            <o correct>"123456" és un número</o>
+            <o>"1" és un string</o>
+            <o>'8' és un caracter</o>
+            <o>1 és un número</o>
+        </question>
+    </quizz>
 </section>
 
 <section>
     <h2>El programa Hello World</h2>
 
-    <p>En aquest tema construirem el primer programa Java. El programa simplement
-        imprimirà <strong>Hello, World!</strong> per pantalla.
-        
+    <p>Tornem a veure el programa <strong>Hello, world!</strong>:</p>
+    <code java>
+        public class Main {
+            public static void main(String[] args) {
+                System.out.println("Hello, World!");
+            }
+        }
+    </code>
+
+    <p>Quan executem aquest programa, veurem:</p>
+    <shell>
+        Hello, world!
+    </shell>
+
+    <p>Aquest programa conté els elements bàsics dels programes Java.
+        De moment, veurem solament els més importants.</p>
+
+    <h3>Sentències</h3>
+    <p>Aquest codi que trobem al programa constitueix una sentència:</p> 
+    <code java>System.out.println("Hello, World!");</code>
+    
+    <p>Una sentència és una acció que fa un programa.</p>
+    <p>En el nostre programa, utilitzem la sentència <incode java>System.out.println("Hello, World!");</incode>
+    per a mostrar per pantalla el text <w>Hello, World!</w>.
     </p>
+
+    <p>En ella, estem invocant el mètode predefinit <incode java>System.out.println</incode> per a mostrar
+        un text per pantalla.
+        <br>Entre els parèntesi <w>(...)</w> li indiquem el que s'ha d'imprimir
+        (en aquest cas el literal string <incode java>"Hello, World!"</incode>). 
+    </p>
+    <p>Observa que el text s'imprimeix sense les cometes que delimiten l'string. 
+        <br>Observa també que acabem la sentència amb <w>;</w>. 
+    </p>
+
+    
+    <h3>Mètodes</h3>
+    <p>El codi</p>
+
+    <code java>
+        public static void main(String[] args) {
+            ...
+        }
+    </code>
+    To make the program runnable, we put a method named main inside a class. It is the entry point for a Java program. Again, the braces {...} enclose the body of the method, which contains programming statements.
+    The keywords public, static, and void will be discussed later, so just remember them for now. The name of this method (main) is predefined and should always be the same. Capitalization matters; if you name your first method like Main, MAIN or something else, the program cannot start.
+
+    The element String[] args represents a sequence of arguments passed to the program from the outside world. Don't worry about them right now.
+
+    <h3>Classes</h3>
+    <code java>
+        public class Main {
+            ...
+        }
+    </code>
+    It is the basic unit of a program. Every Java program must have at least one class. The definition of a class consists of the class keyword followed by the class name. A class can have any name, such as App, Main, or Program, but it must not start with a digit. A set of braces {...} encloses the body of a class.
+    <img src="img/blocsjava.svg">
+
+    <work>
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/einstein">Einstein</a>
+        </p>
+    </work>
+
+    <!-- <h3>Terminologia bàsica</h3>
+    <p>Un cop vist el resultat, anem a aprendre alguna terminologia bàsica i 
+        després tractarem d'entendre aquest programa.</p>
+    <ul>
+        <li><strong>Sentència</strong> - una única acció (com mostrar un text)
+        acabada amb un punt-i-coma <w>;</w></li>
+        <li><strong>Bloc</strong> - un grup de zero, una o més sentències tancades
+        dintre d'un parell de claus <w>{...}</w>.
+        <br>Al programa Hello, world! n'hi han dos blocs.</li>
+        <li><strong>Mètode</strong> - una seqüència de sentències que representen 
+        una acció de més alt nivell</li>
+        <li><strong>Classe</strong> - </li>
+        <li><strong>Programa</strong> - una seqüència d'instruccions
+            (anomenades sentències), que són executades una darrera l'altra d'una
+            manera predictible.</li>
+        <li><strong>Paraula clau</strong> - una parala que té un significat especial
+        en el llenguatge de programació (<w>public</w>, <w>class</w>, i moltes altres)</li>
+        <li><strong>Identificadors</strong> - </li>
+    </ul> -->
+
+</section>
+
+<section>
+    <h2>Imprimir dades</h2>
+    <p>Throughout this educational platform, you will often write programs 
+        that print data on the screen. Let's learn how to do that using a standard 
+        approach in Java.</p>
+
+    <h2>Mostrar text amb println() i print()</h2>
+    <p>El mètode <incode java>System.out.println()</incode> mostra l'string que se li passa,
+    seguit d'una nova línia a la pantalla (<strong>print-line</strong>). Per exemple, el
+    següent fragment de codi imprimeix 4 línies a la pantalla</p>
+
+    <code java>
+        System.out.println("I ");
+        System.out.println("know ");
+        System.out.println("Java ");
+        System.out.println("well.");
+    </code>
+
+    La sortida:
+
+    <shell>
+        I
+        know
+        Java
+        well.
+    </shell>
+
+    <p>Tots els strings s'imprimeixen tal qual, sense les cometes dobles.</p>
+
+    <p>El mètode et permet una línia buida quan no li passes cap string</p>
+
+    
+
+
+</p>
 </section>
