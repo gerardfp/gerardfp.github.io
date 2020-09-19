@@ -1,7 +1,6 @@
 import {Prism} from '../prismjs/prism.js';
 
 document.addEventListener('DOMContentLoaded', (event) => {
-
   //syntax highlight
   syntaxHighlight();
   navigation();
@@ -43,7 +42,6 @@ function syntaxHighlight(){
 function navigation(){
   // add sidenav and nav
   document.querySelectorAll('nav').forEach((nav) => {
-    //var nav = document.createElement('nav');
     var hambopen = document.createElement('hamb-open');
     var sidenav = document.createElement('sidenav');
     var hambclose = document.createElement('hamb-close');
@@ -90,7 +88,6 @@ function navigation(){
         prevScrollpos = currentScrollPos;
     }
   });
-  
 }
 
 function replaceParams(){
@@ -118,89 +115,165 @@ function doQuizz(){
   document.querySelectorAll('question').forEach(q => {
     var qid = 'id' + Math.random().toString(36).substr(2, 9);
     q.id = qid;
+    
+    var button = document.createElement('button');
+    q.appendChild(button);
 
     if(q.hasAttribute('single')){
       doSingleQuestion(q);
     } else if(q.hasAttribute('multi')){
       doMultiQuestion(q);
+    } else if(q.hasAttribute('match')){
+      doMatchQuestion(q);
     }
   });
 }
 
 function doSingleQuestion(q){
-  q.querySelectorAll('answer').forEach(a => {
+  q.querySelectorAll('o').forEach(o => {
     var iid = 'id' + Math.random().toString(36).substr(2, 9);
 
     var label = document.createElement('label');
-    label.textContent = a.textContent;
-    a.textContent = '';
+    label.textContent = o.textContent;
+    o.textContent = '';
     label.setAttribute('for', iid);
-    a.appendChild(label);
+    o.appendChild(label);
 
     var i = document.createElement('input');
     i.id = iid;
     i.type = 'radio';
     i.name = q.id;
-    a.insertBefore(i, a.firstChild);
+    o.insertBefore(i, o.firstChild);
+    o.onclick = () => {
+      i.click();
+    }
   });
 
-  q.querySelectorAll('button').forEach((b) => {
-    b.onclick = () => {
-      q.querySelectorAll('answer').forEach((a) => {
-        a.querySelectorAll('input').forEach((i) => {
-          if(i.checked){
-            if(a.hasAttribute('correct')){
-              a.classList.add('right');
-              a.classList.add('was-correct');
-            } else {
-              a.classList.add('wrong');
-            }
+  q.querySelector('button').onclick = () => {
+    q.querySelectorAll('o').forEach(o => {
+      o.classList.remove('right');
+      o.classList.remove('wrong');
+      o.classList.remove('was-correct');
+
+      o.querySelectorAll('input').forEach(i => {
+        if(i.checked){
+          if(o.hasAttribute('correct')){
+            o.classList.add('right');
+            o.classList.add('was-correct');
           } else {
-            if(a.hasAttribute('correct')){
-              a.classList.add('was-correct');
-            }
+            o.classList.add('wrong');
           }
-        });
+        } else {
+          if(o.hasAttribute('correct')){
+            o.classList.add('was-correct');
+          }
+        }
       });
-    };
-  });
+    });
+  };
 }
 
 function doMultiQuestion(q){
-  q.querySelectorAll('answer').forEach(a => {
+  q.querySelectorAll('o').forEach(o => {
     var iid = 'id' + Math.random().toString(36).substr(2, 9);
 
     var label = document.createElement('label');
-    label.textContent = a.textContent;
-    a.textContent = '';
+    label.textContent = o.textContent;
+    o.textContent = '';
     label.setAttribute('for', iid);
-    a.appendChild(label);
+    o.appendChild(label);
 
     var i = document.createElement('input');
     i.id = iid;
     i.type = 'checkbox';
-    a.insertBefore(i, a.firstChild);
+    o.insertBefore(i, o.firstChild);
+    o.onclick = () => {
+      i.click();
+    }
   });
 
-  q.querySelectorAll('button').forEach((b) => {
-    b.onclick = () => {
-      q.querySelectorAll('answer').forEach((a) => {
-        a.querySelectorAll('input').forEach((i) => {
-          if(i.checked){
-            if(a.hasAttribute('correct')){
-              a.classList.add('right');
-              a.classList.add('was-correct');
-            } else {
-              a.classList.add('wrong');
-            }
+  q.querySelector('button').onclick = () => {
+    q.querySelectorAll('o').forEach(o => {
+      o.classList.remove('right');
+      o.classList.remove('wrong');
+      o.classList.remove('was-correct');
+
+      o.querySelectorAll('input').forEach((i) => {
+        if(i.checked){
+          if(o.hasAttribute('correct')){
+            o.classList.add('right');
+            o.classList.add('was-correct');
           } else {
-            if(a.hasAttribute('correct')){
-              a.classList.add('wrong');
-              a.classList.add('was-correct');
-            }
+            o.classList.add('wrong');
           }
-        });
+        } else {
+          if(o.hasAttribute('correct')){
+            o.classList.add('wrong');
+            o.classList.add('was-correct');
+          }
+        }
       });
-    };
+    });
+  };
+}
+
+function doMatchQuestion(q){
+  var leftdiv = document.createElement('div');
+  leftdiv.classList.add('left');
+  var rightdiv = document.createElement('div');
+  rightdiv.classList.add('right');
+ 
+  q.insertBefore(rightdiv, q.querySelector('button'));
+  q.insertBefore(leftdiv, rightdiv);
+
+  // sortable
+  q.querySelectorAll('o').forEach((o, i) => {
+    var div = leftdiv;
+    if(i%2==1){
+      o.id = 'o' + (i);
+      o.setAttribute('order', Math.floor(i/2));
+      o.classList.add("sortable");
+      div = rightdiv;
+    }
+    div.appendChild(o);
   });
+
+  // shuffle
+  var n = rightdiv.childElementCount;
+  for(var i=0; i<n-1; i++){
+    var j = randInt(i+1, n);
+    var a = rightdiv.children[i];
+    var b = rightdiv.children[j];
+
+    var n = b.nextSibling;
+    a.parentNode.insertBefore(b, a);
+    a.parentNode.insertBefore(a,n);
+  }
+
+  Sortable.create(rightdiv, {swap: true, swapClass: 'highlight'});
+
+  // check
+  q.querySelector('button').onclick = () => {
+      rightdiv.querySelectorAll('o').forEach((o, i) => {
+      o.classList.remove('right');
+      o.classList.remove('wrong');
+
+      if(o.getAttribute('order') != i){
+        o.classList.add('wrong');
+      } else {
+        o.classList.add('right');
+      }
+    });
+  }
+}
+
+
+
+
+
+
+function randInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 }

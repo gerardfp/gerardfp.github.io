@@ -387,7 +387,7 @@ check::before {
 
 
 
-work, warn, info, optional, tldr, observe {
+work, warn, info, optional, tldr, observe, question {
     display: block;
     position: relative;
     border-radius: 8px 0px 0px 8px;
@@ -396,7 +396,7 @@ work, warn, info, optional, tldr, observe {
     margin: 2em 0;
 }
 
-work::before, warn::before, info::before, optional::before, tldr::before, observe::before {
+work::before, warn::before, info::before, optional::before, tldr::before, observe::before, question::before {
     position: absolute;
     top: .8em;
     left: -.8em;
@@ -463,28 +463,42 @@ tldr {
     border-left: 2px solid #a8aea9;
 }
 
-
-
-
-
-
-
-
 question {
+    border-left: 2px solid #f9bc60;
+}
+
+question::before {
+    font-family: 'FASolid';
+    content: '\f128';
+    background-color: #f9bc60;
+}
+
+
+
+
+
+
+/* question {
     display: block;
-    border: 1px solid blue;
+    border: 1px solid #efeece;
     padding: 1em;
     border-radius: 8px 8px 0 0;
-}
+    margin-bottom: 1em;
+} */
 
 question statement {
     display: block;
+    margin-bottom: 1em;
 }
 
-question answer {
+question o {
     display: block;
     margin: .4em 0;
     padding: .2em;
+}
+
+question o:hover {
+    background: #f9bc6084;
 }
 
 question label {
@@ -516,12 +530,12 @@ question input[type=checkbox]:checked + label::before {
     content: '\f14a';
 }
 
-question answer.was-correct {
+question o.was-correct {
     /* border: 1px solid green; */
     border-radius: 8px; 
 }
 
-question answer::before {
+question o::before {
     display: inline-block;
     padding-left: 1em;
     width: 1em;
@@ -529,17 +543,17 @@ question answer::before {
     font-family: 'FASolid';
 }
 
-question answer.right::before {
+question o.right::before {
     content: '\f00c';
     color: green;
 }
 
-question answer.wrong::before {
+question o.wrong::before {
     content: '\f00d';
     color: red;
 }
 
-question answer.was-correct {
+question o.was-correct {
     background-color: #c6e7b1;
 }
 
@@ -548,19 +562,63 @@ question input[type=radio],[type=checkbox] {
 }
 
 question button {
+    display: block;
     background-color: #0e73ee;
     color: white;
     padding: .8em 2.4em;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin: 1em 0;
+}
 
+question button::before {
+    font-family: 'FASolid';
+    content: '\f00c';
 }
 
 
+question[match] div {
+    display: inline-block;
+    width: 50%;
+}
+
+question[match] o {
+    border: 1px solid #e1e1e1;
+    padding: 0 1em;
+    margin: 0;
+}
+
+question[match] o::before {
+    content: none;
+    padding: 0;
+    margin: 0;
+}
+
+question[match] div.left o {
+    text-align: right;
+}
+
+question[match] .highlight {
+    background: #e1e1e1;
+}
+
+question[match] div.right o {
+    cursor: grab;
+}
+
+question[match] div.left o:hover {
+    background: none;
+}
 
 
+question[match] o.right {
+    background: #c6e7b1;
+}
 
+question[match] o.wrong {
+    background: rgb(222, 151, 151);
+}
 
 
 sidenav {

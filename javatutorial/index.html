@@ -1,11 +1,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script src="/sofi/sortable/Sortable.min.js"></script>
+<script src="/sofi/clipboard/clipboard.min.js"></script>
 <script type="module" src="/sofi/js/script.js"></script>
 <link rel="stylesheet" href="/sofi/css/estil.css">
 
 <header>
 <h1>Java Tutorial</h1>
+
 
 </header>
 
@@ -28,7 +30,7 @@
         Canvia el següent codi, i posa el teu nom en lloc de <string>&lt;nom&gt;</string> (e.g. <string>Joan</string>).
         <br>La teva solució no ha d'incloure <string>&lt; &gt;</string>.
 
-        <embed src="https://repl.it/@GerardFalco1/e1?lite=true"  width="100%" height="350">
+        <!-- <embed src="https://repl.it/@GerardFalco1/e1?lite=true"  width="100%" height="350"> -->
     </work>
 </section>
 
@@ -98,12 +100,45 @@
         </ul>
     </observe>
 
-    <question single>
-        <text>dfsoifd</text>
-        <answer correct>dfs dsf</answer>
-        <answer>dfs dsf</answer>
-        <answer>dfs dsf</answer>
-        <answer>dfs dsf dfa</answer>
-        <button>Validar</button>
+    <question match>
+        <statement>Emparella els tipus de literals</statement>
+        <o>String</o><o>"464531######0207"</o>
+        <o>Número</o><o>100_000_000</o>
+        <o>Caracter</o><o>'H'</o>
+        <o>Literal invàlid</o><o>'text'</o>
     </question>
+
+    <question single>
+        <statement>Els caracters literals s'escriuen com</statement>
+        <o correct>'A', 'B', 'C',...</o>
+        <o>A, B, C, ...</o>
+        <o>{A}, {B}, {C}, ...</o>
+        <o>"A", "B", "C", ...</o>
+    </question>
+
+    <question multi>
+        <statement>Selecciona els literals <strong>string</strong> vàlids</statement>
+        <o>443</o>
+        <o>'q'</o>
+        <o correct>"q"</o>
+        <o>'5'</o>
+        <o correct>"text"</o>
+        <o correct>"2312"</o>
+    </question>
+
+    <question multi>
+        <statement>Selecciona les sentències que <strong>NO</strong> són vàlides</statement>
+        <o correct>"123456" és un número</o>
+        <o>"1" és un string</o>
+        <o>'8' és un caracter</o>
+        <o>1 és un número</o>
+    </question>
+</section>
+
+<section>
+    <h2>El programa Hello World</h2>
+
+    <p>En aquest tema construirem el primer programa Java. El programa simplement
+        imprimirà <strong>Hello, World!</strong> per pantalla.
+    </p>
 </section>
