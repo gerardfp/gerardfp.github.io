@@ -1,18 +1,17 @@
+<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="/sofi/sortable/Sortable.min.js"></script>
-<script src="/sofi/clipboard/clipboard.min.js"></script>
 <script type="module" src="/sofi/js/script.js"></script>
 <link rel="stylesheet" href="/sofi/css/estil.css">
 
+<nav></nav>
+
 <header>
 <h1>Java Tutorial</h1>
-
-
 </header>
 
 <section>
-    <h2>Hello world!</h2>
+    <h2>Hello, world!</h2>
     <p>La tradició suggereix que el primer programa que es fa ha d'imprimir
         el text <string>Hello, World!</string> per pantalla. Així que som-hi!
     </p>
@@ -25,12 +24,12 @@
         }
     </code>
 
-    <work>
+    <challenge>
         <p>De moment no és necessari que comprenguis com funciona 
             aquest codi. Així i tot, prova a resoldre aquest exercici:
             <a href="https://www.hackerrank.com/contests/dam-m3/challenges/hello-name-3">Hola, &lt;NOM&gt;!</a>
         </p>
-    </work>
+    </challenge>
 </section>
 
 <section>
@@ -44,11 +43,10 @@
         centrarem només en alguns d'ells: aquells que ens envolten
         tot el temps en el dia a dia.
     </p>
-    <p>Considerem els nombres enters, cadenes de text, i caracters
-        en el format en què s'escriuen en Java.
-    </p>
 
-    <h3>Nombres enters</h3>
+    <h3>Números</h3>
+
+    <h4>Enters</h4>
     <p>Aquests nombres s'utilitzen per a comptar coses al món real. I també,
     els utilitzarem sovint en Java.</p>
 
@@ -62,7 +60,17 @@
         valor escrit <w>1000000</w>.
     </p>
 
-    <h3>Caracters</h3>
+    <h4>Decimals</h4>
+    <p>Els nombres decimals expressen una fracció d'un nombre enter. S'utilitzen 
+        en les medicions: l'alçada d'una persona, la temperatura, els diners.
+    </p>
+
+    <p>En llenguatge Java expressarem els nombres decimals utilitzant el 
+        punt <w>.</w> i afegirem una <w>f</w> al final. Per exemple:
+    <w>3.14f</w>, <w>0.123f</w>, <w>100.5f</w></p>
+
+    <h3>Text</h3>
+    <h4>Caracters</h4>
     <p>Un simple caracter pot representar un dígit, una lletra o un altre símbol.
         Per a escriure un caracter, utilitzem cometes simples així:
         <w>'A', 'B', 'C', 'x', 'y', 'z', '0', '1', '2', '9'</w>.
@@ -78,7 +86,7 @@
         són incorrectes perquè contenen massa caracters.
     </p>
 
-    <h3>Strings</h3>
+    <h4>Strings</h4>
     <p>Un string (<em>cadena</em>) és una seqüència de varis caracters.
     Els Strings representen un text.</p>
 
@@ -89,6 +97,10 @@
         el caracter <w>'A'</w>.
     <p>Pots veure que els strings poden incloure lletres, digits, espais, i altres caracters.</p>
     </p>
+
+    <h3>Booleans</h3>
+    <p>Els valors booleans expressen la veracitat o falsedat d'una afirmació.</p>
+    
 
     <observe>
         <p>Recorda! No s'han de confondre aquests literals:</p>
@@ -139,7 +151,7 @@
 <section>
     <h2>El programa Hello World</h2>
 
-    <p>Tornem a veure el programa <strong>Hello, world!</strong>:</p>
+    <p>Tornem a veure el programa <strong>Hello world</strong>:</p>
     <code java>
         public class Main {
             public static void main(String[] args) {
@@ -153,60 +165,18 @@
         Hello, world!
     </shell>
 
-    <p>Aquest programa conté els elements bàsics dels programes Java.
-        De moment, veurem solament els més importants.</p>
-
-    <h3>Sentències</h3>
-    <p>Aquest codi que trobem al programa constitueix una sentència:</p> 
-    <code java>System.out.println("Hello, World!");</code>
-    
-    <p>Una sentència és una acció que fa un programa.</p>
-    <p>En el nostre programa, utilitzem la sentència <incode java>System.out.println("Hello, World!");</incode>
-    per a mostrar per pantalla el text <w>Hello, World!</w>.
-    </p>
-
-    <p>En ella, estem invocant el mètode predefinit <incode java>System.out.println</incode> per a mostrar
-        un text per pantalla.
-        <br>Entre els parèntesi <w>(...)</w> li indiquem el que s'ha d'imprimir
-        (en aquest cas el literal string <incode java>"Hello, World!"</incode>). 
-    </p>
-    <p>Observa que el text s'imprimeix sense les cometes que delimiten l'string. 
-        <br>Observa també que acabem la sentència amb <w>;</w>. 
-    </p>
+    <challenge>
+        <p>Escriu i executa el programa <strong>Hello World</strong> utilitzant IntelliJ.</p>
+    </challenge>
 
     
-    <h3>Mètodes</h3>
-    <p>El codi</p>
-
-    <code java>
-        public static void main(String[] args) {
-            ...
-        }
-    </code>
-    To make the program runnable, we put a method named main inside a class. It is the entry point for a Java program. Again, the braces {...} enclose the body of the method, which contains programming statements.
-    The keywords public, static, and void will be discussed later, so just remember them for now. The name of this method (main) is predefined and should always be the same. Capitalization matters; if you name your first method like Main, MAIN or something else, the program cannot start.
-
-    The element String[] args represents a sequence of arguments passed to the program from the outside world. Don't worry about them right now.
-
-    <h3>Classes</h3>
-    <code java>
-        public class Main {
-            ...
-        }
-    </code>
-    It is the basic unit of a program. Every Java program must have at least one class. The definition of a class consists of the class keyword followed by the class name. A class can have any name, such as App, Main, or Program, but it must not start with a digit. A set of braces {...} encloses the body of a class.
-    <img src="img/blocsjava.svg">
-
-    <work>
-        <p>
-            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/einstein">Einstein</a>
-        </p>
-    </work>
-
-    <!-- <h3>Terminologia bàsica</h3>
+    <h3>Terminologia bàsica</h3>
     <p>Un cop vist el resultat, anem a aprendre alguna terminologia bàsica i 
         després tractarem d'entendre aquest programa.</p>
     <ul>
+        <li><strong>Programa</strong> - una seqüència d'instruccions
+            (anomenades sentències), que són executades una darrera l'altra d'una
+            manera predictible.</li>
         <li><strong>Sentència</strong> - una única acció (com mostrar un text)
         acabada amb un punt-i-coma <w>;</w></li>
         <li><strong>Bloc</strong> - un grup de zero, una o més sentències tancades
@@ -214,50 +184,299 @@
         <br>Al programa Hello, world! n'hi han dos blocs.</li>
         <li><strong>Mètode</strong> - una seqüència de sentències que representen 
         una acció de més alt nivell</li>
-        <li><strong>Classe</strong> - </li>
-        <li><strong>Programa</strong> - una seqüència d'instruccions
-            (anomenades sentències), que són executades una darrera l'altra d'una
-            manera predictible.</li>
-        <li><strong>Paraula clau</strong> - una parala que té un significat especial
-        en el llenguatge de programació (<w>public</w>, <w>class</w>, i moltes altres)</li>
-        <li><strong>Identificadors</strong> - </li>
-    </ul> -->
+        <li><strong>Sintaxi</strong> - un conjunt de regles que defineixen la forma
+        en que s'ha d'escriure un programa per a ser vàlid; Java té la seva pròpia
+        sintaxi que aprendrem</li>
+        <li><strong>Paraula clau</strong> - una paraula que té un significat especial
+        en el llenguatge de programació (<w>public</w>, <w>class</w>, i moltes altres).</li>
+        <li><strong>Identificadors</strong> - una paraula que es refereix a alguna cosa en un programa</li>
+        <li><strong>Comentari</strong> - una explicació textual del que fa el codi. Els comentaris en 
+        Java començen amb <w>//</w></li>
+        <li><strong>Espai en blanc</strong> - els caracters que no són visibles (<em>space</em>, <em>tab</em>, <em>newline</em>, etc.)</li>
+    </ul>
 
+    <h3>El programa Hello World sota el microscopi</h3>
+    <p>El programa <strong>Hello World</strong> conté els elements bàsics dels programes Java.
+        De moment, veurem solament els més importants.</p>
+
+    <p><strong>1. La classe pública.</strong> És la unitat bàsica d'un programa. Tots els programes
+    Java han de tenir al menys una classe. La definició d'una classe consisteix amb la paraula-clau 
+    <w>class</w> seguit del nom de la classe. Una classe pot tenir qualsevol nom, com <w>App</w>, 
+    <w>Main</w>, <w>Programa</w>, però no pot començar amb un dígit. Un parell de claus <w>{...}</w>
+    envolten el cos de la classe.</p>
+
+    <code java>
+        public class Main {
+            // ...
+        }
+    </code>
+
+    <p>El text que va després de <w>//</w> és solament un comentari, no forma part del programa.
+    Aprendrem més sobre comentaris més endavant.</p>
+
+    <p><strong>2. El mètode main.</strong> Per a fer que un programa sigui executable, hem de posar 
+        un mètode anomenat <w>main</w> dintre de la classe. És el punt d'entrada al programa Java.
+    Novament, les claus <w>{...}</w> envolten el cos del mètode, que conté sentències.</p>
+    <code java>
+        public static void main(String[] args) {
+            // les sentencies van aqui
+        }
+    </code>
+
+    <p>Les paraules-clau <w>public</w>, <w>static</w>, i <w>void</w> les veurem més endavant, de 
+    moment només les has de recordar. El nom d'aquest mètode (<w>main</w>) està predefinit i sempre
+    ha de ser el mateix. Les majúscules i minúscules importen; si anomenes el mètode <strong>Main</strong>,
+    <strong>MAIN</strong> o d'una altra manera, el programa no es podrà iniciar.</p>
+
+    <p>L'element <w>String[] args</w> representa una seqüència d'arguments que es passen al programa
+    des del món exterior. No et preocupis per ells ara mateix.</p>
+
+    <p><strong>3. Imprimir "Hello, World!".</strong> El cos del mètode consisteix en sentències que
+    determinen què ha de fer el programa quan s'inicia. El nostre programa imprimeix 
+    <string>Hello, World!</string> utilitzant aquesta sentència:</p>
+
+    <code java>System.out.println("Hello, World!");  // les sentencies han d'acabar amb ;</code>
+    
+    <p>Aquesta és una de les coses més importants que s'han de comprendre del programa 
+        <strong>Hello World</strong>. Estem invocant un mètode especial <incode java>println</incode>
+        per a mostrar un string seguit per una nova línia en pantalla. El text s'imprimeix sense les cometes que delimiten l'string. 
+    </p>
+
+    <warn>
+        Important, que <strong>Hello, World!</strong> no és una paraula-clau o un identificador; és 
+        solament un text per a ser imprimit.
+    </warn>
+
+    <!--
+    <info>
+        <p>Per resumir l'anatomia bàsica dels programes Java, podríem dir el següent:
+            <ul>
+                <li>Un <strong>programa</strong> contenen <strong>classes</strong></li>
+                <li>Les <strong>classes</strong> contenen <strong>mètodes</strong></li>
+                <li>Els <strong>mètodes</strong> contenen <strong>sentències</strong></li>
+            </ul>
+            <img src="img/blocsjava.svg">
+        </p>
+    </info>
+    -->
+    
+    <h3>Paraules-clau</h3>
+    <p>Com pots veure, inclús un simple prorgama Java consisteix en molts elements, incloent
+        <strong>paraules-clau</strong> que són parts del llenguatge. En total, Java té més de 
+        50 paraules-clau que anirem aprenent durant el curs. Pot veure aquí la 
+        <a href="https://en.wikipedia.org/wiki/List_of_Java_keywords">llista completa de paraules-clau</a>,
+        però no tractis de recordar-la en aquest moment.
+    </p>
+
+    <observe>
+        <p>Nota, <w>main</w> no està a la llista perquè no és una paraula clau.</p>
+    </observe>
+
+    <h3>Conclusió</h3>
+    <p>Hem vist el programa Java més simple possible que es pot escriure en Java. Té una única classe
+        amb un únic mètode <w>main</w>. Tots els programes Java han de tenir un mètode <w>main</w> ja 
+        que és el que s'executa en primer lloc quan s'inicia el programa.
+    </p>
+    
+    <work>
+        <p> Ara que has aprés l'anatomia bàsica d'un programa Java, prova a fer aquest exercici:
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/einstein">Einstein</a>
+        </p>
+    </work>
 </section>
 
 <section>
     <h2>Imprimir dades</h2>
-    <p>Throughout this educational platform, you will often write programs 
-        that print data on the screen. Let's learn how to do that using a standard 
-        approach in Java.</p>
+    <p>Durant aquest curs realitzarem molt sovint programes que imprimeixen dades
+        a la pantalla. Anem a aprendre com fer-ho utilitzant la forma estàndard en Java.</p>
 
-    <h2>Mostrar text amb println() i print()</h2>
-    <p>El mètode <incode java>System.out.println()</incode> mostra l'string que se li passa,
-    seguit d'una nova línia a la pantalla (<strong>print-line</strong>). Per exemple, el
-    següent fragment de codi imprimeix 4 línies a la pantalla</p>
+    <h3>Mostrar text amb println() i print()</h3>
+    <ul>
+
+        <li><p>El mètode <incode java>System.out.println()</incode> mostra l'string que se li passa,
+        seguit d'una nova línia a la pantalla (<strong>print-line</strong>). Per exemple, el
+        següent fragment de codi imprimeix 4 línies a la pantalla</p>
+
+        <code java>
+            System.out.println("I ");
+            System.out.println("know ");
+            System.out.println("Java ");
+            System.out.println("well.");
+        </code>
+
+        La sortida:
+
+        <shell>
+            I
+            know
+            Java
+            well.
+        </shell>
+
+        <p>Tots els strings s'imprimeixen tal qual, sense les cometes dobles.</p>
+
+        <p>El mètode et permet imprimir una línia buida quan no li passes cap string:</p>
+
+        <code java>
+            System.out.println("Java is a popular programming language.");
+            System.out.println(); // imprimeix una línia en blanc
+            System.out.println("It is used all over the world!");
+        </code>
+
+        La sortida:
+        <shell>
+            Java is a popular programming language.
+
+            It is used all over the world!
+        </shell>
+
+    </li>
+    <li>
+        <p>El mètode <incode java>System.out.print</incode> mostra el valor que se li passa i 
+        posa el cursor (la posició on es mostra un valor) a continuació. Per exemple, el 
+        següent codi mostra tots els strings a la mateixa línia.</p>
+
+        <code java>
+            System.out.print("I ");
+            System.out.print("know ");
+            System.out.print("Java ");
+            System.out.print("well.");
+        </code>
+
+        La sortida:
+        <shell>
+            I know Java well.
+        </shell>
+    
+    </li>
+    </ul>
+
+    <h3>Imprimir números i caracters</h3>
+    <p>Ambdós mètodes, <w>print</w> i <w>println</w> permeten imprimir no solament string i caracters,
+    sinò també números.</p>
 
     <code java>
-        System.out.println("I ");
-        System.out.println("know ");
-        System.out.println("Java ");
-        System.out.println("well.");
+        System.out.print(108);   // imprimir un número
+        System.out.print('c');   // imprimir un caràcter que representa una lletra
+        System.out.print("Q");   // imprimir un string
+        System.out.println('3'); // imprimir un caracter que representa un dígit
+
+        System.out.print(22);
+        System.out.print('E');
+        System.out.print(8);
+        System.out.println('1');
     </code>
 
-    La sortida:
+    Mostrarà:
 
     <shell>
-        I
-        know
-        Java
-        well.
+        108cQ3
+        22E81
     </shell>
 
-    <p>Tots els strings s'imprimeixen tal qual, sense les cometes dobles.</p>
+    <p>Com passa amb els strings, no s'imprimeixen les cometes dels caracters.</p>
 
-    <p>El mètode et permet una línia buida quan no li passes cap string</p>
+    <quizz>
+        <question single>
+            <statement>
+                <p>Què imprimirà el següent codi?</p>
+                <code java>
+                    System.out.print("1");
+                    System.out.print("2");
+                    System.out.println("3");
+                    System.out.println();
+                    System.out.println("4");
+                </code>
+            </statement>
+            <o>
+                <shell>
+                    1234
+                </shell>
+            </o>
+            <o correct>
+                <shell>
+                    123
+                    
+                    4
+                </shell>
+            </o>
+            <o>
+                <shell>
+                    12
+                    3
+                    4
+                </shell>
+            </o>
+            <o>
+                <shell>
+                    123
+                    4
+                </shell>
+            </o>
+        </question>
+        <question single>
+            <statement>
+                <p>Què imprimirà el següent codi?</p>
+                <code java>
+                    System.out.print("**");
+                    System.out.println();
+                    System.out.println("**");
+                    System.out.print("**");
+                </code>
+            </statement>
+            <o>
+                <shell>
+                    ****
+                    **
+                </shell>
+            </o>
+            <o>
+                <shell>
+                    **
+                    ***
+                    *
+                </shell>
+            </o>
+            <o>
+                <shell>
+                    **
 
-    
+                    **
+                    **
+                </shell>
+            </o>
+            <o correct>
+                <shell>
+                    **
+                    **
+                    **
+                </shell>
+            </o>
+            <o>
+                <shell>
+                    **
+                    **
 
+                    **
+                </shell>
+            </o>
+        </question>
+    </quizz>
 
+    <challenge>
+        <p>Resol aquests problemes:</p>
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/de-0-a-4">De 0 a 4</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/jota-amb-asteriscs">Jota amb asteriscs</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/a-hello-world">Hello World ASCII-art</a>
+        </p>
+    </challenge>
+
+    <project>
+        <p>Completa l'Etapa 1 del <a href="/chatbot#section1">projecte ChatBOT</a></p>
+    </project>
 </p>
 </section>
+

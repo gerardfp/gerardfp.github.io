@@ -4,9 +4,10 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "echo",
+            "label": "serve,js",
             "type": "shell",
-            "command": "node serve.js"
+            "command": "node serve.js",
+            "problemMatcher": []
         }
     ]
 }

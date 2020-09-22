@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   //syntax highlight
   syntaxHighlight();
   navigation();
+  pageTitle();
   //add meta 
   //document.head.insertAdjacentHTML('afterbegin', '<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">');
   replaceParams();
@@ -11,10 +12,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 });
 
+function pageTitle(){
+  var title = document.createElement("title");
+  title.textContent = document.querySelector('header h1').textContent;
+  document.head.appendChild(title);
+}
+
 function syntaxHighlight(){
   document.querySelectorAll('code,incode').forEach((block) => {
     if(block.nodeName === 'CODE'){
       var preWrap = document.createElement('pre');
+      if(block.hasAttribute('data-line')){
+        preWrap.setAttribute('data-line', block.getAttribute('data-line'));
+      }
       block.parentNode.insertBefore(preWrap, block);
       preWrap.appendChild(block);
     }
@@ -53,9 +63,9 @@ function navigation(){
     document.body.appendChild(sidenav);
   
     // build sidenav menu
-    document.querySelectorAll('h2').forEach((h) => {
-      var id = 'id' + Math.random().toString(36).substr(2, 9);
-  
+    document.querySelectorAll('h2').forEach((h,i) => {
+      //var id = 'id' + Math.random().toString(36).substr(2, 9);
+      var id = 'section' + (i+1);
       h.id = id;
   
       var link = document.createElement('a');
@@ -117,6 +127,7 @@ function doQuizz(){
     q.id = qid;
     
     var button = document.createElement('button');
+    button.classList.add('check');
     q.appendChild(button);
 
     if(q.hasAttribute('single')){
@@ -134,8 +145,8 @@ function doSingleQuestion(q){
     var iid = 'id' + Math.random().toString(36).substr(2, 9);
 
     var label = document.createElement('label');
-    label.textContent = o.textContent;
-    o.textContent = '';
+    label.innerHTML = o.innerHTML;
+    o.innerHTML = '';
     label.setAttribute('for', iid);
     o.appendChild(label);
 
@@ -148,8 +159,8 @@ function doSingleQuestion(q){
       i.click();
     }
   });
-
-  q.querySelector('button').onclick = () => {
+  
+  q.querySelector('button.check').onclick = () => {
     q.querySelectorAll('o').forEach(o => {
       o.classList.remove('right');
       o.classList.remove('wrong');
@@ -178,8 +189,8 @@ function doMultiQuestion(q){
     var iid = 'id' + Math.random().toString(36).substr(2, 9);
 
     var label = document.createElement('label');
-    label.textContent = o.textContent;
-    o.textContent = '';
+    label.innerHTML = o.innerHTML;
+    o.innerHTML = '';
     label.setAttribute('for', iid);
     o.appendChild(label);
 
@@ -192,7 +203,7 @@ function doMultiQuestion(q){
     }
   });
 
-  q.querySelector('button').onclick = () => {
+  q.querySelector('button.check').onclick = () => {
     q.querySelectorAll('o').forEach(o => {
       o.classList.remove('right');
       o.classList.remove('wrong');
@@ -232,28 +243,17 @@ function doMatchQuestion(q){
     if(i%2==1){
       o.id = 'o' + (i);
       o.setAttribute('order', Math.floor(i/2));
-      o.classList.add("sortable");
       div = rightdiv;
     }
     div.appendChild(o);
   });
 
   // shuffle
-  var n = rightdiv.childElementCount;
-  for(var i=0; i<n-1; i++){
-    var j = randInt(i+1, n);
-    var a = rightdiv.children[i];
-    var b = rightdiv.children[j];
-
-    var n = b.nextSibling;
-    a.parentNode.insertBefore(b, a);
-    a.parentNode.insertBefore(a,n);
-  }
-
-  Sortable.create(rightdiv, {swap: true, swapClass: 'highlight'});
+  suffleChildren(rightdiv);
+  swapable(rightdiv);
 
   // check
-  q.querySelector('button').onclick = () => {
+  q.querySelector('button.check').onclick = () => {
       rightdiv.querySelectorAll('o').forEach((o, i) => {
       o.classList.remove('right');
       o.classList.remove('wrong');
@@ -267,10 +267,58 @@ function doMatchQuestion(q){
   }
 }
 
+var overElement;
+function swapable(d){
+  d.querySelectorAll("*").forEach(e => {
+    e.setAttribute("draggable", true);
+
+    e.ondragend = (event) => {
+      overElement.classList.remove("highlight");
+      overElement.classList.remove("right");
+      overElement.classList.remove("wrong");
+      event.target.classList.remove("right");
+      event.target.classList.remove("wrong");
+      swapElements(event.target, overElement);
+    };
+    e.ondragover = (event) => {
+      overElement = event.target;
+      overElement.classList.add("highlight");
+    };
+    e.ondragleave = (event) => {
+        overElement.classList.remove("highlight");
+    };
+  });
+}
 
 
+function swapElements(a, b){
+  var n = a.nextSibling;
+  if(b == n){
+    insertBefore(b, a);
+  } else {
+    insertBefore(a, b);
+    insertBefore(b,n);
+  }
+}
 
+function insertBefore(a, b){
+  if(b != null){
+    b.parentNode.insertBefore(a, b);
+  } else {
+    a.parentNode.appendChild(a);
+  }
+}
 
+function suffleChildren(d){
+  var n = d.childElementCount;
+  for(var i=0; i<n-1; i++){
+    var j = randInt(i+1, n);
+    var a = d.children[i];
+    var b = d.children[j];
+
+    swapElements(a, b);
+  }
+}
 
 function randInt(min, max) {
   min = Math.ceil(min);

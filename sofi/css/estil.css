@@ -31,8 +31,9 @@ header {
     max-width: 50em;
     padding: 1rem 1rem 1rem 1rem;
     box-shadow: 0px 1px 2px 0px rgba(60,64,67,0.3),0px 2px 6px 2px rgba(60,64,67,0.15);
-    border-radius: 4px;
-    background-color: #fafafa;
+    border-radius: 0px 0px 4px 4px;
+    background-color: #42b983;
+    color: white;
 }
 
 a {
@@ -42,23 +43,26 @@ a {
 
 h1 {
     font-size: 3em;
-    margin-top: 1rem;
-    padding-top: 2rem;
-    color: #333;
+    margin-top: 4rem;
+    text-align: center;
 }
 
 h2 {
     font-size: 2em;
-    margin-top: .1rem;
-    padding-top: .1rem;
+    margin-top: .8rem;
     color: #444;
 }
 
 h3 {
     font-size: 1.6em;
-    margin-top: .6rem;
-    padding-top: 1.2rem;
+    /* margin-top: .6rem; */
     color: #444;
+}
+
+h4 {
+    font-size: 1.4em;
+    /* margin-top: .4rem; */
+    color: #666;
 }
 
 img {
@@ -141,7 +145,7 @@ code {
 }
 
 pre {
-    border-radius: 8px 8px 0px 0px;
+    border-radius: 4px;
 }
 
 terminal pre,  codefile + pre, codefile + div.code-toolbar pre{
@@ -210,6 +214,7 @@ shell {
 
 
 
+
 incode {
     background: #f5f7f9;
     /* background: #2d2d2d;   */
@@ -259,7 +264,7 @@ file, directory {
 }
 
 file {
-    background: #a9d1f9;
+    background: #d5e2ef;
 }
 
 directory {
@@ -394,19 +399,21 @@ check::before {
 
 
 
-work, warn, info, optional, tldr, observe, question, quizz {
+work, warn, info, optional, tldr, observe, question, quizz, challenge, project {
     display: block;
     position: relative;
-    border-radius: 8px 0px 0px 8px;
+    /* border-radius: 4px; */
+    border-radius: 0px 4px 4px 0px;
     border: 1px solid #d8dee9;
+    border-left-width: 4px;
     padding: 0 2em;
     margin: 2em 0;
 }
 
-work::before, warn::before, info::before, optional::before, tldr::before, observe::before, question::before, quizz::before {
+work::before, warn::before, info::before, optional::before, tldr::before, observe::before, question::before, quizz::before, challenge::before, project::before {
     position: absolute;
-    top: 1em;
-    left: -.8em;
+    top: -.8em;
+    left: -.9em;
     color: #fff;
     width: 1.6em;
     height: 1.6em;
@@ -417,7 +424,7 @@ work::before, warn::before, info::before, optional::before, tldr::before, observ
 
 
 work {
-    border-left: 2px solid #189E49;
+    border-left-color: #189E49;
 }
 
 work::before {
@@ -427,7 +434,7 @@ work::before {
 }
 
 warn {
-    border-left: 2px solid #f66;
+    border-left-color: #f66;
 }
 
 warn::before {
@@ -438,7 +445,7 @@ warn::before {
 }
 
 info {
-    border-left: 2px solid #77CAE0;
+    border-left-color:  #77CAE0;
 }
 
 info::before {
@@ -447,7 +454,7 @@ info::before {
 }
 
 optional {
-    border-left: 2px solid #FFA700;
+    border-left-color: #FFA700;
 }
 
 optional::before {
@@ -456,7 +463,7 @@ optional::before {
 }
 
 observe {
-    border-left: 2px solid #2BD7E3;
+    border-left-color: #2BD7E3;
 }
 
 observe::before {
@@ -467,11 +474,11 @@ observe::before {
 
 tldr {
     background:  #d8dee9;
-    border-left: 2px solid #a8aea9;
+    border-left-color: #a8aea9;
 }
 
 question {
-    border-left: 2px solid #f9bc60;
+    border-left-color: #f9bc60;
 }
 
 question::before {
@@ -481,7 +488,7 @@ question::before {
 }
 
 quizz {
-    border-left: 2px solid #f9bc60;
+    border-left-color: #f9bc60;
 }
 
 quizz::before {
@@ -489,6 +496,30 @@ quizz::before {
     content: '\f128';
     background-color: #f9bc60;
 }
+
+challenge {
+    border-left-color: #1E8E3E;
+}
+
+challenge::before {
+    font-family: 'FASolid';
+    content: '\f121';
+    background-color: #1E8E3E;
+}
+
+project {
+    border-left-color: #1E8E3E;
+}
+
+project::before {
+    font-family: 'FASolid';
+    content: '\f135';
+    background-color: #1E8E3E;
+}
+
+
+
+
 
 quizz question {
     border: none;
@@ -529,9 +560,22 @@ question statement {
 }
 
 question o {
-    display: block;
-    margin: .4em 0;
-    padding: .2em;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding-left: 2em;
+}
+
+question o + o {
+    margin-top: .5em;
+}
+
+question o label {
+    display: inline-flex;
+    align-items: center;
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
 }
 
 question o:hover {
@@ -539,8 +583,6 @@ question o:hover {
 }
 
 question label {
-    padding: .5em 1em;
-    margin: .5em 0;
 }
 
 question input + label::before {
@@ -574,7 +616,7 @@ question o.was-correct {
 
 question o::before {
     display: inline-block;
-    padding-left: 1em;
+    padding-right: 1em;
     width: 1em;
     content: ' ';
     font-family: 'FASolid';
@@ -594,11 +636,16 @@ question o.was-correct {
     background-color: #c6e7b1;
 }
 
+question o.was-correct:hover {
+    background: #f9bc6084;
+}
+
+
 question input[type=radio],[type=checkbox] {
     display: none;
 }
 
-question button {
+question button.check {
     display: block;
     background-color: #0e73ee;
     color: white;
@@ -606,7 +653,7 @@ question button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin: 1em 0;
+    margin: 2em 0 2em 0;
 }
 
 question button::before {
@@ -636,9 +683,7 @@ question[match] div.left o {
     text-align: right;
 }
 
-question[match] .highlight {
-    background: #e1e1e1;
-}
+
 
 question[match] div.right o {
     cursor: grab;
@@ -656,6 +701,41 @@ question[match] o.right {
 question[match] o.wrong {
     background: rgb(222, 151, 151);
 }
+
+question o.right:hover {
+    background: #f9bc6084;
+}
+
+question o.wrong:hover {
+    background: #f9bc6084;
+}
+
+
+question[match] o.highlight {
+    background: #e1e1e1;
+}
+
+o div.code-toolbar {
+    display: inline-block;
+    flex-grow: 1;
+}
+
+o div.code-toolbar pre {
+    margin: .2em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 sidenav {
@@ -698,11 +778,16 @@ sidenav a {
     color: #818181;
     display: block;
     transition: 0.3s;
-    width: 250px;
+    width: 300px;
+    line-height: 1.2;
 }
 
 sidenav a:hover {
     color: #f1f1f1;
+}
+
+sidenav a + a {
+    border-top: 1px solid #313131;
 }
 
 nav {
