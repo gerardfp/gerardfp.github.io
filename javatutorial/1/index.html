@@ -7,7 +7,7 @@
 <nav></nav>
 
 <header>
-<h1>Java Tutorial</h1>
+<h1>Hello World</h1>
 </header>
 
 <section>
@@ -101,6 +101,12 @@
     <h3>Booleans</h3>
     <p>Els valors booleans expressen la veracitat o falsedat d'una afirmació.</p>
     
+    <p>
+        En Java hi ha dos valors especials, <w>true</w> i <w>false</w>, que 
+        permeten expressar els dos valors booleans.
+    </p>
+
+    <p>S'escriuen en mínuscules i sense cometes.</p>
 
     <observe>
         <p>Recorda! No s'han de confondre aquests literals:</p>
@@ -108,6 +114,7 @@
             <li><w>123</w> és un número enter, <w>"123"</w> és un String;</li>
             <li><w>'A'</w> és un caracter, <w>"A"</w> és un String;</li>
             <li><w>'1'</w> és un caracter, <w>1</w> és un número enter.</li>
+            <li><w>true</w> és un booleà, <w>"true"</w> és un String.</li>
         </ul>
     </observe>
 
@@ -115,8 +122,10 @@
         <question match>
             <statement>Emparella els tipus de literals</statement>
             <o>String</o><o>"464531######0207"</o>
-            <o>Número</o><o>100_000_000</o>
+            <o>Enter</o><o>100_000_000</o>
             <o>Caracter</o><o>'H'</o>
+            <o>Booleà</o><o>false</o>
+            <o>Decimal</o><o>1.75f</o>
             <o>Literal invàlid</o><o>'text'</o>
         </question>
 
@@ -136,14 +145,16 @@
             <o>'5'</o>
             <o correct>"text"</o>
             <o correct>"2312"</o>
+            <o>true</o>
         </question>
 
         <question multi>
             <statement>Selecciona les sentències que <strong>NO</strong> són vàlides</statement>
-            <o correct>"123456" és un número</o>
-            <o>"1" és un string</o>
-            <o>'8' és un caracter</o>
-            <o>1 és un número</o>
+            <o correct><w>"123456"</w>&nbsp; és un número</o>
+            <o><w>"1"</w>&nbsp; és un string</o>
+            <o><w>'8'</w>&nbsp; és un caracter</o>
+            <o><w>1</w>&nbsp; és un número</o>
+            <o correct><w>True</w>&nbsp; és un booleà</o>
         </question>
     </quizz>
 </section>
@@ -356,7 +367,7 @@
     sinò també números.</p>
 
     <code java>
-        System.out.print(108);   // imprimir un número
+        System.out.print(108);   // imprimir un enter
         System.out.print('c');   // imprimir un caràcter que representa una lletra
         System.out.print("Q");   // imprimir un string
         System.out.println('3'); // imprimir un caracter que representa un dígit
@@ -375,6 +386,16 @@
     </shell>
 
     <p>Com passa amb els strings, no s'imprimeixen les cometes dels caracters.</p>
+
+    <p>Quan imprimim un número decimal, no s'imprimeix la <w>f</w> del final:</p>
+
+    <code java>
+        System.out.print(1.75f);
+    </code>
+
+    <shell>
+        1.75
+    </shell>
 
     <quizz>
         <question single>
