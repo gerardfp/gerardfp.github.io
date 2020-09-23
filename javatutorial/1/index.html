@@ -7,7 +7,16 @@
 <nav></nav>
 
 <header>
-<h1>Hello World</h1>
+<h1>Imprimir literals</h1>
+
+    <abstract>
+        <p>En aquesta primera activitat programaràs el teu primer programa Java.</p>
+
+        <p>Aprendràs:</p>
+        <check>Com es veu un programa Java bàsic per dintre</check>
+        <check>Què són els literals i com utilitzar-los</check>
+        <check>Com imprimir text correctament</check>
+    </abstract>
 </header>
 
 <section>
@@ -69,6 +78,19 @@
         punt <w>.</w> i afegirem una <w>f</w> al final. Per exemple:
     <w>3.14f</w>, <w>0.123f</w>, <w>100.5f</w></p>
 
+    <info>
+        <p>
+            Java també permet literals decimals sense la terminació <w>f</w>, 
+            però en aquest curs sempre els utilitzarem amb la <w>f</w> al final.
+        </p>
+
+        <p>
+            Hi ha altres formes per a representar literals: hexadecimals, binaris,
+            notació científica, unicode, seqüències d'escapament, ... 
+            <br>Podeu trobar més info al <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">tutorial de Java d'Oracle</a>.
+        </p>       
+</info>
+
     <h3>Text</h3>
     <h4>Caracters</h4>
     <p>Un simple caracter pot representar un dígit, una lletra o un altre símbol.
@@ -121,16 +143,36 @@
     <quizz>
         <question match>
             <statement>Emparella els tipus de literals</statement>
-            <o>String</o><o>"464531######0207"</o>
-            <o>Enter</o><o>100_000_000</o>
-            <o>Caracter</o><o>'H'</o>
-            <o>Booleà</o><o>false</o>
-            <o>Decimal</o><o>1.75f</o>
-            <o>Literal invàlid</o><o>'text'</o>
+            <o>String</o><o><m>"464531######0207"</m></o>
+            <o>Enter</o><o><m>100_000_000</m></o>
+            <o>Caracter</o><o><m>'H'</m></o>
+            <o>Booleà</o><o><m>false</m></o>
+            <o>Decimal</o><o><m>1.75f</m></o>
+            <o>Literal invàlid</o><o><m>'text'</m></o>
         </question>
 
         <question single>
-            <statement>Els caracters literals s'escriuen com</statement>
+            <statement>Troba el literal invàlid</statement>
+            <o><m>"10000000"</m></o>
+            <o correct><m>'10000000'</m></o>
+            <o><m>10_000_000</m></o>
+            <o><m>10000000</m></o>
+            <o><m>10000000f</m></o>
+        </question>
+
+        <question multi>
+            <statement>Selecciona els literals que <strong>NO</strong> són strings</statement>
+            <o correct><m>7000</m></o>
+            <o><m>"7000"</m></o>
+            <o correct><m>true</m></o>
+            <o correct><m>'3'</m></o>
+            <o><m>"false"</m></o>
+            <o><m>"3"</m></o>
+            <o correct><m>'a'</m></o>
+        </question>
+        
+        <question single>
+            <statement>Els <strong>caracters</strong> literals s'escriuen com</statement>
             <o correct>'A', 'B', 'C',...</o>
             <o>A, B, C, ...</o>
             <o>{A}, {B}, {C}, ...</o>
@@ -139,12 +181,12 @@
 
         <question multi>
             <statement>Selecciona els literals <strong>string</strong> vàlids</statement>
-            <o>443</o>
-            <o>'q'</o>
-            <o correct>"q"</o>
-            <o>'5'</o>
-            <o correct>"text"</o>
-            <o correct>"2312"</o>
+            <o><m>443</m></o>
+            <o><m>'q'</m></o>
+            <o correct><m>"q"</m></o>
+            <o><m>'5'</m></o>
+            <o correct><m>"text"</m></o>
+            <o correct><m>"2312"</m></o>
             <o>true</o>
         </question>
 
@@ -155,6 +197,27 @@
             <o><w>'8'</w>&nbsp; és un caracter</o>
             <o><w>1</w>&nbsp; és un número</o>
             <o correct><w>True</w>&nbsp; és un booleà</o>
+            <o correct><w>1f</w> és un enter</o>
+        </question>
+
+        <question single>
+            <statement>Quin literal és adequat per a representar una adreça postal?</statement>
+            <o>un caracteral literal</o>
+            <o>un enter literal</o>
+            <o correct>un string literal</o>
+            <o>un decimal literal</o>
+            <o>un booleà literal</o>
+        </question>
+
+        <question multi>
+            <statement>Selecciona els literals numèrics (enters i decimals)</statement>
+            <o>"500f"</o>
+            <o>'8'</o>
+            <o>"800_000"</o>
+            <o correct>100_000_000</o>
+            <o correct>0</o>
+            <o correct>0.0f</o>
+            <o correct>3_0_0f</o>
         </question>
     </quizz>
 </section>
@@ -200,7 +263,7 @@
         sintaxi que aprendrem</li>
         <li><strong>Paraula clau</strong> - una paraula que té un significat especial
         en el llenguatge de programació (<w>public</w>, <w>class</w>, i moltes altres).</li>
-        <li><strong>Identificadors</strong> - una paraula que es refereix a alguna cosa en un programa</li>
+        <li><strong>Identificadors o noms</strong> - una paraula que es refereix a alguna cosa en un programa</li>
         <li><strong>Comentari</strong> - una explicació textual del que fa el codi. Els comentaris en 
         Java començen amb <w>//</w></li>
         <li><strong>Espai en blanc</strong> - els caracters que no són visibles (<em>space</em>, <em>tab</em>, <em>newline</em>, etc.)</li>
@@ -288,6 +351,33 @@
         amb un únic mètode <w>main</w>. Tots els programes Java han de tenir un mètode <w>main</w> ja 
         que és el que s'executa en primer lloc quan s'inicia el programa.
     </p>
+
+    <quizz>
+        <question multi>
+            <statement>
+                <p>Selecciona les afirmacions correctes sobre el següent programa:</p>
+                <code java>
+                    public class HelloWorldProgram {
+                        public static void main(String[] args) {
+                            System.out.println("Hello, World!");
+                        }
+                    }  
+                </code>
+            </statement>
+            <o correct><w>HelloWorldProgram</w> és un nom</o>
+            <o><w>main</w> és una paraula-clau</o>
+            <o><w>void</w> és una sentència</o>
+            <o correct><w>class</w> és una paraula-clau</o>
+        </question>
+
+        <question multi>
+            <statement>Selecciona les afirmacions correctes</statement>
+            <o>El mètode <w>main</w> pot tenir una altre nom (<w>start</w>, <w>run</w>, <w>program</w>)</o>
+            <o correct><p>Una classe que contingui el mètode <w>main</w> pot tenir qualsevol nom vàlid (<w>Main</w>, <w>App</w>, <w>Demo</w>, etc.)</p></o>
+            <o correct>Per a mostrar un string li'l passem a <w>System.out.println(...)</w></o>
+            <o>El mètode <w>main</w> es pot posar a fora de la classe</o>
+        </question>
+    </quizz>
     
     <work>
         <p> Ara que has aprés l'anatomia bàsica d'un programa Java, prova a fer aquest exercici:
@@ -363,8 +453,8 @@
     </ul>
 
     <h3>Imprimir números i caracters</h3>
-    <p>Ambdós mètodes, <w>print</w> i <w>println</w> permeten imprimir no solament string i caracters,
-    sinò també números.</p>
+    <p>Ambdós mètodes, <w>print</w> i <w>println</w> permeten imprimir no solament 
+        <strong>strings</strong>, sinò també <strong>caracters, números i booleans</strong>.</p>
 
     <code java>
         System.out.print(108);   // imprimir un enter
@@ -395,6 +485,18 @@
 
     <shell>
         1.75
+    </shell>
+
+    <p>Els literals booleans s'imprimeixen tal qual:</p>
+
+    <code java>
+        System.out.println(true);
+        System.out.println(false);
+    </code>
+
+    <shell>
+        true
+        false
     </shell>
 
     <quizz>

@@ -136,6 +136,8 @@ function doQuizz(){
       doMultiQuestion(q);
     } else if(q.hasAttribute('match')){
       doMatchQuestion(q);
+    } else if(q.hasAttribute('text')){
+      doTextQuestion(q);
     }
   });
 }
@@ -265,6 +267,39 @@ function doMatchQuestion(q){
       }
     });
   }
+}
+
+
+function doTextQuestion(q){
+  q.querySelectorAll('o').forEach(o => {
+    // var iid = 'id' + Math.random().toString(36).substr(2, 9);
+
+    // var label = document.createElement('label');
+    // label.innerHTML = o.innerHTML;
+    // o.innerHTML = '';
+    // label.setAttribute('for', iid);
+    // o.appendChild(label);
+
+    var i = document.createElement('input');
+    // i.id = iid;
+    i.type = 'text';
+    // i.name = q.id;
+    i.setAttribute('correct', o.textContent);
+    q.replaceChild(i, o);
+  });
+  
+  q.querySelector('button.check').onclick = () => {
+    q.querySelectorAll('input[type=text]').forEach(i => {
+      i.classList.remove('right');
+      i.classList.remove('wrong');
+
+      if(i.value === i.getAttribute('correct')){
+        i.classList.add('right');
+      } else {
+        i.classList.add('wrong');
+      }
+    });
+  };
 }
 
 var overElement;

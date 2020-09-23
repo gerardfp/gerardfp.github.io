@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav>
+<header>
+    <h1>Escanejar variables</h1>
+
+    <h2></h2>
+</header>
+
+<section>
+    <h2>Tipus i variables</h2>
+    <h3>Declaració i inicialització</h3>
+
+    <p>Una <strong>variable</strong> és un espai reservat a la memòria per a
+    emmagatzemar valors d'un tipus particular: un string, un número, o altres.
+    Cada variable té un <strong>nom</strong> (o <strong>identificador</strong>)
+    per a distingir-la d'altres. Abans d'utilitzar una variable, l'has de declarar.
+    </p>
+
+    <p>La forma general de declarar una variable és així:</p>
+
+    <code java>
+        TipusDada nomVariable = inicialitacio;
+    </code>
+
+    <p>La part esquerra d'aquesta sentència descriu la variable, i la part dreta
+        descriu el valor que se li ha assignat.
+    </p>
+    <ul>
+        <li>El <strong>tipus</strong> de la variable determina quines possibles
+        operacions es poden realitzar sobre la variable i quins valors es poden
+        guardar en ella. Aquí hem utilitzat un tipus de dada que no existeix 
+        (<w>TipusDada</w>) per a demostrar la forma general de declaració.</li>
+        <li>El <strong>nom</strong> (o <strong>identificador</strong>) distingeix
+        la variable de les altres. El nom d'una variable no pot començar amb un digit;
+        normalment comença amb una lletra. Sempre s'ha de tractar de escollir noms
+        amb significat i que siguin legibles per a fer el codi més fàcil d'entendre.
+        </li>
+        <li>L'<strong>operador d'assignació</strong> denotat amb <w>=</w> s'utilitza
+        per a assignar un valor o un resultat d'una expressió a una variable.</li>
+        <li>La <strong>inicialització</strong> és un valor que se li assigna a una
+        variable.</li>
+    </ul>
+    <p>D'acord amb això, podem declarar una variable de tipus <w>String</w> i 
+    assignar-li la paraula <string>java</string>:</p>
+
+    <code java>
+        String llenguatge = "java";
+    </code>
+    <img src="img/memoria1.png">
+
+    <p>També podem declarar una variable de tipus <w>int</w> i guardar en ella un 
+    número enter:</p>
+
+    <code java>
+        int nombreDePomes = 5;
+    </code>
+    <img src="img/memoria2.png">
+
+
+    <warn>
+        <p>Lés majúscules i minúscules importen! No és el mateix <w>llenguatge</w>
+        que <w>Llenguatge</w>.</p>
+    </warn>
+
+    <p>Les variables no solament poden emmagatzemar strings i enters, sinò també 
+        caracters, booleans, decimals, i altres tipus que veurem més endavant.
+    </p>
+
+    <info>
+        <p>Una forma habitual d’entendre les variables és veure-la com una <strong>capsa</strong> 
+            on s’hi emmagatzema una dada o valor.</p>
+        <img src="img/variable1.png">
+        <hr>
+        
+        <p>Així, hi haurà capses de diferents colors, per a emmagatzemar diferents
+            <strong>tipus de dades</strong>.
+        <br>Per exemple, capses verdes per a <w>String</w> i capses blaves per a <w>int</w>:</p>
+        <img src="img/variable2.png">
+        <hr>
+        
+        <p>A les capses se'ls hi ha de posar un <strong>identificador</strong> per
+        a distingir-les. L'identificador ha de descriure la dada que s'hi guardarà.</p>
+        <img src="img/variable3.png">
+        <hr>
+        
+        <p>Per exemple, si es volen guardar el nom i l'edat d'una persona, es poden
+            tenir aquestes capses:
+        </p>
+        <img src="img/variable4.png">
+        <hr>
+        
+        <p>En cadascuna d'elles s'emmagatzema el valor corresponent:</p>
+        <img src="img/variable5.png">
+        <code java>
+            String nom = "Joan";
+            int edat = 24;
+        </code>
+        <hr>
+
+        <p>És un <strong>error</strong> tractar de guardar un tipus de dada en el tipus
+        de capsa inadequat:</p>
+        <img src="img/variable6.png">
+        <code java>
+            int edat = "Joan";  // error!, la variable és int i el valor string
+        </code>
+        <hr>
+
+        <p>Per una altra banda, és vàlid posar els <strong>identificadors</strong> que 
+            desitjem a les capses, però s'entendrà millor si posem un nom que descrigui
+            la dada que s'hi ha de guardar:
+        </p>
+        <img src="img/variable7.png">
+        <code java>
+            int nom = 24; // vàlid! però no té sentit ¿?¿?
+        </code>
+        
+        </p>
+    </info>
+
+    <challenge>
+        <p>Resol aquest problema:
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/declaracio-invalida-de-variables">Declaració invàlida de variables</a>
+        </p>
+    </challenge>
+
+</section>
+
+<section>
+    <h2>Accedir al valor d'una variable</h2>
+
+    <p>Un cop una variable ha estat declarada, el seu valor pot ser accedit i 
+        modificat utilitzant el seu nom (identificador). En aquest exemple, declarem
+        una variable i després l'imprimim:
+    </p>
+
+    <code java>
+        String diaDeLaSetmana = "Dilluns";
+        System.out.println(dayOfWeek); // Dilluns
+    </code>
+
+    <p>També es possible assignar el valor d'una variable a una altra variable. A la
+        línia <ln>2</ln> d'aquest codi estem assignant el valor de <w>diaDelMes</w> a <w>avui</w>:
+    </p>
+    <code java data-line="2">
+        int diaDelMes = 25;
+        int avui = diaDelMes;
+        System.out.println(avui); // 25
+        System.out.println(diaDelMes); // 25
+    </code>
+    <img src="img/variable8.png">
+
+    <observe>
+        <p>És important notar que quan assignem el valor d'una variable a una altra, no es perd 
+        el seu valor.</p>
+    </observe>
+
+    <p>Una característica important de les variables és que el seu valor pot canviar.
+        No s'ha de tornar a declarar la variable per a canviar-li el valor; únicament
+        se li ha d'assignar el nou valor utilitzant l'operador <w>=</w>.
+    </p>
+    <p>Anem a declarar una variable anomenada <w>diaDeLaSetmana</w> i imprimirem
+    el seu valor abans i després de canviar-li'l:</p>
+    <code java>
+        String diaDeLaSetmana = "Dilluns";
+        System.out.println(diaDeLaSetmana); // Dilluns
+
+        diaDeLaSetmana = "Dimarts";
+        System.out.println(diaDeLaSetmana); // Dimarts
+    </code>
+    
+
+    <p>Hi ha una restricció en les variables: només pots assignar un valor del mateix
+        tipus que el tipus inicial de la variable. Així, el següent codi és incorrecte</p>
+    <code java>
+        int dia = 10;    // ok
+        dia = 11;        // ok
+        dia = "Dilluns"; // error!
+    </code>
+    </p>
+
+    <challenge>
+        <p>Exercicis:
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/assignacions">Assignacions</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/completa-la-declaracio">Completa la declaració</a>            
+        </p>
+    </challenge>
+</section>
+
+<section>
+    <h2>Formes alternatives de declaració</h2>
+    <p>Hi han vàries formes alternatives de declarar variables que són menys 
+        utilitzades en la pràctica. Aquí hi han alguns exemples:
+    </p>
+    <ul>
+        <li>
+            <p>Declarar vàries variables <strong>del mateix tipus</strong>
+            en una única sentència separant-les amb comes <w>,</w></p>
+            <code java>
+                String llenguatge = "java", versio = "8 o superior";
+            </code>
+        </li>
+        <li>
+            <p>Separar la declaració i la inicialització:</p>
+            <code java data-line="1,2">
+                int edat;   // declaració
+                edat = 18;  // inicialització
+            </code>
+
+            <ul>
+                <li>
+                    <p>A la línia <ln>1</ln>, reservem un espai a la memòria
+                        per a guardar un <w>int</w> i l'identifiquem amb <w>edat</w>.
+                    </p>
+                    <img src="img/memoria3.png">
+                </li>
+                <li>
+                    <p>A <ln>2</ln> estem assignant el valor <w>18</w> en la zona
+                    de memòria reservada per a la variable <w>edat</w>.</p>
+                    <img src="img/memoria4.png">
+                </li>
+            </ul>
+            
+            
+            
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h2>Inferència de tipus</h2>
+    <p>A partir de Java 10, es pot escriure <w>var</w> en lloc d'un tipus específic
+    per a forçar la inferència de tipus basada en tipus del valor assignat.</p>
+
+    <code java>
+        var nomVariable = inicialització;
+    </code>
+
+    <p>Aquí tens dos exemples:</p>
+    <code java>
+        var llenguatge = "java";  // String
+        var versio = 10;          // int
+    </code>
+
+    <p>En aquest curs no utilitzarem la inferència de tipus, ja que utilitzarem
+        fonamentalment la versió 8 de Java, que de moment segueix sent la més 
+        utilitzada.
+    </p>
+</section>
+
+<section>
+    <quizz>
+        <question single>
+            <statement>
+                <p>Donada la següent declaració d'una variable:</p>
+                <code java>String speed = "high";</code>
+                <p>Quin és el nom de la variable?</p>
+            </statement>
+            <o correct><m>speed</m></o>
+            <o><m>"high"</m></o>
+            <o><m>high</m></o>
+            <o><m>String</m></o>
+        </question>
+
+        <question text>
+            <statement>
+                <p>Donat el següent codi:</p>
+                <code java>
+                    int a = 10;
+                    int b = 12;
+                    int c = b;
+                    int d = a;
+                    int e = c;
+                </code>    
+                <p>Introdueix el valor de la variable <w>e</w>.</p>
+            </statement>
+
+            <o>12</o>    
+        </question>
+    </quizz>
+</section>
