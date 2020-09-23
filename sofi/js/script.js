@@ -304,7 +304,7 @@ function doTextQuestion(q){
 
 var overElement;
 function swapable(d){
-  d.querySelectorAll("*").forEach(e => {
+  d.querySelectorAll("o").forEach(e => {
     e.setAttribute("draggable", true);
 
     e.ondragend = (event) => {
