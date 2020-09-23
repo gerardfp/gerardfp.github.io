@@ -13,9 +13,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 function pageTitle(){
-  var title = document.createElement("title");
-  title.textContent = document.querySelector('header h1').textContent;
-  document.head.appendChild(title);
+  if(document.querySelector('header h1') != null){
+    var title = document.createElement("title");
+    title.textContent = document.querySelector('header h1').textContent;
+    document.head.appendChild(title);
+  }
 }
 
 function syntaxHighlight(){
@@ -280,12 +282,14 @@ function doTextQuestion(q){
     // label.setAttribute('for', iid);
     // o.appendChild(label);
 
+    console.log(o);
+
     var i = document.createElement('input');
     // i.id = iid;
     i.type = 'text';
     // i.name = q.id;
     i.setAttribute('correct', o.textContent);
-    q.replaceChild(i, o);
+    o.parentNode.replaceChild(i, o);
   });
   
   q.querySelector('button.check').onclick = () => {
