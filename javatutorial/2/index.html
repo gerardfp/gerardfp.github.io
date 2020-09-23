@@ -128,10 +128,7 @@
         </p>
     </challenge>
 
-</section>
-
-<section>
-    <h2>Accedir al valor d'una variable</h2>
+    <h3>Accedir al valor d'una variable</h3>
 
     <p>Un cop una variable ha estat declarada, el seu valor pot ser accedit i 
         modificat utilitzant el seu nom (identificador). En aquest exemple, declarem
@@ -191,10 +188,8 @@
             <a href="https://www.hackerrank.com/contests/dam-m3/challenges/completa-la-declaracio">Completa la declaració</a>            
         </p>
     </challenge>
-</section>
 
-<section>
-    <h2>Formes alternatives de declaració</h2>
+    <h3>Formes alternatives de declaració</h3>
     <p>Hi han vàries formes alternatives de declarar variables que són menys 
         utilitzades en la pràctica. Aquí hi han alguns exemples:
     </p>
@@ -226,15 +221,10 @@
                     <img src="img/memoria4.png">
                 </li>
             </ul>
-            
-            
-            
         </li>
     </ul>
-</section>
 
-<section>
-    <h2>Inferència de tipus</h2>
+    <h3>Inferència de tipus</h3>
     <p>A partir de Java 10, es pot escriure <w>var</w> en lloc d'un tipus específic
     per a forçar la inferència de tipus basada en tipus del valor assignat.</p>
 
@@ -252,9 +242,7 @@
         fonamentalment la versió 8 de Java, que de moment segueix sent la més 
         utilitzada.
     </p>
-</section>
 
-<section>
     <quizz>
         <question single>
             <statement>
@@ -282,6 +270,18 @@
             </statement>
 
             <o>12</o>    
+        </question>
+
+        <question text>
+            <statement>Escriu el valor de cada variable, després de que s'executi cada sentència</statement>
+
+            <table>
+                <tr> <th></th> <th><w>a</w></th> <th>b</th> <th>c</th>  </tr>
+                <tr><td><w>int a = 0;</w></td> <td><o>0</o></td> <td></td><td></td></tr>
+                <tr><td><w>int b = 0;</w></td> <td><o>0</o></td> <td><o>0</o></td><td></td></tr>
+                <tr><td><w>a = 2;</w></td> <td><o>2</o></td> <td><o>0</o></td><td></td></tr>
+                <tr><td><w>int c = b;</w></td> <td><o>2</o></td> <td><o>0</o></td><td><o>0</o></td></tr>
+            </table>
         </question>
     </quizz>
 </section>
