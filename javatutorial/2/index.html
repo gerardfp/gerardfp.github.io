@@ -224,6 +224,20 @@
         </li>
     </ul>
 
+    <h3>Tipus de variables</h3>
+    <p>A la documentació oficial d'Oracle pots trobar els
+        <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">
+        tipus de dades del llenguatge Java
+        </a>. En aquest curs utilitzarem més sovint els següents:</p>
+    <ul>
+        <li><w>int</w></li>
+        <li><w>long</w></li>
+        <li><w>float</w></li>
+        <li><w>boolean</w></li>
+        <li><w>char</w></li>
+        <li><w>String</w></li>
+    </ul>
+
     <h3>Inferència de tipus</h3>
     <p>A partir de Java 10, es pot escriure <w>var</w> en lloc d'un tipus específic
     per a forçar la inferència de tipus basada en tipus del valor assignat.</p>
@@ -273,15 +287,148 @@
         </question>
 
         <question text>
-            <statement>Escriu el valor de cada variable, després de que s'executi cada sentència</statement>
+            <statement>
+                <p>Escriu el valor de cada variable, després de que s'executi 
+                    cada sentència
+                </p>
+            </statement>
 
             <table>
-                <tr> <th></th> <th><w>a</w></th> <th><w>b</w></th> <th><w>c</w></th>  </tr>
-                <tr><td><w>int a = 0;</w></td> <td><o>0</o></td> <td></td><td></td></tr>
-                <tr><td><w>int b = 0;</w></td> <td><o>0</o></td> <td><o>0</o></td><td></td></tr>
-                <tr><td><w>a = 2;</w></td> <td><o>2</o></td> <td><o>0</o></td><td></td></tr>
-                <tr><td><w>int c = b;</w></td> <td><o>2</o></td> <td><o>0</o></td><td><o>0</o></td></tr>
+                <tr><th style="width: 0"></th><th style="width: 7rem;"></th> <th style="width: 1em;"></th><th style="width: 2em;"><w>a</w></th> <th style="width: 2em;"><w>b</w></th> <th style="width: 2em;"><w>c</w></th>  </tr>
+                <tr><td></td><td><m>int a = 0;</m></td> <td></td><td><o>0</o></td> <td></td><td></td></tr>
+                <tr><td></td><td><m>int b = 0;</m></td> <td></td><td><o>0</o></td> <td><o>0</o></td><td></td></tr>
+                <tr><td></td><td><m>a = 2;</m></td> <td></td><td><o>2</o></td> <td><o>0</o></td><td></td></tr>
+                <tr><td></td><td><m>int c = b;</m></td> <td></td><td><o>2</o></td> <td><o>0</o></td><td><o>0</o></td></tr>
             </table>
+        </question>
+
+        <question single>
+            <statement>
+                <p>Quin és el valor d'aquesta variable?</p>
+                <code java>
+                    String animal = "tigre";
+                </code>
+            </statement>
+            <o><m>"animal"</m></o>
+            <o><m>"String"</m></o>
+            <o><m>animal</m></o>
+            <o correct><m>tigre</m></o>
+        </question>
+
+        <question single>
+            <statement><p>L'operador d'assignació en Java és:</p></statement>
+            <o><w>&lt;-</w></o>
+            <o correct><w>=</w></o>
+            <o><w>:=</w></o>
+            <o><w>-&gt;</w></o>
+        </question>
+
+        <question multi>
+            <statement><p>Selecciona les afirmacions correctes sobre les variables.</p></statement>
+            <o correct>Una variable té un tipus específic</o>
+            <o>El tipus determina el nom d'una variable</o>
+            <o>No es pot assignar un valor a una variable</o>
+            <o correct>Es pot llegir el valor d'una variable</o>
+        </question>
+
+        <question text>
+            <statement><p>Quantes variables s'han declarat al següent codi?</p>
+                <code java>
+                    int i = 0, j = 0, k = 0;
+                    String s = "s", str = "str";
+                </code>
+                <o>5</o>
+            </statement>
+        </question>
+    </quizz>
+</section>
+
+<section>
+    <h2>Anomenar variables</h2>
+
+    <h3>Per què el nom és important?</h3>
+    <p>Com ja saps, cada variable té un nom que l'identifica de forma única respecte a les
+        altres variables. Donar un bon nom a una variable potser no és tan simple com sembla.
+        Els programadors amb experiència posen molt de compte en posar els noms per a fer els 
+        seus programes més fàcils de comprendre. És molt important perquè els programadors
+        dediquen molt de temps a llegir i comprendre programes escrits per altres programadors.
+        Si les variables tenen noms dolents, inclús el teu propi codi et semblarà poc clar en uns
+        pocs mesos.
+    </p>
+    <p>Sempre tracta de ser descriptiu i concís al posar nom a les variables. A la llarga 
+        ho agrairàs.
+    </p>
+
+    <p>A més a més, has de seguir les regles i les convencions que has de seguir per a posar noms</p>
+
+
+
+    <h3>Regles per a anomenar variables</h3>
+    <p>Les regles de Java per als noms de variables són:</p>
+    <ul>
+        <li>distingeix majúscules i minúscules</li>
+        <li>pot incloure lletres Unicode, digits, i els caracters <w>$</w> &nbsp; <w>_</w></li>
+        <li>no pot començar per un dígit</li>
+        <li>no pot ser una paraula-clau (<w>class</w>, <w>static</w>, <w>void</w>, <w>int</w>, són il·legals)</li>
+    </ul>
+    <p>En base a aquestes regles, pots concloure que els espais en blanc no estan permesos en el nom
+        d'una variable.
+    </p>
+
+    <warn>
+        <p>Si trenques alguna d'aquestes regles el teu programa no funcionarà</p>
+    </warn>
+
+    <p>Aquí tens alguns exemples de noms vàlids:</p>
+    <code java>
+        numero, $ident, bigValue, _val, abc, k
+    </code>
+
+    <p>Hi aquests són invàlids:</p>
+    <code java>
+        @ab, 1c, !ab, class
+    </code>
+
+
+
+    <h3>Convencions per a anomenar variables</h3>
+    <p>També hi ha una sèrie de convencions per a anomenar variables en Java:</p>
+    <ul>
+        <li>si el nom de la variable és una única paraula, s'escriu en minúscula (e.g. 
+            <w>numero</w>, <w>preu</w>)
+        </li>
+        <li>si el nom de la variable inclou vàries paraules, s'han d'escriure en 
+            <w>lowerCamelCase</w>, això és, la primera paraula ha de ser en minúscula i la resta 
+            han de tenir la primera lletra en majúscula (e.g. <w>numeroDeMonedes</w>)
+        </li>
+        <li>no han de començar per <w>$</w> ni per <w>_</w>, encara que estigui permés</li>
+        <li>escull noms amb significat, e.g <w>punts</w> té més sentit que <w>p</w>, tot i 
+            que els dos són vàlids.</li>
+    </ul>
+
+    <p>Aquestes convencions són opcionals, tot i que es recomana seguir-les. Com hem dit 
+        al principi, aquestes convencions faran el teu programa més legible per a tu i per
+        als altres programadors Java.
+    </p>
+
+    <quizz>
+        <question single>
+            <statement><p>Vols declarar una variable anomenada <w>int</w>.</p>
+            <p>Determina si el nom es vàlid o no (i per què?). Un nom és valid si el programa funcionarà.</p>
+            </statement>
+
+            <o>Es nom és vàlid</o>
+            <o>El nom no és vàlid perquè no té sentit (què és int?)</o>
+            <o>El nom no és vàlid perquè comença per una lletra</o>
+            <o correct>El nom no és vàlid perquè és una paraula-clau</o>
+        </question>
+
+        <question multi>
+            <statement><p>Selecciona els noms de variable vàlids, és a dir, que el programa funcionarà.</p></statement>
+            <o>1poma</o>
+            <o correct>numero1</o>
+            <o>boolean</o>
+            <o correct>_var</o>
         </question>
     </quizz>
 </section>
