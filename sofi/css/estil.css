@@ -47,6 +47,39 @@ abstract {
 }
 
 
+table {
+    /* border: 1px solid #a1a1a1; */
+    border-collapse: collapse;
+}
+
+table th:first-child {
+    border-top-left-radius: 8px;
+}
+
+table th:last-child {
+    border-top-right-radius: 8px;
+}
+
+table tr:last-child td:first-child{
+    border-bottom-left-radius: 8px;
+}
+
+table tr:last-child td:last-child{
+    border-bottom-right-radius: 8px;
+}
+
+table th {
+    background-color: #393939;
+    color: #42b983;
+    padding: .6em;
+}
+
+table td {
+    padding: .6em;
+    background-color: #2d2d2d;
+    color: #808080;
+}
+
 
 
 
@@ -220,11 +253,36 @@ shell {
     overflow-x: auto;
 }
 
+shell in {
+    color: #42b983;
+}
 
+shell comment {
+    color: #999;
+}
 
+shell exception {
+    color: #A35757;
+}
 
+shell consumed {
+    background: repeating-linear-gradient(45deg, 
+    #d6d6d6dd, 
+    #d6d6d6dd 2px, 
+    #9198e500 2px, 
+    #9198e500 4px);
+    /* background: #a1a1a1cc; */
+}
 
+shell discard {
+    /* background: repeating-linear-gradient(45deg, #ff666688, #ff666688 3px, #9198e500 3px, #9198e500 6px); */
+    background: #ff666688;
+}
 
+shell consume {
+    /* background: repeating-linear-gradient(45deg, #42b98388, #42b98388 3px, #9198e500 3px, #9198e500 6px); */
+    background: #42b98388;
+}
 
 
 ln {
@@ -769,8 +827,9 @@ question[text] input[type=text].wrong {
     background: rgb(222, 151, 151);;
 }
 
-
-question[text] table {
+question[text] table input[type=text] {
+    padding: .375rem .05rem;
+    text-align: center;
 }
 
 

@@ -231,16 +231,36 @@
         </a>. En aquest curs utilitzarem més sovint els següents:</p>
     <ul>
         <li><w>int</w></li>
-        <li><w>long</w></li>
         <li><w>float</w></li>
         <li><w>boolean</w></li>
         <li><w>char</w></li>
         <li><w>String</w></li>
     </ul>
 
+    <p>A la següent taula pots veure els valors que permeten guardar aquests tipus de dades:</p>
+
+    <table>
+        <thead><th>Tipus</th><th>Valors permesos</th></thead>
+        <tr><td><w>int</w></td> <td>un número enter (entre <w>-2_147_483_648</w> i <w>2_147_483_647</w>)</td></tr>
+        <tr><td><w>float</w></td><td>número decimal (e.g. <w>123.975f</w>)</td></tr>
+        <tr><td><w>boolean</w></td><td>un booleà (<w>true</w> / <w>false</w>)</td></tr>
+        <tr><td><w>char</w></td><td>un caracter (entre cometes simples, e.g. <w>'a'</w>)</td></tr>
+        <tr><td><w>String</w></td><td>un string (entre cometes dobles, e.g. <w>"java"</w>)</td></tr>
+    </table>
+
+    <p>Aquí tens un exemple de declaració d'una variable de cada tipus:</p>
+
+    <code java>
+        int edat = 18;
+        float pes = 68.7f;
+        boolean estaMatriculat = true;
+        char grup = 'A';
+        String email = "alumne@ins.com";
+    </code>
+
     <h3>Inferència de tipus</h3>
     <p>A partir de Java 10, es pot escriure <w>var</w> en lloc d'un tipus específic
-    per a forçar la inferència de tipus basada en tipus del valor assignat.</p>
+    per a forçar la inferència de tipus basada en el tipus del valor assignat.</p>
 
     <code java>
         var nomVariable = inicialització;
@@ -294,7 +314,7 @@
             </statement>
 
             <table>
-                <tr><th style="width: 0"></th><th style="width: 7rem;"></th> <th style="width: 1em;"></th><th style="width: 2em;"><w>a</w></th> <th style="width: 2em;"><w>b</w></th> <th style="width: 2em;"><w>c</w></th>  </tr>
+                <tr><th style="width: 0"></th><th style="width: 7rem;"></th> <th style="width: 1em;"></th><th style="width: 3em;"><w>a</w></th> <th style="width: 3em;"><w>b</w></th> <th style="width: 3em;"><w>c</w></th>  </tr>
                 <tr><td></td><td><m>int a = 0;</m></td> <td></td><td><o>0</o></td> <td></td><td></td></tr>
                 <tr><td></td><td><m>int b = 0;</m></td> <td></td><td><o>0</o></td> <td><o>0</o></td><td></td></tr>
                 <tr><td></td><td><m>a = 2;</m></td> <td></td><td><o>2</o></td> <td><o>0</o></td><td></td></tr>
@@ -340,7 +360,41 @@
                 <o>5</o>
             </statement>
         </question>
+
+        <question multi>
+            <statement><p>Selecciona les declaracions vàlides</p></statement>
+            <o><incode java>float aFloat = "23.75f";</incode></o>
+            <o correct><incode java>String mFloat = "98.7";</incode></o>
+            <o><incode java>int cFloat = 44.3;</incode></o>
+            <o><incode java>String kFloat = float;</incode></o>
+            <o correct><incode java>char dFloat = '.';</incode></o>
+            <o correct><incode java>String tFloat = "float";</incode></o>
+        </question>
+
+        <question single>
+            <statement>
+                <p>El següent codi:</p>
+                <code java>
+                    boolean turnedOn = true;
+                    turnedOn = false;
+                    String turnedOff = turnedOn;
+                    System.out.println(turnedOff);
+                </code>
+            </statement>
+            <o>Imprimeix&nbsp;<m>false</m></o>
+            <o>Imprimeix&nbsp;<m>true</m></o>
+            <o>S'executa però dona un error</o>
+            <o correct>No es pot executar</o>
+
+        </question>
     </quizz>
+
+    <challenge>
+        <p>Resol aquests problemes:</p>
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/tipus-correctes">Tipus correctes</a></p>
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/valors-correctes">Valors correctes</a></p>
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/noms-correctes">Noms correctes</a></p>
+    </challenge>
 </section>
 
 <section>
@@ -430,5 +484,561 @@
             <o>boolean</o>
             <o correct>_var</o>
         </question>
+
+        <question text>
+            <statement>
+                <p>Recordes les convencions per anomenar variables? Fes que la variable
+                    <w>ALTURA@CACTUS</w> no solament sigui sintàcticament correcta, sinò
+                    que també compleixi les recomanacions.
+                </p>
+            </statement>
+            <o>alturaCactus</o>
+        </question>
+
+        <question single>
+            <statement>
+                <p>Quin és el millor nom per una variable d'acord amb les convencions?</p>
+            </statement>
+            <o><m>_uha</m></o>
+            <o correct><m>userHomeAdress</m></o>
+            <o><m>userhomeaddress</m></o>
+            <o><m>user_home_address</m></o>
+            <o><m>UserHomeAddress</m></o>
+        </question>
     </quizz>
+</section>
+
+<section>
+    <h2>Escanejar l'entrada</h2>
+
+    <p>L'<strong>entrada estàndard</strong> és un fluxe de dades que van cap al programa.
+    Està suportada pel sistema operatiu. Per defecte, l'entrada estàndard obté les dades del 
+    teclat, tot i que es possible redirigir-la per a obtenir les dades d'un fitxer.</p>
+    <p>De fet, no tots els programes utilitzen l'entrada estàndard. Però nosaltres l'utilitzarem 
+        molt sovint per a que puguis arribar a dominar les teves habilitats de programació!
+        El forma típica en que resoldrem problemes és aquesta:
+    </p>
+    <ol>
+        <li><p>Llegir dades de l'entrada estàndard (<w>System.in</w>)</p></li>
+        <li><p>Processar les dades per a obtenir un resultat</p></li>
+        <li><p>Imprimir el resultat a la sortida estàndars (<w>System.out</w>)</p></li>
+    </ol>
+
+    <p>Aquest tipus de problemes de programació es poden provar fàcilment amb diferents 
+        formats de dades d'entrada, i per aquest motiu, els utilitzarem molt.
+    </p>
+
+    <h3>Llegir dades amb un scanner</h3>
+
+    <p>La forma més simple d'obtenir dades de l'entrada estàndard és utilitzar la 
+        classe <w>Scanner</w>. Permet als programes llegir valors de diferents tipus
+        (strings, números, etc.) de l'entrada estàndard.
+    </p>
+
+    <p>Per a utilitzar la classe <w>Scanner</w> s'ha d'afegir aquesta sentència d'importació 
+    al principi del fitxer de codi:</p>
+
+    <code java>
+        import java.util.Scanner;
+    </code>
+
+    <p>Després s'ha d'afegir aquesta construcció a dintre del mètode <w>main</w>:</p>
+
+    <code java>
+        Scanner scanner = new Scanner(System.in); 
+    </code>
+
+    <p>En aquesta línia hem creat un objecte de la classe <w>Scanner</w>, que ens 
+    permet utilitzar els seus mètodes. Aprendrem més sobre classes i objectes més 
+    endavant. <w>System.in</w> indica que es llegirà el flux de dades de l'entrada 
+    estàndard. De moment, no és necessari que comprenguis aquesta línia, solament 
+    escriu-la exactament així.</p>
+
+    <p>Anem a escriure el primer programa que llegeix dades del teclat:</p>
+
+    <code java data-line="1,6,10,13">
+        import java.util.Scanner; 
+
+        public class Main {
+
+            public static void main(String[] args) {
+                Scanner scanner = new Scanner(System.in);  
+
+                System.out.println("Hola, com et dius?");
+
+                String nom = scanner.nextLine();
+
+                System.out.print("Hola ");
+                System.out.print(nom);
+                System.out.println("!");
+            }
+        }
+    </code>
+
+    <p>Quan executem el programa, veurem el següent. En verd es mostra l'entrada 
+        introduïda per teclat:
+    </p>
+    <shell>
+        Hola, com et dius?
+        <in>Josep Ramon</in> 
+        Hola Josep Ramon!
+    </shell>
+
+    <p>Veiem pas a pas, l'execució del programa:</p>
+    <ul>
+        <li>A <ln>1</ln> importem la classe <w>Scanner</w></li>
+        <li>A <ln>6</ln> creem l'objecte <w>scanner</w> que s'utilitza per llegir 
+        dades introduïdes per teclat.</li>
+        <li>A <ln>10</ln> utilitzem el mètode <w>nextLine()</w> per a llegir una 
+        línia de dades del teclat. Guardem les dades llegides a la variable <w>nom</w></li>
+        <li>A <ln>13</ln> imprimir la variable <w>nom</w>, que conté les dades que s'han 
+        llegit per teclat a <ln>10</ln></li>
+    </ul>
+
+    <h3>Mètodes de la classe Scanner</h3>
+    <p>Hi ha diversos mètodes a la classe <w>Scanner</w> que ens permeten llegir 
+        diferents tipus de dades de l'entrada estàndard. En aquesta taula tens un
+        resum dels mètodes que més utilitzarem en aquest curs: </p>
+    <table>
+        <thead><tr><th>Mètode</th><th>Tipus</th><th>Utilitat</th></tr></thead>
+        <tr><td><w>nextInt()</w></td><td><w>int</w></td><td>llegeix un número enter</td></tr>
+        <tr><td><w>nextFloat()</w></td><td><w>float</w></td><td>llegeix un número decimal</td></tr>
+        <tr><td><w>nextBoolean()</w></td><td><w>boolean</w></td><td>llegeix un valor booleà</td></tr>
+        <tr><td><w>next()</w></td><td><w>String</w></td><td>llegeix una paraula</td></tr>
+        <tr><td><w>nextLine()</w></td><td><w>String</w></td><td>llegeix una línia completa</td></tr>
+    </table>
+
+    <p>Quan llegim dades utilitzant aquests mètodes hem d'utilitzar les variables del tipus 
+        adequat per a guardar la dada que es llegeix. Per exemple:
+    </p>
+
+    <code java>
+        import java.util.Scanner;
+
+        public class Main {
+            public static void main(String[] args){
+                Scanner scanner = new Scanner(System.in);
+
+                int quantitat = scanner.nextInt();
+                float preu = scanner.nextFloat();
+                boolean pagat = scanner.nextBoolean();
+                String codi = scanner.next();
+                String nom = scanner.nextLine();
+
+                System.out.println(quantitat);
+                System.out.println(preu);
+                System.out.println(pagat);
+                System.out.println(codi);
+                System.out.println(nom);
+            }
+        } 
+    </code>
+
+    <shell>
+        <in>5 1,99 true PR101 Galetes Maria</in>     
+        5
+        1.99
+        true
+        PR101
+         Galetes Maria
+    </shell>
+
+    <observe>
+        <p>Observa que el preu introduït per teclat s'ha escrit utilitzant una coma
+        <w>,</w> en lloc d'un punt <w>.</w> per a separar les xifres decimals 
+        (<w>1,99</w> en lloc d'<w>1.99)</w>. Això es degut a que l'<w>Scanner</w> 
+        utilitza el llenguatge del Sistema Operatiu per al format d'entrada, i en 
+        castellà/català els decimals es separen amb una coma <w>,</w>. Si tinguèssim el 
+        Sistema Operatiu configurat en anglès, caldria haver introduït el número decimal 
+        utlitzant un punt.</p>
+
+        <p>Es pot forçar a l'Scanner a utilitzar l'idioma anglès per al format de dades 
+            d'entrada, és a dir, a utilitzar el punt en els decimals. Ho podem fer amb 
+            el mètode <w>setLocale()</w>, just després de crear l'<w>scanner</w>, així:
+        </p>
+
+        <code java>
+            Scanner scanner = new Scanner(System.in);
+            scanner.useLocale(Locale.US);   // usar el format angles
+        </code>
+
+        <p>Per contra, els mètodes <w>print()</w> i <w>println()</w> sempre imprimeixen 
+            separant els decimals amb un punt.
+        </p>
+    </observe>
+
+    <p>Hem vist que cal utilitzar el <strong>tipus</strong> de variable adequat 
+    al mètode que utilitzem per a llegir. Si no utilitzem el tipus adequat, el programa
+    no s'executarà. Per exemple, no podem utilitzar una variable de tipus <w>String</w> 
+    per a guardar un valor llegit amb <w>nextInt()</w>:</p>
+
+    <code java>
+        String a = scanner.nextInt();   // error, cal utlitzar el tipus int
+    </code>
+
+    <p>Per sort, l'IDE ens ajuda a detectar i solucionar aquests errors, indicant en 
+        subratllat vermell l'error i proporcionant ajuda sobre com solucionar-lo:
+    </p>
+
+    <img src="img/typeerror.png">
+
+    <h3>InputMismatchException</h3>
+    <p>Una altre error que pot ocòrrer és que l'usuari no introdueixi una dada que 
+        correspongui amb el tipus que s'ha de llegir. En aquest cas, el programa donarà 
+        una excepció i s'aturarà inesperadament.
+    </p>
+
+    <p>Per exemple, el següent programa tracta de llegir un enter del teclat, però 
+        l'usuari introdueix un text. L'execució del programa s'abortarà amb una excepció 
+        de tipus <w>InputMismatchException</w>:
+    </p>
+
+    <code java>
+        System.out.println("Introdueix un número:");
+        int numero = scanner.nextInt();
+    </code>
+
+    <shell>
+        Introdueix un número:
+        <in>holaaa</in>
+        <exception>
+        Exception in thread "main" java.util.<strong>InputMismatchException</strong>
+            at java.base/java.util.Scanner.throwFor(Scanner.java:939)
+            at java.base/java.util.Scanner.next(Scanner.java:1594)
+            at java.base/java.util.Scanner.nextInt(Scanner.java:2258)
+        </exception>
+    </shell>
+
+    <info>
+        <p>Més endavant veurem com prevenir aquestes situacions, i fer el nostre 
+        programa resistent a qualsevol entrada que introdueixi l'usuari.
+        </p>
+    </info>
+
+
+    <h3>Consumir dades de l'entrada</h3>
+
+    <p>Les crides als mètodes de lectura de l'<w>scanner</w> van consumint dades de l'entrada
+        sempre que hi hagi, i si no hi han dades esperaran fins que hi hagin.
+    </p>
+
+    <p>Vegem-ho amb un exemple. Aquest programa llegeix dos números de l'entrada:</p>
+
+    <code java data-line="2,4">
+        System.out.println("Introdueix el primer número:")
+        int a = scanner.nextInt();
+        System.out.println("Introdueix el segon número:")
+        int b = scanner.nextInt();
+
+        System.out.println("Els números introduïts són:")
+        System.out.println(a);
+        System.out.println(b);
+    </code>
+
+    <p>Quan executem el programa, la primera crida a <w>nextInt()</w> <ln>2</ln>, quedarà 
+    esperant a que l'usuari introdueixi un número. Si l'usuari introdueix un únic 
+    número, aquest serà consumit de l'entrada i assignat a la variable <w>a</w>. 
+    Quan es fa la segona crida a <w>nextInt()</w> <ln>4</ln>, el programa tornarà a esperar 
+    a que s'introdueixi un altre número.</p>
+
+    <shell>
+        Introdueix el primer número:
+        <in>1234</in>
+        Introdueix el segon número:
+        <in>6789</in>
+        Els números introduïts són:
+        1234
+        6789
+    </shell>
+
+    <p>Però, si a la primera crida a <w>nextInt()</w> <ln>2</ln>, l'usuari introdueix 
+    dos números, el primer d'ells serà consumit per l'<w>scanner</w> i assignat a la 
+    variable <w>a</w>, i el segon número quedarà per consumir. Així, a la segona crida 
+    a <w>nextInt()</w> <ln>4</ln>, l'<w>scanner</w> no esperarà a que s'introdueixi un 
+    altre número, sinò que consumirà el número que havia quedat per consumir i quedarà 
+    assignat a la variable <w>b</w> sense esperar a que s'introdueixi un altre número.</p>
+    <shell>
+        Introdueix el primer número:
+        <in>1234 6789</in>                    <comment>// introdueix dos numeros</comment>
+        Introdueix el segon número:  <comment>// consumeix el segon número</comment>
+        Els números introduïts són:
+        1234
+        6789
+    </shell>
+
+    <p>Hi ha situacions en què és una mica enrevesada la lectura de dades. Cal tenir en 
+        compte la posició del cursor i la forma en que llegeixen les dades els mètodes.
+    </p>
+
+    <p>El primer a tenir en compte és que tots els mètodes, excepte el <w>nextLine()</w>, 
+    descarten qualsevol espai-en-blanc o salt-de-línia que troben al flux de dades de l'entrada,
+    fins que troben una dada per a llegir. Per contra, <w>nextLine()</w>, llegirà tots els 
+    caracters (incloent espais-en-blanc) fins que trobi un salt-de-línia (que descartarà).</p>
+
+    <p>Vejem els comportaments d'aquests mètodes amb varis exemples. Al fluxe de dades 
+        d'entrada indicarem els espais-en-blanc amb el símbol <w>␣</w> i els salts-de-línia 
+        amb el símbol <w>⏎</w>.
+    </p>
+
+    <ul>
+        <li><p>Exemple 1</p>
+        <p>Veiem un exmple amb el mètode <w>nextInt()</w>. Si tenim aquest programa:</p>
+
+        <code java>
+            int a = scanner.nextInt();
+        </code>
+
+        <p>i al flux d'entrada s'introdueix el següent:</p>
+
+        <shell>
+            ␣␣␣␣␣␣␣␣1234␣␣␣␣␣␣␣␣6789⏎
+        </shell>
+
+        <p>el mètode <w>nextInt()</w> descartarà els espais-en-blanc que hi ha al principi,
+        i llegirà unicament el número <w>1234</w>. Els espais-en-blanc de després i el 
+        número <w>6789</w> quedaran a l'espera de ser consumits.</p>
+
+        <shell>
+            <discard>␣␣␣␣␣␣␣␣</discard><consume>1234</consume>␣␣␣␣␣␣␣␣6789⏎
+        </shell>
+
+    </li>
+    <li>
+        <p>Exemple 2</p>
+        <p>Si tenim aquest programa:</p>
+        <code java>
+            boolean a = scanner.nextBoolean();
+            float b = scanner.nextFloat();
+            String c = scanner.next();
+            int d = scanner.nextInt();
+            String e = scanner.nextLine();
+        </code>
+
+        <p>i al flux d'entrada tenim el següent:</p>
+
+        <shell>
+            ␣␣␣true␣␣⏎
+            ␣14.5␣␣␣hola␣␣⏎
+            ␣␣2345␣␣␣que tal?␣␣⏎
+        </shell>
+
+        <p>La crida a <w>nextBoolean()</w> descartarà els espais/salts fins a llegir 
+        la dada <w>true</w>:</p>
+            <shell>
+                <discard>␣␣␣</discard><consume>true</consume>␣␣⏎
+                ␣14.5␣␣␣hola␣␣⏎
+                ␣␣2345␣␣␣que tal?␣␣⏎
+            </shell>
+
+        <p>La crida a <w>nextFloat()</w> descartarà els espais/salts fins a llegir 
+            la dada <w>14.5</w>:</p>
+            <shell>
+                <consumed>␣␣␣true</consumed><discard>␣␣⏎</discard>
+                <discard>␣</discard><consume>14.5</consume>␣␣␣hola␣␣⏎
+                ␣␣2345␣␣␣que tal?␣␣⏎
+            </shell>
+        <p>La crida a <w>next()</w> ignorarà els espais/salts fins a llegir 
+            la dada <w>hola</w>:</p>
+            <shell>
+                <consumed>␣␣␣true␣␣⏎</consumed>
+                <consumed>␣14.5</consumed><discard>␣␣␣</discard><consume>hola</consume>␣␣⏎
+                ␣␣2345␣␣␣que tal?␣␣⏎
+            </shell>
+        <p>La crida a <w>nextInt()</w> ignorarà els espais/salts fins a llegir 
+            la dada <w>2345</w>:</p>
+            <shell>
+                <consumed>␣␣␣true␣␣⏎
+                >␣14.5␣␣␣hola</consumed><discard>␣␣⏎
+                ␣␣</discard><consume>2345</consume>␣␣␣que tal?␣␣⏎
+            </shell>
+        <p>La crida a <w>nextLine()</w> no descartarà els espais i llegirà 
+            la dada <w>␣␣␣que tal?␣␣</w>, però sí que descartarà el salt-de-línia:</p>
+            <shell>
+                <consumed>␣␣␣true⏎
+                14.5␣␣␣hola␣␣⏎
+                ␣␣2345</consumed><consume>␣␣␣que tal?␣␣</consume><discard>⏎</discard>
+            </shell>
+    </li>
+    <li><p>Exemple 3</p>
+        <p>Aquest exemple mostra una situació que és una font de confusió
+            molt comuna quan s'està aprenent a utilitzar l'<w>Scanner</w>.            
+        </p>
+        <p>Considera el següent programa:</p>
+        <code java data-line="8,10">
+            import java.util.Scanner;
+
+            public class Main {
+                public static void main(String[] args){
+                    Scanner scanner = new Scanner(System.in);
+
+                    System.out.println("Introdueix un número:");
+                    int numero = scanner.nextInt();
+                    System.out.println("Introdueix un text:");
+                    String text = scanner.nextLine();
+            
+                    System.out.println("El numero és " + numero);
+                    System.out.println("El text és " + text);
+                }
+            }
+        </code>
+
+        <warn>
+            <p>Abans de seguir amb l'exemple, és interessant que escriguis aquest programa
+            i l'executis a l'IDE.</p>
+        </warn>
+
+        <p>Si has executat aquest programa, veuràs una comportaent força extrany. El programa llegeix 
+            correctament el número que introduim <ln>8</ln>, però es "salta" la lectura del text <ln>10</ln>!
+        </p>
+
+        <shell>
+            Introdueix un número:
+            <in>1234</in>
+            Introdueix un text:
+            El numero és 1234
+            El text és 
+        </shell>
+
+        <p>Veiem perquè ocorre això i com corregir-ho.</p>
+
+        <p>Quan introduim un número i després polsem <kbd>Intro</kbd>, les dades que estem 
+        posant a l'entrada estàndard són el número i un salt-de-línia:</p>
+
+        <shell>
+            1234⏎
+        </shell>
+
+        <p>La primera crida a <w>nextInt()</w> <ln>8</ln> llegeix el número, però no descarta el salt-de-línia:</p>
+
+        <shell>
+            <consume>1234</consume>⏎
+        </shell>
+
+        <p>La següent crida a <w>nextLine()</w> troba el salt-de-línia i el descarta. Per tant el que ha llegit 
+        és un <w>String</w> buit, i per això no ha esperat a que s'introdueixin més dades a l'entrada.</p>
+        <shell>
+            <consumed>1234</consumed><discard>⏎</discard>
+        </shell>
+
+        <p>La forma de corregir aquest error, és realitzar un <w>nextLine()</w> <strong>extra</strong> per 
+        a que consumeixi el salt-de-línia que hi ha a continuació del número. El programa quedaria així:</p>
+
+        <code java data-line="2,3,5">
+            System.out.println("Introdueix un número:");
+            int numero = scanner.nextInt();
+            scanner.nextLine();   // consumim el salt-de-linia
+            System.out.println("Introdueix un text:");
+            String text = scanner.nextLine();
+        </code>
+
+        <p>D'aquesta manera el primer <w>nextInt()</w> <ln>2</ln> llegirà el número:</p>
+
+        <shell>
+            <consume>1234</consume>⏎
+        </shell>
+
+        <p>El següent <w>nextLine()</w> <ln>3</ln> descartarà el salt-de-línia</p>
+        <shell>
+            <consumed>1234</consumed><discard>⏎</discard>
+        </shell>
+
+        <p>Com ja no queden dades a consumir a l'entrada, el <w>nextLine()</w> <ln>5</ln> esperarà 
+        a que s'introdueixin més dades a l'entrada.</p>
+
+        <info>
+            Com a norma general, haurem de posar un <w>nextLine()</w> <strong>extra</strong> 
+            enmig d'un
+            <br><w>nextInt()</w>, <w>nextBoolean()</w>, <w>nextFloat()</w> o <w>next()</w>, 
+            <br>i un 
+            <br><w>nextLine()</w>.
+        </info>
+    </li>
+
+    <li>
+        <p>Exemple 4</p>
+        <p>L'últim exemple que veurem també és una situació que sovint costa de resoldre, i que
+            es dona quan llegim diferents dades en una mateixa línia.
+        </p>
+
+        <p>Considerem aquest programa:</p>
+        <code java data-line="2,3">
+            System.out.println("Introdueixi la seva edat i el seu nom:");
+            int edat = scanner.nextInt();
+            String nom = scanner.nextLine();
+    
+            System.out.println("Edat:");
+            System.out.println(edat);
+            System.out.println("Nom:");
+            System.out.println(nom);
+        </code>
+
+        <shell>
+            Introdueixi la seva edat i el seu nom:
+            <in>24 Joan Ramon</in>
+            Edat:
+            24
+            Nom:
+             Joan Ramon
+        </shell>
+
+        <p>En aquest programa, l'usuari introdueix l'edat i el nom a la mateixa línia. L'edat es llegeix correctament 
+            però observa l'espai-en-blanc que s'ha llegit abans del nom.
+        </p>
+
+        <p>La crida a <w>nextInt()</w> <ln>2</ln> ha llegit el número, i ha deixat el cursor just a continuació:</p>
+        <shell>
+            <consume>24</consume>␣Joan␣Ramon⏎
+        </shell>
+
+        <p>Com el <w>nextLine()</w> <ln>3</ln> no descarta els espais, ha llegit els caracters restants fins el salt-de-línia.</p>
+        <shell>
+            <consumed>24</consumed><consume>␣Joan␣Ramon</consume><discard>⏎</discard>
+        </shell>
+
+        <p>Per a corregir aquesta anomalia, podem utilitzar el mètode <w>trim()</w>, que elimina els espais 
+        en blanc al principi d'un text. Així, quan vulguem llegir una línia, i estar segurs de que no tindrem 
+        espais molests al principi, ho podem fer així: <w>nextLine().trim()</w>.</p>
+
+        <p>El programa quedaria així:</p>
+        <code java data-line="3">
+            System.out.println("Introdueixi la seva edat i el seu nom:");
+            int edat = scanner.nextInt();
+            String nom = scanner.nextLine().trim();   // eliminem els espais al principi
+    
+            System.out.println("Edat:");
+            System.out.println(edat);
+            System.out.println("Nom:");
+            System.out.println(nom);
+        </code>
+    </li>
+
+    <quizz>
+        <question match>
+            <statement><p>Fes coincidir els mètodes de la classe <w>Scanner</w> amb el tipus de valor que llegeixen.</p></statement>
+            <o>nextInt()</o><o>int</o>
+            <o>nextBoolean()</o><o>boolean</o>
+            <o>nextFloat()</o><o>float</o>
+            <o>next()</o><o>String</o>
+        </question>
+
+        <question single>
+            <statement>
+                <p>Invoquem el mètode <w>next()</w> i introduïm el número <w>9</w> a l'entrada estàndard, quin tipus 
+                    de dada serà?</p>
+            </statement>
+            <o correct>String</o>
+            <o>char</o>
+            <o>int</o>
+            <o>float</o>
+        </question>
+    </quizz>
+    <challenge>
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/a-hello-you">Hello you</a></p>
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/cada-paraula-a-una-linia">Cada paraula a una línia</a></p>
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/contractar-un-xef">Contractar un xef</a></p>
+        <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/arxius-de-codi-font">Arxius de codi font</a></p> 
+        <p><a href=""></a></p>
+        <p><a href=""></a></p>
+        
+    </challenge>
 </section>
