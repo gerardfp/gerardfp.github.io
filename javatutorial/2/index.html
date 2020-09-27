@@ -79,14 +79,14 @@
     </p>
 
     <info>
-        <p>Una forma habitual d’entendre les variables és veure-la com una <strong>capsa</strong> 
+        <p>Una forma habitual d’entendre les variables és imaginar una variable com una <strong>capsa</strong> 
             on s’hi emmagatzema una dada o valor.</p>
         <img src="img/variable1.png">
         <hr>
         
-        <p>Així, hi haurà capses de diferents colors, per a emmagatzemar diferents
+        <p>Així, hi ha capses de diferents colors, per a emmagatzemar diferents
             <strong>tipus de dades</strong>.
-        <br>Per exemple, capses verdes per a <w>String</w> i capses blaves per a <w>int</w>:</p>
+        <br>Per exemple, capses blaves per a <w>String</w> i capses verdes per a <w>int</w>:</p>
         <img src="img/variable2.png">
         <hr>
         
@@ -144,11 +144,11 @@
 
     <code java>
         String diaDeLaSetmana = "Dilluns";
-        System.out.println(dayOfWeek); // Dilluns
+        System.out.println(diaDeLaSetmana); // Dilluns
     </code>
 
     <p>També es possible assignar el valor d'una variable a una altra variable. A la
-        línia <ln>2</ln> d'aquest codi estem assignant el valor de <w>diaDelMes</w> a <w>avui</w>:
+        línia <ln>2</ln> d'aquest codi estem assignant a <w>avui</w> el valor de <w>diaDelMes</w>:
     </p>
     <code java data-line="2">
         int diaDelMes = 25;
@@ -159,8 +159,7 @@
     <img src="img/variable8.png">
 
     <observe>
-        <p>És important notar que quan assignem el valor d'una variable a una altra, no es perd 
-        el seu valor.</p>
+        <p>És important notar que no es perd el valor d'una variable quan l'assignem a una altra variable.</p>
     </observe>
 
     <p>Una característica important de les variables és que el seu valor pot canviar.
@@ -183,7 +182,7 @@
     <code java>
         int dia = 10;    // ok
         dia = 11;        // ok
-        dia = "Dilluns"; // error!
+        dia = "Dilluns"; // error! El tipus inicial era int
     </code>
     </p>
 
@@ -234,8 +233,8 @@
     <h3>Tipus de variables</h3>
     <p>A la documentació oficial d'Oracle pots trobar els
         <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">
-        tipus de dades del llenguatge Java
-        </a>. En aquest curs utilitzarem més sovint els següents:</p>
+        tipus de dades del llenguatge Java</a>. 
+        En aquest curs utilitzarem més sovint els següents:</p>
     <ul>
         <li><w>int</w></li>
         <li><w>float</w></li>
@@ -259,7 +258,7 @@
 
     <code java>
         int edat = 18;
-        float pes = 68.7f;
+        float notaMitjana = 8.75f;
         boolean estaMatriculat = true;
         char grup = 'A';
         String email = "alumne@ins.com";
@@ -420,7 +419,7 @@
         ho agrairàs.
     </p>
 
-    <p>A més a més, has de seguir les regles i les convencions que has de seguir per a posar noms</p>
+    <p>A més a més, has de seguir les regles i les convencions que has de seguir per a posar noms.</p>
 
 
 
@@ -522,13 +521,15 @@
     Està suportada pel sistema operatiu. Per defecte, l'entrada estàndard obté les dades del 
     teclat, tot i que es possible redirigir-la per a obtenir les dades d'un fitxer.</p>
     <p>De fet, no tots els programes utilitzen l'entrada estàndard. Però nosaltres l'utilitzarem 
-        molt sovint per a que puguis arribar a dominar les teves habilitats de programació!
-        El forma típica en que resoldrem problemes és aquesta:
+        molt sovint per a demanar dades al usuaris per teclat, o per a obtenir les dades dels casos
+        de prova en els exercicis.
     </p>
+        
+    <p>La forma típica en que resoldrem problemes és aquesta:</p>
     <ol>
         <li><p>Llegir dades de l'entrada estàndard (<w>System.in</w>)</p></li>
         <li><p>Processar les dades per a obtenir un resultat</p></li>
-        <li><p>Imprimir el resultat a la sortida estàndars (<w>System.out</w>)</p></li>
+        <li><p>Imprimir el resultat a la sortida estàndard (<w>System.out</w>)</p></li>
     </ol>
 
     <p>Aquest tipus de problemes de programació es poden provar fàcilment amb diferents 
@@ -558,7 +559,7 @@
     <p>En aquesta línia hem creat un objecte de la classe <w>Scanner</w>, que ens 
     permet utilitzar els seus mètodes. Aprendrem més sobre classes i objectes més 
     endavant. <w>System.in</w> indica que es llegirà el flux de dades de l'entrada 
-    estàndard. De moment, no és necessari que comprenguis aquesta línia, solament 
+    estàndard (habitualment, el teclat). De moment, no és necessari que comprenguis aquesta línia, solament 
     escriu-la exactament així.</p>
 
     <p>Anem a escriure el primer programa que llegeix dades del teclat:</p>
@@ -582,6 +583,10 @@
         }
     </code>
 
+    <challenge>
+        <p>Prova a escriure i executar aquest programa a l'IntelliJ.</p>
+    </challenge>
+    
     <p>Quan executem el programa, veurem el següent. En verd es mostra l'entrada 
         introduïda per teclat:
     </p>
@@ -598,7 +603,7 @@
         dades introduïdes per teclat.</li>
         <li>A <ln>10</ln> utilitzem el mètode <w>nextLine()</w> per a llegir una 
         línia de dades del teclat. Guardem les dades llegides a la variable <w>nom</w></li>
-        <li>A <ln>13</ln> imprimir la variable <w>nom</w>, que conté les dades que s'han 
+        <li>A <ln>13</ln> imprimim la variable <w>nom</w>, que conté les dades que s'han 
         llegit per teclat a <ln>10</ln></li>
     </ul>
 
@@ -696,7 +701,7 @@
     </p>
 
     <p>Per exemple, el següent programa tracta de llegir un enter del teclat, però 
-        l'usuari introdueix un text. L'execució del programa s'abortarà amb una excepció 
+        l'usuari introdueix un text (<string>holaaa</string>). L'execució del programa s'abortarà amb una excepció 
         de tipus <w>InputMismatchException</w>:
     </p>
 
@@ -743,8 +748,8 @@
     </code>
 
     <p>Quan executem el programa, la primera crida a <w>nextInt()</w> <ln>2</ln>, quedarà 
-    esperant a que l'usuari introdueixi un número. Si l'usuari introdueix un únic 
-    número, aquest serà consumit de l'entrada i assignat a la variable <w>a</w>. 
+    esperant a que l'usuari introdueixi un número. Si l'usuari <strong>introdueix un únic 
+    número</strong>, aquest serà consumit de l'entrada i assignat a la variable <w>a</w>. 
     Quan es fa la segona crida a <w>nextInt()</w> <ln>4</ln>, el programa tornarà a esperar 
     a que s'introdueixi un altre número.</p>
 
@@ -758,9 +763,9 @@
         6789
     </shell>
 
-    <p>Però, si a la primera crida a <w>nextInt()</w> <ln>2</ln>, l'usuari introdueix 
-    dos números, el primer d'ells serà consumit per l'<w>scanner</w> i assignat a la 
-    variable <w>a</w>, i el segon número quedarà per consumir. Així, a la segona crida 
+    <p>Però, si a la primera crida a <w>nextInt()</w> <ln>2</ln>, l'usuari <strong>introdueix 
+    dos números</strong>, el primer d'ells serà consumit per l'<w>scanner</w> i assignat a la 
+    variable <w>a</w>, i el segon número quedarà pendent per consumir. Així, a la segona crida 
     a <w>nextInt()</w> <ln>4</ln>, l'<w>scanner</w> no esperarà a que s'introdueixi un 
     altre número, sinò que consumirà el número que havia quedat per consumir i quedarà 
     assignat a la variable <w>b</w> sense esperar a que s'introdueixi un altre número.</p>
@@ -1046,4 +1051,9 @@
         <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/carta-formal">Carta formal</a></p>
         <p><a href="https://www.hackerrank.com/contests/dam-m3/challenges/arxius-de-codi-font">Arxius de codi font</a></p>         
     </challenge>
+
+    <project>
+        <p>Completa l'Etapa 2 del <a href="/chatbot#section2">projecte ChatBOT</a></p>
+    </project>
+
 </section>

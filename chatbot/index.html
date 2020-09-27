@@ -33,12 +33,13 @@
 
     Ara ja pots començar a programar el BOT a l'arxiu <file>Main.java</file>
 </section>
+
 <section>
-    <h2>Etapa 1/4: Hola! Com et dius?</h2>
+    <h2>Etapa 1/4: Hola! Em dic Herbie</h2>
     <p>A la primera etapa, has d'escriure un bot que mostri una salutació, el seu nom i la seva 
         data de creació
     </p>
-    <p>El teu programa haurà d'imprimir les següents línies</p>
+    <p>El teu programa haurà d'imprimir les següents línies:</p>
     <shell>
         Hola! El meu nom és {botName}.
         Vaig ser creat en {birthYear}.
@@ -46,4 +47,35 @@
 
     <p>En lloc de <w>{botName}</w> imprimeix el nom que més t'agradi i substitueix <w>{birthYear}</w>
     per l'any actual.</p>
+</section>
+
+<section>
+    <h2>Etapa 2/4: I tu, com et dius?</h2>
+    <p>En aquesta segona etapa faràs que el bot interactuï amb l'usuari, mantenint una conversa
+        amb ell.
+    </p>
+    <p>Pots fer que el bot faci preguntes a l'usuari, i que guardi les respostes en variables.
+        El bot utilitzarà aquestes respostes memoritzades a mesura que vagi avançant la conversa. 
+        Així donarà la sensació de que el bot va aprenent i és "intel·ligent".
+    </p>
+
+    <p>Aquí tens un exemple de conversa que podria mantenir el bot amb un usuari:</p>
+
+    <shell>
+        Hola! El meu nom és Herbie.
+        Vaig ser creat l'any 2020.
+        I tu, com et dius?
+        <in>Alan</in>
+        Encantat
+        En quin any vas nèixer?
+        <in>1912</in>
+        Sé que estàs aprenent a programar. Quin llenguatge utilitzes?
+        <in>Java</in>
+        A la gent que heu nascut en 1912 què us agrada fer?
+        <in>desxifrar codis</in>
+        Ah què bé Alan! A mi també m'agrada desxifrar codis.
+        Utilitzes Java per fer programes relacionats amb Desxifrar codis?
+    </shell>
+
+    <p>Fixa't en que el bot ha utilitzat les respostes de l'usuari en les seves pròpies frases!</p>
 </section>
