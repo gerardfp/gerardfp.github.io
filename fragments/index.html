@@ -1,500 +1,805 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
 
-<!doctype html>
+<header>
+    <h1>Fragments</h1>
 
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <meta name="theme-color" content="#4F7DC9">
-  <meta charset="UTF-8">
-  <title>Fragments</title>
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
-  <style>
-    .success {
-      color: #1e8e3e;
-    }
-    .error {
-      color: red;
-    }
-  </style>
-</head>
-<body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-  <google-codelab codelab-gaid=""
-                  id="fragments"
-                  title="Fragments"
-                  environment="web"
-                  feedback-link="/dam-m8">
-    
-      <google-codelab-step label="Fragments" duration="0">
+    <abstract>
         <p>El objetivo de esta práctica es trabajar con <strong>Fragments</strong>.</p>
-<p>Un <a href="https://developer.android.com/reference/android/app/Fragment.html" target="_blank"><code>Fragment</code></a> representa un comportamiento o una parte de la interfaz de usuario en una <a href="https://developer.android.com/reference/android/app/Activity.html" target="_blank"><code>Activity</code></a>. </p>
-<p>Puedes combinar múltiples fragmentos en una sola actividad para crear una IU multipanel y volver a usar un fragmento en múltiples actividades. Puedes pensar en un fragmento como una sección modular de una actividad que tiene su ciclo de vida propio, recibe sus propios eventos de entrada y que puedes agregar o quitar mientras la actividad se esté ejecutando (algo así como una &#34;subactividad&#34; que puedes volver a usar en diferentes actividades).</p>
-<h2 is-upgraded><strong>Overview of Navigation</strong></h2>
-<p>The Navigation Component consists of three key parts, working together in harmony. They are:</p>
-<ol type="1" start="1">
-<li><strong>Navigation Graph</strong> (New XML resource) - This is a resource that contains all navigation-related information in one centralized location. This includes all the places in your app, known as <em>destinations</em>, and possible paths a user could take through your app.</li>
-<li><strong>NavHostFragment </strong>(Layout XML view) - This is a special widget you add to your layout. It displays different destinations from your Navigation Graph.</li>
-<li><strong>NavController </strong>(Kotlin/Java object) - This is an object that keeps track of the current position within the navigation graph. It orchestrates swapping destination content in the NavHostFragment as you move through a navigation graph.</li>
-</ol>
-<p>When you navigate, you&#39;ll use the NavController object, telling it where you want to go or what path you want to take in your Navigation Graph. The NavController will then show the appropriate destination in the NavHostFragment.</p>
-<h3 is-upgraded><a href="https://github.com/gerardfp/fragments" target="_blank">https://github.com/gerardfp/fragments</a></h3>
-<p class="image-container"><img style="width: 258.00px" src="img/aad2d5607d124407.gif"></p>
-<p class="image-container"><img style="width: 436.70px" src="img/af606f2eec6aaf3a.png"></p>
-<p class="image-container"><img style="width: 557.00px" src="img/ae63edba6ffdee29.png"></p>
+        <p>Un <a href="https://developer.android.com/reference/android/app/Fragment.html"><w>Fragment</w></a> 
+            representa un comportamiento o una parte de la interfaz de usuario en una 
+            <a href="https://developer.android.com/reference/android/app/Activity.html"><w>Activity</w></a>.</p>
+        <p>Puedes combinar múltiples fragmentos en una sola actividad para crear una IU multipanel y volver a 
+            usar un fragmento en múltiples actividades. Puedes pensar en un fragmento como una sección modular 
+            de una actividad que tiene su ciclo de vida propio, recibe sus propios eventos de entrada y que 
+            puedes agregar o quitar mientras la actividad se esté ejecutando (algo así como una 
+            &#34;subactividad&#34; que puedes volver a usar en diferentes actividades).</p>
 
+        <p>Programaremos un proceso de <a href="https://greaterdanorequalto.com/dont-waste-time-on-onboarding/">onboarding</a> para una app:</p>
+        <img src="img/aad2d5607d124407.gif">
+        <a href="https://github.com/gerardfp/fragments">https://github.com/gerardfp/fragments</a>
 
-      </google-codelab-step>
+    </abstract>
+</header>
+
+<section>
+    <h2>Vista general del componente Navigation</h2>
+    <p>El componente Navigation consiste en tres partes clave:</p>
+    <ol>
+        <li><p><strong>Navigation Graph</strong> (XML resource) - 
+            Es un recurso que contiene toda la información relativa a la navegación en un lugar centralizado.
+            Esto incluye todos los lugares de la app, conocidas como <strong>destinos</strong>, y todos los 
+            caminos posibles que un usuario puede tomar en la app</p>
+
+            <img src="img/nav_graph.png">
+        
+        </li>
+        <li><p><strong>NavHostFragment </strong>(Layout XML) - Es un widget especial que añades al layout. En él se muestran 
+            los diferentes destinos del Grafo de Navegación.</p>
+        
+            <img src="img/navhost.png">
+
+        </li>
+        <li><strong>NavController </strong> (Java object) - Es un objeto que realiza un seguimiento de la posición actual
+            dentro del grafo de navegación. Realiza el intercambio del contenido de destino en el <w>NavHostFragment</w> según 
+            el usuario se mueve por el grafo de navegación.
+        </li>
+    </ol>
+
+    <p>Cuando navegas, utilitzas el objeto <w>NavController</w>, diciéndole dónde quieres ir o 
+        qué camino quieres tomar en <strong>Grafo de Navegación</strong>. El NavController mostrará el destino
+        apropiado en el <w>NavHostFragment</w>.</p>
+
+</section>
+
     
-      <google-codelab-step label="Crea el proyecto" duration="0">
-        <p>Selecciona &#34;<strong>Empty Activity</strong>&#34; como plantilla para la MainActivity</p>
-<p>Añade las dependencias para incluir el soporte Navigation:</p>
-<pre><code>dependencies {
-  def nav_version = &#34;2.1.0&#34;
+<section>
+    <h2>Crea el proyecto</h2>
+    <p>Selecciona <menuoption>Empty Activity</menuoption> como plantilla para la <w>MainActivity</w></p>
+
+    <p>Añade las dependencias para incluir el soporte Navigation:</p>
+
+    <codefile>
+        build.gradle (Module: app)
+    </codefile>
+    <code>
+        dependencies {
+            def nav_version = &#34;2.1.0&#34;
  
-  implementation &#34;androidx.navigation:navigation-fragment:$nav_version&#34;
-  implementation &#34;androidx.navigation:navigation-ui:$nav_version&#34;
-}</code></pre>
-
-
-      </google-codelab-step>
+            implementation &#34;androidx.navigation:navigation-fragment:$nav_version&#34;
+            implementation &#34;androidx.navigation:navigation-ui:$nav_version&#34;
+        }
+    </code>
+</section>
     
-      <google-codelab-step label="Crea el Grafo de Navegación" duration="0">
-        <p>Añade 3 destinos al grafo de navegación</p>
-<p class="image-container"><img style="width: 611.00px" src="img/e156c72cca2fe4c0.gif"></p>
-<h2 is-upgraded>Añade los fragments al grafo de navegación</h2>
-<p>Abre el fichero <code>res/navigation/nav_graph.xml</code> en modo <img style="width: 59.00px" src="img/31ba50c25fd04aec.png">, y haz click sobre el icono &#34;<strong>New Destination</strong>&#34; <img style="width: 17.00px" src="img/4630cb239fc9d37b.png"></p>
-<p class="image-container"><img style="width: 736.40px" src="img/1ae033cc41249850.png"></p>
-<p>Haz click en &#34;<strong>Create new destination</strong>&#34;</p>
-<h2 is-upgraded><img style="width: 313.00px" src="img/3ecc4861e723bbec.png"></h2>
-<p>Seleciona &#34;<strong>Fragment (Blank)</strong>&#34; como plantilla para el Fragment:</p>
-<p class="image-container"><img style="width: 599.00px" src="img/11840df1fe14c150.png"></p>
-<p>Introduce el nombre <code>Onboarding1Fragment</code>:</p>
-<p class="image-container"><img style="width: 677.00px" src="img/fa125b95b4ebea7e.png"></p>
-<p>Repite el proceso para crear los fragments <code>Onboarding2Fragment</code> y <code>HomeFragment</code></p>
-<h2 is-upgraded>Conecta los destinos</h2>
-<p>La navegación entre fragments se define creando <strong>acciones</strong> de navegación.</p>
-<p>Para crear una <strong>acción</strong> hay que hacer click sobre el manejador de orgien de un fragment y arrastrarlo sobre el fragment destino:</p>
-<p class="image-container"><img style="width: 605.00px" src="img/7fdd44581bfb952a.gif"></p>
-<p>Crea las 2 acciones de navegación:</p>
-<ol type="1" start="1">
-<li>Del <code>onboarding1Fragment</code> al o<code>nboarding2Fragment</code></li>
-<li>Del <code>onboarding2Fragment</code> al <code>homeFragment</code></li>
-</ol>
-<p class="image-container"><img style="width: 595.00px" src="img/bb64e7786187d362.png"></p>
-<p>Observa que en el código XML del archivo <code>res/navigation/nav_graph.xml</code> se han añadido las acciones de navegación:</p>
-<pre><code>...
+<section>
+    <h2>Crea el Grafo de Navegación</h2>
 
-&lt;action
-    android:id=&#34;@+id/action_onboarding1Fragment_to_onboarding2Fragment&#34;
-    app:destination=&#34;@id/onboarding2Fragment&#34;/&gt;
-...
+    <p>Sobre la carpeta raiz del proyecto haz clic-derecho y selecciona 
+        <menuoption>New</menuoption> &gt; <menuoption>Android Resource File</menuoption> 
+    </p>
 
-&lt;action
-    android:id=&#34;@+id/action_onboarding2Fragment_to_homeFragment&#34;
-    app:destination=&#34;@id/homeFragment&#34; /&gt;
-...</code></pre>
-<p>Más adelante utilizaremos los identificadores de estas acciones para implementar la navegación.</p>
-<p>////////// Falta afegir lo del Start Destination</p>
-
-
-      </google-codelab-step>
+    <p>Introduce el nombre del fichero del grafo, por ejemplo: <name>nav_graph</name>. 
+        <br>En el <menuoption>Resource type</menuoption> selecciona <name>Navigation</name></p>
     
-      <google-codelab-step label="Añade el NavHost" duration="0">
-        <p class="image-container"><img style="width: 557.00px" src="img/6b3cc3c58736ab0.png"></p>
-<p>En el layout de la MainActivity (<code>activity_main.xml</code>) añade el &lt;fragment&gt; NavHost:</p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;androidx.constraintlayout.widget.ConstraintLayout
-   xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
-   android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;&gt;
-
-   &lt;fragment
-       android:id=&#34;@+id/nav_host_fragment&#34;
-       android:name=&#34;androidx.navigation.fragment.NavHostFragment&#34;
-       android:layout_width=&#34;0dp&#34;
-       android:layout_height=&#34;0dp&#34;
-       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
-       app:layout_constraintRight_toRightOf=&#34;parent&#34;
-       app:layout_constraintTop_toTopOf=&#34;parent&#34;
-       app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
-       app:defaultNavHost=&#34;true&#34;
-       app:navGraph=&#34;@navigation/nav_graph&#34; /&gt;
-
-&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre>
-
-
-      </google-codelab-step>
+    <img src="img/e156c72cca2fe4c0.gif"></p>
     
-      <google-codelab-step label="Diseña de las pantallas" duration="0">
-        <h2 is-upgraded>Añade las imágenes</h2>
-<p>Encima del directorio <code>app</code>, haz click-derecho y selecciona <code>New</code> &gt; <code>Vector Asset</code></p>
-<p class="image-container"><img style="width: 690.00px" src="img/6069e0cb451fd375.png"></p>
-<p>Selecciona <strong>Asset Type: Local file </strong>e introduce la ruta del fichero <code>onboarding1.svg</code>:</p>
-<p class="image-container"><img style="width: 703.00px" src="img/e6e53296705f0522.png"></p>
-<p>Repite lo mismo para la imagen <code>onboarding2.svg</code>.</p>
-<p class="image-container"><img style="width: 309.00px" src="img/af90d88ca5157c.png"></p>
-<h2 is-upgraded>Diseña el layout</h2>
-<p>Por defecto, el layout de los fragments creados contiene un <code>FrameLayout</code>. Este layout está pensado para contener un único <em>child</em>. Cambiémoslo por un <code>ConstraintLayout</code>:</p>
-<p>Abre el fichero <code>res/layout/fragment_onboarding1.xml</code> en modo &#34;Code&#34; y sustituye el FrameLayout por un ConstraintLayout:</p>
-<p class="image-container"><img style="width: 736.10px" src="img/26696c090d224e8f.gif"></p>
-<p>En cada pantalla añadiremos una imagen, un texto y un botón:</p>
-<p class="image-container"><img style="width: 684.00px" src="img/15391e12dc62f033.gif"></p>
-<p>Establece la propiedad <code>adjustViewBounds</code> a <code>true</code>. Esto hace que los límites (el borde) de la imagen se ajuste al tamaño de la imagen. </p>
-<p class="image-container"><img style="width: 359.68px" src="img/14e696ef878b42cf.png"><img style="width: 325.70px" src="img/6b568aa0e98e2a71.png"></p>
-<p>Añadimos también el TextView y el Botón. Modificamos algunos atributos para añadir colores de fondo, paddings, tamaños de letra, etc... También creamos las <em>constraints</em> necesarias y definimos unos <strong>identificadores</strong> apropiados:</p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
-   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
-   android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;
-   android:background=&#34;#4CAF50&#34;
-   android:padding=&#34;32dp&#34;
-   tools:context=&#34;.Onboarding1Fragment&#34;&gt;
+    <h3>Añade los fragments al grafo de navegación</h3>
+    <p>Añadiremos 3 destinos al grafo de navegación. Dos destinos para el <em>Onboarding</em>, y uno 
+        que será la pantalla <em>Home</em> de la app.
+    </p>
 
-   &lt;ImageView
-       android:id=&#34;@+id/imagen&#34;
-       android:layout_width=&#34;wrap_content&#34;
-       android:layout_height=&#34;wrap_content&#34;
-       android:adjustViewBounds=&#34;true&#34;
-       android:src=&#34;@drawable/ic_onboarding1&#34;
-       app:layout_constraintBottom_toTopOf=&#34;@+id/texto&#34;
-       app:layout_constraintTop_toTopOf=&#34;parent&#34;
-       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
-       app:layout_constraintRight_toRightOf=&#34;parent&#34;/&gt;
+    <img src="img/destinos.png">
 
-   &lt;TextView
-       android:id=&#34;@+id/texto&#34;
-       android:layout_width=&#34;wrap_content&#34;
-       android:layout_height=&#34;wrap_content&#34;
-       android:text=&#34;!Discover the garlic soup!&#34;
-       android:textColor=&#34;#FFFFFF&#34;
-       android:textSize=&#34;30sp&#34;
-       app:layout_constraintBottom_toTopOf=&#34;@+id/botonSiguiente&#34;
-       app:layout_constraintTop_toBottomOf=&#34;@id/imagen&#34;
-       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
-       app:layout_constraintRight_toRightOf=&#34;parent&#34;/&gt;
-
-   &lt;Button
-       android:id=&#34;@+id/botonSiguiente&#34;
-       android:layout_width=&#34;match_parent&#34;
-       android:layout_height=&#34;wrap_content&#34;
-       android:backgroundTint=&#34;#FFEB3B&#34;
-       android:text=&#34;Next&#34;
-       app:layout_constraintTop_toBottomOf=&#34;@id/texto&#34;
-       app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
-       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
-       app:layout_constraintRight_toRightOf=&#34;parent&#34; /&gt;
-&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre>
-<p>El resultado es este:</p>
-<p class="image-container"><img style="width: 464.36px" src="img/27b867626a1053f4.png"></p>
-<p>Para el <code>fragment_onboarding2.xml</code> cambiamos la imagen, el texto y los colores:</p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
-   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
-   android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;
-   android:background=&#34;#00BCD4&#34;
-   android:padding=&#34;32dp&#34;
-   tools:context=&#34;.Onboarding1Fragment&#34;&gt;
-
-   &lt;ImageView
-       android:id=&#34;@+id/imagen&#34;
-       android:layout_width=&#34;wrap_content&#34;
-       android:layout_height=&#34;wrap_content&#34;
-       android:adjustViewBounds=&#34;true&#34;
-       android:src=&#34;@drawable/ic_onboarding2&#34;
-       app:layout_constraintBottom_toTopOf=&#34;@+id/texto&#34;
-       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
-       app:layout_constraintRight_toRightOf=&#34;parent&#34;
-       app:layout_constraintTop_toTopOf=&#34;parent&#34; /&gt;
-
-   &lt;TextView
-       android:id=&#34;@+id/texto&#34;
-       android:layout_width=&#34;wrap_content&#34;
-       android:layout_height=&#34;wrap_content&#34;
-       android:text=&#34;¡Blow and make bottles!&#34;
-       android:textColor=&#34;#FFFFFF&#34;
-       android:textSize=&#34;30sp&#34;
-       app:layout_constraintBottom_toTopOf=&#34;@+id/botonFinalizar&#34;
-       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
-       app:layout_constraintRight_toRightOf=&#34;parent&#34;
-       app:layout_constraintTop_toBottomOf=&#34;@id/imagen&#34; /&gt;
-
-   &lt;Button
-       android:id=&#34;@+id/botonFinalizar&#34;
-       android:layout_width=&#34;match_parent&#34;
-       android:layout_height=&#34;wrap_content&#34;
-       android:backgroundTint=&#34;#FFC107&#34;
-       android:text=&#34;Finish&#34;
-       app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
-       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
-       app:layout_constraintRight_toRightOf=&#34;parent&#34;
-       app:layout_constraintTop_toBottomOf=&#34;@id/texto&#34; /&gt;
-&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre>
-<p class="image-container"><img style="width: 464.37px" src="img/3818e2f7744137f9.png"></p>
-<p><em>El diseño de la pantalla Home la obviamos en esta práctica, ya que depende de la app que se vaya a implementar.</em></p>
-
-
-      </google-codelab-step>
+    <p>Abre el fichero <file>res/navigation/nav_graph.xml</file> en modo <img src="img/31ba50c25fd04aec.png">, y haz click sobre el icono &#34;<strong>New Destination</strong>&#34; <img src="img/4630cb239fc9d37b.png"></p>
+    <img src="img/1ae033cc41249850.png"></p>
     
-      <google-codelab-step label="Implementa la Navegación" duration="0">
-        <p>El siguiente paso es añadir los <em>listeners </em>a los botones para que al ser pulsados naveguen a la siguiente pantalla.</p>
-<p>Abrimos el fichero <code>Onboarding1Fragment.java</code>. En este fichero vemos un código <em>boilerplate</em> generado por el asistente. Por el momento este código no nos interesa, así que borramos todo lo que hay antes del método <code>onCreateView</code>, hasta dejar la clase <code>Onboarding1Fragment</code> así:</p>
-<pre><code>public class Onboarding1Fragment extends Fragment {
+    <p>Haz click en <menuoption>Create new destination</menuoption></p>
+    <img src="img/3ecc4861e723bbec.png">
 
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
-       return inflater.inflate(R.layout.fragment_onboarding1, container, false);
-   }
-}</code></pre>
-<p>Con ViewBinding:</p>
-<pre><code>public class Onboarding1Fragment extends Fragment {
+    <p>Seleciona <menuoption>Fragment (Blank)</menuoption> como plantilla para el Fragment:</p>
+    <img src="img/11840df1fe14c150.png"></p>
+   
+    <p>Introduce el nombre <name>Onboarding1Fragment</name>:</p>
+    <img src="img/fa125b95b4ebea7e.png"></p>
 
-   private FragmentOnboarding1Binding binding;
+    <p>Repite el proceso para crear los fragments <name>Onboarding2Fragment</name> 
+        y <name>HomeFragment</name></p>
 
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
-       binding = FragmentOnboarding1Binding.inflate(inflater, container, false);
-       return binding.getRoot();
-   }
-}</code></pre>
-<p>Este método <code>onCreateView</code> es similar a la llamada a <code>setContentView</code> que vimos en la práctica anterior. Su función es <strong>establecer el fichero de layout</strong> para el Fragment, es decir, lo que se verá cuando se navegue a este fragment.</p>
-<h2 is-upgraded>Implementa el método onViewCreated</h2>
-<p>De forma general, podemos decir que el código que se ha de ejecutar en un fragment se pone en el método <code>onViewCreated</code>. Este método lo ejecutará el sistema android una vez se haya establecido el layout del Fragment (es decir, cuando haya terminado el <code>onCreateView</code>). Implementemos este método:</p>
-<p class="image-container"><img style="width: 671.00px" src="img/d0e9b43f332b0c50.gif"></p>
-<pre><code>public class Onboarding1Fragment extends Fragment {
+    <img src="img/creardestinos.png">
+    <observe>
+        <p>El icono <img src="img/homefragment.png"> sobre el <w>onboarding1Fragment</w> indica que este és el destino que se 
+        mostrará en primer lugar: <strong>Start Destination</strong>.</p>
 
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
-       return inflater.inflate(R.layout.fragment_onboarding1, container, false);
-   }
+        <p>Puedes cambiar en cualquier momento la Start Destination seleccionando un destino 
+            y clicando en el icono <img src="img/homefragment.png"> de la barra.</p>
+    </observe>
 
-   @Override
-   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-       super.onViewCreated(view, savedInstanceState);
-   }
-}</code></pre>
-<h2 is-upgraded>Añade los listeners a los botones</h2>
-<p>Tal como vimos en la práctica anterior, el primer paso será vincular los botones que hemos añadido en el layout XML con variables Java. Para ello usamos el método <code>findViewById()</code>.</p>
-<p>Cuando trabajamos con fragments las llamadas a findViewById() las realizaremos en sobre el parámetro <code>view</code>, del método onViewCreated. Este parámatro view que nos pasa el sistema android representa el layout que se creó en el método onCreateView.</p>
-<p>Declaramos la variable para el botón y usamos <code>findViewById</code> para vincularlo al botón del XML:</p>
-<pre><code>public class Onboarding1Fragment extends Fragment {
-
-   Button botonSiguiente;
-
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
-       return inflater.inflate(R.layout.fragment_onboarding2, container, false);
-   }
-
-   @Override
-   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-       super.onViewCreated(view, savedInstanceState);
-
-       botonSiguiente = view.findViewById(R.id.botonSiguiente);
-   }
-}</code></pre>
-<aside class="warning"><p>Si has usado ViewBinding, no es necesario crear la variable <code>botonSiguiente</code> ni hacer el <code>findViewById</code>. Simplemente accede al boton con <code>binding.botonSiguiente</code>.</p>
-</aside>
-<p>El segundo paso será añadir el <em>listener</em> al <code>botonSiguiente</code>:</p>
-<pre><code>public class Onboarding1Fragment extends Fragment {
-
-   Button botonSiguiente;
-
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
-       return inflater.inflate(R.layout.fragment_onboarding2, container, false);
-   }
-
-   @Override
-   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-       super.onViewCreated(view, savedInstanceState);
-
-       botonSiguiente = view.findViewById(R.id.botonSiguiente);
-      
-       botonSiguiente.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               // navegar al onboarding2
-           }
-       });
-   }
-}</code></pre>
-<h2 is-upgraded>Usa el NavController para navegar entre destinos</h2>
-<p>Para navegar a los diferentes destinos, android proporciona la clase <code>NavController</code>. Esta clase es la responsable de intercambiar en el NavHost los diferentes fragments de la app.</p>
-<p>Para usar el NavController, primero lo guardamos en una variable con el metodo <code>Navigation.findNavController</code>, y luego ya podemos llamar al método <code>navigate()</code> y pasarle la accion de navegacion que debe realizar.</p>
-<ol type="1" start="1">
-<li>Recuperamos el NavController con <code>findNavController</code>:<br></li>
-</ol>
-<pre><code>public class Onboarding1Fragment extends Fragment {
-
-   Button botonSiguiente;
-   NavController navController;
-
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
-       return inflater.inflate(R.layout.fragment_onboarding2, container, false);
-   }
-
-   @Override
-   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-       super.onViewCreated(view, savedInstanceState);
-
-       navController = Navigation.findNavController(view);
-      
-       botonSiguiente = view.findViewById(R.id.botonSiguiente);
-
-       botonSiguiente.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               // navegar al onboarding2
-           }
-       });
-   }
-}</code></pre>
-<ol type="1" start="2">
-<li>Llamamos al metodo <code>navigate()</code> dentro del <em>listener </em>para que navegue al siguiente Fragment cuando se haga click en el boton:<br></li>
-</ol>
-<pre><code>public class Onboarding1Fragment extends Fragment {
-
-   Button botonSiguiente;
-   NavController navController;
-
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
-       return inflater.inflate(R.layout.fragment_onboarding2, container, false);
-   }
-
-   @Override
-   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-       super.onViewCreated(view, savedInstanceState);
-
-       navController = Navigation.findNavController(view);
-
-       botonSiguiente = view.findViewById(R.id.botonSiguiente);
-
-       botonSiguiente.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               navController.navigate(R.id.action_onboarding1Fragment_to_onboarding2Fragment);
-           }
-       });
-   }
-}</code></pre>
-<p>Repetimos el mismo proceso en el <code>Onboarding2Fragment</code>, cambiando el identificador del botón, y la accion de navegación:</p>
-<pre><code>public class Onboarding2Fragment extends Fragment {
-
-   Button botonFinalizar;
-   NavController navController;
-
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
-       return inflater.inflate(R.layout.fragment_onboarding2, container, false);
-   }
-
-   @Override
-   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-       super.onViewCreated(view, savedInstanceState);
-
-       navController = Navigation.findNavController(view);
-
-       botonFinalizar = view.findViewById(R.id.botonFinalizar);
-
-       botonFinalizar.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               navController.navigate(R.id.action_onboarding2Fragment_to_homeFragment);
-           }
-       });
-   }
-}</code></pre>
-<p>Ahora puedes ejecutar la app y probar la navegación.</p>
+    <h3>Conecta los destinos</h3>
+    <p>La navegación entre destinos se define creando <strong>acciones</strong> de navegación.</p>
+    <p>Para crear una <strong>acción</strong> hay que hacer clic sobre el manejador de orgien 
+        de un destino y arrastrarlo sobre el destino:</p>
+    <img src="img/7fdd44581bfb952a.gif"></p>
 
 
-      </google-codelab-step>
+
+    <p>Crea las 2 acciones de navegación:</p>
+    <ol>
+        <li>Del <w>onboarding1Fragment</w> al <w>onboarding2Fragment</w></li>
+        <li>Del <w>onboarding2Fragment</w> al <w>homeFragment</w></li>
+    </ol>
+    <img src="img/bb64e7786187d362.png"></p>
+
+    <observe>
+        <p>Observa que en el código XML del archivo <file>res/navigation/nav_graph.xml</file> 
+            se han añadido las <w>&lt;action&gt;</w> de navegación:</p>
+
+        <codefile>
+            res/navigation/nav_graph.xml
+        </codefile>
+        <code xml>
+            ...
+
+            &lt;action
+                android:id=&#34;@+id/action_onboarding1Fragment_to_onboarding2Fragment&#34;
+                app:destination=&#34;@id/onboarding2Fragment&#34;/&gt;
+            ...
+
+            &lt;action
+                android:id=&#34;@+id/action_onboarding2Fragment_to_homeFragment&#34;
+                app:destination=&#34;@id/homeFragment&#34; /&gt;
+            ...
+        </code>
+        
+        <p>Más adelante utilizaremos los identificadores de estas acciones para implementar la navegación.</p>
+    </observe>
+</section>
     
-      <google-codelab-step label="Añade transiciones a la navegación" duration="0">
-        <p>Por defecto la transición entre los destinos de navagación es bastante insulsa. Simplemente coloca un destino sobre otro.</p>
-<p>Podemos personalizar la manera en que aparece el fragment de destino y la manera en que desaparece el fragment de origen.</p>
-<p>Las transiciones de una acción de navegación se definen en 4 atributos:</p>
-<ul>
-<li><code>enterAnim</code> y <code>exitAnim</code>: definen como entra el fragment destino y como sale el fragment origen, <strong>cuando se navega &#34;hacia adelante&#34;</strong></li>
-<li><code>popEnterAnim</code> y <code>popExitAnim</code>: definen la transición <strong>cuando se navega &#34;hacia atrás&#34;</strong> (pulsando el botón atrás)</li>
-</ul>
-<p class="image-container"><img style="width: 736.10px" src="img/b881e9cf51392d10.png"></p>
-<p>Puedes probar entre las distintas animaciones que vienen por defecto o crear tus propias animaciones. Haremos lo segundo.</p>
-<h2 is-upgraded>Define las animaciones</h2>
-<p>Para esta aplicación haremos que el fragment destino aparezca deslizandose desde la derecha, y el fragment origen desaparezca deslizandose hacia la izquierda:</p>
-<p>Para ello, definiremos cuatro animaciones: <code>slide_in_right</code>, <code>slide_in_left</code>, <code>slide_out_right</code> y <code>slide_out_left</code>.</p>
-<p>Sobre el directiorio <code>app</code>, haz click derecho y selecciona <strong>New</strong> &gt; <strong>Android Resource File</strong></p>
-<p class="image-container"><img style="width: 674.00px" src="img/4bfe505f8d42e6eb.png"></p>
-<p>Introduce el nombre de la animación &#34;slide_in_right&#34;, y selecciona &#34;Animation&#34; como Resource Type:</p>
-<p class="image-container"><img style="width: 521.00px" src="img/821e1b6a81ffaf42.png"></p>
-<p>En el fichero XML que se ha creado (<code>res/anim/slide_in_right.xml</code>), define la animación:</p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;set xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
-   &lt;translate android:fromXDelta=&#34;100%&#34; android:toXDelta=&#34;0%&#34;
-       android:fromYDelta=&#34;0%&#34; android:toYDelta=&#34;0%&#34;
-       android:duration=&#34;700&#34;/&gt;
-&lt;/set&gt;</code></pre>
-<p>Define también la animación <code>slide_out_left</code>:</p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;set xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
-   &lt;translate android:fromXDelta=&#34;0%&#34; android:toXDelta=&#34;-100%&#34;
-       android:fromYDelta=&#34;0%&#34; android:toYDelta=&#34;0%&#34;
-       android:duration=&#34;700&#34;/&gt;
-&lt;/set&gt;</code></pre>
-<p><code>slide_out_right</code>:</p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;set xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
-   &lt;translate android:fromXDelta=&#34;0%&#34; android:toXDelta=&#34;100%&#34;
-       android:fromYDelta=&#34;0%&#34; android:toYDelta=&#34;0%&#34;
-       android:duration=&#34;700&#34;/&gt;
-&lt;/set&gt;</code></pre>
-<p><code>slide_in_left</code>:</p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;set xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
-   &lt;translate android:fromXDelta=&#34;-100%&#34; android:toXDelta=&#34;0%&#34;
-       android:fromYDelta=&#34;0%&#34; android:toYDelta=&#34;0%&#34;
-       android:duration=&#34;700&#34;/&gt;
-&lt;/set&gt;</code></pre>
-<h2 is-upgraded>Asigna las animaciones a las acciones</h2>
-<p>Selecciona cada acción y establece los atributos <code>enterAnim</code>, <code>exitAnim</code>, <code>popEnterAnim</code> y <code>popExitAnim</code>:</p>
-<p class="image-container"><img style="width: 736.10px" src="img/7c650945189f97ed.png"></p>
-<p>El resultado final es este:</p>
-<p class="image-container"><img style="width: 258.00px" src="img/aad2d5607d124407.gif"></p>
-
-
-      </google-codelab-step>
+<section>
+    <h2>Añade el NavHost</h2>
+    <p>En el layout de la <w>MainActivity</w> (<file>activity_main.xml</file>) añade 
+        un <w>&lt;fragment&gt;</w> que será nuestro <w>NavHostFragment</w>:</p>
     
-      <google-codelab-step label="Práctica" duration="0">
-        <h2 is-upgraded><img style="width: 13.00px" src="img/f22abb3936d9dac0.png"> P2-Onboarding</h2>
-<p>Onboarding con 3 destinos, y la opcion de saltar</p>
-<p class="image-container"><img style="width: 332.00px" src="img/1383f2eda52a44c8.gif"></p>
-<p class="image-container"><img style="width: 736.10px" src="img/e739b44958764ed.png"></p>
+    <codefile>
+        res/layout/activity_main.xml
+    </codefile>
+    <code xml>
+        &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+        &lt;androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+        xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+        android:layout_width=&#34;match_parent&#34;
+        android:layout_height=&#34;match_parent&#34;&gt;
+
+        &lt;fragment
+            android:id=&#34;@+id/nav_host_fragment&#34;
+            android:name=&#34;androidx.navigation.fragment.NavHostFragment&#34;
+            android:layout_width=&#34;0dp&#34;
+            android:layout_height=&#34;0dp&#34;
+            app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+            app:layout_constraintRight_toRightOf=&#34;parent&#34;
+            app:layout_constraintTop_toTopOf=&#34;parent&#34;
+            app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
+            app:defaultNavHost=&#34;true&#34;
+            app:navGraph=&#34;@navigation/nav_graph&#34; /&gt;
+
+        &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code>
 
 
-      </google-codelab-step>
+</section>
     
-  </google-codelab>
+<section>
+    <h2>Diseña de las pantallas</h2>
+    <h3>Añade las imágenes</h3>
 
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+    <optional>
+        <p>Puedes descargar las imágenes del repositorio del proyecto: 
+            <br>
+            <a href="https://github.com/gerardfp/fragments/blob/master/onboarding1.svg">onboarding1.svg</a>
+            <br>
+            <a href="https://github.com/gerardfp/fragments/blob/master/onboarding2.svg">onboarding2.svg</a>
+        </p>
+        <p>O puedes usar las imágenes que quieras, por ejemplo de <a href="https://undraw.co">unDraw</a>, <a href="https://www.drawkit.io/">DrawKit</a>, <a href="https://www.humaaans.com/">humaaans</a>, <a href="https://designs.ai/graphicmaker/">design.ai</a>...</p>
+    </optional>
+    <p>Encima del directorio <directory>app</directory>, haz clic-derecho y 
+        selecciona <menuoption>New</menuoption> &gt; <menuoption>Vector Asset</menuoption></p>
+    <img src="img/6069e0cb451fd375.png"></p>
 
-</body>
-</html>
+    <p>Selecciona <menuoption>Asset Type:</menuoption> <name>Local file</name> e introduce la ruta del 
+        fichero <file>onboarding1.svg</file>:</p>
+    <img src="img/e6e53296705f0522.png"></p>
+
+    <p>Repite lo mismo para la imagen <file>onboarding2.svg</file>.</p>
+    <img src="img/af90d88ca5157c.png"></p>
+
+    <h3>Diseña el layout</h3>
+    <p>Por defecto, el layout de los fragments creados contiene un <w>FrameLayout</w>. 
+        Este layout está pensado para contener un único <em>child</em>. Cambiémoslo por 
+        un <w>ConstraintLayout</w>:</p>
+
+    <p>Abre el fichero <file>res/layout/fragment_onboarding1.xml</file> en modo 
+        <menuoption>Code</menuoption> y sustituye el <w>FrameLayout</w> por un <w>ConstraintLayout</w>:</p>
+    <img src="img/26696c090d224e8f.gif"></p>
+
+    <p>En cada pantalla añadiremos una imagen, un texto y un botón:</p>
+
+    <p>Para añadir una imagen usamos el widget <w>ImageView</w>. La imagen que se debe mostrar 
+    se define en la propiedad <incode xml>android:src</incode>.</p>
+    <p>Es importante establecer la propiedad <incode xml>android:adjustViewBounds</incode> 
+        a <w>true</w>. Esto hace que los límites (el borde) del <w>ImageView</w> se ajuste al tamaño 
+        de la imagen. </p>
+    
+    <code xml>
+        &lt;ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_onboarding1"/&gt;
+    </code>
+
+    <optional>
+        <p>También puedes usar el modo <menuoption>Design</menuoption> para añadir la imagen:</p>
+        <img src="img/15391e12dc62f033.gif">
+        <img src="img/6b568aa0e98e2a71.png">
+
+    </optional>
+
+    <p>Añadimos también el <w>TextView</w> y el <w>Button</w>.</p>
+    <p>Modificamos algunos atributos para añadir colores de fondo, paddings, tamaños de letra, 
+        etc... También creamos las <em>constraints</em> necesarias y definimos 
+        unos <strong>identificadores</strong> apropiados.</p>
+
+    <p>El layout <file>fragment_onboarding1.xml</file> queda finalmente así:</p>
+
+    <codefile>
+        <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/layout/fragment_onboarding1.xml">
+            app/src/main/res/layout/fragment_onboarding1.xml
+        </a>
+    </codefile>
+    <code xml>
+        &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+        &lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+        xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+        xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+        android:layout_width=&#34;match_parent&#34;
+        android:layout_height=&#34;match_parent&#34;
+        android:background=&#34;#4CAF50&#34;
+        android:padding=&#34;32dp&#34;
+        tools:context=&#34;.Onboarding1Fragment&#34;&gt;
+
+        &lt;ImageView
+            android:id=&#34;@+id/imagen&#34;
+            android:layout_width=&#34;wrap_content&#34;
+            android:layout_height=&#34;wrap_content&#34;
+            android:adjustViewBounds=&#34;true&#34;
+            android:src=&#34;@drawable/ic_onboarding1&#34;
+            app:layout_constraintBottom_toTopOf=&#34;@+id/texto&#34;
+            app:layout_constraintTop_toTopOf=&#34;parent&#34;
+            app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+            app:layout_constraintRight_toRightOf=&#34;parent&#34;/&gt;
+
+        &lt;TextView
+            android:id=&#34;@+id/texto&#34;
+            android:layout_width=&#34;wrap_content&#34;
+            android:layout_height=&#34;wrap_content&#34;
+            android:text=&#34;!Discover the garlic soup!&#34;
+            android:textColor=&#34;#FFFFFF&#34;
+            android:textSize=&#34;30sp&#34;
+            app:layout_constraintBottom_toTopOf=&#34;@+id/botonSiguiente&#34;
+            app:layout_constraintTop_toBottomOf=&#34;@id/imagen&#34;
+            app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+            app:layout_constraintRight_toRightOf=&#34;parent&#34;/&gt;
+
+        &lt;Button
+            android:id=&#34;@+id/botonSiguiente&#34;
+            android:layout_width=&#34;match_parent&#34;
+            android:layout_height=&#34;wrap_content&#34;
+            android:backgroundTint=&#34;#FFEB3B&#34;
+            android:text=&#34;Next&#34;
+            app:layout_constraintTop_toBottomOf=&#34;@id/texto&#34;
+            app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
+            app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+            app:layout_constraintRight_toRightOf=&#34;parent&#34; /&gt;
+        &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+    </code>
+    <p>El resultado es este:</p>
+    <img src="img/27b867626a1053f4.png"></p>
+
+    <p>Para el <file>fragment_onboarding2.xml</file> cambiamos la imagen, el texto y los colores:</p>
+    
+    <codefile>
+        <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/layout/fragment_onboarding2.xml">
+            app/src/main/res/layout/fragment_onboarding2.xml
+        </a>
+    </codefile>
+    <code xml>
+        &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+        &lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+        xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+        xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+        android:layout_width=&#34;match_parent&#34;
+        android:layout_height=&#34;match_parent&#34;
+        android:background=&#34;#00BCD4&#34;
+        android:padding=&#34;32dp&#34;
+        tools:context=&#34;.Onboarding1Fragment&#34;&gt;
+
+        &lt;ImageView
+            android:id=&#34;@+id/imagen&#34;
+            android:layout_width=&#34;wrap_content&#34;
+            android:layout_height=&#34;wrap_content&#34;
+            android:adjustViewBounds=&#34;true&#34;
+            android:src=&#34;@drawable/ic_onboarding2&#34;
+            app:layout_constraintBottom_toTopOf=&#34;@+id/texto&#34;
+            app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+            app:layout_constraintRight_toRightOf=&#34;parent&#34;
+            app:layout_constraintTop_toTopOf=&#34;parent&#34; /&gt;
+
+        &lt;TextView
+            android:id=&#34;@+id/texto&#34;
+            android:layout_width=&#34;wrap_content&#34;
+            android:layout_height=&#34;wrap_content&#34;
+            android:text=&#34;¡Blow and make bottles!&#34;
+            android:textColor=&#34;#FFFFFF&#34;
+            android:textSize=&#34;30sp&#34;
+            app:layout_constraintBottom_toTopOf=&#34;@+id/botonFinalizar&#34;
+            app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+            app:layout_constraintRight_toRightOf=&#34;parent&#34;
+            app:layout_constraintTop_toBottomOf=&#34;@id/imagen&#34; /&gt;
+
+        &lt;Button
+            android:id=&#34;@+id/botonFinalizar&#34;
+            android:layout_width=&#34;match_parent&#34;
+            android:layout_height=&#34;wrap_content&#34;
+            android:backgroundTint=&#34;#FFC107&#34;
+            android:text=&#34;Finish&#34;
+            app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
+            app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+            app:layout_constraintRight_toRightOf=&#34;parent&#34;
+            app:layout_constraintTop_toBottomOf=&#34;@id/texto&#34; /&gt;
+        &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+    </code>
+    <img src="img/3818e2f7744137f9.png"></p>
+
+    <warn>
+        <p><em>El diseño de la pantalla Home la obviamos en esta práctica, ya que depende de la app que se vaya a implementar.</em></p>
+    </warn>
+</section>
+    
+
+
+
+<section>
+    <h2>Implementa la Navegación</h2>
+    <p>El siguiente paso es añadir los <em>listeners </em>a los botones para que al ser pulsados 
+        naveguen a la siguiente pantalla.</p>
+    <p>Abrimos el fichero <file>Onboarding1Fragment.java</file>. En este fichero vemos un 
+        código <em>boilerplate</em> generado por el asistente. Por el momento este código no 
+        nos interesa, así que <strong>borramos</strong> todo lo que hay antes del método 
+        <w>onCreateView()</w>, hasta dejar la clase <w>Onboarding1Fragment</w> así:</p>
+    
+    <codefile>
+        Onboarding1Fragment.java
+    </codefile>
+    <code java>
+        public class Onboarding1Fragment extends Fragment {
+
+            @Override
+            public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                        Bundle savedInstanceState) {
+                return inflater.inflate(R.layout.fragment_onboarding1, container, false);
+            }
+        }
+    </code>
+    
+    <optional>
+        <p>Con ViewBinding:</p>
+        <code java>
+            public class Onboarding1Fragment extends Fragment {
+    
+                private FragmentOnboarding1Binding binding;
+            
+                @Override
+                public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                            Bundle savedInstanceState) {
+                    binding = FragmentOnboarding1Binding.inflate(inflater, container, false);
+                    return binding.getRoot();
+                }
+            }
+        </code>
+    </optional>
+    
+    <info>
+        <p>Este método <w>onCreateView()</w> es similar a la llamada a <w>setContentView()</w> que 
+            vimos en la práctica anterior. Su función es <strong>establecer el fichero de 
+                layout</strong> para el Fragment, es decir, lo que se verá cuando se 
+                navegue a este fragment.</p>    
+    </info>
+    
+    <h3>Implementa el método onViewCreated()</h3>
+    <p>De forma general, podemos decir que el código que se ha de ejecutar en un fragment se 
+        pone en el método <w>onViewCreated()</w>. Este método lo ejecutará el Sistema 
+        Android una vez se haya establecido el layout del Fragment (es decir, cuando haya 
+        terminado el <w>onCreateView()</w>).</p> 
+    
+    <p>Implementemos este método:</p>
+    <img src="img/d0e9b43f332b0c50.gif">
+
+    <codefile>
+        Onboarding1Fragment.java
+    </codefile>
+    <code java data-line="9,10,11,12">
+        public class Onboarding1Fragment extends Fragment {
+
+            @Override
+            public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                        Bundle savedInstanceState) {
+                return inflater.inflate(R.layout.fragment_onboarding1, container, false);
+            }
+
+            @Override
+            public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                super.onViewCreated(view, savedInstanceState);
+            }
+        }
+    </code>
+    
+    <h3>Añade los listeners a los botones</h3>
+    <p>Tal como vimos en la práctica anterior, el primer paso será <strong>vincular los botones</strong> 
+        que hemos añadido en el layout XML <strong>con variables Java</strong>. Para ello usamos el 
+        método <w>findViewById()</w>.</p>
+    <p>Cuando trabajamos con fragments las llamadas a <w>findViewById()</w> las realizaremos 
+        en sobre el parámetro <w>view</w>, del método <w>onViewCreated()</w>. Este parámatro 
+        <w>view</w> que nos pasa el Sistema Android corresponde al layout que se creó en el método
+         <w>onCreateView()</w>.</p>
+
+    <img src="img/viewparam.png">
+
+    <p>Declaramos la variable para el botón y usamos <w>findViewById()</w> para vincularlo al 
+        botón del XML:</p>
+    
+    <codefile>
+        Onboarding1Fragment.java
+    </codefile>
+    <code java data-line="3, 15">
+        public class Onboarding1Fragment extends Fragment {
+
+            Button botonSiguiente;
+
+            @Override
+            public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                        Bundle savedInstanceState) {
+                return inflater.inflate(R.layout.fragment_onboarding2, container, false);
+            }
+
+            @Override
+            public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                super.onViewCreated(view, savedInstanceState);
+
+                botonSiguiente = view.findViewById(R.id.botonSiguiente);
+            }
+        }
+    </code>
+    
+    <optional>
+        <p>Si has usado ViewBinding, no es necesario crear la variable 
+            <w>botonSiguiente</w> ni llamar a <w>findViewById()</w>.
+            Simplemente accede al boton con <w>binding.botonSiguiente</w>.</p>
+    </optional>
+
+    <p>El segundo paso será añadir el <em>listener</em> al <w>botonSiguiente</w>:</p>
+    
+    <codefile>
+        Onboarding1Fragment.java
+    </codefile>
+    <code java data-line="17-22">
+        public class Onboarding1Fragment extends Fragment {
+
+            Button botonSiguiente;
+
+            @Override
+            public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                        Bundle savedInstanceState) {
+                return inflater.inflate(R.layout.fragment_onboarding2, container, false);
+            }
+
+            @Override
+            public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                super.onViewCreated(view, savedInstanceState);
+
+                botonSiguiente = view.findViewById(R.id.botonSiguiente);
+                
+                botonSiguiente.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // navegar al onboarding2
+                    }
+                });
+            }
+        }
+    </code>
+    
+    <h3>Usa el NavController para navegar entre destinos</h3>
+    <p>Para navegar a los diferentes destinos, android proporciona la 
+        clase <w>NavController</w>. Esta clase es la responsable de intercambiar en el 
+        <w>NavHost</w> los diferentes fragments de la app.</p>
+    <p>Para usar el <w>NavController</w>, primero lo guardamos en una variable con el 
+        metodo <w>Navigation.findNavController()</w>, y luego ya podemos llamar al método 
+        <w>navigate()</w> y pasarle la acción de navegacion que se debe realizar.</p>
+    
+    <ol>
+        <li>
+            <p>Recuperamos el NavController con <w>findNavController()</w>:</p>
+
+            <codefile>
+                Onboarding1Fragment.java
+            </codefile>
+            <code java data-line="4,16">
+                public class Onboarding1Fragment extends Fragment {
+
+                    Button botonSiguiente;
+                    NavController navController;
+
+                    @Override
+                    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                                Bundle savedInstanceState) {
+                        return inflater.inflate(R.layout.fragment_onboarding2, container, false);
+                    }
+
+                    @Override
+                    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                        super.onViewCreated(view, savedInstanceState);
+
+                        navController = Navigation.findNavController(view);
+                        
+                        botonSiguiente = view.findViewById(R.id.botonSiguiente);
+
+                        botonSiguiente.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // navegar al onboarding2
+                            }
+                        });
+                    }
+                }
+            </code>
+   
+        <li><p>Llamamos al metodo <w>navigate()</w> dentro del <em>listener</em> para 
+            que navegue al siguiente Fragment cuando se haga clic en el boton:</p>
+    
+            <codefile>
+                <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/java/com/company/p2onboarding/Onboarding1Fragment.java">
+                    Onboarding1Fragment.java
+                </a>
+            </codefile>
+            <code java data-line="23">
+                public class Onboarding1Fragment extends Fragment {
+
+                    Button botonSiguiente;
+                    NavController navController;
+
+                    @Override
+                    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                                Bundle savedInstanceState) {
+                        return inflater.inflate(R.layout.fragment_onboarding2, container, false);
+                    }
+
+                    @Override
+                    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                        super.onViewCreated(view, savedInstanceState);
+
+                        navController = Navigation.findNavController(view);
+
+                        botonSiguiente = view.findViewById(R.id.botonSiguiente);
+
+                        botonSiguiente.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                navController.navigate(R.id.action_onboarding1Fragment_to_onboarding2Fragment);
+                            }
+                        });
+                    }
+                }
+            </code>
+            <p>El parámetro pasado al método <w>navigate()</w> es el identificador de la acción de 
+            navegación que se quiere realizar. En este caso del <em>onboarding1 al onboarding2</em>.</p>
+        </li>
+    </ol>
+
+    <p>Repetimos el mismo proceso en el <w>Onboarding2Fragment</w>, cambiando el identificador 
+        del botón, y el identificador de la accion de navegación:</p>
+    
+    <codefile>
+        <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/java/com/company/p2onboarding/Onboarding2Fragment.java">
+            Onboarding2Fragment.java
+        </a>
+    </codefile>
+    <code java>
+        public class Onboarding2Fragment extends Fragment {
+
+            Button botonFinalizar;
+            NavController navController;
+
+            @Override
+            public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                        Bundle savedInstanceState) {
+                return inflater.inflate(R.layout.fragment_onboarding2, container, false);
+            }
+
+            @Override
+            public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                super.onViewCreated(view, savedInstanceState);
+
+                navController = Navigation.findNavController(view);
+
+                botonFinalizar = view.findViewById(R.id.botonFinalizar);
+
+                botonFinalizar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        navController.navigate(R.id.action_onboarding2Fragment_to_homeFragment);
+                    }
+                });
+            }
+        }
+    </code>
+   
+    <p><strong>Ahora puedes ejecutar la app y probar la navegación.</strong></p>
+</section>
+    
+<section>
+    <h2>Añade transiciones a la navegación</h2>
+    <p>Por defecto la transición entre los destinos de navagación es bastante insulsa. 
+        Simplemente coloca un destino sobre otro.</p>
+    <p>Podemos personalizar la manera en que aparece el fragment de destino y la manera en 
+        que desaparece el fragment de origen.</p>
+    
+    <p>Las transiciones de una acción de navegación (<w>&lt;action&gt;</w>) se definen en 4 atributos:</p>
+    
+    <ul>
+        <li><w>enterAnim</w> y <w>exitAnim</w>: definen como entra el fragment 
+            destino y como sale el fragment origen, <strong>cuando se 
+                navega &#34;hacia adelante&#34;</strong></li>
+        <li><w>popEnterAnim</w> y <w>popExitAnim</w>: definen la transición 
+        <strong>cuando se navega &#34;hacia atrás&#34;</strong> (pulsando el botón atrás)</li>
+    </ul>
+
+    <p>Android incorpora una serie de animaciones por defecto, y también permite 
+        definir tus propias animaciones. Haremos lo segundo.</p>
+    
+    <h3>Define las animaciones</h3>
+    <p>Para esta aplicación haremos que el fragment destino aparezca deslizándose 
+        desde la derecha, y el fragment origen desaparezca deslizandose hacia la izquierda:</p>
+    
+    <p>Para ello, definiremos cuatro animaciones: <w>slide_in_right</w>, 
+        <w>slide_in_left</w>, <w>slide_out_right</w> y <w>slide_out_left</w>.</p>
+    
+    <p>Sobre el directiorio <directory>app</directory>, haz clic-derecho y selecciona 
+        <menuoption>New</menuoption> &gt; <menuoption>Android Resource File</menuoption></p>
+    <img src="img/4bfe505f8d42e6eb.png">
+    
+    <p>Introduce el nombre de la animación <name>slide_in_right</name>, y selecciona 
+        <name>Animation</name> como <menuoption>Resource Type</menuoption>:</p>
+    <img src="img/821e1b6a81ffaf42.png"></p>
+    
+    <p>En el fichero <file>res/anim/slide_in_right.xml</file> que se ha creado, 
+        define la animación <w>slide_in_right</w>:</p>
+    
+    <codefile>
+        <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/anim/slide_in_right.xml">
+            slide_in_right.xml
+        </a>
+    </codefile>
+    <code xml>
+        &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+        &lt;set xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
+        &lt;translate 
+            android:fromXDelta=&#34;100%&#34; android:toXDelta=&#34;0%&#34;
+            android:duration=&#34;700&#34;/&gt;
+        &lt;/set&gt;
+    </code>
+
+    <p>Define también la animación <w>slide_out_left</w>:</p>
+    <codefile>
+        <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/anim/slide_out_left.xml">
+            slide_out_left.xml
+        </a>
+    </codefile>
+    <code xml>
+        &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+        &lt;set xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
+        &lt;translate 
+            android:fromXDelta=&#34;0%&#34; android:toXDelta=&#34;-100%&#34;
+            android:duration=&#34;700&#34;/&gt;
+        &lt;/set&gt;
+    </code>
+
+    <p>La animación <w>slide_out_right</w>:</p>
+    <codefile>
+        <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/anim/slide_out_right.xml">
+            slide_out_right.xml
+        </a>
+    </codefile>
+    <code xml>
+        &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+        &lt;set xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
+        &lt;translate 
+            android:fromXDelta=&#34;0%&#34; android:toXDelta=&#34;100%&#34;
+            android:duration=&#34;700&#34;/&gt;
+        &lt;/set&gt;
+    </code>
+    
+    <p>Y la animación <w>slide_in_left</w>:</p>
+    <codefile>
+        <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/anim/slide_in_left.xml">
+            slide_in_left.xml
+        </a>
+    </codefile>
+    <code xml>
+        &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+        &lt;set xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
+        &lt;translate 
+            android:fromXDelta=&#34;-100%&#34; android:toXDelta=&#34;0%&#34;
+            android:duration=&#34;700&#34;/&gt;
+        &lt;/set&gt;
+    </code>
+
+    <info>
+        <p>En las animaciones que hemos creado, simplemente realizamos un movimiento (<w>translate</w>) 
+        horizontal (<w>fromXDelta</w> -> <w>toXDelta</w>).</p>
+
+        <p>Hay diversos tipos de animación que se pueden crear: transparencias, tamaños, rotación.</p> 
+            
+        <p>Para +info consulta: 
+            <a href="https://developer.android.com/guide/topics/resources/animation-resource#View">
+            Animación de vistas</a>.
+        </p>
+
+        <p>Además de las animaciones en la navegación, Android incorpora el <w>MotionLayout</w> 
+            para crear animaciones dentro de una "pantalla". Consulta 
+            <a href="https://developer.android.com/studio/write/motion-editor">
+                Construye animaciones con el Motion Editor
+            </a>
+        </p>
+    </info>
+    
+    <h3>Asigna las animaciones a las acciones</h3>
+
+    <p>Abre el fichero <file>nav_graph.xml</file> y establece los siguientes atributos a las 
+    <strong>dos</strong> acciones:</p>
+
+    <codefile>
+        <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/navigation/nav_graph.xml">
+            nav_graph.xml
+        </a>
+    </codefile>
+    <code xml data-line="3-6">
+        &lt;action
+            ...
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" /&gt;
+    </code>
+
+    <optional>
+        <p>También lo puedes hacer en modo <menuoption>Design</menuoption>.</p>
+        <p>Selecciona cada acción y establece los atributos 
+            <w>enterAnim</w>, <w>exitAnim</w>, <w>popEnterAnim</w> y <w>popExitAnim</w>:</p>
+        <img src="img/7c650945189f97ed.png"></p>    
+    </optional>
+    
+    <p>El resultado final es este:</p>
+    <img src="img/aad2d5607d124407.gif"></p>
+
+</section>
+    
+<section>
+    <h2>Práctica</h2>
+    <img src="img/f22abb3936d9dac0.png"> P2-Onboarding
+    <p>Onboarding con 3 destinos, y la opcion de saltar. Animaciones</p>
+    <img src="img/1383f2eda52a44c8.gif"></p>
+    <img src="img/e739b44958764ed.png"></p>
+</section>
