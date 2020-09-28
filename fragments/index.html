@@ -49,7 +49,7 @@
         </li>
     </ol>
 
-    <p>Cuando navegas, utilitzas el objeto <w>NavController</w>, diciéndole dónde quieres ir o 
+    <p>Cuando navegas, utilizas el objeto <w>NavController</w>, diciéndole dónde quieres ir o 
         qué camino quieres tomar en <strong>Grafo de Navegación</strong>. El NavController mostrará el destino
         apropiado en el <w>NavHostFragment</w>.</p>
 
@@ -67,12 +67,20 @@
     </codefile>
     <code>
         dependencies {
-            def nav_version = &#34;2.1.0&#34;
+            def nav_version = &#34;2.3.0&#34;
  
             implementation &#34;androidx.navigation:navigation-fragment:$nav_version&#34;
             implementation &#34;androidx.navigation:navigation-ui:$nav_version&#34;
         }
     </code>
+
+    <optional>
+        <p>
+        Puedes añadir las dependencias ahora mismo, o también puedes dejar que sea 
+        el propio Android Studio el que las añada automáticamente cuando crees 
+        el grafo de navegación en la siguiente sección.
+    </p>
+    </optional>
 </section>
     
 <section>
@@ -111,17 +119,18 @@
 
     <img src="img/creardestinos.png">
     <observe>
-        <p>El icono <img src="img/homefragment.png"> sobre el <w>onboarding1Fragment</w> indica que este és el destino que se 
-        mostrará en primer lugar: <strong>Start Destination</strong>.</p>
+        <p>El icono <img src="img/homefragment.png"> sobre el <w>onboarding1Fragment</w> indica 
+            que este es el destino que se 
+        mostrará en primer lugar: el <strong>Start Destination</strong>.</p>
 
-        <p>Puedes cambiar en cualquier momento la Start Destination seleccionando un destino 
+        <p>Puedes cambiar en cualquier momento el Start Destination seleccionando un destino 
             y clicando en el icono <img src="img/homefragment.png"> de la barra.</p>
     </observe>
 
     <h3>Conecta los destinos</h3>
     <p>La navegación entre destinos se define creando <strong>acciones</strong> de navegación.</p>
     <p>Para crear una <strong>acción</strong> hay que hacer clic sobre el manejador de orgien 
-        de un destino y arrastrarlo sobre el destino:</p>
+        de un destino y arrastrarlo sobre el siguiente destino:</p>
     <img src="img/7fdd44581bfb952a.gif"></p>
 
 
@@ -161,7 +170,7 @@
 <section>
     <h2>Añade el NavHost</h2>
     <p>En el layout de la <w>MainActivity</w> (<file>activity_main.xml</file>) añade 
-        un <w>&lt;fragment&gt;</w> que será nuestro <w>NavHostFragment</w>:</p>
+        un <w>&lt;fragment&gt;</w> que será el <w>NavHostFragment</w>:</p>
     
     <codefile>
         res/layout/activity_main.xml
@@ -186,8 +195,13 @@
             app:defaultNavHost=&#34;true&#34;
             app:navGraph=&#34;@navigation/nav_graph&#34; /&gt;
 
-        &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code>
+        &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+    </code>
 
+    <p>Puedes ver el <w>NavHostFragment</w> como un hueco en el cual se irán poniendo 
+    los diferentes destinos según se vaya navegando. Observa que lo hemos enlazado con el grafo 
+    de navegación que acabamos de crear mediante el atributo 
+    <w>app:navGraph=&#34;@navigation/nav_graph&#34;</w></p>
 
 </section>
     
@@ -227,8 +241,8 @@
     <p>En cada pantalla añadiremos una imagen, un texto y un botón:</p>
 
     <p>Para añadir una imagen usamos el widget <w>ImageView</w>. La imagen que se debe mostrar 
-    se define en la propiedad <incode xml>android:src</incode>.</p>
-    <p>Es importante establecer la propiedad <incode xml>android:adjustViewBounds</incode> 
+    se define en el atributo <w>android:src</w>.</p>
+    <p>Es importante establecer el atributo <w>android:adjustViewBounds</w> 
         a <w>true</w>. Esto hace que los límites (el borde) del <w>ImageView</w> se ajuste al tamaño 
         de la imagen. </p>
     
@@ -421,8 +435,8 @@
     <h3>Implementa el método onViewCreated()</h3>
     <p>De forma general, podemos decir que el código que se ha de ejecutar en un fragment se 
         pone en el método <w>onViewCreated()</w>. Este método lo ejecutará el Sistema 
-        Android una vez se haya establecido el layout del Fragment (es decir, cuando haya 
-        terminado el <w>onCreateView()</w>).</p> 
+        Android una vez se haya establecido el layout del Fragment, es decir, cuando haya 
+        terminado el <w>onCreateView()</w>.</p> 
     
     <p>Implementemos este método:</p>
     <img src="img/d0e9b43f332b0c50.gif">
@@ -486,7 +500,7 @@
     <optional>
         <p>Si has usado ViewBinding, no es necesario crear la variable 
             <w>botonSiguiente</w> ni llamar a <w>findViewById()</w>.
-            Simplemente accede al boton con <w>binding.botonSiguiente</w>.</p>
+            Simplemente accede al botón con <w>binding.botonSiguiente</w>.</p>
     </optional>
 
     <p>El segundo paso será añadir el <em>listener</em> al <w>botonSiguiente</w>:</p>
@@ -526,7 +540,7 @@
         clase <w>NavController</w>. Esta clase es la responsable de intercambiar en el 
         <w>NavHost</w> los diferentes fragments de la app.</p>
     <p>Para usar el <w>NavController</w>, primero lo guardamos en una variable con el 
-        metodo <w>Navigation.findNavController()</w>, y luego ya podemos llamar al método 
+        método <w>Navigation.findNavController()</w>, y luego ya podemos llamar al método 
         <w>navigate()</w> y pasarle la acción de navegacion que se debe realizar.</p>
     
     <ol>
@@ -567,7 +581,7 @@
             </code>
    
         <li><p>Llamamos al metodo <w>navigate()</w> dentro del <em>listener</em> para 
-            que navegue al siguiente Fragment cuando se haga clic en el boton:</p>
+            que navegue al siguiente Fragment cuando se haga clic en el botón:</p>
     
             <codefile>
                 <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/java/com/company/p2onboarding/Onboarding1Fragment.java">
@@ -603,13 +617,14 @@
                     }
                 }
             </code>
-            <p>El parámetro pasado al método <w>navigate()</w> es el identificador de la acción de 
-            navegación que se quiere realizar. En este caso del <em>onboarding1 al onboarding2</em>.</p>
+            <p>El parámetro pasado al método <w>navigate()</w> es el identificador de la 
+                <strong>acción de navegación</strong> que se debe realizar. En este caso 
+                del <em>onboarding1 al onboarding2</em>.</p>
         </li>
     </ol>
 
     <p>Repetimos el mismo proceso en el <w>Onboarding2Fragment</w>, cambiando el identificador 
-        del botón, y el identificador de la accion de navegación:</p>
+        del botón, y el identificador de la acción de navegación:</p>
     
     <codefile>
         <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/java/com/company/p2onboarding/Onboarding2Fragment.java">
@@ -671,7 +686,7 @@
     
     <h3>Define las animaciones</h3>
     <p>Para esta aplicación haremos que el fragment destino aparezca deslizándose 
-        desde la derecha, y el fragment origen desaparezca deslizandose hacia la izquierda:</p>
+        desde la derecha, y el fragment origen desaparezca deslizándose hacia la izquierda:</p>
     
     <p>Para ello, definiremos cuatro animaciones: <w>slide_in_right</w>, 
         <w>slide_in_left</w>, <w>slide_out_right</w> y <w>slide_out_left</w>.</p>
@@ -748,7 +763,7 @@
 
     <info>
         <p>En las animaciones que hemos creado, simplemente realizamos un movimiento (<w>translate</w>) 
-        horizontal (<w>fromXDelta</w> -> <w>toXDelta</w>).</p>
+        horizontal (<w>fromXDelta</w> 🡒 <w>toXDelta</w>).</p>
 
         <p>Hay diversos tipos de animación que se pueden crear: transparencias, tamaños, rotación.</p> 
             
