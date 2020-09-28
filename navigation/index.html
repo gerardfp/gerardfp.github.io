@@ -40,33 +40,74 @@
         los elementos que intervienen.</p>    
     </warn>
 
-    <p>Selecciona &#34;<strong>Empty Activity</strong>&#34; como plantilla para la MainActivity</p>
+    <ol>
 
-    <p>Añade las dependencias para incluir el soporte Navigation</p>
-    <code>
-        dependencies {
-            implementation &#39;com.google.android.material:material:1.0.0&#39;
+    <li>
+        <p>Selecciona &#34;<strong>Empty Activity</strong>&#34; como plantilla para la MainActivity</p>
+    </li>
 
-            implementation &#39;androidx.navigation:navigation-fragment:2.3.0&#39;
-            implementation &#39;androidx.navigation:navigation-ui:2.3.0&#39;
-        }
-    </code>
+    <li>
+        <p>Añade las dependencias para incluir el componente Navigation</p>
+    
+        <codefile>
+            build.gradle (Module: app)
+        </codefile>
+        <code>
+            dependencies {
+                implementation &#39;com.google.android.material:material:1.0.0&#39;
 
-    <p>Crea también el grafo de navegación: <file>res/navigation/nav_graph.xml</file></p>
+                implementation &#39;androidx.navigation:navigation-fragment:2.3.0&#39;
+                implementation &#39;androidx.navigation:navigation-ui:2.3.0&#39;
+            }
+        </code>
+    </li> 
 
-    <img src="img/create_nav_graph.png">
+    <li>
+        <p>Crea también el grafo de navegación: <file>res/navigation/nav_graph.xml</file></p>
+
+        <img src="img/create_nav_graph.png">
+    </li>
+</ol>
+
 </section>
 
 <section>
     <h2>NavigationMenu</h2>
-    <ol>
+
+    <p>El <w>NavigationView</w> (más conocido como "Drawer menu") es el menú de navegación que 
+    suele aparecer por la izquierda de la app cuando se pulsa el icono Hamburger <img src="img/hamburger.png">.</p>
+
+    <p>Normalmente tiene dos partes: la cabecera y el menú:</p>
+    
+    <img src="img/navigationview.png">
+
+    <ul>
+
         <li>
-            <p>Crea el archivo de menu para el Drawer 
-            (<file>res/menu/activity_main_drawer.xml</file>):</p>
+            <p>El layout de la <strong>cabecera</strong> se crea en un fichero a parte, y luego se 
+            enlaza con el menú. Definiremos la cabecera en el archivo <file>res/layout/nav_header_main.xml</file>.</p>
+
+            <p>Haz clic-derecho sobre la carpeta <directory>res/layout</directory> y ve a <menuoption>New</menuoption> &gt; <menuoption>Layout Resource File</menuoption> e 
+            introduce el <menuoption>File name</menuoption>: <name>nav_header_main</name></p>
+
+            <img src="img/3b87eacadcef691.png">
+        </li>
+
+        <li>
+            <p>Los <strong>items del menu</strong> también se definen en un fichero a parte. Esta vez 
+            en un fichero de recurso menú: <file>res/menu/activity_main_drawer.xml</file></p>
+
+            <p>Haz clic-derecho sobre la carpeta <directory>res</directory> y ve a 
+                <menuoption>New</menuoption> &gt; <menuoption>Android Resource File</menuoption> e 
+                introduce el <menuoption>File name</menuoption>: <name>nav_header_main</name>, 
+            y selecciona <menuoption>Resource type</menuoption>: <name>Menu</name>.</p>
+
             <img src="img/b50dcc0268531c4e.png">
         </li>
-        <li>Crea el archivo de menu para el OptionsMenu (<code>res/menu/main.xml</code>):<br><br><img src="img/93b243bbe3fd7edc.png"><br></li>
-        <li>Crea el archivo de layout para la cabecera del Drawer (<code>res/layout/nav_header_main</code>):<br><br><img src="img/3b87eacadcef691.png"><br></li>
+    </ul>
+
+    <ol>
+       
         <li>Añade los siguientes estilos al fichero <code>res/values/styles.xml</code>:<br></li>
     </ol>
     <code xml>
@@ -361,6 +402,8 @@ NavigationUI.setupWithNavController(bottomNavView, navController);</code>
       </section>
     
       <section><h2>OptionsMenu</h2>
+        <li>Crea el archivo de menu para el OptionsMenu (<code>res/menu/main.xml</code>):<br><br><img src="img/93b243bbe3fd7edc.png"><br></li>
+
         <p>Añadiremos tres nuevas destinaciones que serán accesibles desde el <strong>Options Menu</strong>.<br><br>Las llamaremos <code>Options1Fragment</code>, <code>Options2Fragment</code> y <code>Options3Fragment</code>:</p>
 <p>Crea estas 3 destinaciones:</p>
 <ol>

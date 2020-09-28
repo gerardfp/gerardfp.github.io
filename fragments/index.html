@@ -58,29 +58,37 @@
     
 <section>
     <h2>Crea el proyecto</h2>
-    <p>Selecciona <menuoption>Empty Activity</menuoption> como plantilla para la <w>MainActivity</w></p>
+    <ol>
+        <li>
 
-    <p>Añade las dependencias para incluir el soporte Navigation:</p>
+            <p>Selecciona <menuoption>Empty Activity</menuoption> como plantilla para la <w>MainActivity</w></p>
+        </li>
 
-    <codefile>
-        build.gradle (Module: app)
-    </codefile>
-    <code>
-        dependencies {
-            def nav_version = &#34;2.3.0&#34;
- 
-            implementation &#34;androidx.navigation:navigation-fragment:$nav_version&#34;
-            implementation &#34;androidx.navigation:navigation-ui:$nav_version&#34;
-        }
-    </code>
+        <li>
+            <p>Añade las dependencias para incluir el soporte Navigation:</p>
 
-    <optional>
-        <p>
-        Puedes añadir las dependencias ahora mismo, o también puedes dejar que sea 
-        el propio Android Studio el que las añada automáticamente cuando crees 
-        el grafo de navegación en la siguiente sección.
-    </p>
-    </optional>
+            <codefile>
+                build.gradle (Module: app)
+            </codefile>
+            <code>
+                dependencies {
+                    def nav_version = &#34;2.3.0&#34;
+        
+                    implementation &#34;androidx.navigation:navigation-fragment:$nav_version&#34;
+                    implementation &#34;androidx.navigation:navigation-ui:$nav_version&#34;
+                }
+            </code>
+
+            <optional>
+                <p>
+                Puedes añadir las dependencias ahora mismo, o también puedes dejar que sea 
+                el propio Android Studio el que las añada automáticamente cuando crees 
+                el grafo de navegación en la siguiente sección.
+            </p>
+            </optional>
+        </li>
+    </ol>
+
 </section>
     
 <section>
