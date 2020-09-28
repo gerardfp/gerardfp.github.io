@@ -520,7 +520,7 @@
     <file>build.gradle (Module: app)</file> y añadir la siguiente configuración:</p>
 
   <codefile><a href="https://github.com/gerardfp/ContadorDeClics/blob/master/app/build.gradle" target="_blank">app/build.gradle</a></codefile>
-  <code none>
+  <code none data-line="3-5">
     android {
       . . .
       buildFeatures {
@@ -533,7 +533,7 @@
   a los elementos XML. También hay que modificar la llamada a <incode java>setContentView()</incode>, 
   de la siguiente manera:</p>
   
-  <code java>
+  <code java data-line="3,10,11">
     public class MainActivity extends AppCompatActivity {
 
       ActivityMainBinding binding;
