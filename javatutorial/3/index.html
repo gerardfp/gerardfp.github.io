@@ -290,7 +290,41 @@
 
     <p><w>()</w>&nbsp;&nbsp; 🡒&nbsp;&nbsp; <w>!</w>&nbsp;&nbsp; 🡒&nbsp;&nbsp; <w>&&</w>&nbsp;&nbsp; 🡒&nbsp;&nbsp; <w>||</w></p>
 
-    <p>Tenin en compte aquesta precedència podem realitzar expressions complexes.</p>
+    <p>Tenint en compte aquesta precedència podem realitzar expressions complexes.</p>
+
+    <code java>
+        System.out.println(true && !false);  // true
+        System.out.println(true && !true);   // false
+        System.out.println(false || !false); // true
+        System.out.println(true && false || true); // true
+        System.out.println(true || true && false); // true
+        System.out.println((true || true) && false); // true
+        System.out.println(!(true || false)); // false
+    </code>
+
+    <h3>Curtcircuit</h3>
+
+    <info>
+        <p>Un punt interessant és que els operadors <w>&&</w> i <w>||</w> no avaluen el segon operand si no és necessari.
+            Quan el primer operand d'una operació <w>&&</w> és <w>false</w>, el resultat serà <w>false</w> sigui quin sigui 
+            el segon operand; i quan el primer operand d'una operació <w>||</w> és <w>true</w>, el resultat serà fals sigui quin 
+            sigui el segon operand. Així que:
+            </p>
+        
+        <ul>
+            <li><p><w>false && ...</w> &nbsp; 🡒&nbsp; <w>false</w>, ja que no és necessari saber que hi ha a la dreta</p></li>
+            <li><p><w>true || ...</w> &nbsp; 🡒&nbsp; <w>true</w>, ja que no és necessari saber que hi ha a la dreta</p></li>
+        </ul>
+    
+        <p>Aquest comportament es conegut com <strong>avaluació curtcircuit</strong> (no confondre amb curtcircuit elèctric).
+            Redueix el temps de computació i pot ser utilitzat per a evitar alguns errors en programes.</p>
+
+        <p>Fixa't en aquest codi:</p>
+
+        <code java>
+            System.out.println(false && (true || (false && !true) || (!true && (false && true) && true || !false)));
+        </code>
+    </info>
 </section>
 
 

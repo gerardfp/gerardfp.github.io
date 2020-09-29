@@ -106,9 +106,8 @@
         </li>
     </ul>
 
-    <ol>
-       
-        <li>Añade los siguientes estilos al fichero <code>res/values/styles.xml</code>:<br></li>
+    <ol>       
+        <li>Añade los siguientes estilos al fichero <file>res/values/styles.xml</file>:<br></li>
     </ol>
     <code xml>
         &lt;style name=&#34;AppTheme.NoActionBar&#34;&gt;
@@ -120,131 +119,139 @@
 
             &lt;style name=&#34;AppTheme.PopupOverlay&#34; parent=&#34;ThemeOverlay.AppCompat.Light&#34; /&gt;
         </code>
-    <li>Añade el siguiente atributo a la <em>MainActivity</em> en el fichero <code>AndroidManifest.xml</code>:<br></li>
-        <code>android:theme=&#34;@style/AppTheme.NoActionBar&#34;</code>
+    <li>Añade el siguiente atributo a la <w>MainActivity</w> en el fichero <file>AndroidManifest.xml</file>:<br></li>
+        <code xml>
+            android:theme=&#34;@style/AppTheme.NoActionBar&#34;
+        </code>
+        
         <p><br>Debe quedar algo así:<br></p>
-        <code>&lt;activity
-        android:name=&#34;.MainActivity&#34;
-        android:theme=&#34;@style/AppTheme.NoActionBar&#34;&gt;
-        &lt;intent-filter&gt;
-            &lt;action android:name=&#34;android.intent.action.MAIN&#34; /&gt;
+        <code xml>
+            &lt;activity
+                android:name=&#34;.MainActivity&#34;
+                android:theme=&#34;@style/AppTheme.NoActionBar&#34;&gt;
+                &lt;intent-filter&gt;
+                    &lt;action android:name=&#34;android.intent.action.MAIN&#34; /&gt;
 
-            &lt;category android:name=&#34;android.intent.category.LAUNCHER&#34; /&gt;
-        &lt;/intent-filter&gt;
-        &lt;/activity&gt;</code>
+                    &lt;category android:name=&#34;android.intent.category.LAUNCHER&#34; /&gt;
+                &lt;/intent-filter&gt;
+            &lt;/activity&gt;</code>
 <ol type="1" start="7">
-<li>Modifica el archivo de layout de la MainActivity (<code>res/layout/activity_main.xml</code>) para añadir la <strong>Toolbar</strong>, el <strong>NavigationView</strong> (<em>Drawer</em>) y el <strong>NavHost</strong>:<br><br></li>
+<li>Modifica el archivo de layout de la MainActivity (<file>res/layout/activity_main.xml</file>) para añadir la <strong>Toolbar</strong>, el <strong>NavigationView</strong> (<em>Drawer</em>) y el <strong>NavHost</strong>:<br><br></li>
 </ol>
-<code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;androidx.drawerlayout.widget.DrawerLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
-   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
-   android:id=&#34;@+id/drawer_layout&#34;
-   android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;
-   android:fitsSystemWindows=&#34;true&#34;
-   tools:openDrawer=&#34;start&#34;&gt;
+<code xml>
+    &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+    &lt;androidx.drawerlayout.widget.DrawerLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+    xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+    xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+    android:id=&#34;@+id/drawer_layout&#34;
+    android:layout_width=&#34;match_parent&#34;
+    android:layout_height=&#34;match_parent&#34;
+    android:fitsSystemWindows=&#34;true&#34;
+    tools:openDrawer=&#34;start&#34;&gt;
 
-   &lt;androidx.coordinatorlayout.widget.CoordinatorLayout
-       android:layout_width=&#34;match_parent&#34;
-       android:layout_height=&#34;match_parent&#34;
-       tools:context=&#34;.MainActivity&#34;&gt;
+    &lt;androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width=&#34;match_parent&#34;
+        android:layout_height=&#34;match_parent&#34;
+        tools:context=&#34;.MainActivity&#34;&gt;
 
-       &lt;com.google.android.material.appbar.AppBarLayout
-           android:layout_width=&#34;match_parent&#34;
-           android:layout_height=&#34;wrap_content&#34;
-           android:theme=&#34;@style/AppTheme.AppBarOverlay&#34;&gt;
+        &lt;com.google.android.material.appbar.AppBarLayout
+            android:layout_width=&#34;match_parent&#34;
+            android:layout_height=&#34;wrap_content&#34;
+            android:theme=&#34;@style/AppTheme.AppBarOverlay&#34;&gt;
 
-           &lt;androidx.appcompat.widget.Toolbar
-               android:id=&#34;@+id/toolbar&#34;
-               android:layout_width=&#34;match_parent&#34;
-               android:layout_height=&#34;?attr/actionBarSize&#34;
-               android:background=&#34;?attr/colorPrimary&#34;
-               app:popupTheme=&#34;@style/AppTheme.PopupOverlay&#34; /&gt;
-       &lt;/com.google.android.material.appbar.AppBarLayout&gt;
+            &lt;androidx.appcompat.widget.Toolbar
+                android:id=&#34;@+id/toolbar&#34;
+                android:layout_width=&#34;match_parent&#34;
+                android:layout_height=&#34;?attr/actionBarSize&#34;
+                android:background=&#34;?attr/colorPrimary&#34;
+                app:popupTheme=&#34;@style/AppTheme.PopupOverlay&#34; /&gt;
+        &lt;/com.google.android.material.appbar.AppBarLayout&gt;
 
-       &lt;androidx.constraintlayout.widget.ConstraintLayout
-           android:layout_width=&#34;match_parent&#34;
-           android:layout_height=&#34;match_parent&#34;
-           app:layout_behavior=&#34;@string/appbar_scrolling_view_behavior&#34;&gt;
+        &lt;androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width=&#34;match_parent&#34;
+            android:layout_height=&#34;match_parent&#34;
+            app:layout_behavior=&#34;@string/appbar_scrolling_view_behavior&#34;&gt;
 
-           &lt;fragment
-               android:id=&#34;@+id/nav_host_fragment&#34;
-               android:name=&#34;androidx.navigation.fragment.NavHostFragment&#34;
-               android:layout_width=&#34;match_parent&#34;
-               android:layout_height=&#34;match_parent&#34;
-               app:defaultNavHost=&#34;true&#34;
-               app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
-               app:layout_constraintRight_toRightOf=&#34;parent&#34;
-               app:layout_constraintTop_toTopOf=&#34;parent&#34;
-               app:navGraph=&#34;@navigation/mobile_navigation&#34; /&gt;
+            &lt;fragment
+                android:id=&#34;@+id/nav_host_fragment&#34;
+                android:name=&#34;androidx.navigation.fragment.NavHostFragment&#34;
+                android:layout_width=&#34;match_parent&#34;
+                android:layout_height=&#34;match_parent&#34;
+                app:defaultNavHost=&#34;true&#34;
+                app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
+                app:layout_constraintRight_toRightOf=&#34;parent&#34;
+                app:layout_constraintTop_toTopOf=&#34;parent&#34;
+                app:navGraph=&#34;@navigation/mobile_navigation&#34; /&gt;
 
-       &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+        &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
 
-   &lt;/androidx.coordinatorlayout.widget.CoordinatorLayout&gt;
+    &lt;/androidx.coordinatorlayout.widget.CoordinatorLayout&gt;
 
-   &lt;com.google.android.material.navigation.NavigationView
-       android:id=&#34;@+id/nav_view&#34;
-       android:layout_width=&#34;wrap_content&#34;
-       android:layout_height=&#34;match_parent&#34;
-       android:layout_gravity=&#34;start&#34;
-       android:fitsSystemWindows=&#34;true&#34;
-       app:headerLayout=&#34;@layout/nav_header_main&#34;
-       app:menu=&#34;@menu/activity_main_drawer&#34; /&gt;
+    &lt;com.google.android.material.navigation.NavigationView
+        android:id=&#34;@+id/nav_view&#34;
+        android:layout_width=&#34;wrap_content&#34;
+        android:layout_height=&#34;match_parent&#34;
+        android:layout_gravity=&#34;start&#34;
+        android:fitsSystemWindows=&#34;true&#34;
+        app:headerLayout=&#34;@layout/nav_header_main&#34;
+        app:menu=&#34;@menu/activity_main_drawer&#34; /&gt;
 
-&lt;/androidx.drawerlayout.widget.DrawerLayout&gt;</code>
+    &lt;/androidx.drawerlayout.widget.DrawerLayout&gt;
+</code>
 <ol type="1" start="8">
-<li>Añade el siguiente código a la <code>MainActivity.java</code> para configurar la Toolbar y el NavigationView (<em>Drawer</em>):<br></li>
+<li>Añade el siguiente código a la <w>MainActivity.java</w> para configurar la Toolbar y el NavigationView (<em>Drawer</em>):<br></li>
 </ol>
-<code>import android.os.Bundle;
-import android.view.Menu;
+<code java>
+    import android.os.Bundle;
+    import android.view.Menu;
 
-import com.google.android.material.navigation.NavigationView;
+    import com.google.android.material.navigation.NavigationView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+    import androidx.appcompat.app.AppCompatActivity;
+    import androidx.appcompat.widget.Toolbar;
+    import androidx.drawerlayout.widget.DrawerLayout;
+    import androidx.navigation.NavController;
+    import androidx.navigation.Navigation;
+    import androidx.navigation.ui.AppBarConfiguration;
+    import androidx.navigation.ui.NavigationUI;
 
-public class MainActivity extends AppCompatActivity {
+    public class MainActivity extends AppCompatActivity {
 
-   private AppBarConfiguration mAppBarConfiguration;
+        private AppBarConfiguration mAppBarConfiguration;
 
-   @Override
-   protected void onCreate(Bundle savedInstanceState) {
-       super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_main);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
 
-       Toolbar toolbar = findViewById(R.id.toolbar);
-       setSupportActionBar(toolbar);
+            Toolbar toolbar = findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
 
-       DrawerLayout drawer = findViewById(R.id.drawer_layout);
-       NavigationView navigationView = findViewById(R.id.nav_view);
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            NavigationView navigationView = findViewById(R.id.nav_view);
 
-       mAppBarConfiguration = new AppBarConfiguration.Builder()
-               .setDrawerLayout(drawer)
-               .build();
-       NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-       NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-       NavigationUI.setupWithNavController(navigationView, navController);
-   }
+            mAppBarConfiguration = new AppBarConfiguration.Builder()
+                    .setDrawerLayout(drawer)
+                    .build();
+            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+            NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+            NavigationUI.setupWithNavController(navigationView, navController);
+        }
 
-   @Override
-   public boolean onCreateOptionsMenu(Menu menu) {
-       getMenuInflater().inflate(R.menu.main, menu);
-       return true;
-   }
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            getMenuInflater().inflate(R.menu.main, menu);
+            return true;
+        }
 
-   @Override
-   public boolean onSupportNavigateUp() {
-       NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-       return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-               || super.onSupportNavigateUp();
-   }
-}</code>
+        @Override
+        public boolean onSupportNavigateUp() {
+            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+            return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                    || super.onSupportNavigateUp();
+        }
+    }
+</code>
 
 
       </section>
