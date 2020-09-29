@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav>
+<header>
+    <h1>Operadors</h1>
+
+    <abstract>
+        <p>En aquesta activitat aprendràs a fer programes interactius, que demanen 
+            dades i després les utilitzen.
+        </p>
+        <p>Aprendràs:</p>
+        <check>Què són les variables i com utilitzar-les</check>
+        <check>Com obtenir dades de l'entrada estàndard i guardar-les en variables</check>
+    </abstract>
+</header>
+
+<section>
+    <h2>Operadors aritmètics</h2>
+
+    <p>En la vida real, sovint realitzem operacions aritmètiques. 
+        Ens ajuden a determinar el canvi quan fem una compra, l'àrea 
+        d'una habitació, comptar la gent que hi ha a una cua, i coses així. 
+        Les mateixes operacions s'utilitzen als programes.
+    </p>
+
+    <h3>Operacions aritmètiques</h3>
+
+    <p>El llenguatge de programació Java proporciona operadors 
+        per a realitzar operacions aritmètiques:
+    </p>
+
+    <ul>
+        <li>suma <w>+</w></li>
+        <li>resta <w>-</w></li>
+        <li>multiplicació <w>*</w></li>
+        <li>divisió <w>/</w></li>
+        <li>mòdul <w>%</w></li>
+    </ul>
+
+    <p>En aquest exemple s'imprimeixen el resultat d'aquestes operacions 
+        aritmètiques amb operadors enters:</p>
+    <code java>
+        System.out.println(5 + 10);  // 15
+
+        System.out.println(10 - 5);  // 5
+        System.out.println(5 - 10);  // -5
+        
+        System.out.println(5 * 10);  // 50
+        
+        System.out.println(10 / 5);  // 2
+        
+        System.out.println( 10 % 5); // 0
+    </code>
+
+    <p>Tal vegada l'operador menys conegut és el <strong>mòdul</strong> <w>%</w>. 
+    Aquest operador retorna el residu de la divisió:</p>
+
+    <code java>
+        System.out.println(151 % 4);  // 3
+        System.out.println(151 / 4);  // 37
+    </code>
+    <img src="img/modul.png">
+
+    <h3>Precedència d'operadors</h3>
+    <p>Hi ha un <a href="https://ca.wikipedia.org/wiki/Ordre_de_les_operacions">ordre de preferència</a> a les operacions artimètiques, inclosos els parèntesi:</p>
+
+    <p><w>()</w>&nbsp;&nbsp; 🡒&nbsp;&nbsp; <w>* / %</w>&nbsp;&nbsp; 🡒&nbsp;&nbsp; <w>+ -</w></p>
+
+    <p>Tenint en compte aquesta preferència es poden realitzar expressions més complexes:</p>
+
+    <code java>
+        System.out.println(1 + 3 * 4 - 2);     // 11
+        System.out.println((1 + 3) * (4 - 2)); // 8  
+
+        System.out.println(-10 + 4);   // -6
+        System.out.println(-(10 + 4)); // -14
+    </code>
+
+    <h3>Tipus dels operadors</h3>
+    <p>El resultat d'una expressió artimètica depèn també del tipus dels seus operadors (<w>int</w> o <w>float</w>).</p>
+
+    <p>Si una operació es realitza amb operadors <w>int</w> el resultat serà de tipus <w>int</w>, però 
+    si en una operació al menys un operand és <w>float</w> el resultat serà de tipus <w>float</w>.</p>
+    
+    <p>Aquesta regla és especialment important en les divisions, ja que una operació de divisió entre operands 
+        enters donarà com a resultat un enter (és a dir, sense decimals), però si hi ha un decimal aleshores donarà 
+    el resultat amb decimals:</p>
+
+    <code java>
+        System.out.println(5 / 2);    // 2  (resultat enter, sense decimals)
+        System.out.println(5f / 2);   // 2.5
+        System.out.println(5 / 2f);   // 2.5
+        System.out.println(5f / 2f);  // 2.5
+    </code>
+    
+    <quizz>
+        <question text>
+            <statement>
+                <p>Escriu el resultat d'aquesta operació:</p>
+                <p><w>2 + 3 * 4 + 5</w></p>
+            </statement>
+            <o>19</o>
+        </question>
+
+        <question text>
+            <statement>
+                <p>Què imprimirà aquesta sentència?</p>
+                <w>System.out.println(2 + (-3) + 5 + (-8));</w>
+            </statement>
+            <o>-4</o>
+        </question>
+
+        <question match>
+            <statement><p>Ordena els operadors segons la preferència</p></statement>
+            <o>1</o><o>( )</o>
+            <o>2</o><o>* / %</o>
+            <o>3</o><o>+ -</o>
+        </question>
+
+        <question text>
+            <statement>
+                <p>Escriu el valor que retorna aquesta expressió:</p>
+                <p><w>(-5) * (-10) * (-20)</w></p>
+            </statement>
+            <o>-1000</o>
+        </question>
+        
+        <question multi>
+            <statement>
+                <p>Quina de les següents expressions és igual a <w>12</w>?</p>
+            </statement>
+            <o correct><w>24 / 2</w></o>
+            <o><w>24 % 2</w></o>
+            <o correct><w>25 / 2</w></o>
+            <o correct><w>12 % 13</w></o>
+        </question>
+
+        <question text>
+            <statement>
+                <p>Quin és el resultat d'aquesta expressió?</p>
+                <p><w>3 / 2f</w></p>
+            </statement>
+            <o>1.5</o>
+        </question>
+        
+        <question text>
+            <statement>
+                <p>Què imprimeixen aquestes sentències?</p>
+            </statement>
+            <p><w>System.out.println((5 / 2) * (5 / 2));</w> <o>4</o></p>
+            <p><w>System.out.println((5 / 2) * (5f / 2));</w> <o>5.0</o></p>
+        </question>
+    </quizz>
+
+    <h3>Operadors aritmètics amb caracters i Strings</h3>
+
+    <h4>Caracters</h4>
+    <p>Quan utilitzem els operadors aritmètics amb valors de tipus <w>char</w>, 
+        s'utilitza el valor numèric Unicode corresponent al caracter.
+    </p>
+    <p>Així, per exemple, el <a href="https://unicode-table.com/en/0061/">valor unicode del caracter <w>'a'</w></a> és <w>97</w>, 
+    i serà aquest el valor que s'utiltzi en les operacions aritmètiques amb el caracter <w>'a'</w>.</p>
+
+    <code java>
+        System.out.println('a' + 0);     // 97    (97 + 0)
+        System.out.println(5 + 'a');     // 102   (5 + 97)
+        System.out.println('a' - 5);     // 92    (97 - 5)
+        System.out.println('a' * 10);    // 970   (97 * 10)
+        System.out.println('a' / 10);    // 9     (97 / 10)
+        System.out.println(-'a' + 'b');  // 1    (-97 + 98)
+    </code>
+
+    <info>
+        <p>A la wikipedia pots trobar la <a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters#Basic_Latin">taula de caracters Unicode.</a>
+        
+        Per a esbrinar el valor numèric d'un caracter busca'l a la columna 
+        <strong>Glyph</strong> i el seu valor a la columna <strong>Decimal</strong></p>
+    </info>
+
+    <h4>Strings</h4>
+    <p>Podem utilitzar l'operador suma <w>+</w> amb Strings, però la seva funció no serà la suma, sinò la 
+    <strong>concatenació</strong>, és a dir, unir els elements un darrere de l'altre.</p>
+
+    <p>D'aquesta forma, si algun dels dos operands en una expressió és un String, el resultat serà 
+        la concatenació dels operands, i no la suma.</p>
+
+    <code java>
+        System.out.println("Java" + "Script");  // JavaScript
+        System.out.println("Java" + 8);         // Java8
+        System.out.println("Java" + 14 + 1);    // Java141
+        System.out.println("Java" + (14 + 1));  // Java15    (primer es fan els parentesi)
+        System.out.println("Java" + 8 * 2);     // Java16    (primer es fa la multiplicacio)
+
+        System.out.println("Java" - 8);         // Error! només es pot usar l'operador + 
+        System.out.println("Java" + 8 - 1);     // Error! No és vàlid ja que "Java"+8 és "Java8", 
+                                                // i després el  "Java8" - 1  no és valid 
+    </code>
+
+    <quizz>
+        <question text>
+            <statement>
+                <p>Què imprimiran les següents sentències?</p>
+            </statement>
+
+            <p><w>System.out.println("Hola " + "mon");</w> <o>Hola mon</o></p>
+            <p><w>System.out.println("Hola " + 330);</w> <o>Hola 3030</o></p>
+            <p><w>System.out.println("Hola " + 'm' + 'o' + 'n');</w> <o>Hola mon</o></p>
+            <p><w>System.out.println("Hola " + ('m' + 'o' + 'n'));</w> <o>Hola 330</o></p>
+            <p><w>System.out.println('m' + 'o' + 'n' + "Hola");</w> <o>330Hola</o></p>
+        </question>
+    </quizz>
+
+</section>
+
+<section>
+    <h2>Operadors booleans</h2>
+
+    <p>Recordem que el tipus de dada <w>boolean</w> només té 
+    dos valors possibles: <w>true</w> i <w>false</w>. També 
+    és conegut com el tipus <strong>lògic</strong>.</p>
+
+    <p>Aqest tipus es una forma habitual en els llenguatges 
+        de programació per a representar coses que només poden 
+        tenir dos estats oposats com <strong>on</strong>/<strong>off</strong>, 
+        <strong>sí</strong>/<strong>no</strong>.
+    </p>
+
+    <p>Si estas escrivint un programa que fa el seguiment de 
+        les obertures de portes trobaràs natural utilitzar un 
+        <w>boolean</w> per a guardar el estat actual d'una porta.
+        O en un videojoc, hi pot haver moltes variables <w>boolean</w> 
+        per a mantenir l'estat d'un jugador (isAlive, isJumping, hasSword, ...).</p>
+
+    <p>Les operacions que podem realitzar sobre valors <w>boolean</w> són:</p>
+    <ul>
+        <li>
+            <p><strong>NOT</strong> <w>!</w></p>
+            <p>Retorna la <strong>inversió</strong> d'un valor booleà:</p>
+            <code java>
+                System.out.println(!false);  // true
+                System.out.println(!true);   // false
+            </code>
+        </li>
+
+        <li>
+            <p><strong>AND</strong> <w>&&</w></p>
+            <p>Retorna <w>true</w> si <strong>tots</strong> dos operands són <w>true</w>, si no, retorna <w>false</w>.</p>
+            <code java>
+                System.out.println(true  && true);   // true
+                System.out.println(true  && false);  // false
+                System.out.println(false && true);   // false
+                System.out.println(false && false);  // false
+            </code>    
+        </li>
+        <li>
+            <p><strong>OR</strong> <w>||</w></p>
+            <p>Retorna <w>true</w> si <strong>al menys un</strong> operand és <w>true</w>, si no, retorna <w>false</w>.</p>
+            <code java>
+                System.out.println(true  || true);   // true
+                System.out.println(true  || false);  // true
+                System.out.println(false || true);   // true
+                System.out.println(false || false);  // false
+            </code>    
+        </li>
+    </ul>
+
+    <info>
+        Hi ha un altre operador anomenat <strong>XOR</strong> <w>^</w>. 
+        En aquest curs utilitzarem més sovint <w>!</w> <w>&&</w> <w>||</w>. 
+        Però en cas de que el necessitis, que sàpigues que hi és.
+
+        Retorna <w>true</w> si els dos operands tenen diferents valors, si no 
+        retorna <w>false</w>
+        <code java>
+            System.out.println(true  ^ true);   // false
+            System.out.println(true  ^ false);  // true
+            System.out.println(false ^ true);   // true
+            System.out.println(false ^ false);  // false
+        </code>
+        
+    </info>
+
+    <h3>Precedència d'operadors lògics</h3>
+   
+    <p>A sota hi ha els operadors booleans ordenats de més a menys prioritat:</p>
+
+    <p><w>()</w>&nbsp;&nbsp; 🡒&nbsp;&nbsp; <w>!</w>&nbsp;&nbsp; 🡒&nbsp;&nbsp; <w>&&</w>&nbsp;&nbsp; 🡒&nbsp;&nbsp; <w>||</w></p>
+
+    <p>Tenin en compte aquesta precedència podem realitzar expressions complexes.</p>
+</section>
+
+
+<section>
+    <h2>Operacions amb variables</h2>
+
+    <p>Podem utilitzar el valor d'una variable en operacions aritmètiques. Com ja hem fet
+        anteriorment, accedirem al valor d'una variable pel seu nom.
+    </p>
+
+    <code java>
+
+    </code>
+
+    <p>Per una altra banda, podem guardar en una variable el resultat que retorna una expressió, 
+        sempre que la variable sigui del tipus adequat al valor que retorna l'expressió.
+    </p>
+</section>
