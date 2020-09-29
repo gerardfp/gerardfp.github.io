@@ -324,22 +324,315 @@
         <code java>
             System.out.println(false && (true || (false && !true) || (!true && (false && true) && true || !false)));
         </code>
+
+        <p>No importa el que hi hagi més enllà del primer <w>false &&</w>, retorni <w>true</w> o <w>false</w>, el 
+        resultat de l'expressió completa serà <w>false</w>.</p>
     </info>
+
+    <quizz>
+        <question text>
+            <statement>
+                <p>Escriu el resultat d'avaluar aquestes expressions lògiques:</p>
+            </statement>
+
+            <p><w>!(true || false)</w><o>false</o></p>
+            <p><w>!true && !false</w><o>false</o></p>
+            <p><w>!(true && false)</w><o>true</o></p>
+            <p><w>true || true || !true</w><o>true</o></p>
+            <p><w>true && true && !true</w><o>false</o></p>
+        </question>
+    </quizz>
 </section>
 
+<section>
+    <h2>Operadors relacionals</h2>
+    <p>Java proporciona sis operadors relacionals per a comparar números:</p>
+    <ul>
+        <li><w>==</w> (igual a)</li>
+        <li><w>!=</w> (no igual a)</w></li>
+        <li><w>></w>  (major que)</li>
+        <li><w>>=</w> (major o igual que)</li>
+        <li><w><</w>  (menor que)</li>
+        <li><w><=</w> (meno o igual que)</li>
+    </ul>
+
+    <p>El resultat d'aplicar un d'aquests operadors relacionals és de 
+        tipus <w>boolean</w> independentment dels tipus dels seus operands.
+    </p>
+
+    <p>Aquí tens exemples d'aplicar els operadors relacionals a diferents tipus 
+        d'operands. Observa que el valor retornat en avaluar l'expressió és sempre 
+        <w>true</w> o <w>false</w>.
+    </p>
+
+    <code java>
+        System.out.println(5 > 2);  // true
+        System.out.println(5 == 2); // false
+        System.out.println(5 >= 2); // true
+        System.out.println(5 != 2); // true
+        System.out.println(4 + 1 == 5);  // true  
+        System.out.println(5f == 5);  // true  
+        System.out.println(!false == true);  // true
+        System.out.println(false == true);  // false
+        System.out.println('a' == 97);  // true
+        System.out.println('a' < 'b');  // true
+    </code>
+
+    <p>Fixa't que podem fer operacions relacionals entre enters, floats i chars (recorda que 
+        els chars són convertits al seu valor Unicode). També podem fer operacions 
+        relacionals entre booleans. Però no podem fer-ho entre números i booleans, ja que no té 
+        cap sentit:</p>
+    
+        <code java>
+            System.out.println(5 <= true);  // invalid! no té cap sentit
+        </code>
+
+    <h3>Comparar Strings</h3>
+    <p>Per últim has de notar que no hem fet cap operació relacional amb el tipus <w>String</w>.
+        Java permet comparar la igualtat de dos <w>Strings</w> però <strong>no</strong> és amb l'operador <w>==</w>.</p>
+
+    <p>Per a comparar dos Strings hem d'utilitzar el mètode <w>equals()</w>, així: </p>
+
+    <code java>
+        "hola".equals("adeu")  // false
+        "hola".equals("ho" + "la")  // true
+    </code>
+
+
+    <h3>Unir operadors relacionals utilitzant operadors lògics</h3>
+    <p>En Java, no es pot escriure una expresió com <strong>a < b < c</strong> 
+    (per veure si <strong>b</strong> està entre mig d'<strong>a</strong> i <strong>c</strong>.
+    En lloc d'això, has d'unir dos expressions booleanes utilitzant operadors com <w>||</w> i <w>&&</w>.</p>
+
+    <code java>
+        a < b && b < c   // significa a < b < c 
+    </code>
+
+    <p>La prioritat dels tipus d'operadors és:</p>
+
+    <p>Aritmètics&nbsp;&nbsp; 🡒&nbsp;&nbsp; Relacionals &nbsp;&nbsp; 🡒&nbsp;&nbsp; Lògics</p>
+
+    <p>En el següent exemple hi han els tres tipus d'operadors:</p>
+    <code java>
+        System.out.println(2 + 2 == 5 || 3 + 3 == 6);  // true
+    </code>
+
+    <p>El programa imprimeix <w>true</w>, perquè:</p>
+    <ol>
+        <li>
+            <p>Primer es fan els Aritmètics (la suma):</p>
+            <code java>
+                System.out.println(4 == 5 || 6 == 6);
+            </code>        
+        </li>
+        <li>
+            <p>Després els relacionals (l'igual que):</p>
+            <code java>
+                System.out.println(false || true);
+            </code>        
+        </li>
+        <li>
+            <p>Per últim els lògics (l'OR):</p>
+            <code java>
+                System.out.println(true);
+            </code>        
+        </li>
+    </ol>
+
+    <quizz>
+        <question single>
+            <statement>
+                <p>Quin valor retorna aquesta expressió?</p>
+                <w>10 % 5 >= 2 || 10 / 5 <= 2 && !(10 - 5 != 2)</w>
+            </statement>
+
+            <o><w>true</w></o>
+            <o correct><w>false</w></o>
+        </question>
+
+        <question single>
+            <statement>
+                <p>Què imprimeix aquest programa?</p>
+                <code java>
+                    System.out.println("java".equals('j' + 'a' + 'v' + 'a'));
+                </code>
+            </statement>
+
+            <o><w>true</w></o>
+            <o correct><w>false</w></o>
+            <o>És invàlid, perquè falta un parèntesi</o>
+            <o>És invàlid, perquè no es poden sumar caracters</o>
+        </question>
+    </quizz>
+
+</section>
+
+<section>
+    <h2>Operador ternari</h2>
+    <p>La sintaxi general de l'operador ternari <w>?:</w> és aquesta:</p>
+
+    <code java>
+        condition ? trueCase : falseCase
+    </code>
+
+    <code java>
+        System.out.println(10 > 5 ? "major" : "menor");
+        System.out.println(num % 2 == 0 ? "parell" : "imparell");
+    </code>
+</section>
 
 <section>
     <h2>Operacions amb variables</h2>
 
-    <p>Podem utilitzar el valor d'una variable en operacions aritmètiques. Com ja hem fet
-        anteriorment, accedirem al valor d'una variable pel seu nom.
+    <p>Fins ara hem vist el funcionament dels operadors aritmètics, relacionals i lògics 
+        amb valors literals. És clar que també podem utilitzar el valor de les variables 
+        en aquestes expressions. Com ja hem fet anteriorment, accedirem al valor d'una variable pel seu nom.
     </p>
 
     <code java>
+        int a = 10;
+        int b = 20;
+        int c = 30;
 
+        System.out.println(a < b && b < c);  // true
+    </code>
+
+    <p>Un altre exemple:</p>
+    <code java>
+        float a = 97f;
+        int b = 97;
+        char c = 'a';
+        
+        System.out.println(a == b && b == c);  // true
+    </code>
+
+    <p>Un últim exemple:</p>
+    <code java>
+        String l = "linux";
+        String g = "gnu";
+        boolean b = true;
+
+        System.out.println(g.equals(l) || b);  // true
     </code>
 
     <p>Per una altra banda, podem guardar en una variable el resultat que retorna una expressió, 
         sempre que la variable sigui del tipus adequat al valor que retorna l'expressió.
     </p>
+        
+    <code java>
+        // aritmetics
+        int a = 5 + 5;     // 10
+        float b = 5 + 5;   // 10.0
+        char c = 'a' + 1;  // 'b'
+        
+        String d = "ja" + "va";  // java
+
+        // relacionals
+        boolean e = 5 == 5;  // true
+
+        // booleans
+        boolean f = true || false;  // true
+    </code>
+
+    <p>També podem utilitzar el valor d'una variable en una expressió i 
+        assignar el resultat a la mateixa variable:
+    </p>
+
+    <code java>
+        int a = 10;
+        a = a + 1;
+        System.out.println(a);  // 11
+    </code>
+
+    <p>L'explicació és que en la sentència <w>a = a + 1;</w> primer s'avalua l'expressió amb 
+    el valor actual de <w>a</w> (<w>10 + 1</w>), el resultat <w>11</w> s'assigna després a la
+    variable <w>a</w>.</p>
+
+    <code java>
+        String language = "Java";
+        language = language + "8";
+        System.out.println(language);  // Java8
+    </code>
+
+    <code java>
+        boolean estaObert = true;
+        estaObert = !estaObert;
+        System.out.println(estaObert); // false
+    </code>
+
+    <quizz>
+        <question text>
+            <statement>
+                <p>Introdueix el valor de la variable <w>result</w></p>
+                <code java>
+                    int a = 4, b = 6;
+                    int c = a + b;
+                    int result = c + (a + b) * c;
+                </code>
+            </statement>
+            <o>110</o>
+        </question>
+
+        <question text>
+            <statement>
+                <p>Hi ha aquestes variables:</p>
+                <code java>
+                    boolean b1 = true;
+                    boolean b2 = false;
+                    boolean b3 = true;
+                    boolean b4 = false;
+                </code>
+                <p>Quin és el resultat d'aquesta expressió?</p>
+                <w>b1 && (b2 || (b3 || b4))</w>
+            </statement>
+            <o>true</o>
+        </question>
+
+        <question text>
+            <statement>
+                <p>Introdueix el valor de cada variable, <strong>després</strong> de cada sentència d'aquest programa:</p>
+            </statement>
+
+            <table>
+                <thead>
+                    <th style="width: 14em;"></th><th><w>a</w></th><th><w>b</w></th><th><w>c</w></th><th><w>d</w></th>
+                </thead>
+                <tr>
+                    <td><w>int a = 0;</w></td>
+                    <td><o>0</o></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><w>int b = a + 1;</w></td>
+                    <td><o>0</o></td>
+                    <td><o>1</o></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><w>a = a + 1;</w></td>
+                    <td><o>1</o></td>
+                    <td><o>1</o></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><w>boolean c = a == b;</w></td>
+                    <td><o>1</o></td>
+                    <td><o>1</o></td>
+                    <td><o>true</o></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><w>boolean d = !c;</w></td>
+                    <td><o>1</o></td>
+                    <td><o>1</o></td>
+                    <td><o>true</o></td>
+                    <td><o>false</o></td>
+                </tr>
+            </table>
+        </question>
+    </quizz>
 </section>
