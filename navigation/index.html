@@ -77,6 +77,9 @@
     <p>El <w>NavigationView</w> (más conocido como "Drawer menu") es el menú de navegación que 
     suele aparecer por la izquierda de la app cuando se pulsa el icono Hamburger <img src="img/hamburger.png">.</p>
 
+    <p>En esta app usaremos el <w>NavigationView</w> para navegar a 3 pantallas. Empezaremos creando estas 3 pantallas.</p>
+ 
+ 
     <p>Normalmente tiene dos partes: la cabecera y el menú:</p>
     
     <img src="img/navigationview.png">
@@ -91,6 +94,38 @@
             introduce el <menuoption>File name</menuoption>: <name>nav_header_main</name></p>
 
             <img src="img/3b87eacadcef691.png">
+
+            <p>Ahora añadiremos una imagen y un texto que se verán en la cabecera del menu:</p>
+            
+            <img src="img/nav_header_main.png">
+
+            <codefile>
+                res/layout/nav_header_main.xml
+            </codefile>
+            <code xml>
+                &lt;?xml version="1.0" encoding="utf-8"?&gt;
+                &lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#009688"
+                    android:gravity="center"
+                    android:orientation="vertical"&gt;
+
+                    &lt;ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="48dp"
+                        app:srcCompat="@mipmap/ic_launcher_round" /&gt;
+                    &lt;TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8dp"
+                        android:text="Android is HARD" /&gt;
+                &lt;/LinearLayout&gt;
+            </code>
+
         </li>
 
         <li>
