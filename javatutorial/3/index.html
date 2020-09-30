@@ -9,14 +9,21 @@
     <h1>Operadors</h1>
 
     <abstract>
-        <p>En aquesta activitat aprendràs a fer programes interactius, que demanen 
-            dades i després les utilitzen.
+        <p>En aquesta activitat aprendràs a fer operacions amb els literals i variables d'un programa.
         </p>
         <p>Aprendràs:</p>
-        <check>Què són les variables i com utilitzar-les</check>
-        <check>Com obtenir dades de l'entrada estàndard i guardar-les en variables</check>
+        <check>Com utilitzar els operadors aritmètics, lògics i relacionals.</check>
     </abstract>
 </header>
+
+
+
+
+
+
+
+
+
 
 <section>
     <h2>Operadors aritmètics</h2>
@@ -214,6 +221,178 @@
         </question>
     </quizz>
 
+    <h3>Operacions aritmètiques amb variables</h3>
+
+    <p>També podem utilitzar els valors de les variables per a realitzar operacions aritmètiques.
+        Com ja hem fet anteriorment, accedirem al valor d'una variable pel seu nom.
+    </p>
+
+    <code java>
+        int a = 20;
+        int b = 10;
+
+        System.out.println(a + b + 5);  // 35  (20 + 10 + 5);
+    </code>
+
+    <code java>
+        float temperatura = 37.5f;
+
+        System.out.println("Temperatura màxima = " + temperatura);    // concatenacio
+    </code>
+
+    <p>Per una altra banda, podem guardar en una variable el resultat retornat per una expressió, sempre que 
+        la variable sigui del tipus adequat al valor que retorna una expressió.
+    </p>
+
+    <code java>
+        int a = 10 + 10;
+        int b = a + 10;
+
+        System.out.println(a + b + 5);  // 55   (20 + 30 + 10)
+    </code>
+
+    <code java>
+        char versio = '8';
+        String llenguatge = "Java";
+
+        String llenguatgeVersio = llenguatge + " " + versio;   // Java 8 
+    </code>
+
+    <p>Per últim, també es pot utilitzar el valor d'una variable en una expressió, i guardar el valor 
+        resultant en la mateixa variable.
+    </p>
+
+    <code java>
+        int n = 10;
+        
+        n = n + 4;    // 14   (10 + 4)
+
+        System.out.println(n); // 14
+    </code>
+
+    <code java>
+        String lang = "";
+
+        lang = lang + 'j';   
+        lang = lang + 'a';
+        lang = lang + 'v';
+        lang = lang + 'a';  // java
+    </code>
+
+    <p>L'operador d'asignació <w>=</w> té una forma abreujada de fer aquestes operacions. Consisteix 
+    a posar al davant de l<w>=</w> la operació que s'ha de realitzar. Els exemples anteriors es poden 
+    abreujar així:</p>
+
+    <code java>
+        int n = 10;
+
+        n += 4;   // equivalent a  'n = n + 4'
+    </code>
+
+    <code java>
+        String lang = "";
+
+        lang += 'j';   
+        lang += 'a';
+        lang += 'v';
+        lang += 'a';  // java
+    </code>
+
+    <p>Com pot veure, aquesta forma és més concisa. Es poden usar els altres operadors d'aquesta forma 
+        abreujada: <w>-=</w>, <w>*=</w>, <w>/=</w>, <w>%=</w>.
+    </p>
+
+    <h3>Operadors artimètics unaris</h3>
+
+    <p>L'operador d'increment <w>++</w>, i l'operador de decrement <w>--</w>, incrementen/decrementen el 
+    valor d'una variable en <w>1</w>.</p>
+
+    <code java>
+        int n = 10;  // 10
+        n++;         // 11
+        n--;         // 10
+    </code>
+
+    <p>Seria l'equivalent a escriure:</p>
+    <code java>
+        int n = 10;  // 10
+        n += 1;      // 11
+        n -= 1;      // 10
+    </code>
+
+    <p>I també equivalent a:</p>
+    <code java>
+        int n = 10;  // 10
+        n = n + 1;   // 11
+        n = n - 1;   // 10
+    </code>
+
+    <p>Tres formes diferents d'escriure el mateix!</p>
+
+    <quizz>
+       
+        <question text>
+            <statement>
+                <p>Introdueix el valor de la variable <w>result</w></p>
+                <code java>
+                    int a = 4, b = 6;
+                    int c = a + b;
+                    int result = c + (a + b) * c;
+                </code>
+            </statement>
+            <o>110</o>
+        </question>
+
+
+        <question text>
+            <statement>
+                <p>Introdueix el valor de cada variable, <strong>després</strong> de cada sentència d'aquest programa:</p>
+            </statement>
+
+            <table>
+                <thead>
+                    <th style="width: 14em;"></th><th><w>a</w></th><th><w>b</w></th></th>
+                </thead>
+                <tr>
+                    <td><w>int a = 0;</w></td>
+                    <td><o>0</o></td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td><w>int b = a + 1;</w></td>
+                    <td><o>0</o></td>
+                    <td><o>1</o></td>
+                </tr>
+                <tr>
+                    <td><w>a = a + 1;</w></td>
+                    <td><o>1</o></td>
+                    <td><o>1</o></td>
+                </tr>
+                <tr>
+                    <td><w>b *= 2;</w></td>
+                    <td><o>1</o></td>
+                    <td><o>2</o></td>
+                </tr>
+                <tr>
+                    <td><w>a++;</w></td>
+                    <td><o>2</o></td>
+                    <td><o>2</o></td>
+                </tr>
+            </table>
+        </question>
+    </quizz>
+    
+    <challenge>
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/esquirols-i-nous">Esquirols i nous</a>
+            <br><a href="https://www.hackerrank.com/contests/dam-m3/challenges/a-recompte">Sortida en autobús</a>
+            <br><a href="https://www.hackerrank.com/contests/dam-m3/challenges/c1-l1-5-nota-mitjana">Nota mitjana</a>
+            <br><a href="https://www.hackerrank.com/contests/dam-m3/challenges/c1-l1-11-perimetre-dun-rectangle">Perímetre d'un rectangle</a>
+            <br><a href="https://www.hackerrank.com/contests/dam-m3/challenges/c1-l1-12-artropodes">Artròpodes</a>
+            <br><a href="https://www.hackerrank.com/contests/dam-m3/challenges/stigid-sert/problem">stigíD serT</a>
+        </p>
+    </challenge>
 </section>
 
 <section>
@@ -329,6 +508,32 @@
         resultat de l'expressió completa serà <w>false</w>.</p>
     </info>
 
+    <h3>Operacions booleanes amb variables</h3>
+
+    <p>Igual que amb els operadors aritmètics, podem usar variables en les expressions booleanes. I també guardar el
+        valor retornat per una expressió booleana en una variable de tipus <w>boolean</w>.
+    </p>
+
+    <code java>
+        boolean a = true;
+
+        boolean b = a || false;  // true
+
+        b = !b;  // false
+    </code>
+
+    <p>Un altre exemple amb una expressió booleana complexa, 
+        per a determinar la possibilitat d'anar a fer senderisme>
+         a l'estiu o en altres estacions:</p>
+
+    <code java>
+        boolean faFred = false;
+        boolean faSol = true;
+        boolean esEstiu = false;  // suposem que es tardor
+
+        boolean senderisme = faSol && (!faFred || esEstiu);  // true, let's go trekking
+    </code>
+
     <quizz>
         <question text>
             <statement>
@@ -341,7 +546,29 @@
             <p><w>true || true || !true</w><o>true</o></p>
             <p><w>true && true && !true</w><o>false</o></p>
         </question>
+
+
+        <question text>
+            <statement>
+                <p>Hi ha aquestes variables:</p>
+                <code java>
+                    boolean b1 = true;
+                    boolean b2 = false;
+                    boolean b3 = true;
+                    boolean b4 = false;
+                </code>
+                <p>Quin és el resultat d'aquesta expressió?</p>
+                <w>b1 && (b2 || (b3 || b4))</w>
+            </statement>
+            <o>true</o>
+        </question>
     </quizz>
+
+    <challenge>
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c1-l1-6-llums-apagades">Llums apagats</a>
+        </p>
+    </challenge>
 </section>
 
 <section>
@@ -398,8 +625,64 @@
         "hola".equals("ho" + "la")  // true
     </code>
 
+    <h3>Operadors relacionals amb variables</h3>
+    <p>
+        Com ja hauràs suposat, podem utilitzar variables en les expressions relacionals. 
+        Per a guardar el resultat d'una expressió relacional, usarem variables de tipus <w>boolean</w>.
+    </p>
 
-    <h3>Unir operadors relacionals utilitzant operadors lògics</h3>
+    <code java>
+        int h1 = 10;
+        int h2 = 20;
+
+        boolean mesGran = h1 > h2;   // false
+        boolean diferents = h1 != h2;  // true
+    </code>
+
+    <code java>
+        String langA = "Java";
+        String langB = "JavaScript";
+
+        boolean sameLang = langA.equals(langB);  // false
+    </code>
+
+    <quizz>
+        <question single>
+            <statement>
+                <p>Què imprimeix aquest programa?</p>
+                <code java>
+                    System.out.println("java".equals('j' + 'a' + 'v' + 'a'));
+                </code>
+            </statement>
+
+            <o><w>true</w></o>
+            <o correct><w>false</w></o>
+            <o>És invàlid, perquè falta un parèntesi</o>
+            <o>És invàlid, perquè no es poden sumar caracters</o>
+        </question>
+
+        <question text>
+            <statement>
+                <p>Què imprimeix aquest programa?</p>
+                <code java>
+                    int number = 1000;
+                    boolean result = number + 10 > number + 9;
+                    System.out.println(result);
+                </code>
+            </statement>
+            <o>true</o>
+        </question>
+    </quizz>
+
+    <challenge>
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/major-dedat">Major d'edat</a>
+        </p>
+    </challenge>
+</section>
+
+<section>
+    <h2>Combinar operadors artimètics, relacionals i lògics</h3>
     <p>En Java, no es pot escriure una expresió com <strong>a < b < c</strong> 
     (per veure si <strong>b</strong> està entre mig d'<strong>a</strong> i <strong>c</strong>.
     En lloc d'això, has d'unir dos expressions booleanes utilitzant operadors com <w>||</w> i <w>&&</w>.</p>
@@ -408,9 +691,10 @@
         a < b && b < c   // significa a < b < c 
     </code>
 
-    <p>La prioritat dels tipus d'operadors és:</p>
+    <p>Podem combinar en una mateixa expressió, operadors aritmètics, relacionals i lògics. 
+        La prioritat dels tipus d'operadors és:</p>
 
-    <p>Aritmètics&nbsp;&nbsp; 🡒&nbsp;&nbsp; Relacionals &nbsp;&nbsp; 🡒&nbsp;&nbsp; Lògics</p>
+    <p style="text-align: center">Aritmètics&nbsp;&nbsp; 🡒&nbsp;&nbsp; Relacionals &nbsp;&nbsp; 🡒&nbsp;&nbsp; Lògics</p>
 
     <p>En el següent exemple hi han els tres tipus d'operadors:</p>
     <code java>
@@ -439,6 +723,15 @@
         </li>
     </ol>
 
+    <p>El següent exemple comprova que un número estigui dintre d'un rang:</p>
+
+    <code java>
+        int number = 150;
+        int inferior = 100, superior = 200;
+
+        boolean dintreDelRang = number > inferior && number < superior; 
+    </code>
+
     <quizz>
         <question single>
             <statement>
@@ -449,20 +742,6 @@
             <o><w>true</w></o>
             <o correct><w>false</w></o>
         </question>
-
-        <question single>
-            <statement>
-                <p>Què imprimeix aquest programa?</p>
-                <code java>
-                    System.out.println("java".equals('j' + 'a' + 'v' + 'a'));
-                </code>
-            </statement>
-
-            <o><w>true</w></o>
-            <o correct><w>false</w></o>
-            <o>És invàlid, perquè falta un parèntesi</o>
-            <o>És invàlid, perquè no es poden sumar caracters</o>
-        </question>
     </quizz>
 
 </section>
@@ -472,169 +751,34 @@
     <p>La sintaxi general de l'operador ternari <w>?:</w> és aquesta:</p>
 
     <code java>
-        condition ? trueCase : falseCase
+        condicio ? valorSiCerta : valorSiFalsa
     </code>
 
+    <p>Aquest operador retorna el valor <w>valorSiCerta</w> i la <w>condició</w> s'avalua a <w>true</w>. 
+    Si la condició resulta ser <w>false</w>, aleshores retorna <w>valorSiFalsa</w>.</p>
+
+    <p>Exemple:</p>
     <code java>
-        System.out.println(10 > 5 ? "major" : "menor");
-        System.out.println(num % 2 == 0 ? "parell" : "imparell");
-    </code>
+        System.out.println(10 > 5 ? "major" : "menor");   // major
 
-    (in progress...)
-</section>
-
-<section>
-    <h2>Operacions amb variables</h2>
-
-    <p>Fins ara hem vist el funcionament dels operadors aritmètics, relacionals i lògics 
-        amb valors literals. És clar que també podem utilitzar el valor de les variables 
-        en aquestes expressions. Com ja hem fet anteriorment, accedirem al valor d'una variable pel seu nom.
-    </p>
-
-    <code java>
-        int a = 10;
-        int b = 20;
-        int c = 30;
-
-        System.out.println(a < b && b < c);  // true
-    </code>
-
-    <p>Un altre exemple:</p>
-    <code java>
-        float a = 97f;
-        int b = 97;
-        char c = 'a';
+        int num = 10;
+        System.out.println(num % 2 == 0 ? "parell" : "imparell");   // parell
         
-        System.out.println(a == b && b == c);  // true
+        num = 11;
+        System.out.println(num % 2 == 0 ? "parell" : "imparell");   // imparell
     </code>
 
-    <p>Un últim exemple:</p>
-    <code java>
-        String l = "linux";
-        String g = "gnu";
-        boolean b = true;
-
-        System.out.println(g.equals(l) || b);  // true
-    </code>
-
-    <p>Per una altra banda, podem guardar en una variable el resultat que retorna una expressió, 
-        sempre que la variable sigui del tipus adequat al valor que retorna l'expressió.
-    </p>
-        
-    <code java>
-        // aritmetics
-        int a = 5 + 5;     // 10
-        float b = 5 + 5;   // 10.0
-        char c = 'a' + 1;  // 'b'
-        
-        String d = "ja" + "va";  // java
-
-        // relacionals
-        boolean e = 5 == 5;  // true
-
-        // booleans
-        boolean f = true || false;  // true
-    </code>
-
-    <p>També podem utilitzar el valor d'una variable en una expressió i 
-        assignar el resultat a la mateixa variable:
-    </p>
+    <p>L'operador ternari es pot enllaçar per a fer expressions més complexes:</p>
 
     <code java>
-        int a = 10;
-        a = a + 1;
-        System.out.println(a);  // 11
+        // TODO: ...
     </code>
 
-    <p>L'explicació és que en la sentència <w>a = a + 1;</w> primer s'avalua l'expressió amb 
-    el valor actual de <w>a</w> (<w>10 + 1</w>), el resultat <w>11</w> s'assigna després a la
-    variable <w>a</w>.</p>
-
-    <code java>
-        String language = "Java";
-        language = language + "8";
-        System.out.println(language);  // Java8
-    </code>
-
-    <code java>
-        boolean estaObert = true;
-        estaObert = !estaObert;
-        System.out.println(estaObert); // false
-    </code>
-
-    <quizz>
-        <question text>
-            <statement>
-                <p>Introdueix el valor de la variable <w>result</w></p>
-                <code java>
-                    int a = 4, b = 6;
-                    int c = a + b;
-                    int result = c + (a + b) * c;
-                </code>
-            </statement>
-            <o>110</o>
-        </question>
-
-        <question text>
-            <statement>
-                <p>Hi ha aquestes variables:</p>
-                <code java>
-                    boolean b1 = true;
-                    boolean b2 = false;
-                    boolean b3 = true;
-                    boolean b4 = false;
-                </code>
-                <p>Quin és el resultat d'aquesta expressió?</p>
-                <w>b1 && (b2 || (b3 || b4))</w>
-            </statement>
-            <o>true</o>
-        </question>
-
-        <question text>
-            <statement>
-                <p>Introdueix el valor de cada variable, <strong>després</strong> de cada sentència d'aquest programa:</p>
-            </statement>
-
-            <table>
-                <thead>
-                    <th style="width: 14em;"></th><th><w>a</w></th><th><w>b</w></th><th><w>c</w></th><th><w>d</w></th>
-                </thead>
-                <tr>
-                    <td><w>int a = 0;</w></td>
-                    <td><o>0</o></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><w>int b = a + 1;</w></td>
-                    <td><o>0</o></td>
-                    <td><o>1</o></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><w>a = a + 1;</w></td>
-                    <td><o>1</o></td>
-                    <td><o>1</o></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><w>boolean c = a == b;</w></td>
-                    <td><o>1</o></td>
-                    <td><o>1</o></td>
-                    <td><o>true</o></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td><w>boolean d = !c;</w></td>
-                    <td><o>1</o></td>
-                    <td><o>1</o></td>
-                    <td><o>true</o></td>
-                    <td><o>false</o></td>
-                </tr>
-            </table>
-        </question>
-    </quizz>
+    <challenge>
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/els-petits-davant">Els petits davant</a>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/contractar-un-programador">Contractar un programador</a>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c1-l2-4-aprovar-el-modul">Aprovar el mòdul</a>
+        </p>
+    </challenge>
 </section>
