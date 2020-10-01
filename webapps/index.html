@@ -13,6 +13,9 @@
             En aquesta pràctica ens iniciarem amb les tecnologies que s'utilitzen per al desenvolupament
             d'aplicacions web.
         </p>
+        <p>
+            Necessitaràs <a href="/setupwebserver/">tenir preparat un contenidor</a>.
+        </p>
     </abstract>
 </header>
 
@@ -161,19 +164,168 @@
                 </li>
             </ol>
         </p>
-        <p>Ahí pot veure tota la petició HTTP que s'ha realitzat:</p>
+        <p>Ahí pots veure tota la petició HTTP que s'ha realitzat:</p>
         <img src="img/firefox_request.png">
     </info>
+
+    <p>Ho farem ara al servidor que tenim instal·lat al nostre contenidor.</p>
 
     <h4>User</h4>
     <p>Alguns servidors requereixen d'autenticació amb usuari:contrasenya per a accedir 
         a certs recursos</p>
     </p>
 
+    <p>Configurarem el nostre servidor per a requerir usuari:contrasenya en l'accés.</p>
+
+    <p>Obrim el fitxer de configuració del servidor Apache:</p>
+
+    <terminal>
+        <host>@container</host>
+        <shell>nano /etc/apache2/sites-enabled/000-default</shell>
+    </terminal>
+
+    <p>Afegim les següents línies per a activar l'accés amb usuari/password:</p>
+
+    <codefile>
+        /etc/apache2/sites-enabled/000-default
+    </codefile>
+    <code none data-line="8,9,10">
+        &lt;VirtualHost *:80&gt;
+            ServerAdmin webmaster@localhost
+            DocumentRoot /var/www/html
+            
+            ErrorLog ${APACHE_LOG_DIR}/error.log
+            CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+            &lt;Directory /var/www/html&gt;
+                AllowOverride all
+            &lt;/Directory&gt;
+        &lt;/VirtualHost&gt;
+    </code>
+
+    <p>Creem l'usuari <w>Juan</w>:</p>
+    <terminal>
+        <host>@container</host>
+        <shell>
+            htpasswd -c /var/www/contrasenyes joan
+        </shell>
+    </terminal>
+
+
+    <p>Comprovem que s'ha creat l'usuari:</p>
+    <terminal>
+        <host>@container</host>
+        <shell>
+            cat /var/www/contrasenyes
+        </shell>
+    </terminal>
+
+
+    <p>Restringirem l'accés a la carepta <w>/var/www/html</w> a només aquells usuaris 
+    que estiguin en l'arxiu <w>/var/www/contrasenyes</w>:</p>
+    <terminal>
+        <host>@container</host>
+        <shell>nano /var/www/html/.htaccess</shell>
+    </terminal>
+
+    <p>El contingut de l'arxiu <file>.htaccess</file> ha de ser aquest:</p>
+    <codefile>
+        /var/www/html/.htaccess
+    </codefile>
+    <code none>
+        AuthType Basic
+        AuthName "Introdueix el teu usuari i contrasenya"
+        AuthBasicProvider file
+        AuthUserFile "/var/www/contrasenyes"
+        Require valid-user
+    </code>
+
+    <p>Per últim reiniciem el servidor Apache:</p>
+
+    <terminal>
+        <host>@container</host>
+        <shell>/etc/init.d/apache2 restart</shell>
+    </terminal>
+
     <h4>Host</h4>
     <p>El host és l'adreça IP o nom DNS del servidor.</p>
 
+    <p>Configurem el servidor web:</p>
+    <terminal>
+        <host>@container</host>
+        <shell>
+            mkdir /var/www/html/aaa.com
+            mkdir /var/www/html/bbb.com
+            echo "&lt;h1&gt;welcome to aaa.com&lt;/h1&gt;" >> /var/www/html/aaa.com/index.html
+            echo "&lt;h1&gt;welcome to bbb.com&lt;/h1&gt;" >> /var/www/html/bbb.com/index.html
+        </shell>
+    </terminal>
+
+    <codefile>
+        /etc/apache2/sites-enabled/000-default
+    </codefile>
+    <code none>
+        &lt;VirtualHost *:80&gt;
+            ServerName aaa.com
+            DocumentRoot /var/www/html/aaa.com
+        &lt;/VirtualHost&gt;
+
+        &lt;VirtualHost *:80&gt;
+            ServerName bbb.com
+            DocumentRoot /var/www/html/bbb.com
+        &lt;/VirtualHost&gt;
+    </code>
+
+
+    <p>Realitzem dues peticions als diferents noms:</p>
+    <terminal>
+        <host>@host</host>
+        <shell>
+            printf 'GET /index.html HTTP/1.0\r\nHost aaa.com\r\n\r\n' | nc <replace>{IP_CONTENIDOR}</replace> 80
+            printf 'GET /index.html HTTP/1.0\r\nHost bbb.com\r\n\r\n' | nc <replace>{IP_CONTENIDOR}</replace> 80
+        </shell>
+    </terminal>
+
+
+
     <h4>Port</h4>
+
+    <p>Configurem Apache per a permetre conexions al port <w>8080</w>:</p>
+    <terminal>
+        <host>@host</host>
+        <shell>
+            nano /etc/apache2/ports.conf
+        </shell>
+    </terminal>
+    
+    <codefile>
+        /etc/apache2/ports.conf
+    </codefile>
+    <code none data-line="2">
+        Listen 80
+        Listen 8080
+
+
+        # resta de lines
+        # ...
+    </code>
+
+    <p>Servim dues pàgines diferents en funcio del port de conexió:</p>
+    <codefile>
+        /etc/apache2/sites-enabled/000-default
+    </codefile>
+    <code none>
+        &lt;VirtualHost *:80&gt;
+            DocumentRoot /var/www/html/aaa.com
+        &lt;/VirtualHost&gt;
+
+        &lt;VirtualHost *:8080&gt;
+            DocumentRoot /var/www/html/bbb.com
+        &lt;/VirtualHost&gt;
+    </code>
+
+    <p>Accedim a <url>http://<replace>ip_contenidor</replace>:80</url></p>
+    <p>Accedim a <url>http://<replace>ip_contenidor</replace>:8080</url></p>
 
     <h4>Path</h4>
 
