@@ -21,6 +21,8 @@
 
 <section>
     <h2>World Wide Web</h2>
+
+    <p>buscad en google perros: <a href="https://www.google.com/search?q=perros&sxsrf=ALeKk03NUH0NdYpmair4XF6SGlPQrLbSIg:1601574782938&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiOlJKA-5PsAhUSJBoKHQ_VDGsQ_AUoAXoECB4QAw&biw=1218&bih=647">perritor</a></p>
     <p>El científic anglés <a href="https://ca.wikipedia.org/wiki/Tim_Berners-Lee">Tim Berners-Lee</a> 
         va inventar la World Wide Web (WWW), Xarxa d'Abast Mundial, en 1989, mentre treballava al CERN.
     </p>
@@ -311,6 +313,7 @@
     </code>
 
     <p>Servim dues pàgines diferents en funcio del port de conexió:</p>
+
     <codefile>
         /etc/apache2/sites-enabled/000-default
     </codefile>
@@ -329,9 +332,92 @@
 
     <h4>Path</h4>
 
+    <p>Si no s'especifica cap arxiu en el <w>path</w>, 
+        per defecte, el servidor apache servirà l'arixu 
+        <file>index.html</file>, i si aquest arxiu no existeix,
+        servirà una pàgina que llistarà els arxius del directory:
+    </p>
+
+    <p>Anem a crear diversos arxius al directory <directory>/var/www/html</directory>:</p>
+
+    <terminal>
+        <host>@container</host>
+        <shell>
+            echo "&lt;h1&gt;Pagina xxx &lt;/h1&gt;" >> /var/www/html/xxx.html
+            echo "&lt;h1&gt;Pagina yyy &lt;/h1&gt;" >> /var/www/html/yyy.html
+            echo "&lt;h1&gt;Pagina zzz &lt;/h1&gt;" >> /var/www/html/zzz.html
+        </shell>
+    </terminal> 
+    
+    <p>Comprovem que tenim aquests arxius a <directory>/var/www/html</directory>:</p>
+
+    <terminal>
+        <host>@container</host>
+        <shell>
+            ls /var/www/html
+            index.html  xxx.html  yyy.html  zzz.html
+        </shell>
+    </terminal>
+
+    <p>Si ara fem una petició al servidor sense indicar cap arxiu <url>http://10.2.4.1</url>
+    el servidor ens enviarà l'arxiu <file>index.html</file> </p>
+
+    <p>Si especifiquem algun arxiu a la petició (e.g. <url>http://10.2.4.1/xxx.html</url>) Apache ens servirà aquest arxiu.</p>
+
+    <p>Si l'arxiu que posem a la url (e.g. <url>http://10.2.4.1/xxx.html</url>) no existeix, apache ens servirà una 
+    pàgina <strong>"Not Found"</strong></p>
+
+    <p>Per últim, esborrem l'arxiu <file>index.html</file>:</p>
+    <terminal>
+        <host>@container</host>
+        <shell>
+            rm /var/www/html/index.html
+        </shell>
+    </terminal>
+    <p>... y comprovem que Apache ens mostra un pàgina amb la llista d'arxius del 
+        directory, quan no especifiquem cap arxiu a la url <url>http://10.2.4.1/</url>:
+    </p>
+    <img src="img/filelist.png">
+
+
+    <p>Al <w>path</w> de la url també es poden especificar els directoris on es troba l'arxiu que se solicita. Apache
+    buscarà aquest arxius a partir del <w>DocumentRoot</w>.</p>
+
+    <p>Per exemple, si el <w>DocumentRoot</w> és <w>/var/www/html</w>, i fem aquesta petició: 
+        <url>http://10.2.4.1/aaa/bbb/mmm.html</url>, Apache buscarà aquest arxiu 
+        <w>/var/www/html/aaa/bbb/mmm.html</w>. Comprovem-ho:</p>
+
+    <terminal>
+        <host>@container</host>
+        <shell>
+            mkdir -p /var/www/html/aaa/bbb/
+            echo "&lt;h1&gt;Pagina mmm &lt;/h1&gt;" >> /var/www/html/aaa/bbb/mmm.html
+        </shell>
+    </terminal>
+    
     <h4>Query</h4>
 
+    <p>La <w>query</w> serveix per a passar dades extra al recurs que s'està solicitant. Ho veurem més endavant.</p>
+
+    <p>De moment, solament veurem un exmple:</p>
+
+    <p>En aquesta url <url>https://www.google.com/search?q=animals</url>, estem passant al recurs <w>search</w> la dada extra 
+    <w>q=animals</w>. Aquest recurs ja sabrà que fer amb aquesta dada extra. Si li passem una query que el recurs no sap 
+    processar, normalment la ignorarà: <url>https://www.google.com/search?jajaja=jejeje</url>.</p>
+
     <h4>Fragment</h4>
+    <p>El <w>fragment</w> serveix per a fer que el navegador posicioni la pàgina en una secció determinada. Aquesta part
+    de la url no arriba al servidor, és el navegador el qui ha de saber com gestionar el <w>fragment</w>.</p>
+
+    <p>Veiem un exmple:</p>
+
+    <p>Generem un arxiu html extens amb 5 seccions (<w>id=sX</w>) i 30 paràrafs en cada secció:</p>
+    <terminal>
+        <host>@container</host>
+        <shell>
+            for i in {1..5}; do printf "&lt;h1 id='s$i'&gt;Seccio $i&lt;/h1&gt;; for j in {1..30}; do printf "&lt;p&gt;seccio $i, paràgraf $j&lt;/p&gt;"; done; done > /var/www/html/llarg.html
+        </shell>
+    </terminal>
 </section>
 
 <section>

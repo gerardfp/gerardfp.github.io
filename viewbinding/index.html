@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<section>
+    <h2>ViewBinding</h2>
+
+    <p>Habilitar:</p>
+    <codefile>
+        build.gradle (Module: app)
+    </codefile>
+    <code none data-line="2,3,4">
+        android {
+            buildFeatures {
+                viewBinding true;
+            }
+        }
+    </code>
+
+    <p>Activity:</p>
+    <code java data-line="3,8">
+        public class MainActivity extends AppCompatActivity {
+
+            private ActivityMainBinding binding;
+          
+            @Override
+            protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                setContentView((binding = ActivityMainBinding.inflate(getLayoutInflater())).getRoot());
+
+            }
+        }
+    </code>
+
+    <p>Fragment:</p>
+    <code java data-line="3,7">
+        public class MainFragment extends Fragment {
+
+            private FragmentMainBinding binding;
+        
+            @Override
+            public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+                return (binding = FragmentMainBinding.inflate(inflater, container, false)).getRoot();
+
+            }
+        }
+    </code>
+
+</section>
