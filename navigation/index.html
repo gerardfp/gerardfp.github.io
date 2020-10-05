@@ -231,7 +231,7 @@
 
     <p>Para iniciar una Activity hay que llamar al método <w>startActivity()</w> y pasarle un objeto de clase
          <w>Intent</w>, 
-    indicando en parámetros del constructor el objeto de la Activity en la que estamos y la <strong>clase</strong> de 
+    indicando en los parámetros del constructor el objeto de la Activity en la que estamos y la <strong>clase</strong> de 
     la Activity que queremos iniciar.</p>
 
     <p>Reemplaza el código de la clase <w>MainActivity</w> por este (¡excepto la primera linea del <w>package</w>!). 
@@ -241,14 +241,11 @@
     <codefile>
         MainActivity.java
     </codefile>
-    <code java>
+    <code java data-line="15">
         import android.content.Intent;
         import android.os.Bundle;
         import android.view.View;
-
         import androidx.appcompat.app.AppCompatActivity;
-
-        import com.company.navigation.databinding.ActivityMainBinding;
 
         public class MainActivity extends AppCompatActivity {
 
@@ -292,10 +289,15 @@
         }
     </code>
 
+    
+    <p>La llamada a <w>setSupportActionBar()</w> <ln>15</ln> hace que la Activity utilice la <w>Toolbar</w>
+            que hemos puesto en el layout, en lugar de la <w>ActionBar</w> que venia por defecto, y que hemos
+            ocultado.
+    </p>
     <observe>
         <p>Observa que el primer parámetro del <w>Intent</w> siempre es <w>MainActivity.this</w>, es decir, 
         el objeto correspondiente a la <w>MainActivity</w> (la activity en la que estamos). En cambio el 
-    segundo parámetro es la clase <w>.class</w> de la activity que queremos iniciar en cada botón.</p>
+        segundo parámetro es la clase <w>.class</w> de la activity que queremos iniciar en cada botón.</p>
     </observe>
 
     <p>Si ejecutas ahora la app, comprobarás que cada botón nos lleva a una Activity, que todavía está en blanco.
@@ -306,7 +308,7 @@
 <section>
     <h2>NavigationView</h2>
 
-    <p>El <w>NavigationView</w> (más conocido como "Drawer menu") es el menú de navegación que 
+    <p>El <w>NavigationView</w> (más conocido como "<strong>Drawer</strong> menu") es el menú de navegación que 
     suele aparecer por la izquierda de la app cuando se pulsa el icono Hamburger <img src="img/hamburger.png">.</p>
 
     <p>En la <w>DrawerActivity</w> de esta app usaremos un <w>NavigationView</w> para navegar a 3 destinos (fragments).</p>
@@ -321,7 +323,7 @@
 
     <observe>
         <p>En este grafo de navegación no hemos creado ninguna acción de navegación, ya que los 3 destinos son 
-            independientes ente sí, es decir, no se navega de ninguno a otro, sino que todos són accesibles desde el
+            independientes ente sí, es decir, no se navega de ninguno a otro, sino que todos son accesibles desde el
             menú drawer.
         </p>
     </observe>
@@ -336,9 +338,9 @@
     función es permitir que el <w>NavigationView</w> pueda ponerse "por encima" de los otros elementos.</p>
 
     <p>Añadiremos el <w>NavigationView</w> a la <w>DrawerActivity</w>. Reemplaza el contenido del 
-        fichero <file>res/layout/activity_main.xml</file> por este:</p>
+        fichero <file>res/layout/activity_drawer.xml</file> por este:</p>
     <codefile>
-        res/layout/activity_main.xml
+        res/layout/activity_drawer.xml
     </codefile>
     <code xml>
         &lt;?xml version="1.0" encoding="utf-8"?&gt;
@@ -398,7 +400,8 @@
 
     <p>Observa que dentro del <w>DrawerLayout</w> hemos puesto el <w>CoordinatorLayout</w> que ya teníamos y el <w>NavigationView</w>.</p>
 
-    <p>Además hemos añadido el <w>NavHostFragment</w>. En él es donde se mostrarán los 3 destinos.</p>
+    <p>Además hemos añadido el <w>NavHostFragment</w> que nos habíamos saltado antes. En él es donde se mostrarán los 3 destinos 
+        que hemos creado en el grafo <w>drawer_graph.xml</w>.</p>
 
     <h3>Cabecera y menú</h3>
     <p>Observa que hay dos atributos XML en el elemento <w>NavigationView</w> que aparecen en rojo. 
@@ -409,8 +412,7 @@
 
     <p>Crearemos estos dos ficheros, y definiremos la cabecera y el menú:</p>
     <ul>
-        <li> <p>Cabecera:</p>
-            <p>Haz clic-derecho sobre la carpeta <directory>res/layout</directory> y ve a <menuoption>New ⯈</menuoption> <menuoption>Layout Resource File</menuoption> e 
+        <li> <p>Cabecera: Haz clic-derecho sobre la carpeta <directory>res/layout</directory> y ve a <menuoption>New ⯈</menuoption> <menuoption>Layout Resource File</menuoption> e 
             introduce <menuoption>File name:</menuoption> <name>drawer_header</name></p>
 
             <img src="img/drawer_header_layout.png">
@@ -447,8 +449,7 @@
             </code>
         </li>
 
-        <li><p>Menu:</p>
-            <p>Haz clic-derecho sobre la carpeta <directory>res</directory> y ve a 
+        <li><p>Menu: Haz clic-derecho sobre la carpeta <directory>res</directory> y ve a 
                 <menuoption>New ⯈</menuoption> <menuoption>Android Resource File</menuoption> e 
                 introduce <menuoption>File name:</menuoption> <name>drawer_menu</name>, 
             y selecciona <menuoption>Resource type:</menuoption> <name>Menu</name>.</p>
@@ -541,12 +542,8 @@
         }
     </code>
 
-    <p>Hay 3 cosas que obsevar en este código:</p>
+    <p>Hay 2 cosas que obsevar en este código:</p>
     <ul>
-        <li><p>La llamada a <w>setSupportActionBar()</w> <ln>20</ln> hace que la Activity utilice la <w>Toolbar</w>
-            que hemos puesto en el layout, en lugar de la <w>ActionBar</w> que venia por defecto, y que hemos
-            ocultado.
-        </p></li>
         <li><p>La función del objeto <w>appBarConfiguration</w> es definir los destinos que serán 
             <strong>Top-level destinations</strong> <ln>24</ln>. Si marcamos un destino como Top-level, 
             cuando se navegue a él, se mostrará el icono <em>hamb</em> <img src="img/drawer-hamb.png"> en la Toolbar. 
@@ -559,7 +556,7 @@
     </ul>
 
     <p>Ahora puedes ejecutar la app, abrir la <w>DrawerActivity</w>, y navegar usando el <w>NaviagtionView</w> por los 3 destinos:
-        <w>Drawre1Fragment</w>, <w>Drawer2Fragment</w> y <w>Drawer3Fragment</w>. Observa cómo en el tercer fragment, se muestra 
+        <w>Drawer1Fragment</w>, <w>Drawer2Fragment</w> y <w>Drawer3Fragment</w>. Observa cómo en el tercer fragment, se muestra 
         la flecha de "atrás" <img src="img/drawer-up.png">, ya que no es un destino Top-level.
     </p>
 </section>
@@ -583,13 +580,10 @@
 
     <p>Añade el <w>NavHostFragment</w> dentro del <w>ConstraintLayout</w>:</p>
     <codefile>
-        res/layout/activity_drawer.xml
+        res/layout/activity_bottom.xml
     </codefile>
-    <code xml data-line="6-12">
-        &lt;androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"&gt;
+    <code xml data-line="3-9">
+        &lt;androidx.constraintlayout.widget.ConstraintLayout ... &gt;
 
             &lt;androidx.fragment.app.FragmentContainerView
                 android:name="androidx.navigation.fragment.NavHostFragment"
@@ -614,7 +608,7 @@
         res/layout/activity_bottom.xml
     </codefile>
     <code xml data-line="5-13">
-        &lt;androidx.constraintlayout.widget.ConstraintLayout .../&gt;
+        &lt;androidx.constraintlayout.widget.ConstraintLayout ...&gt;
           
             &lt;androidx.fragment.app.FragmentContainerView .../&gt;
 
@@ -701,6 +695,13 @@
     el <w>BottomNavigationView</w>.</p>
 </section>
     
+
+
+
+
+
+
+
 <section>
     <h2>OptionsMenu</h2>
 
@@ -711,7 +712,7 @@
 
     <p>Lo usaremos para navegar a 3 destinos</p>
 
-    <p>Crea el grafo de navegación de la <w>options_graph.xml</w> y añade 3 destinos: <w>Options1Fragment</w> y 
+    <p>Crea el grafo de navegación <w>options_graph.xml</w> y añade 3 destinos: <w>Options1Fragment</w>, 
     <w>Options2Fragment</w> y <w>Options3Fragment</w>.</p>
 
     <img src="img/options_graph.png">
@@ -779,7 +780,7 @@
 
     <h3>NavigationUI</h3>
 
-    <p>Por último, configuraremos <w>NavigatinoUI</w> para que gestione la navegación del Options Menu.</p>
+    <p>Por último, configuraremos <w>NavigationUI</w> para que gestione la navegación del Options Menu.</p>
 
     <codefile>
         OptionsActivity.java
@@ -793,9 +794,6 @@
         import androidx.navigation.fragment.NavHostFragment;
         import androidx.navigation.ui.AppBarConfiguration;
         import androidx.navigation.ui.NavigationUI;
-
-        import com.company.navigation.databinding.ActivityOptionsBinding;
-
 
         public class OptionsActivity extends AppCompatActivity {
 
@@ -832,7 +830,7 @@
         }
     </code>
 
-    <p>Se han anulado (<w>@Override</w>) dos métodos:</p>
+    <p>En esta activity se han anulado (<w>@Override</w>) dos métodos:</p>
     <ul>
         <li><p>El método <w>onCreateOptionsMenu()</w> establece los ítems del <w>OptionsMenu</w> (los que 
         hemos establecido en el fichero <w>R.menu.options_menu</w>).</p></li>
@@ -842,7 +840,7 @@
 
     <p>Ejecuta la app y comprueba la navegación con el <w>OptionsMenu</w>. Observa que el primer ítem aparece 
     como un icono en la barra. Y también que cuando se navega al tercer fragment, aparece el boton de "atrás" 
-    <img src="img/drawer-up.png">, ya que no lo está puesto como destino Top-level.</p>
+    <img src="img/drawer-up.png">, ya que no está puesto como destino Top-level.</p>
 </section>
     
 <section>
@@ -853,10 +851,12 @@
 
     <img src="img/tabbedactivity.gif">
 
-    <p>Estos elementos no forman parte del componente <w>Navigation</w>, y no son gestionadas por <w>NavigationUI</w>.</p>
+    <warn>
+        <p>Estos elementos no forman parte del componente <w>Navigation</w>, y no son gestionados por <w>NavigationUI</w>.</p>
+    </warn>
 
     <p>En la activity <w>TabbedActivity</w>, añadiremos un fragment que incluirá un <w>ViewPager2</w> y un <w>TabLayout</w>,
-    que permitirán deslizarse entre 3 fragments.</p>
+    que permitirán deslizarse entre 3 fragments (A, B y C).</p>
 
     <img src="img/Viewpager2tablayout.png">
 
@@ -887,7 +887,7 @@
     <p>En este <w>NavHostFragment</w> únicamente se mostrará el <w>Tabbed1Fragment</w>.</p>
 
     <h3>Crear las páginas deslizantes</h3>
-    <p>Crearemos 3 fragments (<em>A</em>, <em>B</em>, <em>C</em>), que serán los que se deslizen por el Tabbed1Fragment.</p>
+    <p>Crearemos 3 fragments (<em>A</em>, <em>B</em>, <em>C</em>), que serán los que se deslizen por el <w>Tabbed1Fragment</w>.</p>
 
     <p>Estos 3 fragments <strong>no</strong> se crean en el grafo de navegación, ya que no se navegará 
     entre ellos usando <w>Navigation</w>, sino usando el <w>ViewPager2</w>.</p>
@@ -895,7 +895,7 @@
     <p>Llamaremos a estos fragments: <w>Tabbed1AFragment</w>, <w>Tabbed1BFragment</w> y <w>Tabbed1CFragment</w>.</p>
     <p>Para crear un Fragment, haz clic-derecho sobre la carpeta <directory>app</directory> y 
         selecciona <menuoption>New ⯈</menuoption> 
-        <menuoption>Fragment ⯈</menuoption> <menuoption>Fragment (blank)</menuoption>.
+        <menuoption>Fragment ⯈</menuoption> <menuoption>Fragment (Blank)</menuoption>.
     <br>En el campo <menuoption>Fragment Name</menuoption>, introduce el nombre del campo.</p>
 
     <p>Crea los 3 fragments: <w>Tabbed1AFragment</w>, <w>Tabbed1BFragment</w> y <w>Tabbed1CFragment</w>.</p>
@@ -903,8 +903,8 @@
     <img src="img/tabbed_abc.png">
 
     <h3>Añadir el ViewPager2</h3>
-    <p>Añadimos el <w>ViewPager2</w> en el layout del <w>Tabbed1Fragment</w>. En el ViewPager2 se mostrarán los 3 
-    fragments (A,B,C) que acabamos de mostrar.</p>
+    <p>En el layout del <w>Tabbed1Fragment</w> añadimos el <w>ViewPager2</w>. En él se mostrarán los 3 
+    fragments (A,B,C) que hemos creado.</p>
 
     <codefile>
         res/layout/fragment_tabbed1.xml
@@ -923,7 +923,7 @@
         &lt;/FrameLayout&gt;
     </code>
 
-    <p>Para vincular los 3 fragments (A,B,C) con el ViewPager2, hay que llamar al método <w>setAdapter()</w> y 
+    <p>Para vincular los 3 fragments (A,B,C) con el <w>ViewPager2</w>, hay que llamar al método <w>setAdapter()</w> y 
     pasárle un objeto <w>FragmentStateAdapter</w> con la configuración.</p>
 
     <p>Realizaremos esta llamada en el método <w>onViewCreated()</w> del <w>Tabbed1Fragment</w>.</p>
@@ -981,14 +981,15 @@
     <p>El objeto de clase <w>FragmentStateAdapter</w> configura el <w>viewPager</w> anulando dos métodos:</p>
     <ul>
         <li><p><w>createFragment()</w> retorna el fragment que se debe mostrar en función de la posición de la 
-        página que se muestre.</p></li>
+        página.</p></li>
         <li><p><w>getItemCount()</w> retorna el número de páginas que debe tener el viewPager.</p></li>
     </ul>
 
     <p>Si ejecutas la app, verás que se pueden deslizar los 3 fragments (A,B,C).</p>
 
     <h3>Añadir el TabLayout</h3>
-    <p>En el layout <w>fragment_tabbed1.xml</w> añadimos el <w>&lt;TabLayout&gt;</w> justo arriba del <w>ViewPager2</w>:</p>
+    <p>En el layout <w>fragment_tabbed1.xml</w> añadimos el <w>&lt;TabLayout&gt;</w> justo arriba del <w>ViewPager2</w>. 
+    Reemplaza el contenido por el siguiente:</p>
 
     <codefile>
         res/layout/fragment_tabbed1.xml
@@ -1019,10 +1020,12 @@
     </observe>
 
     <p>Para vincular el <w>TabLayout</w> con el <w>ViewPager2</w>, de forma que la página cambie cuando se 
-    pulsa en una pestaña, y viceversa, hay que crear un objeto <w>TabLayoutMediator</w>. A este objeto 
-    también le pasaremos un <w>TabConfigurationStrategy</w> indicando el titulo que se debe mostrar en cada Tab.</p>
+    pulsa en una pestaña, y viceversa, hay que crear un objeto <w>TabLayoutMediator</w> al que se le pasan 
+    el <w>TabLayout</w> y <w>ViewPager2</w>. También 
+    se le pasa un <w>TabConfigurationStrategy</w> indicando el titulo que se debe mostrar en cada Tab.
+    Por último, se llama al método <w>attach()</w> de este objeto.</p>
 
-    <p>Añade el siguiente código en <w>Tabbed1Fragment</w>:</p>
+    <p>Añade el código resaltado en <w>Tabbed1Fragment</w>:</p>
 
     <codefile>
         Tabbed1Fragment.java
