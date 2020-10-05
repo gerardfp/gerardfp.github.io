@@ -678,6 +678,8 @@
     <challenge>
         <p>
             <a href="https://www.hackerrank.com/contests/dam-m3/challenges/major-dedat">Major d'edat</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c1-l1-4">Llibres i prestatgeries</a> 
         </p>
     </challenge>
 </section>
@@ -746,11 +748,13 @@
     </quizz>
 
     <challenge>
-        <a href=""></a>
-        <a href=""></a>
-        <a href=""></a>
-
-
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/els-petits-davant">Els petits davant</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/contractar-un-programador">Contractar un programador</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c1-l2-4-aprovar-el-modul">Aprovar el mòdul</a>
+        </p>
     </challenge>
 </section>
 
@@ -781,19 +785,68 @@
         System.out.println(num % 2 == 0 ? "parell" : "imparell");   // imparell
     </code>
 
+    <p>També podem guardar el resultat que retorna l'operador ternari en un variable. El tipus d'aquesta
+        variable ha de coincidir amb el tipus dels valors <w>valorSiCerta</w> i <w>valorSiFalsa</w>. 
+        Per exemple, el següent programa calcula la 'quota mensual' d'un soci, si el soci té més de 10 anys d'antiguetat, 
+        la quota són 30, y si no en són 40.</p>
+    
+        <code java>
+        int anysAntiguetat = 3;
+
+        float quotaMensual = anysAntiguetat > 10 ? 30f : 40f;
+
+        System.out.printnl(quotaMensual);   // 40.0
+    </code>
+
     <p>L'operador ternari es pot enllaçar per a fer expressions més complexes:</p>
 
     <code java>
-        // TODO: ...
+          condicio1 ? valor1 
+        : condicio2 ? valor2
+        : condicio3 ? valor3
+        valor4;
     </code>
+
+    <p> El valor retornat és el que primer compleix la condició. Si no es compleix cap condició, aleshores es 
+        retorna l'últim valor. </p>
+    <code java>
+        int edat = 18;
+        String beguda = edat < 18 ? "Coca-cola"
+                      : edat < 45 ? "Cervesa"
+                      : "Vi";
+        System.out.println(beguda);  // Vi
+    </code>
+
+    <quizz>
+        <question single>
+            <statement>
+                <p>Quin valor tindrà la variable <w>x</w>?</p>
+                <code java>
+                    int a = 10;
+                    int b = 30;
+                    int c = 20;
+
+                    String x = a < b ? "One"
+                             : b < c ? "Two"
+                             : "Three";
+                </code>
+            </statement>
+            <o correct>One</o>
+            <o>Two</o>
+            <o>Three</o>
+        </question>
+    </quizz>
 
     <challenge>
         <p>
-            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/els-petits-davant">Els petits davant</a>
+            <a href=""></a>
             <br>
-            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/contractar-un-programador">Contractar un programador</a>
+            <a href=""></a>
             <br>
-            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c1-l2-4-aprovar-el-modul">Aprovar el mòdul</a>
+            <a href=""></a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/pares-o-nones">Pares o nones</a>
         </p>
     </challenge>
+
 </section>
