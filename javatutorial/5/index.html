@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav>
+<header>
+    <h1>Sentències condicionals</h1>
+
+    <abstract>
+        <p>En aquesta activitat aprendràs a fer ús de les sentències condicionals, que permeten
+            a un programa fer distintes accions depenent del valor d'una expressió Booleana.
+        </p>
+        <p>Aprendràs:</p>
+        <check>A utilitzar la sentència if-else.</check>
+        <check>A utilitzar la sentència switch.</check>
+    </abstract>
+</header>
+
+<section>
+    <h2>Sentència if-else</h2>
+
+    <p>La sentència <w>if-else</w> és una construcció que permet a un programa realitzar distintes accions
+        depenent del valor d'una expressió Booleana. Si és <w>true</w>, el programa realitza unes accions,
+        en cas contrari, si és <w>false</w>, el programa realitza unes altres operacions. Alguns exemples
+        de expressións Booleanes són: <w>a > b</w>, <w>i -j == 1</w>, <w>p && q</w>, etc.
+    </p>
+    <p>La sentència <w>if-else</w> te distintes formes. Anem a veure-les.</p>
+
+    <h3>if</h3>
+
+    <p>La forma més simple és la sentència <w>if</w> única. Consisteix en la paraula-clau <w>if</w>, una 
+    expressió Booleana entre parèntesi i un bloc tancat entre claus:</p>
+
+    <code java>
+        if (expressio) {
+            // cos: fer alguna cosa
+        }
+    </code>
+
+    <p>Si l'expressió és <w>true</w>, les sentències dintre del bloc s'executen; en cas contrari, el programa
+    se les salta.</p>
+
+    <p>Per exemple:</p>
+
+    <code java>
+        int edat = ...; // l'edat que sigui
+        if (edat > 17) {
+            System.out.println("Pots votar");
+        }
+    </code>
+
+    <p>En aquest exemple, si l'<w>edat</w> és més gran que 100 el codi imprimeix "Pots votar", 
+    en cas contrari, no fa res.</p>
+
+    <p>L'expressió també pot ser el valor d'una variable de tipus <w>boolean</w>. Si el valor és <w>true</w>, el
+    bloc s'executarà, i si és <w>false</w> no.</p>
+
+    <code java>
+        int edat = ...;
+        boolean majorEdat = edat > 17;
+        if (majorEdat) {
+            System.out.println("Pots votar");
+        }
+    </code>
+
+
+    <h3>if-else</h3>
+    <p>La sentència <w>if</w> es pot extendre amb la paraula-clau <w>else</w> i un altre bloc per a fer accions 
+    alternatives quan l'expressió és falsa.</p>
+
+    <code java>
+        if (expressio) {
+            // fer una cosa
+        } else {
+            // fer una altra cosa
+        }
+    </code>
+
+    <p>En aquest cas, quan l'expressió és <w>true</w>, s'executa el primer bloc de codi; en cas contrari s'executa 
+    el segon bloc, però mai els dos.</p>
+
+    <p>Al següent exemple, el programa imprimeix texts diferents depenent del valor de <w>num</w> (parell o imparell).</p>
+
+    <code java>
+        int num = ...;  // num s'inicialitza en algun valor
+        
+        if (num % 2 == 0) {
+            System.out.println("Nombre parell");
+        } else {
+            System.out.println("Nombre imparell");
+        }
+    </code>
+
+    <h3>if-else-if</h3>
+
+    <p>La forma més general de la sentència condicional consisteix en vàries condicions encadenades:</p>
+
+    <code java>
+        if (expressio0) {
+            // accions0
+        } else if (expressio1) {
+            // accions1
+        } else if (expressio2) {
+            // accions2
+        // ...
+        } else {
+            // accions else
+        }
+    </code>
+
+    <p>En aquest cas el programa executa les accions en les que primer es compleix l'expressió. Si cap expressió 
+        es <w>true</w>, aleshores s'executa l'última acció.
+    </p>
+
+    <p>El següent exemple recomana l'ordinador que es pot comprar depenent del pressupost.</p>
+
+    <code java>
+        int pressupost = ...;
+
+        if (pressupost < 1000) {
+            System.out.println("Portatil");
+        } else if (pressupost < 2000) {
+            System.out.println("PC");
+        } else if (pressupost < 100_000) {
+            System.out.println("Servidor");
+        } else {
+            System.out.println("Comprat un data center o un ordinador quantic!");
+        }
+    </code>
+
+    <p>Una sentpencia condicional amb múlitples branques crea un <strong>arbre de decisió</strong>, el 
+    qual els seus nodes són expressions booleanes, i cada branca es marca amb <em>true</em> o <em>false</em>. 
+    La <em>branca-true</em> porta a un bloc de sentències i la <em>branca-false</em> porta a la comprovar la 
+    següent expressió. L'última <em>branca-false</em> significa <em>"en qualsevol altre cas"</em>.</p>
+
+    <info>
+        <p>Quan parlem sobre sentències condicionals, sovint els programadors utilitzen el terme 
+            "sentències de control de flux". El <strong>control de flux</strong> és l'ordre en que s'executen les 
+            diferents parts del programa.
+        </p>
+    </info>
+
+    <p>Aquest diagrama il·lustra l'arbre de decisió de l'exemple del pressupost.</p>
+
+    <img src="img/arbre decisio.png">
+
+    <h3>Niament de sentències if-else</h3>
+    <p>Les sentències <w>if-else</w> es poden niar (posar unes dintre d'altres). És a dir, en el bloc
+    d'una condició es poden posar altres <w>if-else</w>, que només seran executades si es compleix la condició 
+    i per tant s'executa el bloc.</p>
+    
+    <p>El següent exemple executa un editor específic depenent del Sistema Operatiu i la seva versió:</p>
+
+    <code java>
+        import java.io.IOException;
+        import java.util.Scanner;
+
+        public class Main {
+            public static void main(String[] args) throws IOException {
+                Scanner scanner = new Scanner(System.in);
+
+                String os = scanner.nextLine();
+                String version = scanner.nextLine();
+
+                if (os.equals("Ubuntu")) {
+                    System.out.println("Checking Ubuntu version...");
+                    if(version.equals("20.04")) {
+                        Runtime.getRuntime().exec("gedit");
+                    } else if (version.equals("18.04")){
+                        Runtime.getRuntime().exec("nano");
+                    } else {
+                        System.out.println("Ubuntu version not supported");
+                    }
+                } else if (os.equals("Windows")) {
+                    System.out.println("All Windows versions supported");
+                    if(version.equals("10 Pro")) {
+                        Runtime.getRuntime().exec("notepad.exe");
+                    } else {
+                        Runtime.getRuntime().exec("write.exe");
+                    }
+                } else {
+                    System.out.println("OS not supported");
+                }
+            }
+        }
+    </code>
+    
+    <p>Aquest és l'arbre de decisió:</p>
+    <img src="img/arbre decisio OS.png">
+
+    <quizz>
+        <question single>
+            <statement>
+                <p>Si <w>val</w> és 50, quina és la sortida d'aquest codi?</p>
+                <code java>
+                    if (val == 10) {
+                        System.out.println("val == 10");
+                    } else if (val >= 20 && val < 50) {
+                        System.out.println("20 <= val < 50");
+                    } else {
+                        if (val < 20) {
+                            System.out.println("val < 20");
+                        } else {
+                            System.out.println("val >= 50");
+                        }
+                    }
+                </code>
+            </statement>
+            <o>val < 20</o>
+            <o correct>val >= 50</o>
+            <o>val == 10</o>
+            <o>20 <= val < 50</o>
+            <o>Cap d'aquestes</o>
+        </question>
+
+        <question single>
+            <statement>
+                <p>Selecciona l'exemple correcte de la sentència condicional</p>
+            </statement>
+
+            <o><w>if i < j { System.out.print("Hello!"); }</w></o>
+            <o><w>if (i < j): System.out.print("Hello!"); </w></o>
+            <o correct><w>if (i < j) { System.out.print("Hello!"); }</w></o>
+            <o><w>if {i < j} ( System.out.print("Hello!"); )</w></o>
+            <o><w>if [i < j] System.out.print("Hello!"); </w></o>
+        </question>
+
+        <question multi>
+            <statement>
+                <p>Selecciona la sortida del programa segons el valor de la variable <w>a</w>.</p>
+                <code java>
+                    if (a <= 0) {
+                        if(a == 0) {
+                            System.out.println("a");
+                        } else { 
+                            System.out.println("b");
+                        }
+                    }
+                    System.out.print("c");
+                </code>
+            </statement>
+            <p><w>a = 0</w></p>
+            <o>a</o>
+            <o>ab</o>
+            <o correct>ac</o>
+            <o>c</o>
+            <p><w>a = -1</w></p>
+            <o>ab</o>
+            <o correct>bc</o>
+            <o>ac</o>
+            <o>c</o>
+            <p><w>a = 1</w></p>
+            <o>ab</o>
+            <o>bc</o>
+            <o>ac</o>
+            <o correct>c</o>
+        </question>
+    </quizz>
+</section>
