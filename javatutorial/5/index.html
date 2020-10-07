@@ -220,11 +220,26 @@
                 <p>Selecciona l'exemple correcte de la sentència condicional</p>
             </statement>
 
-            <o><w>if i < j { System.out.print("Hello!"); }</w></o>
-            <o><w>if (i < j): System.out.print("Hello!"); </w></o>
-            <o correct><w>if (i < j) { System.out.print("Hello!"); }</w></o>
-            <o><w>if {i < j} ( System.out.print("Hello!"); )</w></o>
-            <o><w>if [i < j] System.out.print("Hello!"); </w></o>
+            <o><code java>
+                if i < j { 
+                    String a = "Hello";
+                 }</code></o>
+            <o><code java>
+                if (i < j): 
+                String a = "Hello";
+                </code></o>
+            <o correct><code java>
+                if (i < j) { 
+                    String a = "Hello";
+                }</code></o>
+            <o><code java>
+                if {i < j} ( 
+                    String a = "Hello";
+                )</code></o>
+            <o><code java>
+                if [i < j] 
+                    String a = "Hello";
+                </code></o>
         </question>
 
         <question multi>

@@ -438,13 +438,13 @@
   <img src="img/eec932f671a224f9.png">
 
   <p>En este fichero hay definida la clase <w>MainActivity</w>, y en ella 
-    el método <incode java>onCreate()</incode>.</p>
+    el método <w>onCreate()</w>.</p>
     
-  <p>Este método <incode java>onCreate()</incode> es el que el Sistema Android 
+  <p>Este método <w>onCreate()</w> es el que el Sistema Android 
     ejecuta en primer lugar cuando se inicia nuestra App.</p>
 
   <p>En este método lo primero que debes observar es la 
-    llamada <incode java>setContentView(R.layout.activity_main)</incode>. 
+    llamada <w>setContentView(R.layout.activity_main)</w>. 
     Esta llamada establece el layout <file>activity_main.xml</file>, es decir, 
     lo que se mostrará en pantalla es lo que hemos puesto en este fichero 
     de layout (el TextView y el Button).</p>
@@ -453,7 +453,7 @@
     Necesitaremos:</p>
 
   <ol>
-    <li>Una variable <incode java>int</incode> que vaya almacenando el contador</li>
+    <li>Una variable <w>int</w> que vaya almacenando el contador</li>
     <li>Programar el Button para que, cada vez que se haga click, augmente el 
       contador y actualice el TextView</li>
   </ol>
@@ -480,9 +480,9 @@
     una <strong>referencia</strong> a estos dos elementos.</p>
 
   <p>Para ello definiremos una variable para cada elemento y llamaremos 
-    al método <incode java>findViewById()</incode> para vincular estas variables 
+    al método <w>findViewById()</w> para vincular estas variables 
     con los elementos del layout correspondientes. 
-    Al método <incode java>findViewById()</incode> hay que pasarle el identificador 
+    Al método <w>findViewById()</w> hay que pasarle el identificador 
     que hayamos definido en el fichero XML.</p>
 
   <code java data-line="4,5,12,13">
@@ -503,14 +503,14 @@
     }
   </code>
 
-  <info><p>Observa que las llamadas a <incode java>findViewById()</incode> las hemos 
+  <info><p>Observa que las llamadas a <w>findViewById()</w> las hemos 
     hecho después de establecer el layout <file>activity_main.xml</file>. 
-    El método <incode java>findViewById()</incode> buscará los elementos en este fichero. </p>
+    El método <w>findViewById()</w> buscará los elementos en este fichero. </p>
   </info>
 
   <optional>
     <p><strong>Opcionalmente</strong>, se puede activar el ViewBinding para no 
-      tener que hacer las llamadas a <incode java>findViewById()</incode> para vincular los 
+      tener que hacer las llamadas a <w>findViewById()</w> para vincular los 
       elementos del XML con las variables JAVA.</p>
   
   <p>Imagina que en lugar de 1 botón y 1 textview, tenemos 10 botones y 5 textviews... 
@@ -530,7 +530,7 @@
   </code>
 
   <p>Luego, hay que definir una única variable y a partir de ésta podremos acceder 
-  a los elementos XML. También hay que modificar la llamada a <incode java>setContentView()</incode>, 
+  a los elementos XML. También hay que modificar la llamada a <w>setContentView()</w>, 
   de la siguiente manera:</p>
   
   <code java data-line="3,8,10,11">
@@ -567,9 +567,9 @@
   y mostrando el texto en el TextView).</p>
 
 <p>Para que el botón responda al evento CLICK, hay que hacer una llamada 
-  al método <incode java>setOnClickListener()</incode> y pasarle un objeto de clase 
-  <incode java>View.OnClickListener</incode>. 
-  En el método <incode java>onClick()</incode> de este objeto programaremos lo 
+  al método <w>setOnClickListener()</w> y pasarle un objeto de clase 
+  <w>View.OnClickListener</w>. 
+  En el método <w>onClick()</w> de este objeto programaremos lo 
   que queremos que se haga cuando se pulse el botón:</p>
 
 <code java data-line="15-21">
@@ -605,9 +605,9 @@
      en lugar de <w>augmentarElContador</w>.</p>
 </optional>
 
-<p>Ahora, dentro del método <incode java>onClick()</incode> del <em>listener</em>, 
+<p>Ahora, dentro del método <w>onClick()</w> del <em>listener</em>, 
   solo hay que incrementar el contador y cambiar el texto del TextView. Para cambiar 
-  el texto hacemos una llamada al método <incode java>setText()</incode> del 
+  el texto hacemos una llamada al método <w>setText()</w> del 
   TextView.</p>
 
 <code java>

@@ -509,7 +509,7 @@
     <codefile>
         DrawerActivity.java
     </codefile>
-    <code java data-line="20, 24, 30, 31">
+    <code java data-line="21, 27, 28">
         import android.os.Bundle;
         import androidx.appcompat.app.AppCompatActivity;
         import androidx.navigation.NavController;
@@ -545,14 +545,15 @@
     <p>Hay 2 cosas que obsevar en este código:</p>
     <ul>
         <li><p>La función del objeto <w>appBarConfiguration</w> es definir los destinos que serán 
-            <strong>Top-level destinations</strong> <ln>24</ln>. Si marcamos un destino como Top-level, 
+            <strong>Top-level destinations</strong> <ln>21</ln>. Si marcamos un destino como Top-level, 
             cuando se navegue a él, se mostrará el icono <em>hamb</em> <img src="img/drawer-hamb.png"> en la Toolbar. 
             En los destinos que <strong>no</strong> los pongamos como Top-level, se mostrará la flecha 
             de "atrás" <img src="img/drawer-up.png">.
         </p></li>
         <li><p>Las llamadas al método estático <w>setupWithNavController()</w>
-        són las que habilitan a <w>NavigationUI</w> a administrar la navegación, sincronizando el menu <w>NavigationView</w>
-        <ln>30</ln> y la barra superior <w>Tooblar</w><ln>31</ln>, con los destinos a los que se navega.</p></li>
+        són las que habilitan a <w>NavigationUI</w> a administrar la navegación, sincronizando el menu
+         <w>NavigationView</w>
+        <ln>27</ln> y la barra superior <w>Tooblar</w><ln>28</ln>, con los destinos a los que se navega.</p></li>
     </ul>
 
     <p>Ahora puedes ejecutar la app, abrir la <w>DrawerActivity</w>, y navegar usando el <w>NaviagtionView</w> por los 3 destinos:

@@ -321,11 +321,11 @@
             </statement>
 
             <table>
-                <tr><th style="width: 0"></th><th style="width: 9rem;"></th> <th style="width: 1em;"></th><th style="width: 3em;"><w>a</w></th> <th style="width: 3em;"><w>b</w></th> <th style="width: 3em;"><w>c</w></th>  </tr>
-                <tr><td></td><td><m>int a = 0;</m></td> <td></td><td><o>0</o></td> <td></td><td></td></tr>
-                <tr><td></td><td><m>int b = 0;</m></td> <td></td><td><o>0</o></td> <td><o>0</o></td><td></td></tr>
-                <tr><td></td><td><m>a = 2;</m></td> <td></td><td><o>2</o></td> <td><o>0</o></td><td></td></tr>
-                <tr><td></td><td><m>int c = b;</m></td> <td></td><td><o>2</o></td> <td><o>0</o></td><td><o>0</o></td></tr>
+                <tr> <th style="width: 15ch;"></th>                  <th style="width: 5ch;"><w>a</w></th> <th style="width: 5ch;"><w>b</w></th> <th style="width: 5ch;"><w>c</w></th>  </tr>
+                <tr> <td><m>int a = 0;</m></td> <td><o>0</o></td> <td></td>         <td></td></tr>
+                <tr> <td><m>int b = 0;</m></td> <td><o>0</o></td> <td><o>0</o></td> <td></td></tr>
+                <tr> <td><m>a = 2;</m></td>     <td><o>2</o></td> <td><o>0</o></td> <td></td></tr>
+                <tr> <td><m>int c = b;</m></td> <td><o>2</o></td> <td><o>0</o></td> <td><o>0</o></td></tr>
             </table>
         </question>
 
@@ -618,7 +618,7 @@
         <tr><td><w>nextFloat()</w></td><td><w>float</w></td><td>llegeix un número decimal</td></tr>
         <tr><td><w>nextBoolean()</w></td><td><w>boolean</w></td><td>llegeix un valor booleà</td></tr>
         <tr><td><w>next()</w></td><td><w>String</w></td><td>llegeix una paraula</td></tr>
-        <tr><td><w>nextLine()</w></td><td><w>String</w></td><td>llegeix una línia completa</td></tr>
+        <tr><td><w>nextLine()</w></td><td><w>String</w></td><td>llegeix fins al final de línia</td></tr>
     </table>
 
     <p>Quan llegim dades utilitzant aquests mètodes hem d'utilitzar les variables del tipus 

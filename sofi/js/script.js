@@ -1,6 +1,7 @@
 import {Prism} from '../prismjs/prism.js';
 
 document.addEventListener('DOMContentLoaded', (event) => {
+  console.log("jajaja");
   //syntax highlight
   syntaxHighlight();
   navigation();
@@ -51,6 +52,8 @@ function syntaxHighlight(){
   });
 }
 
+var sidenavItemCLicked;
+
 function navigation(){
   // add sidenav and nav
   document.querySelectorAll('nav').forEach((nav) => {
@@ -65,18 +68,38 @@ function navigation(){
     document.body.appendChild(sidenav);
   
     // build sidenav menu
-    document.querySelectorAll('h2').forEach((h,i) => {
-      //var id = 'id' + Math.random().toString(36).substr(2, 9);
-      var id = 'section' + (i+1);
-      h.id = id;
-  
-      var link = document.createElement('a');
-      link.href = '#' + id;
-      link.textContent = h.textContent;
-      link.onclick = () => {
-        sidenav.classList.remove('open');
-      }
-      sidenav.appendChild(link);
+    document.querySelectorAll('section').forEach((s, i) => {
+      s.querySelectorAll('h2').forEach((h,j) => {
+        //var id = 'id' + Math.random().toString(36).substr(2, 9);
+        var id = 'h2' + i + j;
+        h.id = id;
+    
+        var link = document.createElement('a');
+        link.href = '#' + id;
+        link.classList.add('sidenav1');
+        link.textContent = h.textContent;
+        link.onclick = () => {
+          sidenav.classList.remove('open');
+          nav.classList.add('hide');
+          sidenavItemCLicked = true;
+        }
+        sidenav.appendChild(link);
+      });  
+      s.querySelectorAll('h3').forEach((h, k) => {
+        var id = 'h3' + i+k;
+        h.id = id;
+    
+        var link = document.createElement('a');
+        link.href = '#' + id;
+        link.classList.add('sidenav2');
+        link.textContent = h.textContent;
+        link.onclick = () => {
+          sidenav.classList.remove('open');
+          nav.classList.add('hide');
+          sidenavItemCLicked = true;
+        }
+        sidenav.appendChild(link);
+      });
     });
   
     // sidenav open/close
@@ -91,6 +114,7 @@ function navigation(){
     // nav show/hide
     var prevScrollpos = window.pageYOffset;
     window.onscroll = function() {
+        if(!sidenavItemCLicked){
         var currentScrollPos = window.pageYOffset;
         if (prevScrollpos > currentScrollPos) {
           nav.classList.remove('hide');
@@ -98,6 +122,8 @@ function navigation(){
           nav.classList.add('hide');
         }
         prevScrollpos = currentScrollPos;
+      }
+      sidenavItemCLicked = false;
     }
   });
 }
@@ -149,7 +175,7 @@ function doSingleQuestion(q){
     var iid = 'id' + Math.random().toString(36).substr(2, 9);
 
     var label = document.createElement('label');
-    label.innerHTML = o.innerHTML;
+    label.innerHTML = "<div>" + o.innerHTML + "</div>";
     o.innerHTML = '';
     label.setAttribute('for', iid);
     o.appendChild(label);
@@ -159,8 +185,8 @@ function doSingleQuestion(q){
     i.type = 'radio';
     i.name = q.id;
     o.insertBefore(i, o.firstChild);
-    o.onclick = () => {
-      i.click();
+    o.onclick = (e) => {
+      i.checked = true;
     }
   });
   
@@ -193,7 +219,7 @@ function doMultiQuestion(q){
     var iid = 'id' + Math.random().toString(36).substr(2, 9);
 
     var label = document.createElement('label');
-    label.innerHTML = o.innerHTML;
+    label.innerHTML = "<div>" + o.innerHTML + "</div>";
     o.innerHTML = '';
     label.setAttribute('for', iid);
     o.appendChild(label);
@@ -202,8 +228,9 @@ function doMultiQuestion(q){
     i.id = iid;
     i.type = 'checkbox';
     o.insertBefore(i, o.firstChild);
+    console.log("jajaja");
     o.onclick = () => {
-      i.click();
+      i.checked = !i.checked;
     }
   });
 
@@ -307,6 +334,7 @@ function doTextQuestion(q){
 }
 
 var overElement;
+var srcElement, dstElement;
 function swapable(d){
   d.querySelectorAll("o").forEach(e => {
     e.setAttribute("draggable", true);
@@ -326,6 +354,15 @@ function swapable(d){
     e.ondragleave = (event) => {
         overElement.classList.remove("highlight");
     };
+
+    e.onclick = () => {
+      if(srcElement == null){
+        srcElement = e;
+      } else {
+        swapElements(srcElement, e);
+        srcElement = null;
+      }
+    }
   });
 }
 
