@@ -697,8 +697,8 @@
 
 <section>
     <h2>Combinar operadors artimètics, relacionals i lògics</h3>
-    <p>En Java, no es pot escriure una expresió com <strong>a < b < c</strong> 
-    (per veure si <strong>b</strong> està entre mig d'<strong>a</strong> i <strong>c</strong>.
+    <p>En Java, no es pot escriure una expresió com <w>a < b < c</w> 
+    (per veure si <strong>b</strong> està entre mig d'<strong>a</strong> i <strong>c</strong>).
     En lloc d'això, has d'unir dos expressions booleanes utilitzant operadors com <w>||</w> i <w>&&</w>.</p>
 
     <code java>
@@ -782,7 +782,7 @@
         condicio ? valorSiCerta : valorSiFalsa
     </code>
 
-    <p>Aquest operador retorna el valor <w>valorSiCerta</w> i la <w>condició</w> s'avalua a <w>true</w>. 
+    <p>Aquest operador retorna el valor <w>valorSiCerta</w> si la <w>condició</w> s'avalua a <w>true</w>. 
     Si la condició resulta ser <w>false</w>, aleshores retorna <w>valorSiFalsa</w>.</p>
 
     <p>Exemple:</p>
@@ -799,14 +799,14 @@
     <p>També podem guardar el resultat que retorna l'operador ternari en un variable. El tipus d'aquesta
         variable ha de coincidir amb el tipus dels valors <w>valorSiCerta</w> i <w>valorSiFalsa</w>. 
         Per exemple, el següent programa calcula la 'quota mensual' d'un soci, si el soci té més de 10 anys d'antiguetat, 
-        la quota són 30, y si no en són 40.</p>
+        la quota són 30, i si no en són 40.</p>
     
         <code java>
         int anysAntiguetat = 3;
 
         float quotaMensual = anysAntiguetat > 10 ? 30f : 40f;
 
-        System.out.printnl(quotaMensual);   // 40.0
+        System.out.println(quotaMensual);   // 40.0
     </code>
 
     <p>L'operador ternari es pot enllaçar per a fer expressions més complexes:</p>
@@ -825,7 +825,7 @@
         String beguda = edat < 18 ? "Coca-cola"
                       : edat < 45 ? "Cervesa"
                       : "Vi";
-        System.out.println(beguda);  // Vi
+        System.out.println(beguda);  // Cervesa
     </code>
 
     <quizz>
