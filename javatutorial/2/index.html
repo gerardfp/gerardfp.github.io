@@ -43,7 +43,7 @@
         guardar en ella. Aquí hem utilitzat un tipus de dada que no existeix 
         (<w>TipusDada</w>) per a demostrar la forma general de declaració.</li>
         <li>El <strong>nom</strong> (o <strong>identificador</strong>) distingeix
-        la variable de les altres. El nom d'una variable no pot començar amb un digit;
+        la variable de les altres. El nom d'una variable no pot començar amb un dígit;
         normalment comença amb una lletra. Sempre s'ha de tractar de escollir noms
         amb significat i que siguin legibles per a fer el codi més fàcil d'entendre.
         </li>
@@ -420,7 +420,7 @@
         ho agrairàs.
     </p>
 
-    <p>A més a més, has de seguir les regles i les convencions que has de seguir per a posar noms.</p>
+    <p>A més a més, per a posar noms has de seguir les regles i les convencions.</p>
 
 
 
@@ -445,7 +445,7 @@
         numero, $ident, bigValue, _val, abc, k
     </code>
 
-    <p>Hi aquests són invàlids:</p>
+    <p>Aquests són invàlids:</p>
     <code java>
         @ab, 1c, !ab, class
     </code>
@@ -518,11 +518,11 @@
 <section>
     <h2>Escanejar l'entrada</h2>
 
-    <p>L'<strong>entrada estàndard</strong> és un fluxe de dades que van cap al programa.
+    <p>L'<strong>entrada estàndard</strong> és un flux de dades que van cap al programa.
     Està suportada pel sistema operatiu. Per defecte, l'entrada estàndard obté les dades del 
-    teclat, tot i que es possible redirigir-la per a obtenir les dades d'un fitxer.</p>
+    teclat, tot i que és possible redirigir-la per a obtenir les dades d'un fitxer.</p>
     <p>De fet, no tots els programes utilitzen l'entrada estàndard. Però nosaltres l'utilitzarem 
-        molt sovint per a demanar dades al usuaris per teclat, o per a obtenir les dades dels casos
+        molt sovint per a demanar dades als usuaris per teclat, o per a obtenir les dades dels casos
         de prova en els exercicis.
     </p>
         
@@ -588,8 +588,8 @@
         <p>Prova a escriure i executar aquest programa a l'IntelliJ.</p>
     </challenge>
     
-    <p>Quan executem el programa, veurem el següent. En verd es mostra l'entrada 
-        introduïda per teclat:
+    <p>Quan executem el programa, veurem el següent (en verd es mostra l'entrada 
+        introduïda per teclat):
     </p>
     <shell>
         Hola, com et dius?
@@ -659,8 +659,8 @@
     <observe>
         <p>Observa que el preu introduït per teclat s'ha escrit utilitzant una coma
         <w>,</w> en lloc d'un punt <w>.</w> per a separar les xifres decimals 
-        (<w>1,99</w> en lloc d'<w>1.99)</w>. Això es degut a que l'<w>Scanner</w> 
-        utilitza el llenguatge del Sistema Operatiu per al format d'entrada, i en 
+        (<w>1,99</w> en lloc de <w>1.99</w>). Això es degut a que l'<w>Scanner</w> 
+        utilitza l'idioma del Sistema Operatiu per al format d'entrada, i en 
         castellà/català els decimals es separen amb una coma <w>,</w>. Si tinguèssim el 
         Sistema Operatiu configurat en anglès, caldria haver introduït el número decimal 
         utlitzant un punt.</p>
@@ -788,7 +788,7 @@
     fins que troben una dada per a llegir. Per contra, <w>nextLine()</w>, llegirà tots els 
     caracters (incloent espais-en-blanc) fins que trobi un salt-de-línia (que descartarà).</p>
 
-    <p>Vejem els comportaments d'aquests mètodes amb varis exemples. Al fluxe de dades 
+    <p>Vejem els comportaments d'aquests mètodes amb varis exemples. Al flux de dades 
         d'entrada indicarem els espais-en-blanc amb el símbol <w>␣</w> i els salts-de-línia 
         amb el símbol <w>⏎</w>.
     </p>
@@ -900,8 +900,8 @@
             i l'executis a l'IDE.</p>
         </warn>
 
-        <p>Si has executat aquest programa, veuràs una comportaent força extrany. El programa llegeix 
-            correctament el número que introduim <ln>8</ln>, però es "salta" la lectura del text <ln>10</ln>!
+        <p>Si has executat aquest programa, veuràs una comportament força extrany. El programa llegeix 
+            correctament el número que introduïm <ln>8</ln>, però es "salta" la lectura del text <ln>10</ln>!
         </p>
 
         <shell>
@@ -959,11 +959,14 @@
         a que s'introdueixin més dades a l'entrada.</p>
 
         <info>
-            Com a norma general, haurem de posar un <w>nextLine()</w> <strong>extra</strong> 
-            enmig d'un
-            <br><w>nextInt()</w>, <w>nextBoolean()</w>, <w>nextFloat()</w> o <w>next()</w>, 
-            <br>i un 
-            <br><w>nextLine()</w>.
+            <p>
+                Com a norma general, quan llegim dades línia a línia, 
+                haurem de posar un <w>nextLine()</w> <strong>extra</strong> 
+                enmig d'un
+                <br><w>nextInt()</w>, <w>nextBoolean()</w>, <w>nextFloat()</w> o <w>next()</w>, 
+                <br>i un 
+                <br><w>nextLine()</w>.
+            </p>
         </info>
     </li>
 

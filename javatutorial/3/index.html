@@ -174,7 +174,7 @@
         s'utilitza el valor numèric Unicode corresponent al caracter.
     </p>
     <p>Així, per exemple, el <a href="https://unicode-table.com/en/0061/">valor unicode del caracter <w>'a'</w></a> és <w>97</w>, 
-    i serà aquest el valor que s'utiltzi en les operacions aritmètiques amb el caracter <w>'a'</w>.</p>
+    i serà aquest el valor que s'utilitzi en les operacions aritmètiques amb el caracter <w>'a'</w>.</p>
 
     <code java>
         System.out.println('a' + 0);     // 97    (97 + 0)
@@ -289,7 +289,7 @@
     </code>
 
     <p>L'operador d'asignació <w>=</w> té una forma abreujada de fer aquestes operacions. Consisteix 
-    a posar al davant de l<w>=</w> la operació que s'ha de realitzar. Els exemples anteriors es poden 
+    a posar la operació que s'ha de realitzar abans del <w>=</w>. Els exemples anteriors es poden 
     abreujar així:</p>
 
     <code java>
@@ -307,7 +307,7 @@
         lang += 'a';  // java
     </code>
 
-    <p>Com pot veure, aquesta forma és més concisa. Es poden usar els altres operadors d'aquesta forma 
+    <p>Com pots veure, aquesta forma és més concisa. Es poden usar els altres operadors d'aquesta forma 
         abreujada: <w>-=</w>, <w>*=</w>, <w>/=</w>, <w>%=</w>.
     </p>
 
@@ -412,7 +412,7 @@
     dos valors possibles: <w>true</w> i <w>false</w>. També 
     és conegut com el tipus <strong>lògic</strong>.</p>
 
-    <p>Aqest tipus es una forma habitual en els llenguatges 
+    <p>Aquest tipus s'usa de forma habitual en els llenguatges 
         de programació per a representar coses que només poden 
         tenir dos estats oposats com <strong>on</strong>/<strong>off</strong>, 
         <strong>sí</strong>/<strong>no</strong>.
@@ -420,7 +420,7 @@
 
     <p>Si estas escrivint un programa que fa el seguiment de 
         les obertures de portes trobaràs natural utilitzar un 
-        <w>boolean</w> per a guardar el estat actual d'una porta.
+        <w>boolean</w> per a guardar l'estat actual d'una porta (oberta/tancada).
         O en un videojoc, hi pot haver moltes variables <w>boolean</w> 
         per a mantenir l'estat d'un jugador (isAlive, isJumping, hasSword, ...).</p>
 
@@ -458,26 +458,28 @@
     </ul>
 
     <info>
+        <p>
         Hi ha un altre operador anomenat <strong>XOR</strong> <w>^</w>. 
         En aquest curs utilitzarem més sovint <w>!</w> <w>&&</w> <w>||</w>. 
         Però en cas de que el necessitis, que sàpigues que hi és.
 
-        Retorna <w>true</w> si els dos operands tenen diferents valors, si no 
+        Retorna <w>true</w> si els dos operands tenen diferents valors, si no, 
         retorna <w>false</w>
+    </p>
         <code java>
             System.out.println(true  ^ true);   // false
             System.out.println(true  ^ false);  // true
             System.out.println(false ^ true);   // true
             System.out.println(false ^ false);  // false
         </code>
-        
+    
     </info>
 
     <h3>Precedència d'operadors lògics</h3>
    
     <p>A sota hi ha els operadors booleans ordenats de més a menys prioritat:</p>
 
-    <p><w>()</w>&nbsp;&nbsp; 🡒&nbsp;&nbsp; <w>!</w>&nbsp;&nbsp; 🡒&nbsp;&nbsp; <w>&&</w>&nbsp;&nbsp; 🡒&nbsp;&nbsp; <w>||</w></p>
+    <p><w>()</w>&nbsp;&nbsp; &#8594; &nbsp;&nbsp; <w>!</w>&nbsp;&nbsp; &#8594; &nbsp;&nbsp; <w>&&</w>&nbsp;&nbsp; &#8594; &nbsp;&nbsp; <w>||</w></p>
 
     <p>Tenint en compte aquesta precedència podem realitzar expressions complexes.</p>
 
