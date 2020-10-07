@@ -498,7 +498,7 @@
     <info>
         <p>Un punt interessant és que els operadors <w>&&</w> i <w>||</w> no avaluen el segon operand si no és necessari.
             Quan el primer operand d'una operació <w>&&</w> és <w>false</w>, el resultat serà <w>false</w> sigui quin sigui 
-            el segon operand; i quan el primer operand d'una operació <w>||</w> és <w>true</w>, el resultat serà fals sigui quin 
+            el segon operand; i quan el primer operand d'una operació <w>||</w> és <w>true</w>, el resultat serà <w>true</w> sigui quin 
             sigui el segon operand. Així que:
             </p>
         
@@ -516,7 +516,7 @@
             System.out.println(false && (true || (false && !true) || (!true && (false && true) && true || !false)));
         </code>
 
-        <p>No importa el que hi hagi més enllà del primer <w>false &&</w>, retorni <w>true</w> o <w>false</w>, el 
+        <p>No importa el que hi hagi més enllà del primer <w>false &&</w>; retorni <w>true</w> o <w>false</w>, el 
         resultat de l'expressió completa serà <w>false</w>.</p>
     </info>
 
@@ -535,7 +535,7 @@
     </code>
 
     <p>Un altre exemple amb una expressió booleana complexa, 
-        per a determinar la possibilitat d'anar a fer senderisme>
+        per a determinar la possibilitat d'anar a fer senderisme
          a l'estiu o en altres estacions:</p>
 
     <code java>
