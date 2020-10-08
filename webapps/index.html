@@ -650,6 +650,7 @@
     a la query de la petició. Anomenarà les dades de la query segons l'atribut <w>name</w> dels <w>&lt;input&gt;</w> i el 
     valor serà el que s'hagi escrit en ells.</p>
 
+
     <h3>Fragment</h3>
     <p>El <w>fragment</w> serveix per a fer que el navegador posicioni la pàgina en una secció determinada. Aquesta part
     de la url no arriba al servidor, és el navegador el qui ha de saber com gestionar el <w>fragment</w>.</p>
@@ -663,6 +664,13 @@
             for i in {1..5}; do printf "&lt;h1 id='s$i'&gt;Seccio $i&lt;/h1&gt;; for j in {1..30}; do printf "&lt;p&gt;seccio $i, paràgraf $j&lt;/p&gt;"; done; done > /var/www/html/llarg.html
         </shell>
     </terminal>
+
+    <p>Prova a navegar directament a alguna de les seccions del document.</p>
+    
+    <observe>
+        <p>Per a definir una secció en un document hem d'afegir l'atribut <w>id</w> a l'element que desitjem. 
+        Per a navegar directament a una secció, només cal afegir un <w>#</w> seguit del valor del seu atribut <w>id</w>.</p>
+    </observe>
 </section>
 
 <section>
