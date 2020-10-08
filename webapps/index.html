@@ -4,7 +4,7 @@
 <script type="module" src="/sofi/js/script.js"></script>
 <link rel="stylesheet" href="/sofi/css/estil.css">
 
-
+<nav></nav>
 <header>
     <h1>WebApps</h1>
 
@@ -34,8 +34,10 @@
         <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">Hypertext Transfer Protocol</a> 
         (HTTP) i es pot accedir a ells utilitzant el Navegador Web.
     </p>
+</section>
 
-    <h3>URLs</h3>
+<section>
+    <h2>URL</h2>
 
     <p>Com hem dit, les URLs són identificadors de recursos. Els recursos poden ser molt diversos: pàgines,
         imatges, videos, fitxers, etcètera. Per exemple:</p>
@@ -65,7 +67,7 @@
 
     Anem a veure amb més detall aquests components.
 
-    <h4>Scheme</h4>
+    <h3>Scheme</h3>
     <p>El protocol d'accés al recurs indica la forma concreta en que s'han de
         comunicar el que fa la petició i el que la respón.</p>
     
@@ -171,7 +173,7 @@
 
     <p>Ho farem ara al servidor que tenim instal·lat al nostre contenidor.</p>
 
-    <h4>User</h4>
+    <h3>User</h3>
     <p>Alguns servidors requereixen d'autenticació amb usuari:contrasenya per a accedir 
         a certs recursos</p>
     </p>
@@ -223,7 +225,9 @@
 
 
     <p>Restringirem l'accés a la carepta <w>/var/www/html</w> a només aquells usuaris 
-    que estiguin en l'arxiu <w>/var/www/contrasenyes</w>:</p>
+    que estiguin en l'arxiu <w>/var/www/contrasenyes</w>. Per fer-ho hem de crear un fitxer anomenat <file>.htaccess</file> 
+    dintre de la carpeta que volem registringir:</p>
+
     <terminal>
         <host>@container</host>
         <shell>nano /var/www/html/.htaccess</shell>
@@ -248,20 +252,26 @@
         <shell>/etc/init.d/apache2 restart</shell>
     </terminal>
 
-    <h4>Host</h4>
+    <h3>Host</h3>
     <p>El host és l'adreça IP o nom DNS del servidor.</p>
 
-    <p>Configurem el servidor web:</p>
+    <p>Configurarem el servidor web per a que mostri dues pàgines diferents en funció del <w>Host</w> que se 
+        li indiqui en la petició:</p>
+
+    <p>Crearem dues carpetes (<directory>aaa.com</directory> i <directory>bbb.com</directory>), 
+        i en cadascuna d'elles posarem una web diferent</p>
     <terminal>
         <host>@container</host>
         <shell>
             mkdir /var/www/html/aaa.com
             mkdir /var/www/html/bbb.com
-            echo "&lt;h1&gt;welcome to aaa.com&lt;/h1&gt;" >> /var/www/html/aaa.com/index.html
-            echo "&lt;h1&gt;welcome to bbb.com&lt;/h1&gt;" >> /var/www/html/bbb.com/index.html
+            echo "&lt;h1&gt;welcome to aaa.com&lt;/h1&gt;" > /var/www/html/aaa.com/index.html
+            echo "&lt;h1&gt;welcome to bbb.com&lt;/h1&gt;" > /var/www/html/bbb.com/index.html
         </shell>
     </terminal>
 
+    <p>Canviem la configuració d'Apache per a que busqui els recursos que se li sol·licitin 
+        en una carpeta o l'altra en funció del Host (<w>ServerName</w>) que s'indiqui a la petició <w>http</w>:</p>
     <codefile>
         /etc/apache2/sites-enabled/000-default
     </codefile>
@@ -278,7 +288,7 @@
     </code>
 
 
-    <p>Realitzem dues peticions als diferents noms:</p>
+    <p>Realitzem dues peticions als diferents noms de <w>host</w>:</p>
     <terminal>
         <host>@host</host>
         <shell>
@@ -287,9 +297,10 @@
         </shell>
     </terminal>
 
+    <p>Observa que segons el <w>Host</w> indicat a la petició, es retorna una web o l'altra.</p>
 
 
-    <h4>Port</h4>
+    <h3>Port</h3>
 
     <p>Configurem Apache per a permetre conexions al port <w>8080</w>:</p>
     <terminal>
@@ -329,12 +340,16 @@
     <p>Accedim a <url>http://<replace>ip_contenidor</replace>:80</url></p>
     <p>Accedim a <url>http://<replace>ip_contenidor</replace>:8080</url></p>
 
-    <h4>Path</h4>
+
+
+
+
+    <h3>Path</h3>
 
     <p>Si no s'especifica cap arxiu en el <w>path</w>, 
         per defecte, el servidor apache servirà l'arixu 
         <file>index.html</file>, i si aquest arxiu no existeix,
-        servirà una pàgina que llistarà els arxius del directory:
+        servirà una pàgina que llistarà els arxius del directori:
     </p>
 
     <p>Anem a crear diversos arxius al directory <directory>/var/www/html</directory>:</p>
@@ -342,9 +357,10 @@
     <terminal>
         <host>@container</host>
         <shell>
-            echo "&lt;h1&gt;Pagina xxx &lt;/h1&gt;" >> /var/www/html/xxx.html
-            echo "&lt;h1&gt;Pagina yyy &lt;/h1&gt;" >> /var/www/html/yyy.html
-            echo "&lt;h1&gt;Pagina zzz &lt;/h1&gt;" >> /var/www/html/zzz.html
+            echo "&lt;h1&gt;Home page&lt;/h1&gt;" > /var/www/html/index.html
+            echo "&lt;h1&gt;Pagina xxx &lt;/h1&gt;" > /var/www/html/xxx.html
+            echo "&lt;h1&gt;Pagina yyy &lt;/h1&gt;" > /var/www/html/yyy.html
+            echo "&lt;h1&gt;Pagina zzz &lt;/h1&gt;" > /var/www/html/zzz.html
         </shell>
     </terminal> 
     
@@ -354,7 +370,7 @@
         <host>@container</host>
         <shell>
             ls /var/www/html
-            index.html  xxx.html  yyy.html  zzz.html
+            index.html   xxx.html   yyy.html   zzz.html
         </shell>
     </terminal>
 
@@ -363,7 +379,7 @@
 
     <p>Si especifiquem algun arxiu a la petició (e.g. <url>http://10.2.4.1/xxx.html</url>) Apache ens servirà aquest arxiu.</p>
 
-    <p>Si l'arxiu que posem a la url (e.g. <url>http://10.2.4.1/xxx.html</url>) no existeix, apache ens servirà una 
+    <p>Si l'arxiu que posem a la url (e.g. <url>http://10.2.4.1/opq.html</url>) no existeix, apache ens servirà una 
     pàgina <strong>"Not Found"</strong></p>
 
     <p>Per últim, esborrem l'arxiu <file>index.html</file>:</p>
@@ -373,8 +389,8 @@
             rm /var/www/html/index.html
         </shell>
     </terminal>
-    <p>... y comprovem que Apache ens mostra un pàgina amb la llista d'arxius del 
-        directory, quan no especifiquem cap arxiu a la url <url>http://10.2.4.1/</url>:
+    <p>... i comprovem que Apache ens mostra un pàgina amb la llista d'arxius del 
+        directori, quan no especifiquem cap arxiu a la url <url>http://10.2.4.1/</url> i no hi ha un <file>index.html</file>:
     </p>
     <img src="img/filelist.png">
 
@@ -390,21 +406,251 @@
         <host>@container</host>
         <shell>
             mkdir -p /var/www/html/aaa/bbb/
-            echo "&lt;h1&gt;Pagina mmm &lt;/h1&gt;" >> /var/www/html/aaa/bbb/mmm.html
+            echo "&lt;h1&gt;Pagina mmm &lt;/h1&gt;" > /var/www/html/aaa/bbb/mmm.html
         </shell>
     </terminal>
     
-    <h4>Query</h4>
+    <p>Comprova que s'accedeix al recurs <file>mmm.html</file> amb aquesta URL <url>http://10.2.4.1/aaa/bbb/mmm.html</url>.</p>
 
-    <p>La <w>query</w> serveix per a passar dades extra al recurs que s'està solicitant. Ho veurem més endavant.</p>
+    <p>Ara anem a canviar el <w>DocumentRoot</w>, i farem que sigui <directory>/var/www/html/aaa/</directory>:</p>
 
-    <p>De moment, solament veurem un exmple:</p>
+    <codefile>
+        /etc/apache2/sites-enabled/000-default
+    </codefile>
+    <code none>
+        &lt;VirtualHost *:80&gt;
+            DocumentRoot /var/www/html/aaa
+        &lt;/VirtualHost&gt;
+    </code>
 
-    <p>En aquesta url <url>https://www.google.com/search?q=animals</url>, estem passant al recurs <w>search</w> la dada extra 
+    <p>Reiniciem el servidor:</p>
+
+    <terminal>
+        <host>@container</host>
+        <shell>
+            /etc/init.d/apache2 restart
+        </shell>
+    </terminal>
+
+    <p>Ara, per a accedir al recurs <file>mmm.html</file>, la URL que cal posar és <url>http://10.2.4.1/bbb/mmm.html</url>.</p>
+
+
+    <h3>Query</h3>
+
+    <p>La <w>query</w> serveix per a passar dades extra al recurs que s'està solicitant.</p>
+
+    <p>Veiem un exmple:</p>
+
+    <p>En aquesta url <a href="https://www.google.com/search?q=animals">https://www.google.com/search?q=animals</a>, estem passant al recurs <w>search</w> la dada extra 
     <w>q=animals</w>. Aquest recurs ja sabrà que fer amb aquesta dada extra. Si li passem una query que el recurs no sap 
-    processar, normalment la ignorarà: <url>https://www.google.com/search?jajaja=jejeje</url>.</p>
+    processar, normalment la ignorarà: 
+    <a href="https://www.google.com/search?jajaja=jejeje">https://www.google.com/search?jajaja=jejeje</a>.</p>
 
-    <h4>Fragment</h4>
+
+    <p>Anem a fer al nostre contenidor un recurs que accepti una <w>query</w> amb dades extra i faci alguna cosa amb aquestes
+    dades.</p>
+
+    <warn>
+        <p>Abans anem a ressetejar la configuració d'Apache, ja que abans l'hem deixat una mica trastocada. Tornarem a posar
+            el <w>DocumentRoot</w> al seu lloc habitual.
+        </p>
+
+        <terminal>
+            <host>@container</host>
+            <shell>
+                printf "&lt;VirtualHost *:80&gt;\n\tDocumentRoot /var/www/html\n&lt;/VirtualHost&gt;" > /etc/apache2/sites-enabled/000-default.conf
+                
+                /etc/init.d/apache2 restart
+            </shell>
+        </terminal>
+    </warn>
+
+    <p>Primer hem de comprendre que el recurs no pot ser una pàgina <w>HTML</w>, ja que el llenguatge HTML només és per a 
+    definir el contingut de la pàgina. És a dir, amb HTML no podem accedir a les dades de la <w>query</w>.</p>
+
+    <p>Un llenguatge que sí pot obtenir les dades de la <w>query</w> i fer alguna cosa amb aquestes dades es <w>PHP</w>.
+    Anem a veure uns exemples simples amb el que es pot fer amb <w>PHP</w>.</p>
+
+    <p>Primer l'instal·lem:</p>
+
+    <terminal>
+        <host>@container</host>
+        <shell>apt install -y php</shell>
+    </terminal>
+
+    <p>Crearem un senzill script <w>php</w> que ens permetrà executar comandes al servidor a través del navegador web.</p>
+
+    <img src="img/webash.png">
+
+    <p>Anomenarem aquest recurs <strong>WEBASH</strong> (web + bash):</p>
+
+    <terminal>
+        <host>@container</host>
+        <shell>
+            nano /var/www/html/webash.php
+        </shell>
+    </terminal>
+
+    <p>Afegim el següent codi a l'arxiu <file>webash.php</file>:</p>
+    <codefile>
+        /var/www/html/webash.php
+    </codefile>
+    <code php>
+        &lt;?php
+        echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
+        echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
+        echo "&lt;span&gt;web&bash&lt/span&gt;";
+        ?&gt;
+    </code>
+
+    <p>Si accedim al recurs <w>http://10.2.4.164/webash.php</w> veurem la pàgina generada per l'script <file>webash.php</file>:</p>
+
+    <img src="img/webash2.png">
+
+    <observe>
+        <p>Fixa't que el que fa l'script <w>php</w> és generar codi HTML amb els <w>echo</w>. Apache executa 
+            l'script i retorna al navegador tot el que ha mostrar l'script amb els <w>echo</w>.</p>
+        <p>Per a generar codi html posarem <w>echo</w>, el codi html entre cometes <w>""</w> i punt-i-coma <w>;</w>:</p>
+        <code php>
+            echo "<replace>codi html</replace>";
+        </code>
+
+        <p>Tot el codi PHP que escrivim ha d'anar dintre de les etiquetes <w>&lt;?php</w> i <w>?&gt;</w>:</p>
+
+        <code php>
+            &lt;?php
+
+            // codi PHP
+
+            ?&gt;
+        </code>
+    </observe>
+
+    <p>De moment, el nostre codi PHP sempre mostra el mateix contingut, independentment de la <w>query</w> que li passem.
+    És a dir, posis les dades que posis a la <w>query</w>, l'script les ignorarà. Per exemple: 
+    <url>http://10.2.4.164/webash.php?comanda=pstree</url>, o <url>http://10.2.4.164/webash.php?hola=quetal</url></p>
+
+    <p>Anem a modificar l'script per que agafi una dada de la <w>query</w> i faci alguna cosa:</p>
+
+    <p>Afegim aquestes línies de codi a l'arxiu <file>webash.php</file>:</p>
+    <codefile>
+        /var/www/html/webash.php
+    </codefile>
+    <code php data-line="6,7,8">
+        &lt;?php
+        echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
+        echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
+        echo "&lt;span&gt;web&bash&lt/span&gt;";
+
+        echo "&lt;h1&gt;Hola ";
+        echo $_GET['usuari'];
+        echo "&lt;/h1&gt;";
+        ?&gt;
+    </code>
+
+    <p>Ara posem la query <w>usuari=gerard</w> a la url: <url>http://10.2.4.164/webash.php?usuari=gerard</url>. 
+    L'script php genera aquesta web:</p>
+
+    <img src="img/webash3.png">
+
+    <observe>
+        <p>Amb el codi <w>$_GET['usuari']</w> de la línia <ln>7</ln>, hem obtingut el valor de la dada <w>usuari</w>
+        de la query, i l'hem utilitzat per a generar el contingut de l'etiqueta <w>&lt;h1&gt;</w>.</p>
+
+        <p>Si fas la query amb un altre valor per a la dada <w>usuari</w>, l'script generarà un altre codi html que 
+        inclourà aquest valor.</p>
+
+        <p>Per contra, si canvies la paraula <w>usuari</w> per una altra cosa, l'script ignorarà la dada.</p>
+
+    </observe>
+
+    <p>Quan introduïm alguna cosa en el camp de text, per exemple <name>hola</name> i li donem al botó <menuoption>Executar</menuoption></p>
+
+    <p>Avançarem amb el webash, i ara farem que se li passi una dada anomenada <w>comanda</w>. L'script agafarà el valor
+    d'aquesta dada i l'executarà al sistema operatiu.</p>
+
+    <p>Esborra les línies anteriors, i afegeix aquesta línia:</p>
+    <codefile>
+        /var/www/html/webash.php
+    </codefile>
+    <code php data-line="6">
+        &lt;?php
+        echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
+        echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
+        echo "&lt;span&gt;web&bash&lt/span&gt;";
+
+        system($_GET['comanda']);
+        ?&gt;
+    </code>
+
+    <p>Ara l'script agafarà el valor de la dada anomenada <w>comanda</w> i l'executarà. Per exemple podem executar 
+    la <w>pstree</w> així: <url>http://10.2.4.164/webash.php?comanda=pstree</url>:</p>
+
+    <img src="img/webash4.png">
+
+    <observe>
+        <p>La funció <w>system</w> executa el que se li posi entre els parèntesi, i el resultat de la comanda, 
+        s'inclou a la pàgina generada.</p>
+
+        <p>El que està executant aleshores la funció <w>system</w> és el valor de la dada <w>comanda</w> de la query.
+        Prova a posar aquesta url <url>http://10.2.4.164/webash.php?comanda=cal</url> o qualsevol altra comanda a 
+        la query.</p>
+    </observe>
+
+    <p>Seguirem ara donant un mica d'estil a les dades generades per <w>system</w>, ja que queden totes seguides i 
+    sense format. Posarem tot el que genera el <w>system</w> dintre d'un element <w>&lt;pre&gt;</w>. Li posarem
+    també una mica d'estil CSS al <w>&lt;pre&gt;</w>.</p>
+    <codefile>
+        /var/www/html/webash.php
+    </codefile>
+    <code php data-line="6,8">
+        &lt;?php
+        echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
+        echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
+        echo "&lt;span&gt;web&bash&lt/span&gt;";
+
+        echo "&lt;pre style='width: 80ch; padding: 2ch; overflow: auto; color: white; background: #300A24;'>";
+        system($_GET['comanda']);
+        echo "&lt;/pre&gt;";
+        ?&gt;
+    </code>
+
+    <p>Provem a veure com queda <url>http://10.2.4.164/webash.php?comanda=df -h</url></p>
+    <img src="img/webash5.png">
+
+    <p>Per últim, afegirem a webash una forma més còmoda de realitzar comandes, que no sigui posant-les a la url.
+        Afegirem un formulari amb un camp de text i un botó:
+    </p>
+
+    <codefile>
+        /var/www/html/webash.php
+    </codefile>
+    <code php data-line="6,7,8,9">
+        &lt;?php
+        echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
+        echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
+        echo "&lt;span&gt;web&bash&lt/span&gt;";
+
+        echo "&lt;form&gt;";
+        echo "&lt;input name='comanda'&gt";
+        echo "&lt;input type='submit' value='Executar'&gt;";
+        echo "&lt;/form&gt;";
+
+        echo "&lt;pre style='width: 80ch; padding: 2ch; overflow: auto; color: white; background: #300A24;'>";
+        system($_GET['comanda']);
+        echo "&lt;/pre&gt;";
+        ?&gt;
+    </code>
+
+    <p>Ara ens serà més còmode executar una comanda: </p>
+
+    <img src="img/webash6.png">
+
+    <p>Quan es premi el botó Executar, automàticament el navegador web agafarà els camps del <w>&lt;form&gt;</w> i els afegirà 
+    a la query de la petició. Anomenarà les dades de la query segons l'atribut <w>name</w> dels <w>&lt;input&gt;</w> i el 
+    valor serà el que s'hagi escrit en ells.</p>
+
+    <h3>Fragment</h3>
     <p>El <w>fragment</w> serveix per a fer que el navegador posicioni la pàgina en una secció determinada. Aquesta part
     de la url no arriba al servidor, és el navegador el qui ha de saber com gestionar el <w>fragment</w>.</p>
 
