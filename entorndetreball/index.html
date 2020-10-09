@@ -53,11 +53,9 @@
         
     <work>
         <p>Instal·la Visual Studio Code amb la següent comanda:</p>
-        <terminal>
+        
             <host>@host</host>
             <shell>sudo snap install code --classic</shell>
-        </terminal>
-
         
         <optional>
             <p>Ho pots fer també mitjançant Ubuntu Software <img src="img/image47.png"></p>
@@ -95,8 +93,8 @@
         La més freqüent és el servidor web <a href="https://www.apache.org/">Apache</a>.</p>
     <img src="img/apache.png">
     
-    <p>Instal·lar el servidor-web Apache a Ubuntu és molt senzill, ja que es troba als respositoris <inshell>apt</inshell>.</p>
-    <p>No obstant, utilitzarem el sistema de contenidors <a href="https://linuxcontainers.org/">LinuxContainers</a> (<inshell>lxc</inshell>), per tal 
+    <p>Instal·lar el servidor-web Apache a Ubuntu és molt senzill, ja que es troba als respositoris <w>apt</w>.</p>
+    <p>No obstant, utilitzarem el sistema de contenidors <a href="https://linuxcontainers.org/">LinuxContainers</a> (<w>lxc</w>), per tal 
         d'aïllar el servidor-web del nostre sistema operatiu. D'aquesta forma podrem instal·lar diversos servidors-web i utilitzar-los 
         en diferents pràctiques.</p>
     <img src="img/image1.png">
@@ -108,70 +106,70 @@
     </info>
     
     <h3>Contenidors</h3>
-    <p>Així doncs, el primer pas és instal·lar el sistema de contenidors <inshell>lxc</inshell>.</p>
+    <p>Així doncs, el primer pas és instal·lar el sistema de contenidors <w>lxc</w>.</p>
     <work>
-        <p>Instal·la <inshell>lxc</inshell> amb la següent comanda:</p>
-        <terminal>
+        <p>Instal·la <w>lxc</w> amb la següent comanda:</p>
+        
             <host>@host</host>
             <shell>sudo snap install lxd</shell>
-        </terminal>
+        
         <p>Inicialitza la configuració de lxd:</p>
-        <terminal>
+        
             <host>@host</host>
             <shell>sudo lxd init --auto</shell>
-        </terminal>
+        
     </work>
-    <p>La utilització bàsica de <inshell>lxc</inshell> és:</p>
+    <p>La utilització bàsica de <w>lxc</w> és:</p>
     <ul>
         <li>
             <p>Per a <strong>crear</strong> un contenidor, únicament hem d'escollir un nom i executar la següent comanda. Per exemple, 
                 per a crear un contenidor anomenat <name>mycontainer</name>, executa al sistema host:</p>
-            <terminal>
+            
                 <host>@host</host>
                 <shell>lxc launch ubuntu:20.04 mycontainer</shell>
-            </terminal>
+            
         </li>
         <li>
             <p>Per a <strong>accedir</strong> al contenidor <name>mycontainer</name> utilitza:</p>
-            <terminal>
+            
                 <host>@host</host>
                 <shell>lxc exec mycontainer bash</shell>
-            </terminal>
+            
         </li>
         <li>
             <p>Per a <strong>sortir</strong> del contenidor, executa en el propi contenidor la comanda:</p>
-            <terminal>
+            
                 <host>@mycontainer</host>
                 <shell>exit</shell>
-            </terminal>
+            
         </li>
         <li>
             <p>Per a <strong>llistar</strong> els contenidors que s'han creat, executa:</p>
-            <terminal>
+            
                 <host>@host</host>
                 <shell>lxc list</shell>
-            </terminal>
+            
         </li>
         <li>
             <p>Per a <strong>engegar</strong> un contenidor:</p>
-            <terminal>
+            
                 <host>@host</host>
                 <shell>lxc start mycontainer</shell>
-            </terminal>
+            
         </li>
         <li>
             <p>Per a <strong>aturar</strong> un contenidor:</p>
-            <terminal>
+            
                 <host>@host</host>
                 <shell>lxc stop mycontainer</shell>
-            </terminal>
+            
         </li>
         <li>
             <p>Per a <strong>eliminar</strong> un contenidor (s'ha d'aturar prèviament):</p>
-            <terminal>
+            
                 <host>@host</host>
                 <shell>lxc delete mycontainer</shell>
-            </terminal>
+            
         </li>
     </ul>
 
@@ -179,35 +177,35 @@
 
     <work>
         <p>Crea un contenidor anomenat <name>mywebserver</name></p>
-        <terminal>
+        
             <host>@host</host>
             <shell>lxc launch ubuntu:20.04 mywebserver</shell>
-        </terminal>
+        
         
         <p>Accedeix al contenidor:</p>
-        <terminal>
+        
             <host>@host</host>
             <shell>lxc exec mywebserver bash</shell>
-        </terminal>
+        
         
         <p>Instal·la el servidor-web Apache dintre del contenidor:</p>
-        <terminal>
+        
             <host>root@mywebserver</host>
             <shell>
 apt update
 apt install apache2
             </shell>
-        </terminal>
+        
         
         <p>Ara comprovarem que s'ha instal·lat correctament el servidor-web. 
             <br>Primer esbrina la IP del contenidor amb la comanda:</p>
-        <terminal>
+        
             <host>root@mywebserver</host>
             <shell>ip a</shell>
-        </terminal>
+        
         
         <p>Ens sortirà una informació semblant a aquesta:</p>
-        <terminal>
+        
             <host>root@mywebserver</host>
             <shell>
 1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
@@ -225,9 +223,9 @@ apt install apache2
     inet6 fe80::216:3eff:fe5d:fcea/64 scope link
           valid_lft forever preferred_lft forever
             </shell>
-        </terminal>
+        
 
-        <p>Copiem l'adreça IP que ens surt a l'adaptador <inshell>eth0</inshell> i l'enganxem a la barra d'adreces del Firefox del host:</p>
+        <p>Copiem l'adreça IP que ens surt a l'adaptador <w>eth0</w> i l'enganxem a la barra d'adreces del Firefox del host:</p>
         <img src="img/itworks.png">
 
         <p>Si ens surt aquesta pàgina 👆 és que està correctament instal·lat: 
@@ -246,31 +244,31 @@ apt install apache2
         al fitxer <file>/var/www/html/index.html</file> que hi ha al contenidor. 
         Aquest codi HTML descriu què s'ha de mostrar i com.</p>
     <p>Vegem el contingut d'aquest fitxer:</p>
-    <terminal>
+    
         <host>root@mywebserver</host>
         <shell>cat /var/www/html/index.html</shell>
-    </terminal>
+    
 
     <p>El que veurem és el codi HTML de la pàgina web "It works!". De moment no hem 
         de saber res d'aquest codi. El que sí que anem a fer és canviar aquesta 
         pàgina web per una altra pàgina que crearem nosaltres.</p>
 
     <p>Es tan fàcil com esborrar aquest arxiu i crear-ne un altre amb el mateix nom. 
-        Utilitzarem l'editor de text de la consola <inshell>nano</inshell>.</p>
+        Utilitzarem l'editor de text de la consola <w>nano</w>.</p>
     <work>
         <p>Esborra l'arxiu <file>/var/www/html/index.html</file>:</p>
-        <terminal>
+        
             <host>root@mywebserver</host>
             <shell>rm /var/www/html/index.html</shell>
-        </terminal>
-        <p>Crea'n un de nou amb l'editor <inshell>nano</inshell>:</p>
-        <terminal>
+        
+        <p>Crea'n un de nou amb l'editor <w>nano</w>:</p>
+        
             <host>root@mywebserver</host>
             <shell>nano /var/www/html/index.html</shell>
-        </terminal>
+        
         <p>Escriu el següent codi HTML:</p>
         <img src="img/image44.png">
-        <p>Polsa <kbd>Ctrl</kbd>+<kbd>O</kbd> per a guardar el fitxer, i després <kbd>Ctrl</kbd>+<kbd>X</kbd> per a sortir de <inshell>nano</inshell>.</p>
+        <p>Polsa <kbd>Ctrl</kbd>+<kbd>O</kbd> per a guardar el fitxer, i després <kbd>Ctrl</kbd>+<kbd>X</kbd> per a sortir de <w>nano</w>.</p>
         <p>Si ara tornem a posar l'adreça IP del contenidor a la barra del 
             navegador veurem el següent:</p>
         <img src="img/image42.png">
@@ -285,10 +283,10 @@ apt install apache2
             indica al navegador quin contingut ha de mostrar i quina estructura 
             ha de tenir.</p>
         <p>En el cas del fitxer <file>index.html</file>, 
-            la etiqueta <incode xml>&lt;!DOCTYPE html&gt;</incode> i 
-            la etiqueta <incode xml>&lt;h1&gt;</incode>, 
+            la etiqueta <w xml>&lt;!DOCTYPE html&gt;</w> i 
+            la etiqueta <w xml>&lt;h1&gt;</w>, 
             no han aparegut a la pantalla del navegador. 
-            La etiqueta <incode xml>&lt;h1&gt;</incode> li indica al Firefox que ha de 
+            La etiqueta <w xml>&lt;h1&gt;</w> li indica al Firefox que ha de 
             mostrar el text <string>Hello HTML Code!</string> en lletres grans i en negreta.</p>
         <p>Si tens curiositat, aquí tens la llista completa 
             d'etiquetes del llenguatge HTML: 
@@ -299,11 +297,11 @@ apt install apache2
 
     <h3>Accés als fitxers del contenidor</h3>
     <p>Així doncs, per a crear pàgines web el que haurem de fer és 
-        tocar els arxius de la carpeta <directory>/var/www/html</directory> 
+        tocar els arxius de la carpeta <folder>/var/www/html</folder> 
         del contenidor.
         <br>A l'exemple anterior hem modificat l'arxiu <file>index.html</file> 
         directament en la consola del contenidor, utilitzant 
-        l'editor <inshell>nano</inshell>. 
+        l'editor <w>nano</w>. 
         Aquest editor està molt bé per a arxius petits i canvis ràpids, 
         però per a desenvolupar una web és molt millor utilitzar un editor 
         com el Visual Studio Code.</p>
@@ -320,99 +318,99 @@ apt install apache2
 
     <info>
     <p>Amb SSHFS, la comunicació entre el contenidor i el host es realitza 
-        mitjançant un canal <inshell>ssh</inshell>. Aquest canal requereix 
+        mitjançant un canal <w>ssh</w>. Aquest canal requereix 
         d'una 
         autenticació prèvia, bé sigui amb usuari/password o bé amb 
         claus pública/privada.</p>    
     </info>
 
-    <p>A continuació instal·larem <inshell>sshfs</inshell> i configurarem l'accés amb claus pública/privada.</p>
+    <p>A continuació instal·larem <w>sshfs</w> i configurarem l'accés amb claus pública/privada.</p>
 
     <work>
-        <p>Instal·lem el programa <inshell>sshfs</inshell> al <strong>host</strong> amb la 
+        <p>Instal·lem el programa <w>sshfs</w> al <strong>host</strong> amb la 
             comanda:</p>
-        <terminal>
+        
             <host>@host</host>
             <shell>sudo apt install sshfs</shell>
-        </terminal>
+        
 
         <p>Crearem un parell de claus pública/privada al <strong>host</strong>:</p>
-        <terminal>
+        
             <host>@host</host>
             <shell>ssh-keygen -f ~/.ssh/webserver -N ""</shell>
-        </terminal>
+        
 
         <p>El següent pas és copiar la <strong>clau-pública</strong> del host 
             al contenidor.
-            <br>Primer utilitzem <inshell>cat</inshell> per mostrar la 
+            <br>Primer utilitzem <w>cat</w> per mostrar la 
             clau-pública:</p>
-        <terminal>
+        
             <host>@host</host>
             <shell>cat ~/.ssh/webserver.pub</shell>
-        </terminal>
+        
 
         <observe>
-            <p>Observa que al directory <directory>~/.ssh</directory> s'han creat dos fitxers amb les claus. El fitxer acabat amb <inshell>.pub</inshell>
+            <p>Observa que al directory <folder>~/.ssh</folder> s'han creat dos fitxers amb les claus. El fitxer acabat amb <w>.pub</w>
             és la clau pública i l'altre és la clau privada</p>
         </observe>
 
         <p>A continuació, seleccionem amb el ratolí la clau-pública, 
-            fem clic-dreta i seleccionem <menuoption>Copiar</menuoption>:</p>
+            fem clic-dreta i seleccionem <mo>Copiar</mo>:</p>
         <img src="img/image12.png">
 
         <p>Ara cal enganxar aquesta clau dintre del fitxer 
             <file>/root/.ssh/authorized_keys</file> del <strong>contenidor</strong>.
-            <br>Escrivim <inshell>echo</inshell>, espai en blanc, enganxem 
+            <br>Escrivim <w>echo</w>, espai en blanc, enganxem 
             la clau copiada polsant 
             <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> 
             i completem la comanda amb 
-            <inshell>&gt;&gt; /root/.ssh/authorized_keys</inshell></p>
+            <w>&gt;&gt; /root/.ssh/authorized_keys</w></p>
 
-        <terminal>
+        
             <host>root@mywebserver</host>
             <shell>
 echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
             </shell>
-        </terminal>
+        
 
         <p>La comanda ha de quedar similar a aquesta:</p>
         <img src="img/image27.png">
 
-        <p>Ara ja podem sincronitzar carpetes entre el host i el contenidor amb <inshell>sshfs</inshell>.
+        <p>Ara ja podem sincronitzar carpetes entre el host i el contenidor amb <w>sshfs</w>.
             <br>Crearem una carpeta al host:
             </p>
         
-        <terminal>
+        
             <host>@host</host>
             <shell>mkdir ~/mywebserver_html</shell>
-        </terminal>
+        
 
-        <p>Sincronitzem la carpeta <directory>mywebserver_html</directory> 
+        <p>Sincronitzem la carpeta <folder>mywebserver_html</folder> 
             del host amb la carpeta 
-            <directory>/var/www/html</directory> del contenidor. 
+            <folder>/var/www/html</folder> del contenidor. 
             (substitueix la IP de la comanda per la IP que tingui el teu contenidor)</p>
-        <terminal>
+        
             <host>@host</host>
             <shell>sshfs root@<replace>10.161.122.237</replace>:/var/www/html ~/mywebserver_html</shell>
-        </terminal>
+        
 
         <p>El primer cop que fem la connexió ens demanarà validar l'a 'autenticitat de la clau. 
-            Responem <inshell>yes</inshell>:</p>
+            Responem <w>yes</w>:</p>
         <img src="img/image41.png">
 
         <p>Un cop està feta la connexió, la carpeta 
-            <directory>mywebserver_html</directory> del host i 
-            la carpeta <directory>/var/www/html</directory> del contenidor estan sincronitzades.</p>
+            <folder>mywebserver_html</folder> del host i 
+            la carpeta <folder>/var/www/html</folder> del contenidor estan sincronitzades.</p>
     </work>
 
     <p>Ara que ja tenim accés a la carpeta del servidor-web ja podrem 
         començar a desenvolupar pàgines web utilitzant VSCode.
-        <br>Pots provar-ho. Obre VSCode i selecciona <menuoption>File</menuoption> > <menuoption>Open Folder...</menuoption>:</p>
+        <br>Pots provar-ho. Obre VSCode i selecciona <mo>File</mo> > <mo>Open Folder...</mo>:</p>
         <img src="img/image36.png">
-    <p>Selecciona la carpeta <directory>mywebserver_html</directory>:</p>
+    <p>Selecciona la carpeta <folder>mywebserver_html</folder>:</p>
     <img src="img/image40.png">
 
-    <p>Fes canvis al fitxer <file>index.html</file> (per exemple, pots afegir, amb l'etiqueta <incode html>&lt;p&gt;</incode>, el paràgraf <string>VSCode rules!</string>).
+    <p>Fes canvis al fitxer <file>index.html</file> (per exemple, pots afegir, amb l'etiqueta <w html>&lt;p&gt;</w>, el paràgraf <string>VSCode rules!</string>).
         <br>Guarda els canvis amb <kbd>Ctrl</kbd>+<kbd>S</kbd>.</p>
     <img src="img/image38.png">
 
@@ -441,23 +439,23 @@ echo <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> >> /root/.ssh/authorized_keys
     <p>Amb el compte d'usuari, ja ens podem preparar per a pujar les pàgines web a GitHub. 
         Per a això, necessitem tenir instal·lat el programa <a href="https://git-scm.com/">git</a> al nostre ordinador.</p>
     <work>
-        <p>Instal·la <inshell>git</inshell> amb la següent comanda:</p>
-        <terminal>
+        <p>Instal·la <w>git</w> amb la següent comanda:</p>
+        
             <host>@host</host>
             <shell>sudo apt install git</shell>
-        </terminal>
+        
 
         <p>Configura el teu nom i el teu email:</p>
-        <terminal>
+        
             <host>@host</host>
             <shell>
 git config --global user.name "<replace>John Doe</replace>"
 git config --global user.email <replace>johndoe@example.com</replace>
             </shell>
-        </terminal>
+        
     </work>
 
-    <p>Podem utilitzar <inshell>git</inshell> directament en la consola per a pujar el codi, 
+    <p>Podem utilitzar <w>git</w> directament en la consola per a pujar el codi, 
         però amb VSCode ho farem de forma més senzilla. 
         Instal·larem l'extensió <a noicon href="https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github">GitHub 
             Pull Requests and Issues</a> que ens permetrà interactuar 
@@ -473,19 +471,19 @@ git config --global user.email <replace>johndoe@example.com</replace>
 
         <optional>
             <p>Si no et surt el botó <img src="img/image24.png">, també pots fer-ho fent clic sobre <img src="img/managevscode.png"> i després 
-                <menuoption>Sign in to use Github Pull Requests and Issues</menuoption></p>
+                <mo>Sign in to use Github Pull Requests and Issues</mo></p>
             <img src="img/signingithub.png">    
         </optional>
 
-        <p>Clica <menuoption>Allow</menuoption>:</p>
+        <p>Clica <mo>Allow</mo>:</p>
         <img src="img/image45.png">
 
         <p>Després fes clic a <img noshadow src="img/image33.png">, i accedeix amb el teu usuari/contrasenya.</p>
 
-        <p>Dona-li a <menuoption>Abrir enlace</menuoption>:</p>
+        <p>Dona-li a <mo>Abrir enlace</mo>:</p>
         <img src="img/image37.png">
 
-        <p>I per últim a <menuoption>Open</menuoption>:</p>
+        <p>I per últim a <mo>Open</mo>:</p>
         <img src="img/image31.png">
     </work>
 
@@ -543,11 +541,11 @@ git config --global user.email <replace>johndoe@example.com</replace>
             realitzats i dona-li a <kbd>Ctrl</kbd>+<kbd>Intro</kbd>:</p>
         <img src="img/image14.png">
 
-        <p>Clica <menuoption>Always</menuoption></p>
+        <p>Clica <mo>Always</mo></p>
         <img src="img/image32.png">
 
         <p>Per últim, fes clic sobre <img src="img/image25.png"> 
-            i selecciona <menuoption>Pull, Push</menuoption>&gt;<menuoption>Push</menuoption>:</p>
+            i selecciona <mo>Pull, Push</mo>&gt;<mo>Push</mo>:</p>
         <img src="img/image19.png">
 
         <p>Comprova que s'han publicat els canvis (pot trigar uns minuts):</p>

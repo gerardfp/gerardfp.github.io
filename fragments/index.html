@@ -62,7 +62,7 @@
     <ol>
         <li>
 
-            <p>Selecciona <menuoption>Empty Activity</menuoption> como plantilla para la <w>MainActivity</w></p>
+            <p>Selecciona <mo>Empty Activity</mo> como plantilla para la <w>MainActivity</w></p>
         </li>
 
         <li>
@@ -96,11 +96,11 @@
     <h2>Crea el Grafo de Navegación</h2>
 
     <p>Sobre la carpeta raiz del proyecto haz clic-derecho y selecciona 
-        <menuoption>New</menuoption><menuoption>Android Resource File</menuoption> 
+        <mo>New</mo><mo>Android Resource File</mo> 
     </p>
 
     <p>Introduce el nombre del fichero del grafo, por ejemplo: <name>nav_graph</name>. 
-        <br>En el <menuoption>Resource type</menuoption> selecciona <name>Navigation</name></p>
+        <br>En el <mo>Resource type</mo> selecciona <name>Navigation</name></p>
     
     <img src="img/e156c72cca2fe4c0.gif"></p>
     
@@ -111,13 +111,13 @@
 
     <img src="img/destinos.png">
 
-    <p>Abre el fichero <file>res/navigation/nav_graph.xml</file> en modo <menuoption>Design</menuoption>, y haz click sobre el icono &#34;<strong>New Destination</strong>&#34; <img src="img/4630cb239fc9d37b.png"></p>
+    <p>Abre el fichero <file>res/navigation/nav_graph.xml</file> en modo <mo>Design</mo>, y haz click sobre el icono &#34;<strong>New Destination</strong>&#34; <img src="img/4630cb239fc9d37b.png"></p>
     <img src="img/1ae033cc41249850.png"></p>
     
-    <p>Haz click en <menuoption>Create new destination</menuoption></p>
+    <p>Haz click en <mo>Create new destination</mo></p>
     <img src="img/3ecc4861e723bbec.png">
 
-    <p>Seleciona <menuoption>Fragment (Blank)</menuoption> como plantilla para el Fragment:</p>
+    <p>Seleciona <mo>Fragment (Blank)</mo> como plantilla para el Fragment:</p>
     <img src="img/11840df1fe14c150.png"></p>
    
     <p>Introduce el nombre <name>Onboarding1Fragment</name>:</p>
@@ -223,11 +223,11 @@
         </p>
         <p>O puedes usar las imágenes que quieras, por ejemplo de <a href="https://undraw.co">unDraw</a>, <a href="https://www.drawkit.io/">DrawKit</a>, <a href="https://www.humaaans.com/">humaaans</a>, <a href="https://designs.ai/graphicmaker/">design.ai</a>...</p>
     </optional>
-    <p>Encima del directorio <directory>app</directory>, haz clic-derecho y 
-        selecciona <menuoption>New</menuoption><menuoption>Vector Asset</menuoption></p>
+    <p>Encima del directorio <folder>app</folder>, haz clic-derecho y 
+        selecciona <mo>New</mo><mo>Vector Asset</mo></p>
     <img src="img/6069e0cb451fd375.png"></p>
 
-    <p>Selecciona <menuoption>Asset Type:</menuoption> <name>Local file</name> e introduce la ruta del 
+    <p>Selecciona <mo>Asset Type:</mo> <name>Local file</name> e introduce la ruta del 
         fichero <file>onboarding1.svg</file>:</p>
     <img src="img/e6e53296705f0522.png"></p>
 
@@ -240,7 +240,7 @@
         un <w>ConstraintLayout</w>:</p>
 
     <p>Abre el fichero <file>res/layout/fragment_onboarding1.xml</file> en modo 
-        <menuoption>Code</menuoption> y sustituye el <w>FrameLayout</w> por un <w>ConstraintLayout</w>:</p>
+        <mo>Code</mo> y sustituye el <w>FrameLayout</w> por un <w>ConstraintLayout</w>:</p>
     <img src="img/26696c090d224e8f.gif"></p>
 
     <p>En cada pantalla añadiremos una imagen, un texto y un botón:</p>
@@ -260,7 +260,7 @@
     </code>
 
     <optional>
-        <p>También puedes usar el modo <menuoption>Design</menuoption> para añadir la imagen:</p>
+        <p>También puedes usar el modo <mo>Design</mo> para añadir la imagen:</p>
         <img src="img/15391e12dc62f033.gif">
         <img src="img/6b568aa0e98e2a71.png">
 
@@ -275,19 +275,17 @@
 
     <codefile>
         <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/layout/fragment_onboarding1.xml">
-            app/src/main/res/layout/fragment_onboarding1.xml
+            res/layout/fragment_onboarding1.xml
         </a>
     </codefile>
     <code xml>
         &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
         &lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
         xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
-        xmlns:tools=&#34;http://schemas.android.com/tools&#34;
         android:layout_width=&#34;match_parent&#34;
         android:layout_height=&#34;match_parent&#34;
         android:background=&#34;#4CAF50&#34;
-        android:padding=&#34;32dp&#34;
-        tools:context=&#34;.Onboarding1Fragment&#34;&gt;
+        android:padding=&#34;32dp&#34;&gt;
 
         &lt;ImageView
             android:id=&#34;@+id/imagen&#34;
@@ -331,19 +329,17 @@
     
     <codefile>
         <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/layout/fragment_onboarding2.xml">
-            app/src/main/res/layout/fragment_onboarding2.xml
+            res/layout/fragment_onboarding2.xml
         </a>
     </codefile>
     <code xml>
         &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
         &lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
         xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
-        xmlns:tools=&#34;http://schemas.android.com/tools&#34;
         android:layout_width=&#34;match_parent&#34;
         android:layout_height=&#34;match_parent&#34;
         android:background=&#34;#00BCD4&#34;
-        android:padding=&#34;32dp&#34;
-        tools:context=&#34;.Onboarding1Fragment&#34;&gt;
+        android:padding=&#34;32dp&#34;&gt;
 
         &lt;ImageView
             android:id=&#34;@+id/imagen&#34;
@@ -695,12 +691,12 @@
     <p>Para ello, definiremos cuatro animaciones: <w>slide_in_right</w>, 
         <w>slide_in_left</w>, <w>slide_out_right</w> y <w>slide_out_left</w>.</p>
     
-    <p>Sobre el directiorio <directory>app</directory>, haz clic-derecho y selecciona 
-        <menuoption>New</menuoption><menuoption>Android Resource File</menuoption></p>
+    <p>Sobre el directiorio <folder>app</folder>, haz clic-derecho y selecciona 
+        <mo>New</mo><mo>Android Resource File</mo></p>
     <img src="img/4bfe505f8d42e6eb.png">
     
     <p>Introduce el nombre de la animación <name>slide_in_right</name>, y selecciona 
-        <name>Animation</name> como <menuoption>Resource Type</menuoption>:</p>
+        <name>Animation</name> como <mo>Resource Type</mo>:</p>
     <img src="img/821e1b6a81ffaf42.png"></p>
     
     <p>En el fichero <file>res/anim/slide_in_right.xml</file> que se ha creado, 
@@ -804,7 +800,7 @@
     </code>
 
     <optional>
-        <p>También lo puedes hacer en modo <menuoption>Design</menuoption>.</p>
+        <p>También lo puedes hacer en modo <mo>Design</mo>.</p>
         <p>Selecciona cada acción y establece los atributos 
             <w>enterAnim</w>, <w>exitAnim</w>, <w>popEnterAnim</w> y <w>popExitAnim</w>:</p>
         <img src="img/7c650945189f97ed.png"></p>    

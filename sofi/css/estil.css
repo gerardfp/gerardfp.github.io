@@ -200,7 +200,7 @@ pre {
     border-radius: 4px;
 }
 
-terminal pre,  codefile + pre, codefile + div.code-toolbar pre{
+host + div.code-toolbar pre, codefile + pre, codefile + div.code-toolbar pre{
     border-radius: 0;
 }
 
@@ -313,7 +313,7 @@ ln {
     top: -.2em;
 }
 
-incode {
+w {
     background: #f5f7f9;
     /* background: #2d2d2d;   */
     font-family: 'Consolas', monospace;
@@ -322,15 +322,6 @@ incode {
     border-radius: 4px;
 }
 
-
-inshell {
-    background-color: #dddddd;
-    font-family: 'Consolas', monospace;
-    padding: .1em .5em;
-    white-space: pre;
-    border-radius: 4px;
-    font-size: 1rem;
-}
 
 w {
     background-color: #f9f9f9;
@@ -355,28 +346,28 @@ url {
     background-color: white;
 }
 
-file, directory {
+file, folder {
     font-family: 'Consolas', monospace;
     font-size: .9em;
     background-color: #f5f7ab6a;
     color: #333;
-    padding: .2em .5em;
-    margin: .3em;
+    padding: .25em .5em .2em .5em;
+    margin: 0 .3em;
     white-space: nowrap;
     border-radius: 4px;
 }
 
 file {
-    background: #d5e2ef;
+    background: #d3e2f1;
 }
 
-directory {
+folder {
     background: #fff59c;
 }
 
-file::before, directory::before {
+file::before, folder::before {
     font-family: 'FASolid';
-    margin-right: .5em;
+    margin-right: .3em;
 }
 
 file::before {
@@ -384,7 +375,7 @@ file::before {
     content: '\f15c';
 }
 
-directory::before {
+folder::before {
     color: #c5c5c1;
     content: '\f07c';
 }
@@ -429,7 +420,7 @@ replace {
     padding: .1em .5em;
 }
 
-shell replace, url replace, code replace, inshell replace, incode replace {
+shell replace, url replace, code replace, w replace {
     border: 0;
     padding: 0;
     background: none;
@@ -439,7 +430,7 @@ shell.language-bash .token {
     color: unset;
 }
 
-menuoption {
+mo {
     background-color: #f2f2f2;
     padding: .1em .5em;
     border: 1px solid #bbb;
@@ -447,21 +438,16 @@ menuoption {
     margin-right: .3em;
 }
 
-menuoption::after {
+mo::after {
     font-family: 'FASolid';
     content: '\f0da';
     margin-left: .4em;
 }
 
-menuoption:last-of-type::after {
+mo:last-of-type::after {
     content: none;
 }
 
-
-
-red {
-    color: red;
-}
 
 kbd {
     background-color: #eee;
@@ -479,13 +465,6 @@ kbd {
     position: relative;
     top: -2px;
 }
-
-
-
-
-
-
-
 
 download a {
     background: #1E8E3E;

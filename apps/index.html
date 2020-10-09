@@ -29,7 +29,7 @@
     
   <p>Antes de comenzar, descarga e instala Android Studio </p>
   <p><download><a href="https://developer.android.com/studio/" target="_blank">Download Android Studio</a></download></p>
-  <p>Descomprime el zip y ejecuta el lanzador <inshell>studio.sh</inshell></p>
+  <p>Descomprime el zip y ejecuta el lanzador <w>studio.sh</w></p>
 
 </section>
 <section>
@@ -39,10 +39,10 @@
     <li>En Android Studio, crea un nuevo proyecto:
       <ul>
         <li>Si todavía no has abierto un proyecto, en la pantalla de <strong>bienvenida</strong>, 
-          haz clic en <menuoption>Start a new Android Studio project</menuoption>:
+          haz clic en <mo>Start a new Android Studio project</mo>:
           <img src="img/8032f85f56481e5a.png">
         </li>
-        <li>Si has abierto un proyecto, ve a <menuoption>File</menuoption><menuoption>New</menuoption><menuoption>New project</menuoption>.</li>    
+        <li>Si has abierto un proyecto, ve a <mo>File</mo><mo>New</mo><mo>New project</mo>.</li>    
       </ul>
     </li>
     <li>Elije la plantilla para la <w>Activity</w> principal de la App. Para esta práctica elije <strong>Empty Activity</strong>.
@@ -123,27 +123,27 @@
     </li>
   </ul>
   <p>Veamos también los subdirectorios 
-    <directory>/res</directory> que contienen los 
+    <folder>/res</folder> que contienen los 
     <a href="https://developer.android.com/guide/topics/resources/overview.html" target="_blank">recursos</a> 
     para la aplicación:</p>
   <ul>
     <li>
-      <p><directory>drawable/</directory></p>
+      <p><folder>drawable/</folder></p>
       <p>Directorio de <strong>imágenes</strong>.</p>
     </li>
     <li>
-      <p><directory>layout/</directory></p>
+      <p><folder>layout/</folder></p>
       <p>Directorio para los archivos que definen la 
       <strong>interfaz de usuario</strong> de la aplicación, 
       como <file>activity_main.xml</file>, que describe 
       un diseño básico para la <w>MainActivity</w>.</p>
     </li>
     <li>
-      <p><directory>mipmap/</directory></p>
+      <p><folder>mipmap/</folder></p>
       <p>Contiene los <strong>iconos</strong> Lanzadores.</p>
     </li>
     <li>
-      <p><directory>values/</directory></p>
+      <p><folder>values/</folder></p>
       <p>Directorio para otros archivos XML que contienen 
         una colección de recursos.</p>
       <ul>
@@ -182,12 +182,12 @@
     <li>Conectar el dispositivo al equipo de desarrollo con un 
       cable USB.</li>
     <li>Habilitar <strong>la depuración USB</strong> en el dispositivo 
-      móvil, yendo a <menuoption>Ajustes</menuoption><menuoption>Opciones de desarrollador</menuoption>.</li>
+      móvil, yendo a <mo>Ajustes</mo><mo>Opciones de desarrollador</mo>.</li>
   </ol>
   <warn><p>En Android 4.2 y versiones posteriores, 
     <strong>Opciones de desarrollador</strong> se oculta de forma 
     predeterminada. Para que esté disponible, ve al menú del móvil 
-    <menuoption>Ajustes</menuoption><menuoption>Acerca del teléfono</menuoption>
+    <mo>Ajustes</mo><mo>Acerca del teléfono</mo>
     y toca <strong>el número de compilación</strong> SIETE veces. 
     Regresa a la pantalla anterior y encontrarás 
     las <strong>Opciones de desarrollador</strong>.</p>
@@ -210,7 +210,7 @@
   
   <optional>
     <p>Si no tienes ningún emulador creado ve a 
-      <menuoption>AVD Manager</menuoption> y crea uno:</p>
+      <mo>AVD Manager</mo> y crea uno:</p>
     <img src="img/ce7aded8a8ab3dfc.png">
     <img src="img/48f4783707b99677.png">
     <p>Selecciona el Hardware y la versión de Android que desees.</p>
@@ -221,7 +221,7 @@
 <section>
 
   <h2>Editar el Layout</h2>
-  <p>En los ficheros XML de la carpeta <directory>res/layout</directory> 
+  <p>En los ficheros XML de la carpeta <folder>res/layout</folder> 
     se define la disposición de <em>widgets</em> de las pantallas.</p>
   
   <p>Por el momento, en la pantalla <file>activity_main.xml</file> 
@@ -263,8 +263,11 @@
   <img src="img/eb1a93877d141ccb.png">
 
   <h3>Button</h3>
-  <p>Añade también el <w>Button</w> que, al ser pulsado, augmentará el 
-    contador:</p>
+  <p>Añade también el <w>Button</w> que, al ser pulsado, augmentará el contador:</p>
+
+  <codefile>
+    res/layout/activity_main.xml
+  </codefile>  
   <code xml>
     &lt;Button
       android:layout_width=&#34;wrap_content&#34;
@@ -276,8 +279,7 @@
   <info>
     <p>Los atributos <w>layout_width</w> 
     y <w>layout_height</w>, especifican el <strong>ancho</strong> 
-    y <strong>alto</strong> 
-    del elemento.</p>
+    y <strong>alto</strong> del elemento.</p>
 
     <ul>
       <li>El valor <w>&#34;wrap_content&#34;</w> indica 
@@ -346,7 +348,7 @@
   
   <p>En la <w>constraintTop</w> la cosa cambia...</p> 
   
-  <p>Observa en la imagen antorior que la <w>constraintTop</w> tira del 
+  <p>Observa en la imagen anterior que la <w>constraintTop</w> tira del 
     botón <strong>hacia la parte inferior</strong> del TextView.</p>
   
   <p>Para hacer referencia al <em>elemento padre</em> hemos visto que 
@@ -365,6 +367,10 @@
   
   <p>Ahora ya podemos añadir la <w>constraintTop</w> al botón 
     y hacer que tire de él hacia la parte inferior (<w>toBottomOf</w>) del TextView:</p>
+
+  <codefile>
+    res/layout/activity_main.xml
+  </codefile>  
   <code xml data-line="6">
     &lt;Button
       android:id=&#34;@+id/augmentarElContador&#34;
@@ -385,12 +391,11 @@
 
   <p>El código completo del layout <file>activity_main.xml</file> quedará así:</p>
   
-  <codefile><a href="https://github.com/gerardfp/ContadorDeClics/blob/master/app/src/main/res/layout/activity_main.xml" target="_blank">app/src/main/res/layout/activity_main.xml</a></codefile>
-  
-  <!--<pre
-    class="language-xml"
-    data-jsonp="https://api.github.com/repos/damm8/apps/contents/app/src/main/res/layout/activity_main.xml">
-  </pre>-->
+  <codefile>
+    <a href="https://github.com/damm8/apps/blob/master/app/src/main/res/layout/activity_main.xml">
+      app/src/main/res/layout/activity_main.xml
+    </a>
+  </codefile>
   <code xml>
     &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
     &lt;androidx.constraintlayout.widget.ConstraintLayout 
@@ -460,6 +465,9 @@
 
   <p>Crear la variable para almacenar el número de clicks es la parte más sencilla:</p>
 
+  <codefile>
+    MainActivity.java
+  </codefile>
   <code java data-line="3">
     public class MainActivity extends AppCompatActivity {
 
@@ -485,6 +493,9 @@
     Al método <w>findViewById()</w> hay que pasarle el identificador 
     que hayamos definido en el fichero XML.</p>
 
+  <codefile>
+    MainActivity.java
+  </codefile>
   <code java data-line="4,5,12,13">
     public class MainActivity extends AppCompatActivity {
   
@@ -503,9 +514,11 @@
     }
   </code>
 
-  <info><p>Observa que las llamadas a <w>findViewById()</w> las hemos 
-    hecho después de establecer el layout <file>activity_main.xml</file>. 
-    El método <w>findViewById()</w> buscará los elementos en este fichero. </p>
+  <info>
+    <p>Observa que las llamadas a <w>findViewById()</w> las hemos 
+      hecho después de establecer el layout <file>activity_main.xml</file>. 
+      El método <w>findViewById()</w> buscará los elementos en este fichero. 
+    </p>
   </info>
 
   <optional>
@@ -519,7 +532,11 @@
   <p>Para activar el ViewBinding hay que ir al fichero 
     <file>build.gradle (Module: app)</file> y añadir la siguiente configuración:</p>
 
-  <codefile><a href="https://github.com/gerardfp/ContadorDeClics/blob/master/app/build.gradle" target="_blank">app/build.gradle</a></codefile>
+  <codefile>
+    <a href="https://github.com/gerardfp/ContadorDeClics/blob/master/app/build.gradle">
+      app/build.gradle
+    </a>
+  </codefile>
   <code none data-line="3-5">
     android {
       . . .
@@ -533,7 +550,7 @@
   a los elementos XML. También hay que modificar la llamada a <w>setContentView()</w>, 
   de la siguiente manera:</p>
   
-  <code java data-line="3,8,10,11">
+  <code java data-line="3,8,10">
     public class MainActivity extends AppCompatActivity {
 
       ActivityMainBinding binding;
@@ -543,8 +560,7 @@
           super.onCreate(savedInstanceState);
     //        setContentView(R.layout.activity_main);
           
-          binding = ActivityMainBinding.inflate(getLayoutInflater());
-          setContentView(binding.getRoot());
+          setContentView((binding = ActivityMainBinding.inflate(getLayoutInflater())).getRoot());
       }
     }
   </code>
@@ -657,8 +673,7 @@
       @Override
       protected void onCreate(Bundle savedInstanceState) {
           super.onCreate(savedInstanceState);
-          binding = ActivityMainBinding.inflate(getLayoutInflater());
-          setContentView(binding.getRoot());
+          setContentView((binding = ActivityMainBinding.inflate(getLayoutInflater())).getRoot());
           
           binding.augmentarElContador.setOnClickListener(new View.OnClickListener() {
               @Override

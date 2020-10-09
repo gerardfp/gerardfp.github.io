@@ -22,7 +22,7 @@ function pageTitle(){
 }
 
 function syntaxHighlight(){
-  document.querySelectorAll('code,incode').forEach((block) => {
+  document.querySelectorAll('code').forEach((block) => {
     if(block.nodeName === 'CODE'){
       var preWrap = document.createElement('pre');
       if(block.hasAttribute('data-line')){
