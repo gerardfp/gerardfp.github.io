@@ -96,7 +96,7 @@
     <h2>Crea el Grafo de Navegación</h2>
 
     <p>Sobre la carpeta raiz del proyecto haz clic-derecho y selecciona 
-        <menuoption>New</menuoption> &gt; <menuoption>Android Resource File</menuoption> 
+        <menuoption>New</menuoption><menuoption>Android Resource File</menuoption> 
     </p>
 
     <p>Introduce el nombre del fichero del grafo, por ejemplo: <name>nav_graph</name>. 
@@ -111,7 +111,7 @@
 
     <img src="img/destinos.png">
 
-    <p>Abre el fichero <file>res/navigation/nav_graph.xml</file> en modo <img src="img/31ba50c25fd04aec.png">, y haz click sobre el icono &#34;<strong>New Destination</strong>&#34; <img src="img/4630cb239fc9d37b.png"></p>
+    <p>Abre el fichero <file>res/navigation/nav_graph.xml</file> en modo <menuoption>Design</menuoption>, y haz click sobre el icono &#34;<strong>New Destination</strong>&#34; <img src="img/4630cb239fc9d37b.png"></p>
     <img src="img/1ae033cc41249850.png"></p>
     
     <p>Haz click en <menuoption>Create new destination</menuoption></p>
@@ -224,7 +224,7 @@
         <p>O puedes usar las imágenes que quieras, por ejemplo de <a href="https://undraw.co">unDraw</a>, <a href="https://www.drawkit.io/">DrawKit</a>, <a href="https://www.humaaans.com/">humaaans</a>, <a href="https://designs.ai/graphicmaker/">design.ai</a>...</p>
     </optional>
     <p>Encima del directorio <directory>app</directory>, haz clic-derecho y 
-        selecciona <menuoption>New</menuoption> &gt; <menuoption>Vector Asset</menuoption></p>
+        selecciona <menuoption>New</menuoption><menuoption>Vector Asset</menuoption></p>
     <img src="img/6069e0cb451fd375.png"></p>
 
     <p>Selecciona <menuoption>Asset Type:</menuoption> <name>Local file</name> e introduce la ruta del 
@@ -248,8 +248,8 @@
     <p>Para añadir una imagen usamos el widget <w>ImageView</w>. La imagen que se debe mostrar 
     se define en el atributo <w>android:src</w>.</p>
     <p>Es importante establecer el atributo <w>android:adjustViewBounds</w> 
-        a <w>true</w>. Esto hace que los límites (el borde) del <w>ImageView</w> se ajuste al tamaño 
-        de la imagen. </p>
+        a <w>true</w>. Esto hace que los límites (el borde) del <w>ImageView</w> se ajusten al tamaño 
+        de la imagen.</p>
     
     <code xml>
         &lt;ImageView
@@ -423,8 +423,7 @@
                 @Override
                 public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                             Bundle savedInstanceState) {
-                    binding = FragmentOnboarding1Binding.inflate(inflater, container, false);
-                    return binding.getRoot();
+                    return (binding = FragmentOnboarding1Binding.inflate(inflater, container, false)).getRoot();
                 }
             }
         </code>
@@ -697,7 +696,7 @@
         <w>slide_in_left</w>, <w>slide_out_right</w> y <w>slide_out_left</w>.</p>
     
     <p>Sobre el directiorio <directory>app</directory>, haz clic-derecho y selecciona 
-        <menuoption>New</menuoption> &gt; <menuoption>Android Resource File</menuoption></p>
+        <menuoption>New</menuoption><menuoption>Android Resource File</menuoption></p>
     <img src="img/4bfe505f8d42e6eb.png">
     
     <p>Introduce el nombre de la animación <name>slide_in_right</name>, y selecciona 

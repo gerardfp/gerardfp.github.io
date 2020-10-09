@@ -289,6 +289,17 @@ shell consume {
     background: #42b98388;
 }
 
+ic {
+    font-family: 'FASolid';
+}
+
+icr {
+    font-family: 'FARegular';
+}
+
+icb {
+    font-family: 'FABrands';
+}
 
 ln {
     padding: 0 .5em;
@@ -396,6 +407,8 @@ name {
     border: 1px solid #5cbbc1;
     padding: .1em .5em;
     border-radius: 4px;
+    background:white;
+    box-shadow: 0 0 2px #5cbbc1;
 }
 
 tech {
@@ -431,7 +444,20 @@ menuoption {
     padding: .1em .5em;
     border: 1px solid #bbb;
     white-space: nowrap;
+    margin-right: .3em;
 }
+
+menuoption::after {
+    font-family: 'FASolid';
+    content: '\f0da';
+    margin-left: .4em;
+}
+
+menuoption:last-of-type::after {
+    content: none;
+}
+
+
 
 red {
     color: red;
