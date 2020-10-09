@@ -648,8 +648,46 @@
 
     <p>Quan es premi el botó Executar, automàticament el navegador web agafarà els camps del <w>&lt;form&gt;</w> i els afegirà 
     a la query de la petició. Anomenarà les dades de la query segons l'atribut <w>name</w> dels <w>&lt;input&gt;</w> i el 
-    valor serà el que s'hagi escrit en ells.</p>
+    valor serà el que s'hagi escrit en ells. Prova a executar algunes comandes!</p>
 
+    <p>Acabarem fent un algunes de consideracions.</p>
+    <p>La primera és que si tractes de fer una comanda invàlida, no veuràs cap error, ja que la funció <w>system</w>, 
+    només mostra les dades de la sortida estàndard (STDOUT). Si volem veure també les dades que es mostren a la 
+    sortida d'errors (STDERR), podem redirigir-ho amb <w>exec 2&gt;&1</w>. Canvia la línia indicada: </p>
+
+    <codefile>
+        /var/www/html/webash.php
+    </codefile>
+    <code php data-line="12">
+        &lt;?php
+        echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
+        echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
+        echo "&lt;span&gt;web&bash&lt/span&gt;";
+
+        echo "&lt;form&gt;";
+        echo "&lt;input name='comanda'&gt";
+        echo "&lt;input type='submit' value='Executar'&gt;";
+        echo "&lt;/form&gt;";
+
+        echo "&lt;pre style='width: 80ch; padding: 2ch; overflow: auto; color: white; background: #300A24;'>";
+        system("exec 2&gt;&1 && " . $_GET['comanda']);
+        echo "&lt;/pre&gt;";
+        ?&gt;
+    </code>
+
+    <p>Ara prova a executar qualsevol comanda que generi errors i sí es mostraran:</p>
+
+    <img src="img/webash7.png">
+
+    <p>La segona consideració és que les comandes s'executen amb els permisos de l'usuari <w>www-data</w>, 
+    i això significa que només podran fer allò que l'usuari <w>www-data</w> tingui permès fer. Per exemple:</p>
+
+    <img src="img/webash8.png">
+
+    <p>L'ultima consideració és que el directori de treball és on es troba l'arxiu <file>webash.php</file>, 
+    així que totes les rutes que hi hagi a les comandes són relatives a aquest directori:</p>
+
+    <img src="img/webash9.png">
 
     <h3>Fragment</h3>
     <p>El <w>fragment</w> serveix per a fer que el navegador posicioni la pàgina en una secció determinada. Aquesta part
@@ -666,7 +704,7 @@
     </terminal>
 
     <p>Prova a navegar directament a alguna de les seccions del document.</p>
-    
+
     <observe>
         <p>Per a definir una secció en un document hem d'afegir l'atribut <w>id</w> a l'element que desitjem. 
         Per a navegar directament a una secció, només cal afegir un <w>#</w> seguit del valor del seu atribut <w>id</w>.</p>

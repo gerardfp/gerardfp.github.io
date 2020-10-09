@@ -179,7 +179,7 @@
 <section>
     <h2>Añade el NavHost</h2>
     <p>En el layout de la <w>MainActivity</w> (<file>activity_main.xml</file>) añade 
-        un <w>&lt;fragment&gt;</w> que será el <w>NavHostFragment</w>:</p>
+        un <w>&lt;FragmentContainerView&gt;</w> que será el <w>NavHostFragment</w>:</p>
     
     <codefile>
         res/layout/activity_main.xml
@@ -187,22 +187,18 @@
     <code xml>
         &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
         &lt;androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-        xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
-        android:layout_width=&#34;match_parent&#34;
-        android:layout_height=&#34;match_parent&#34;&gt;
+            xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+            xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+            android:layout_width=&#34;match_parent&#34;
+            android:layout_height=&#34;match_parent&#34;&gt;
 
-        &lt;fragment
-            android:id=&#34;@+id/nav_host_fragment&#34;
-            android:name=&#34;androidx.navigation.fragment.NavHostFragment&#34;
-            android:layout_width=&#34;0dp&#34;
-            android:layout_height=&#34;0dp&#34;
-            app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
-            app:layout_constraintRight_toRightOf=&#34;parent&#34;
-            app:layout_constraintTop_toTopOf=&#34;parent&#34;
-            app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
-            app:defaultNavHost=&#34;true&#34;
-            app:navGraph=&#34;@navigation/nav_graph&#34; /&gt;
+            &lt;androidx.fragment.app.FragmentContainerView
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:id="@+id/nav_host_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/nav_graph" /&gt;
 
         &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
     </code>
