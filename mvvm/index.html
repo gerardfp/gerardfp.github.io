@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<header>
+    <h1>Model-View-ViewModel</h1>
+    <abstract>
+        <p>Esta práctica es el primer comienzo con la arquitectura <strong>Model-View-ViewModel</strong>, 
+            recomendada para desarrollar apps.</p>
+        <p>Exploraremos los beneficios que proporciona esta arquitectura, y los problemas que resuelve.</p>
+        <p>Usaremos las clases <w>ViewModel</w> y <w>LiveData</w>.</p>
+        <p>Desarrollaremos una app que consiste en una Calculadora de la cuota de hipoteca:</p>
+        <img src="img/p4mvvm.gif">
+        <a href="https://github.com/gerardfp/MVVM">https://github.com/gerardfp/MVVM</a>
+    </abstract>
+</header>
+
+<section>
+    <h2>Crea el proyecto</h2>
+    <ul>
+        <li>
+            <p>
+                <p>Selecciona <mo>Empty Activity</mo> como plantilla.</p>
+            </p>
+        </li>
+        <li>
+            <p>Añade las dependencias para el soporte ViewModel y LiveData; también para Navigation.</p>
+
+            <codefile>
+                build.gradle (Module: app)
+            </codefile>
+            <code>
+                implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'
+                implementation 'androidx.lifecycle:lifecycle-livedata:2.2.0'
+        
+                implementation 'androidx.navigation:navigation-fragment:2.3.0'
+                implementation 'androidx.navigation:navigation-ui:2.3.0'
+            
+            </code>        
+        </li>
+        <li>
+            <p>Activa el ViewBinding</p>
+            <codefile>
+                build.gradle (Module: app)
+            </codefile>
+            <code>
+                android {
+                    buildFeatures {
+                        viewBinding true
+                    }
+                }
+            </code>
+        </li>
+
+        <li>
+            <p>Crea el Grafo de Navegación <file>res/navigation/nav_graph.xml</file>.</p>
+            <p>Añade el <w>NavHostFragment</w> al layout de la MainActivity:</p>
+            <codefile>
+                res/layout/activity_main.xml
+            </codefile>
+            <code xml>
+                &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+                &lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+                    android:layout_width=&quot;match_parent&quot;
+                    android:layout_height=&quot;match_parent&quot;
+                    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;&gt;
+
+                    &lt;androidx.fragment.app.FragmentContainerView
+                        android:name=&quot;androidx.navigation.fragment.NavHostFragment&quot;
+                        android:id=&quot;@+id/nav_host_fragment&quot;
+                        android:layout_width=&quot;match_parent&quot;
+                        android:layout_height=&quot;match_parent&quot;
+                        app:defaultNavHost=&quot;true&quot;
+                        app:navGraph=&quot;@navigation/nav_graph&quot; /&gt;
+
+                &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+            </code>
+        </li>
+        <li>
+            <p>Crea un destino llamado <w>MiHipotecaFragment</w>:</p>
+
+            <p>Configura el ViewBinding:</p>
+
+            <codefile>
+                HipotecaFragment.java
+            </codefile>
+            <code java>
+                import android.os.Bundle;
+                import android.view.LayoutInflater;
+                import android.view.View;
+                import android.view.ViewGroup;
+                import androidx.annotation.NonNull;
+                import androidx.fragment.app.Fragment;
+
+                public class MiHipotecaFragment extends Fragment {
+                    private FragmentHipotecaBinding binding;
+
+                    @Override
+                    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+                        return (binding = FragmentMiHipotecaBinding.inflate(inflater, container, false)).getRoot();
+                    }
+
+                    @Override
+                    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                        super.onViewCreated(view, savedInstanceState);
+                    }
+                }
+            </code>
+
+            <p>Añade las siguientes <w>View</w> al layout:</p>
+            <codefile>
+                res/layout/fragment_mi_hipoteca.xml
+            </codefile>
+            <code xml>
+                &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+                &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+                    android:layout_width=&quot;match_parent&quot;
+                    android:layout_height=&quot;match_parent&quot;
+                    android:orientation=&quot;vertical&quot;;&gt;
+
+                    &lt;EditText
+                        android:id=&quot;@+id/capital&quot;
+                        android:layout_width=&quot;match_parent&quot;
+                        android:layout_height=&quot;wrap_content&quot;
+                        android:hint=&quot;Capital&quot;/&gt;
+                    &lt;EditText
+                        android:id=&quot;@+id/plazo&quot;
+                        android:layout_width=&quot;match_parent&quot;
+                        android:layout_height=&quot;wrap_content&quot;
+                        android:hint=&quot;Plazo&quot;/&gt;
+                    &lt;Button
+                        android:id=&quot;@+id/calcular&quot;
+                        android:layout_width=&quot;match_parent&quot;
+                        android:layout_height=&quot;wrap_content&quot;
+                        android:text=&quot;Calcular cuota mensual&quot;/&gt;
+                    &lt;TextView
+                        android:id=&quot;@+id/cuota&quot;
+                        android:layout_width=&quot;match_parent&quot;
+                        android:layout_height=&quot;wrap_content&quot;/&gt;
+                &lt;/LinearLayout&gt;
+            </code>
+            <img src="img/layout_basic.png">
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h2>Simulador Hipoteca</h2>
+    <p>La app que vamos a desarrollar consiste en que el usuario introduce el <strong>capital</strong> que solicita 
+        y el <strong>plazo</strong> de devolución y la app determina el <strong>interés</strong> y calcula 
+        la <strong>cuota</strong> mensual por el método francés. 
+    </p>
+
+    <p>Las siguientes clases <w>SolicitudHipoteca</w> y <w>SimuladorHipoteca</w> implementan esta funcionalidad base de la 
+    aplicación.</p>
+
+    <p>Crea estas dos clases:</p>
+
+    <ul>
+        <li>
+            <p>La clase <w>SolicitudHipoteca</w> contiene los campos aportados por el usuario <w>capital</w> y <w>prestamo</w>.</p>
+            <codefile>
+                SolicitudHipoteca.java
+            </codefile>
+            <code java>
+                public class SolicitudHipoteca {
+                    public double capital;
+                    public int plazo;
+                
+                    public SolicitudHipoteca(double capital, int plazo) {
+                        this.capital = capital;
+                        this.plazo = plazo;
+                    }
+                }
+            </code>
+        
+        </li>
+        <li>
+            <p>La clase <w>SimuladorHipoteca</w> tiene el método <w>calcular</w> que recibe como parámetro un objeto <w>SolicitudHipoteca</w>
+                con los datos del usuario, y calcula la <w>cuota</w> en función de un <w>interés</w> determinado.</p>
+                <p>Para esta demo se establece un <w>interes</w> arbitrario de <w>0.01605</w>. Se ha añadido una pausa (<w>sleep()</w>) para 
+                simular la obtención del interés mediante una operación de larga duración, como el acceso a base de datos, a un servidor, etc.</p>
+                <codefile>
+                    SimuladorHipoteca.java
+                </codefile>
+                <code java>
+                    public class SimuladorHipoteca {
+                        public double calcular(SolicitudHipoteca solicitud) {
+                            double interes = 0;
+                            try {
+                                Thread.sleep(10000);   // simular operacion de larga duracion (10s)
+                                interes = 0.01605;
+                            } catch (InterruptedException e) {}
+                    
+                            return solicitud.capital*interes/12/(1-Math.pow(1+(interes/12),-solicitud.plazo*12));
+                        }
+                    }
+                </code>            
+        </li>
+        <info>
+            <p>En una aplicación típica de consola, estas dos clases se podrían utilizar así:</p>
+            <code java>
+                Scanner scanner = new Scanner(System.in);
+        
+                SimuladorHipoteca simulador = new SimuladorHipoteca();
+
+                System.out.println("Introduzca el capital:");
+                double capital = scanner.nextDouble();
+                System.out.println("Introduzca el plazo:");
+                int plazo = scanner.nextInt();
+        
+                SolicitudHipoteca solicitud = new SolicitudHipoteca(capital, plazo);
+
+                double cuota = simulador.calcular(solicitud);
+        
+                System.out.println("Cuota: " + String.format("%.2f", cuota));        
+            </code>
+
+            <shell>
+                Introduzca el capital:
+                <in>100000</in>
+                Introduzca el plazo:
+                <in>15</in>
+                Cuota: 625.48
+            </shell>
+        </info>
+    </ul>
+
+</section>
+
+<section>
+    <h2>Bloqueos, pérdida de datos y <em>Memory Leaks</em></h2>
+    <p>Un error común es escribir todo el código en una <w>Activity</w> o <w>Fragment</w>.</p>
+
+    <p>Por ejemplo, en el método <w>onViewCreated()</w> de la clase <w>MiHipotecaFragment</w> podríamos estar
+    tentados a hacer lo siguiente:</p>
+
+    <codefile>
+        MiHipotecaFragment.java / onViewCreated()
+    </codefile>
+    <code java>
+        binding.calcular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SimuladorHipoteca simulador = new SimuladorHipoteca();
+
+                double capital = Double.parseDouble(binding.capital.getText().toString());
+                int plazo = Integer.parseInt(binding.plazo.getText().toString());
+
+                SolicitudHipoteca solicitud = new SolicitudHipoteca(capital, plazo);
+
+                double cuota = simulador.calcular(solicitud);
+
+                binding.cuota.setText(String.format("%.2f",cuota));
+            }
+        });
+    </code>
+
+    <p>La intención de este código es que cuando se hace click en el botón <w>calcular</w>, se obtienen el <w>capital</w>
+        y el <w>plazo</w> introducidos por el usuario, se llama al método <w>calcular()</w> del simulador y se muestra 
+        la <w>cuota</w> obtenida.
+    </p>
+
+    <h3>Bloqueo</h3>
+    <p>Si ejecutas la app, tal vez parezca que funciona correctamente. Sin embargo hay varios problemas.</p>
+    <p>El primero es que se ha bloqueado la Interfaz de Usuario (<w>View</w>) durante todo el tiempo que se ha estado 
+    ejecutando el método <w>calcular()</w>. </p>
+    
+    <img src="img/uiblock.png">
+    
+    <p>Debido al bloqueo de la UI, no habríamos podido mostrar, por ejemplo, una barra de progreso, o tal vez dar al usuario 
+    la opción de cancelar la operación... Es más, si la operación tarda más de 5 segundos y el usuario trata de
+    interactuar entre tanto con la Interfaz de Usuario, el sistema Android le mostrará <em>el infame diálogo de 
+        "<a href="https://developer.android.com/training/articles/perf-anr">la aplicación 
+            no responde</a>"</em>.
+    </p>
+    <warn>
+        <p>No se deben realizar operaciones de larga duración en el <strong>thread</strong> de la Interfaz de Usuario.</p>
+    </warn>
+
+    <p>Una solución que se utilitzó de forma bastante extendida durante algún tiempo fue el uso de la clase <w>AsyncTask</w>, 
+    para ejecutar las tareas de larga duración en segundo plano. Solía ser más o menos así:</p>
+
+    <codefile>
+        MiHipotecaFragment.java / onViewCreated()
+    </codefile>
+    <code java>
+        binding.calcular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                double capital = Double.parseDouble(binding.capital.getText().toString());
+                int plazo = Integer.parseInt(binding.plazo.getText().toString());
+
+                SolicitudHipoteca solicitud = new SolicitudHipoteca(capital, plazo);
+
+                new AsyncTask&lt;SolicitudHipoteca, Void, Double&gt;(){
+
+                    @Override
+                    protected Double doInBackground(SolicitudHipoteca... solicitudes) {
+                        SimuladorHipoteca simulador = new SimuladorHipoteca();
+                        return simulador.calcular(solicitudes[0]);
+                    }
+
+                    @Override
+                    protected void onPostExecute(Double cuota) {
+                        super.onPostExecute(cuota);
+
+                        binding.cuota.setText(String.format("%.2f",cuota));
+                    }
+                }.execute(solicitud);
+            }
+        });
+    </code>
+
+    <p>La intención de este código es ejecutar el método <w>calcular()</w> en una tarea en segundo plano, y actualizar el TextView con 
+    la cuota obtenida cuando finalice la tarea.</p>
+
+    <img src="img/asynctask.png">
+
+    <p>De esta forma se previene el bloqueo de la interfaz de usuario. Si ejcutas ahora la app, verás que 
+        la interfaz de usuario sigue respondiendo aún cuando se está ejecutando 
+        la tarea de larga duración <w>calcular()</w>.
+    </p>
+
+    <p>Pero esta solución tampoco resuelve todos los problemas.</p>
+
+    <h3>Pérdida de datos</h3>
+    <p>Un comportamiento característico de Android es que cuando el usuario rota la pantalla del móvil, el sistema destruye 
+        la <w>Activity</w> en ejecución, y crea una nueva con la nueva configuración de pantalla. Con esto, todas las variables
+        de la instancia <w>Activity</w> destruída también se pierden. Además, el layout de la <w>Activity</w> vuelve al punto 
+        inicial, tal como está definido el xml.
+    </p>
+    <p>Así que debido a esto, ninguna de las dos soluciones anteriores resuelve el problema de la pérdida de datos.</p>
+    <ul>
+        <li>
+            <p>Sin AsyncTask: aunque la app haya sobrevivido al bloqueo y se haya conseguido mostrar la <w>cuota</w> en el 
+                <w>&lt;TextView&gt;</w>, si el usuario luego rota el móvil, la <w>cuota</w> desaparece del <w>&lt;TextView&gt;</w>,
+                cuando Android destruye la <w>Activity</w> y crea una nueva.</p>
+            <img src="img/screenrotate1.png">
+        </li>
+        <li>
+            <p>Con AsyncTask: aunque la app no se haya bloqueado durante el cálculo, los datos se pierden igualmente si 
+                el usuario rota la pantalla.
+            </p>
+            <img src="img/screenrotate2.png">
+        </li>
+    </ul>
+
+    <warn>
+        <p>Debes considerar que la Interfaz de Usuario <em>no te pertenece</em> y que el sistema android puede hacer 
+        con ella lo que le parezca oportuno.</p>
+    </warn>
+
+    <h3><em>Memory Leaks</em></h3>
+    <p>Vamos ahora el caso de que el usuario rote la pantalla justo cuando se está realizando el cálculo.</p>
+
+    <p>Con el programa <strong>sin AsyncTask</strong>, el comportamiento de la app será errático, ya que Android, no 
+    puede ni destruir la <w>Activity</w> ni crear una nueva hasta que haya finalizado la tarea <w>calcular()</w>.</p>
+
+    <img src="img/screenrotate3.png">
+
+    <p>Con el programa <strong>con AsyncTask</strong>, ocurre lo siguiente: cuando se rota la pantalla en medio de la 
+    ejecución de la <w>AsyncTask</w>, Android tratará de destruir la <w>MainActivity</w> en ejecución (hay que tener en cuenta que el fragment <w>MiHipotecaFragment</w> está dentro de 
+    la <w>MainActivity</w>). 
+    Sin embargo no podrá hacerlo ya que la <w>AsyncTask</w> mantiene una referencia a la variable <w>binding.cuota</w> que 
+    pertenece a la <w>MainActivity</w>. Así que Android creará una nueva <w>MainActivity</w> sin haber podido destruir la anterior, 
+    con lo cual esta quedará ocupando innecesariamente memoria ram del sistema. Esto es un <strong>Memory Leak</strong>.</p>
+    <p>Además, cuando finalice la <w>AsyncTask</w>, esta pondrá la <w>cuota</w> resultante en el TextView de la <w>MainActivity</w>
+    que debería haber sido destruida y que ha quedado <em>perdida</em> en la memoria, y por tanto, nunca se llegará a mostrar
+    en el TextView de la nueva <w>MainActivity</w> en ejecución.</p>
+
+    <img src="img/memoryleak.png">
+
+    <warn>
+        <p>No hay que mantener referencias a elementos de la Interfaz de Usuario en las tareas en segundo plano.</p>
+    </warn>
+
+
+    <p>Para paliar estos problemas, han ido apareciendo de forma constante diferentes que involucraban AsyncTasks estáticas, 
+        WeakReferences, anulaciones de los métodos del ciclo de vida, etc, etc, todas ellas con sus ventajas e inconvenientes. 
+        Actualmente, parece que la solución más aceptada es implementar la arquitectura MVVM que veremos a continuación.
+    </p>
+</section>
+
+<section>
+    <h2>Arquitectura MVVM</h2>
+    <p>
+        La arquitectura Model-View-ViewModel se basa en el principio de <strong>Separación de intereses</strong>, 
+        dividiendo el código de la app en tres categorías:
+    </p>
+    <ul>
+        <li>
+            <p>
+                View: Se encarga de la interacción con el usuario.
+            </p>
+        </li>
+        <li>
+            <p>    
+                Model: Se encarga de realizar las acciones sobre los datos.
+            </p>
+        </li>
+        
+        <li>
+            <p>
+                ViewModel: Actúa de enlace entre el Model y el View.
+            </p>
+        </li>
+    </ul>
+
+    <p>Cuando la View ha de realizar alguna acción sobre los datos (cálculo, consulta, modificación, etc...) no lo 
+        hace directamente sobre el Model, sino que usa el ViewModel como intermediario. El ViewModel traslada la acción al Model.
+        El Model responde al ViewModel con el resultado de la acción (datos o errores), y el ViewModel la transfiere de 
+        vuelta a la View. En las apps Android implementaremos el ViewModel utilizando la clase <w>AndroidViewModel</w>.
+    </p>
+
+    <p>El punto clave para el desacoplamiento de la View del resto de componentes de la app, y evitar así los problemas 
+        vistos en el punto anterior, es que el ViewModel no traslada directamente el resultado de las acciones a la View, 
+        sino que es la View la que observa el resultado. El mecanismo de observación implica que el ViewModel notifica el 
+        resultado a la View, <strong>solo si la View está en ejecución</strong>. Para implementar la observación utilizaremos 
+        la clase <w>LiveData</w>.
+    </p>
+
+    <img src="img/mvvm.png">
+
+    <p>Así pues, la comunicación entre estos componentes suele ser así:</p>
+    <ul>
+        <li>
+            <p>La View llama a métodos del ViewModel para realizar acciones sobre los datos, 
+            y observa el LiveData para obtener el resultado.</p>
+        </li>
+        <li>
+            <p>El ViewModel traslada las acciones al Model mediante llamadas a métodos (habitualmente en segundo plano), 
+                y guarda los datos resultantes en el LiveData.</p>
+        </li>
+        <li>
+            <p>El Model realiza las acciones sobre los Datos y retorna el resultado al ViewModel 
+                (con <w>return</w> o mediante <em>callbacks</em>).</p>
+        </li>
+    </ul>
+
+    <p>Otro aspecto clave es que el ViewModel sobrevive a la rotación de pantalla, con lo cual los datos almacenados en el 
+        ViewModel no se pierden cuando Android destruye la View y la vuelve a crear.
+    </p>
+
+    <img src="img/screenrotate4.png">
+</section>
+
+<section>
+    <h3>Implementación MVVM</h3>
+
+    <p>Para implementar un ViewModel en Android hay que crear una clase y hacer que extienda de la clase <w>AndroidViewModel</w>. </p>
+
+    <p>En esta app llamaremos a esta clase <w>MiHipotecaViewModel</w>. En ella hacemos lo siguiente:</p>
+    <ul>
+        <li>
+            <p>Declaramos la variable <w>cuota</w> de tipo <w>Double</w> envuelta en la clase <w>MutableLiveData</w> 
+                (<em>Mutable</em> permite cambiar el valor de la variable).</p>        
+        </li>
+        <li>
+            <p>En el constructor de la clase inicializamos el Model (<w>SimuladorHipoteca</w>) y el <w>Executor</w> (para ejecutar tareas en segundo plano).</p>
+        </li>
+        <li>
+            <p>Definimos el método <w>calcular()</w> que será llamado por la View, y que a su vez, 
+                llama en segundo plano al método <w>calcular()</w> del Model.</p>
+            <p>Este método recibe los datos de la View (<w>capital</w> y <w>plazo</w>), y los transforma en un objeto 
+                <w>SolicitudHipoteca</w> apto para enviar al Model.</p>
+            <p>
+                Se llama en segundo plano al método <w>calcular()</w> del Model, y el resultado <w>cuotaResultante</w> se 
+                guarda en la variable <w>cuota</w> (para cambiar el valor de un <w>MutableLiveData</w> 
+                dentro de una tarea en segundo plano hay que utilizar el método <w>postValue()</w> ).</p>
+            </p>
+        </li>
+    </ul>
+
+    <p>El código del ViewModel queda así:</p>
+    <codefile>
+        HipotecaViewModel.java
+    </codefile>
+    <code java>
+        public class MiHipotecaViewModel extends AndroidViewModel {
+
+            Executor executor;
+
+            SimuladorHipoteca simulador;
+
+            MutableLiveData&lt;Double&gt; cuota = new MutableLiveData&lt;&gt;();
+
+            public MiHipotecaViewModel(@NonNull Application application) {
+                super(application);
+
+                executor = Executors.newSingleThreadExecutor();
+                simulador = new SimuladorHipoteca();
+            }
+
+            public void calcular(double capital, int plazo) {
+
+                final SolicitudHipoteca solicitud = new SolicitudHipoteca(capital, plazo);        
+
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        double cuotaResultante = simulador.calcular(solicitud);
+                        cuota.postValue(cuotaResultante);
+                    }
+                });
+            }
+        }
+    </code>
+
+    <p>La View (<w>MiHipotecaFragment</w>) por su parte realiza lo siguiente:</p>
+
+    <ul>
+        <li>
+            <p>Obtiene una instancia del <w>MiHipotecaViewModel</w>. Para obtener una instancia de un ViewModel se 
+            utiliza <w>ViewModelProvider</w> pasándole la clase <w>.class</w> del ViewModel que se desea obtener.</p>
+        </li>
+        <li>
+            <p>Cuando el usuario hace click el botón, se obtienen los datos introducidos y se llama al ViewModel para 
+                que ejecute la acción <w>calcular()</w> con esos datos.
+            </p>
+        </li>
+        <li>
+            <p>
+                Se observa la variable <w>cuota</w> (el <w>LiveData</w>) del ViewModel. Cuando el valor de la variable 
+                <w>cuota</w> cambie (es decir, se establezca el resultado), el LiveData llamará al método <w>onChanged()</w>, 
+                notificando en el parámetro <w>cuota</w> el valor de la variable. Lo único que se hace es establecer este 
+                valor en el <w>&lt;TextView&gt;</w>.
+            </p>
+           
+        </li>
+    </ul>
+    <codefile>
+        MiHipotecaFragment.java / onViewCreated()
+    </codefile>
+    <code java>                
+        MiHipotecaViewModel miHipotecaViewModel = new ViewModelProvider(this).get(MiHipotecaViewModel.class);
+
+        binding.calcular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                double capital = Double.parseDouble(binding.capital.getText().toString());
+                int plazo = Integer.parseInt(binding.plazo.getText().toString());
+
+                miHipotecaViewModel.calcular(capital, plazo);
+            }
+        });
+
+        miHipotecaViewModel.cuota.observe(getViewLifecycleOwner(), new Observer&lt;Double&gt;() {
+            @Override
+            public void onChanged(Double cuota) {
+                binding.cuota.setText(String.format("%.2f",cuota));
+            }
+        });
+    </code>
+
+    <p>El siguiente diagrama ilustra la comunicación entre los 3 componentes de la app:</p>
+    <img src="img/implementacion_mvvm.png">
+
+    <p>La clave de porqué el ViewModel resuelve el problema de la rotación de pantalla está en el 
+        parámetro <w>getViewLifecycleOwner()</w> pasado al método <w>observe</w>, que asegura que la notificación del 
+        resultado (mediante la llamada a <w>onChanged()</w>), solo se efectuará si la View (el fragment) todavía está 
+        en ejecución cuando se obtenga el resultado.</p>
+    <p>Supongamos que el usuario pulsa el botón de calcular con el móvil en vertical, y mientras se está efectuando 
+        el cálculo rota el móvil. El fragment que originalmente realizó la acción <w>calcular()</w> y observaba el 
+        resultado ya no estará en ejecución y no será notificado del resultado. Sin embargo el nuevo fragment que se 
+        ha creado y que también observa el resultado y sí será notificado. 
+    </p>
+
+    <img src="img/screenrotate5.png">
+</section>
+
+<section>
+    <h2>Progreso y Gestión de errores</h2>
+
+    // in progress...
+    
+    <p>La comunicación entre el ViewModel y el Model se realiza mediante llamadas y llamadas de vuelta (<em>callbacks</em>).
+        En las llamadas de vuelta, se devuelve el resultado y también del progreso y los errores. 
+        El ViewModel se los notifica a la Vista mediante variables <w>LiveData</w>.</p>
+
+    <h3>Callbacks</h3>
+
+    <code java>
+        public class SimuladorHipoteca {
+        
+            interface Callback {
+                void cuandoEsteElResultado(double cuota);
+            }
+        
+            public void calcular(SolicitudHipoteca solicitud, Callback callback) {
+                double interes = 0;
+                try {
+                    Thread.sleep(2500);  // long run operation
+                    interes = 0.01605;
+                } catch (InterruptedException e) {}
+        
+                double cuota = solicitud.capital*interes/12/(1-Math.pow(1+(interes/12),-solicitud.plazo*12));
+                callback.cuandoEsteElResultado(cuota);
+            }
+        }
+    </code>
+    <code java>
+        public class MiHipotecaViewModel extends AndroidViewModel {
+
+            Executor executor;
+            SimuladorHipoteca simulador;
+            MutableLiveData&lt;Double&gt; cuota = new MutableLiveData&lt;&gt;();
+        
+            public MiHipotecaViewModel(@NonNull Application application) {
+                super(application);
+                executor = Executors.newSingleThreadExecutor();
+                simulador = new SimuladorHipoteca();
+            }
+        
+            public void calcular(double capital, int plazo) {
+        
+                final SolicitudHipoteca solicitud = new SolicitudHipoteca(capital, plazo);
+        
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        simulador.calcular(solicitud, new SimuladorHipoteca.Callback() {
+                            @Override
+                            public void cuandoEsteElResultado(double cuotaResultante) {
+                                cuota.postValue(cuotaResultante);
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    </code>
+</section>
