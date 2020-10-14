@@ -1,7 +1,6 @@
 import {Prism} from '../prismjs/prism.js';
 
 document.addEventListener('DOMContentLoaded', (event) => {
-  console.log("jajaja");
   //syntax highlight
   syntaxHighlight();
   navigation();
@@ -10,6 +9,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   //document.head.insertAdjacentHTML('afterbegin', '<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">');
   replaceParams();
   doQuizz();
+  doStepper();
 
 });
 
@@ -228,7 +228,6 @@ function doMultiQuestion(q){
     i.id = iid;
     i.type = 'checkbox';
     o.insertBefore(i, o.firstChild);
-    console.log("jajaja");
     o.onclick = () => {
       i.checked = !i.checked;
     }
@@ -308,8 +307,6 @@ function doTextQuestion(q){
     // o.innerHTML = '';
     // label.setAttribute('for', iid);
     // o.appendChild(label);
-
-    console.log(o);
 
     var i = document.createElement('input');
     // i.id = iid;
@@ -400,4 +397,85 @@ function randInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+}
+
+
+function doStepper(){
+  document.querySelectorAll('stepper').forEach(s => {
+    
+
+    var prev = document.createElement('button');
+    prev.textContent = "prev";
+
+    var next = document.createElement('button');
+    next.textContent = "next";
+
+    var reset = document.createElement('button');
+    reset.textContent = "reset";
+
+    var slider = document.createElement('input');
+    slider.setAttribute('type', 'range');
+    slider.setAttribute('min', 0);
+    
+    s.appendChild(prev);
+    s.appendChild(next);
+    s.appendChild(reset);
+    s.appendChild(slider);
+
+    s.querySelectorAll('step').forEach((t,i) => {
+      t.setAttribute('index', i);
+      s.setAttribute('len', i);
+      slider.setAttribute('max', i);
+
+      t.querySelector('comment').style["grid-area"] = 'comm';
+      t.querySelector('mem').style["grid-area"] = 'memo';
+      t.querySelectorAll('.code-toolbar').forEach(ct => {
+        if(ct.querySelector('code') != null){
+          ct.style["grid-area"] = 'code';
+        } else if (ct.querySelector('shell') != null){
+          ct.style["grid-area"] = 'shel';
+        }
+      });
+    });
+
+    s.querySelector('step:first-child').classList.add('current');
+
+    slider.onchange = (e) => {
+      s.querySelector('step.current').classList.remove('current');
+
+      s.querySelector('[index="' + (slider.value)+ '"]').classList.add('current');
+      
+    };
+
+    next.onclick = () => {
+      var c = s.querySelector('step.current');
+      
+      var cid = parseInt(c.getAttribute('index'));
+
+      if(cid < parseInt(s.getAttribute('len'))){
+        c.classList.remove('current');
+        s.querySelector('[index="' + (cid+1)+ '"]').classList.add('current');
+        slider.value = cid+1;
+      }
+    }
+
+    prev.onclick = () => {
+      var c = s.querySelector('step.current');
+      
+      var cid = parseInt(c.getAttribute('index'));
+
+      if(cid > 0){
+        c.classList.remove('current');
+        s.querySelector('[index="' + (cid-1)+ '"]').classList.add('current');
+        slider.value = cid-1;
+      }
+    }
+
+    reset.onclick = () => {
+      s.querySelector('step.current').classList.remove('current');
+
+      s.querySelector('[index="0"]').classList.add('current');
+      slider.value = 0;
+    }
+  });
 }

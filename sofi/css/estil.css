@@ -854,7 +854,72 @@ question[text] table input[type=text] {
     text-align: center;
 }
 
+stepper {
+    display: block;
+    border-radius: 4px;
+    border: 1px dashed blue;
+}
 
+stepper step {
+    display: grid;
+
+    grid-template:    "code memo" 1fr
+                      "code shel" 1fr
+                      "code comm" 1fr /
+                      1fr 1fr;
+    grid-gap: .5em;
+}
+
+/* stepper step comment {
+    grid-area: comm;
+}
+
+stepper step code {
+    grid-area: code;
+}
+
+stepper step mem {
+    grid-area: memo;
+}
+
+stepper step shell {
+    grid-area: shel;
+} */
+
+stepper step comment, stepper step code, stepper step mem, stepper step shell {
+    display: block;
+    border-radius: 4px;
+}
+
+stepper step .code-toolbar pre {
+    margin: 0;
+}
+
+stepper comment {
+    background: #e2e2e2;
+}
+
+stepper mem {
+    font-family: 'Consolas', monospace;
+    background: #2d2d2d;
+    color: greenyellow;
+}
+
+stepper step h {
+    background: #646261;
+}
+
+stepper step {
+    display: none;
+}
+
+stepper step.current {
+    display: grid;
+}
+
+stepper input[slider] {
+
+}
 
 
 

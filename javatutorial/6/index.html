@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<header>
+    <h1>Sentències de repetició</h1>
+    <abstract>
+
+        <check>while / do-while</check>
+        <check>for</check>
+    </abstract>
+</header>
+
+<section>
+    <h2>While</h2>
+
+    <stepper>
+        <step>
+            <comment>
+                yea
+            </comment>
+            <code java>
+                for (<h>int i=0;</h> i &lt; 10; i++) {
+                   System.out.println(i); 
+                }
+            </code>
+            <mem>
+                i: 0
+            </mem>
+            <shell>
+                output
+            </shell>
+        </step>
+        <step>
+            <comment>
+                yea
+            </comment>
+            <code java>
+                for (int i=0; <h>i &lt; 10</h>; i++) {
+                   System.out.println(i); 
+                }
+            </code>
+            <mem>
+                i: 0
+            </mem>
+            <shell>
+
+            </shell>
+        </step>
+        <step>
+            <comment>
+
+            </comment>
+            <code java>
+                for (int i=0; i &lt; 10; i++) {
+                   <h>System.out.println(i);</h>
+                }
+            </code>
+            <mem>
+                i: 0
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+    </stepper>
+</section>

@@ -125,9 +125,10 @@
 <section>
     <h2>Conversió textual</h2>
 
-    // in progress....
+    <p>A més a més de les conversions amb casting, Java incorpora una sèrie de mètodes per a fer altres conversions.</p>
 
     <h3>Concatenació</h3>
+    <p>Es pot convertir qualsevol valor en un <w>String</w> només concatenant-lo amb un String buit <w>""</w>.</p>
     <code java>
         String foo = "" + 'a';    // foo es "a"
         String bar = "" + 865;    // bar es "865"
@@ -135,30 +136,49 @@
         String quux = "" + true;  // quux es "true"
     </code>
 
+    <h3>String.valueOf()</h3>
+    <p>De forma equivalent a la concatenació, es pot utilitzar el mètode <w>String.valueOf()</w> per a convertir a <w>String</w>.</p>
+
+    <code java>
+        String foo = String.valueOf('a');    // foo es "a"
+        String bar = String.valueOf(865);    // bar es "865"
+        String baz = String.valueOf(23.78f); // baz es "23.78"
+        String quux = String.valueOf(true);  // quux es "true"
+    </code>
+
     <h3>charAt()</h3>
+    <p>Lògicament, no podem convertir un <w>String</w> en un <w>char</w>, ja que la l'String pot tenir varis caracters.
+    Però podem usar el mètode <w>charAt()</w> per a obtenir un caracter que estigui en una determinada posició.</p>
     <code java>
         char foo = "java8".charAt(0);  // foo es 'j' 
         char baz = "java8".charAt(4);  // foo es '8' 
     </code>
 
-    <h3>getNumericValue</h3>
+    <p>Cal tenir en compte que les posicions comencen per <w>0</w>.</p>
+
+    <h3>Character.getNumericValue()</h3>
+    <p>Al punt anterior hem vist que si fem el casting implícit per a convertir un <w>char</w> en un <w>int</w>, 
+        obtenim el valor Unicode del caracter.</p>
+    <p>Si volem obtenir el valor que representa el caracter es pot fer amb el mètode <w>Character.getNumericValue()</w>.</p>
     <code java>
         char foo = '9';
+
+        int bar = foo; // bar es 57, amb el casting obtenim el valor unicode
         
-        int bar = a;
-        System.out.println(bar);    // 57 (valor unicode)
-        
-        int c = Character.getNumericValue(a);
-        System.out.println(c);     // 9
+        int baz = Character.getNumericValue(foo); // baz es 9, obtenim el valor representat pel caracter
     </code>
 
-    <h3>Integer.parseInt()</h3>
+    <h3>parseInt() i parseFloat()</h3>
+    <p>Per a obtenir el valor numèric representat per un <w>String</w> podem utilitzar <w>parseInt()</w> o <w>parseFloat()</w>.</p>
     <code java>
-        String a = "213";
+        String foo = "213";
 
-        int b = Integer.parseInt(a);
+        int bar = Integer.parseInt(foo);  // bar es 213
+    </code>
+    <code java>
+        String foo = "23.78";
 
-        System.out.println(b);   // 213
+        float bar = Float.parseFloat(foo);  // bar es 23.78f
     </code>
 
     <challenge>

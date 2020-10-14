@@ -280,3 +280,197 @@
         </question>
     </quizz>
 </section>
+
+<section>
+    <h2>Sentència switch</h2>
+    <p>L'ús més habitual de la sentència <w>switch</w> és quan es necessita realitzar diferents accions en funció del 
+    valor d'una variable o expressió.</p>
+    <p>Un ús molt típic es dona en les pantalles que mostren un menú d'opcions. Per exemple, escollir diferents accions
+        en el menú d'un joc. Utilitzant la sentència <w>if-else</w> es pot fer així:</p>
+
+    <code java>
+        System.out.println("1-Start\n2-Load\n3-Help\n4-Exit"); // es mostra el menu
+
+        int action = scanner.nextInt(); // l'usuari escull una opcio
+        
+        if (action == 1) {
+            System.out.println("Starting a new game...");
+        } else if (action == 2) {
+            System.out.println("Loading a saved game");
+        } else if (action == 3) {
+            System.out.println("Displaying help...");
+        } else if (action == 4) {
+            System.out.println("Exiting...");
+        } else {
+            System.out.println("Unsuitable action, please, try again");
+        }
+    </code>
+
+    <p>Aquest codi es perfectament vàlid, però en cas de que hi hagi moltes branques pot arribar a ser molt dens.</p>
+
+    <h3>switch, case, default</h3>
+    <p>La sentència <w>switch</w> proporciona una forma de escollir entre múltiples accions en el cas de que una 
+    variable o expressió tingui un valor o un altre.</p>
+
+    <p>Utilitzant la sentència <w>switch</w> el codi anterior es veuria així:</p>
+
+    <code java>
+        System.out.println("1-Start\n2-Load\n3-Help\n4-Exit"); // es mostra el menu
+
+        int action = scanner.nextInt(); // l'usuari escull una opcio
+
+        switch (action) {
+            case 1:
+                System.out.println("Starting a new game...");
+                break;
+            case 2:
+                System.out.println("Loading a saved game");
+                break;
+            case 3:
+                System.out.println("Displaying help...");
+                break;
+            case 4:
+                System.out.println("Exiting...");
+                break;
+            default:
+                System.out.println("Unsuitable action, please, try again");
+        }
+    </code>
+
+    <p>Tot i que no hem explicat les paraules-clau <w>switch</w>, <w>case</w>, <w>default</w> i <w>break</w>, 
+    et pots fer una idea del que fa el codi.</p>
+
+    <p>La forma més general d'utilització de la sentència <w>switch</w> és aquesta:</p>
+
+    <code java>
+        switch (expressio) {
+            case valor1:
+                // fer accio1
+                break;
+            case valor2:
+                // fer accio2
+                break;
+            
+            //... altres casos
+            
+            case valorN:
+                // fer accio N
+                break;
+            default:
+                // fer accio 'per defecte'
+        }
+    </code>
+
+    <p><w>switch</w> avalua l'expressió (o variable), i després mira amb quin valor de cada cláusula <w>case</w> coincideix, 
+    i aleshores executa les sentències que hi hagi a partir d'aquí fins que trobi un <w>break</w>. En cas de que l'expressió no 
+    coincideixi amb el valor de cap <w>case</w>, s'executen les sentències que hi hagi al <w>default</w>.</p>
+
+    <p>Veiem un exmple d'una aplicació per a un supermercat on els clients escriuen el nom d'un producte i l'aplicació 
+        informa del seu preu:
+    </p>
+
+    <code java>
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Producte: ");
+
+        String producte = scanner.nextLine();
+
+        switch (producte){
+            case "Taronjes":
+                System.out.println("1.55 euros/kilo");
+                break;
+            case "Pomes":
+                System.out.println("2.30 euros/kilo");
+                break;
+            case "Peres":
+                System.out.println("2.30 euros/kilo");
+                break;
+            case "Platans":
+                System.out.println("0.89 euros/kilo");
+                break;
+            default:
+                System.out.println("Producte no disponible");
+        }
+    </code>
+
+    <shell>
+        Producte:
+        <in>Peres</in>
+        2.30 euros/kilo
+    </shell>
+
+    <p>Fixa't que en aquest exemple el preu de les Pomes i les Peres és el mateix. Podem simplificar 
+        el <w>switch</w> una mica, així:</p>
+    <code java data-line="5,6,7,8">
+        switch (producte){
+            case "Taronjes":
+                System.out.println("1.55 euros/kilo");
+                break;
+            case "Pomes":
+            case "Peres":
+                System.out.println("2.30 euros/kilo");
+                break;
+            case "Platans":
+                System.out.println("0.89 euros/kilo");
+                break;
+            default:
+                System.out.println("Producte no disponible");
+        }
+    </code>
+
+    <p>Recorda que el s'executen totes les sentències a partir del <w>case</w> que coincideix amb l'expressió fins que es troba
+    un <w>break</w>, així doncs en el cas de que la variable <w>producte</w> sigui <string>Pomes</string>, també s'executarà 
+    la sentència <ln>7</ln>, fins a trobar el <w>break</w> de la línia <ln>8</ln>.</p>
+
+    <!--TODO: switch fallthrough-->
+
+    <info>
+        <p>A la versió 12 de Java s'incorpora una forma abreujada de la sentència <w>switch</w> que utilitza fletxes <w>-&gt;</w>
+        en lloc dels dos punts <w>:</w> per a les cláules <w>case</w>. En aquesta nova forma no cal utilitzar <w>break</w>.</p>
+        <p>El programa anterior es podria escriure així:</p>
+
+        <code java>
+            switch (producte) {
+                case "Taronjes" -> System.out.println("1.55 euros/kilo");
+                case "Pomes", "Peres" -> System.out.println("2.30 euros/kilo");
+                case "Platans" -> System.out.println("0.89 euros/kilo");
+                default -> System.out.println("Producte no disponible");
+            }    
+        </code>
+    </info>
+
+    <quizz>
+        <question text>
+            <statement>
+                <p>Què imprimeix el següent programa?</p>
+
+                <code java>
+                    String foo = "B";
+                    int bar = 0;
+            
+                    switch (foo){
+                        case "A":
+                            bar += 10;
+                        case "B":
+                            bar += 20;
+                        case "C":
+                            bar += 30;
+                        default:
+                            bar += 40;
+                    }
+            
+                    System.out.println(bar);
+                </code>
+            </statement>
+            <o 90></o>
+        </question>
+    </quizz>
+
+    <challenge>
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c2-l1-2-lletres-scrabble">Lletres de l'Scrabble</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c2-l1-7-saluda-en-diferents-llenguatges">Saluda en diferents idiomes</a>
+        </p>
+    </challenge>
+</section>
