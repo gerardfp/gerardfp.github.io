@@ -118,7 +118,7 @@
                 &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
                     android:layout_width=&quot;match_parent&quot;
                     android:layout_height=&quot;match_parent&quot;
-                    android:orientation=&quot;vertical&quot;;&gt;
+                    android:orientation=&quot;vertical&quot;&gt;
 
                     &lt;EditText
                         android:id=&quot;@+id/capital&quot;
@@ -153,80 +153,70 @@
         la <strong>cuota</strong> mensual por el método francés. 
     </p>
 
-    <p>Las siguientes clases <w>SolicitudHipoteca</w> y <w>SimuladorHipoteca</w> implementan esta funcionalidad base de la 
-    aplicación.</p>
+    <p>La siguiente clase <w>SimuladorHipoteca</w> implementa esta funcionalidad base de la aplicación.</p>
 
-    <p>Crea estas dos clases:</p>
+    <p>La clase <w>SimuladorHipoteca</w> tiene el método <w>calcular</w> que recibe como parámetro un objeto <w>Solicitud</w>
+        con los campos <w>capital</w> y <w>plazo</w> solicitados, y calcula la <w>cuota</w> en función de un <w>interés</w> determinado.</p>
+    <p>Para esta demo se establece un <w>interes</w> arbitrario de <w>0.01605</w>. Se ha añadido una pausa (<w>sleep()</w>) para 
+    simular la obtención del interés mediante una <strong>operación de larga duración</strong>, como el acceso a base de datos, a un servidor, etc.</p>
 
-    <ul>
-        <li>
-            <p>La clase <w>SolicitudHipoteca</w> contiene los campos aportados por el usuario <w>capital</w> y <w>prestamo</w>.</p>
-            <codefile>
-                SolicitudHipoteca.java
-            </codefile>
-            <code java>
-                public class SolicitudHipoteca {
-                    public double capital;
-                    public int plazo;
-                
-                    public SolicitudHipoteca(double capital, int plazo) {
-                        this.capital = capital;
-                        this.plazo = plazo;
-                    }
+    <p>Crea esta clase:</p>
+
+    <codefile>
+        SimuladorHipoteca.java
+    </codefile>
+    <code java>
+        public class SimuladorHipoteca {
+
+            public static class Solicitud {
+                public double capital;
+                public int plazo;
+            
+                public Solicitud(double capital, int plazo) {
+                    this.capital = capital;
+                    this.plazo = plazo;
                 }
-            </code>
-        
-        </li>
-        <li>
-            <p>La clase <w>SimuladorHipoteca</w> tiene el método <w>calcular</w> que recibe como parámetro un objeto <w>SolicitudHipoteca</w>
-                con los datos del usuario, y calcula la <w>cuota</w> en función de un <w>interés</w> determinado.</p>
-                <p>Para esta demo se establece un <w>interes</w> arbitrario de <w>0.01605</w>. Se ha añadido una pausa (<w>sleep()</w>) para 
-                simular la obtención del interés mediante una operación de larga duración, como el acceso a base de datos, a un servidor, etc.</p>
-                <codefile>
-                    SimuladorHipoteca.java
-                </codefile>
-                <code java>
-                    public class SimuladorHipoteca {
-                        public double calcular(SolicitudHipoteca solicitud) {
-                            double interes = 0;
-                            try {
-                                Thread.sleep(10000);   // simular operacion de larga duracion (10s)
-                                interes = 0.01605;
-                            } catch (InterruptedException e) {}
-                    
-                            return solicitud.capital*interes/12/(1-Math.pow(1+(interes/12),-solicitud.plazo*12));
-                        }
-                    }
-                </code>            
-        </li>
-        <info>
-            <p>En una aplicación típica de consola, estas dos clases se podrían utilizar así:</p>
-            <code java>
-                Scanner scanner = new Scanner(System.in);
-        
-                SimuladorHipoteca simulador = new SimuladorHipoteca();
+            }
 
-                System.out.println("Introduzca el capital:");
-                double capital = scanner.nextDouble();
-                System.out.println("Introduzca el plazo:");
-                int plazo = scanner.nextInt();
+            public double calcular(Solicitud solicitud) {
+                double interes = 0;
+                try {
+                    Thread.sleep(10000);   // simular operacion de larga duracion (10s)
+                    interes = 0.01605;
+                } catch (InterruptedException e) {}
         
-                SolicitudHipoteca solicitud = new SolicitudHipoteca(capital, plazo);
+                return solicitud.capital*interes/12/(1-Math.pow(1+(interes/12),-solicitud.plazo*12));
+            }
+        }
+    </code>            
 
-                double cuota = simulador.calcular(solicitud);
-        
-                System.out.println("Cuota: " + String.format("%.2f", cuota));        
-            </code>
+    <info>
+        <p>En una aplicación típica de consola, estas dos clases se podrían utilizar así:</p>
+        <code java>
+            Scanner scanner = new Scanner(System.in);
 
-            <shell>
-                Introduzca el capital:
-                <in>100000</in>
-                Introduzca el plazo:
-                <in>15</in>
-                Cuota: 625.48
-            </shell>
-        </info>
-    </ul>
+            SimuladorHipoteca simulador = new SimuladorHipoteca();
+    
+            System.out.println("Introduzca el capital:");
+            double capital = scanner.nextDouble();
+            System.out.println("Introduzca el plazo:");
+            int plazo = scanner.nextInt();
+    
+            SimuladorHipoteca.Solicitud solicitud = new SimuladorHipoteca.Solicitud(capital, plazo);
+    
+            double cuota = simulador.calcular(solicitud);
+    
+            System.out.println("Cuota: " + String.format("%.2f", cuota));      
+        </code>
+
+        <shell>
+            Introduzca el capital:
+            <in>100000</in>
+            Introduzca el plazo:
+            <in>15</in>
+            Cuota: 625.48
+        </shell>
+    </info>
 
 </section>
 
@@ -245,14 +235,14 @@
             @Override
             public void onClick(View view) {
 
-                SimuladorHipoteca simulador = new SimuladorHipoteca();
+                SimuladorHipoteca simuladorHipoteca = new SimuladorHipoteca();
 
                 double capital = Double.parseDouble(binding.capital.getText().toString());
                 int plazo = Integer.parseInt(binding.plazo.getText().toString());
 
-                SolicitudHipoteca solicitud = new SolicitudHipoteca(capital, plazo);
-
-                double cuota = simulador.calcular(solicitud);
+                SimuladorHipoteca.Solicitud solicitud = new SimuladorHipoteca.Solicitud(capital, plazo);
+                
+                double cuota = simuladorHipoteca.calcular(solicitud);
 
                 binding.cuota.setText(String.format("%.2f",cuota));
             }
@@ -295,7 +285,7 @@
                 double capital = Double.parseDouble(binding.capital.getText().toString());
                 int plazo = Integer.parseInt(binding.plazo.getText().toString());
 
-                SolicitudHipoteca solicitud = new SolicitudHipoteca(capital, plazo);
+                SimuladorHipoteca.Solicitud solicitud = new SimuladorHipoteca.Solicitud(capital, plazo);
 
                 new AsyncTask&lt;SolicitudHipoteca, Void, Double&gt;(){
 
@@ -328,9 +318,12 @@
 
     <p>Pero esta solución tampoco resuelve todos los problemas.</p>
 
+
+
     <h3>Pérdida de datos</h3>
     <p>Un comportamiento característico de Android es que cuando el usuario rota la pantalla del móvil, el sistema destruye 
-        la <w>Activity</w> en ejecución, y crea una nueva con la nueva configuración de pantalla. Con esto, todas las variables
+        la <w>Activity</w> en ejecución, y crea una nueva con la nueva configuración de pantalla. Con esto, todas las 
+        vistas (<w>Fragments</w>, widgets, etc.) agregadas y todas las variables
         de la instancia <w>Activity</w> destruída también se pierden. Además, el layout de la <w>Activity</w> vuelve al punto 
         inicial, tal como está definido el xml.
     </p>
@@ -354,6 +347,8 @@
         <p>Debes considerar que la Interfaz de Usuario <em>no te pertenece</em> y que el sistema android puede hacer 
         con ella lo que le parezca oportuno.</p>
     </warn>
+
+
 
     <h3><em>Memory Leaks</em></h3>
     <p>Vamos ahora el caso de que el usuario rote la pantalla justo cuando se está realizando el cálculo.</p>
@@ -380,9 +375,10 @@
     </warn>
 
 
-    <p>Para paliar estos problemas, han ido apareciendo de forma constante diferentes que involucraban AsyncTasks estáticas, 
-        WeakReferences, anulaciones de los métodos del ciclo de vida, etc, etc, todas ellas con sus ventajas e inconvenientes. 
-        Actualmente, parece que la solución más aceptada es implementar la arquitectura MVVM que veremos a continuación.
+    <p>Para paliar estos problemas, han ido apareciendo de forma constante diferentes procedimientos que involucraban 
+        AsyncTasks estáticas, WeakReferences, anulaciones de los métodos del ciclo de vida, etc, etc, todas ellas con sus 
+        ventajas e inconvenientes. Actualmente, parece que la solución más aceptada es implementar la arquitectura MVVM 
+        que veremos a continuación.
     </p>
 </section>
 
@@ -429,15 +425,15 @@
     <p>Así pues, la comunicación entre estos componentes suele ser así:</p>
     <ul>
         <li>
-            <p>La View llama a métodos del ViewModel para realizar acciones sobre los datos, 
-            y observa el LiveData para obtener el resultado.</p>
+            <p>La <strong>View</strong> llama a métodos del <strong>ViewModel</strong> para realizar acciones sobre los datos, 
+            y observa el <w>LiveData</w> para obtener el resultado.</p>
         </li>
         <li>
-            <p>El ViewModel traslada las acciones al Model mediante llamadas a métodos (habitualmente en segundo plano), 
-                y guarda los datos resultantes en el LiveData.</p>
+            <p>El <strong>ViewModel</strong> traslada las acciones al <strong>Model</strong> mediante llamadas a métodos 
+                (habitualmente en segundo plano), y guarda los datos resultantes en el <w>LiveData</w>.</p>
         </li>
         <li>
-            <p>El Model realiza las acciones sobre los Datos y retorna el resultado al ViewModel 
+            <p>El <strong>Model</strong> realiza las acciones sobre los datos y retorna el resultado al <strong>ViewModel</strong> 
                 (con <w>return</w> o mediante <em>callbacks</em>).</p>
         </li>
     </ul>
@@ -467,7 +463,7 @@
             <p>Definimos el método <w>calcular()</w> que será llamado por la View, y que a su vez, 
                 llama en segundo plano al método <w>calcular()</w> del Model.</p>
             <p>Este método recibe los datos de la View (<w>capital</w> y <w>plazo</w>), y los transforma en un objeto 
-                <w>SolicitudHipoteca</w> apto para enviar al Model.</p>
+                <w>SimuladorHipoteca.Solicitud</w> apto para enviar al Model.</p>
             <p>
                 Se llama en segundo plano al método <w>calcular()</w> del Model, y el resultado <w>cuotaResultante</w> se 
                 guarda en la variable <w>cuota</w> (para cambiar el valor de un <w>MutableLiveData</w> 
@@ -498,7 +494,7 @@
 
             public void calcular(double capital, int plazo) {
 
-                final SolicitudHipoteca solicitud = new SolicitudHipoteca(capital, plazo);        
+                final SimuladorHipoteca.Solicitud solicitud = new SimuladorHipoteca.Solicitud(capital, plazo);        
 
                 executor.execute(new Runnable() {
                     @Override
@@ -534,28 +530,42 @@
         </li>
     </ul>
     <codefile>
-        MiHipotecaFragment.java / onViewCreated()
+        MiHipotecaFragment.java
     </codefile>
-    <code java>                
-        MiHipotecaViewModel miHipotecaViewModel = new ViewModelProvider(this).get(MiHipotecaViewModel.class);
-
-        binding.calcular.setOnClickListener(new View.OnClickListener() {
+    <code java data-line="13-31">
+        public class MiHipotecaFragment extends Fragment {
+            private FragmentMiHipotecaBinding binding;
+            
             @Override
-            public void onClick(View view) {
-
-                double capital = Double.parseDouble(binding.capital.getText().toString());
-                int plazo = Integer.parseInt(binding.plazo.getText().toString());
-
-                miHipotecaViewModel.calcular(capital, plazo);
+            public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+                return (binding = FragmentMiHipotecaBinding.inflate(inflater, container, false)).getRoot();
             }
-        });
 
-        miHipotecaViewModel.cuota.observe(getViewLifecycleOwner(), new Observer&lt;Double&gt;() {
             @Override
-            public void onChanged(Double cuota) {
-                binding.cuota.setText(String.format("%.2f",cuota));
+            public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                super.onViewCreated(view, savedInstanceState);
+
+                MiHipotecaViewModel miHipotecaViewModel = new ViewModelProvider(this).get(MiHipotecaViewModel.class);
+
+                binding.calcular.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        double capital = Double.parseDouble(binding.capital.getText().toString());
+                        int plazo = Integer.parseInt(binding.plazo.getText().toString());
+
+                        miHipotecaViewModel.calcular(capital, plazo);
+                    }
+                });
+
+                miHipotecaViewModel.cuota.observe(getViewLifecycleOwner(), new Observer&lt;Double&gt;() {
+                    @Override
+                    public void onChanged(Double cuota) {
+                        binding.cuota.setText(String.format("%.2f",cuota));
+                    }
+                });
             }
-        });
+        }
     </code>
 
     <p>El siguiente diagrama ilustra la comunicación entre los 3 componentes de la app:</p>
@@ -572,39 +582,94 @@
     </p>
 
     <img src="img/screenrotate5.png">
-</section>
-
-<section>
-    <h2>Progreso y Gestión de errores</h2>
-
-    // in progress...
-
-    <p>La comunicación entre el ViewModel y el Model se realiza mediante llamadas y llamadas de vuelta (<em>callbacks</em>).
-        En las llamadas de vuelta, se devuelve el resultado y también del progreso y los errores. 
-        El ViewModel se los notifica a la Vista mediante variables <w>LiveData</w>.</p>
 
     <h3>Callbacks</h3>
 
-    <code java>
+    <p>El mecanismo de <w>callback</w> consiste en que cuando se llama a un método se le pasa 
+         un objeto en el que están definidos los métodos a los que tiene que llamar para devolver el resultado.
+        En los métodos de ese objeto se define qué hacer con el resultado.</p>
+
+    <info>
+        <p>El siguiente ejemplo muestra la similitud entre devolver datos con <w>return</w> y hacerlo mediante <em>callbacks</em>.
+        
+        </p>
+
+        <code java>
+            class EjemploCallback {
+
+                public void main(){
+            
+                    int resultado = metodoConReturn(10000);
+                    System.out.println(resultado);
+            
+
+                    metodoConCallback(10000, new Callback() {
+                        @Override
+                        public void alRetornar(int resultado) {
+                            System.out.println(resultado);
+                        }
+                    });
+                }
+
+                // return
+                int metodoConReturn(int datos){
+                    int r = datos*datos;
+                    return r;
+                }
+            
+
+                // callback
+                interface Callback {
+                    void alRetornar(int resultado);
+                }
+            
+                void metodoConCallback(int datos, Callback callback){
+                    int r = datos*datos;
+                    callback.alRetornar(datos*datos);
+                }
+            }
+        </code>
+    </info>
+   
+    <p>La comunicación entre el ViewModel y el Model se realiza mediante llamadas y llamadas de vuelta (<em>callbacks</em>).
+        En las llamadas de vuelta, se informa del resultado y también del progreso y los errores. 
+        El ViewModel se los notifica a la Vista mediante variables <w>LiveData</w>.</p>
+
+    <p>Cambia la clase <w>SimuladorHipotca</w> para que comunique el resultado mediante un <w>callback</w>:</p>
+    <codefile>
+        SimuladorHipotca.java
+    </codefile>
+    <code java data-line="13-15, 17, 24">
         public class SimuladorHipoteca {
         
+            public static class Solicitud {
+                public double capital;
+                public int plazo;
+        
+                public Solicitud(double capital, int plazo) {
+                    this.capital = capital;
+                    this.plazo = plazo;
+                }
+            }
+
             interface Callback {
-                void cuandoEsteElResultado(double cuota);
+                void cuandoEsteCalculadaLaCuota(double cuota);
             }
         
-            public void calcular(SolicitudHipoteca solicitud, Callback callback) {
+            public void calcular(Solicitud solicitud, Callback callback) {
                 double interes = 0;
                 try {
                     Thread.sleep(2500);  // long run operation
                     interes = 0.01605;
                 } catch (InterruptedException e) {}
         
-                double cuota = solicitud.capital*interes/12/(1-Math.pow(1+(interes/12),-solicitud.plazo*12));
-                callback.cuandoEsteElResultado(cuota);
+                callback.cuandoEsteCalculadaLaCuota(solicitud.capital*interes/12/(1-Math.pow(1+(interes/12),-solicitud.plazo*12)));
             }
         }
     </code>
-    <code java>
+
+    <p>Cambia el ViewModel para que reciba en un <em>callback</em> la cuota resultante:</p>
+    <code java data-line="20-25">
         public class MiHipotecaViewModel extends AndroidViewModel {
 
             Executor executor;
@@ -619,14 +684,14 @@
         
             public void calcular(double capital, int plazo) {
         
-                final SolicitudHipoteca solicitud = new SolicitudHipoteca(capital, plazo);
+                final SimuladorHipoteca.Solicitud solicitud = new SimuladorHipoteca.Solicitud(capital, plazo);
         
                 executor.execute(new Runnable() {
                     @Override
                     public void run() {
                         simulador.calcular(solicitud, new SimuladorHipoteca.Callback() {
                             @Override
-                            public void cuandoEsteElResultado(double cuotaResultante) {
+                            public void cuandoEsteCalculadaLaCuota(double cuotaResultante) {
                                 cuota.postValue(cuotaResultante);
                             }
                         });
@@ -635,4 +700,312 @@
             }
         }
     </code>
+
+    <p>Puede parecer que el mecanismo de <w>callback</w> no aporta nada respecto al <w>return</w>, pero en los 
+    siguientes apartados veremos que ofrece más versatilidad, ya que en el callback se pueden definir distintos 
+    métodos no solo para tratar el resultado, sino también los errores y el proceso.</p>
+</section>
+
+<section>
+    <h2>Gestión de errores</h2>
+    <p>Vamos a suponer que el SimuladorHipoteca además de detrminar el interés, también establece un <w>capital</w> mínimo y 
+    un <w>plazo</w> mínimo (estos valores se podrían sacar del servidor de un banco, por ejemplo).</p>
+
+    <p>Ahora, cuando se llame al método <w>calcular()</w> del simulador, en lugar de informar siempre 
+        cuando esté calculada la <w>cuota</w>, 
+    debe informar de los errores cuando el <w>capital</w> o el <w>plazo</w> solicitados sean inferiores a los valores 
+    mínimos. Solo en caso de que sean válidos debe calcular la cuota.</p>
+
+    <p>Para ello, añadiremos dos métodos en el callback, que además de decir si el  <w>capital</w> o <w>plazo</w> son inferiores
+    al mínimo, informarán de cuales son esos mínimos en cada caso.</p>
+
+    <codefile>
+        SimuladorHipoteca.java
+    </codefile>
+    <code java data-line="15,16,21,22,27,28,31-44">
+        public class SimuladorHipoteca {
+
+            public static class Solicitud {
+                public double capital;
+                public int plazo;
+        
+                public Solicitud(double capital, int plazo) {
+                    this.capital = capital;
+                    this.plazo = plazo;
+                }
+            }
+        
+            interface Callback {
+                void cuandoEsteCalculadaLaCuota(double cuota);
+                void cuandoHayaErrorDeCapitalInferiorAlMinimo(double capitalMinimo);
+                void cuandoHayaErrorDePlazoInferiorAlMinimo(int plazoMinimo);
+            }
+        
+            public void calcular(Solicitud solicitud, Callback callback) {
+                double interes = 0;
+                double capitalMinimo = 0;
+                int plazoMinimo = 0;
+        
+                try {
+                    Thread.sleep(2500);  // long run operation
+                    interes = 0.01605;
+                    capitalMinimo = 1000;
+                    plazoMinimo = 2;
+                } catch (InterruptedException e) {}
+        
+                boolean error = false;
+                if (solicitud.capital &lt; capitalMinimo) {
+                    callback.cuandoHayaErrorDeCapitalInferiorAlMinimo(capitalMinimo);
+                    error = true;
+                }
+        
+                if (solicitud.plazo &lt; plazoMinimo) {
+                    callback.cuandoHayaErrorDePlazoInferiorAlMinimo(plazoMinimo);
+                    error = true;
+                }
+        
+                if(!error) {
+                    callback.cuandoEsteCalculadaLaCuota(solicitud.capital * interes / 12 / (1 - Math.pow(1 + (interes / 12), -solicitud.plazo * 12)));
+                }
+            }
+        }
+    </code>
+
+    <p>Por su parte, el ViewModel cuando llama al método <w>calcular()</w> del Model, define en el callback lo que hay que hacer 
+    cuando ocurran estos errores. Obviamente, tiene que informar a la View para que los muestre al usuario. 
+    Para comunicarse con la View, el ViewModel usa variables <w>LiveData</w>, así que definiremos dos variables para informar
+    a la View si hay un error en el <w>capital</w> y/o en el <w>plazo</w>.
+    </p>
+
+    <p>Estas variables serán de clase <w>Double</w> para el <w>capital</w> y de clase <w>Integer</w> para el plazo.
+    Si el valor de estas variables es <w>null</w>, la View entenderá que no ha habido un error, y en caso contrario 
+    el valor de estas variables será el valor mínimo que permite el banco para el capital y plazo. Así que cuando 
+    el Model notifique que se ha calculado el resultado, las pondremos a <w>null</w> (no ha habido error), y cuando notifique
+    los errores pondremos el valor mínimo que nos pase.</p>
+
+    <codefile>
+        MiHipotecaViewModel.java
+    </codefile>
+    <code java data-line="8,9,29,30,34-42">
+        public class MiHipotecaViewModel extends AndroidViewModel {
+
+            Executor executor;
+
+            SimuladorHipoteca simulador;
+
+            MutableLiveData&lt;Double&gt; cuota = new MutableLiveData&lt;&gt;();
+            MutableLiveData&lt;Double&gt; errorCapital = new MutableLiveData&lt;&gt;();
+            MutableLiveData&lt;Integer&gt; errorPlazos = new MutableLiveData&lt;&gt;();
+
+            public MiHipotecaViewModel(@NonNull Application application) {
+                super(application);
+
+                executor = Executors.newSingleThreadExecutor();
+                simulador = new SimuladorHipoteca();
+            }
+
+            public void calcular(double capital, int plazo) {
+
+                final SimuladorHipoteca.Solicitud solicitud = new SimuladorHipoteca.Solicitud(capital, plazo);
+
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        simulador.calcular(solicitud, new SimuladorHipoteca.Callback() {
+                            @Override
+                            public void cuandoEsteCalculadaLaCuota(double cuotaResultante) {
+                                errorCapital.postValue(null);
+                                errorPlazos.postValue(null);
+                                cuota.postValue(cuotaResultante);
+                            }
+
+                            @Override
+                            public void cuandoHayaErrorDeCapitalInferiorAlMinimo(double capitalMinimo) {
+                                errorCapital.postValue(capitalMinimo);
+                            }
+
+                            @Override
+                            public void cuandoHayaErrorDePlazoInferiorAlMinimo(int plazoMinimo) {
+                                errorPlazos.postValue(plazoMinimo);
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    </code>
+   
+    <p>Por último la View solo tiene que observar las <w>LiveData</w> de los errores y mostrárselos u ocultárselos al usuario:</p>
+    <codefile>
+        MiHipotecaFragment.java
+    </codefile>
+    <code java>
+        miHipotecaViewModel.errorCapital.observe(getViewLifecycleOwner(), new Observer&lt;Double&gt;() {
+            @Override
+            public void onChanged(Double capitalMinimo) {
+                if (capitalMinimo != null) {
+                    binding.capital.setError(&quot;El capital no puede ser inferor a &quot; + capitalMinimo + " euros");
+                } else {
+                    binding.capital.setError(null);
+                }
+            }
+        });
+
+        miHipotecaViewModel.errorPlazos.observe(getViewLifecycleOwner(), new Observer&lt;Integer&gt;() {
+            @Override
+            public void onChanged(Integer plazoMinimo) {
+                if (plazoMinimo != null) {
+                    binding.plazo.setError(&quot;El plazo no puede ser inferior a &quot; + plazoMinimo + &quot; años&quot;);
+                } else {
+                    binding.plazo.setError(null);
+                }
+            }
+        });
+    </code>
+
+    <warn>
+        <p>Un error que sí puede gestionar la vista es que los datos introducidos sean del tipo correcto:</p>
+        <code>
+            binding.calcular.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean error = false;
+    
+                    try {
+                        capital = Double.parseDouble(binding.capital.getText().toString());
+                    } catch (Exception e){
+                        binding.capital.setError("Introduzca un número");
+                        error = true;
+                    }
+    
+                    try {
+                        plazo = Integer.parseInt(binding.plazo.getText().toString());
+                    } catch (Exception e){
+                        binding.plazo.setError("Introduzca un número");
+                        error = true;
+                    }
+    
+                    if (!error) {
+                        miHipotecaViewModel.calcular(capital, plazo);
+                    }
+                }
+            });
+        </code>
+    </warn>
+</section>
+
+<section>
+    <h2>Progreso</h2>
+   
+    <p>Añadiremos a la Vista una <w>ProgressBar</w> circular para indicar al usuario que se está calculando la cuota.</p>
+
+    <p>Sustituye el <w>&lt;TextView&gt;</w> de la cuota, por este <w>&lt;FrameLayout&gt;</w> que incluye la cuota y una 
+    <w>&lt;ProgressBar&gt;</w> (el FrameLayout hará que estén superpuestos):</p>
+    <codefile>
+        res/layout/fragment_mi_hipoteca.xml
+    </codefile>
+    <code xml>
+        &lt;FrameLayout
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;wrap_content&quot;&gt;
+            &lt;TextView
+                android:id=&quot;@+id/cuota&quot;
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;wrap_content&quot;
+                android:textSize=&quot;48sp&quot;
+                android:gravity=&quot;center&quot;/&gt;
+            &lt;ProgressBar
+                android:id=&quot;@+id/calculando&quot;
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;match_parent&quot;
+                android:visibility=&quot;gone&quot;
+                android:gravity=&quot;center&quot;/&gt;
+        &lt;/FrameLayout&gt;
+    </code>
+
+    <observe>
+        <p>Observa que el <w>ProgressBar</w> tiene el atributo <w>android:visibility=&quot;gone&quot;</w> que hará que 
+        no se muestre. Lo mostraremos y volveremos a ocultar des de el código Java cuando sea conveniente.</p>
+    </observe>
+
+    <p>Añadimos dos métodos al <w>Callback</w>, uno para notificar cuándo empieza el cálculo y otro para cuando finaliza.</p>
+    <p>El Model notificará al Viewmodel llamando a estos métodos al principio y al final del método <w>calcular()</w>:</p>
+
+    <codefile>
+        SimuladorHipotca.java
+    </codefile>
+    <code java data-line="3,4,9,13">
+        interface Callback {
+            // resto de métodos
+            void cuandoEmpieceElCalculo();   
+            void cuandoFinaliceElCalculo();
+        }
+
+        public void calcular(Solicitud solicitud, Callback callback) {
+
+            callback.cuandoEmpieceElCalculo();
+    
+            // resto de sentencias
+
+            callback.cuandoFinaliceElCalculo();
+        }
+    </code>
+
+    <p>El ViewModel utilizará una variable <w>LiveData</w> para comunicar a la View de cuándo ha empezado y 
+        finalizado el cálculo.
+    Pondrá en ella el valor <w>true</w> o <w>false</w>, segun le notifique el Model:
+    </p>
+
+    <codefile>
+        MiHipotecaViewModel.java
+    </codefile>
+    <code java>
+        // ...
+        MutableLiveData<Boolean> calculando = new MutableLiveData&lt;&gt;();
+
+        // ...
+        @Override
+        public void cuandoEmpieceElCalculo() {
+            calculando.postValue(true);
+        }
+
+        @Override
+        public void cuandoFinaliceElCalculo() {
+            calculando.postValue(false);
+        }
+    </code>
+
+    <p>La View alternará entre mostrar/ocultar el <w>ProgressBar</w> y el <w>TextView</w> acorde al valor que observe 
+    en la variable:</p>
+
+    <codefile>
+        MiHipotecaFragment.java
+    </codefile>
+    <code java>
+        miHipotecaViewModel.calculando.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean calculando) {
+                if (calculando) {
+                    binding.calculando.setVisibility(View.VISIBLE);
+                    binding.cuota.setVisibility(View.GONE);
+                } else {
+                    binding.calculando.setVisibility(View.GONE);
+                    binding.cuota.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    </code>
+</section>
+
+<section>
+    <h2>Práctica</h2>
+
+    <p>Implementa una Vista que realice una acción sobre un Modelo.</p>
+
+    <p>La Vista tiene que obtener datos del usuario, y el Modelo tiene que usarlos para realizar la acción.</p>
+
+    <p>El Modelo debe imponer algún tipo de restricción sobre los datos.</p>
+
+    <p>La Vista debe mostrar el resultado de la acción, y notificar de los errores y el progreso.</p>
 </section>
