@@ -84,7 +84,7 @@
             <p>Configura el ViewBinding:</p>
 
             <codefile>
-                HipotecaFragment.java
+                MiHipotecaFragment.java
             </codefile>
             <code java>
                 import android.os.Bundle;
@@ -578,7 +578,7 @@
     <p>Supongamos que el usuario pulsa el botón de calcular con el móvil en vertical, y mientras se está efectuando 
         el cálculo rota el móvil. El fragment que originalmente realizó la acción <w>calcular()</w> y observaba el 
         resultado ya no estará en ejecución y no será notificado del resultado. Sin embargo el nuevo fragment que se 
-        ha creado y que también observa el resultado y sí será notificado. 
+        ha creado y que también observa el resultado sí será notificado. 
     </p>
 
     <img src="img/screenrotate5.png">
@@ -708,15 +708,15 @@
 
 <section>
     <h2>Gestión de errores</h2>
-    <p>Vamos a suponer que el SimuladorHipoteca además de detrminar el interés, también establece un <w>capital</w> mínimo y 
-    un <w>plazo</w> mínimo (estos valores se podrían sacar del servidor de un banco, por ejemplo).</p>
+    <p>Vamos a suponer que el SimuladorHipoteca además de detrminar el interés, también establece un capital mínimo y 
+    un plazo mínimo (estos valores se podrían sacar del servidor de un banco, por ejemplo).</p>
 
-    <p>Ahora, cuando se llame al método <w>calcular()</w> del simulador, en lugar de informar siempre 
+    <p>Ahora, cuando se llame al método <w>calcular()</w> del simulador, en lugar de informar únicamente 
         cuando esté calculada la <w>cuota</w>, 
     debe informar de los errores cuando el <w>capital</w> o el <w>plazo</w> solicitados sean inferiores a los valores 
-    mínimos. Solo en caso de que sean válidos debe calcular la cuota.</p>
+    mínimos. Solo en caso de que sean válidos debe calcular la cuota y notificarla.</p>
 
-    <p>Para ello, añadiremos dos métodos en el callback, que además de decir si el  <w>capital</w> o <w>plazo</w> son inferiores
+    <p>Para ello, añadiremos dos métodos en el <em>callback</em>, que además de decir si el  <w>capital</w> o <w>plazo</w> son inferiores
     al mínimo, informarán de cuales son esos mínimos en cada caso.</p>
 
     <codefile>
@@ -866,7 +866,7 @@
 
     <warn>
         <p>Un error que sí puede gestionar la vista es que los datos introducidos sean del tipo correcto:</p>
-        <code>
+        <code java>
             binding.calcular.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -900,7 +900,7 @@
    
     <p>Añadiremos a la Vista una <w>ProgressBar</w> circular para indicar al usuario que se está calculando la cuota.</p>
 
-    <p>Sustituye el <w>&lt;TextView&gt;</w> de la cuota, por este <w>&lt;FrameLayout&gt;</w> que incluye la cuota y una 
+    <p>Sustituye el <w>&lt;TextView&gt;</w> de la cuota por este <w>&lt;FrameLayout&gt;</w>, que incluye la cuota y una 
     <w>&lt;ProgressBar&gt;</w> (el FrameLayout hará que estén superpuestos):</p>
     <codefile>
         res/layout/fragment_mi_hipoteca.xml
