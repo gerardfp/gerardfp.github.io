@@ -22,7 +22,7 @@ function pageTitle(){
 }
 
 function syntaxHighlight(){
-  document.querySelectorAll('code').forEach((block) => {
+  document.querySelectorAll('code').forEach(block => {
     if(block.nodeName === 'CODE'){
       var preWrap = document.createElement('pre');
       if(block.hasAttribute('data-line')){
@@ -41,14 +41,18 @@ function syntaxHighlight(){
     Prism.highlightElement(block);
   });
 
-  document.querySelectorAll('shell').forEach((block) => {
+  document.querySelectorAll('shell, stepper mem').forEach(b => {
     var preWrap = document.createElement('pre');
-    block.parentNode.insertBefore(preWrap, block);
-    preWrap.appendChild(block);
-    
-    block.classList.add('language-bash');
-    
-    Prism.highlightElement(block);
+    var codeWrap = document.createElement('code');
+
+    preWrap.appendChild(codeWrap);
+    codeWrap.innerHTML = b.innerHTML;
+    b.innerHTML = '';
+    b.appendChild(preWrap);
+
+    preWrap.classList.add('language-none');    
+
+    Prism.highlightElement(codeWrap);
   });
 }
 
@@ -405,24 +409,32 @@ function doStepper(){
     
 
     var prev = document.createElement('button');
-    prev.textContent = "prev";
+    prev.classList.add('prev');
+    // prev.textContent = "prev";
 
     var next = document.createElement('button');
-    next.textContent = "next";
+    next.classList.add('next');
+    // next.textContent = "next";
 
     var reset = document.createElement('button');
-    reset.textContent = "reset";
+    reset.classList.add('reset');
+    // reset.textContent = "reset";
 
     var slider = document.createElement('input');
     slider.setAttribute('type', 'range');
     slider.setAttribute('min', 0);
     
-    s.appendChild(prev);
-    s.appendChild(next);
-    s.appendChild(reset);
-    s.appendChild(slider);
+    var wrap = document.createElement('div');
+    wrap.classList.add('controls');
+    wrap.appendChild(prev);
+    wrap.appendChild(next);
+    wrap.appendChild(reset);
+    wrap.appendChild(slider);
+
+    s.appendChild(wrap);
 
     s.querySelectorAll('step').forEach((t,i) => {
+      t.style = s.style;
       t.setAttribute('index', i);
       s.setAttribute('len', i);
       slider.setAttribute('max', i);

@@ -200,39 +200,6 @@ pre {
     border-radius: 4px;
 }
 
-host + div.code-toolbar pre, codefile + pre, codefile + div.code-toolbar pre{
-    border-radius: 0;
-}
-
-/* codi {
-    display: block;
-    background: #f5f7f9;
-    background: #282c34;
-    border-bottom: 1px solid #d8dee9;
-    color: #a7adba;  
-    border-left: 2px solid #69c;
-    font-family: 'Ubuntu mono';
-    white-space: pre;
-    margin: 0 0 1em 0;
-} */
-
-pre[class*="language-"] {
-    margin-top: 0;
-    margin-bottom: 1em;
-    font-size: 14px;
-}
-
-pre.language-bash {
-    padding: 0;
-}
-
-
-
-terminal {
-    font-family: 'Ubuntu mono', Consolas, monospace;
-    display: block;
-}
-
 host {
     /* background: #2c2c2c; */
     background: #46433f;
@@ -245,17 +212,55 @@ host {
     font-size: 14px;
 }
 
+/* host + div.code-toolbar pre, codefile + pre, codefile + div.code-toolbar pre{
+    border-radius: 0;
+} */
+
+/* host + shell, codefile + div.code-toolbar {
+    border-radius: 0;
+} */
+
+host + shell, host + div.code-toolbar pre, codefile + pre, codefile + div.code-toolbar pre{
+    border-radius: 0;
+}
+
+
+pre[class*="language-"] {
+    margin-top: 0;
+    margin-bottom: 1em;
+    font-size: 14px;
+}
+
+
+/* terminal {
+    font-family: 'Ubuntu mono', Consolas, monospace;
+    display: block;
+} */
+
+
 shell {
     /* background: #300a24; */
     background: #47213c;
     color: white;
     /* font-weight: bold; */
     display: block;
-    padding: .5em;
+    /* padding: .5em; */
     font-family: 'Ubuntu mono', Consolas, monospace;
     white-space: pre;
     font-size: 14px;
     overflow-x: auto;
+    border-radius: 4px;
+    margin-bottom: 1.6em;
+}
+
+shell pre.language-none, shell code.language-none {
+    background: unset;
+    color: unset;
+    margin: 0;
+}
+
+host + shell pre.language-none {
+    padding: .5em;
 }
 
 shell in {
@@ -426,9 +431,6 @@ shell replace, url replace, code replace, w replace {
     background: none;
 }
 
-shell.language-bash .token {
-    color: unset;
-}
 
 mo {
     background-color: #f2f2f2;
@@ -854,20 +856,53 @@ question[text] table input[type=text] {
     text-align: center;
 }
 
+
+
+
+
+
+
 stepper {
     display: block;
     border-radius: 4px;
-    border: 1px dashed blue;
+    /* border: 1px solid gray; */
+    /* border-top: 2px solid gray; */
+    /* border-bottom: 2px solid gray; */
+    /* padding: .6em .2em .4em .2em; */
+    padding: .2em;
+    background-color: #fafafa;
+    border: 1px solid #d6d8db;; 
 }
 
 stepper step {
     display: grid;
+    
 
-    grid-template:    "code memo" 1fr
-                      "code shel" 1fr
-                      "code comm" 1fr /
-                      1fr 1fr;
-    grid-gap: .5em;
+    grid-template:    "comm" calc(1em*var(--comment-height))
+                      "memo" calc(1em*var(--mem-height)) 
+                      "code" calc(1em*var(--code-height))
+                      "shel" calc(1em*var(--shell-height)) /
+                      100%;
+
+
+    grid-gap: .1em;
+}
+
+@media(min-width: 860px){
+    stepper step {
+        --sum: calc(var(--mem-height) + var(--shell-height) +var(--comment-height));
+        --size: max(var(--sum), var(--code-height));
+    
+        --mh: calc(var(--mem-height)*var(--size)/var(--sum));
+        --sh: calc(var(--shell-height)*var(--size)/var(--sum));
+        --ch: calc(var(--comment-height)*var(--size)/var(--sum));
+    
+        grid-template:  "code comm" calc(1em*var(--ch)) 
+                        "code memo" calc(1em*var(--mh))
+                        "code shel" calc(1em*var(--sh)) /
+                        1fr 1fr;
+
+    }
 }
 
 /* stepper step comment {
@@ -886,22 +921,65 @@ stepper step shell {
     grid-area: shel;
 } */
 
+stepper step div.code-toolbar > pre, stepper step shell div.code-toolbar > pre > code {
+    padding: 0;
+}
+
 stepper step comment, stepper step code, stepper step mem, stepper step shell {
     display: block;
     border-radius: 4px;
+    padding: .5em;
+    font-size: 14px;
+}
+
+@media(min-width: 860px) {
+    /* stepper step comment, stepper step code, stepper step mem, stepper step shell {
+        padding: 1em;
+    } */
+    stepper step code, stepper step shell {
+        padding: 1em;
+    }
+
+    stepper step mem code {
+        padding: 0;
+    }
+
+    stepper step comment, stepper step mem {
+        padding-left: 1em;
+    }
 }
 
 stepper step .code-toolbar pre {
     margin: 0;
+    min-height: 100%;
+}
+
+stepper step shell {
+    margin: 0;
+    min-height: 100%;
 }
 
 stepper comment {
-    background: #e2e2e2;
+    font-size: 14px;
+    background-color: #d1ecf1;
+    border: 1px solid #bee5eb;
+    /* background: #fafafa;
+    border: 1px solid #efefef; */
+    /* box-shadow: 0px 0px 1px rgb(0, 0, 0); */
+    /* font-family: 'Consolas', monospace; */
+}
+
+stepper comment w {
+    font-size: 14px;
 }
 
 stepper mem {
     font-family: 'Consolas', monospace;
     background: #2d2d2d;
+    color: greenyellow;
+}
+
+stepper > step > mem > div.code-toolbar > pre > code {
     color: greenyellow;
 }
 
@@ -917,11 +995,51 @@ stepper step.current {
     display: grid;
 }
 
-stepper input[slider] {
-
+stepper div.controls {
+    display: flex;
+    flex-wrap: wrap;
 }
 
+stepper input[type=range] {
+    cursor: pointer;
+    flex-grow: 1;
+}
 
+stepper button {
+    background-color: #0e73ee;
+    color: white;
+    padding: .4em 1.4em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: .4em;
+}
+
+stepper button.prev {
+    border-radius: 4px 0px 0px 4px;
+    border-right: 1px solid #1567ca;
+    margin-right: 0;
+}
+
+stepper button.next {
+    border-radius: 0px 4px 4px 0px;
+    margin-left: 0;
+}
+
+stepper button.prev::before {
+    font-family: 'FASolid';
+    content: '\f048';
+}
+
+stepper button.next::before {
+    font-family: 'FASolid';
+    content: '\f051';
+}
+
+stepper button.reset::before {
+    font-family: 'FASolid';
+    content: '\f049';
+}
 
 
 
