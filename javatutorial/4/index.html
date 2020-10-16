@@ -39,23 +39,23 @@
 
     <p>Per exemple: </p>
 
-    <code java>
+    <sc java>
         float foo = 'a';   // convertim el char 'a' a float. El valor de la variable foo sera 97.0f
 
         int bar = 'a';     // convertim el char 'a' a int. EL valor de bar sera 97
 
         float baz = 97;    // convertim el int 10 a float. El valor de baz sera 10f
-    </code>
+    </sc>
 
     <p>Si tractem de fer un casting implícit a l'inrevés, el compilador ens donarà un error:</p>
-    <code java>
+    <sc java>
         int foo = 97;
         char bar = foo;   // error, casting implicit de int a char no permes
         
         char baz = 97f;   // error, casting implicit de float a char no permes
 
         int qux = 97f;    // error, casting implicit de float a int no permes
-    </code>
+    </sc>
 
 
     <warn>
@@ -78,33 +78,33 @@
 
     <p>Els següents exemples il·lustren l'us del casting explicit:</p>
 
-    <code java>
+    <sc java>
         int foo = 97;
         char bar = (char) foo;   // bar es 97
         char baz = (char) 97.53f;  // foo es 97, es perden els decimals
         
         int quux = (int) 14.67565f;  // bar es 14
-    </code>
+    </sc>
 
-    <code java>
+    <sc java>
         float foo = 5 / 2;          // foo és 2.0f
 
         float bar = (float) 5 / 2;  // bar és 2.5f
-    </code>
+    </sc>
 
     <quizz>
         <question multi>
             <statement>
                 <p>Selecciona les línies on es requereix el casting explícit.</p>
 
-                <code java data-line="1,2,3,4,5,6">
+                <sc java data-line="1,2,3,4,5,6">
                     float a = 10;
                     int b = a;
                     char d = a;
                     float c = b;
                     int e = d;
                     char f = c;
-                </code>
+                </sc>
             </statement>
             <o>1</o>
             <o correct>2</o>
@@ -129,30 +129,30 @@
 
     <h3>Concatenació</h3>
     <p>Es pot convertir qualsevol valor en un <w>String</w> només concatenant-lo amb un String buit <w>""</w>.</p>
-    <code java>
+    <sc java>
         String foo = "" + 'a';    // foo es "a"
         String bar = "" + 865;    // bar es "865"
         String baz = "" + 23.78f; // baz es "23.78"
         String quux = "" + true;  // quux es "true"
-    </code>
+    </sc>
 
     <h3>String.valueOf()</h3>
     <p>De forma equivalent a la concatenació, es pot utilitzar el mètode <w>String.valueOf()</w> per a convertir a <w>String</w>.</p>
 
-    <code java>
+    <sc java>
         String foo = String.valueOf('a');    // foo es "a"
         String bar = String.valueOf(865);    // bar es "865"
         String baz = String.valueOf(23.78f); // baz es "23.78"
         String quux = String.valueOf(true);  // quux es "true"
-    </code>
+    </sc>
 
     <h3>charAt()</h3>
     <p>Lògicament, no podem convertir un <w>String</w> en un <w>char</w>, ja que la l'String pot tenir varis caracters.
     Però podem usar el mètode <w>charAt()</w> per a obtenir un caracter que estigui en una determinada posició.</p>
-    <code java>
+    <sc java>
         char foo = "java8".charAt(0);  // foo es 'j' 
         char baz = "java8".charAt(4);  // foo es '8' 
-    </code>
+    </sc>
 
     <p>Cal tenir en compte que les posicions comencen per <w>0</w>.</p>
 
@@ -160,26 +160,26 @@
     <p>Al punt anterior hem vist que si fem el casting implícit per a convertir un <w>char</w> en un <w>int</w>, 
         obtenim el valor Unicode del caracter.</p>
     <p>Si volem obtenir el valor que representa el caracter es pot fer amb el mètode <w>Character.getNumericValue()</w>.</p>
-    <code java>
+    <sc java>
         char foo = '9';
 
         int bar = foo; // bar es 57, amb el casting obtenim el valor unicode
         
         int baz = Character.getNumericValue(foo); // baz es 9, obtenim el valor representat pel caracter
-    </code>
+    </sc>
 
     <h3>parseInt() i parseFloat()</h3>
     <p>Per a obtenir el valor numèric representat per un <w>String</w> podem utilitzar <w>parseInt()</w> o <w>parseFloat()</w>.</p>
-    <code java>
+    <sc java>
         String foo = "213";
 
         int bar = Integer.parseInt(foo);  // bar es 213
-    </code>
-    <code java>
+    </sc>
+    <sc java>
         String foo = "23.78";
 
         float bar = Float.parseFloat(foo);  // bar es 23.78f
-    </code>
+    </sc>
 
     <challenge>
         <p>

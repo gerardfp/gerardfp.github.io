@@ -29,18 +29,18 @@
     
       <google-codelab-step label="Introducció" duration="0">
         <p class="image-container"><img style="width: 600.00px" src="img/e810715a48506e5c.png"></p>
-<p>L&#39;objectiu d&#39;aquest CodeLab és utilitzar la API <code>java.time</code> per al tractament de dates i hores, i la classe <code>Random</code> per a la generació de valors aleatoris.</p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és utilitzar la API <sc>java.time</sc> per al tractament de dates i hores, i la classe <sc>Random</sc> per a la generació de valors aleatoris.</p>
 <p>Per als mateixos valors d&#39;entrada, un algorisme sempre genera els mateixos valors de sortida. Això canvia quan entren en joc els valors indeterminats, com poden ser la data i hora (que canvia en cada execució de l&#39;algorisme) o els valors aleatoris. </p>
 <p>El <strong>temps </strong>sembla un tema senzill; fins i tot un rellotge barat pot proporcionar una data i una hora bastant exactes. No obstant això, amb un examen més detallat, ens adonem de les subtils complexitats i de molts factors que afecten la comprensió del temps. Per exemple, el resultat d&#39;afegir un mes al 31 de gener és diferent per a un any de traspàs que per a altres anys. Les zones horàries també afegeixen complexitat. Per exemple, un país pot entrar i sortir de l&#39;horari d&#39;estiu un o més copa a l&#39;any o pot saltar l&#39;horari d&#39;estiu completament durant un any.</p>
 <p>Quan es desenvolupen aplicacions, molt sovint es necesiten <strong>nombres aleatoris</strong>. Per exemple en la programació de molts jocs, aplicacions de criptografia, per a usar com identificadors, etc.</p>
-<p>Java proporciona suport per a la generació de nombres aleatoris a través de la classe <code>java.util.Random</code>, i la classe <code>SecureRandom</code> per a aplicacions que necessiten aleatorietat criptogràfica. </p>
+<p>Java proporciona suport per a la generació de nombres aleatoris a través de la classe <sc>java.util.Random</sc>, i la classe <sc>SecureRandom</sc> per a aplicacions que necessiten aleatorietat criptogràfica. </p>
 <p>En aquest CodeLab veurem com tenir en compte aquests valors. </p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Inicia IntelliJ i crea un nou projecte anomenat <code>Datetime</code>.</p>
+        <p>Inicia IntelliJ i crea un nou projecte anomenat <sc>Datetime</sc>.</p>
 <p class="image-container"><img style="width: 566.00px" src="img/7cd2d68e2e6a3381.png"></p>
 <p class="image-container"><img style="width: 566.00px" src="img/52d646601a8e62e6.png"></p>
 <p class="image-container"><img style="width: 566.00px" src="img/c224f32d7d2b2802.png"></p>
@@ -49,88 +49,88 @@
       </google-codelab-step>
     
       <google-codelab-step label="LocalDateTime" duration="0">
-        <p>La classe <code>LocalDateTime</code> gestiona tant la data com l&#39;hora, sense una zona horària. És una de les classes bàsiques de l&#39;API <code>java.time</code>. Aquesta classe s&#39;utilitza per representar la data (mes-dia-any) juntament amb el temps (hora-minut-segon-nanosegon)</p>
+        <p>La classe <sc>LocalDateTime</sc> gestiona tant la data com l&#39;hora, sense una zona horària. És una de les classes bàsiques de l&#39;API <sc>java.time</sc>. Aquesta classe s&#39;utilitza per representar la data (mes-dia-any) juntament amb el temps (hora-minut-segon-nanosegon)</p>
 <p>Vegem un exemple:</p>
-<pre><code>System.out.printf(&#34;now: %s%n&#34;, LocalDateTime.now());
+<pre><sc>System.out.printf(&#34;now: %s%n&#34;, LocalDateTime.now());
 System.out.printf(&#34;Apr 15, 1994 @ 11:30am: %s%n&#34;, LocalDateTime.of(1994, Month.APRIL, 15, 11, 30));
 System.out.printf(&#34;6 months from now: %s%n&#34;, LocalDateTime.now().plusMonths(6));
-System.out.printf(&#34;6 months ago: %s%n&#34;, LocalDateTime.now().minusMonths(6));</code></pre>
-<p>La llista completa de mètodes que proporciona la classe <code>LocalDateTime</code> la podem trobar a <a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html" target="_blank">https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html</a></p>
+System.out.printf(&#34;6 months ago: %s%n&#34;, LocalDateTime.now().minusMonths(6));</sc></pre>
+<p>La llista completa de mètodes que proporciona la classe <sc>LocalDateTime</sc> la podem trobar a <a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html" target="_blank">https://docs.oracle.com/javase/8/docs/api/java/time/LocalDateTime.html</a></p>
 <p>Aquí en destaquem aquestes:</p>
 <table>
-<tr><td colspan="1" rowspan="1"><p><code>now()</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>now()</sc></p>
 </td><td colspan="1" rowspan="1"><p>Obté la data-hora actuals</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>of(year, month, dayOfMonth, hour, minute, second)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>of(year, month, dayOfMonth, hour, minute, second)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Obté la data-hora especificades</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>parse(text, formatter)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>parse(text, formatter)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Obté la data-hora a partir d&#39;un text en base a un format</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>isEqual(other)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>isEqual(other)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Compara dues data-hores</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>isAfter(other)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>isAfter(other)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Comprova si la data-hora és posterior a una altra</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>iSBefore(other)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>iSBefore(other)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Comprova si la data-hora és anterior a una altra</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>until(other, units)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>until(other, units)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Calcula difèrencia entre la data-hora i una altra, en les unitats especificades (anys, mesos, dies, hores, minuts, segons,...)</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>getDayOfMonth()</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>getDayOfMonth()</sc></p>
 </td><td colspan="1" rowspan="1"><p>Obté el dia del mes de la data-hora</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>getMonth()</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>getMonth()</sc></p>
 </td><td colspan="1" rowspan="1"><p>Obté el mes de la data-hora</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>getYear()</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>getYear()</sc></p>
 </td><td colspan="1" rowspan="1"><p>Obté l&#39;any de la data-hora</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>getHour()</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>getHour()</sc></p>
 </td><td colspan="1" rowspan="1"><p>Obté l&#39;hora de la data-hora</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>getMinute()</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>getMinute()</sc></p>
 </td><td colspan="1" rowspan="1"><p>Obté els minuts de la data-hora</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>getSecond()</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>getSecond()</sc></p>
 </td><td colspan="1" rowspan="1"><p>Obté els segons de la data-hora</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>minusDays(days)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>minusDays(days)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre de dies</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>minusMonths(months)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>minusMonths(months)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre de mesos</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>minusYears(years)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>minusYears(years)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre d&#39;anys</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>minusHours(hours)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>minusHours(hours)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre d&#39;hores</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>minusMinutes(minutes)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>minusMinutes(minutes)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre de minuts</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>minusSeconds(seconds)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>minusSeconds(seconds)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Resta a la data-hora un nombre de segons</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>plusDays(days)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>plusDays(days)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre de dies</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>plusMonths(months)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>plusMonths(months)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre de mesos</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>plusYears(years)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>plusYears(years)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre d&#39;anys</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>plusHours(hours)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>plusHours(hours)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre d&#39;hores</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>plusMinutes(minutes)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>plusMinutes(minutes)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre de minuts</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>plusSeconds(seconds)</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>plusSeconds(seconds)</sc></p>
 </td><td colspan="1" rowspan="1"><p>Suma a la data-hora un nombre de segons</p>
 </td></tr>
 </table>
@@ -140,32 +140,32 @@ System.out.printf(&#34;6 months ago: %s%n&#34;, LocalDateTime.now().minusMonths(
     
       <google-codelab-step label="Obtenir la Data i Hora" duration="0">
         <h2 is-upgraded>Obtenir data-hora actuals</h2>
-<pre><code>System.out.printf(&#34;now: %s%n&#34;, LocalDateTime.now());</code></pre>
-<pre><code>LocalDateTime dataHoraActual = LocalDateTime.now();
-System.out.printf(&#34;now: %s%n&#34;,dataHoraActual);</code></pre>
+<pre><sc>System.out.printf(&#34;now: %s%n&#34;, LocalDateTime.now());</sc></pre>
+<pre><sc>LocalDateTime dataHoraActual = LocalDateTime.now();
+System.out.printf(&#34;now: %s%n&#34;,dataHoraActual);</sc></pre>
 <p>Amb format específic:</p>
-<pre><code>DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&#34;d-M-y H.m.s&#34;);
-String date = formatter.format(LocalDateTime.now());</code></pre>
+<pre><sc>DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&#34;d-M-y H.m.s&#34;);
+String date = formatter.format(LocalDateTime.now());</sc></pre>
 <h2 is-upgraded>Obtenir data i hora específica</h2>
-<pre><code>LocalDateTime deuMaigDosmilUnaTresDos = LocalDateTime.of(2000, Month.APRIL, 1, 3, 2);</code></pre>
+<pre><sc>LocalDateTime deuMaigDosmilUnaTresDos = LocalDateTime.of(2000, Month.APRIL, 1, 3, 2);</sc></pre>
 <h2 is-upgraded>Obtenir data-hora a partir d&#39;un string</h2>
 <p>És necessari definir el format en que en que tenim la data-hora:</p>
-<pre><code>String datahoraText = &#34;1/12/2019 1:20:59&#34;;
+<pre><sc>String datahoraText = &#34;1/12/2019 1:20:59&#34;;
 
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&#34;d/M/y H:m:s&#34;);
 
-LocalDateTime datahora = LocalDateTime.parse(datahoraText, formatter);</code></pre>
+LocalDateTime datahora = LocalDateTime.parse(datahoraText, formatter);</sc></pre>
 <h2 is-upgraded>Obtenir parts d&#39;una data-hora</h2>
-<pre><code>System.out.println(
+<pre><sc>System.out.println(
        ara.getDayOfMonth() + &#34; &#34; +
        ara.getMonth() + &#34; &#34; +
        ara.getYear() + &#34; &#34; +
        ara.getHour() + &#34; &#34; +
        ara.getMinute() + &#34; &#34; +
        ara.getSecond()
-);</code></pre>
+);</sc></pre>
 <h2 is-upgraded>Manipular una data-hora</h2>
-<pre><code>LocalDateTime dh = LocalDateTime.of(2020, 1, 1, 12, 35, 59);
+<pre><sc>LocalDateTime dh = LocalDateTime.of(2020, 1, 1, 12, 35, 59);
 System.out.println(dh);
 
 dh = dh.plusMonths(2);
@@ -175,10 +175,10 @@ dh.plusYears(1000);      // Atencio: no hem modificat &#39;dh&#39;
 System.out.println(dh);  //
 
 dh = dh.minusSeconds(10000000);
-System.out.println(dh);</code></pre>
+System.out.println(dh);</sc></pre>
 <h2 is-upgraded>Comparar data-hora</h2>
 <h2 is-upgraded>Anterior o posterior</h2>
-<pre><code>String datahoraText1 = &#34;1/12/2000 0:0:0&#34;;
+<pre><sc>String datahoraText1 = &#34;1/12/2000 0:0:0&#34;;
 String datahoraText2 = &#34;1/12/2020 0:0:0&#34;;
 
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&#34;d/M/y H:m:s&#34;);
@@ -187,9 +187,9 @@ LocalDateTime datahora1 = LocalDateTime.parse(datahoraText1, formatter);
 LocalDateTime datahora2 = LocalDateTime.parse(datahoraText2, formatter);
 
 System.out.println(datahora1.isAfter(datahora2));
-System.out.println(datahora1.isBefore(datahora2));</code></pre>
+System.out.println(datahora1.isBefore(datahora2));</sc></pre>
 <h2 is-upgraded>Diferència entre dates</h2>
-<pre><code>LocalDateTime fromDateTime = LocalDateTime.of(1984, 12, 16, 7, 45, 55);
+<pre><sc>LocalDateTime fromDateTime = LocalDateTime.of(1984, 12, 16, 7, 45, 55);
 LocalDateTime toDateTime = LocalDateTime.of(2014, 9, 10, 6, 40, 45);
 
 long years = fromDateTime.until( toDateTime, ChronoUnit.YEARS);
@@ -215,15 +215,15 @@ System.out.println( years + &#34; years &#34; +
        days + &#34; days &#34; +
        hours + &#34; hours &#34; +
        minutes + &#34; minutes &#34; +
-       seconds + &#34; seconds.&#34;);</code></pre>
+       seconds + &#34; seconds.&#34;);</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Random" duration="0">
-        <p>Per a generar nombres aleatoris, crea en primer lloc una instància de la classe <code>Random</code>, i després crida a un dels mètdodes generadors, com <code>nextInt()</code>, <code>nextDouble()</code>,  <code>nextLong()</code> ... </p>
+        <p>Per a generar nombres aleatoris, crea en primer lloc una instància de la classe <sc>Random</sc>, i després crida a un dels mètdodes generadors, com <sc>nextInt()</sc>, <sc>nextDouble()</sc>,  <sc>nextLong()</sc> ... </p>
 <p>Fem una prova:</p>
-<pre><code>import java.util.Random;
+<pre><sc>import java.util.Random;
 
 public class Main {
 
@@ -246,9 +246,9 @@ public class Main {
        System.out.println(aleatoriBoolean);
        System.out.println(aleatoriLong);
    }
-}</code></pre>
+}</sc></pre>
 <p>Podem veure que en cada execució del programa el valor de les variables canvia aleatòriament.</p>
-<p>La crida sense paràmetres als mètodes <code>nextInt()</code>, <code>nextLong()</code>, <code>nextDouble()</code>, ..., retorna un valor dintre del rang de posibles valors del tipus de dades.</p>
+<p>La crida sense paràmetres als mètodes <sc>nextInt()</sc>, <sc>nextLong()</sc>, <sc>nextDouble()</sc>, ..., retorna un valor dintre del rang de posibles valors del tipus de dades.</p>
 
 
       </google-codelab-step>
@@ -256,18 +256,18 @@ public class Main {
       <google-codelab-step label="Obtenir valors aleatoris" duration="0">
         <h2 is-upgraded>Dintre d&#39;un rang</h2>
 <p>Per a establir un límit superior, al rang de valors que es generen, podem passar com a parámetre aquest límit.</p>
-<p>Per exemple, la crida a <code>nextInt()</code> amb el parámetre <code>10</code>:</p>
-<pre><code>int aleatoriEnter = random.nextInt(10);</code></pre>
-<p>fa que el valor generat sigui més petit que <code>10</code> (és a dir, entre 0 i 9).</p>
+<p>Per exemple, la crida a <sc>nextInt()</sc> amb el parámetre <sc>10</sc>:</p>
+<pre><sc>int aleatoriEnter = random.nextInt(10);</sc></pre>
+<p>fa que el valor generat sigui més petit que <sc>10</sc> (és a dir, entre 0 i 9).</p>
 <p>Per a establir un límit inferior i un superior:</p>
-<pre><code>int inferior = 4;
+<pre><sc>int inferior = 4;
 int superior = 15;
-int aleatoriEnter = random.nextInt(superior-inferior)+inferior;</code></pre>
-<p>fa que el valor generat sigui major o igual a <code>4</code> i inferior a <code>15</code> (és a dir, entre <code>4</code> i <code>14</code>).</p>
+int aleatoriEnter = random.nextInt(superior-inferior)+inferior;</sc></pre>
+<p>fa que el valor generat sigui major o igual a <sc>4</sc> i inferior a <sc>15</sc> (és a dir, entre <sc>4</sc> i <sc>14</sc>).</p>
 <h2 is-upgraded>String aleatori</h2>
 <p>Per a generar un String aleatori tenim diverses opcions.</p>
 <p>Una opció és generar un String amb caràcters entre un rang ASCII:</p>
-<pre><code>int inferior = 97; // letter &#39;a&#39;
+<pre><sc>int inferior = 97; // letter &#39;a&#39;
 int superior = 122; // letter &#39;z&#39;
 int targetStringLength = 10;
 Random random = new Random();
@@ -278,9 +278,9 @@ for (int i = 0; i &lt; generatedLength; i++) {
    int characterCode = random.nextInt(superior-inferior)+inferior;
    generated += (char) characterCode;
 }
-System.out.println(generated);</code></pre>
+System.out.println(generated);</sc></pre>
 <p>Una altra opció és predefinir els possibles caracters que ha de tenir l&#39;String:</p>
-<pre><code>Random random = new Random();
+<pre><sc>Random random = new Random();
 String upper = &#34;ABCDEFGHIJKLMNOPQRSTUVWXYZ&#34;;
 String lower = upper.toLowerCase();
 String digits = &#34;0123456789&#34;;
@@ -293,14 +293,14 @@ for (int i = 0; i &lt; generatedLength; i++) {
    generated += allChars.charAt(random.nextInt(allChars.length()));
 }
 
-System.out.println(generated);</code></pre>
+System.out.println(generated);</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Posem-ho en pràctica" duration="0">
         <p>La data-hora i els nombres aleatoris són fonamentals en la majoria d&#39;aplicacions. Aquí no obstant, farem una aplicació una mica menys seriosa 😉. </p>
-<pre><code>import javax.swing.*;
+<pre><sc>import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -345,7 +345,7 @@ public class Main {
            robot.keyPress(KeyEvent.VK_ENTER);
        }
    }
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>

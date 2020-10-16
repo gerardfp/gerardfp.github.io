@@ -189,10 +189,10 @@
 
     <p>Afegim les següents línies per a activar l'accés amb usuari/password:</p>
 
-    <codefile>
+    <scfile>
         /etc/apache2/sites-enabled/000-default
-    </codefile>
-    <code none data-line="8,9,10">
+    </scfile>
+    <sc none data-line="8,9,10">
         &lt;VirtualHost *:80&gt;
             ServerAdmin webmaster@localhost
             DocumentRoot /var/www/html
@@ -204,7 +204,7 @@
                 AllowOverride all
             &lt;/Directory&gt;
         &lt;/VirtualHost&gt;
-    </code>
+    </sc>
 
     <p>Creem l'usuari <w>Juan</w>:</p>
     
@@ -234,16 +234,16 @@
     
 
     <p>El contingut de l'arxiu <file>.htaccess</file> ha de ser aquest:</p>
-    <codefile>
+    <scfile>
         /var/www/html/.htaccess
-    </codefile>
-    <code none>
+    </scfile>
+    <sc none>
         AuthType Basic
         AuthName "Introdueix el teu usuari i contrasenya"
         AuthBasicProvider file
         AuthUserFile "/var/www/contrasenyes"
         Require valid-user
-    </code>
+    </sc>
 
     <p>Per últim reiniciem el servidor Apache:</p>
 
@@ -272,10 +272,10 @@
 
     <p>Canviem la configuració d'Apache per a que busqui els recursos que se li sol·licitin 
         en una carpeta o l'altra en funció del Host (<w>ServerName</w>) que s'indiqui a la petició <w>http</w>:</p>
-    <codefile>
+    <scfile>
         /etc/apache2/sites-enabled/000-default
-    </codefile>
-    <code none>
+    </scfile>
+    <sc none>
         &lt;VirtualHost *:80&gt;
             ServerName aaa.com
             DocumentRoot /var/www/html/aaa.com
@@ -285,7 +285,7 @@
             ServerName bbb.com
             DocumentRoot /var/www/html/bbb.com
         &lt;/VirtualHost&gt;
-    </code>
+    </sc>
 
 
     <p>Realitzem dues peticions als diferents noms de <w>host</w>:</p>
@@ -310,24 +310,24 @@
         </shell>
     
     
-    <codefile>
+    <scfile>
         /etc/apache2/ports.conf
-    </codefile>
-    <code none data-line="2">
+    </scfile>
+    <sc none data-line="2">
         Listen 80
         Listen 8080
 
 
         # resta de lines
         # ...
-    </code>
+    </sc>
 
     <p>Servim dues pàgines diferents en funcio del port de conexió:</p>
 
-    <codefile>
+    <scfile>
         /etc/apache2/sites-enabled/000-default
-    </codefile>
-    <code none>
+    </scfile>
+    <sc none>
         &lt;VirtualHost *:80&gt;
             DocumentRoot /var/www/html/aaa.com
         &lt;/VirtualHost&gt;
@@ -335,7 +335,7 @@
         &lt;VirtualHost *:8080&gt;
             DocumentRoot /var/www/html/bbb.com
         &lt;/VirtualHost&gt;
-    </code>
+    </sc>
 
     <p>Accedim a <url>http://<replace>ip_contenidor</replace>:80</url></p>
     <p>Accedim a <url>http://<replace>ip_contenidor</replace>:8080</url></p>
@@ -414,14 +414,14 @@
 
     <p>Ara anem a canviar el <w>DocumentRoot</w>, i farem que sigui <folder>/var/www/html/aaa/</folder>:</p>
 
-    <codefile>
+    <scfile>
         /etc/apache2/sites-enabled/000-default
-    </codefile>
-    <code none>
+    </scfile>
+    <sc none>
         &lt;VirtualHost *:80&gt;
             DocumentRoot /var/www/html/aaa
         &lt;/VirtualHost&gt;
-    </code>
+    </sc>
 
     <p>Reiniciem el servidor:</p>
 
@@ -492,16 +492,16 @@
     
 
     <p>Afegim el següent codi a l'arxiu <file>webash.php</file>:</p>
-    <codefile>
+    <scfile>
         /var/www/html/webash.php
-    </codefile>
-    <code php>
+    </scfile>
+    <sc php>
         &lt;?php
         echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
         echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
         echo "&lt;span&gt;web&bash&lt/span&gt;";
         ?&gt;
-    </code>
+    </sc>
 
     <p>Si accedim al recurs <w>http://10.2.4.164/webash.php</w> veurem la pàgina generada per l'script <file>webash.php</file>:</p>
 
@@ -511,19 +511,19 @@
         <p>Fixa't que el que fa l'script <w>php</w> és generar codi HTML amb els <w>echo</w>. Apache executa 
             l'script i retorna al navegador tot el que ha mostrar l'script amb els <w>echo</w>.</p>
         <p>Per a generar codi html posarem <w>echo</w>, el codi html entre cometes <w>""</w> i punt-i-coma <w>;</w>:</p>
-        <code php>
+        <sc php>
             echo "<replace>codi html</replace>";
-        </code>
+        </sc>
 
         <p>Tot el codi PHP que escrivim ha d'anar dintre de les etiquetes <w>&lt;?php</w> i <w>?&gt;</w>:</p>
 
-        <code php>
+        <sc php>
             &lt;?php
 
             // codi PHP
 
             ?&gt;
-        </code>
+        </sc>
     </observe>
 
     <p>De moment, el nostre codi PHP sempre mostra el mateix contingut, independentment de la <w>query</w> que li passem.
@@ -533,10 +533,10 @@
     <p>Anem a modificar l'script per que agafi una dada de la <w>query</w> i faci alguna cosa:</p>
 
     <p>Afegim aquestes línies de codi a l'arxiu <file>webash.php</file>:</p>
-    <codefile>
+    <scfile>
         /var/www/html/webash.php
-    </codefile>
-    <code php data-line="6,7,8">
+    </scfile>
+    <sc php data-line="6,7,8">
         &lt;?php
         echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
         echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
@@ -546,7 +546,7 @@
         echo $_GET['usuari'];
         echo "&lt;/h1&gt;";
         ?&gt;
-    </code>
+    </sc>
 
     <p>Ara posem la query <w>usuari=gerard</w> a la url: <url>http://10.2.4.164/webash.php?usuari=gerard</url>. 
     L'script php genera aquesta web:</p>
@@ -570,10 +570,10 @@
     d'aquesta dada i l'executarà al sistema operatiu.</p>
 
     <p>Esborra les línies anteriors, i afegeix aquesta línia:</p>
-    <codefile>
+    <scfile>
         /var/www/html/webash.php
-    </codefile>
-    <code php data-line="6">
+    </scfile>
+    <sc php data-line="6">
         &lt;?php
         echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
         echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
@@ -581,7 +581,7 @@
 
         system($_GET['comanda']);
         ?&gt;
-    </code>
+    </sc>
 
     <p>Ara l'script agafarà el valor de la dada anomenada <w>comanda</w> i l'executarà. Per exemple podem executar 
     la <w>pstree</w> així: <url>http://10.2.4.164/webash.php?comanda=pstree</url>:</p>
@@ -600,10 +600,10 @@
     <p>Seguirem ara donant un mica d'estil a les dades generades per <w>system</w>, ja que queden totes seguides i 
     sense format. Posarem tot el que genera el <w>system</w> dintre d'un element <w>&lt;pre&gt;</w>. Li posarem
     també una mica d'estil CSS al <w>&lt;pre&gt;</w>.</p>
-    <codefile>
+    <scfile>
         /var/www/html/webash.php
-    </codefile>
-    <code php data-line="6,8">
+    </scfile>
+    <sc php data-line="6,8">
         &lt;?php
         echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
         echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
@@ -613,7 +613,7 @@
         system($_GET['comanda']);
         echo "&lt;/pre&gt;";
         ?&gt;
-    </code>
+    </sc>
 
     <p>Provem a veure com queda <url>http://10.2.4.164/webash.php?comanda=df -h</url></p>
     <img src="img/webash5.png">
@@ -622,10 +622,10 @@
         Afegirem un formulari amb un camp de text i un botó:
     </p>
 
-    <codefile>
+    <scfile>
         /var/www/html/webash.php
-    </codefile>
-    <code php data-line="6,7,8,9">
+    </scfile>
+    <sc php data-line="6,7,8,9">
         &lt;?php
         echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
         echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
@@ -640,7 +640,7 @@
         system($_GET['comanda']);
         echo "&lt;/pre&gt;";
         ?&gt;
-    </code>
+    </sc>
 
     <p>Ara ens serà més còmode executar una comanda: </p>
 
@@ -655,10 +655,10 @@
     només mostra les dades de la sortida estàndard (STDOUT). Si volem veure també les dades que es mostren a la 
     sortida d'errors (STDERR), podem redirigir-ho amb <w>exec 2&gt;&1</w>. Canvia la línia indicada: </p>
 
-    <codefile>
+    <scfile>
         /var/www/html/webash.php
-    </codefile>
-    <code php data-line="12">
+    </scfile>
+    <sc php data-line="12">
         &lt;?php
         echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
         echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
@@ -673,7 +673,7 @@
         system("exec 2&gt;&1 && " . $_GET['comanda']);
         echo "&lt;/pre&gt;";
         ?&gt;
-    </code>
+    </sc>
 
     <p>Ara prova a executar qualsevol comanda que generi errors i sí es mostraran:</p>
 

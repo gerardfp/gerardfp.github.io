@@ -8,19 +8,19 @@
     <h2>ViewBinding</h2>
 
     <p>Habilitar:</p>
-    <codefile>
+    <scfile>
         build.gradle (Module: app)
-    </codefile>
-    <code none data-line="2,3,4">
+    </scfile>
+    <sc none data-line="2,3,4">
         android {
             buildFeatures {
                 viewBinding true
             }
         }
-    </code>
+    </sc>
 
     <p>Activity:</p>
-    <code java data-line="3,8">
+    <sc java data-line="3,8">
         public class MainActivity extends AppCompatActivity {
 
             private ActivityMainBinding binding;
@@ -32,10 +32,10 @@
 
             }
         }
-    </code>
+    </sc>
 
     <p>Fragment:</p>
-    <code java data-line="3,7">
+    <sc java data-line="3,7">
         public class MainFragment extends Fragment {
 
             private FragmentMainBinding binding;
@@ -46,6 +46,6 @@
 
             }
         }
-    </code>
+    </sc>
 
 </section>

@@ -29,8 +29,8 @@
     
       <google-codelab-step label="Retrofit" duration="0">
         <p>El objetivo de esta práctica es aprender a usar las librerías <a href="https://square.github.io/retrofit/" target="_blank">Retrofit</a> y <a href="https://github.com/bumptech/glide" target="_blank">Glide</a>.</p>
-<p>La librería <code>Retrofit</code> permite acceder a API REST.</p>
-<p>La librería <code>Glide</code> permite cargar imágenes.</p>
+<p>La librería <sc>Retrofit</sc> permite acceder a API REST.</p>
+<p>La librería <sc>Glide</sc> permite cargar imágenes.</p>
 <p>Desarrollaremos una App que buscará un término en la <a href="https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/" target="_blank">API de iTunes</a> y mostrará el contenido encontrado.</p>
 <h3 is-upgraded><a href="https://github.com/gerardfp/retrofit" target="_blank">https://github.com/gerardfp/retrofit</a></h3>
 <p class="image-container"><img style="width: 242.00px" src="img/49a3a62fe8cbfd03.gif"></p>
@@ -40,21 +40,21 @@
     
       <google-codelab-step label="Crea el proyecto" duration="0">
         <h2 is-upgraded>Dependencias</h2>
-<p>Añade las librerías <code>Retrofit</code> y <code>Glide</code> en las dependencias <code>build.gradle (Module: app)</code>:</p>
-<pre><code>implementation &#39;com.squareup.retrofit2:retrofit:2.6.2&#39;
+<p>Añade las librerías <sc>Retrofit</sc> y <sc>Glide</sc> en las dependencias <sc>build.gradle (Module: app)</sc>:</p>
+<pre><sc>implementation &#39;com.squareup.retrofit2:retrofit:2.6.2&#39;
 implementation &#39;com.squareup.retrofit2:converter-gson:2.6.2&#39;
 
 
 implementation &#39;com.github.bumptech.glide:glide:4.10.0&#39;
-annotationProcessor &#39;com.github.bumptech.glide:compiler:4.10.0&#39;</code></pre>
+annotationProcessor &#39;com.github.bumptech.glide:compiler:4.10.0&#39;</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="API Model" duration="0">
-        <p>La respuesta de la llamada a la API <a href="http://api.themoviedb.org/3/discover/movie?api_key=YOUR_API_KEY" target="_blank"><code>http://itunes.apple.com/search?term=beatles</code></a> es similar a la siguiente:</p>
+        <p>La respuesta de la llamada a la API <a href="http://api.themoviedb.org/3/discover/movie?api_key=YOUR_API_KEY" target="_blank"><sc>http://itunes.apple.com/search?term=beatles</sc></a> es similar a la siguiente:</p>
 <p>*Únicamente tenemos que tener en cuenta los datos <strong>de interés</strong> para nuestra app</p>
-<pre><code>{
+<pre><sc>{
     &#34;results&#34;: [
         {
             &#34;artistName&#34;: &#34;The Beatles&#34;,
@@ -67,31 +67,31 @@ annotationProcessor &#39;com.github.bumptech.glide:compiler:4.10.0&#39;</code></
             &#34;artworkUrl100&#34;: &#34;https://mzstatic.com/image/6edbf5a8.jpg&#34;,
         },
     ]
-}</code></pre>
+}</sc></pre>
 <p>La respuesta es un objeto que contiene las siguientes variables:</p>
 <ul>
-<li><code>results</code> de tipo <code>ArrayList</code></li>
+<li><sc>results</sc> de tipo <sc>ArrayList</sc></li>
 </ul>
-<p>Cada elemento del ArrayList <code>results</code> es un objeto que contiene la siguientes variables:</p>
+<p>Cada elemento del ArrayList <sc>results</sc> es un objeto que contiene la siguientes variables:</p>
 <ul>
-<li><code>artistName</code> de tipo <code>String</code></li>
-<li><code>trackName</code> de tipo <code>String</code></li>
-<li><code>artworkUrl100</code> de tipo <code>String</code></li>
+<li><sc>artistName</sc> de tipo <sc>String</sc></li>
+<li><sc>trackName</sc> de tipo <sc>String</sc></li>
+<li><sc>artworkUrl100</sc> de tipo <sc>String</sc></li>
 </ul>
 <p>Así pues podemos modelar estos objetos con las siguientes clases:</p>
-<pre><code>public class ItunesResponse {
+<pre><sc>public class ItunesResponse {
    public List&lt;Content&gt; results;
-}</code></pre>
-<pre><code>public class Content {
+}</sc></pre>
+<pre><sc>public class Content {
    public String artistName;
    public String trackName;
    public String artworkUrl100;
-}</code></pre>
-<aside class="special"><p>Para organizar el código, crea estas dos clases dentro de un package llamado <code>model</code>.</p>
+}</sc></pre>
+<aside class="special"><p>Para organizar el código, crea estas dos clases dentro de un package llamado <sc>model</sc>.</p>
 <p class="image-container"><img style="width: 167.00px" src="img/82fd9369871026f7.png"></p>
 </aside>
 <p>A la hora de modelar un JSON, la regla a seguir es:</p>
-<p>Por cada  <code>{</code>  se ha de crear una clase, y por cada  <code>[</code>  un ArrayList:</p>
+<p>Por cada  <sc>{</sc>  se ha de crear una clase, y por cada  <sc>[</sc>  un ArrayList:</p>
 <p class="image-container"><img style="width: 736.40px" src="img/9d00021dea43e552.png"></p>
 
 
@@ -99,20 +99,20 @@ annotationProcessor &#39;com.github.bumptech.glide:compiler:4.10.0&#39;</code></
     
       <google-codelab-step label="API Calls" duration="0">
         <p>Definimos las llamadas a la API en un Interface</p>
-<pre><code>import retrofit2.Call;
+<pre><sc>import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ItunesApi {
    @GET(&#34;search/&#34;)
    Call&lt;ItunesResponse&gt; buscar(@Query(&#34;term&#34;) String term);
-}</code></pre>
-<aside class="special"><p>Para organizar el código, crea esta clase dentro de un package llamado <code>api</code>.</p>
+}</sc></pre>
+<aside class="special"><p>Para organizar el código, crea esta clase dentro de un package llamado <sc>api</sc>.</p>
 </aside>
-<p>Retrofit transformará cada llamada al método <code>buscar()</code> en una llamada a la API.</p>
-<p>Con la anotación <code>@GET</code> indicamos la URL a la que se debe acceder. En este caso, la anotación <code>@GET(&#34;search/&#34;)</code> se transforma en la URL <a href="https://itunes.apple.com/search/" target="_blank"><code>https://itunes.apple.com/</code><strong><code>search/</code></strong></a></p>
-<p>La anotación <code>@Query</code> sirve para añadir parámetros a la URL. En este caso la anotación <code>@Query(&#34;term&#34;)</code> añadirá a la URL el parámetro <code>?term=</code>. El valor de este parámetro será el que le pasemos a la llamada a <code>buscar()</code>.</p>
-<p>Por ejemplo, si efectuamos la llamada <code>buscar(&#34;beatles&#34;)</code> se añadirá a la URL el parámetro <code>?term=beatles</code>, con lo cual la llamada quedará así <a href="https://itunes.apple.com/search/?term=beatles" target="_blank"><code>https://itunes.apple.com/search/</code><strong><code>?term=beatles</code></strong></a></p>
+<p>Retrofit transformará cada llamada al método <sc>buscar()</sc> en una llamada a la API.</p>
+<p>Con la anotación <sc>@GET</sc> indicamos la URL a la que se debe acceder. En este caso, la anotación <sc>@GET(&#34;search/&#34;)</sc> se transforma en la URL <a href="https://itunes.apple.com/search/" target="_blank"><sc>https://itunes.apple.com/</sc><strong><sc>search/</sc></strong></a></p>
+<p>La anotación <sc>@Query</sc> sirve para añadir parámetros a la URL. En este caso la anotación <sc>@Query(&#34;term&#34;)</sc> añadirá a la URL el parámetro <sc>?term=</sc>. El valor de este parámetro será el que le pasemos a la llamada a <sc>buscar()</sc>.</p>
+<p>Por ejemplo, si efectuamos la llamada <sc>buscar(&#34;beatles&#34;)</sc> se añadirá a la URL el parámetro <sc>?term=beatles</sc>, con lo cual la llamada quedará así <a href="https://itunes.apple.com/search/?term=beatles" target="_blank"><sc>https://itunes.apple.com/search/</sc><strong><sc>?term=beatles</sc></strong></a></p>
 
 
       </google-codelab-step>
@@ -120,10 +120,10 @@ public interface ItunesApi {
       <google-codelab-step label="Api Module" duration="0">
         <p>La siguiente clase ItunesApiModule es la que genera la implementación del interfaz ItunesApi que hemos definido anteriormente.</p>
 <ul>
-<li>Se especifica la URL Base <a href="https://itunes.apple.com/" target="_blank"><strong><code>https://itunes.apple.com/</code></strong></a></li>
-<li>Se añade el conversor Gson, que será el encargado de parsear el JSON que devulve iTunes y convertirlo en objetos de las clases que hemos definido (<code>ItunesResponse</code> y <code>Content</code>)</li>
+<li>Se especifica la URL Base <a href="https://itunes.apple.com/" target="_blank"><strong><sc>https://itunes.apple.com/</sc></strong></a></li>
+<li>Se añade el conversor Gson, que será el encargado de parsear el JSON que devulve iTunes y convertirlo en objetos de las clases que hemos definido (<sc>ItunesResponse</sc> y <sc>Content</sc>)</li>
 </ul>
-<pre><code>import retrofit2.Retrofit;
+<pre><sc>import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ItunesApiModule {
@@ -132,13 +132,13 @@ public class ItunesApiModule {
            .addConverterFactory(GsonConverterFactory.create())
            .build()
            .create(ItunesApi.class);
-}</code></pre>
-<aside class="special"><p>Crea esta clase dentro del package <code>api</code>.</p>
+}</sc></pre>
+<aside class="special"><p>Crea esta clase dentro del package <sc>api</sc>.</p>
 </aside>
-<p>El objeto <code>itunesApi</code> contiene la implementación de todos los métodos que hayamos definido en la clase <code>ItunesApi</code>.</p>
+<p>El objeto <sc>itunesApi</sc> contiene la implementación de todos los métodos que hayamos definido en la clase <sc>ItunesApi</sc>.</p>
 <h2 is-upgraded>Opcional</h2>
-<p>Con el fin de <em>debuggear</em> la app, y ver en el Logcat las llamadas que se realicen a la API, podemos añadir un <code>Interceptor</code>. Su función será interceptar cada llamada que se realice y <em>loggearla</em> en el Logcat:</p>
-<pre><code>import android.util.Log;
+<p>Con el fin de <em>debuggear</em> la app, y ver en el Logcat las llamadas que se realicen a la API, podemos añadir un <sc>Interceptor</sc>. Su función será interceptar cada llamada que se realice y <em>loggearla</em> en el Logcat:</p>
+<pre><sc>import android.util.Log;
 import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -174,7 +174,7 @@ public class ItunesApiModule {
            .addConverterFactory(GsonConverterFactory.create())
            .build()
            .create(ItunesApi.class);
-}</code></pre>
+}</sc></pre>
 <p>Con este Interceptor, cada vez que nuestra app realice una llamada a la API, se mostrará en el Logcat:</p>
 <p class="image-container"><img style="width: 736.40px" src="img/7c7115559e0425d5.png"></p>
 
@@ -183,7 +183,7 @@ public class ItunesApiModule {
     
       <google-codelab-step label="ViewModel" duration="0">
         <p class="image-container"><img style="width: 661.00px" src="img/3cc96e17b368b6bb.png"></p>
-<pre><code>import android.app.Application;
+<pre><sc>import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.AndroidViewModel;
@@ -224,14 +224,14 @@ public class MainViewModel extends AndroidViewModel {
     public void establecerTerminoBusqueda(String termino){
         terminoBusqueda.setValue(termino);
     }
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="MainFragment" duration="0">
-        <p><code>fragment_main.xml</code></p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+        <p><sc>fragment_main.xml</sc></p>
+<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;FrameLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    xmlns:tools=&#34;http://schemas.android.com/tools&#34;
    android:layout_width=&#34;match_parent&#34;
@@ -260,9 +260,9 @@ public class MainViewModel extends AndroidViewModel {
 
    &lt;/LinearLayout&gt;
 
-&lt;/FrameLayout&gt;</code></pre>
-<p><code>viewholder_contenido.xml</code></p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;/FrameLayout&gt;</sc></pre>
+<p><sc>viewholder_contenido.xml</sc></p>
+<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    android:orientation=&#34;vertical&#34;
    android:layout_width=&#34;match_parent&#34;
@@ -286,9 +286,9 @@ public class MainViewModel extends AndroidViewModel {
        android:layout_height=&#34;wrap_content&#34;
        android:adjustViewBounds=&#34;true&#34;/&gt;
 
-&lt;/LinearLayout&gt;</code></pre>
-<p><code>MainFragment.java</code></p>
-<pre><code>import android.os.Bundle;
+&lt;/LinearLayout&gt;</sc></pre>
+<p><sc>MainFragment.java</sc></p>
+<pre><sc>import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -388,7 +388,7 @@ public class MainFragment extends Fragment {
            }
        }
    }
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>

@@ -28,7 +28,7 @@
                   feedback-link="/dam-m8">
     
       <google-codelab-step label="ViewModel" duration="0">
-        <p>La clase <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank"><code>ViewModel</code></a> está diseñada para <strong>almacenar y gestionar datos</strong> relacionados con la UI de forma consciente al ciclo de vida. La clase <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank"><code>ViewModel</code></a> permite que los datos sobrevivan a cambios de configuración, como la rotación de la pantalla.</p>
+        <p>La clase <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank"><sc>ViewModel</sc></a> está diseñada para <strong>almacenar y gestionar datos</strong> relacionados con la UI de forma consciente al ciclo de vida. La clase <a href="https://developer.android.com/reference/android/arch/lifecycle/ViewModel.html" target="_blank"><sc>ViewModel</sc></a> permite que los datos sobrevivan a cambios de configuración, como la rotación de la pantalla.</p>
 <p>Realizaremos una pequeña aplicación que sirva para llevar la puntuación de un partido de basket.</p>
 <p>Código del proyecto: </p>
 <p class="image-container"><img style="width: 566.00px" src="img/720ac64242ab1410.gif"></p>
@@ -39,11 +39,11 @@
       </google-codelab-step>
     
       <google-codelab-step label="Instalar dependencia lifecycle-extensions" duration="0">
-        <p>Para usar el ViewModel hay que instalar la dependencia <code>lifecycle-extensions</code>.</p>
+        <p>Para usar el ViewModel hay que instalar la dependencia <sc>lifecycle-extensions</sc>.</p>
 <p>Puedes hacerlo automáticamente en AndroidStudio así:</p>
 <p class="image-container"><img style="width: 558.00px" src="img/c53b8b27ea1d8d33.gif"></p>
-<p>Si lo prefieres, también puedes añadir manualmente la siguiente línea a las <code>dependencies</code> del archivo <code>build.gradle (Module: app)</code>:</p>
-<pre><code>implementation &#39;androidx.lifecycle:lifecycle-extensions:2.1.0&#39;</code></pre>
+<p>Si lo prefieres, también puedes añadir manualmente la siguiente línea a las <sc>dependencies</sc> del archivo <sc>build.gradle (Module: app)</sc>:</p>
+<pre><sc>implementation &#39;androidx.lifecycle:lifecycle-extensions:2.1.0&#39;</sc></pre>
 
 
       </google-codelab-step>
@@ -57,7 +57,7 @@
 <p>A continuación tienes el código de esta primera versión <em>naïve</em> de la Aplicación:</p>
 <h2 is-upgraded>Layout</h2>
 <p>En el layout de la MainActivity hemos dispuesto los Botones para añadir puntuaciones y los TextView para mostrarla.</p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;RelativeLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    android:layout_width=&#34;match_parent&#34;
    android:layout_height=&#34;match_parent&#34;&gt;
@@ -174,17 +174,17 @@
        android:paddingRight=&#34;32dp&#34;
        android:textSize=&#34;24sp&#34;
        android:text=&#34;Reset&#34; /&gt;
-&lt;/RelativeLayout&gt;</code></pre>
+&lt;/RelativeLayout&gt;</sc></pre>
 <aside class="special"><p>Puedes crear dos versiones diferentes del layout, una para orientación <strong>vertical</strong> y otra para <strong>horizontal</strong>.</p>
 <p>Simplemente selecciona <strong>Create Landscape Variation</strong> en la pestaña <strong>Design </strong>de la Activity</p>
 <p class="image-container"><img style="width: 192.00px" src="img/a001332861fa3e6.png"></p>
 </aside>
 <h2 is-upgraded>Código Java</h2>
-<p>Las variables <code>puntosA puntosB</code> se usan para acumular los puntos.</p>
-<p>Los TextView <code>marcadorA marcadorB</code> son donde se muestra la puntuación de cada equipo. Se usa el método <code>updateScores()</code> para actualizarlos.</p>
-<p>En el <code>onCreate()</code> hacemos los <code>findViewById()</code> y añadimos los <em>listeners </em>a los botones.</p>
-<p>En el método <code>onClick()</code> actualizamos la puntuación dependiendo de en que botón se haya hecho click.</p>
-<pre><code>import android.os.Bundle;
+<p>Las variables <sc>puntosA puntosB</sc> se usan para acumular los puntos.</p>
+<p>Los TextView <sc>marcadorA marcadorB</sc> son donde se muestra la puntuación de cada equipo. Se usa el método <sc>updateScores()</sc> para actualizarlos.</p>
+<p>En el <sc>onCreate()</sc> hacemos los <sc>findViewById()</sc> y añadimos los <em>listeners </em>a los botones.</p>
+<p>En el método <sc>onClick()</sc> actualizamos la puntuación dependiendo de en que botón se haya hecho click.</p>
+<pre><sc>import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -245,7 +245,7 @@ public class MainFragment extends Fragment  implements View.OnClickListener {
        marcadorA.setText(String.valueOf(puntosA));
        marcadorB.setText(String.valueOf(puntosB));
    }
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>
@@ -254,8 +254,8 @@ public class MainFragment extends Fragment  implements View.OnClickListener {
         <p>La solución para que los datos sobrevivan a la rotación de la pantalla es, como hemos dicho, ponerlos en un ViewModel.</p>
 <p class="image-container"><img style="width: 522.00px" src="img/b532fa426a614e63.png"></p>
 <h2 is-upgraded>Crear la clase ViewModel</h2>
-<p>Para ello simplemente creamos una nueva clase que en este caso llamaremos <code>PuntuacionViewModel</code>, y hacemos que extienda la clase <code>AndroidViewModel</code>; Implementamos el constructor y ponemos en ella las variables que queramos:</p>
-<pre><code>import android.app.Application;
+<p>Para ello simplemente creamos una nueva clase que en este caso llamaremos <sc>PuntuacionViewModel</sc>, y hacemos que extienda la clase <sc>AndroidViewModel</sc>; Implementamos el constructor y ponemos en ella las variables que queramos:</p>
+<pre><sc>import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -283,19 +283,19 @@ public class PuntuacionViewModel extends AndroidViewModel {
        puntosB.setValue(0);
    }
 }
-</code></pre>
+</sc></pre>
 <p class="image-container"><img style="width: 566.00px" src="img/87776ce328b3e71.gif"></p>
 <h2 is-upgraded>Acceder a los datos del ViewModel</h2>
-<p>Ahora desde el MainFragment queremos acceder a las variables <code>puntosA puntosB</code> que hemos puesto en el ViewModel.</p>
+<p>Ahora desde el MainFragment queremos acceder a las variables <sc>puntosA puntosB</sc> que hemos puesto en el ViewModel.</p>
 <p>Lo haremos en dos pasos, primero obtendremos el ViewModel y luego accederemos a sus variables:</p>
 <h3 is-upgraded>Obtener el ViewModel</h3>
 <p>Para obtener el ViewModel se usa la clase ViewModelProviders así:</p>
-<pre><code>ViewModelProviders.of(requireActivity()).get(PuntuacionViewModel.class);</code></pre>
-<p>El parámetro del método <code>of()</code> es la Activity asociada al viewmodel, y el parámetro del método <code>get()</code> es la clase del ViewModel que queremos obtener.</p>
+<pre><sc>ViewModelProviders.of(requireActivity()).get(PuntuacionViewModel.class);</sc></pre>
+<p>El parámetro del método <sc>of()</sc> es la Activity asociada al viewmodel, y el parámetro del método <sc>get()</sc> es la clase del ViewModel que queremos obtener.</p>
 <h3 is-upgraded>Acceder a las variables</h3>
-<p>Todos los datos que tengamos en el ViewModel deben estar envueltos en una classa <code>LiveData</code> o <code>MutableLiveData</code>. </p>
+<p>Todos los datos que tengamos en el ViewModel deben estar envueltos en una classa <sc>LiveData</sc> o <sc>MutableLiveData</sc>. </p>
 <p>Desde el Fragment debemos observar los datos, y hacer algo cuando cambien. En este caso, cuando las variables puntosA y puntosB cambien, actualizaremos el marcador correspondiente.</p>
-<pre><code>import android.os.Bundle;
+<pre><sc>import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -362,7 +362,7 @@ public class MainFragment extends Fragment  implements View.OnClickListener {
            case R.id.reset: puntuacionViewModel.resetear(); break;
        }
    }
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>

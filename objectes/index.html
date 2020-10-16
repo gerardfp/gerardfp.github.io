@@ -42,7 +42,7 @@
 <p class="image-container"><img style="width: 548.00px" src="img/9301fcf1aef3ff38.png"></p>
 <p>Recorda marcar la opció &#34;<em>Create project from template</em>&#34; i selecciona la plantilla &#34;<em>Command Line App</em>&#34;:</p>
 <p class="image-container"><img style="width: 548.00px" src="img/31eecd71df96c9f3.png"></p>
-<p>Posa-li el nom <code>DadesCompostes</code>:</p>
+<p>Posa-li el nom <sc>DadesCompostes</sc>:</p>
 <p class="image-container"><img style="width: 547.00px" src="img/690184a7ac382746.png"></p>
 
 
@@ -51,54 +51,54 @@
       <google-codelab-step label="Crea la classe Circle" duration="0">
         <p>Per a crear objectes, primer s&#39;ha de definir la classe. A partir de la classe es creen els objectes.</p>
 <p>Començarem per l&#39;objecte <em>sun</em>, que és de la classe <em>Circle</em>.</p>
-<p>Fes clic-dreta sobre el <em>package </em><code>com.company</code>, i selecciona les opcions <code>New</code> &gt; <code>Java class</code>:</p>
+<p>Fes clic-dreta sobre el <em>package </em><sc>com.company</sc>, i selecciona les opcions <sc>New</sc> &gt; <sc>Java class</sc>:</p>
 <p class="image-container"><img style="width: 658.00px" src="img/fc6f4ce138913128.gif"></p>
-<p>Com a nom de la Classe introdueix <code>Circle</code></p>
+<p>Com a nom de la Classe introdueix <sc>Circle</sc></p>
 <aside class="warning"><p><strong>Important</strong>: El nom de les classes comença amb majúscula (UpperCamelCase)</p>
 </aside>
 <p>Polsa OK.</p>
 <p class="image-container"><img style="width: 374.00px" src="img/fccc5699f45afce0.png"></p>
-<p>Observa que s&#39;ha creat el fitxer <code>Circle.java</code>, amb la definició de la classe <code>Circle</code>:</p>
-<pre><code>class Circle {
-}</code></pre>
+<p>Observa que s&#39;ha creat el fitxer <sc>Circle.java</sc>, amb la definició de la classe <sc>Circle</sc>:</p>
+<pre><sc>class Circle {
+}</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea l&#39;objecte sun" duration="0">
-        <p>Un cop definida la classe <code>Circle</code>, es poden crear objectes d&#39;aquesta classe. Anem a crear l&#39;objecte <em><code>sun</code></em>:</p>
-<p>Ves l&#39;arxiu <code>Main.java</code> i dintre del mètode  <code>main</code> afegeix el códi per a crear l&#39;objecte  <code>sun</code>.</p>
-<pre><code>public class Main {
+        <p>Un cop definida la classe <sc>Circle</sc>, es poden crear objectes d&#39;aquesta classe. Anem a crear l&#39;objecte <em><sc>sun</sc></em>:</p>
+<p>Ves l&#39;arxiu <sc>Main.java</sc> i dintre del mètode  <sc>main</sc> afegeix el códi per a crear l&#39;objecte  <sc>sun</sc>.</p>
+<pre><sc>public class Main {
    public static void main(String[] args) {
        Circle sun = new Circle();
    }
-}</code></pre>
+}</sc></pre>
 <p class="image-container"><img style="width: 736.40px" src="img/cd9c44245121ded7.gif"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Defineix els camps de la classe Circle" duration="0">
-        <p>Definirem l&#39;estat dels objectes de classe <code>Circle</code> (com l&#39;objecte <code>sun</code>), amb els següents camps:</p>
+        <p>Definirem l&#39;estat dels objectes de classe <sc>Circle</sc> (com l&#39;objecte <sc>sun</sc>), amb els següents camps:</p>
 <ul>
 <li>Longitud del radi</li>
 <li>Posició: coordenades X i Y</li>
 <li>Color </li>
 </ul>
-<p>Ves a l&#39;arxiu <code>Circle.java</code> i afegeix els següents camps a la classe <code>Circle</code>:</p>
-<pre><code>public class Circle {
+<p>Ves a l&#39;arxiu <sc>Circle.java</sc> i afegeix els següents camps a la classe <sc>Circle</sc>:</p>
+<pre><sc>public class Circle {
    int radius;
    int positionX;
    int positionY;
    Color color;
-}</code></pre>
-<p>Hauràs notat que la paraula  <code>Color</code> apareix en vermell. És degut a que no està definida la classe <code>Color</code>. No obstant, aquesta classe no la crearem nosaltres, sinò que la usarem de la biblioteca <code>java.awt</code></p>
-<p>Per a importar la classe <code>Color</code> de la biblioteca <code>java.awt</code> segueix aquestes passes:</p>
+}</sc></pre>
+<p>Hauràs notat que la paraula  <sc>Color</sc> apareix en vermell. És degut a que no està definida la classe <sc>Color</sc>. No obstant, aquesta classe no la crearem nosaltres, sinò que la usarem de la biblioteca <sc>java.awt</sc></p>
+<p>Per a importar la classe <sc>Color</sc> de la biblioteca <sc>java.awt</sc> segueix aquestes passes:</p>
 <ol type="1" start="1">
-<li>Coloca el cursor sobre la paraula <code>Color</code></li>
+<li>Coloca el cursor sobre la paraula <sc>Color</sc></li>
 <li>Mou el cursor amb les fletxes del teclat</li>
-<li>Quan la paraula <code>Color</code> estigui subratllada, apareixerà un missatge blau sobre ella. Polsa <code>Alt+Intro</code></li>
-<li>Apareixerà una llista a sota amb les biblioteques que inclouen la classe <code>Color</code>. Selecciona la biblioteca <code>Color (java.awt)</code></li>
+<li>Quan la paraula <sc>Color</sc> estigui subratllada, apareixerà un missatge blau sobre ella. Polsa <sc>Alt+Intro</sc></li>
+<li>Apareixerà una llista a sota amb les biblioteques que inclouen la classe <sc>Color</sc>. Selecciona la biblioteca <sc>Color (java.awt)</sc></li>
 </ol>
 <p class="image-container"><img style="width: 427.00px" src="img/db4203b223f71ffe.gif"></p>
 
@@ -106,9 +106,9 @@
       </google-codelab-step>
     
       <google-codelab-step label="Defineix l&#39;estat de l&#39;objecte sun" duration="0">
-        <p>Ara l&#39;objecte <code>sun</code> ja té els camps de la classe <code>Circle</code>, així que podem definir el seu estat.</p>
-<p>Ves a l&#39;arxiu <code>Main.java</code> i assigna els següents valors als camps que defineixen l&#39;estat de l&#39;objecte <code>sun</code>:</p>
-<pre><code>public class Main {
+        <p>Ara l&#39;objecte <sc>sun</sc> ja té els camps de la classe <sc>Circle</sc>, així que podem definir el seu estat.</p>
+<p>Ves a l&#39;arxiu <sc>Main.java</sc> i assigna els següents valors als camps que defineixen l&#39;estat de l&#39;objecte <sc>sun</sc>:</p>
+<pre><sc>public class Main {
    public static void main(String[] args){
        Circle sun = new Circle();
        sun.radius = 40;
@@ -116,16 +116,16 @@
        sun.positionY = 50;
        sun.color = Color.YELLOW;
    }
-}</code></pre>
-<p>Ja tenim creat l&#39;objecte <code>sun</code>, i hem definit el seu estat. </p>
+}</sc></pre>
+<p>Ja tenim creat l&#39;objecte <sc>sun</sc>, i hem definit el seu estat. </p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Pinta l&#39;objecte sun" duration="0">
-        <p>Per a dibuixar els objectes a la pantalla utilizarem la Classe <code>JFrame</code>, de la biblioteca gràfica <code>Swing</code>, per a crear una finestra que serà el nostre llenç (<em>canvas</em>). De moment no és necesari que comprenguis aquesta Classe. Simplement copia i enganxa.</p>
-<p>Crea una Classe nova anomenada <code>Canvas</code> i escriu en ella el següent codi:</p>
-<pre><code>import javax.swing.*;
+        <p>Per a dibuixar els objectes a la pantalla utilizarem la Classe <sc>JFrame</sc>, de la biblioteca gràfica <sc>Swing</sc>, per a crear una finestra que serà el nostre llenç (<em>canvas</em>). De moment no és necesari que comprenguis aquesta Classe. Simplement copia i enganxa.</p>
+<p>Crea una Classe nova anomenada <sc>Canvas</sc> i escriu en ella el següent codi:</p>
+<pre><sc>import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -166,12 +166,12 @@ public class Canvas extends javax.swing.JPanel {
        if(canvas==null) canvas = new Canvas();
        objects.add(c);
    }
-}</code></pre>
-<h2 is-upgraded>Usa la classe  <code>Canvas </code>per a dibuixar les figures </h2>
-<p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
-<pre><code>Canvas.draw(sun);</code></pre>
+}</sc></pre>
+<h2 is-upgraded>Usa la classe  <sc>Canvas </sc>per a dibuixar les figures </h2>
+<p>Afegeix al mètode  <sc>main</sc>  el següent codi:</p>
+<pre><sc>Canvas.draw(sun);</sc></pre>
 <h2 is-upgraded>Executa el programa</h2>
-<p>Polsa sobre el botó <code>Run</code> (o <code>Mayus+F10</code>):</p>
+<p>Polsa sobre el botó <sc>Run</sc> (o <sc>Mayus+F10</sc>):</p>
 <p class="image-container"><img style="width: 196.00px" src="img/d0a46c81fa1af544.png"></p>
 
 
@@ -179,9 +179,9 @@ public class Canvas extends javax.swing.JPanel {
     
       <google-codelab-step label="Crea els objectes window i earth" duration="0">
         <p>Seguim amb la resta d&#39;objectes del nostre dibuix. </p>
-<p>Seguim amb els objectes <code>window</code> i <code>earth</code>. Com són de la Classe <code>Circle</code>, que ja està definida, ja podem crear-los.</p>
-<p>Afegeix el següent codi al mètode  <code>main</code>  (just a continuació del codi de l&#39;objecte  <code>sun</code>):</p>
-<pre><code>public class Main {
+<p>Seguim amb els objectes <sc>window</sc> i <sc>earth</sc>. Com són de la Classe <sc>Circle</sc>, que ja està definida, ja podem crear-los.</p>
+<p>Afegeix el següent codi al mètode  <sc>main</sc>  (just a continuació del codi de l&#39;objecte  <sc>sun</sc>):</p>
+<pre><sc>public class Main {
    public static void main(String[] args){
        Circle sun = new Circle();
        sun.color = Color.YELLOW;
@@ -201,39 +201,39 @@ public class Canvas extends javax.swing.JPanel {
        earth.positionY = 250;
        earth.radius = 600;
    }
-}</code></pre>
-<h2 is-upgraded>Usa la classe  <code>Canvas </code>per a dibuixar les figures </h2>
-<p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
-<pre><code>Canvas.draw(earth);
-Canvas.draw(window);</code></pre>
+}</sc></pre>
+<h2 is-upgraded>Usa la classe  <sc>Canvas </sc>per a dibuixar les figures </h2>
+<p>Afegeix al mètode  <sc>main</sc>  el següent codi:</p>
+<pre><sc>Canvas.draw(earth);
+Canvas.draw(window);</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Defineix les classes Rectangle i Triangle." duration="0">
         <p>Un cop creats tots els objectes de tipus cercle, seguirem amb els rectangles (<em>wall</em>, <em>sky</em>) i triangles (<em>roof</em>).</p>
-<p>Crea les classes <code>Rectangle</code> i <code>Triangle</code>, i afegeix en elles els camps que defineixen el seu estat.</p>
-<pre><code>public class Rectangle {
+<p>Crea les classes <sc>Rectangle</sc> i <sc>Triangle</sc>, i afegeix en elles els camps que defineixen el seu estat.</p>
+<pre><sc>public class Rectangle {
    int width;
    int height;
    int positionX;
    int positionY;
    Color color;
-}</code></pre>
-<pre><code>public class Triangle {
+}</sc></pre>
+<pre><sc>public class Triangle {
    int width;
    int height;
    int positionX;
    int positionY;
    Color color;
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Crea els objectes sky, wall i roof" duration="0">
-        <p>Torna a l&#39;arxiu <code>Main.java</code> i afegeix el següent codi:</p>
-<pre><code>Rectangle wall = new Rectangle();
+        <p>Torna a l&#39;arxiu <sc>Main.java</sc> i afegeix el següent codi:</p>
+<pre><sc>Rectangle wall = new Rectangle();
 wall.width = 100;
 wall.height = 80;
 wall.positionX = 200;
@@ -252,12 +252,12 @@ roof.width = 100;
 roof.height = 50;
 roof.positionX = 200;
 roof.positionY = 150;
-roof.color = Color.RED;</code></pre>
-<h2 is-upgraded>Usa la Classe  <code>Canvas </code>per a dibuixar les figures </h2>
-<p>Afegeix al mètode  <code>main</code>  el següent codi:</p>
-<pre><code>Canvas.draw(sky);
+roof.color = Color.RED;</sc></pre>
+<h2 is-upgraded>Usa la Classe  <sc>Canvas </sc>per a dibuixar les figures </h2>
+<p>Afegeix al mètode  <sc>main</sc>  el següent codi:</p>
+<pre><sc>Canvas.draw(sky);
 Canvas.draw(wall);
-Canvas.draw(roof);</code></pre>
+Canvas.draw(roof);</sc></pre>
 
 
       </google-codelab-step>

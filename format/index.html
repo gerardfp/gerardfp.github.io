@@ -37,7 +37,7 @@
       </google-codelab-step>
     
       <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Inicia IntelliJ i crea un nou projecte anomenat <code>Formatting</code>.</p>
+        <p>Inicia IntelliJ i crea un nou projecte anomenat <sc>Formatting</sc>.</p>
 <p class="image-container"><img style="width: 566.00px" src="img/7cd2d68e2e6a3381.png"></p>
 <p class="image-container"><img style="width: 566.00px" src="img/52d646601a8e62e6.png"></p>
 <p class="image-container"><img style="width: 566.00px" src="img/9ea349d97aa151cc.png"></p>
@@ -46,11 +46,11 @@
       </google-codelab-step>
     
       <google-codelab-step label="Els mètodes printf i format" duration="0">
-        <p>Els mètodes <code>System.out.printf</code> i <code>System.out.format</code> són equivalents entre sí.</p>
+        <p>Els mètodes <sc>System.out.printf</sc> i <sc>System.out.format</sc> són equivalents entre sí.</p>
 <p>Aquests mètodes permeten especificar el format que ha de tenir un text.</p>
 <p>Entre els aspectes més importants de la formatació trobem, l&#39;espaiat, l&#39;alineació i el nombre de decimals.</p>
 <p>Vegem un exemple:</p>
-<pre><code>public class Main {
+<pre><sc>public class Main {
 
    public static void main(String[] args) {
 
@@ -72,7 +72,7 @@
 
        System.out.format(&#34;%-10.2f%10.2f&#34;, decimal, decimal);
    }
-}</code></pre>
+}</sc></pre>
 <p>Observa com s&#39;ha formatat el text de sortida:</p>
 <pre>     hello      1234 56,789001
 
@@ -81,48 +81,48 @@ hello     1234      56,789001
 56,79          56,79</pre>
 <p>El significat dels especificadors és el següent:</p>
 <table>
-<tr><td colspan="1" rowspan="1"><p><code>%10s</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>%10s</sc></p>
 </td><td colspan="1" rowspan="1"><p>String amb una amplada de 10 caracters</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>%10d</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>%10d</sc></p>
 </td><td colspan="1" rowspan="1"><p>Enter amb una amplada de 10 caracters</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>%10f</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>%10f</sc></p>
 </td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>%-10s</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>%-10s</sc></p>
 </td><td colspan="1" rowspan="1"><p>String amb una amplada de 10 caracters, aliniat a l&#39;esquerra</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>%-10d</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>%-10d</sc></p>
 </td><td colspan="1" rowspan="1"><p>Enter amb una amplada de 10 caracters, aliniat a l&#39;esquerra</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>%-10f</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>%-10f</sc></p>
 </td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters, aliniat a l&#39;esquerra</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>%-10.2f</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>%-10.2f</sc></p>
 </td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters, aliniat a l&#39;esquerra, i amb dos decimals</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>%10.2f</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>%10.2f</sc></p>
 </td><td colspan="1" rowspan="1"><p>Float amb una amplada de 10 caracters, amb dos decimals</p>
 </td></tr>
 </table>
 <p>Podem generalitzar els especificadors així:</p>
-<pre><code>% alineació amplada decimals tipus</code></pre>
+<pre><sc>% alineació amplada decimals tipus</sc></pre>
 <h2 is-upgraded>Combinar text i format</h2>
 <p>Dintre de la cadena de format podem posar-hi també altres caracters que desitjem que es mostrin:</p>
-<pre><code>System.out.format(&#34;|%-10s|%10d|%10.2f|&#34;, text, enter, decimal);</code></pre>
+<pre><sc>System.out.format(&#34;|%-10s|%10d|%10.2f|&#34;, text, enter, decimal);</sc></pre>
 <p>Un truc interessant és utilitzar el format per a repetir espais en blanc:</p>
-<pre><code>System.out.format(&#34;hola%10smon&#34;,&#34;&#34;);</code></pre>
+<pre><sc>System.out.format(&#34;hola%10smon&#34;,&#34;&#34;);</sc></pre>
 <h2 is-upgraded>String.format()</h2>
-<p>El mètode <code>format</code> de la classe <code>String</code>, es pot usar exactament igual que <code>System.out.format</code>.</p>
+<p>El mètode <sc>format</sc> de la classe <sc>String</sc>, es pot usar exactament igual que <sc>System.out.format</sc>.</p>
 <p>Aquest mètode no imprimeix per pantalla el resultat de la formatació, sinò que retorna el text resultant. Aquest text el podem utilitzar com ens convingui.</p>
-<pre><code>String textFormatat = String.format(&#34;|%-10s|%10d|%10.2f|&#34;, text, enter, decimal);
+<pre><sc>String textFormatat = String.format(&#34;|%-10s|%10d|%10.2f|&#34;, text, enter, decimal);
 
-System.out.println(textFormatat);</code></pre>
-<p>Similar al truc anterior, podem usar <code>String.format</code> juntament amb <code>replace</code>, per a repetir qualsevol caracter:</p>
-<pre><code>String guions = String.format(&#34;%50s&#34;, &#34;&#34;).replace(&#34; &#34;, &#34;-&#34;);
+System.out.println(textFormatat);</sc></pre>
+<p>Similar al truc anterior, podem usar <sc>String.format</sc> juntament amb <sc>replace</sc>, per a repetir qualsevol caracter:</p>
+<pre><sc>String guions = String.format(&#34;%50s&#34;, &#34;&#34;).replace(&#34; &#34;, &#34;-&#34;);
 
-System.out.println(guions);</code></pre>
+System.out.println(guions);</sc></pre>
 
 
       </google-codelab-step>
@@ -131,28 +131,28 @@ System.out.println(guions);</code></pre>
         <p>Els terminals <a href="https://ca.wikipedia.org/wiki/VT100" target="_blank">ANSI/VT100</a> no solament poden mostrar text en blanc i negre; també poden mostrar colors i formats gràcies a les <a href="http://www.termsys.demon.co.uk/vtansi.htm" target="_blank"><strong>seqüències d&#39;escapament</strong></a>.</p>
 <p>Les seqüències d&#39;escapament per als colors i formats tenen el aquesta sintaxi:</p>
 <p class="image-container"><img style="width: 591.00px" src="img/83a55c9641024fbb.png"></p>
-<p>On <code>{attr1};...;{attrn}</code> són els codis dels colors o formats que desitjem.</p>
+<p>On <sc>{attr1};...;{attrn}</sc> són els codis dels colors o formats que desitjem.</p>
 <p>Fem una prova:</p>
-<pre><code>public class Main {
+<pre><sc>public class Main {
 
    public static void main(String[] args) {
        System.out.println(&#34;\033[31mHello Red World!&#34;);
    }
-}</code></pre>
-<p>Podem veure que la seqüencia d&#39;escapament <code>\033[31m</code> inclou l&#39;atribut <code>31</code>, que correspon al codi del color de text vermell.</p>
+}</sc></pre>
+<p>Podem veure que la seqüencia d&#39;escapament <sc>\033[31m</sc> inclou l&#39;atribut <sc>31</sc>, que correspon al codi del color de text vermell.</p>
 <p>Una altra prova:</p>
-<pre><code>System.out.println(&#34;\033[31;43;1mHello Red World!&#34;);</code></pre>
-<p>Aquesta vegada els atributs son el <code>31</code> (color de text vermell), el <code>43</code> (color de fons groc) i l&#39;<code>1</code> (negreta).</p>
+<pre><sc>System.out.println(&#34;\033[31;43;1mHello Red World!&#34;);</sc></pre>
+<p>Aquesta vegada els atributs son el <sc>31</sc> (color de text vermell), el <sc>43</sc> (color de fons groc) i l&#39;<sc>1</sc> (negreta).</p>
 <p>Una última prova:</p>
-<pre><code>System.out.println(&#34;\033[31;43;4mHello Red World!&#34;);</code></pre>
-<p>Hem canviat el text en negreta per el text subratllat (atribut <code>4</code>). No obstant, si executem el codi en IntelliJ, la consola no ens mostrarà el text subratllat, ja que no soporta aquesta opció. L&#39;haurem d&#39;executar en una consola compatible amb VT100.</p>
+<pre><sc>System.out.println(&#34;\033[31;43;4mHello Red World!&#34;);</sc></pre>
+<p>Hem canviat el text en negreta per el text subratllat (atribut <sc>4</sc>). No obstant, si executem el codi en IntelliJ, la consola no ens mostrarà el text subratllat, ja que no soporta aquesta opció. L&#39;haurem d&#39;executar en una consola compatible amb VT100.</p>
 <p>Obre un terminal, i navega fins al directory de sortida del projecte:</p>
-<p><code>cd IdeaProjects/ANSIColors/out/production/ANSIColors</code></p>
+<p><sc>cd IdeaProjects/ANSIColors/out/production/ANSIColors</sc></p>
 <p>Executa el programa:</p>
-<p><code>java com.company.Main</code></p>
+<p><sc>java com.company.Main</sc></p>
 <p>Ara sí hauria de sortir el text subratllat...</p>
-<p>A més a més veuras que a partir d&#39;una seqüència d&#39;escapament, tot el text següent manté el color i format, així que si volem tornar al color &#34;per defecte&#34; (blanc i negre), haurem de resetejar el color i format (attribut <code>0</code>) un cop finalitzi el text que hem formatat:</p>
-<pre><code>System.out.println(&#34;\033[31;43;4mHello Red World!\033[0m&#34;);</code></pre>
+<p>A més a més veuras que a partir d&#39;una seqüència d&#39;escapament, tot el text següent manté el color i format, així que si volem tornar al color &#34;per defecte&#34; (blanc i negre), haurem de resetejar el color i format (attribut <sc>0</sc>) un cop finalitzi el text que hem formatat:</p>
+<pre><sc>System.out.println(&#34;\033[31;43;4mHello Red World!\033[0m&#34;);</sc></pre>
 <h2 is-upgraded>Taula de codis de colors</h2>
 <p>A continuació podem veure una taula amb els tots els codis dels atributs que podem utilitzar per a canviar el format, el color de fons, i el color del text:</p>
 <h2 is-upgraded>Format</h2>
@@ -165,32 +165,32 @@ System.out.println(guions);</code></pre>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>1</p>
 </td><td colspan="1" rowspan="1"><p>Bold/Bright</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[1mBold&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Normal \033[1mBold&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Normal Bold" title="Normal Bold" style="width: 138.00px" src="img/4c845322939fb710.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>2</p>
 </td><td colspan="1" rowspan="1"><p>Dim</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[2mDim&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Normal \033[2mDim&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Normal Dim" title="Normal Dim" style="width: 138.00px" src="img/86617349fed04211.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>4</p>
 </td><td colspan="1" rowspan="1"><p>Underlined</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[4mUnderlined&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Normal \033[4mUnderlined&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Normal Underlined" title="Normal Underlined" style="width: 138.00px" src="img/5c4e89884b110d84.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>5</p>
 </td><td colspan="1" rowspan="1"><p>Blink</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[5mBlink&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Normal \033[5mBlink&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Normal Blink" title="Normal Blink" style="width: 138.00px" src="img/149776862d63a9d4.gif"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>7</p>
 </td><td colspan="1" rowspan="1"><p>Reverse</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[7minverted&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Normal \033[7minverted&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Normal inverted" title="Normal inverted" style="width: 138.00px" src="img/a91f16cc7d721c7c.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>8</p>
 </td><td colspan="1" rowspan="1"><p>Hidden</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[8mHidden&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Normal \033[8mHidden&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Normal Hidden" title="Normal Hidden" style="width: 138.00px" src="img/3e4204578bc7a0d1.png"></p>
 </td></tr>
 </table>
@@ -203,37 +203,37 @@ System.out.println(guions);</code></pre>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>0</p>
 </td><td colspan="1" rowspan="1"><p>Reset all attributes</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;\033[0mNormal Text&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;\033[0mNormal Text&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Normal Text" title="Normal Text" style="width: 195.00px" src="img/b41b8179056b1662.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>21</p>
 </td><td colspan="1" rowspan="1"><p>Reset bold/bright</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[1mBold \033[21mNormal&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Normal \033[1mBold \033[21mNormal&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Normal Bold Normal" title="Normal Bold Normal" style="width: 195.00px" src="img/ab3a8c9d5fdfd588.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>22</p>
 </td><td colspan="1" rowspan="1"><p>Reset dim</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[2mDim \033[22mNormal&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Normal \033[2mDim \033[22mNormal&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Normal Dim Normal" title="Normal Dim Normal" style="width: 195.00px" src="img/832d580de6a91eb2.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>24</p>
 </td><td colspan="1" rowspan="1"><p>Reset underlined</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[4mUnderlined \033[24mNormal&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Normal \033[4mUnderlined \033[24mNormal&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Normal Underlined Normal" title="Normal Underlined Normal" style="width: 195.00px" src="img/f7110a12a31515c.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>25</p>
 </td><td colspan="1" rowspan="1"><p>Reset blink</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[5mBlink \033[25mNormal&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Normal \033[5mBlink \033[25mNormal&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Normal Blink Normal" title="Normal Blink Normal" style="width: 195.00px" src="img/bb13d54165477b91.gif"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>27</p>
 </td><td colspan="1" rowspan="1"><p>Reset reverse</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[7minverted \033[27mNormal&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Normal \033[7minverted \033[27mNormal&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Normal inverted Normal" title="Normal inverted Normal" style="width: 195.00px" src="img/cfb4ea060421b309.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>28</p>
 </td><td colspan="1" rowspan="1"><p>Reset hidden</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Normal \033[8mHidden \033[28mNormal&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Normal \033[8mHidden \033[28mNormal&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Normal Hidden Normal" title="Normal Hidden Normal" style="width: 195.00px" src="img/a2d5527e4d65c351.png"></p>
 </td></tr>
 </table>
@@ -246,87 +246,87 @@ System.out.println(guions);</code></pre>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>39</p>
 </td><td colspan="1" rowspan="1"><p>Default</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[39mDefault&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[39mDefault&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Default" title="Default Default" style="width: 171.00px" src="img/ba102d820e6cda95.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>30</p>
 </td><td colspan="1" rowspan="1"><p>Black</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[30mBlack&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[30mBlack&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Black" title="Default Black" style="width: 171.00px" src="img/b01facb07254b91f.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>31</p>
 </td><td colspan="1" rowspan="1"><p>Red</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[31mRed&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[31mRed&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Red" title="Default Red" style="width: 171.00px" src="img/c9e245ca1f74af28.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>32</p>
 </td><td colspan="1" rowspan="1"><p>Green</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[32mGreen&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[32mGreen&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Green" title="Default Green" style="width: 171.00px" src="img/2c66d22eaa423588.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>33</p>
 </td><td colspan="1" rowspan="1"><p>Yellow</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[33mYellow&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[33mYellow&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Yellow" title="Default Yellow" style="width: 171.00px" src="img/52cacf60533de4a1.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>34</p>
 </td><td colspan="1" rowspan="1"><p>Blue</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[34mBlue&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[34mBlue&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Blue" title="Default Blue" style="width: 171.00px" src="img/3a098582f123c785.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>35</p>
 </td><td colspan="1" rowspan="1"><p>Magenta</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[35mMagenta&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[35mMagenta&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Magenta" title="Default Magenta" style="width: 171.00px" src="img/a79c5b2a6117c0cf.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>36</p>
 </td><td colspan="1" rowspan="1"><p>Cyan</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[36mCyan&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[36mCyan&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Cyan" title="Default Cyan" style="width: 171.00px" src="img/cc8b0caab8938449.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>37</p>
 </td><td colspan="1" rowspan="1"><p>Light gray</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[37mLight gray&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[37mLight gray&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Light gray" title="Default Light gray" style="width: 171.00px" src="img/6e55332a035fe257.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>90</p>
 </td><td colspan="1" rowspan="1"><p>Dark gray</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[90mDark gray&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[90mDark gray&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Dark gray" title="Default Dark gray" style="width: 171.00px" src="img/cd913a063e6e0bd5.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>91</p>
 </td><td colspan="1" rowspan="1"><p>Light red</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[91mLight red&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[91mLight red&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Light red" title="Default Light red" style="width: 171.00px" src="img/abc8785e69f61125.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>92</p>
 </td><td colspan="1" rowspan="1"><p>Light green</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[92mLight green&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[92mLight green&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Light green" title="Default Light green" style="width: 171.00px" src="img/78be89b275f1c294.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>93</p>
 </td><td colspan="1" rowspan="1"><p>Light yellow</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[93mLight yellow&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[93mLight yellow&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Light yellow" title="Default Light yellow" style="width: 171.00px" src="img/7ecba34114646573.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>94</p>
 </td><td colspan="1" rowspan="1"><p>Light blue</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[94mLight blue&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[94mLight blue&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Light blue" title="Default Light blue" style="width: 171.00px" src="img/2ddf7a20fde2ed28.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>95</p>
 </td><td colspan="1" rowspan="1"><p>Light magenta</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[95mLight magenta&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[95mLight magenta&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Light magenta" title="Default Light magenta" style="width: 171.00px" src="img/b797e38af69dc111.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>96</p>
 </td><td colspan="1" rowspan="1"><p>Light cyan</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[96mLight cyan&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[96mLight cyan&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Light cyan" title="Default Light cyan" style="width: 171.00px" src="img/f741c9fd70d3c2be.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>97</p>
 </td><td colspan="1" rowspan="1"><p>White</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[97mWhite&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[97mWhite&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default White" title="Default White" style="width: 171.00px" src="img/cb92907586ea3010.png"></p>
 </td></tr>
 </table>
@@ -339,87 +339,87 @@ System.out.println(guions);</code></pre>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>49</p>
 </td><td colspan="1" rowspan="1"><p>Default</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[49mDefault&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[49mDefault&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Default" title="Default Default" style="width: 170.00px" src="img/e221c54fd55bbc24.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>40</p>
 </td><td colspan="1" rowspan="1"><p>Black</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[40mBlack&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[40mBlack&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Black" title="Default Black" style="width: 170.00px" src="img/8c4a013bde8d79c.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>41</p>
 </td><td colspan="1" rowspan="1"><p>Red</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[41mRed&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[41mRed&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Red" title="Default Red" style="width: 170.00px" src="img/aff18fe0d1ac7bfd.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>42</p>
 </td><td colspan="1" rowspan="1"><p>Green</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[42mGreen&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[42mGreen&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Green" title="Default Green" style="width: 170.00px" src="img/e11b5bd6c743a529.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>43</p>
 </td><td colspan="1" rowspan="1"><p>Yellow</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[43mYellow&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[43mYellow&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Yellow" title="Default Yellow" style="width: 170.00px" src="img/6710861805744556.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>44</p>
 </td><td colspan="1" rowspan="1"><p>Blue</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[44mBlue&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[44mBlue&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Blue" title="Default Blue" style="width: 170.00px" src="img/f842975e4d762f64.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>45</p>
 </td><td colspan="1" rowspan="1"><p>Magenta</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[45mMagenta&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[45mMagenta&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Magenta" title="Default Magenta" style="width: 170.00px" src="img/16cfdd2d9fc3531b.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>46</p>
 </td><td colspan="1" rowspan="1"><p>Cyan</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[46mCyan&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[46mCyan&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Cyan" title="Default Cyan" style="width: 170.00px" src="img/5ac277fcbbe26fae.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>47</p>
 </td><td colspan="1" rowspan="1"><p>Light gray</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[47mLight gray&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[47mLight gray&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Light gray" title="Default Light gray" style="width: 170.00px" src="img/1f80d6cfd282a840.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>100</p>
 </td><td colspan="1" rowspan="1"><p>Dark gray</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[100mDark gray&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[100mDark gray&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Dark gray" title="Default Dark gray" style="width: 170.00px" src="img/a0f6f0811809c90a.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>101</p>
 </td><td colspan="1" rowspan="1"><p>Light red</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[101mLight red&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[101mLight red&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Light red" title="Default Light red" style="width: 170.00px" src="img/4d9334dfd590a455.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>102</p>
 </td><td colspan="1" rowspan="1"><p>Light green</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[102mLight green&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[102mLight green&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Light green" title="Default Light green" style="width: 170.00px" src="img/f13bcd9ad34efebc.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>103</p>
 </td><td colspan="1" rowspan="1"><p>Light yellow</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[103mLight yellow&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[103mLight yellow&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Light yellow" title="Default Light yellow" style="width: 170.00px" src="img/653aa01a731393c4.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>104</p>
 </td><td colspan="1" rowspan="1"><p>Light blue</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[104mLight blue&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[104mLight blue&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Light blue" title="Default Light blue" style="width: 170.00px" src="img/dcefd825710c1bfd.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>105</p>
 </td><td colspan="1" rowspan="1"><p>Light magenta</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[105mLight magenta&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[105mLight magenta&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Light magenta" title="Default Light magenta" style="width: 170.00px" src="img/a3ba5aaac32fb143.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>106</p>
 </td><td colspan="1" rowspan="1"><p>Light cyan</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[106mLight cyan&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[106mLight cyan&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default Light cyan" title="Default Light cyan" style="width: 170.00px" src="img/e01c194c870a1834.png"></p>
 </td></tr>
 <tr><td colspan="1" rowspan="1"><p>107</p>
 </td><td colspan="1" rowspan="1"><p>White</p>
-</td><td colspan="1" rowspan="1"><p><code>&#34;Default \033[107mWhite&#34;</code></p>
+</td><td colspan="1" rowspan="1"><p><sc>&#34;Default \033[107mWhite&#34;</sc></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img alt="Default White" title="Default White" style="width: 170.00px" src="img/5e4bb624c7db601c.png"></p>
 </td></tr>
 </table>
@@ -428,7 +428,7 @@ System.out.println(guions);</code></pre>
       </google-codelab-step>
     
       <google-codelab-step label="Aplicació de tíquets" duration="0">
-        <pre><code>import java.time.LocalDateTime;
+        <pre><sc>import java.time.LocalDateTime;
 
 class Producte {
    String descripcio;
@@ -490,7 +490,7 @@ public class Main {
        System.out.printf(&#34;%30s%n&#34;, &#34;GRACIES PER LA SEVA VISITA&#34;);
        System.out.printf(&#34;%22s%n&#34;, &#34;IVA INCLOS&#34;);
    }
-}</code></pre>
+}</sc></pre>
 <h2 is-upgraded><img style="width: 288.00px" src="img/dfa65eb297ba8ca5.png"></h2>
 
 

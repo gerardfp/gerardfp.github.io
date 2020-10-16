@@ -39,8 +39,8 @@
       <google-codelab-step label="Crea el projecte" duration="0">
         <p>Descarrega Processing de la seva web oficial:</p>
 <p><a href="https://processing.org/download/" target="_blank"><paper-button class="colored" raised><iron-icon icon="cloud_download"></iron-icon>Download Processing</paper-button></a></p>
-<p>Descomprimeix l&#39;arxiu que has descarregat i executa <code>Processing</code>.</p>
-<p>S&#39;obrirà l&#39;entorn de programació de Processing. Anomena i desa el projecte amb el nom <code>NasaGallery</code></p>
+<p>Descomprimeix l&#39;arxiu que has descarregat i executa <sc>Processing</sc>.</p>
+<p>S&#39;obrirà l&#39;entorn de programació de Processing. Anomena i desa el projecte amb el nom <sc>NasaGallery</sc></p>
 <p class="image-container"><img style="width: 386.00px" src="img/e7d12b4b088bcc98.png"></p>
 <p>Necessitaràs aquestes imatges. Descarrega-les a la carpeta del projecte amb el nom indicat:</p>
 <table>
@@ -51,12 +51,12 @@
 </td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 15.00px" src="img/68b10df0e23eb7a5.jpeg"></p>
 </td><td colspan="1" rowspan="1"><p class="image-container"><img style="width: 15.00px" src="img/dbf822bd746b78a2.jpeg"></p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>mercury.jpg</code></p>
-</td><td colspan="1" rowspan="1"><p><code>venus.jpg</code></p>
-</td><td colspan="1" rowspan="1"><p><code>earth.jpg</code></p>
-</td><td colspan="1" rowspan="1"><p><code>mars.jpg</code></p>
-</td><td colspan="1" rowspan="1"><p><code>prev.jpg</code></p>
-</td><td colspan="1" rowspan="1"><p><code>next.jpg</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>mercury.jpg</sc></p>
+</td><td colspan="1" rowspan="1"><p><sc>venus.jpg</sc></p>
+</td><td colspan="1" rowspan="1"><p><sc>earth.jpg</sc></p>
+</td><td colspan="1" rowspan="1"><p><sc>mars.jpg</sc></p>
+</td><td colspan="1" rowspan="1"><p><sc>prev.jpg</sc></p>
+</td><td colspan="1" rowspan="1"><p><sc>next.jpg</sc></p>
 </td></tr>
 </table>
 <p class="image-container"><img style="width: 362.00px" src="img/e09fec286b5cf202.png"></p>
@@ -67,11 +67,11 @@
       </google-codelab-step>
     
       <google-codelab-step label="Implementa l&#39;aplicació" duration="0">
-        <p>Un projecte Processing, té habitualment dos mètodes principals: <code>setup()</code> i <code>draw()</code></p>
-<p>El bloc del mètode <code>setup()</code> s&#39;executa un cop quan s&#39;executa el nostre projecte i té la finalitat de configurar aspectes com el tamany de la finestra i carregar els recursos que utilitzarà el nostre projecte (imatges, sons, ...).</p>
-<p>El bloc del mètode <code>draw()</code> s&#39;executa de forma repetida durant tota l&#39;execució del nostre projecte. En aquest mètode és on es dibuixen els elements que s&#39;han de veure a la pantalla, o es reprodueixen els sons, etc.</p>
+        <p>Un projecte Processing, té habitualment dos mètodes principals: <sc>setup()</sc> i <sc>draw()</sc></p>
+<p>El bloc del mètode <sc>setup()</sc> s&#39;executa un cop quan s&#39;executa el nostre projecte i té la finalitat de configurar aspectes com el tamany de la finestra i carregar els recursos que utilitzarà el nostre projecte (imatges, sons, ...).</p>
+<p>El bloc del mètode <sc>draw()</sc> s&#39;executa de forma repetida durant tota l&#39;execució del nostre projecte. En aquest mètode és on es dibuixen els elements que s&#39;han de veure a la pantalla, o es reprodueixen els sons, etc.</p>
 <p>Comencem amb un petit codi:</p>
-<pre><code>PImage img;
+<pre><sc>PImage img;
 
 void setup() {
   size(180, 150);
@@ -80,19 +80,19 @@ void setup() {
 
 void draw() {
   image(img, 15, 0);
-}</code></pre>
+}</sc></pre>
 <p class="image-container"><img style="width: 338.00px" src="img/78a60933fecf8d0d.png"></p>
-<p>Al mètode <code>setup()</code> establim el tamany de la pantalla de la nostra aplicació a <code>180</code> píxels d&#39;amplada i <code>150</code> d&#39;alçada. A continuació carreguem la imatge <code>mercury.jpg</code> a la variable <code>img</code>.</p>
-<p>Al mètode <code>draw()</code> dibuixem aquesta imatge a la posició <code>X=15</code> <code>Y=0</code></p>
+<p>Al mètode <sc>setup()</sc> establim el tamany de la pantalla de la nostra aplicació a <sc>180</sc> píxels d&#39;amplada i <sc>150</sc> d&#39;alçada. A continuació carreguem la imatge <sc>mercury.jpg</sc> a la variable <sc>img</sc>.</p>
+<p>Al mètode <sc>draw()</sc> dibuixem aquesta imatge a la posició <sc>X=15</sc> <sc>Y=0</sc></p>
 <p>Si executes la aplicació veuràs això:</p>
 <p class="image-container"><img style="width: 182.00px" src="img/5cf8eed04753b649.png"></p>
 <h2 is-upgraded>Avançar i retrocedir a la galeria</h2>
 <p>El següent pas serà afegir dos botons per a poder anar cap endavant i cap enrere en la llista d&#39;imatges.</p>
-<p>Primer haurem de carregar totes les imatges al mètode <code>setup()</code>. Tindrem la variable <code>img</code> que indicarà la imatge que s&#39;està mostrant actualment, que establirem inicialment a <code>mercury</code>.</p>
-<p>Al mètode <code>draw()</code> només hem de dibuixar la imatge indicada per la variable <code>img</code>, i també els botons d&#39;avançar i retrocedir.</p>
-<p>Per útlim, afegirem un tercer mètode <code>mousePressed()</code> que s&#39;executa un cop quan es fa clic al ratolí. En funció de la posició on s&#39;hagi fet clic (<code>mouseX</code>), mostrarem una imatge o una altra, depenent de quina s&#39;estigui mostrant actualment.</p>
+<p>Primer haurem de carregar totes les imatges al mètode <sc>setup()</sc>. Tindrem la variable <sc>img</sc> que indicarà la imatge que s&#39;està mostrant actualment, que establirem inicialment a <sc>mercury</sc>.</p>
+<p>Al mètode <sc>draw()</sc> només hem de dibuixar la imatge indicada per la variable <sc>img</sc>, i també els botons d&#39;avançar i retrocedir.</p>
+<p>Per útlim, afegirem un tercer mètode <sc>mousePressed()</sc> que s&#39;executa un cop quan es fa clic al ratolí. En funció de la posició on s&#39;hagi fet clic (<sc>mouseX</sc>), mostrarem una imatge o una altra, depenent de quina s&#39;estigui mostrant actualment.</p>
 <p>El codi final quedarà així:</p>
-<pre><code>PImage img, mercury, venus, earth, mars, prev, next;
+<pre><sc>PImage img, mercury, venus, earth, mars, prev, next;
 
 void setup() {
   size(180, 150);
@@ -135,7 +135,7 @@ void mousePressed(){
        img = mercury; 
     }
   }
-}</code></pre>
+}</sc></pre>
 <p>Aquest és el resultat final:</p>
 <p class="image-container"><img style="width: 200.00px" src="img/fd1fcebfa7bad797.gif"></p>
 

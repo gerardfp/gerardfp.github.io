@@ -38,33 +38,33 @@
     
       <google-codelab-step label="Crea el proyecto" duration="0">
         <p>Establece la version mínima del SDK a 26:</p>
-<pre><code>minSdkVersion 26</code></pre>
+<pre><sc>minSdkVersion 26</sc></pre>
 <p>Añade las siguientes dependencias:</p>
 <h2 is-upgraded>Room</h2>
 <p class="image-container"><img style="width: 566.00px" src="img/b9c3ecc7216253e8.gif"></p>
-<p>Dependencia en el archivo <code>build.gradle (Module: app)</code></p>
-<pre><code>implementation &#39;androidx.room:room-runtime:2.1.0&#39;
-annotationProcessor &#39;androidx.room:room-compiler:2.1.0&#39;</code></pre>
+<p>Dependencia en el archivo <sc>build.gradle (Module: app)</sc></p>
+<pre><sc>implementation &#39;androidx.room:room-runtime:2.1.0&#39;
+annotationProcessor &#39;androidx.room:room-compiler:2.1.0&#39;</sc></pre>
 <h2 is-upgraded>Lifecycle</h2>
 <p>Las Activities de la App accederan a la Base de datos a través de un ViewModel.</p>
 <p class="image-container"><img style="width: 558.00px" src="img/c53b8b27ea1d8d33.gif"></p>
-<p>Dependencia en el archivo <code>build.gradle (Module: app)</code></p>
-<pre><code>implementation &#39;androidx.lifecycle:lifecycle-extensions:2.1.0&#39;</code></pre>
+<p>Dependencia en el archivo <sc>build.gradle (Module: app)</sc></p>
+<pre><sc>implementation &#39;androidx.lifecycle:lifecycle-extensions:2.1.0&#39;</sc></pre>
 <h2 is-upgraded>RecyclerView y Material</h2>
-<p>La lista de tareas se mostrará en la Activity usando un <code>RecyclerView</code></p>
-<p>Para ir a la Activity de añadir una Tarea habrá un <code>FloatingActingButton</code>.</p>
-<pre><code>implementation &#39;androidx.recyclerview:recyclerview:1.0.0&#39;
-implementation &#39;com.google.android.material:material:1.0.0&#39;</code></pre>
+<p>La lista de tareas se mostrará en la Activity usando un <sc>RecyclerView</sc></p>
+<p>Para ir a la Activity de añadir una Tarea habrá un <sc>FloatingActingButton</sc>.</p>
+<pre><sc>implementation &#39;androidx.recyclerview:recyclerview:1.0.0&#39;
+implementation &#39;com.google.android.material:material:1.0.0&#39;</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Análisis de la app" duration="0">
-        <p>La app guardará los datos en dos tablas: <code>tareas</code> y <code>prioridades</code>.</p>
+        <p>La app guardará los datos en dos tablas: <sc>tareas</sc> y <sc>prioridades</sc>.</p>
 <p class="image-container"><img style="width: 513.00px" src="img/dadf8971b149960f.png"></p>
 <p>Para obtener cada Tarea con el detalle de su prioridad, necesitaremos la siguiente Vista (consulta):</p>
-<pre><code>SELECT Tarea.id, Tarea.descripcion, Tarea.fecha, Prioridad.descripcion AS prioridad 
-FROM Tarea JOIN Prioridad ON Tarea.prioridadId = Prioridad.id</code></pre>
+<pre><sc>SELECT Tarea.id, Tarea.descripcion, Tarea.fecha, Prioridad.descripcion AS prioridad 
+FROM Tarea JOIN Prioridad ON Tarea.prioridadId = Prioridad.id</sc></pre>
 <p class="image-container"><img style="width: 230.00px" src="img/b0ed9db9b45433e2.png"></p>
 
 
@@ -78,17 +78,17 @@ FROM Tarea JOIN Prioridad ON Tarea.prioridadId = Prioridad.id</code></pre>
 <li><a href="https://developer.android.com/reference/android/arch/persistence/room/Database.html" target="_blank"><strong>Base de datos:</strong></a> contiene el manejador de la base de datos.</li>
 </ul>
 <p class="image-container"><img style="width: 269.00px" src="img/3f9c35efb7f58df1.png"></p>
-<p>El acceso a datos desde una <code>Activity</code> se realiza a través del <code>ViewModel</code>. Éste realizará las consultas usando el <code>DAO</code>.</p>
+<p>El acceso a datos desde una <sc>Activity</sc> se realiza a través del <sc>ViewModel</sc>. Éste realizará las consultas usando el <sc>DAO</sc>.</p>
 <p class="image-container"><img style="width: 661.00px" src="img/d70c87ee4adbf135.png"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Entidades" duration="0">
-        <p>Son las tablas y vistas de nuestra base de datos. Se crea una clase por cada tabla o vista. Se anotan dichas clases con <code>@Entity</code> o <code>@DatabaseView</code>.</p>
-<p>Para nuestra app crearemos las dos clases correspondientes a las tablas (<code>Tarea</code> y <code>Prioridad</code>) y la clase de la vista (<code>TareaDetalle</code>).</p>
-<p><code>Tarea.java</code></p>
-<pre><code>import androidx.room.Entity;
+        <p>Son las tablas y vistas de nuestra base de datos. Se crea una clase por cada tabla o vista. Se anotan dichas clases con <sc>@Entity</sc> o <sc>@DatabaseView</sc>.</p>
+<p>Para nuestra app crearemos las dos clases correspondientes a las tablas (<sc>Tarea</sc> y <sc>Prioridad</sc>) y la clase de la vista (<sc>TareaDetalle</sc>).</p>
+<p><sc>Tarea.java</sc></p>
+<pre><sc>import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
@@ -108,12 +108,12 @@ public class Tarea {
        this.fecha = fecha;
        this.prioridadId = prioridadId;
    }
-}</code></pre>
-<aside class="warning"><p>Para el campo fecha, se debería usar un <code>TypeConverter</code> para convertir automáticamente entre Date y Long.</p>
+}</sc></pre>
+<aside class="warning"><p>Para el campo fecha, se debería usar un <sc>TypeConverter</sc> para convertir automáticamente entre Date y Long.</p>
 <p><a href="https://developer.android.com/training/data-storage/room/referencing-data" target="_blank">https://developer.android.com/training/data-storage/room/referencing-data</a></p>
 </aside>
-<p><code>Prioridad.java</code></p>
-<pre><code>import androidx.room.Entity;
+<p><sc>Prioridad.java</sc></p>
+<pre><sc>import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -130,13 +130,13 @@ public class Prioridad {
    public String toString() {
        return descripcion;
    }
-}</code></pre>
+}</sc></pre>
 <aside class="special"><p>Para obtener más información sobre la definición de entidades, consulta: <a href="https://developer.android.com/training/data-storage/room/defining-data" target="_blank">https://developer.android.com/training/data-storage/room/defining-data</a></p>
 <p>Para la definición de relaciones: <a href="https://developer.android.com/training/data-storage/room/relationships" target="_blank">https://developer.android.com/training/data-storage/room/relationships</a></p>
 </aside>
 <p>También definiremos la Vista para el detalle de tareas:</p>
-<p><code>TareaDetalle.java</code></p>
-<pre><code>import androidx.room.DatabaseView;
+<p><sc>TareaDetalle.java</sc></p>
+<pre><sc>import androidx.room.DatabaseView;
 
 @DatabaseView(&#34;SELECT Tarea.id, Tarea.descripcion, Tarea.fecha, Prioridad.descripcion AS prioridad &#34; +
        &#34;FROM Tarea JOIN Prioridad ON Tarea.prioridadId = Prioridad.id&#34;)
@@ -145,15 +145,15 @@ public class TareaDetalle {
    public String descripcion;
    public String fecha;
    public String prioridad;
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="DAO" duration="0">
         <p>En la clase DAO es donde definimos las consultas que necesitamos para acceder a nuestros datos.</p>
-<p><code>TareasAppDao.java</code></p>
-<pre><code>import java.util.List;
+<p><sc>TareasAppDao.java</sc></p>
+<pre><sc>import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -178,7 +178,7 @@ public abstract class TareasAppDao {
 
     @Query(&#34;SELECT * FROM TareaDetalle&#34;)
     public abstract LiveData&lt;List&lt;TareaDetalle&gt;&gt; obtenerTareasDetalle();
-}</code></pre>
+}</sc></pre>
 <aside class="special"><p>+info sobre el DAO: <a href="https://developer.android.com/training/data-storage/room/accessing-data" target="_blank">https://developer.android.com/training/data-storage/room/accessing-data</a></p>
 </aside>
 
@@ -187,10 +187,10 @@ public abstract class TareasAppDao {
     
       <google-codelab-step label="Base de Datos" duration="0">
         <p>Usamos el patrón <strong><em>Singleton</em></strong> para obtener una instancia de la base de datos.</p>
-<p>Añadimos el callback <code>onCreate()</code> para insertar los datos iniciales en el momento de crear la base de datos.</p>
-<p>Añadimos la opcion <code>fallbackToDestructiveMigration()</code>, que borrará las tablas y las volverá a crear cuando cambiemos el número de versión de la base de datos.</p>
-<p><code>TareasAppDatabase.java</code></p>
-<pre><code>import android.content.Context;
+<p>Añadimos el callback <sc>onCreate()</sc> para insertar los datos iniciales en el momento de crear la base de datos.</p>
+<p>Añadimos la opcion <sc>fallbackToDestructiveMigration()</sc>, que borrará las tablas y las volverá a crear cuando cambiemos el número de versión de la base de datos.</p>
+<p><sc>TareasAppDatabase.java</sc></p>
+<pre><sc>import android.content.Context;
 import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -235,7 +235,7 @@ public abstract class TareasAppDatabase extends RoomDatabase {
             }
         });
     }
-}</code></pre>
+}</sc></pre>
 <aside class="special"><p><a href="https://developer.android.com/training/data-storage/room/migrating-db-versions" target="_blank">https://developer.android.com/training/data-storage/room/migrating-db-versions</a></p>
 </aside>
 
@@ -245,10 +245,10 @@ public abstract class TareasAppDatabase extends RoomDatabase {
       <google-codelab-step label="ViewModel" duration="0">
         <p>El ViewModel expone métodos para ser usados desde las activities y realiza las acciones correspondientes sobre el DAO.</p>
 <p class="image-container"><img style="width: 661.00px" src="img/d70c87ee4adbf135.png"></p>
-<p>Es importante tener en cuenta que todas las operaciones se han de hacer en segundo plano, usando la clase  <code>AsyncTask</code> (o <code>Executors</code>).</p>
-<p>Para las operaciones que retornan datos (como las consultas), usamos la clase <code>LiveData</code> en lugar de tareas en segundo plano.</p>
-<p><code>TareasAppViewModel.java</code></p>
-<pre><code>import android.app.Application;
+<p>Es importante tener en cuenta que todas las operaciones se han de hacer en segundo plano, usando la clase  <sc>AsyncTask</sc> (o <sc>Executors</sc>).</p>
+<p>Para las operaciones que retornan datos (como las consultas), usamos la clase <sc>LiveData</sc> en lugar de tareas en segundo plano.</p>
+<p><sc>TareasAppViewModel.java</sc></p>
+<pre><sc>import android.app.Application;
 import android.os.AsyncTask;
 import java.util.List;
 import androidx.annotation.NonNull;
@@ -290,21 +290,21 @@ public class TareasAppViewModel extends AndroidViewModel {
             }
         });
     }
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Fragments" duration="0">
         <h2 is-upgraded>ListaTareasFragment</h2>
-<p>El <code>ListaTareasFragment</code> muestra en un <code>RecyclerView</code> la lista de tareas que hay en la BBDD.</p>
-<p>También hay un <code>FloatingActionButton</code> que nos lleva al fragment de crear Tareas nuevas.</p>
+<p>El <sc>ListaTareasFragment</sc> muestra en un <sc>RecyclerView</sc> la lista de tareas que hay en la BBDD.</p>
+<p>También hay un <sc>FloatingActionButton</sc> que nos lleva al fragment de crear Tareas nuevas.</p>
 <p class="image-container"><img style="width: 275.00px" src="img/6e7fa45a28d48b50.png"></p>
-<p><code>ListaTareasFragment.java</code></p>
-<p>La parte interesante del <code>ListaTareasFragment</code> es la consulta de las tareas. La consulta se le hace al <code>TareasAppViewModel</code>, y éste la traslada al <code>Dao</code>.</p>
-<p>Se añade un <code>Observer</code> para obtener el resultado de la consulta. Cuando el resultado esté disponible, se ejecuta el método <code>onChanged()</code> del Observer. En este método actualizamos el ArrayList de tareas que muestra el adaptador <code>TareasAdapter</code>.</p>
-<p><code>ListaTareasFragment.java</code></p>
-<pre><code>import android.os.Bundle;
+<p><sc>ListaTareasFragment.java</sc></p>
+<p>La parte interesante del <sc>ListaTareasFragment</sc> es la consulta de las tareas. La consulta se le hace al <sc>TareasAppViewModel</sc>, y éste la traslada al <sc>Dao</sc>.</p>
+<p>Se añade un <sc>Observer</sc> para obtener el resultado de la consulta. Cuando el resultado esté disponible, se ejecuta el método <sc>onChanged()</sc> del Observer. En este método actualizamos el ArrayList de tareas que muestra el adaptador <sc>TareasAdapter</sc>.</p>
+<p><sc>ListaTareasFragment.java</sc></p>
+<pre><sc>import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -413,9 +413,9 @@ public class ListaTareasFragment extends Fragment {
             }
         }
     }
-}</code></pre>
-<p><code>fragment_lista_tareas.xml</code></p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+}</sc></pre>
+<p><sc>fragment_lista_tareas.xml</sc></p>
+<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;FrameLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
     xmlns:tools=&#34;http://schemas.android.com/tools&#34;
     android:layout_width=&#34;match_parent&#34;
@@ -443,10 +443,10 @@ public class ListaTareasFragment extends Fragment {
 
     &lt;/androidx.coordinatorlayout.widget.CoordinatorLayout&gt;
 
-&lt;/FrameLayout&gt;</code></pre>
-<p><code>viewholder_tarea.xml</code></p>
+&lt;/FrameLayout&gt;</sc></pre>
+<p><sc>viewholder_tarea.xml</sc></p>
 <p class="image-container"><img style="width: 275.00px" src="img/ceb83938bc3c9d6e.png"></p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
     xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
     android:orientation=&#34;horizontal&#34; android:layout_width=&#34;match_parent&#34;
@@ -474,13 +474,13 @@ public class ListaTareasFragment extends Fragment {
         android:layout_width=&#34;wrap_content&#34;
         android:layout_height=&#34;wrap_content&#34;
         app:srcCompat=&#34;@android:drawable/ic_menu_delete&#34; /&gt;
-&lt;/LinearLayout&gt;</code></pre>
+&lt;/LinearLayout&gt;</sc></pre>
 <h2 is-upgraded>NuevaTareaFragment</h2>
 <p class="image-container"><img style="width: 277.00px" src="img/4be37f142fb8ccfa.png"></p>
-<p>La parte complicada de esta activity es que el <code>Spinner</code> para seleccionar la prioridad se debe rellenar con las prioridades que hay en la base de datos (ALTA, MEDIA, BAJA, etc...). Para ello observamos la consulta <code>obtenerPrioridades()</code>, y creamos un ArrayAdapter con el resultado de esa consulta (repasa el Spinner de <em>galaxias</em>: <a href="https://gerardfp.github.io/mp08/p4/#6" target="_blank">https://gerardfp.github.io/mp08/p4/#6</a>)</p>
-<p>Cuando el usuario selecciona una prioridad del Spinner, la <code>id</code> de esa prioridad se guarda en la variable <code>idPrioridadSeleccionada</code>. Este valor se usa luego cuando el usuario hace click en el botón <code>crearTarea</code>, para instanciar el objeto <code>Tarea</code> que se le pasa al metodo <code>insertarTarea()</code> del ViewModel.</p>
-<p><code>NuevaTareaFragment.java</code></p>
-<pre><code>import android.os.Bundle;
+<p>La parte complicada de esta activity es que el <sc>Spinner</sc> para seleccionar la prioridad se debe rellenar con las prioridades que hay en la base de datos (ALTA, MEDIA, BAJA, etc...). Para ello observamos la consulta <sc>obtenerPrioridades()</sc>, y creamos un ArrayAdapter con el resultado de esa consulta (repasa el Spinner de <em>galaxias</em>: <a href="https://gerardfp.github.io/mp08/p4/#6" target="_blank">https://gerardfp.github.io/mp08/p4/#6</a>)</p>
+<p>Cuando el usuario selecciona una prioridad del Spinner, la <sc>id</sc> de esa prioridad se guarda en la variable <sc>idPrioridadSeleccionada</sc>. Este valor se usa luego cuando el usuario hace click en el botón <sc>crearTarea</sc>, para instanciar el objeto <sc>Tarea</sc> que se le pasa al metodo <sc>insertarTarea()</sc> del ViewModel.</p>
+<p><sc>NuevaTareaFragment.java</sc></p>
+<pre><sc>import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -555,9 +555,9 @@ public class NuevaTareaFragment extends Fragment {
             }
         });
     }
-}</code></pre>
-<p><code>activity_nueva_tarea.xml</code></p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+}</sc></pre>
+<p><sc>activity_nueva_tarea.xml</sc></p>
+<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;FrameLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
     xmlns:tools=&#34;http://schemas.android.com/tools&#34;
     android:layout_width=&#34;match_parent&#34;
@@ -587,7 +587,7 @@ public class NuevaTareaFragment extends Fragment {
 
     &lt;/LinearLayout&gt;
 
-&lt;/FrameLayout&gt;</code></pre>
+&lt;/FrameLayout&gt;</sc></pre>
 
 
       </google-codelab-step>

@@ -61,7 +61,7 @@
         <aside class="special"><p>Seguiremos este tutorial: <a href="https://firebase.google.com/docs/android/setup?authuser=0#assistant" target="_blank">https://firebase.google.com/docs/android/setup?authuser=0#assistant</a></p>
 </aside>
 <ol type="1" start="1">
-<li>Selecciona <strong><code>Herramientas</code></strong><strong> &gt; </strong><strong><code>Firebase</code></strong> para abrir la ventana del <strong>Asistente</strong>.</li>
+<li>Selecciona <strong><sc>Herramientas</sc></strong><strong> &gt; </strong><strong><sc>Firebase</sc></strong> para abrir la ventana del <strong>Asistente</strong>.</li>
 <li>Haz clic en <strong>Authentication</strong>, y luego en &#34;<strong>Email and password authentication</strong>&#34;.<br></li>
 </ol>
 <p class="image-container"><img style="width: 546.00px" src="img/a8dac09c5136e57a.png"></p>
@@ -86,9 +86,9 @@
 <li>Ve al apartado &#34;<strong>Authentication</strong>&#34; <br><br><img style="width: 245.00px" src="img/86215678c582fd98.png"><br></li>
 <li>Haz clic en &#34;<strong>Setup sign-in method</strong>&#34;<br><br> <img style="width: 191.00px" src="img/12a32cc1f08159d7.png"><br></li>
 <li>Activa &#34;Email/Password&#34; y &#34;Google&#34;<br><br><img style="width: 736.40px" src="img/81147dd7fba370f0.png"><br><img style="width: 736.40px" src="img/34207a9846fbf4b.png"></li>
-<li>Añade la siguiente dependencia en el archivo <code>build.gradle (Module: app)</code><br></li>
+<li>Añade la siguiente dependencia en el archivo <sc>build.gradle (Module: app)</sc><br></li>
 </ol>
-<p><code>implementation </code><strong><code>&#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code></strong></p>
+<p><sc>implementation </sc><strong><sc>&#39;com.google.android.gms:play-services-auth:17.0.0&#39;</sc></strong></p>
 
 
       </google-codelab-step>
@@ -103,7 +103,7 @@
 <li>Selecciona &#34;<strong>Start in production mode</strong>&#34;<br><br> <img style="width: 241.00px" src="img/11cf372aae2ed15f.png"><br></li>
 <li>Selecciona &#34;<strong>eur3 (europe-west)</strong>&#34;<br><br><img style="width: 410.00px" src="img/f4a50867f08a39bb.png"><br></li>
 <li>Ve a la pestaña &#34;<strong>Rules</strong>&#34;<br><br> <img style="width: 74.00px" src="img/5276c93b0ad56670.png"><br></li>
-<li>Cambia a <code>true</code> el permiso de escritura<br><br><img style="width: 353.00px" src="img/b72f51fcd2961fe1.png"><br><br>Publica los cambios en las reglas <br><br><img style="width: 97.00px" src="img/e9a8c6b1686f9861.png"></li>
+<li>Cambia a <sc>true</sc> el permiso de escritura<br><br><img style="width: 353.00px" src="img/b72f51fcd2961fe1.png"><br><br>Publica los cambios en las reglas <br><br><img style="width: 97.00px" src="img/e9a8c6b1686f9861.png"></li>
 </ol>
 
 
@@ -123,8 +123,8 @@
     
       <google-codelab-step label="Prueba que todo funciona" duration="0">
         <p>Añadiremos un poco de código para probar que todo funciona...</p>
-<p>En el método <code>onCreate()</code> de la <code>MainActivity.java</code> añade el siguiente código:</p>
-<pre><code>// Authentication
+<p>En el método <sc>onCreate()</sc> de la <sc>MainActivity.java</sc> añade el siguiente código:</p>
+<pre><sc>// Authentication
 FirebaseAuth.getInstance().createUserWithEmailAndPassword(&#34;test@test.es&#34;, &#34;123456&#34;);
 
 FirebaseAuth.getInstance().signInWithEmailAndPassword(&#34;test@test.es&#34;, &#34;123456&#34;);
@@ -176,12 +176,12 @@ byte[] bytes = {-1,-40,-1,-32,0,16,74,70,73,70,0,1,2,0,0,1,0,1,0,0,-1,-37,0,67,0
        -65,43,-65,-85,-73,-7,109,-78,-36,-19,110,62,-53,117,111,77,79,-1,-39};
 
 FirebaseStorage.getInstance().getReference(&#34;emoji.jpg&#34;).putBytes(bytes);
-</code></pre>
+</sc></pre>
 <p>Comprueba que se ha creado el usuario:</p>
 <p class="image-container"><img style="width: 736.40px" src="img/b2877ca8481fa114.png"></p>
-<p>Comprueba que se ha añadido el <code>Post</code> en la base de datos:</p>
+<p>Comprueba que se ha añadido el <sc>Post</sc> en la base de datos:</p>
 <p class="image-container"><img style="width: 736.40px" src="img/41cfcddd3fbc18e6.png"></p>
-<p>Comprueba que se ha subido el fichero <code>emoji.jpg</code>:</p>
+<p>Comprueba que se ha subido el fichero <sc>emoji.jpg</sc>:</p>
 <p class="image-container"><img style="width: 736.40px" src="img/a2c1f1e8cdf354c2.png"></p>
 
 

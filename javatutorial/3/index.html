@@ -50,7 +50,7 @@
 
     <p>En aquest exemple s'imprimeixen el resultat d'aquestes operacions 
         aritmètiques amb operadors enters:</p>
-    <code java>
+    <sc java>
         System.out.println(5 + 10);  // 15
 
         System.out.println(10 - 5);  // 5
@@ -61,15 +61,15 @@
         System.out.println(10 / 5);  // 2
         
         System.out.println( 10 % 5); // 0
-    </code>
+    </sc>
 
     <p>Tal vegada l'operador menys conegut és el <strong>mòdul</strong> <w>%</w>. 
     Aquest operador retorna el residu de la divisió:</p>
 
-    <code java>
+    <sc java>
         System.out.println(151 % 4);  // 3
         System.out.println(151 / 4);  // 37
-    </code>
+    </sc>
     <img src="img/modul.png">
 
     <h3>Precedència d'operadors</h3>
@@ -79,13 +79,13 @@
 
     <p>Tenint en compte aquesta preferència es poden realitzar expressions més complexes:</p>
 
-    <code java>
+    <sc java>
         System.out.println(1 + 3 * 4 - 2);     // 11
         System.out.println((1 + 3) * (4 - 2)); // 8  
 
         System.out.println(-10 + 4);   // -6
         System.out.println(-(10 + 4)); // -14
-    </code>
+    </sc>
 
     <h3>Tipus dels operadors</h3>
     <p>El resultat d'una expressió artimètica depèn també del tipus dels seus operadors (<w>int</w> o <w>float</w>).</p>
@@ -97,12 +97,12 @@
         enters donarà com a resultat un enter (és a dir, sense decimals), però si hi ha un decimal aleshores donarà 
     el resultat amb decimals:</p>
 
-    <code java>
+    <sc java>
         System.out.println(5 / 2);    // 2  (resultat enter, sense decimals)
         System.out.println(5f / 2);   // 2.5
         System.out.println(5 / 2f);   // 2.5
         System.out.println(5f / 2f);  // 2.5
-    </code>
+    </sc>
     
     <quizz>
         <question text>
@@ -116,9 +116,9 @@
         <question text>
             <statement>
                 <p>Què imprimirà aquesta sentència?</p>
-                <code java>
+                <sc java>
                     System.out.println(2 + (-3) + 5 + (-8));
-                </code>
+                </sc>
             </statement>
             <o>-4</o>
         </question>
@@ -160,9 +160,9 @@
             <statement>
                 <p>Què imprimeixen aquestes sentències?</p>
             </statement>
-            <code java>System.out.println((5 / 2) * (5 / 2));</code> <o>4</o>
+            <sc java>System.out.println((5 / 2) * (5 / 2));</sc> <o>4</o>
             <br>
-            <code java>System.out.println((5 / 2) * (5f / 2));</code> <o>5.0</o>
+            <sc java>System.out.println((5 / 2) * (5f / 2));</sc> <o>5.0</o>
             <br>
         </question>
     </quizz>
@@ -176,14 +176,14 @@
     <p>Així, per exemple, el <a href="https://unicode-table.com/en/0061/">valor unicode del caracter <w>'a'</w></a> és <w>97</w>, 
     i serà aquest el valor que s'utilitzi en les operacions aritmètiques amb el caracter <w>'a'</w>.</p>
 
-    <code java>
+    <sc java>
         System.out.println('a' + 0);     // 97    (97 + 0)
         System.out.println(5 + 'a');     // 102   (5 + 97)
         System.out.println('a' - 5);     // 92    (97 - 5)
         System.out.println('a' * 10);    // 970   (97 * 10)
         System.out.println('a' / 10);    // 9     (97 / 10)
         System.out.println(-'a' + 'b');  // 1    (-97 + 98)
-    </code>
+    </sc>
 
     <info>
         <p>A la wikipedia pots trobar la <a href="https://en.wikipedia.org/wiki/List_of_Unicode_characters#Basic_Latin">taula de caracters Unicode.</a>
@@ -199,7 +199,7 @@
     <p>D'aquesta forma, si algun dels dos operands en una expressió és un String, el resultat serà 
         la concatenació dels operands, i no la suma.</p>
 
-    <code java>
+    <sc java>
         System.out.println("Java" + "Script");  // JavaScript
         System.out.println("Java" + 8);         // Java8
         System.out.println("Java" + 14 + 1);    // Java141
@@ -210,7 +210,7 @@
         System.out.println("Java" - 8);         // Error! només es pot usar l'operador + 
         System.out.println("Java" + 8 - 1);     // Error! No és vàlid ja que "Java"+8 és "Java8", 
                                                 // i després el  "Java8" - 1  no és valid 
-    </code>
+    </sc>
 
     <quizz>
         <question text>
@@ -218,15 +218,15 @@
                 <p>Què imprimiran les següents sentències?</p>
             </statement>
 
-            <code java>System.out.println("Hola " + "mon");</code> <o>Hola mon</o>
+            <sc java>System.out.println("Hola " + "mon");</sc> <o>Hola mon</o>
             <br>
-            <code java>System.out.println("Hola " + 330);</code> <o>Hola 330</o>
+            <sc java>System.out.println("Hola " + 330);</sc> <o>Hola 330</o>
             <br>
-            <code java>System.out.println("Hola " + 'm' + 'o' + 'n');</code> <o>Hola mon</o>
+            <sc java>System.out.println("Hola " + 'm' + 'o' + 'n');</sc> <o>Hola mon</o>
             <br>
-            <code java>System.out.println("Hola " + ('m' + 'o' + 'n'));</code> <o>Hola 330</o>
+            <sc java>System.out.println("Hola " + ('m' + 'o' + 'n'));</sc> <o>Hola 330</o>
             <br>
-            <code java>System.out.println('m' + 'o' + 'n' + "Hola");</code> <o>330Hola</o>
+            <sc java>System.out.println('m' + 'o' + 'n' + "Hola");</sc> <o>330Hola</o>
         </question>
     </quizz>
 
@@ -236,76 +236,76 @@
         Com ja hem fet anteriorment, accedirem al valor d'una variable pel seu nom.
     </p>
 
-    <code java>
+    <sc java>
         int a = 20;
         int b = 10;
 
         System.out.println(a + b + 5);  // 35  (20 + 10 + 5);
-    </code>
+    </sc>
 
-    <code java>
+    <sc java>
         float temperatura = 37.5f;
 
         System.out.println("Temperatura màxima = " + temperatura);    // concatenacio
-    </code>
+    </sc>
 
     <p>Per una altra banda, podem guardar en una variable el resultat retornat per una expressió, sempre que 
         la variable sigui del tipus adequat al valor que retorna una expressió.
     </p>
 
-    <code java>
+    <sc java>
         int a = 10 + 10;
         int b = a + 10;
 
         System.out.println(a + b + 5);  // 55   (20 + 30 + 5)
-    </code>
+    </sc>
 
-    <code java>
+    <sc java>
         char versio = '8';
         String llenguatge = "Java";
 
         String llenguatgeVersio = llenguatge + " " + versio;   // Java 8 
-    </code>
+    </sc>
 
     <p>Per últim, també es pot utilitzar el valor d'una variable en una expressió, i guardar el valor 
         resultant en la mateixa variable.
     </p>
 
-    <code java>
+    <sc java>
         int n = 10;
         
         n = n + 4;    // 14   (10 + 4)
 
         System.out.println(n); // 14
-    </code>
+    </sc>
 
-    <code java>
+    <sc java>
         String lang = "";
 
         lang = lang + 'j';   
         lang = lang + 'a';
         lang = lang + 'v';
         lang = lang + 'a';  // java
-    </code>
+    </sc>
 
     <p>L'operador d'asignació <w>=</w> té una forma abreujada de fer aquestes operacions. Consisteix 
     a posar la operació que s'ha de realitzar abans del <w>=</w>. Els exemples anteriors es poden 
     abreujar així:</p>
 
-    <code java>
+    <sc java>
         int n = 10;
 
         n += 4;   // equivalent a  'n = n + 4'
-    </code>
+    </sc>
 
-    <code java>
+    <sc java>
         String lang = "";
 
         lang += 'j';   
         lang += 'a';
         lang += 'v';
         lang += 'a';  // java
-    </code>
+    </sc>
 
     <p>Com pots veure, aquesta forma és més concisa. Es poden usar els altres operadors d'aquesta forma 
         abreujada: <w>-=</w>, <w>*=</w>, <w>/=</w>, <w>%=</w>.
@@ -316,25 +316,25 @@
     <p>L'operador d'increment <w>++</w>, i l'operador de decrement <w>--</w>, incrementen/decrementen el 
     valor d'una variable en <w>1</w>.</p>
 
-    <code java>
+    <sc java>
         int n = 10;  // 10
         n++;         // 11
         n--;         // 10
-    </code>
+    </sc>
 
     <p>Seria l'equivalent a escriure:</p>
-    <code java>
+    <sc java>
         int n = 10;  // 10
         n += 1;      // 11
         n -= 1;      // 10
-    </code>
+    </sc>
 
     <p>I també equivalent a:</p>
-    <code java>
+    <sc java>
         int n = 10;  // 10
         n = n + 1;   // 11
         n = n - 1;   // 10
-    </code>
+    </sc>
 
     <p>Tres formes diferents d'escriure el mateix!</p>
 
@@ -343,11 +343,11 @@
         <question text>
             <statement>
                 <p>Introdueix el valor de la variable <w>result</w></p>
-                <code java>
+                <sc java>
                     int a = 4, b = 6;
                     int c = a + b;
                     int result = c + (a + b) * c;
-                </code>
+                </sc>
             </statement>
             <o>110</o>
         </question>
@@ -429,31 +429,31 @@
         <li>
             <p><strong>NOT</strong> <w>!</w></p>
             <p>Retorna la <strong>inversió</strong> d'un valor booleà:</p>
-            <code java>
+            <sc java>
                 System.out.println(!false);  // true
                 System.out.println(!true);   // false
-            </code>
+            </sc>
         </li>
 
         <li>
             <p><strong>AND</strong> <w>&&</w></p>
             <p>Retorna <w>true</w> si <strong>tots</strong> dos operands són <w>true</w>, si no, retorna <w>false</w>.</p>
-            <code java>
+            <sc java>
                 System.out.println(true  && true);   // true
                 System.out.println(true  && false);  // false
                 System.out.println(false && true);   // false
                 System.out.println(false && false);  // false
-            </code>    
+            </sc>    
         </li>
         <li>
             <p><strong>OR</strong> <w>||</w></p>
             <p>Retorna <w>true</w> si <strong>al menys un</strong> operand és <w>true</w>, si no, retorna <w>false</w>.</p>
-            <code java>
+            <sc java>
                 System.out.println(true  || true);   // true
                 System.out.println(true  || false);  // true
                 System.out.println(false || true);   // true
                 System.out.println(false || false);  // false
-            </code>    
+            </sc>    
         </li>
     </ul>
 
@@ -466,12 +466,12 @@
         Retorna <w>true</w> si els dos operands tenen diferents valors, si no, 
         retorna <w>false</w>
     </p>
-        <code java>
+        <sc java>
             System.out.println(true  ^ true);   // false
             System.out.println(true  ^ false);  // true
             System.out.println(false ^ true);   // true
             System.out.println(false ^ false);  // false
-        </code>
+        </sc>
     
     </info>
 
@@ -483,7 +483,7 @@
 
     <p>Tenint en compte aquesta precedència podem realitzar expressions complexes.</p>
 
-    <code java>
+    <sc java>
         System.out.println(true && !false);  // true
         System.out.println(true && !true);   // false
         System.out.println(false || !false); // true
@@ -491,7 +491,7 @@
         System.out.println(true || true && false); // true
         System.out.println((true || true) && false); // false
         System.out.println(!(true || false)); // false
-    </code>
+    </sc>
 
     <h3>Curtcircuit</h3>
 
@@ -512,9 +512,9 @@
 
         <p>Fixa't en aquest codi:</p>
 
-        <code java>
+        <sc java>
             System.out.println(false && (true || (false && !true) || (!true && (false && true) && true || !false)));
-        </code>
+        </sc>
 
         <p>No importa el que hi hagi més enllà del primer <w>false &&</w>; retorni <w>true</w> o <w>false</w>, el 
         resultat de l'expressió completa serà <w>false</w>.</p>
@@ -526,25 +526,25 @@
         valor retornat per una expressió booleana en una variable de tipus <w>boolean</w>.
     </p>
 
-    <code java>
+    <sc java>
         boolean a = true;
 
         boolean b = a || false;  // true
 
         b = !b;  // false
-    </code>
+    </sc>
 
     <p>Un altre exemple amb una expressió booleana complexa, 
         per a determinar la possibilitat d'anar a fer senderisme
          a l'estiu o en altres estacions:</p>
 
-    <code java>
+    <sc java>
         boolean faFred = false;
         boolean faSol = true;
         boolean esEstiu = false;  // suposem que es tardor
 
         boolean senderisme = faSol && (!faFred || esEstiu);  // true, let's go trekking
-    </code>
+    </sc>
 
     <quizz>
         <question text>
@@ -563,12 +563,12 @@
         <question text>
             <statement>
                 <p>Hi ha aquestes variables:</p>
-                <code java>
+                <sc java>
                     boolean b1 = true;
                     boolean b2 = false;
                     boolean b3 = true;
                     boolean b4 = false;
-                </code>
+                </sc>
                 <p>Quin és el resultat d'aquesta expressió?</p>
                 <w>b1 && (b2 || (b3 || b4))</w>
             </statement>
@@ -604,7 +604,7 @@
         <w>true</w> o <w>false</w>.
     </p>
 
-    <code java>
+    <sc java>
         System.out.println(5 > 2);  // true
         System.out.println(5 == 2); // false
         System.out.println(5 >= 2); // true
@@ -615,16 +615,16 @@
         System.out.println(false == true);  // false
         System.out.println('a' == 97);  // true
         System.out.println('a' < 'b');  // true
-    </code>
+    </sc>
 
     <p>Fixa't que podem fer operacions relacionals entre enters, floats i chars (recorda que 
         els chars són convertits al seu valor Unicode). També podem fer operacions 
         relacionals entre booleans. Però no podem fer-ho entre números i booleans, ja que no té 
         cap sentit:</p>
     
-        <code java>
+        <sc java>
             System.out.println(5 <= true);  // invalid! no té cap sentit
-        </code>
+        </sc>
 
     <h3>Comparar Strings</h3>
     <p>Per últim has de notar que no hem fet cap operació relacional amb el tipus <w>String</w>.
@@ -632,10 +632,10 @@
 
     <p>Per a comparar dos Strings hem d'utilitzar el mètode <w>equals()</w>, així: </p>
 
-    <code java>
+    <sc java>
         "hola".equals("adeu")  // false
         "hola".equals("ho" + "la")  // true
-    </code>
+    </sc>
 
     <h3>Operadors relacionals amb variables</h3>
     <p>
@@ -643,28 +643,28 @@
         Per a guardar el resultat d'una expressió relacional, usarem variables de tipus <w>boolean</w>.
     </p>
 
-    <code java>
+    <sc java>
         int h1 = 10;
         int h2 = 20;
 
         boolean mesGran = h1 > h2;   // false
         boolean diferents = h1 != h2;  // true
-    </code>
+    </sc>
 
-    <code java>
+    <sc java>
         String langA = "Java";
         String langB = "JavaScript";
 
         boolean sameLang = langA.equals(langB);  // false
-    </code>
+    </sc>
 
     <quizz>
         <question single>
             <statement>
                 <p>Què imprimeix aquest programa?</p>
-                <code java>
+                <sc java>
                     System.out.println("java".equals('j' + 'a' + 'v' + 'a'));
-                </code>
+                </sc>
             </statement>
 
             <o><w>true</w></o>
@@ -676,11 +676,11 @@
         <question text>
             <statement>
                 <p>Què imprimeix aquest programa?</p>
-                <code java>
+                <sc java>
                     int number = 1000;
                     boolean result = number + 10 > number + 9;
                     System.out.println(result);
-                </code>
+                </sc>
             </statement>
             <o>true</o>
         </question>
@@ -701,9 +701,9 @@
     (per veure si <strong>b</strong> està entre mig d'<strong>a</strong> i <strong>c</strong>).
     En lloc d'això, has d'unir dos expressions booleanes utilitzant operadors com <w>||</w> i <w>&&</w>.</p>
 
-    <code java>
+    <sc java>
         a < b && b < c   // significa a < b < c 
-    </code>
+    </sc>
 
     <p>Podem combinar en una mateixa expressió, operadors aritmètics, relacionals i lògics. 
         La prioritat dels tipus d'operadors és:</p>
@@ -711,46 +711,46 @@
     <p style="text-align: center">Aritmètics&nbsp;&nbsp; 🡒&nbsp;&nbsp; Relacionals &nbsp;&nbsp; 🡒&nbsp;&nbsp; Lògics</p>
 
     <p>En el següent exemple hi han els tres tipus d'operadors:</p>
-    <code java>
+    <sc java>
         System.out.println(2 + 2 == 5 || 3 + 3 == 6);  // true
-    </code>
+    </sc>
 
     <p>El programa imprimeix <w>true</w>, perquè:</p>
     <ol>
         <li>
             <p>Primer es fan els Aritmètics (la suma):</p>
-            <code java>
+            <sc java>
                 System.out.println(4 == 5 || 6 == 6);
-            </code>        
+            </sc>        
         </li>
         <li>
             <p>Després els relacionals (l'igual que):</p>
-            <code java>
+            <sc java>
                 System.out.println(false || true);
-            </code>        
+            </sc>        
         </li>
         <li>
             <p>Per últim els lògics (l'OR):</p>
-            <code java>
+            <sc java>
                 System.out.println(true);
-            </code>        
+            </sc>        
         </li>
     </ol>
 
     <p>El següent exemple comprova que un número estigui dintre d'un rang:</p>
 
-    <code java>
+    <sc java>
         int number = 150;
         int inferior = 100, superior = 200;
 
         boolean dintreDelRang = number > inferior && number < superior; 
-    </code>
+    </sc>
 
     <quizz>
         <question single>
             <statement>
                 <p>Quin valor retorna aquesta expressió?</p>
-                <code java>10 % 5 >= 2 || 10 / 5 <= 2 && !(10 - 5 != 2)</code>
+                <sc java>10 % 5 >= 2 || 10 / 5 <= 2 && !(10 - 5 != 2)</sc>
             </statement>
 
             <o><w>true</w></o>
@@ -778,15 +778,15 @@
     <h2>Operador ternari</h2>
     <p>La sintaxi general de l'operador ternari <w>?:</w> és aquesta:</p>
 
-    <code java>
+    <sc java>
         condicio ? valorSiCerta : valorSiFalsa
-    </code>
+    </sc>
 
     <p>Aquest operador retorna el valor <w>valorSiCerta</w> si la <w>condició</w> s'avalua a <w>true</w>. 
     Si la condició resulta ser <w>false</w>, aleshores retorna <w>valorSiFalsa</w>.</p>
 
     <p>Exemple:</p>
-    <code java>
+    <sc java>
         System.out.println(10 > 5 ? "major" : "menor");   // major
 
         int num = 10;
@@ -794,45 +794,45 @@
         
         num = 11;
         System.out.println(num % 2 == 0 ? "parell" : "imparell");   // imparell
-    </code>
+    </sc>
 
     <p>També podem guardar el resultat que retorna l'operador ternari en un variable. El tipus d'aquesta
         variable ha de coincidir amb el tipus dels valors <w>valorSiCerta</w> i <w>valorSiFalsa</w>. 
         Per exemple, el següent programa calcula la 'quota mensual' d'un soci, si el soci té més de 10 anys d'antiguetat, 
         la quota són 30, i si no en són 40.</p>
     
-        <code java>
+        <sc java>
         int anysAntiguetat = 3;
 
         float quotaMensual = anysAntiguetat > 10 ? 30f : 40f;
 
         System.out.println(quotaMensual);   // 40.0
-    </code>
+    </sc>
 
     <p>L'operador ternari es pot enllaçar per a fer expressions més complexes:</p>
 
-    <code java>
+    <sc java>
           condicio1 ? valor1 
         : condicio2 ? valor2
         : condicio3 ? valor3
         valor4;
-    </code>
+    </sc>
 
     <p> El valor retornat és el que primer compleix la condició. Si no es compleix cap condició, aleshores es 
         retorna l'últim valor. </p>
-    <code java>
+    <sc java>
         int edat = 18;
         String beguda = edat < 18 ? "Coca-cola"
                       : edat < 45 ? "Cervesa"
                       : "Vi";
         System.out.println(beguda);  // Cervesa
-    </code>
+    </sc>
 
     <quizz>
         <question single>
             <statement>
                 <p>Quin valor tindrà la variable <w>x</w>?</p>
-                <code java>
+                <sc java>
                     int a = 10;
                     int b = 30;
                     int c = 20;
@@ -840,7 +840,7 @@
                     String x = a < b ? "One"
                              : b < c ? "Two"
                              : "Three";
-                </code>
+                </sc>
             </statement>
             <o correct>One</o>
             <o>Two</o>

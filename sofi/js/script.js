@@ -22,23 +22,26 @@ function pageTitle(){
 }
 
 function syntaxHighlight(){
-  document.querySelectorAll('code').forEach(block => {
-    if(block.nodeName === 'CODE'){
-      var preWrap = document.createElement('pre');
-      if(block.hasAttribute('data-line')){
-        preWrap.setAttribute('data-line', block.getAttribute('data-line'));
-      }
-      block.parentNode.insertBefore(preWrap, block);
-      preWrap.appendChild(block);
+  document.querySelectorAll('sc').forEach(b => {
+
+    var preWrap = document.createElement('pre');
+    var codeWrap = document.createElement('code');
+
+    preWrap.appendChild(codeWrap);
+    codeWrap.innerHTML = b.innerHTML;
+    b.innerHTML = '';
+    b.appendChild(preWrap);
+
+    if(b.hasAttribute('data-line')){
+      preWrap.setAttribute('data-line', b.getAttribute('data-line'));
+    }
+    var attrs = b.getAttributeNames();
+    if(attrs[0] != null){
+      b.removeAttribute(attrs[0]);
+      codeWrap.classList.add('language-' + attrs[0]);
     }
 
-    var attrs = block.getAttributeNames();
-    if(attrs[0] != null){
-      block.removeAttribute(attrs[0]);
-      block.classList.add('language-' + attrs[0]);
-    }
-    
-    Prism.highlightElement(block);
+    Prism.highlightElement(codeWrap);
   });
 
   document.querySelectorAll('shell, stepper mem').forEach(b => {
@@ -438,16 +441,6 @@ function doStepper(){
       t.setAttribute('index', i);
       s.setAttribute('len', i);
       slider.setAttribute('max', i);
-
-      t.querySelector('comment').style["grid-area"] = 'comm';
-      t.querySelector('mem').style["grid-area"] = 'memo';
-      t.querySelectorAll('.code-toolbar').forEach(ct => {
-        if(ct.querySelector('code') != null){
-          ct.style["grid-area"] = 'code';
-        } else if (ct.querySelector('shell') != null){
-          ct.style["grid-area"] = 'shel';
-        }
-      });
     });
 
     s.querySelector('step:first-child').classList.add('current');

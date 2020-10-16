@@ -144,7 +144,7 @@ resum {
     color: inherit;
 }
 
-codefile {
+scfile {
     background: #eeeee1;
     display: block;
     border: 1px solid #d8dee9;
@@ -155,13 +155,13 @@ codefile {
     color: #555;
 }
 
-codefile::before {
+scfile::before {
     content: '\f15c';
     font-family: 'FASolid';
     margin-right: .5em;
 }
 
-codefile a {
+scfile a {
     text-decoration: none;
     color: inherit;
 }
@@ -192,13 +192,28 @@ a.token.url-link::before{
     content: none;
 }
 
-code {
+
+pre[class*="language-"] {
     font-size: 14px;
+    background: unset;
+    color: unset;
+    margin: 0;
+    /* padding: 0; */
 }
 
-pre {
-    border-radius: 4px;
+pre[class*="language-"][data-line]{
+    padding-left: 2.4em;
 }
+
+div.line-highlight {
+    /* margin-top: 0; */
+}
+
+div.line-highlight::before, div.line-highlight[data-end]::after {
+    left: .6em;
+}
+
+
 
 host {
     /* background: #2c2c2c; */
@@ -212,55 +227,32 @@ host {
     font-size: 14px;
 }
 
-/* host + div.code-toolbar pre, codefile + pre, codefile + div.code-toolbar pre{
-    border-radius: 0;
-} */
-
-/* host + shell, codefile + div.code-toolbar {
-    border-radius: 0;
-} */
-
-host + shell, host + div.code-toolbar pre, codefile + pre, codefile + div.code-toolbar pre{
+host + shell, scfile + sc {
     border-radius: 0;
 }
 
 
-pre[class*="language-"] {
-    margin-top: 0;
-    margin-bottom: 1em;
-    font-size: 14px;
-}
-
-
-/* terminal {
-    font-family: 'Ubuntu mono', Consolas, monospace;
-    display: block;
-} */
 
 
 shell {
-    /* background: #300a24; */
     background: #47213c;
     color: white;
-    /* font-weight: bold; */
     display: block;
-    /* padding: .5em; */
     font-family: 'Ubuntu mono', Consolas, monospace;
     white-space: pre;
     font-size: 14px;
     overflow-x: auto;
     border-radius: 4px;
     margin-bottom: 1.6em;
+    /* padding: 1em; */
 }
 
-shell pre.language-none, shell code.language-none {
-    background: unset;
-    color: unset;
-    margin: 0;
+shell pre[class*="language-"] code {
+    color: white;
 }
 
-host + shell pre.language-none {
-    padding: .5em;
+host pre[class*="language-"] {
+    padding: .5em 1em;
 }
 
 shell in {
@@ -293,6 +285,24 @@ shell consume {
     /* background: repeating-linear-gradient(45deg, #42b98388, #42b98388 3px, #9198e500 3px, #9198e500 6px); */
     background: #42b98388;
 }
+
+
+sc {
+    display: block;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: #2d2d2d;
+    margin-bottom: 1.6em;
+    /* padding: 1em; */
+}
+
+
+mem pre[class*="language-"] code {
+    color: lightgreen;
+}
+
+
+
 
 ic {
     font-family: 'FASolid';
@@ -425,7 +435,7 @@ replace {
     padding: .1em .5em;
 }
 
-shell replace, url replace, code replace, w replace {
+shell replace, url replace, sc replace, w replace {
     border: 0;
     padding: 0;
     background: none;
@@ -830,7 +840,7 @@ o label > div {
     flex-grow: 1;
 }
 
-o div.code-toolbar pre {
+o div.sc-toolbar pre {
     margin: .2em;
 }
 
@@ -876,80 +886,57 @@ stepper {
 
 stepper step {
     display: grid;
-    
 
-    grid-template:    "comm" calc(1em*var(--comment-height))
-                      "memo" calc(1em*var(--mem-height)) 
-                      "code" calc(1em*var(--code-height))
-                      "shel" calc(1em*var(--shell-height)) /
+    grid-template:    "ex" calc(1em*var(--ex-mh))
+                      "sc" calc(1em*var(--sc-mh))
+                      "mm" calc(1em*var(--mm-mh)) 
+                      "sh" calc(1em*var(--sh-mh)) /
                       100%;
 
 
-    grid-gap: .1em;
+    grid-gap: 2px;
 }
 
 @media(min-width: 860px){
     stepper step {
-        --sum: calc(var(--mem-height) + var(--shell-height) +var(--comment-height));
-        --size: max(var(--sum), var(--code-height));
+        --sum: calc(var(--mm-h) + var(--sh-h) +var(--ex-h));
+        --size: max(var(--sum), var(--sc-h));
     
-        --mh: calc(var(--mem-height)*var(--size)/var(--sum));
-        --sh: calc(var(--shell-height)*var(--size)/var(--sum));
-        --ch: calc(var(--comment-height)*var(--size)/var(--sum));
+        --mh: calc(var(--mm-h)*var(--size)/var(--sum));
+        --sh: calc(var(--sh-h)*var(--size)/var(--sum));
+        --ch: calc(var(--ex-h)*var(--size)/var(--sum));
     
-        grid-template:  "code comm" calc(1em*var(--ch)) 
-                        "code memo" calc(1em*var(--mh))
-                        "code shel" calc(1em*var(--sh)) /
-                        1fr 1fr;
+        grid-template:  "sc ex" calc(1em*var(--ch)) 
+                        "sc mm" calc(1em*var(--mh))
+                        "sc sh" calc(1em*var(--sh)) /
+                        calc(1em*var(--sc-w)) 1fr;
 
     }
 }
 
-/* stepper step comment {
-    grid-area: comm;
+stepper step explanation {
+    grid-area: ex;
 }
 
-stepper step code {
-    grid-area: code;
+stepper step sc {
+    grid-area: sc;
 }
 
 stepper step mem {
-    grid-area: memo;
+    grid-area: mm;
 }
 
 stepper step shell {
-    grid-area: shel;
-} */
-
-stepper step div.code-toolbar > pre, stepper step shell div.code-toolbar > pre > code {
-    padding: 0;
+    grid-area: sh;
 }
 
-stepper step comment, stepper step code, stepper step mem, stepper step shell {
+stepper step explanation, stepper step sc, stepper step mem, stepper step shell {
     display: block;
     border-radius: 4px;
-    padding: .5em;
     font-size: 14px;
 }
 
-@media(min-width: 860px) {
-    /* stepper step comment, stepper step code, stepper step mem, stepper step shell {
-        padding: 1em;
-    } */
-    stepper step code, stepper step shell {
-        padding: 1em;
-    }
-
-    stepper step mem code {
-        padding: 0;
-    }
-
-    stepper step comment, stepper step mem {
-        padding-left: 1em;
-    }
-}
-
-stepper step .code-toolbar pre {
+stepper step sc {
     margin: 0;
     min-height: 100%;
 }
@@ -959,28 +946,33 @@ stepper step shell {
     min-height: 100%;
 }
 
-stepper comment {
+stepper explanation {
     font-size: 14px;
     background-color: #d1ecf1;
     border: 1px solid #bee5eb;
+    padding: 1em;
     /* background: #fafafa;
     border: 1px solid #efefef; */
     /* box-shadow: 0px 0px 1px rgb(0, 0, 0); */
     /* font-family: 'Consolas', monospace; */
 }
 
-stepper comment w {
+stepper explanation w {
     font-size: 14px;
 }
 
 stepper mem {
     font-family: 'Consolas', monospace;
     background: #2d2d2d;
+    /* padding: 1em; */
+}
+
+stepper mem b {
     color: greenyellow;
 }
 
-stepper > step > mem > div.code-toolbar > pre > code {
-    color: greenyellow;
+stepper mem comment {
+    color: #999;
 }
 
 stepper step h {

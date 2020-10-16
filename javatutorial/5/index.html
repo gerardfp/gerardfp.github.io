@@ -33,23 +33,23 @@
     <p>La forma més simple és la sentència <w>if</w> única. Consisteix en la paraula-clau <w>if</w>, una 
     expressió Booleana entre parèntesi i un bloc tancat entre claus:</p>
 
-    <code java>
+    <sc java>
         if (expressio) {
             // cos: fer alguna cosa
         }
-    </code>
+    </sc>
 
     <p>Si l'expressió és <w>true</w>, les sentències dintre del bloc s'executen; en cas contrari, el programa
     se les salta.</p>
 
     <p>Per exemple:</p>
 
-    <code java>
+    <sc java>
         int edat = ...; // l'edat que sigui
         if (edat > 17) {
             System.out.println("Pots votar");
         }
-    </code>
+    </sc>
 
     <p>En aquest exemple, si l'<w>edat</w> és més gran que 17 el codi imprimeix "Pots votar", 
     en cas contrari, no fa res.</p>
@@ -57,13 +57,13 @@
     <p>L'expressió també pot ser el valor d'una variable de tipus <w>boolean</w>. Si el valor és <w>true</w>, el
     bloc s'executarà, i si és <w>false</w> no.</p>
 
-    <code java>
+    <sc java>
         int edat = ...;
         boolean majorEdat = edat > 17;
         if (majorEdat) {
             System.out.println("Pots votar");
         }
-    </code>
+    </sc>
 
     <challenge>
         <p>
@@ -76,20 +76,20 @@
     <p>La sentència <w>if</w> es pot extendre amb la paraula-clau <w>else</w> i un altre bloc per a fer accions 
     alternatives quan l'expressió és falsa.</p>
 
-    <code java>
+    <sc java>
         if (expressio) {
             // fer una cosa
         } else {
             // fer una altra cosa
         }
-    </code>
+    </sc>
 
     <p>En aquest cas, quan l'expressió és <w>true</w>, s'executa el primer bloc de codi; en cas contrari s'executa 
     el segon bloc, però mai els dos.</p>
 
     <p>Al següent exemple, el programa imprimeix texts diferents depenent del valor de <w>num</w> (parell o imparell).</p>
 
-    <code java>
+    <sc java>
         int num = ...;  // num s'inicialitza en algun valor
         
         if (num % 2 == 0) {
@@ -97,13 +97,13 @@
         } else {
             System.out.println("Nombre imparell");
         }
-    </code>
+    </sc>
 
     <h3>if-else-if</h3>
 
     <p>La forma més general de la sentència condicional consisteix en vàries condicions encadenades:</p>
 
-    <code java>
+    <sc java>
         if (expressio0) {
             // accions0
         } else if (expressio1) {
@@ -114,7 +114,7 @@
         } else {
             // accions else
         }
-    </code>
+    </sc>
 
     <p>En aquest cas el programa executa les accions en les que primer es compleix l'expressió. Si cap expressió 
         es <w>true</w>, aleshores s'executa l'última acció.
@@ -122,7 +122,7 @@
 
     <p>El següent exemple recomana l'ordinador que es pot comprar depenent del pressupost.</p>
 
-    <code java>
+    <sc java>
         int pressupost = ...;
 
         if (pressupost < 1000) {
@@ -134,7 +134,7 @@
         } else {
             System.out.println("Comprat un data center o un ordinador quantic!");
         }
-    </code>
+    </sc>
 
     <p>Una sentència condicional amb múlitples branques crea un <strong>arbre de decisió</strong>, el 
     qual els seus nodes són expressions booleanes, i cada branca es marca amb <em>true</em> o <em>false</em>. 
@@ -159,7 +159,7 @@
     
     <p>El següent exemple executa un editor específic depenent del Sistema Operatiu i la seva versió:</p>
 
-    <code java>
+    <sc java>
         import java.io.IOException;
         import java.util.Scanner;
 
@@ -191,7 +191,7 @@
                 }
             }
         }
-    </code>
+    </sc>
     
     <p>Aquest és l'arbre de decisió:</p>
     <img src="img/arbre decisio OS.png">
@@ -200,7 +200,7 @@
         <question single>
             <statement>
                 <p>Si <w>val</w> és 50, quina és la sortida d'aquest codi?</p>
-                <code java>
+                <sc java>
                     if (val == 10) {
                         System.out.println("val == 10");
                     } else if (val >= 20 && val < 50) {
@@ -212,7 +212,7 @@
                             System.out.println("val >= 50");
                         }
                     }
-                </code>
+                </sc>
             </statement>
             <o>val < 20</o>
             <o correct>val >= 50</o>
@@ -226,32 +226,32 @@
                 <p>Selecciona l'exemple correcte de la sentència condicional</p>
             </statement>
 
-            <o><code java>
+            <o><sc java>
                 if i < j { 
                     String a = "Hello";
-                 }</code></o>
-            <o><code java>
+                 }</sc></o>
+            <o><sc java>
                 if (i < j): 
                 String a = "Hello";
-                </code></o>
-            <o correct><code java>
+                </sc></o>
+            <o correct><sc java>
                 if (i < j) { 
                     String a = "Hello";
-                }</code></o>
-            <o><code java>
+                }</sc></o>
+            <o><sc java>
                 if {i < j} ( 
                     String a = "Hello";
-                )</code></o>
-            <o><code java>
+                )</sc></o>
+            <o><sc java>
                 if [i < j] 
                     String a = "Hello";
-                </code></o>
+                </sc></o>
         </question>
 
         <question multi>
             <statement>
                 <p>Selecciona la sortida del programa segons el valor de la variable <w>a</w>.</p>
-                <code java>
+                <sc java>
                     if (a <= 0) {
                         if(a == 0) {
                             System.out.println("a");
@@ -260,7 +260,7 @@
                         }
                     }
                     System.out.print("c");
-                </code>
+                </sc>
             </statement>
             <p><w>a = 0</w></p>
             <o>a</o>
@@ -288,7 +288,7 @@
     <p>Un ús molt típic es dona en les pantalles que mostren un menú d'opcions. Per exemple, escollir diferents accions
         en el menú d'un joc. Utilitzant la sentència <w>if-else</w> es pot fer així:</p>
 
-    <code java>
+    <sc java>
         System.out.println("1-Start\n2-Load\n3-Help\n4-Exit"); // es mostra el menu
 
         int action = scanner.nextInt(); // l'usuari escull una opcio
@@ -304,7 +304,7 @@
         } else {
             System.out.println("Unsuitable action, please, try again");
         }
-    </code>
+    </sc>
 
     <p>Aquest codi es perfectament vàlid, però en cas de que hi hagi moltes branques pot arribar a ser molt dens.</p>
 
@@ -314,7 +314,7 @@
 
     <p>Utilitzant la sentència <w>switch</w> el codi anterior es veuria així:</p>
 
-    <code java>
+    <sc java>
         System.out.println("1-Start\n2-Load\n3-Help\n4-Exit"); // es mostra el menu
 
         int action = scanner.nextInt(); // l'usuari escull una opcio
@@ -335,14 +335,14 @@
             default:
                 System.out.println("Unsuitable action, please, try again");
         }
-    </code>
+    </sc>
 
     <p>Tot i que no hem explicat les paraules-clau <w>switch</w>, <w>case</w>, <w>default</w> i <w>break</w>, 
     et pots fer una idea del que fa el codi.</p>
 
     <p>La forma més general d'utilització de la sentència <w>switch</w> és aquesta:</p>
 
-    <code java>
+    <sc java>
         switch (expressio) {
             case valor1:
                 // fer accio1
@@ -359,7 +359,7 @@
             default:
                 // fer accio 'per defecte'
         }
-    </code>
+    </sc>
 
     <p><w>switch</w> avalua l'expressió (o variable), i després mira amb quin valor de cada cláusula <w>case</w> coincideix, 
     i aleshores executa les sentències que hi hagi a partir d'aquí fins que trobi un <w>break</w>. En cas de que l'expressió no 
@@ -369,7 +369,7 @@
         informa del seu preu:
     </p>
 
-    <code java>
+    <sc java>
         Scanner scanner = new Scanner(System.in);
         System.out.println("Producte: ");
 
@@ -391,7 +391,7 @@
             default:
                 System.out.println("Producte no disponible");
         }
-    </code>
+    </sc>
 
     <shell>
         Producte:
@@ -401,7 +401,7 @@
 
     <p>Fixa't que en aquest exemple el preu de les Pomes i les Peres és el mateix. Podem simplificar 
         el <w>switch</w> una mica, així:</p>
-    <code java data-line="5,6,7,8">
+    <sc java data-line="5,6,7,8">
         switch (producte){
             case "Taronjes":
                 System.out.println("1.55 euros/kilo");
@@ -416,7 +416,7 @@
             default:
                 System.out.println("Producte no disponible");
         }
-    </code>
+    </sc>
 
     <p>Recorda que el s'executen totes les sentències a partir del <w>case</w> que coincideix amb l'expressió fins que es troba
     un <w>break</w>, així doncs en el cas de que la variable <w>producte</w> sigui <string>Pomes</string>, també s'executarà 
@@ -429,14 +429,14 @@
         en lloc dels dos punts <w>:</w> per a les cláules <w>case</w>. En aquesta nova forma no cal utilitzar <w>break</w>.</p>
         <p>El programa anterior es podria escriure així:</p>
 
-        <code java>
+        <sc java>
             switch (producte) {
                 case "Taronjes" -> System.out.println("1.55 euros/kilo");
                 case "Pomes", "Peres" -> System.out.println("2.30 euros/kilo");
                 case "Platans" -> System.out.println("0.89 euros/kilo");
                 default -> System.out.println("Producte no disponible");
             }    
-        </code>
+        </sc>
     </info>
 
     <quizz>
@@ -444,7 +444,7 @@
             <statement>
                 <p>Què imprimeix el següent programa?</p>
 
-                <code java>
+                <sc java>
                     String foo = "B";
                     int bar = 0;
             
@@ -460,7 +460,7 @@
                     }
             
                     System.out.println(bar);
-                </code>
+                </sc>
             </statement>
             <o 90></o>
         </question>

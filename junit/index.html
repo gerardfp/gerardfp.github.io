@@ -48,7 +48,7 @@
     
       <google-codelab-step label="TDD" duration="0">
         <p>Imagina que tenim el següent mètode per a determinar quin és el nombre més gran d&#39;entre tres.</p>
-<pre><code>public class Main {
+<pre><sc>public class Main {
 
    public static void main(String[] args) {
        System.out.println(max(1,2,3));
@@ -59,13 +59,13 @@
        if(b&gt;c) return b;
        return c;
    }
-}</code></pre>
+}</sc></pre>
 <p>Segurament hi trobes l&#39;error, però no sempre és fàcil fer-ho i moltes voltes els errors passen desapercebuts. De fet si executem el codi, ens dirà que el nombre més alt és el 3, i ens pot semblar que el codi és, doncs, correcte.</p>
-<p>La idea darrere de TDD és programar abans els tests amb diversos casos de prova. En aquest cas podem provar diverses entrades i veure quins valors s&#39;esperen que retorni el mètode <code>max()</code>.</p>
-<p><code>max(1,2,3)  =&gt; 3</code></p>
-<p><code>max(3,2,1) =&gt; 3</code></p>
-<p><code>max(2,3,1) =&gt; 3</code></p>
-<p><code>max(1,3,3) =&gt; 3</code></p>
+<p>La idea darrere de TDD és programar abans els tests amb diversos casos de prova. En aquest cas podem provar diverses entrades i veure quins valors s&#39;esperen que retorni el mètode <sc>max()</sc>.</p>
+<p><sc>max(1,2,3)  =&gt; 3</sc></p>
+<p><sc>max(3,2,1) =&gt; 3</sc></p>
+<p><sc>max(2,3,1) =&gt; 3</sc></p>
+<p><sc>max(1,3,3) =&gt; 3</sc></p>
 <p>...</p>
 <aside class="warning"><p><strong>Important</strong>: Quan creem casos de prova hem de pensar sobretot en els casos límit, és a dir, aquells valors que es troben en els màxims o mínims.</p>
 </aside>
@@ -77,15 +77,15 @@
         <p>La biblioteca JUnit ve incorporada amb IntelliJ IDEA, però no s&#39;inclou per defecte al <em>CLASSPATH</em> del projecte o mòdul. En conseqüència, quan es crea una classe de prova, les referències a la classe TestCase o les anotacions de prova no es resolen.</p>
 <p>Per afegir la biblioteca necessària al <em>CLASSPATH</em>, es pot utilitzar el procediment general per afegir una dependència a un mòdul.</p>
 <p>No obstant, IntelliJ IDEA pot afegir automàticament la biblioteca JUnit al <em>CLASSPATH</em>. Les funcions corresponents estan disponibles quan es crea una prova per a una classe o quan s&#39;escriu el codi d&#39;una prova.</p>
-<p>Per a crear una prova per a una classe ens situem sobre el nom de classe i polsem <code>Alt</code>+<code>Intro</code>. Seleccionem &#34;Create test&#34;.</p>
+<p>Per a crear una prova per a una classe ens situem sobre el nom de classe i polsem <sc>Alt</sc>+<sc>Intro</sc>. Seleccionem &#34;Create test&#34;.</p>
 <p class="image-container"><img style="width: 649.00px" src="img/dc75588c425a5075.gif"></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Programar els tests" duration="0">
-        <p>Un cop hem creat la classe per a les proves <code>MainTest</code>, podem programar les proves:</p>
-<pre><code>import static org.junit.jupiter.api.Assertions.*;
+        <p>Un cop hem creat la classe per a les proves <sc>MainTest</sc>, podem programar les proves:</p>
+<pre><sc>import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
@@ -96,11 +96,11 @@ class MainTest {
        assertEquals(Main.max(2,3,1), 3);
        assertEquals(Main.max(2,1,3), 3);
    }
-}</code></pre>
-<p>Al mètode <code>testMax()</code> afegim diverses execucions del metode <code>Main.max()</code>, i el valor que esperem que retorni cada execució.</p>
+}</sc></pre>
+<p>Al mètode <sc>testMax()</sc> afegim diverses execucions del metode <sc>Main.max()</sc>, i el valor que esperem que retorni cada execució.</p>
 <p>Si executem el test trobarem l&#39;error: ens dirà que el test ha fallat en la línia 12.</p>
 <p class="image-container"><img style="width: 585.00px" src="img/868fc5e36cdb8c29.png"></p>
-<p>Caldrà aleshores, reprogramar el mètode <code>max()</code>, i seguir fent les proves fins que passi el test. Aquesta és la filosofia del TDD:</p>
+<p>Caldrà aleshores, reprogramar el mètode <sc>max()</sc>, i seguir fent les proves fins que passi el test. Aquesta és la filosofia del TDD:</p>
 <p class="image-container"><img style="width: 242.00px" src="img/353858106abd24f1.png"></p>
 
 

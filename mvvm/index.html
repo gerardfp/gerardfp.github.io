@@ -4,6 +4,7 @@
 <script type="module" src="/sofi/js/script.js"></script>
 <link rel="stylesheet" href="/sofi/css/estil.css">
 
+<nav></nav>
 <header>
     <h1>Model-View-ViewModel</h1>
     <abstract>
@@ -28,39 +29,39 @@
         <li>
             <p>Añade las dependencias para el soporte ViewModel y LiveData; también para Navigation.</p>
 
-            <codefile>
+            <scfile>
                 build.gradle (Module: app)
-            </codefile>
-            <code>
+            </scfile>
+            <sc>
                 implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'
                 implementation 'androidx.lifecycle:lifecycle-livedata:2.2.0'
         
                 implementation 'androidx.navigation:navigation-fragment:2.3.0'
                 implementation 'androidx.navigation:navigation-ui:2.3.0'
             
-            </code>        
+            </sc>        
         </li>
         <li>
             <p>Activa el ViewBinding</p>
-            <codefile>
+            <scfile>
                 build.gradle (Module: app)
-            </codefile>
-            <code>
+            </scfile>
+            <sc>
                 android {
                     buildFeatures {
                         viewBinding true
                     }
                 }
-            </code>
+            </sc>
         </li>
 
         <li>
             <p>Crea el Grafo de Navegación <file>res/navigation/nav_graph.xml</file>.</p>
             <p>Añade el <w>NavHostFragment</w> al layout de la MainActivity:</p>
-            <codefile>
+            <scfile>
                 res/layout/activity_main.xml
-            </codefile>
-            <code xml>
+            </scfile>
+            <sc xml>
                 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
                 &lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
                     android:layout_width=&quot;match_parent&quot;
@@ -76,17 +77,17 @@
                         app:navGraph=&quot;@navigation/nav_graph&quot; /&gt;
 
                 &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
-            </code>
+            </sc>
         </li>
         <li>
             <p>Crea un destino llamado <w>MiHipotecaFragment</w>:</p>
 
             <p>Configura el ViewBinding:</p>
 
-            <codefile>
+            <scfile>
                 MiHipotecaFragment.java
-            </codefile>
-            <code java>
+            </scfile>
+            <sc java>
                 import android.os.Bundle;
                 import android.view.LayoutInflater;
                 import android.view.View;
@@ -107,13 +108,13 @@
                         super.onViewCreated(view, savedInstanceState);
                     }
                 }
-            </code>
+            </sc>
 
             <p>Añade las siguientes <w>View</w> al layout:</p>
-            <codefile>
+            <scfile>
                 res/layout/fragment_mi_hipoteca.xml
-            </codefile>
-            <code xml>
+            </scfile>
+            <sc xml>
                 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
                 &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
                     android:layout_width=&quot;match_parent&quot;
@@ -140,7 +141,7 @@
                         android:layout_width=&quot;match_parent&quot;
                         android:layout_height=&quot;wrap_content&quot;/&gt;
                 &lt;/LinearLayout&gt;
-            </code>
+            </sc>
             <img src="img/layout_basic.png">
         </li>
     </ul>
@@ -162,10 +163,10 @@
 
     <p>Crea esta clase:</p>
 
-    <codefile>
+    <scfile>
         SimuladorHipoteca.java
-    </codefile>
-    <code java>
+    </scfile>
+    <sc java>
         public class SimuladorHipoteca {
 
             public static class Solicitud {
@@ -188,11 +189,11 @@
                 return solicitud.capital*interes/12/(1-Math.pow(1+(interes/12),-solicitud.plazo*12));
             }
         }
-    </code>            
+    </sc>            
 
     <info>
         <p>En una aplicación típica de consola, estas dos clases se podrían utilizar así:</p>
-        <code java>
+        <sc java>
             Scanner scanner = new Scanner(System.in);
 
             SimuladorHipoteca simulador = new SimuladorHipoteca();
@@ -207,7 +208,7 @@
             double cuota = simulador.calcular(solicitud);
     
             System.out.println("Cuota: " + String.format("%.2f", cuota));      
-        </code>
+        </sc>
 
         <shell>
             Introduzca el capital:
@@ -227,10 +228,10 @@
     <p>Por ejemplo, en el método <w>onViewCreated()</w> de la clase <w>MiHipotecaFragment</w> podríamos estar
     tentados a hacer lo siguiente:</p>
 
-    <codefile>
+    <scfile>
         MiHipotecaFragment.java / onViewCreated()
-    </codefile>
-    <code java>
+    </scfile>
+    <sc java>
         binding.calcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -247,7 +248,7 @@
                 binding.cuota.setText(String.format("%.2f",cuota));
             }
         });
-    </code>
+    </sc>
 
     <p>La intención de este código es que cuando se hace click en el botón <w>calcular</w>, se obtienen el <w>capital</w>
         y el <w>plazo</w> introducidos por el usuario, se llama al método <w>calcular()</w> del simulador y se muestra 
@@ -274,10 +275,10 @@
     <p>Una solución que se utilitzó de forma bastante extendida durante algún tiempo fue el uso de la clase <w>AsyncTask</w>, 
     para ejecutar las tareas de larga duración en segundo plano. Solía ser más o menos así:</p>
 
-    <codefile>
+    <scfile>
         MiHipotecaFragment.java / onViewCreated()
-    </codefile>
-    <code java>
+    </scfile>
+    <sc java>
         binding.calcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -304,7 +305,7 @@
                 }.execute(solicitud);
             }
         });
-    </code>
+    </sc>
 
     <p>La intención de este código es ejecutar el método <w>calcular()</w> en una tarea en segundo plano, y actualizar el TextView con 
     la cuota obtenida cuando finalice la tarea.</p>
@@ -473,10 +474,10 @@
     </ul>
 
     <p>El código del ViewModel queda así:</p>
-    <codefile>
+    <scfile>
         HipotecaViewModel.java
-    </codefile>
-    <code java>
+    </scfile>
+    <sc java>
         public class MiHipotecaViewModel extends AndroidViewModel {
 
             Executor executor;
@@ -505,7 +506,7 @@
                 });
             }
         }
-    </code>
+    </sc>
 
     <p>La View (<w>MiHipotecaFragment</w>) por su parte realiza lo siguiente:</p>
 
@@ -529,10 +530,10 @@
            
         </li>
     </ul>
-    <codefile>
+    <scfile>
         MiHipotecaFragment.java
-    </codefile>
-    <code java data-line="13-31">
+    </scfile>
+    <sc java data-line="13-31">
         public class MiHipotecaFragment extends Fragment {
             private FragmentMiHipotecaBinding binding;
             
@@ -566,7 +567,7 @@
                 });
             }
         }
-    </code>
+    </sc>
 
     <p>El siguiente diagrama ilustra la comunicación entre los 3 componentes de la app:</p>
     <img src="img/implementacion_mvvm.png">
@@ -594,7 +595,7 @@
         
         </p>
 
-        <code java>
+        <sc java>
             class EjemploCallback {
 
                 public void main(){
@@ -628,7 +629,7 @@
                     callback.alRetornar(datos*datos);
                 }
             }
-        </code>
+        </sc>
     </info>
    
     <p>La comunicación entre el ViewModel y el Model se realiza mediante llamadas y llamadas de vuelta (<em>callbacks</em>).
@@ -636,10 +637,10 @@
         El ViewModel se los notifica a la Vista mediante variables <w>LiveData</w>.</p>
 
     <p>Cambia la clase <w>SimuladorHipotca</w> para que comunique el resultado mediante un <w>callback</w>:</p>
-    <codefile>
+    <scfile>
         SimuladorHipotca.java
-    </codefile>
-    <code java data-line="13-15, 17, 24">
+    </scfile>
+    <sc java data-line="13-15, 17, 24">
         public class SimuladorHipoteca {
         
             public static class Solicitud {
@@ -666,10 +667,10 @@
                 callback.cuandoEsteCalculadaLaCuota(solicitud.capital*interes/12/(1-Math.pow(1+(interes/12),-solicitud.plazo*12)));
             }
         }
-    </code>
+    </sc>
 
     <p>Cambia el ViewModel para que reciba en un <em>callback</em> la cuota resultante:</p>
-    <code java data-line="20-25">
+    <sc java data-line="20-25">
         public class MiHipotecaViewModel extends AndroidViewModel {
 
             Executor executor;
@@ -699,7 +700,7 @@
                 });
             }
         }
-    </code>
+    </sc>
 
     <p>Puede parecer que el mecanismo de <w>callback</w> no aporta nada respecto al <w>return</w>, pero en los 
     siguientes apartados veremos que ofrece más versatilidad, ya que en el callback se pueden definir distintos 
@@ -719,10 +720,10 @@
     <p>Para ello, añadiremos dos métodos en el <em>callback</em>, que además de decir si el  <w>capital</w> o <w>plazo</w> son inferiores
     al mínimo, informarán de cuales son esos mínimos en cada caso.</p>
 
-    <codefile>
+    <scfile>
         SimuladorHipoteca.java
-    </codefile>
-    <code java data-line="15,16,21,22,27,28,31-44">
+    </scfile>
+    <sc java data-line="15,16,21,22,27,28,31-44">
         public class SimuladorHipoteca {
 
             public static class Solicitud {
@@ -769,7 +770,7 @@
                 }
             }
         }
-    </code>
+    </sc>
 
     <p>Por su parte, el ViewModel cuando llama al método <w>calcular()</w> del Model, define en el callback lo que hay que hacer 
     cuando ocurran estos errores. Obviamente, tiene que informar a la View para que los muestre al usuario. 
@@ -783,10 +784,10 @@
     el Model notifique que se ha calculado el resultado, las pondremos a <w>null</w> (no ha habido error), y cuando notifique
     los errores pondremos el valor mínimo que nos pase.</p>
 
-    <codefile>
+    <scfile>
         MiHipotecaViewModel.java
-    </codefile>
-    <code java data-line="8,9,29,30,34-42">
+    </scfile>
+    <sc java data-line="8,9,29,30,34-42">
         public class MiHipotecaViewModel extends AndroidViewModel {
 
             Executor executor;
@@ -834,13 +835,13 @@
                 });
             }
         }
-    </code>
+    </sc>
    
     <p>Por último la View solo tiene que observar las <w>LiveData</w> de los errores y mostrárselos u ocultárselos al usuario:</p>
-    <codefile>
+    <scfile>
         MiHipotecaFragment.java
-    </codefile>
-    <code java>
+    </scfile>
+    <sc java>
         miHipotecaViewModel.errorCapital.observe(getViewLifecycleOwner(), new Observer&lt;Double&gt;() {
             @Override
             public void onChanged(Double capitalMinimo) {
@@ -862,11 +863,11 @@
                 }
             }
         });
-    </code>
+    </sc>
 
     <warn>
         <p>Un error que sí puede gestionar la vista es que los datos introducidos sean del tipo correcto:</p>
-        <code java>
+        <sc java>
             binding.calcular.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -891,7 +892,7 @@
                     }
                 }
             });
-        </code>
+        </sc>
     </warn>
 </section>
 
@@ -902,10 +903,10 @@
 
     <p>Sustituye el <w>&lt;TextView&gt;</w> de la cuota por este <w>&lt;FrameLayout&gt;</w>, que incluye la cuota y una 
     <w>&lt;ProgressBar&gt;</w> (el FrameLayout hará que estén superpuestos):</p>
-    <codefile>
+    <scfile>
         res/layout/fragment_mi_hipoteca.xml
-    </codefile>
-    <code xml>
+    </scfile>
+    <sc xml>
         &lt;FrameLayout
             android:layout_width=&quot;match_parent&quot;
             android:layout_height=&quot;wrap_content&quot;&gt;
@@ -922,7 +923,7 @@
                 android:visibility=&quot;gone&quot;
                 android:gravity=&quot;center&quot;/&gt;
         &lt;/FrameLayout&gt;
-    </code>
+    </sc>
 
     <observe>
         <p>Observa que el <w>ProgressBar</w> tiene el atributo <w>android:visibility=&quot;gone&quot;</w> que hará que 
@@ -932,10 +933,10 @@
     <p>Añadimos dos métodos al <w>Callback</w>, uno para notificar cuándo empieza el cálculo y otro para cuando finaliza.</p>
     <p>El Model notificará al Viewmodel llamando a estos métodos al principio y al final del método <w>calcular()</w>:</p>
 
-    <codefile>
+    <scfile>
         SimuladorHipotca.java
-    </codefile>
-    <code java data-line="3,4,9,13">
+    </scfile>
+    <sc java data-line="3,4,9,13">
         interface Callback {
             // resto de métodos
             void cuandoEmpieceElCalculo();   
@@ -950,17 +951,17 @@
 
             callback.cuandoFinaliceElCalculo();
         }
-    </code>
+    </sc>
 
     <p>El ViewModel utilizará una variable <w>LiveData</w> para comunicar a la View de cuándo ha empezado y 
         finalizado el cálculo.
     Pondrá en ella el valor <w>true</w> o <w>false</w>, segun le notifique el Model:
     </p>
 
-    <codefile>
+    <scfile>
         MiHipotecaViewModel.java
-    </codefile>
-    <code java>
+    </scfile>
+    <sc java>
         // ...
         MutableLiveData<Boolean> calculando = new MutableLiveData&lt;&gt;();
 
@@ -974,15 +975,15 @@
         public void cuandoFinaliceElCalculo() {
             calculando.postValue(false);
         }
-    </code>
+    </sc>
 
     <p>La View alternará entre mostrar/ocultar el <w>ProgressBar</w> y el <w>TextView</w> acorde al valor que observe 
     en la variable:</p>
 
-    <codefile>
+    <scfile>
         MiHipotecaFragment.java
-    </codefile>
-    <code java>
+    </scfile>
+    <sc java>
         miHipotecaViewModel.calculando.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean calculando) {
@@ -995,7 +996,7 @@
                 }
             }
         });
-    </code>
+    </sc>
 </section>
 
 <section>

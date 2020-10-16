@@ -25,13 +25,13 @@
         el text <string>Hello, World!</string> per pantalla. Així que som-hi!
     </p>
 
-    <code java>
+    <sc java>
         public class Main {
             public static void main(String[] args) {
                 System.out.println("Hello, World!");
             }
         }
-    </code>
+    </sc>
 
     <challenge>
         <p>De moment no és necessari que comprenguis com funciona 
@@ -233,13 +233,13 @@
     <h2>El programa Hello World</h2>
 
     <p>Tornem a veure el programa <strong>Hello world</strong>:</p>
-    <code java>
+    <sc java>
         public class Main {
             public static void main(String[] args) {
                 System.out.println("Hello, World!");
             }
         }
-    </code>
+    </sc>
 
     <p>Quan executem aquest programa, veurem:</p>
     <shell>
@@ -286,11 +286,11 @@
     <w>Main</w>, <w>Programa</w>, però no pot començar amb un dígit. Un parell de claus <w>{...}</w>
     envolten el cos de la classe.</p>
 
-    <code java>
+    <sc java>
         public class Main {
             // ...
         }
-    </code>
+    </sc>
 
     <p>El text que va després de <w>//</w> és solament un comentari, no forma part del programa.
     Aprendrem més sobre comentaris més endavant.</p>
@@ -298,11 +298,11 @@
     <p><strong>2. El mètode main.</strong> Per a fer que un programa sigui executable, hem de posar 
         un mètode anomenat <w>main</w> dintre de la classe. És el punt d'entrada al programa Java.
     Novament, les claus <w>{...}</w> envolten el cos del mètode, que conté sentències.</p>
-    <code java>
+    <sc java>
         public static void main(String[] args) {
             // les sentencies van aqui
         }
-    </code>
+    </sc>
 
     <p>Les paraules-clau <w>public</w>, <w>static</w>, i <w>void</w> les veurem més endavant, de 
     moment només les has de recordar. El nom d'aquest mètode (<w>main</w>) està predefinit i sempre
@@ -316,7 +316,7 @@
     determinen què ha de fer el programa quan s'inicia. El nostre programa imprimeix 
     <string>Hello, World!</string> utilitzant aquesta sentència:</p>
 
-    <code java>System.out.println("Hello, World!");  // les sentencies han d'acabar amb ;</code>
+    <sc java>System.out.println("Hello, World!");  // les sentencies han d'acabar amb ;</sc>
     
     <p>Aquesta és una de les coses més importants que s'han de comprendre del programa 
         <strong>Hello World</strong>. Estem invocant un mètode especial <w>println</w>
@@ -365,13 +365,13 @@
         <question multi>
             <statement>
                 <p>Selecciona les afirmacions correctes sobre el següent programa:</p>
-                <code java>
+                <sc java>
                     public class HelloWorldProgram {
                         public static void main(String[] args) {
                             System.out.println("Hello, World!");
                         }
                     }  
-                </code>
+                </sc>
             </statement>
             <o correct><w>HelloWorldProgram</w> és un nom</o>
             <o><w>main</w> és una paraula-clau</o>
@@ -408,12 +408,12 @@
         seguit d'una nova línia a la pantalla (<strong>print-line</strong>). Per exemple, el
         següent fragment de codi imprimeix 4 línies a la pantalla</p>
 
-        <code java>
+        <sc java>
             System.out.println("I ");
             System.out.println("know ");
             System.out.println("Java ");
             System.out.println("well.");
-        </code>
+        </sc>
 
         La sortida:
 
@@ -428,11 +428,11 @@
 
         <p>El mètode et permet imprimir una línia buida quan no li passes cap string:</p>
 
-        <code java>
+        <sc java>
             System.out.println("Java is a popular programming language.");
             System.out.println(); // imprimeix una línia en blanc
             System.out.println("It is used all over the world!");
-        </code>
+        </sc>
 
         La sortida:
         <shell>
@@ -447,12 +447,12 @@
         posa el cursor (la posició on es mostra un valor) a continuació. Per exemple, el 
         següent codi mostra tots els strings a la mateixa línia.</p>
 
-        <code java>
+        <sc java>
             System.out.print("I ");
             System.out.print("know ");
             System.out.print("Java ");
             System.out.print("well.");
-        </code>
+        </sc>
 
         La sortida:
         <shell>
@@ -466,7 +466,7 @@
     <p>Ambdós mètodes, <w>print</w> i <w>println</w> permeten imprimir no solament 
         <strong>strings</strong>, sinò també <strong>caracters, números i booleans</strong>.</p>
 
-    <code java>
+    <sc java>
         System.out.print(108);   // imprimir un enter
         System.out.print('c');   // imprimir un caràcter que representa una lletra
         System.out.print("Q");   // imprimir un string
@@ -476,7 +476,7 @@
         System.out.print('E');
         System.out.print(8);
         System.out.println('1');
-    </code>
+    </sc>
 
     Mostrarà:
 
@@ -489,9 +489,9 @@
 
     <p>Quan imprimim un número decimal, no s'imprimeix la <w>f</w> del final:</p>
 
-    <code java>
+    <sc java>
         System.out.print(1.75f);
-    </code>
+    </sc>
 
     <shell>
         1.75
@@ -499,10 +499,10 @@
 
     <p>Els literals booleans s'imprimeixen tal qual:</p>
 
-    <code java>
+    <sc java>
         System.out.println(true);
         System.out.println(false);
-    </code>
+    </sc>
 
     <shell>
         true
@@ -513,13 +513,13 @@
         <question single>
             <statement>
                 <p>Què imprimirà el següent codi?</p>
-                <code java>
+                <sc java>
                     System.out.print("1");
                     System.out.print("2");
                     System.out.println("3");
                     System.out.println();
                     System.out.println("4");
-                </code>
+                </sc>
             </statement>
             <o>
                 <shell>
@@ -550,12 +550,12 @@
         <question single>
             <statement>
                 <p>Què imprimirà el següent codi?</p>
-                <code java>
+                <sc java>
                     System.out.print("**");
                     System.out.println();
                     System.out.println("**");
                     System.out.print("**");
-                </code>
+                </sc>
             </statement>
             <o>
                 <shell>

@@ -45,7 +45,7 @@ apt install apache2 php</pre>
       </google-codelab-step>
     
       <google-codelab-step label="Càrrega de fitxers" duration="0">
-        <pre><code>&lt;form id=&#34;upload-form&#34; enctype=&#34;multipart/form-data&#34; action=&#34;index.php&#34; method=&#34;POST&#34;&gt;
+        <pre><sc>&lt;form id=&#34;upload-form&#34; enctype=&#34;multipart/form-data&#34; action=&#34;index.php&#34; method=&#34;POST&#34;&gt;
     &lt;input id=&#34;file&#34; name=&#34;userfile&#34; type=&#34;file&#34; onchange=&#34;document.getElementById(&#39;upload-form&#39;).submit()&#34;/&gt;
 &lt;/form&gt;
 
@@ -54,13 +54,13 @@ $uploaddir = &#39;uploads/&#39;;
 $uploadfile = $uploaddir . basename($_FILES[&#39;userfile&#39;][&#39;name&#39;]);
 
 move_uploaded_file($_FILES[&#39;userfile&#39;][&#39;tmp_name&#39;], $uploadfile);
-?&gt;</code></pre>
+?&gt;</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Llistat de fitxers" duration="0">
-        <pre><code>&lt;?php
+        <pre><sc>&lt;?php
 if ($handle = opendir($uploaddir)) {
             while (($file = readdir($handle)) !== false) {
                     if ($file != &#34;.&#34; &amp;&amp; $file != &#34;..&#34;) {
@@ -69,15 +69,15 @@ if ($handle = opendir($uploaddir)) {
             }
             closedir($handle);
 }
-?&gt;</code></pre>
+?&gt;</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Esborrat de fitxers" duration="0">
-        <pre><code>if(isset($_GET[&#39;delete&#39;])){
+        <pre><sc>if(isset($_GET[&#39;delete&#39;])){
             unlink($uploaddir . $_GET[&#39;delete&#39;]);
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>

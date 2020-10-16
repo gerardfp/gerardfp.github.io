@@ -39,10 +39,10 @@
         <p>Descarrega l&#39;app de creació de projectes &#34;libGDX Setup App&#34;</p>
 <p><a href="https://libgdx.badlogicgames.com/download.html" target="_blank"><paper-button class="colored" raised>Descarrega LibGDX Setup App</paper-button></a></p>
 <p>Executa la Setup App i configura el projecte. </p>
-<p>Per a aquest CodeLab marca únicament la opció &#34;<code>Desktop</code>&#34;</p>
+<p>Per a aquest CodeLab marca únicament la opció &#34;<sc>Desktop</sc>&#34;</p>
 <p class="image-container"><img style="width: 601.00px" src="img/3a78607db73cfcd2.png"></p>
 <p>Quan li dones al botó &#34;Generate&#34;, la setup app et generarà un projecte llest per a obrir amb IntelliJ.</p>
-<p>Executa IntelliJ i obre el projecte generat: <code>File</code> &gt; <code>Open...</code></p>
+<p>Executa IntelliJ i obre el projecte generat: <sc>File</sc> &gt; <sc>Open...</sc></p>
 <p>Selecciona la carpeta</p>
 <p class="image-container"><img style="width: 426.00px" src="img/3545fa4871af0500.png"></p>
 <p>Confirma la importació del projecte:</p>
@@ -52,19 +52,19 @@
       </google-codelab-step>
     
       <google-codelab-step label="Estructura del projecte" duration="0">
-        <p>La <code>LibGDX Setup App</code> ens ha creat la següent estructura del projecte:</p>
-<p>Al directori <code>Core</code> trobem el codi font del nostre joc. Allà és on programarem les classes del joc.</p>
-<p>Al directori <code>Desktop</code> trobem la classe que executa el joc per a la plataforma d&#39;escriptori.</p>
+        <p>La <sc>LibGDX Setup App</sc> ens ha creat la següent estructura del projecte:</p>
+<p>Al directori <sc>Core</sc> trobem el codi font del nostre joc. Allà és on programarem les classes del joc.</p>
+<p>Al directori <sc>Desktop</sc> trobem la classe que executa el joc per a la plataforma d&#39;escriptori.</p>
 <p class="image-container"><img style="width: 615.00px" src="img/674a160ff1687671.png"></p>
-<p>A la classe <code>MyGdxGame</code> trobem els següents tres mètodes:</p>
+<p>A la classe <sc>MyGdxGame</sc> trobem els següents tres mètodes:</p>
 <table>
-<tr><td colspan="1" rowspan="1"><p><code>create()</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>create()</sc></p>
 </td><td colspan="1" rowspan="1"><p>Aquest mètode s&#39;executa un cop a l&#39;iniciar el joc. Aquí carregarem tot els recursos que necessitem per al joc (imatges, objectes, etc)</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>render()</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>render()</sc></p>
 </td><td colspan="1" rowspan="1"><p>Aquest mètode s&#39;executa en bucle mentre s&#39;estigui executant el joc. Aquí programarem la lògica del joc</p>
 </td></tr>
-<tr><td colspan="1" rowspan="1"><p><code>dispose()</code></p>
+<tr><td colspan="1" rowspan="1"><p><sc>dispose()</sc></p>
 </td><td colspan="1" rowspan="1"><p>Aquest mètode s&#39;executa un cop abans de que es tanqui el joc. Aquí alliberarem els recursos que hem carregat.</p>
 </td></tr>
 </table>
@@ -73,9 +73,9 @@
       </google-codelab-step>
     
       <google-codelab-step label="ShapeRenderer" duration="0">
-        <p>La classe <code>ShapeRenderer</code> ens permet dibuixar figures geomètriques.</p>
+        <p>La classe <sc>ShapeRenderer</sc> ens permet dibuixar figures geomètriques.</p>
 <p>Vegem un petit exemple:</p>
-<pre><code>public class MyGdxGame extends ApplicationAdapter {
+<pre><sc>public class MyGdxGame extends ApplicationAdapter {
 
   ShapeRenderer shapeRenderer;
 
@@ -104,28 +104,28 @@
   public void dispose () {
        shapeRenderer.dispose();
   }
-}</code></pre>
+}</sc></pre>
 <ul>
-<li>Al mètode <code>create()</code> creem l&#39;objecte ShapeRenderer que utilitzarem per a dibuixar els figures del nostre joc.</li>
-<li>Al mètode <code>render()</code> dibuixem les figures:</li>
+<li>Al mètode <sc>create()</sc> creem l&#39;objecte ShapeRenderer que utilitzarem per a dibuixar els figures del nostre joc.</li>
+<li>Al mètode <sc>render()</sc> dibuixem les figures:</li>
 </ul>
-<p>En primer lloc esborrem la pantalla amb el color Blau (<code>0f, 0.7372f, 0.8313f, 1</code>):</p>
-<pre><code>Gdx.gl.glClearColor(0f, 0.7372f, 0.8313f, 1);
-Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</code></pre>
-<p>A continuació obrim el <code>ShapeRenderer</code> per a dibuixar figures. La constant <code>ShapeRenderer.ShapeType.</code><strong><em><code>Filled</code></em></strong> indica que volem reomplir les figures que dibuixarem:</p>
-<pre><code>shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);</code></pre>
-<p>Establim el color a taronja (<code>1, 0.5960f, 0, 1</code>) i dibuixem un cercle en la posició (<code>300,200</code>) i de tamany (<code>100</code>):</p>
-<pre><code>shapeRenderer.setColor(1, 0.5960f, 0, 1);
-shapeRenderer.circle(300,200,100);</code></pre>
-<p>Establim el color a vermell (<code>0.9137f, 0.1176f, 0.3882f, 1</code>) i dibuixem un rectanble en la posció (<code>50,100</code>) i d&#39;amplada (<code>550</code>) i altura (<code>40</code>).</p>
-<pre><code>shapeRenderer.setColor(0.9137f, 0.1176f, 0.3882f, 1);
-shapeRenderer.rect(50,100,550, 40);</code></pre>
-<p>Per últim tanquem el <code>ShapeRenderer</code>:</p>
-<pre><code>shapeRenderer.end();</code></pre>
+<p>En primer lloc esborrem la pantalla amb el color Blau (<sc>0f, 0.7372f, 0.8313f, 1</sc>):</p>
+<pre><sc>Gdx.gl.glClearColor(0f, 0.7372f, 0.8313f, 1);
+Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</sc></pre>
+<p>A continuació obrim el <sc>ShapeRenderer</sc> per a dibuixar figures. La constant <sc>ShapeRenderer.ShapeType.</sc><strong><em><sc>Filled</sc></em></strong> indica que volem reomplir les figures que dibuixarem:</p>
+<pre><sc>shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);</sc></pre>
+<p>Establim el color a taronja (<sc>1, 0.5960f, 0, 1</sc>) i dibuixem un cercle en la posició (<sc>300,200</sc>) i de tamany (<sc>100</sc>):</p>
+<pre><sc>shapeRenderer.setColor(1, 0.5960f, 0, 1);
+shapeRenderer.circle(300,200,100);</sc></pre>
+<p>Establim el color a vermell (<sc>0.9137f, 0.1176f, 0.3882f, 1</sc>) i dibuixem un rectanble en la posció (<sc>50,100</sc>) i d&#39;amplada (<sc>550</sc>) i altura (<sc>40</sc>).</p>
+<pre><sc>shapeRenderer.setColor(0.9137f, 0.1176f, 0.3882f, 1);
+shapeRenderer.rect(50,100,550, 40);</sc></pre>
+<p>Per últim tanquem el <sc>ShapeRenderer</sc>:</p>
+<pre><sc>shapeRenderer.end();</sc></pre>
 <ul>
-<li>Al mètode <code>dispose()</code> alliberem l&#39;objecte ShapeRenderer</li>
+<li>Al mètode <sc>dispose()</sc> alliberem l&#39;objecte ShapeRenderer</li>
 </ul>
-<p>Iniciem el joc executant el mètode <code>DesktopLauncher.main()</code>:</p>
+<p>Iniciem el joc executant el mètode <sc>DesktopLauncher.main()</sc>:</p>
 <p class="image-container"><img style="width: 566.00px" src="img/6f29ab8863ce1f24.png"></p>
 <p>I veurem el següent:</p>
 <p class="image-container"><img style="width: 338.00px" src="img/e26ac7c522723267.png"></p>
@@ -136,8 +136,8 @@ shapeRenderer.rect(50,100,550, 40);</code></pre>
       <google-codelab-step label="Bouncing balls" duration="0">
         <p>Farem una petita demo en la que unes boles van rebotant per la finestra</p>
 <p class="image-container"><img style="width: 551.00px" src="img/9f619f0f35814ed3.gif"></p>
-<p>Al mètode <code>render()</code> afegim cada cert temps aleatori, una nova bola a l&#39;array de boles. Els valors de posició, tamany, color i velocitat els generem també aleatòriament:</p>
-<pre><code>import com.badlogic.gdx.ApplicationAdapter;
+<p>Al mètode <sc>render()</sc> afegim cada cert temps aleatori, una nova bola a l&#39;array de boles. Els valors de posició, tamany, color i velocitat els generem també aleatòriament:</p>
+<pre><sc>import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.Array;
@@ -176,10 +176,10 @@ public class MyGdxGame extends ApplicationAdapter {
          ball.render();
      }
   }
-}</code></pre>
+}</sc></pre>
 <p>La lògica del moviment d&#39;una bola consisteix en anar augmentant la velocitat vertical en funció de la gravetat, y al mateix temps modificar la posició en funció de la velocitat.</p>
 <p>El rebot s&#39;aconsegueix comprovant quan la bola xoca amb el terra o amb una de les parets laterals:</p>
-<pre><code>import com.badlogic.gdx.Gdx;
+<pre><sc>import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Ball {
@@ -227,7 +227,7 @@ public class Ball {
        shapeRenderer.circle(x, y, radius);
        shapeRenderer.end();
    }
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>

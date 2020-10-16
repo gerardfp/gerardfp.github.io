@@ -76,7 +76,7 @@ mysql -e &#34;SELECT * FROM webforum_database.posts;&#34;</pre>
     
       <google-codelab-step label="Programa la WebApp" duration="0">
         <h3 is-upgraded><a href="https://github.com/gerardfp/webapps/blob/master/index.php" target="_blank">index.php</a> </h3>
-<pre><code>&lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;
+<pre><sc>&lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;
 &lt;h1&gt;MY BLOG!&lt;/h1&gt;
 &lt;a href=&#39;new_post.php&#39;&gt;Crear nuevo post&lt;/a&gt;
 
@@ -89,9 +89,9 @@ while ($row = $res-&gt;fetch_assoc()) {
     echo &#34;&lt;h2&gt;&#34; . $row[&#39;title&#39;] . &#34;&lt;/h2&gt;\n&#34;;
     echo &#34;&lt;p&gt;&#34; . $row[&#39;content&#39;] . &#34;&lt;/p&gt;\n&#34;;
 }
-?&gt;</code></pre>
+?&gt;</sc></pre>
 <h3 is-upgraded><a href="https://github.com/gerardfp/webapps/blob/master/new_post.php" target="_blank">new_post.php</a></h3>
-<pre><code>&lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;
+<pre><sc>&lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;
 
 &lt;form id=&#34;form&#34; action=&#34;insert_post.php&#34; method=&#34;get&#34;&gt;
             &lt;label for=&#34;title&#34;&gt;Titulo:&lt;/label&gt;
@@ -105,9 +105,9 @@ while ($row = $res-&gt;fetch_assoc()) {
 document.getElementById(&#39;form&#39;).addEventListener(&#34;keyup&#34;, () =&gt; {
             document.getElementById(&#34;submit&#34;).disabled = !form.checkValidity();
 });
-&lt;/script&gt;</code></pre>
+&lt;/script&gt;</sc></pre>
 <h3 is-upgraded><a href="https://github.com/gerardfp/webapps/blob/master/insert_post.php" target="_blank">insert_post.php</a></h3>
-<pre><code>&lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;
+<pre><sc>&lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;
 
 &lt;?php
 $mysqli = new mysqli(&#34;localhost&#34;, &#34;my_user&#34;, &#34;my_password&#34;, &#34;my_database&#34;);
@@ -125,9 +125,9 @@ $stmt-&gt;close();
 
 echo &#34;&lt;h3&gt;Entrada añadida!&lt;/h3&gt;&#34;;
 echo &#34;&lt;a href=&#39;/&#39;&gt;Volver&lt;/a&gt;&#34;;
-?&gt;</code></pre>
+?&gt;</sc></pre>
 <h3 is-upgraded><a href="https://github.com/gerardfp/webapps/blob/master/style.css" target="_blank">style.css</a></h3>
-<pre><code>h1 {
+<pre><sc>h1 {
     background-color: #135e96;
     color: white;
     padding: 16px;
@@ -190,7 +190,7 @@ input[type=submit]:disabled {
 
 label {
     margin-top: 32px;
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>

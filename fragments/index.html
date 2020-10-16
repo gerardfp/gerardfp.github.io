@@ -68,17 +68,17 @@
         <li>
             <p>Añade las dependencias para incluir el soporte Navigation:</p>
 
-            <codefile>
+            <scfile>
                 build.gradle (Module: app)
-            </codefile>
-            <code>
+            </scfile>
+            <sc>
                 dependencies {
                     def nav_version = &#34;2.3.0&#34;
         
                     implementation &#34;androidx.navigation:navigation-fragment:$nav_version&#34;
                     implementation &#34;androidx.navigation:navigation-ui:$nav_version&#34;
                 }
-            </code>
+            </sc>
 
             <optional>
                 <p>
@@ -155,10 +155,10 @@
         <p>Observa que en el código XML del archivo <file>res/navigation/nav_graph.xml</file> 
             se han añadido las <w>&lt;action&gt;</w> de navegación:</p>
 
-        <codefile>
+        <scfile>
             res/navigation/nav_graph.xml
-        </codefile>
-        <code xml>
+        </scfile>
+        <sc xml>
             ...
 
             &lt;action
@@ -170,7 +170,7 @@
                 android:id=&#34;@+id/action_onboarding2Fragment_to_homeFragment&#34;
                 app:destination=&#34;@id/homeFragment&#34; /&gt;
             ...
-        </code>
+        </sc>
         
         <p>Más adelante utilizaremos los identificadores de estas acciones para implementar la navegación.</p>
     </observe>
@@ -181,10 +181,10 @@
     <p>En el layout de la <w>MainActivity</w> (<file>activity_main.xml</file>) añade 
         un <w>&lt;FragmentContainerView&gt;</w> que será el <w>NavHostFragment</w>:</p>
     
-    <codefile>
+    <scfile>
         res/layout/activity_main.xml
-    </codefile>
-    <code xml data-line="8-14">
+    </scfile>
+    <sc xml data-line="8-14">
         &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
         &lt;androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
@@ -201,7 +201,7 @@
                 app:navGraph="@navigation/nav_graph" /&gt;
 
         &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
-    </code>
+    </sc>
 
     <p>Puedes ver el <w>NavHostFragment</w> como un hueco en el cual se irán poniendo 
     los diferentes destinos según se vaya navegando. Observa que lo hemos enlazado con el grafo 
@@ -251,13 +251,13 @@
         a <w>true</w>. Esto hace que los límites (el borde) del <w>ImageView</w> se ajusten al tamaño 
         de la imagen.</p>
     
-    <code xml>
+    <sc xml>
         &lt;ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:src="@drawable/ic_onboarding1"/&gt;
-    </code>
+    </sc>
 
     <optional>
         <p>También puedes usar el modo <mo>Design</mo> para añadir la imagen:</p>
@@ -273,12 +273,12 @@
 
     <p>El layout <file>fragment_onboarding1.xml</file> queda finalmente así:</p>
 
-    <codefile>
+    <scfile>
         <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/layout/fragment_onboarding1.xml">
             res/layout/fragment_onboarding1.xml
         </a>
-    </codefile>
-    <code xml>
+    </scfile>
+    <sc xml>
         &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
         &lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
         xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
@@ -321,18 +321,18 @@
             app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
             app:layout_constraintRight_toRightOf=&#34;parent&#34; /&gt;
         &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
-    </code>
+    </sc>
     <p>El resultado es este:</p>
     <img src="img/27b867626a1053f4.png"></p>
 
     <p>Para el <file>fragment_onboarding2.xml</file> cambiamos la imagen, el texto y los colores:</p>
     
-    <codefile>
+    <scfile>
         <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/layout/fragment_onboarding2.xml">
             res/layout/fragment_onboarding2.xml
         </a>
-    </codefile>
-    <code xml>
+    </scfile>
+    <sc xml>
         &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
         &lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
         xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
@@ -375,7 +375,7 @@
             app:layout_constraintRight_toRightOf=&#34;parent&#34;
             app:layout_constraintTop_toBottomOf=&#34;@id/texto&#34; /&gt;
         &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
-    </code>
+    </sc>
     <img src="img/3818e2f7744137f9.png"></p>
 
     <warn>
@@ -395,10 +395,10 @@
         nos interesa, así que <strong>borramos</strong> todo lo que hay antes del método 
         <w>onCreateView()</w>, hasta dejar la clase <w>Onboarding1Fragment</w> así:</p>
     
-    <codefile>
+    <scfile>
         Onboarding1Fragment.java
-    </codefile>
-    <code java>
+    </scfile>
+    <sc java>
         public class Onboarding1Fragment extends Fragment {
 
             @Override
@@ -407,11 +407,11 @@
                 return inflater.inflate(R.layout.fragment_onboarding1, container, false);
             }
         }
-    </code>
+    </sc>
     
     <optional>
         <p>Con ViewBinding:</p>
-        <code java>
+        <sc java>
             public class Onboarding1Fragment extends Fragment {
     
                 private FragmentOnboarding1Binding binding;
@@ -422,7 +422,7 @@
                     return (binding = FragmentOnboarding1Binding.inflate(inflater, container, false)).getRoot();
                 }
             }
-        </code>
+        </sc>
     </optional>
     
     <info>
@@ -441,10 +441,10 @@
     <p>Implementemos este método:</p>
     <img src="img/d0e9b43f332b0c50.gif">
 
-    <codefile>
+    <scfile>
         Onboarding1Fragment.java
-    </codefile>
-    <code java data-line="9,10,11,12">
+    </scfile>
+    <sc java data-line="9,10,11,12">
         public class Onboarding1Fragment extends Fragment {
 
             @Override
@@ -458,7 +458,7 @@
                 super.onViewCreated(view, savedInstanceState);
             }
         }
-    </code>
+    </sc>
     
     <h3>Añade los listeners a los botones</h3>
     <p>Tal como vimos en la práctica anterior, el primer paso será <strong>vincular los botones</strong> 
@@ -474,10 +474,10 @@
     <p>Declaramos la variable para el botón y usamos <w>findViewById()</w> para vincularlo al 
         botón del XML:</p>
     
-    <codefile>
+    <scfile>
         Onboarding1Fragment.java
-    </codefile>
-    <code java data-line="3, 15">
+    </scfile>
+    <sc java data-line="3, 15">
         public class Onboarding1Fragment extends Fragment {
 
             Button botonSiguiente;
@@ -495,7 +495,7 @@
                 botonSiguiente = view.findViewById(R.id.botonSiguiente);
             }
         }
-    </code>
+    </sc>
     
     <optional>
         <p>Si has usado ViewBinding, no es necesario crear la variable 
@@ -505,10 +505,10 @@
 
     <p>El segundo paso será añadir el <em>listener</em> al <w>botonSiguiente</w>:</p>
     
-    <codefile>
+    <scfile>
         Onboarding1Fragment.java
-    </codefile>
-    <code java data-line="17-22">
+    </scfile>
+    <sc java data-line="17-22">
         public class Onboarding1Fragment extends Fragment {
 
             Button botonSiguiente;
@@ -533,7 +533,7 @@
                 });
             }
         }
-    </code>
+    </sc>
     
     <h3>Usa el NavController para navegar entre destinos</h3>
     <p>Para navegar a los diferentes destinos, android proporciona la 
@@ -547,10 +547,10 @@
         <li>
             <p>Recuperamos el NavController con <w>findNavController()</w>:</p>
 
-            <codefile>
+            <scfile>
                 Onboarding1Fragment.java
-            </codefile>
-            <code java data-line="4,16">
+            </scfile>
+            <sc java data-line="4,16">
                 public class Onboarding1Fragment extends Fragment {
 
                     Button botonSiguiente;
@@ -578,17 +578,17 @@
                         });
                     }
                 }
-            </code>
+            </sc>
    
         <li><p>Llamamos al metodo <w>navigate()</w> dentro del <em>listener</em> para 
             que navegue al siguiente Fragment cuando se haga clic en el botón:</p>
     
-            <codefile>
+            <scfile>
                 <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/java/com/company/p2onboarding/Onboarding1Fragment.java">
                     Onboarding1Fragment.java
                 </a>
-            </codefile>
-            <code java data-line="23">
+            </scfile>
+            <sc java data-line="23">
                 public class Onboarding1Fragment extends Fragment {
 
                     Button botonSiguiente;
@@ -616,7 +616,7 @@
                         });
                     }
                 }
-            </code>
+            </sc>
             <p>El parámetro pasado al método <w>navigate()</w> es el identificador de la 
                 <strong>acción de navegación</strong> que se debe realizar. En este caso 
                 del <em>onboarding1 al onboarding2</em>.</p>
@@ -626,12 +626,12 @@
     <p>Repetimos el mismo proceso en el <w>Onboarding2Fragment</w>, cambiando el identificador 
         del botón, y el identificador de la acción de navegación:</p>
     
-    <codefile>
+    <scfile>
         <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/java/com/company/p2onboarding/Onboarding2Fragment.java">
             Onboarding2Fragment.java
         </a>
-    </codefile>
-    <code java>
+    </scfile>
+    <sc java>
         public class Onboarding2Fragment extends Fragment {
 
             Button botonFinalizar;
@@ -659,7 +659,7 @@
                 });
             }
         }
-    </code>
+    </sc>
    
     <p><strong>Ahora puedes ejecutar la app y probar la navegación.</strong></p>
 </section>
@@ -702,64 +702,64 @@
     <p>En el fichero <file>res/anim/slide_in_right.xml</file> que se ha creado, 
         define la animación <w>slide_in_right</w>:</p>
     
-    <codefile>
+    <scfile>
         <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/anim/slide_in_right.xml">
             slide_in_right.xml
         </a>
-    </codefile>
-    <code xml>
+    </scfile>
+    <sc xml>
         &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
         &lt;set xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
         &lt;translate 
             android:fromXDelta=&#34;100%&#34; android:toXDelta=&#34;0%&#34;
             android:duration=&#34;700&#34;/&gt;
         &lt;/set&gt;
-    </code>
+    </sc>
 
     <p>Define también la animación <w>slide_out_left</w>:</p>
-    <codefile>
+    <scfile>
         <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/anim/slide_out_left.xml">
             slide_out_left.xml
         </a>
-    </codefile>
-    <code xml>
+    </scfile>
+    <sc xml>
         &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
         &lt;set xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
         &lt;translate 
             android:fromXDelta=&#34;0%&#34; android:toXDelta=&#34;-100%&#34;
             android:duration=&#34;700&#34;/&gt;
         &lt;/set&gt;
-    </code>
+    </sc>
 
     <p>La animación <w>slide_out_right</w>:</p>
-    <codefile>
+    <scfile>
         <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/anim/slide_out_right.xml">
             slide_out_right.xml
         </a>
-    </codefile>
-    <code xml>
+    </scfile>
+    <sc xml>
         &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
         &lt;set xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
         &lt;translate 
             android:fromXDelta=&#34;0%&#34; android:toXDelta=&#34;100%&#34;
             android:duration=&#34;700&#34;/&gt;
         &lt;/set&gt;
-    </code>
+    </sc>
     
     <p>Y la animación <w>slide_in_left</w>:</p>
-    <codefile>
+    <scfile>
         <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/anim/slide_in_left.xml">
             slide_in_left.xml
         </a>
-    </codefile>
-    <code xml>
+    </scfile>
+    <sc xml>
         &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
         &lt;set xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;&gt;
         &lt;translate 
             android:fromXDelta=&#34;-100%&#34; android:toXDelta=&#34;0%&#34;
             android:duration=&#34;700&#34;/&gt;
         &lt;/set&gt;
-    </code>
+    </sc>
 
     <info>
         <p>En las animaciones que hemos creado, simplemente realizamos un movimiento (<w>translate</w>) 
@@ -785,19 +785,19 @@
     <p>Abre el fichero <file>nav_graph.xml</file> y establece los siguientes atributos a las 
     <strong>dos</strong> acciones:</p>
 
-    <codefile>
+    <scfile>
         <a href="https://github.com/gerardfp/fragments/blob/master/app/src/main/res/navigation/nav_graph.xml">
             nav_graph.xml
         </a>
-    </codefile>
-    <code xml data-line="3-6">
+    </scfile>
+    <sc xml data-line="3-6">
         &lt;action
             ...
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" /&gt;
-    </code>
+    </sc>
 
     <optional>
         <p>También lo puedes hacer en modo <mo>Design</mo>.</p>

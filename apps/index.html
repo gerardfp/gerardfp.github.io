@@ -259,21 +259,21 @@
     atributo <w>android:text</w>.</p>
   <p>Cambia el valor de este atributo al texto 
     <string>Has clicado 0 veces</string></p>
-  <code html>android:text="Has clicado 0 veces"</code>
+  <sc html>android:text="Has clicado 0 veces"</sc>
   <img src="img/eb1a93877d141ccb.png">
 
   <h3>Button</h3>
   <p>Añade también el <w>Button</w> que, al ser pulsado, augmentará el contador:</p>
 
-  <codefile>
+  <scfile>
     res/layout/activity_main.xml
-  </codefile>  
-  <code xml>
+  </scfile>  
+  <sc xml>
     &lt;Button
       android:layout_width=&#34;wrap_content&#34;
       android:layout_height=&#34;wrap_content&#34;
       android:text=&#34;Click me!&#34;/&gt;
-  </code>
+  </sc>
   <img src="img/72726abc5ed0a7c2.gif">
 
   <info>
@@ -361,17 +361,17 @@
   
   <p>Así pues, para asignar el identificador <string>contadorDeClics</string> al TextView, 
     le añadiremos este atributo:</p>
-  <code>android:id=&#34;@+id/contadorDeClics&#34;</code>
+  <sc>android:id=&#34;@+id/contadorDeClics&#34;</sc>
 
   <img src="img/ff3031e37006d92f.gif">
   
   <p>Ahora ya podemos añadir la <w>constraintTop</w> al botón 
     y hacer que tire de él hacia la parte inferior (<w>toBottomOf</w>) del TextView:</p>
 
-  <codefile>
+  <scfile>
     res/layout/activity_main.xml
-  </codefile>  
-  <code xml data-line="6">
+  </scfile>  
+  <sc xml data-line="6">
     &lt;Button
       android:id=&#34;@+id/augmentarElContador&#34;
       android:layout_width=&#34;wrap_content&#34;
@@ -381,7 +381,7 @@
       app:layout_constraintBottom_toBottomOf=&#34;parent&#34;
       app:layout_constraintLeft_toLeftOf=&#34;parent&#34;
       app:layout_constraintRight_toRightOf=&#34;parent&#34;/&gt;
-  </code>
+  </sc>
 
   <observe>
   <p>También hemos agregado el identificador <w>augmentarElContador</w> al botón, 
@@ -391,12 +391,12 @@
 
   <p>El código completo del layout <file>activity_main.xml</file> quedará así:</p>
   
-  <codefile>
+  <scfile>
     <a href="https://github.com/damm8/apps/blob/master/app/src/main/res/layout/activity_main.xml">
       app/src/main/res/layout/activity_main.xml
     </a>
-  </codefile>
-  <code xml>
+  </scfile>
+  <sc xml>
     &lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
     &lt;androidx.constraintlayout.widget.ConstraintLayout 
       xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
@@ -427,7 +427,7 @@
           app:layout_constraintTop_toBottomOf=&#34;@+id/contadorDeClics&#34;/&gt;
 
     &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
-  </code>
+  </sc>
 </section>
 
 <section>
@@ -465,10 +465,10 @@
 
   <p>Crear la variable para almacenar el número de clicks es la parte más sencilla:</p>
 
-  <codefile>
+  <scfile>
     MainActivity.java
-  </codefile>
-  <code java data-line="3">
+  </scfile>
+  <sc java data-line="3">
     public class MainActivity extends AppCompatActivity {
 
       int contador;
@@ -479,7 +479,7 @@
           setContentView(R.layout.activity_main);
       }
     }  
-  </code>
+  </sc>
 
   <h3>findViewById</h3>
 
@@ -493,10 +493,10 @@
     Al método <w>findViewById()</w> hay que pasarle el identificador 
     que hayamos definido en el fichero XML.</p>
 
-  <codefile>
+  <scfile>
     MainActivity.java
-  </codefile>
-  <code java data-line="4,5,12,13">
+  </scfile>
+  <sc java data-line="4,5,12,13">
     public class MainActivity extends AppCompatActivity {
   
       int contador;
@@ -512,7 +512,7 @@
           augmentarElContador = findViewById(R.id.augmentarElContador);
       }
     }
-  </code>
+  </sc>
 
   <info>
     <p>Observa que las llamadas a <w>findViewById()</w> las hemos 
@@ -532,25 +532,25 @@
   <p>Para activar el ViewBinding hay que ir al fichero 
     <file>build.gradle (Module: app)</file> y añadir la siguiente configuración:</p>
 
-  <codefile>
+  <scfile>
     <a href="https://github.com/gerardfp/ContadorDeClics/blob/master/app/build.gradle">
       app/build.gradle
     </a>
-  </codefile>
-  <code none data-line="3-5">
+  </scfile>
+  <sc none data-line="3-5">
     android {
       . . .
       buildFeatures {
         viewBinding = true
       }
     }
-  </code>
+  </sc>
 
   <p>Luego, hay que definir una única variable y a partir de ésta podremos acceder 
   a los elementos XML. También hay que modificar la llamada a <w>setContentView()</w>, 
   de la siguiente manera:</p>
   
-  <code java data-line="3,8,10">
+  <sc java data-line="3,8,10">
     public class MainActivity extends AppCompatActivity {
 
       ActivityMainBinding binding;
@@ -563,17 +563,17 @@
           setContentView((binding = ActivityMainBinding.inflate(getLayoutInflater())).getRoot());
       }
     }
-  </code>
+  </sc>
 
   <p>De esta forma, para acceder al Button y al TextView 
     (u otros elementos que tuviésemos) podemos hacerlo directamente a 
     través de la variable <w>binding</w> y el identificador de los 
     elementos, así:</p>
 
-  <code java>
+  <sc java>
     binding.contadorDeClics
     binding.augmentarElContador
-  </code>
+  </sc>
 </optional>
 
 <h3>OnClickListener</h3>
@@ -588,7 +588,7 @@
   En el método <w>onClick()</w> de este objeto programaremos lo 
   que queremos que se haga cuando se pulse el botón:</p>
 
-<code java data-line="15-21">
+<sc java data-line="15-21">
   public class MainActivity extends AppCompatActivity {
 
     int contador;
@@ -612,7 +612,7 @@
         });
     }
   }
-</code>
+</sc>
 
 <img src="img/48d2ca652896d97a.gif">
 
@@ -626,17 +626,17 @@
   el texto hacemos una llamada al método <w>setText()</w> del 
   TextView.</p>
 
-<code java>
+<sc java>
   contador++;
   contadorDeClics.setText("Has clicado " + contador + " veces");
-</code>
+</sc>
 
 
 
 <p>Finalmente, el código de la aplicación queda así:</p>
 
-<codefile><a href="https://github.com/gerardfp/ContadorDeClics/blob/master/app/src/main/java/com/company/contadordeclics/MainActivity.java" target="_blank">app/src/main/java/com/company/contadordeclics/MainActivity.java</a></codefile>
-<code java>
+<scfile><a href="https://github.com/gerardfp/ContadorDeClics/blob/master/app/src/main/java/com/company/contadordeclics/MainActivity.java" target="_blank">app/src/main/java/com/company/contadordeclics/MainActivity.java</a></scfile>
+<sc java>
   public class MainActivity extends AppCompatActivity {
 
     int contador;
@@ -660,11 +660,11 @@
         });
     }
   }
-</code>
+</sc>
 
 <optional>
   <p>Si has usado ViewBinding, el código quedaría así:</p>
-  <code java>
+  <sc java>
     public class MainActivity extends AppCompatActivity {
 
       int contador;
@@ -684,7 +684,7 @@
           });
       }
     }
-  </code>
+  </sc>
 </optional>
 </section>
     

@@ -57,20 +57,20 @@
 <p>Descarrega i instal·la Git:</p>
 <p><a href="https://git-scm.com/downloads" target="_blank"><paper-button class="colored" raised><iron-icon icon="cloud_download"></iron-icon>Download Git</paper-button></a></p>
 <p>Amb Ubuntu:</p>
-<p><code>apt install git</code></p>
+<p><sc>apt install git</sc></p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Comparteix el projecte" duration="0">
         <p>Un cop creat el compte a GitHub i instal·lat git, ja podem compartir el nostre projecte a GitHub.</p>
-<p>Per a fer-ho ves a <code>VCS</code> &gt; <code>Import into Version Control</code> &gt; <code>Share Project on GitHub</code></p>
+<p>Per a fer-ho ves a <sc>VCS</sc> &gt; <sc>Import into Version Control</sc> &gt; <sc>Share Project on GitHub</sc></p>
 <p class="image-container"><img style="width: 524.00px" src="img/262dbef49e9514ff.png"></p>
 <p>Es crearà un nou repositori de codi a GitHub per al teu projecte:</p>
 <p class="image-container"><img style="width: 402.00px" src="img/53528f05f0505070.png"></p>
 <p>Et demanarà quins arxius vols pujar al repositori de codi: </p>
 <p class="image-container"><img style="width: 448.00px" src="img/fea5c0b0da147d45.png"></p>
-<aside class="warning"><p><strong>Important</strong>: No marquis els arxius del directori <code>.idea</code>, ja que aquest arxius contenen la configuració del projecte per al teu ordinador, i aquesta configuració pot ser diferent en altres ordinadors.</p>
+<aside class="warning"><p><strong>Important</strong>: No marquis els arxius del directori <sc>.idea</sc>, ja que aquest arxius contenen la configuració del projecte per al teu ordinador, i aquesta configuració pot ser diferent en altres ordinadors.</p>
 </aside>
 <p>Un cop li hem donat a OK, el nostre codi es pujarà a GitHub.</p>
 <p class="image-container"><img style="width: 736.40px" src="img/30e5fdccd8fac12f.png"></p>
@@ -79,19 +79,19 @@
       </google-codelab-step>
     
       <google-codelab-step label="Realitza canvis al codi" duration="0">
-        <p>Quan realitzem canvis al nostre codi, <code>git</code> s&#39;encarrega de gestionar-los, guardant-los localment o pujant-los a GitHub.</p>
+        <p>Quan realitzem canvis al nostre codi, <sc>git</sc> s&#39;encarrega de gestionar-los, guardant-los localment o pujant-los a GitHub.</p>
 <p>Hi ha tres operacions bàsiques que permet realitzar git:</p>
 <p>commit: desa els canvis que hem realitzat al codi en l&#39;ordinador local.</p>
 <p>push: envia a GitHub els canvis que tenim desats al nostre ordinador.</p>
 <p>pull: actualitza els canvis que hi ha a GitHub i encara no tenim al nostre ordinador.</p>
 <p class="image-container"><img style="width: 736.40px" src="img/55a183a897e81d03.png"></p>
 <p>Realitza una modificació al codi i fes un &#34;Commit &amp; Push&#34;, per a enviar els canvis a GitHub.</p>
-<pre><code>public class Main {
+<pre><sc>public class Main {
 
    public static void main(String[] args) {
        System.out.println(&#34;git works&#34;);
    }
-}</code></pre>
+}</sc></pre>
 <p>Un cop fet els canvis, fes click a la icona <img style="width: 24.00px" src="img/2cf83de17000a74.png"> per a fer el &#34;Commit &amp; Push&#34;:</p>
 <p>Descriu al &#34;Commit Message&#34; els canvis que has realitzat i clica &#34;Commit &amp; Push&#34;:</p>
 <p class="image-container"><img style="width: 510.00px" src="img/2f8f43262bcbd753.png"></p>
@@ -101,7 +101,7 @@
     
       <google-codelab-step label="Clona el repositori" duration="0">
         <p>Ara que tenim el nostre projecte a GitHub podem clonar-lo <strong>en altres ordinadors</strong> i mantenir sempre sincronitzats el nostre codi.</p>
-<p>Per a clonar un repositori anem a <code>VCS</code> &gt; <code>Checkout from Version Control</code> &gt; <code>Git</code></p>
+<p>Per a clonar un repositori anem a <sc>VCS</sc> &gt; <sc>Checkout from Version Control</sc> &gt; <sc>Git</sc></p>
 <p class="image-container"><img style="width: 398.00px" src="img/5cdac72ae4452599.png"></p>
 <p>Ens demana la URL del repositori que volem clonar. Aquesta URL la trobarem a la pàgina principal del repositori a GitHub.</p>
 <p class="image-container"><img style="width: 394.00px" src="img/664fef815eaeb482.png"></p>
@@ -116,22 +116,22 @@
       <google-codelab-step label="Merge" duration="0">
         <p>Un aspecte important de git és que gestiona els conflictes entre les diferents versions d&#39;un mateix arxiu que puguem tenir en els diferents clons. Fem una prova.</p>
 <p>Al projecte clonat (directori &#34;ControlVersionsClon&#34;) realitza una modificació:</p>
-<pre><code>public class Main {
+<pre><sc>public class Main {
 
    public static void main(String[] args) {
        System.out.println(&#34;git works&#34;);
        System.out.println(&#34;git rocks&#34;);
    }
-}</code></pre>
+}</sc></pre>
 <p>Fes un Push <img style="width: 24.00px" src="img/2cf83de17000a74.png">dels canvis.</p>
 <p>Ara torna al projecte originari (directori &#34;ControlVersions&#34;) i fes una altre petita modificació:</p>
-<pre><code>public class Main {
+<pre><sc>public class Main {
 
    public static void main(String[] args) {
        System.out.println(&#34;git works&#34;);
        System.out.println(&#34;git forever&#34;);
    }
-}</code></pre>
+}</sc></pre>
 <p> Fes un Update<img style="width: 24.00px" src="img/151091502258067d.png">.</p>
 <p>En aquest punt, git detecta que al teu ordinador hi ha canvis al teu codi que no estan a GitHub, i que hi ha canvis a GitHub que no estan al teu codi. Per tant s&#39;han de &#34;mesclar&#34; aquest canvis. Et mostra el següent diàleg per a que els mesclis:</p>
 <p class="image-container"><img style="width: 446.00px" src="img/554651c0c9b57e5e.png"></p>

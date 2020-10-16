@@ -39,15 +39,15 @@
 <p class="image-container"><img style="width: 212.00px" src="img/c1ab005cc9375245.png"></p>
 <h2 is-upgraded>Elimina el <em>Boilerplate</em> generado por el asistente:</h2>
 <ol type="1" start="1">
-<li>Elimina el package <code>ui</code>:<br><br><img style="width: 416.00px" src="img/52145a86bbbef209.gif"><br></li>
-<li>Borra las Top-Level destinations del fichero <code>MainActivity.java</code>:<br><br><img style="width: 511.00px" src="img/5e01ee9fcbacf5fc.gif"><br></li>
+<li>Elimina el package <sc>ui</sc>:<br><br><img style="width: 416.00px" src="img/52145a86bbbef209.gif"><br></li>
+<li>Borra las Top-Level destinations del fichero <sc>MainActivity.java</sc>:<br><br><img style="width: 511.00px" src="img/5e01ee9fcbacf5fc.gif"><br></li>
 <li>Borra los archivos de layout de los fragments:<br><br><img style="width: 216.00px" src="img/2e1f13eec7c52b5b.gif"><br></li>
-<li>Borra todos los <code>item</code> del fichero <code>menu/activity_main_drawer.xml<br></code></li>
-<li>Borra todos los fragment del fichero <code>navigation/mobile_navigation.xml</code><br><br>Borra tambien el atributo <code>app:startDestination=&#34;@+id/nav_home&#34;</code></li>
+<li>Borra todos los <sc>item</sc> del fichero <sc>menu/activity_main_drawer.xml<br></sc></li>
+<li>Borra todos los fragment del fichero <sc>navigation/mobile_navigation.xml</sc><br><br>Borra tambien el atributo <sc>app:startDestination=&#34;@+id/nav_home&#34;</sc></li>
 </ol>
 <h2 is-upgraded>Connecta la app a Firebase</h2>
 <ol type="1" start="1">
-<li>Selecciona <strong><code>Herramientas</code></strong><strong> &gt; </strong><strong><code>Firebase</code></strong> para abrir la ventana del <strong>Asistente</strong>.</li>
+<li>Selecciona <strong><sc>Herramientas</sc></strong><strong> &gt; </strong><strong><sc>Firebase</sc></strong> para abrir la ventana del <strong>Asistente</strong>.</li>
 <li>Haz clic en <strong>Authentication</strong>, y luego en &#34;<strong>Email and password authentication</strong>&#34;.<br></li>
 </ol>
 <p class="image-container"><img style="width: 546.00px" src="img/a8dac09c5136e57a.png"></p>
@@ -68,11 +68,11 @@
 <li>Ve al apartado &#34;<strong>Authentication</strong>&#34; <br><br><img style="width: 245.00px" src="img/86215678c582fd98.png"><br></li>
 <li>Haz clic en &#34;<strong>Setup sign-in method</strong>&#34;<br><br> <img style="width: 191.00px" src="img/12a32cc1f08159d7.png"><br></li>
 <li>Activa &#34;Email/Password&#34; y &#34;Google&#34;<br><br><img style="width: 736.40px" src="img/81147dd7fba370f0.png"><br><img style="width: 736.40px" src="img/34207a9846fbf4b.png"></li>
-<li>Añade la siguiente dependencia en el archivo <code>build.gradle (Module: app)<br></code></li>
+<li>Añade la siguiente dependencia en el archivo <sc>build.gradle (Module: app)<br></sc></li>
 </ol>
-<pre><code>implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code></pre>
+<pre><sc>implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</sc></pre>
 <p>Las dependencias del fichero build.gradle (Module: app) deberían quedar así:</p>
-<pre><code>implementation fileTree(dir: &#39;libs&#39;, include: [&#39;*.jar&#39;])
+<pre><sc>implementation fileTree(dir: &#39;libs&#39;, include: [&#39;*.jar&#39;])
 implementation &#39;androidx.appcompat:appcompat:1.1.0&#39;
 implementation &#39;androidx.legacy:legacy-support-v4:1.0.0&#39;
 implementation &#39;com.google.android.material:material:1.0.0&#39;
@@ -84,7 +84,7 @@ implementation &#39;com.google.firebase:firebase-auth:19.2.0&#39;
 testImplementation &#39;junit:junit:4.12&#39;
 androidTestImplementation &#39;androidx.test.ext:junit:1.1.1&#39;
 androidTestImplementation &#39;androidx.test.espresso:espresso-core:3.2.0&#39;
-implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code></pre>
+implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</sc></pre>
 
 
       </google-codelab-step>
@@ -94,9 +94,9 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
 <p>SignInFragment, SignOutFragment, RegisterFragment, ProfileFragment y HomeFragment</p>
 <p class="image-container"><img style="width: 492.00px" src="img/a353d84bc864c51d.png"></p>
 <h2 is-upgraded>Archivos de Layout:</h2>
-<p><code>fragment_sign_in.xml</code>:</p>
+<p><sc>fragment_sign_in.xml</sc>:</p>
 <p class="image-container"><img style="width: 281.00px" src="img/7010b64d6984ed93.png"></p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;androidx.constraintlayout.widget.ConstraintLayout
    xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
@@ -163,10 +163,10 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
        app:layout_constraintEnd_toEndOf=&#34;parent&#34;
        app:layout_constraintStart_toStartOf=&#34;parent&#34;
        app:layout_constraintTop_toTopOf=&#34;parent&#34; /&gt;
-&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</code></pre>
-<p><code>fragment_register.xml</code>:</p>
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;</sc></pre>
+<p><sc>fragment_register.xml</sc>:</p>
 <p class="image-container"><img style="width: 283.00px" src="img/e2a2323f62a363a2.png"></p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    xmlns:tools=&#34;http://schemas.android.com/tools&#34;
    android:layout_width=&#34;match_parent&#34;
@@ -192,9 +192,9 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
        android:layout_height=&#34;wrap_content&#34;
        android:text=&#34;Create account&#34;/&gt;
 
-&lt;/LinearLayout&gt;</code></pre>
-<p><code>fragment_profile.xml</code>:<br></p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;/LinearLayout&gt;</sc></pre>
+<p><sc>fragment_profile.xml</sc>:<br></p>
+<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    android:layout_width=&#34;match_parent&#34;
    android:layout_height=&#34;match_parent&#34;
@@ -212,9 +212,9 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
        android:id=&#34;@+id/emailTextView&#34;
        android:layout_width=&#34;match_parent&#34;
        android:layout_height=&#34;wrap_content&#34; /&gt;
-&lt;/LinearLayout&gt;</code></pre>
+&lt;/LinearLayout&gt;</sc></pre>
 <h2 is-upgraded>Menu drawer:</h2>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;menu xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    xmlns:tools=&#34;http://schemas.android.com/tools&#34;
    tools:showIn=&#34;navigation_view&#34;&gt;
@@ -231,14 +231,14 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
            android:title=&#34;Cerrar sesion&#34; /&gt;
    &lt;/group&gt;
 
-&lt;/menu&gt;</code></pre>
+&lt;/menu&gt;</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Navegación" duration="0">
         <p>Añadir el NavController en cada fragment:</p>
-<pre><code>public class XXXXXXFragment extends Fragment {
+<pre><sc>public class XXXXXXFragment extends Fragment {
 
    NavController navController;   // &lt;-----------------
 
@@ -255,10 +255,10 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
 
        navController = Navigation.findNavController(view);  // &lt;-----------------
    }
-}</code></pre>
-<p><code>SignInFragment.java</code>:</p>
+}</sc></pre>
+<p><sc>SignInFragment.java</sc>:</p>
 <p>Hacer que el enlace a &#34;Create account here&#34; lleve al RegisterFragment</p>
-<pre><code>public class SignInFragment extends Fragment {
+<pre><sc>public class SignInFragment extends Fragment {
 
    NavController navController;
 
@@ -277,10 +277,10 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
            }
        });
    }
-}</code></pre>
-<p><code>activity_main_drawer.xml</code>:</p>
+}</sc></pre>
+<p><sc>activity_main_drawer.xml</sc>:</p>
 <p>Añadir los siguientes items al menu:</p>
-<pre><code>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
 &lt;menu xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
    xmlns:tools=&#34;http://schemas.android.com/tools&#34;
    tools:showIn=&#34;navigation_view&#34;&gt;
@@ -297,14 +297,14 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
            android:title=&#34;@string/menu_home&#34; /&gt;
    &lt;/group&gt;
 
-&lt;/menu&gt;</code></pre>
+&lt;/menu&gt;</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Registro con email/password" duration="0">
         <p>Guardar los EditText como variables de clase:</p>
-<pre><code>public class RegisterFragment extends Fragment {
+<pre><sc>public class RegisterFragment extends Fragment {
    
    private EditText emailEditText, passwordEditText;
 
@@ -318,9 +318,9 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
        emailEditText = view.findViewById(R.id.emailEditText);
        passwordEditText = view.findViewById(R.id.passwordEditText);
    }
-}</code></pre>
-<p>Añadir el listener al boton <code>registerButton</code>:</p>
-<pre><code>public class RegisterFragment extends Fragment {
+}</sc></pre>
+<p>Añadir el listener al boton <sc>registerButton</sc>:</p>
+<pre><sc>public class RegisterFragment extends Fragment {
 
    // ...
    private Button registerButton;
@@ -343,16 +343,16 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
    private void crearCuenta() {
 
    }
-}</code></pre>
+}</sc></pre>
 <h2 is-upgraded>crearCuenta()</h2>
-<p>El método <code>crearCuenta()</code> primero valida que se ha introducido un Email y Password en los campos de texto. </p>
-<p>Luego, llama al método <code>createUserWithEmailAndPassword()</code> con los valores email/password introducidos en ellos.</p>
-<p>Cuando se completa la creación del usuario, se ejecuta el método <code>onComplete()</code>. En él miramos si el registro ha tenido éxito o no. Si ha tenido éxito, navegamos al HomeFragment, y si ha habido algun error, lo mostramos al usuario con un SnackBar.</p>
+<p>El método <sc>crearCuenta()</sc> primero valida que se ha introducido un Email y Password en los campos de texto. </p>
+<p>Luego, llama al método <sc>createUserWithEmailAndPassword()</sc> con los valores email/password introducidos en ellos.</p>
+<p>Cuando se completa la creación del usuario, se ejecuta el método <sc>onComplete()</sc>. En él miramos si el registro ha tenido éxito o no. Si ha tenido éxito, navegamos al HomeFragment, y si ha habido algun error, lo mostramos al usuario con un SnackBar.</p>
 <aside class="special"><p>El método createUserWithEmailAndPassword() creará el usuario y también hará el SIGN-IN automáticamente.</p>
 </aside>
-<p>Es interesante desactivar el boton de registro mientras se está realizando el registro en Firebase, para que el usuario no le de dos veces. Una vez termine el registro, se vuelve a activar el boton (Otra opción sería ocultar el formulario con <code>setVisibility(View.</code><strong><em><code>GONE)</code></em></strong>, y mostrar con <code>setVisibility(View.</code><strong><em><code>VISIBLE</code></em></strong><code>)</code> un ProgressBar. Una vez termine el registro habría que mostrar de nuevo el formulario y ocultar el ProgressBar).  </p>
-<p>El primer paso es obtener el objeto <code>FirebaseAuth</code> que contiene todos los métodos de la API. Normalmente lo declaramos como variable de clase y lo inicializamos de primeras en el método <code>onViewCreated()</code>.</p>
-<pre><code>public class RegisterFragment extends Fragment {
+<p>Es interesante desactivar el boton de registro mientras se está realizando el registro en Firebase, para que el usuario no le de dos veces. Una vez termine el registro, se vuelve a activar el boton (Otra opción sería ocultar el formulario con <sc>setVisibility(View.</sc><strong><em><sc>GONE)</sc></em></strong>, y mostrar con <sc>setVisibility(View.</sc><strong><em><sc>VISIBLE</sc></em></strong><sc>)</sc> un ProgressBar. Una vez termine el registro habría que mostrar de nuevo el formulario y ocultar el ProgressBar).  </p>
+<p>El primer paso es obtener el objeto <sc>FirebaseAuth</sc> que contiene todos los métodos de la API. Normalmente lo declaramos como variable de clase y lo inicializamos de primeras en el método <sc>onViewCreated()</sc>.</p>
+<pre><sc>public class RegisterFragment extends Fragment {
 
    private FirebaseAuth mAuth;
 
@@ -363,9 +363,9 @@ implementation &#39;com.google.android.gms:play-services-auth:17.0.0&#39;</code>
        // ...
        mAuth = FirebaseAuth.getInstance();
    }
-}</code></pre>
+}</sc></pre>
 <p>Los métodos crearCuenta(), actualizarUI() y validarFormulario() quedan así:</p>
-<pre><code>private void crearCuenta() {
+<pre><sc>private void crearCuenta() {
    if (!validarFormulario()) {
        return;
    }
@@ -412,14 +412,14 @@ private boolean validarFormulario() {
    }
 
    return valid;
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="SignIn con email/password" duration="0">
-        <p>Hacer los <code>findViewById()</code>:</p>
-<pre><code>public class SignInFragment extends Fragment {
+        <p>Hacer los <sc>findViewById()</sc>:</p>
+<pre><sc>public class SignInFragment extends Fragment {
    
    // ...
    
@@ -440,9 +440,9 @@ private boolean validarFormulario() {
        signInForm = view.findViewById(R.id.signInForm);
        signInProgressBar = view.findViewById(R.id.signInProgressBar);
    }
-}</code></pre>
-<p>Añadir el listener al botón <code>emailSignIn</code>:</p>
-<pre><code>public class SignInFragment extends Fragment {
+}</sc></pre>
+<p>Añadir el listener al botón <sc>emailSignIn</sc>:</p>
+<pre><sc>public class SignInFragment extends Fragment {
 
    // ...
 
@@ -462,9 +462,9 @@ private boolean validarFormulario() {
    private void accederConEmail() {
 
    }
-}</code></pre>
+}</sc></pre>
 <p>Obtener el manejador de la Auth API:</p>
-<pre><code>public class SignInFragment extends Fragment {
+<pre><sc>public class SignInFragment extends Fragment {
 
    // ...
    private FirebaseAuth mAuth;
@@ -479,11 +479,11 @@ private boolean validarFormulario() {
 
        // ...
    }
-}</code></pre>
-<p>El método <code>accederConEmail()</code> llamará al método <code>signInWithEmailAndPassword()</code> pasándole el email/password introducidos. Una vez finalizado el proceso de SignIn, se ejecuta el método <code>onComplete()</code> del listener. En él, miramos si se ha hecho el SignIn correctamente o no. Si ha tenido éxito, llamamos a <code>actualizarUI()</code>, para navegar al HomeFragment. I si ha habido algun error lo mostramos en un SnackBar.</p>
+}</sc></pre>
+<p>El método <sc>accederConEmail()</sc> llamará al método <sc>signInWithEmailAndPassword()</sc> pasándole el email/password introducidos. Una vez finalizado el proceso de SignIn, se ejecuta el método <sc>onComplete()</sc> del listener. En él, miramos si se ha hecho el SignIn correctamente o no. Si ha tenido éxito, llamamos a <sc>actualizarUI()</sc>, para navegar al HomeFragment. I si ha habido algun error lo mostramos en un SnackBar.</p>
 <p>Antes de iniciar el SignIn hemos ocultado el formulario de acceso y mostrado el ProgressBar. Cuando finaliza el SIgnIn, volvemos a mostrar el formulario y ocultar el ProgressBar.</p>
-<p>Los métodos <code>accederConEmail()</code> y <code>actualizarUI()</code> quedan así:</p>
-<pre><code>public class SignInFragment extends Fragment {
+<p>Los métodos <sc>accederConEmail()</sc> y <sc>actualizarUI()</sc> quedan así:</p>
+<pre><sc>public class SignInFragment extends Fragment {
    // ...
 
    private void accederConEmail() {
@@ -510,14 +510,14 @@ private boolean validarFormulario() {
            navController.navigate(R.id.homeFragment);
        }
    }
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="SignIn con Google" duration="0">
         <p>FindViewById y OnClickListener:</p>
-<pre><code>public class SignInFragment extends Fragment {
+<pre><sc>public class SignInFragment extends Fragment {
 
    private SignInButton googleSignInButton;
 
@@ -536,13 +536,13 @@ private boolean validarFormulario() {
 
    private void accederConGoogle() {
       
-   }</code></pre>
+   }</sc></pre>
 <p>}</p>
 <p>El acceso con cuenta de Google se realiza en dos pasos: (1) Acceder con la cuenta de Google y (2) Usar las credenciales de esta cuenta para acceder a Firebase.</p>
 <ol type="1" start="1">
 <li>Acceder con la cuenta de Google:<br></li>
 </ol>
-<pre><code>private void accederConGoogle() {
+<pre><sc>private void accederConGoogle() {
    GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(requireActivity(), new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
            .requestIdToken(getString(R.string.default_web_client_id))
            .requestEmail()
@@ -564,12 +564,12 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
    }
 }
 
-private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {</code></pre>
+private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {</sc></pre>
 <p>}</p>
 <ol type="1" start="2">
 <li>Usar la cuenta de google para acceder a Firebase<br></li>
 </ol>
-<pre><code>private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+<pre><sc>private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
    if(acct == null) return;
 
    signInProgressBar.setVisibility(View.VISIBLE);
@@ -589,22 +589,22 @@ private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {</code></pre>
                    }
                }
            });
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Perfil de usuario" duration="0">
         <p>Podemos obtener los datos de la cuenta de Google del usuario (foto, nombre, etc.). Sin embargo para los usuarios que acceden con email/password, el usuario nos tendría que dar esa información y guardarla en la base de datos.</p>
-<p>Para obtener los datos del usuario actual, usamos los <em>getters </em>del FirebaseUser que nos devuelve <code>FirebaseAuth.</code><em><code>getInstance</code></em><code>().getCurrentUser()</code>.</p>
+<p>Para obtener los datos del usuario actual, usamos los <em>getters </em>del FirebaseUser que nos devuelve <sc>FirebaseAuth.</sc><em><sc>getInstance</sc></em><sc>().getCurrentUser()</sc>.</p>
 <aside class="warning"><p>Para cargar la Foto de perfil, añade las dependencias de <a href="https://github.com/bumptech/glide" target="_blank">Glide</a>:</p>
-<p><code>implementation </code><strong><code>&#39;com.github.bumptech.glide:glide:4.11.0&#39;</code></strong></p>
-<p><code>annotationProcessor </code><strong><code>&#39;com.github.bumptech.glide:compiler:4.11.0&#39;</code></strong></p>
-<p>Añade también el permiso de INTERNET en el <code>AndroidManifest.xml</code>:</p>
-<p><code>&lt;</code><strong><code>uses-permission android:name=&#34;android.permission.INTERNET&#34;</code></strong><code>/&gt;</code></p>
+<p><sc>implementation </sc><strong><sc>&#39;com.github.bumptech.glide:glide:4.11.0&#39;</sc></strong></p>
+<p><sc>annotationProcessor </sc><strong><sc>&#39;com.github.bumptech.glide:compiler:4.11.0&#39;</sc></strong></p>
+<p>Añade también el permiso de INTERNET en el <sc>AndroidManifest.xml</sc>:</p>
+<p><sc>&lt;</sc><strong><sc>uses-permission android:name=&#34;android.permission.INTERNET&#34;</sc></strong><sc>/&gt;</sc></p>
 </aside>
-<p>El código del <code>ProfileFragment</code>, quedaría así (a falta de guardar la info del usuario en la base de datos):</p>
-<pre><code>public class ProfileFragment extends Fragment {
+<p>El código del <sc>ProfileFragment</sc>, quedaría así (a falta de guardar la info del usuario en la base de datos):</p>
+<pre><sc>public class ProfileFragment extends Fragment {
 
    ImageView photoImageView;
    TextView displayNameTextView, emailTextView;
@@ -634,7 +634,7 @@ private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {</code></pre>
            Glide.with(requireView()).load(user.getPhotoUrl()).into(photoImageView);
        }
    }
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>
@@ -642,8 +642,8 @@ private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {</code></pre>
       <google-codelab-step label="Perfil de usuario en el Drawer" duration="0">
         <p class="image-container"><img style="width: 267.00px" src="img/d4b77252eae135f0.png"></p>
 <p>Para mostrar el perfil del usuario en el NavigationView (<em>Drawer</em>), tendremos que poner el código en la MainActivity, ya que es en ella donde esta el NavigationView.</p>
-<p>Añade el siguiente código en el metodo <code>onCreate()</code>:</p>
-<pre><code>View header = navigationView.getHeaderView(0);
+<p>Añade el siguiente código en el metodo <sc>onCreate()</sc>:</p>
+<pre><sc>View header = navigationView.getHeaderView(0);
 final ImageView photo = header.findViewById(R.id.photoImageView);
 final TextView name = header.findViewById(R.id.displayNameTextView);
 final TextView email = header.findViewById(R.id.emailTextView);
@@ -662,8 +662,8 @@ FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListen
            email.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
        }
    }
-});</code></pre>
-<aside class="warning"><p>Añade los ids necesarios en el fichero <code>layout/nav_header_main.xml</code></p>
+});</sc></pre>
+<aside class="warning"><p>Añade los ids necesarios en el fichero <sc>layout/nav_header_main.xml</sc></p>
 </aside>
 
 
@@ -671,7 +671,7 @@ FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListen
     
       <google-codelab-step label="SignOut" duration="0">
         <p>El SignOutFragment, es solamente un fragment &#34;de paso&#34; en el que se cierra la sesión, tanto de Google como de Firebase, y se vuelve al SignInFragment:</p>
-<pre><code>public class SignOutFragment extends Fragment {
+<pre><sc>public class SignOutFragment extends Fragment {
 
 
    public SignOutFragment() { }
@@ -693,7 +693,7 @@ FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListen
 
        Navigation.findNavController(view).navigate(R.id.signInFragment);
    }
-}</code></pre>
+}</sc></pre>
 
 
       </google-codelab-step>
