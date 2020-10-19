@@ -676,17 +676,17 @@
     </stepper>
 
     <p>Les variables declarades a la sentència d'<strong>inicialització</strong> només són visibles en l'àmbit (<em>scope</em>) del 
-    bucle-for -incloent totes les seves parts: condició, bloc i modificació-.</p>
+    bucle -incloent totes les seves parts: condició, bloc i modificació-.</p>
 
     <info>
-        <p>És una pràctica molt comuna entre els programadors anomnar les variables dels bucles amb <w>i</w>, <w>j</w>, <w>k</w>, ...
-        S'especula que l'origen ve del <a href="https://en.wikipedia.org/wiki/Quaternion">Quaternions de Hamilton</a>.    
+        <p>És una pràctica molt comuna entre els programadors anomenar les variables dels bucles amb <w>i</w>, <w>j</w>, <w>k</w>, ...
+        S'especula que l'origen ve dels <a href="https://en.wikipedia.org/wiki/Quaternion">Quaternions de Hamilton</a>.    
         </p>
     </info>
 
-    <p>Veiem un altre exemple. Calculem la suma dels números enters des de <w>m</w> fins a <w>n</w>.</p>
+    <p>Veiem un altre exemple. Calculem la suma dels números enters des de <w>ini</w> fins a <w>fin</w>.</p>
 
-    <p>Farem una execució del programa per a <w>n=2</w> i <w>m=5</w>, aleshores la suma serà <w>2+3+4+5 = 14</w>.</p>
+    <p>Farem una execució del programa per a <w>ini = 2</w> i <w>fin = 5</w>, aleshores la suma serà <w>2 + 3 + 4 + 5 = 14</w>.</p>
     <stepper style="--sc-h:8; --mm-h:6.8; --sh-h:5.8; --ex-h:3; --sc-w:22;    --sc-mh:14; --mm-mh:6.8; --sh-mh:5.8; --ex-mh:3;">
         <step>
             <explanation></explanation>
@@ -1210,7 +1210,7 @@
         </step>
     </stepper>
 
-    <h3>Parts opcionals</h3>
+    <h3>Ometre parts</h3>
     <p>Les tres parts (inicialització, condició i modificació) són opcionals, es poden posar o no segons convingui.</p>
     <p>Per exemple, el següent <w>for</w> no utilitza cap de les tres:</p>
     <sc java>
@@ -1230,11 +1230,12 @@
     <p>El bucle for itera el bloc de codi fins que la condició és <w>false</w>, 
     com no hem posat cap condició, el bucle itera indefinidament.</p>
 
-
-
     <p>Al següent exemple només s'especifica la condició, no la incialització 
-        ni la modificació:
-    </p>
+        ni la modificació. El <strong>for</strong> d'aquest exemple avalua 
+        si la paraula llegida amb l'scanner és igual a <string>si</string>. 
+        El bucle fara iteracions del bloc fins que la condició sigui <w>false</w>, és a dir,
+        fins que es llegeixi un String distint de <string>si</string>.</p>
+    
     <sc java>
         Scanner scanner = new Scanner(System.in);
 
@@ -1252,16 +1253,9 @@
         <in>prou!</in>
     </shell>
 
-    <p>El <strong>bucle-for</strong> d'aquest exemple avalua si la condició és <w>true</w>, és a dir, 
-    si la paraula llegida amb l'scanner és igual a <string>si</string>. 
-    Si aquesta condició és <w>true</w> aleshores realitza una iteració del bloc 
-    de codi: imprimeix <string>Tornem a repetir</string>. Aleshores torna a avaluar
-    l'expresió, si torna a ser <w>true</w> fa una altra iteració. I torna a avaluar
-    l'expressió, fins que resulti <w>false</w>, i aleshores ja no executa el bloc de 
-    codi.</p>
 
     <p>Una altre petit exemple, el programa "Endevina el número":</p>
-    <stepper  style="--sc-h:8; --mm-h:3.2; --sh-h:10.8; --ex-h:3.2; --sc-w:22;    --sc-mh:8.6; --mm-mh:3.2; --sh-mh:10.8; --ex-mh:3.2;">
+    <stepper  style="--sc-h:12; --mm-h:3.2; --sh-h:10.8; --ex-h:3.2; --sc-w:26;    --sc-mh:8.6; --mm-mh:3.2; --sh-mh:10.8; --ex-mh:3.2;">
         <step>
             <explanation>
             </explanation>
@@ -1552,31 +1546,767 @@
         </step>
     </stepper>
 
-    <h3>Inicialització</h3>
-    <p>La <strong>inicialització</strong> s'executa només una vegada abans de començar el bucle.
-        És a dir, és <em>semblant</em> a posar-la abans del bucle, però d'una forma més compacta</p>
+    <h3>Bucles niats</h3>
+    <p>És possible niar un bucle-for dintre d'un altre bucle-for. Ens pot servir per a processar 
+        estructures multidimensionals como taules (matrius), cubs, etc...
+    </p>
 
-    
-    <p>Veiem un exemple:</p>
+    <p>Com a exemple, el següent programa imprimeix la taula de mutliplicar del <w>1</w> fins al <w>9</w>:</p>
+
     <sc java>
-        for (System.out.println("Are you sure you want to delete your account?"); scanner.next().equals("no"); ) {
-            System.out.println("Are you REALLY sure you want to delete your account?");
+        for (int i = 1; i &lt; 10; i++) {
+            for (int j = 1; j &lt; 10; j++) {
+                System.out.print(i * j + "\t");
+            }
+            System.out.println();
         }
-        System.out.println("Your account has not been deleted.");
     </sc>
 
+    <shell>
+        1   2   3   4   5   6   7   8   9  
+        2   4   6   8   10  12  14  16  18  
+        3   6   9   12  15  18  21  24  27  
+        4   8   12  16  20  24  28  32  36  
+        5   10  15  20  25  30  35  40  45  
+        6   12  18  24  30  36  42  48  54  
+        7   14  21  28  35  42  49  56  63  
+        8   16  24  32  40  48  56  64  72  
+        9   18  27  36  45  54  63  72  81 
+    </shell>
 
+    <quizz>
+        <question single>
+            <statement>
+                <p>El següent codi calcula la suma dels números en el rang <w>ini</w> a <w>fin</w> (inclusiu). El resultat
+                es va emmagatzemant en la variable <w>acumulador</w>.</p>
+                <sc java>
+                    int accumulator = 0;                  
+                    for (int i = start; i &lt;= end; i++) { 
+                        accumulator += i;                 
+                    }
+                </sc>
 
-    <p>Habitualment s'utilitza per a inicialitzar variables que s'utilitzaran dintre del bucle.</p>
+                <p>Quin dels següents codis calcula la multiplicació dels números en el rang?</p>
+            </statement>
+            <o correct>
+                <sc java>
+                    int accumulator = 1;                  
+                    for (int i = start; i &lt;= end; i++) { 
+                        accumulator *= i;                 
+                    }
+                </sc>
+            </o>
+            <o>
+                <sc java>
+                    int accumulator = 0;                  
+                    for (int i = 1; i &lt;= end; i++) { 
+                        accumulator *= i;                 
+                    }
+                </sc>
+            </o>
+            <o>
+                <sc java>
+                    int accumulator = 1;                  
+                    for (int i = start; i &lt;= end; i *= 1) { 
+                        accumulator += i;                 
+                    }
+                </sc>
+            </o>
+            <o>
+                <sc java>
+                    int accumulator = 1;                  
+                    for (int i = 1; i &lt;= end; i++) { 
+                        accumulator += i;                 
+                    }
+                </sc>
+            </o>
+        </question>
 
+        <question single>
+            <statement>
+                <p>Què imprimeix el següent codi?</p>
+                <sc java>
+                    int i = 0; 
+                    for (int k = 0; k &lt; 100; k++) { 
+                        i++; 
+                    } 
+                    System.out.println(i);
+                </sc>
+            </statement>
+            <o>101</o>
+            <o correct>100</o>
+            <o>0</o>
+            <o>99</o>
+        </question>
+    </quizz>
+
+    <challenge>
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c3-l0-1-linia-de-punts">Línia de punts</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c3-l0-2-interval">Interval</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c3-l0-3-repeat-x">Repeat X</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/c3-l0-4-divisibles-per-3">Divisibles per 3</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/fizz-buzz-for">FizzBuzz</a>
+            <br>
+        </p>
+    </challenge>
 </section>
 
 <section>
-    <h2>do-while</h2>
+    <h2>while i do-while</h2>
+    <p>Java proporciona les sentències <w>while</w> i <w>do-while</w> per a repetir un fragment de codi.</p>
+
+    <h3>while</h3>
+    <p>El bucle <w>while</w> consisteix en un bloc de codi i una condició (expressió booleana). El codi es repeteix 
+    fins que la condició és <w>false</w>. La seva sintaxi és:</p>
+
     <sc java>
-        do {
-            
-            String cmd = scanner.nextLine();
+        while (condicio) {
+            // bloc de codi
         }
     </sc>
+
+    <p>El bloc de codi pot contenir qualssevol sentències Java incloent altres sentències condicionals o de repetició.</p>
+
+    <p>Veiem un petit exemple, que imprimeix una variable mentre sigui menor a 5:</p>
+    
+    <stepper style="--sc-h:5; --mm-h:3.2; --sh-h:3.2; --ex-h:3.2; --sc-w:24;    --sc-mh:8.6; --mm-mh:4.2; --sh-mh:3.2; --ex-mh:6.4;">
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int i = 0;
+                while (i &lt; 5) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </sc>
+            <mem></mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                <h>int i = 0;</h>
+                while (i &lt; 5) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </sc>
+            <mem></mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation>
+                0 és menor que 5, es fa una iteració
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (<h>i &lt; 5</h>) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </sc>
+            <mem>
+                i: 0
+            </mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (i &lt; 5) {
+                    <h>System.out.print(i + " ");</h>
+                    i++;
+                }
+            </sc>
+            <mem>
+                i: 0
+            </mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (i &lt; 5) {
+                    System.out.print(i + " ");
+                    <h>i++;</h>
+                }
+            </sc>
+            <mem>
+                i: 0
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+        <step>
+            <explanation>
+                1 és menor que 5, es fa una iteració
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (<h>i &lt; 5</h>) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </sc>
+            <mem>
+                i: 1
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (i &lt; 5) {
+                    <h>System.out.print(i + " ");</h>
+                    i++;
+                }
+            </sc>
+            <mem>
+                i: 1
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (i &lt; 5) {
+                    System.out.print(i + " ");
+                    <h>i++;</h>
+                }
+            </sc>
+            <mem>
+                i: 1
+            </mem>
+            <shell>
+                0 1
+            </shell>
+        </step>
+        <step>
+            <explanation>
+                2 és menor que 5, es fa una iteració
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (<h>i &lt; 5</h>) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </sc>
+            <mem>
+                i: 2
+            </mem>
+            <shell>
+                0 1
+            </shell>
+        </step>
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (i &lt; 5) {
+                    <h>System.out.print(i + " ");</h>
+                    i++;
+                }
+            </sc>
+            <mem>
+                i: 2
+            </mem>
+            <shell>
+                0 1
+            </shell>
+        </step>
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (i &lt; 5) {
+                    System.out.print(i + " ");
+                    <h>i++;</h>
+                }
+            </sc>
+            <mem>
+                i: 2
+            </mem>
+            <shell>
+                0 1 2
+            </shell>
+        </step>
+        <step>
+            <explanation>
+                3 és menor que 5, es fa una iteració
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (<h>i &lt; 5</h>) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </sc>
+            <mem>
+                i: 3
+            </mem>
+            <shell>
+                0 1 2
+            </shell>
+        </step>
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (i &lt; 5) {
+                    <h>System.out.print(i + " ");</h>
+                    i++;
+                }
+            </sc>
+            <mem>
+                i: 3
+            </mem>
+            <shell>
+                0 1 2
+            </shell>
+        </step>
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (i &lt; 5) {
+                    System.out.print(i + " ");
+                    <h>i++;</h>
+                }
+            </sc>
+            <mem>
+                i: 3
+            </mem>
+            <shell>
+                0 1 2 3
+            </shell>
+        </step>
+        <step>
+            <explanation>
+                4 és menor que 5, es fa una iteració
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (<h>i &lt; 5</h>) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </sc>
+            <mem>
+                i: 4
+            </mem>
+            <shell>
+                0 1 2 3
+            </shell>
+        </step>
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (i &lt; 5) {
+                    <h>System.out.print(i + " ");</h>
+                    i++;
+                }
+            </sc>
+            <mem>
+                i: 4
+            </mem>
+            <shell>
+                0 1 2 3 4
+            </shell>
+        </step>
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (i &lt; 5) {
+                    System.out.print(i + " ");
+                    <h>i++;</h>
+                }
+            </sc>
+            <mem>
+                i: 4
+            </mem>
+            <shell>
+                0 1 2 3 4
+            </shell>
+        </step>
+        <step>
+            <explanation>
+                5 &lt; 5 és <w>false</w>, ja no es fa cap iteració 
+            </explanation>
+            <sc java>
+                int i = 0;
+                while (<h>i &lt; 5</h>) {
+                    System.out.print(i + " ");
+                    i++;
+                }
+            </sc>
+            <mem>
+                i: 5
+            </mem>
+            <shell>
+                0 1 2 3 4
+            </shell>
+        </step>
+    </stepper>
+
+    <info>
+        <p>Hauràs notat que el bucle <w>while</w> és molt similar al <w>for</w>. De fet són <em>equivalents</em>, l'exemple anterior
+        es podria haver escrit així:</p>
+        <sc java>
+            int i = 0;
+            for (; i &lt; 5;) {
+                System.out.print(i + " ");
+                i++;
+            }
+        </sc>
+        <p>O així:</p>
+        <sc java>
+            int i = 0;
+            for (; i &lt; 5; i++) {
+                System.out.print(i + " ");
+            }
+        </sc>
+        <p>O inclús així:</p>
+        <sc java>
+            for (int i = 0; i &lt; 5; i++) {
+                System.out.print(i + " ");
+            }
+        </sc>
+        <p>És important notar que en aquest últim exemple, Java eliminarà la variable <w>i</w> un cop acabi el <w>for</w>, 
+        cosa que no passa en els exemples anteriors.</p>
+    </info>
+
+    <h3>do-while</h3>
+    <p>En el bucle <w>do-while</w>, el bloc de codi s'exeuta primer, i la condició s'avalua després. Si la condició és 
+    <w>true</w> el bloc es torna a executar. D'aquesta manera es garanteix que el bloc s'executarà al menys una vegada.</p>
+
+    <p>La seva sintaxi és:</p>
+    <sc java>
+        do {
+            // bloc de codi
+        } while (condicio);
+    </sc>
+
+    <p>Un bon exemple és el següent programa, que llegeix dades de l'entrada stàndard fins que s'introdueix un cert valor.</p>
+
+    <stepper style="--sc-h:5; --mm-h:3.2; --sh-h:8.6; --ex-h:4.8; --sc-w:20;    --sc-mh:8.6; --mm-mh:4.2; --sh-mh:3.2; --ex-mh:6.4;">
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    System.out.println(valor);
+                } while (valor != 0);
+            </sc>
+            <mem></mem>
+            <shell>
+                <in>3 5 7 0 11</in>
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                <h>int valor;</h>
+                do {
+                    valor = scanner.nextInt();
+                    System.out.println(valor);
+                } while (valor != 0);
+            </sc>
+            <mem></mem>
+            <shell>
+                <in>3 5 7 0 11</in>
+            </shell>
+        </step>
+        <step>
+            <explanation>
+                La primera vegada s'executa el bloc sense avaluar la condició.
+            </explanation>
+            <sc java>
+                int valor;
+                do {
+                    <h>valor = scanner.nextInt();</h>
+                    System.out.println(valor);
+                } while (valor != 0);
+            </sc>
+            <mem>
+                valor: 
+            </mem>
+            <shell>
+                <in>3 5 7 0 11</in>
+            </shell>
+        </step>
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    <h>System.out.println(valor);</h>
+                } while (valor != 0);
+            </sc>
+            <mem>
+                valor: 3
+            </mem>
+            <shell>
+                <in><consumed>3</consumed> 5 7 0 11</in>
+            </shell>
+        </step>
+        <step>
+            <explanation>
+                S'avalua la condició per veure si es fa una altra iteració
+            </explanation>
+            <sc java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    System.out.println(valor);
+                } while (<h>valor != 0</h>);
+            </sc>
+            <mem>
+                valor: 3
+            </mem>
+            <shell>
+                <in><consumed>3</consumed> 5 7 0 11</in>
+                3
+            </shell>
+        </step>
+
+
+
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int valor;
+                do {
+                    <h>valor = scanner.nextInt();</h>
+                    System.out.println(valor);
+                } while (valor != 0);
+            </sc>
+            <mem>
+                valor: 3
+            </mem>
+            <shell>
+                <in><consumed>3</consumed> 5 7 0 11</in>
+                3
+            </shell>
+        </step>
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    <h>System.out.println(valor);</h>
+                } while (valor != 0);
+            </sc>
+            <mem>
+                valor: 5
+            </mem>
+            <shell>
+                <in><consumed>3 5</consumed> 7 0 11</in>
+                3
+            </shell>
+        </step>
+        <step>
+            <explanation>
+                S'avalua la condició per veure si es fa una altra iteració
+            </explanation>
+            <sc java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    System.out.println(valor);
+                } while (<h>valor != 0</h>);
+            </sc>
+            <mem>
+                valor: 5
+            </mem>
+            <shell>
+                <in><consumed>3 5</consumed> 7 0 11</in>
+                3
+                5
+            </shell>
+        </step>
+
+
+
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int valor;
+                do {
+                    <h>valor = scanner.nextInt();</h>
+                    System.out.println(valor);
+                } while (valor != 0);
+            </sc>
+            <mem>
+                valor: 5
+            </mem>
+            <shell>
+                <in><consumed>3 5</consumed> 7 0 11</in>
+                3
+                5
+            </shell>
+        </step>
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    <h>System.out.println(valor);</h>
+                } while (valor != 0);
+            </sc>
+            <mem>
+                valor: 7
+            </mem>
+            <shell>
+                <in><consumed>3 5 7</consumed> 0 11</in>
+                3
+                5
+            </shell>
+        </step>
+        <step>
+            <explanation>
+                S'avalua la condició per veure si es fa una altra iteració
+            </explanation>
+            <sc java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    System.out.println(valor);
+                } while (<h>valor != 0</h>);
+            </sc>
+            <mem>
+                valor: 7
+            </mem>
+            <shell>
+                <in><consumed>3 5 7</consumed> 0 11</in>
+                3
+                5
+                7
+            </shell>
+        </step>
+
+
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int valor;
+                do {
+                    <h>valor = scanner.nextInt();</h>
+                    System.out.println(valor);
+                } while (valor != 0);
+            </sc>
+            <mem>
+                valor: 7
+            </mem>
+            <shell>
+                <in><consumed>3 5 7</consumed> 0 11</in>
+                3
+                5
+                7
+            </shell>
+        </step>
+        <step>
+            <explanation>
+            </explanation>
+            <sc java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    <h>System.out.println(valor);</h>
+                } while (valor != 0);
+            </sc>
+            <mem>
+                valor: 0
+            </mem>
+            <shell>
+                <in><consumed>3 5 7 0</consumed> 11</in>
+                3
+                5
+                7
+            </shell>
+        </step>
+        <step>
+            <explanation>
+                S'avalua la condició per veure si es fa una altra iteració.
+                Com <w>0 != 0</w> és <w>false</w>, no es torna a iterar. 
+            </explanation>
+            <sc java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    System.out.println(valor);
+                } while (<h>valor != 0</h>);
+            </sc>
+            <mem>
+                valor: 0
+            </mem>
+            <shell>
+                <in><consumed>3 5 7 0</consumed> 11</in>
+                3
+                5
+                7
+                0
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int valor;
+                do {
+                    valor = scanner.nextInt();
+                    System.out.println(valor);
+                } while (valor != 0);
+
+                <h>// el programa continua per aqui...</h>
+            </sc>
+            <mem>
+                valor: 0
+            </mem>
+            <shell>
+                <in><consumed>3 5 7 0</consumed> 11</in>
+                3
+                5
+                7
+                0
+            </shell>
+        </step>
+    </stepper>
+
+    <p>En la pràctica, el bucle <w>do-while</w> se sol utilitzar menys que el <w>while</w>.</p>
 </section>

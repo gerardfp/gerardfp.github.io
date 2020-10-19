@@ -409,7 +409,9 @@ function randInt(min, max) {
 
 function doStepper(){
   document.querySelectorAll('stepper').forEach(s => {
-    
+
+    var prevnext = document.createElement('div');
+    prevnext.classList.add('prevnext');
 
     var prev = document.createElement('button');
     prev.classList.add('prev');
@@ -418,6 +420,9 @@ function doStepper(){
     var next = document.createElement('button');
     next.classList.add('next');
     // next.textContent = "next";
+
+    prevnext.appendChild(prev);
+    prevnext.appendChild(next);
 
     var reset = document.createElement('button');
     reset.classList.add('reset');
@@ -429,8 +434,7 @@ function doStepper(){
     
     var wrap = document.createElement('div');
     wrap.classList.add('controls');
-    wrap.appendChild(prev);
-    wrap.appendChild(next);
+    wrap.appendChild(prevnext);
     wrap.appendChild(reset);
     wrap.appendChild(slider);
 
