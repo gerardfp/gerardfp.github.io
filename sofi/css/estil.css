@@ -881,16 +881,16 @@ stepper {
     /* padding: .6em .2em .4em .2em; */
     padding: .2em;
     background-color: #fafafa;
-    border: 1px solid #d6d8db;; 
+    border: 1px solid #d6d8db;
 }
 
 stepper step {
     display: grid;
 
-    grid-template:    "ex" calc(1em*var(--ex-mh))
-                      "sc" calc(1em*var(--sc-mh))
-                      "mm" calc(1em*var(--mm-mh)) 
-                      "sh" calc(1em*var(--sh-mh)) /
+    grid-template:    "ex" calc(1.2em + 1.55em*var(--ex-mh))
+                      "sc" calc(1.8em + 1.32em*var(--sc-mh))
+                      "mm" calc(1.8em + 1.32em*var(--mm-mh)) 
+                      "sh" calc(1.8em + 1.32em*var(--sh-mh)) /
                       100%;
 
 
@@ -906,9 +906,9 @@ stepper step {
         --sh: calc(var(--sh-h)*var(--size)/var(--sum));
         --ch: calc(var(--ex-h)*var(--size)/var(--sum));
     
-        grid-template:  "sc ex" calc(1em*var(--ch)) 
-                        "sc mm" calc(1em*var(--mh))
-                        "sc sh" calc(1em*var(--sh)) /
+        grid-template:  "sc ex" calc(1em + 1.6em*var(--ch)) 
+                        "sc mm" calc(1.8em + 1.32em*var(--mh))
+                        "sc sh" calc(1.8em + 1.32em*var(--sh)) /
                         calc(1em*var(--sc-w)) 1fr;
 
     }
@@ -950,7 +950,7 @@ stepper explanation {
     font-size: 14px;
     background-color: #d1ecf1;
     border: 1px solid #bee5eb;
-    padding: 1em;
+    padding: .8em 1em;
     /* background: #fafafa;
     border: 1px solid #efefef; */
     /* box-shadow: 0px 0px 1px rgb(0, 0, 0); */
