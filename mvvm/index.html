@@ -288,10 +288,10 @@
 
                 SimuladorHipoteca.Solicitud solicitud = new SimuladorHipoteca.Solicitud(capital, plazo);
 
-                new AsyncTask&lt;SolicitudHipoteca, Void, Double&gt;(){
+                new AsyncTask&lt;SimuladorHipoteca.Solicitud, Void, Double&gt;(){
 
                     @Override
-                    protected Double doInBackground(SolicitudHipoteca... solicitudes) {
+                    protected Double doInBackground(SimuladorHipoteca.Solicitud... solicitudes) {
                         SimuladorHipoteca simulador = new SimuladorHipoteca();
                         return simulador.calcular(solicitudes[0]);
                     }
