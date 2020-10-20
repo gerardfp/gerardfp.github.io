@@ -4,10 +4,10 @@
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
   "updated": "2020-07-30T09:25:03Z",
-  "id": "viewmodel",
+  "id": "mvvm",
   "duration": 0,
-  "title": "ViewModel",
-  "summary": "ViewModel",
+  "title": "Model-View-ViewModel",
+  "summary": "Model-View-ViewModel",
   "source": "1CQ7PO9znu6gMdHYVdfACzCRjuGjytnfbsU1m1Sn6WEk",
   "theme": "dam-m8-dam-m8-aplicacions-m-bils",
   "status": [
@@ -20,5 +20,5 @@
     "android"
   ],
   "feedback": "/dam-m8",
-  "url": "viewmodel"
+  "url": "mvvm"
 }

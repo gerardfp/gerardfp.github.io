@@ -31,7 +31,7 @@
     <p>És a dir, Java farà el casting implícit automàticament quan convertim:</p>
 
     <ul>
-        <li><p>de <w>char</w> a <w>int</w> o <w>float</w></p></li>
+        <li><p>de <w>char</w> a <w>int</w> o de <w>char</w> a <w>float</w></p></li>
         <li><p>de <w>int</w> a <w>float</w></p></li>
     </ul>
 
@@ -40,17 +40,16 @@
     <p>Per exemple: </p>
 
     <sc java>
-        float foo = 'a';   // convertim el char 'a' a float. El valor de la variable foo sera 97.0f
+        float foo = 'a';   // convertim el char 'a' a float. El valor de foo sera 97.0f
 
         int bar = 'a';     // convertim el char 'a' a int. EL valor de bar sera 97
 
-        float baz = 97;    // convertim el int 10 a float. El valor de baz sera 10f
+        float baz = 97;    // convertim el int 97 a float. El valor de baz sera 97.0f
     </sc>
 
     <p>Si tractem de fer un casting implícit a l'inrevés, el compilador ens donarà un error:</p>
     <sc java>
-        int foo = 97;
-        char bar = foo;   // error, casting implicit de int a char no permes
+        char bar = 65633;   // error, casting implicit de int a char no permes
         
         char baz = 97f;   // error, casting implicit de float a char no permes
 
@@ -79,17 +78,34 @@
     <p>Els següents exemples il·lustren l'us del casting explicit:</p>
 
     <sc java>
-        int foo = 97;
-        char bar = (char) foo;   // bar es 97
-        char baz = (char) 97.53f;  // foo es 97, es perden els decimals
-        
-        int quux = (int) 14.67565f;  // bar es 14
+        // de int a char
+        char bar = (char) 65633;   // bar es 97, el valor màxim de char es 65535
+
+        // de float a char
+        char baz = (char) 97.53f;  // baz es 97, es perden els decimals
+
+        // de float a int
+        int quux = (int) 14.67565f;  // quux es 14, es perden els decimals
     </sc>
 
     <sc java>
-        float foo = 5 / 2;          // foo és 2.0f
+        // de int a char
+        int fooa = 65633;
+        char bar = (char) fooa;   // bar es 97, el valor màxim de char es 65535
 
-        float bar = (float) 5 / 2;  // bar és 2.5f
+        // de float a char
+        float foob = 97.53f;
+        char baz = (char) foob;  // baz es 97, es perden els decimals
+
+        // de float a int
+        float fooc = 14.67565f;
+        int quux = (int) fooc;  // quux es 14, es perden els decimals
+    </sc>
+
+    <sc java>
+        float foo = 5 / 2;          // foo es 2.0f
+
+        float bar = (float) 5 / 2;  // bar es 2.5f
     </sc>
 
     <quizz>
@@ -151,7 +167,7 @@
     Però podem usar el mètode <w>charAt()</w> per a obtenir un caracter que estigui en una determinada posició.</p>
     <sc java>
         char foo = "java8".charAt(0);  // foo es 'j' 
-        char baz = "java8".charAt(4);  // foo es '8' 
+        char baz = "java8".charAt(4);  // baz es '8' 
     </sc>
 
     <p>Cal tenir en compte que les posicions comencen per <w>0</w>.</p>

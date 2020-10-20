@@ -712,6 +712,240 @@
 </section>
 
 <section>
+    <h2>El servidor web</h2>
+
+    <p>El servidor web és un software que respon a les peticions dels clients en la WWW. Un servidor web pot tenir un o més llocs
+        web. 
+    </p>
+
+    <p>Hi ha una àmplia varitat de software que s'utilitza com a servidor web. Els que més quota de mercat tenen actualment són:
+        <a href="https://httpd.apache.org/">Apache</a> (44.3%) i <a href="https://www.nginx.com/">nginx</a> (41%).
+    </p>
+
+    <h3>Servir recursos</h3>
+    <p>La tasca principal d'un servidor web és respondre a les peticions HTTP amb els recursos solicitats.</p>
+
+    <p>Els recursos que entrega el servidor web als clients són freqüentment fitxers amb codi HTML, codi CSS i codi Javascript.
+        També pot enviar altres tipos de recursos com imatges, videos i arxius de tot tipus.
+    </p>
+
+    <img src="img/servidorweb response.png">
+
+    <p>Veiem un exemple. Descarrega aquest 
+        <a href="https://upload.wikimedia.org/wikipedia/commons/7/7b/What_is_the_future_of_the_internet-_-_Tim_Berners_Lee.webm">vídeo de Tim Berners-Lee</a>
+         al directory <folder>/var/www/html</folder> del servidor:</p>
+    
+    <host>@container</host>
+    <shell>wget -O /var/www/html/tim.webm https://upload.wikimedia.org/wikipedia/commons/7/7b/What_is_the_future_of_the_internet-_-_Tim_Berners_Lee.webm</shell>
+
+    <p>Utilitza el client Firefox per a fer una petició d'aquest recurs al servidor: <url>http://10.2.4.100/tim.webm</url>.</p>
+
+    <h3>Estàtic vs Dinàmic</h3>
+
+    <p>Un servidor web pot servir contingut estàtic o dinàmic:</p>
+    <ul>
+        <li><p>Estàtic es refereix a que el servidor envia el recurs solicitat tal qual, sense processar-lo.</p></li>
+        <li><p>Dinàmic es refereix a que el servidor per a respondre a una solicitud executa un script que genera el recurs,
+            de forma que el recurs pot ser diferent en cada execució. Els scripts que generen recursos poden estar escrits 
+            en molts llenguatges de programació com <w>PHP</w>, <w>Python</w>, <w>Java</w>, <w>JavaScript</w>, <w>ASP</w>, i un 
+            llarg etcètera.</p></li>
+    </ul>
+
+    <img src="img/servidorwebdinamic.png">
+
+
+    <p>Veiem un exemple: Serverdate</p>
+
+    <p>Crea aquest arxiu al servidor:</p>
+
+    <scfile>
+        /var/www/html/serverdate.html
+    </scfile>
+    <sc html>
+        &lt;!DOCTYPE html&gt;
+        &lt;p&gt;La data del servidor es: Tue Oct 20 10:13:08 UTC 2020&lt;/p&gt;
+    </sc>
+   
+    <p>Navega a <url>http://10.2.1.24/serverdate.html</url></p>
+
+    <p>El recurs <file>serverdate.html</file> és un recurs estàtic. El servidor web el servirà tal qual, per això encara que 
+    recarregis la pàgina, la data/hora no canviarà.</p>
+
+    <p>Provem a fer un continugt dinàmic:</p>
+
+    <p>Instal·la <w>php</w> al servidor:</p>
+    <host>@container</host>
+    <shell>apt install -y php</shell>
+
+    <p>Escriu aquest script PHP:</p>
+
+    <scfile>
+        /var/www/html/serverdate.php
+    </scfile>
+    <sc php>
+        &lt;?php
+        echo "&lt;p&gt;La data del servidor es: ";
+        system(date);
+        echo "&lt;/p&gt";
+        ?&gt;
+    </sc>
+
+    <p>Ara, cada vegada que navegues al recurs <url>http://10.1.2.23/serverdate.php</url> el servidor web executa
+    l'script i envia al client el recurs resultant. La comanda <w>system(date)</w> obté l'hora actual del servidor, per tant
+    cada vegada que recarreguis la pàgina, obtindràs l'hora actual.</p>
+
+    <h3>Base de dades</h3>
+    <p>La majoria d'aplicacions web utilitzen una base de dades per a emmagatzemar la informació que han de mostrar.
+        Els scripts poden guardar i obtenir la informació d'elles (com per exemple, les publicacions que fan els usuaris 
+        a una xarxa social).
+    </p>
+
+    <img src="img/phpdb.png">
+
+    <p>Farem una aplicació web anomenada <w>TheWall</w> on els visitants podran escriure una firma, i totes les firmes que es vagin posant es mostraran a la
+        pàgina.</p>
+
+    <p>Instal·la el gestor de bases de dades MySQL:</p>
+
+    <host>@container</host>
+    <shell>
+        apt install -y mysql-server
+    </shell>
+
+    <p>Crearem una base de dades per a la app <w>TheWall</w>:</p>
+
+    <host>@container</host>
+    <shell>mysql -e "CREATE DATABASE thewalldb"</shell>
+
+    <p>Ara crearem un usuari per a administrar aquesta base de dades:</p>
+
+    <host>@container</host>
+    <shell>mysql -e "CREATE USER 'thewalldbadmin'@'localhost' IDENTIFIED BY 'pass123'"</shell>
+
+    <p>Li donem privilegis a l'usuari <w>thewalldbadmin</w> per a administrar la base de dades <w>thewalldb</w>:</p>
+    <host>@container</host>
+    <shell>mysql -e "GRANT ALL PRIVILEGES ON thewalldb.* TO 'thewalldbadmin'@'localhost'; FLUSH PRIVILEGES"</shell>
+
+    <p>El més habitual és que les bases de dades emmagatzemin la informació en taules. Per a la nostra app crearem una taula
+        <w>firmes</w> on es s'aniran guardant les firmes dels visitants. Aquesta taula només tindrà un camp que contindrà una <w>firma</w>.
+    </p>
+    <host>@container</host>
+    <shell>mysql -e "CREATE TABLE thewalldb.firmes(firma TEXT)"</shell>
+    
+    <p>Insertarem unes quantes firmes de mostra a la taula <w>firmes</w>:</p>
+    <host>@container</host>
+    <shell>
+        mysql -e "INSERT INTO thewalldb.firmes VALUES('hola que tal')"
+        mysql -e "INSERT INTO thewalldb.firmes VALUES('pasaba por aqui')"
+        mysql -e "INSERT INTO thewalldb.firmes VALUES('jajajaaajaaa')"
+        mysql -e "INSERT INTO thewalldb.firmes VALUES('que hay que poner aqui?')"
+    </shell>
+
+    <p>Podem veure que les firmes s'han introduït a la taula <w>firmes</w> així:</p>
+    <host>@container</host>
+    <shell>
+        mysql -e "SELECT * FROM thewalldb.firmes"
+    </shell>
+
+    <img src="img/select.png">
+   
+    <p>Ara el següent pas es programar un script PHP que obtingui la informació de la base de dades i la posi en la pàgina web
+        que generi.
+    </p>
+
+    <p>Insal·larem el paquet <w>php-mysql</w> que permet connectar a una base de dades MySQL des d'un script PHP:</p>
+    <host>@container</host>
+    <shell>
+        apt install -y php-mysql
+    </shell>
+
+    <p>L'script que connecta a la base de dades <w>thewalldb</w>, obté totes les firmes i les volca a la pàgina és aquest:</p>
+    <scfile>
+        /var/www/html/thewall.php
+    </scfile>
+    <sc php data-line="2,4-6">
+        &lt;?php
+        $db = new mysqli("localhost", "thewalldbadmin", "pass123", "thewalldb");
+
+        foreach ($db->query("SELECT * FROM firmes") as $fila) {
+            echo $fila['firma'];
+        }
+        ?&gt;
+    </sc>
+
+    <ul>
+        <li><p>A la línia <ln>2</ln> connectem amb la base de dades <w>thewalldb</w></p></li>
+        <li><p>De <ln>4</ln> a <ln>6</ln >iterem per cada fila de la taula <w>firmes</w> 
+            i volquem el camp <w>firma</w> de cada fila a la pàgina</li>
+    </ul>
+
+
+    <p>Naveguem a <url>http://10.1.2.4/thewall.php</url> i veurem com l'script a volcat totes les firmes de la base de dades:</p>
+
+    <img src="img/wall1.png">
+
+    <p>Aquest contingut és dinàmic: depèn del contingut de la base de dades. Ho podem comprovar afegint més 
+        firmes a la base de dades:
+    </p>
+    <host>@container</host>
+    <shell>
+        mysql -e "INSERT INTO thewalldb.firmes VALUES('te quiero')"
+        mysql -e "INSERT INTO thewalldb.firmes VALUES('que pasa?')"
+        mysql -e "INSERT INTO thewalldb.firmes VALUES('nunca te olvidare')"
+    </shell>
+   
+    <img src="img/wall2.png">
+
+    <p>Acabarem la app <w>thewall</w> permetent que els visitants escriguin la seva firma. Aquesta firma s'enviarà a l'script
+    en la <w>query</w>, i l'script l'obtindrà i la guardarà a la base de dades.</p>
+    <scfile>
+        /var/www/html/thewall.php
+    </scfile>
+    <sc php data-line="1-4, 9, 10-13">
+        &lt;form&gt;
+            &lt;input name="firma"&gt;
+            &lt;input type="submit" value="Firmar"&gt;
+        &lt;/form&gt;
+
+        &lt;?php
+        $db = new mysqli("localhost", "thewalldbadmin", "pass123", "thewalldb");
+
+        if (isset($_GET["firma"])) {
+            $stmt = $db-&gt;prepare("INSERT INTO firmes VALUES(?)");
+            $stmt-&gt;bind_param("s", $_GET["firma"]);
+            $stmt-&gt;execute();
+            $stmt-&gt;close();
+        }
+
+        foreach ($db-&gt;query("SELECT * FROM firmes") as $fila) {
+            echo $fila['firma'];
+        }
+        ?&gt;
+    </sc>
+
+    <ul>
+        <li><p>De <ln>1</ln> a <ln>4</ln> mostrem el formulari</p></li>
+        <li><p>A <ln>9</ln> mirem si ens ha arribat una firma</p></li>
+        <li><p>Si ens ha arribat la firma, la inserim a la base de dades (<ln>10</ln> - <ln>13</ln>)</p></li>
+    </ul>
+    
+
+    <h3>Rebre dades</h3>
+    <p>El servidor també pot acceptar dades extra incloses en la petició del client. Aquestes dades poden ser text o fitxers.</p>
+    
+    <p>A l'exemple webash hem vist com el navegador pot enviar dades extra obtenint-les de la query o d'un formulari.</p>
+
+    <p>Veurem ara com el nagegador pot enviar fitxers quan fa una petició al servidor.</p>
+
+    <p>Crea aquest arxiu al servidor:</p>
+
+    <scfile>
+        /var/www/html/upload.php
+    </scfile>
+    <p>php mysql</p>
+</section>
+
+<section>
     <h2>El navegador web</h2>
 
     
@@ -720,11 +954,7 @@
     <p>apis</p>
 </section>
 
-<section>
-    <h2>El servidor web</h2>
 
-    <p>php mysql</p>
-</section>
 
 <section>
     <h2>Formats de dades</h2>
