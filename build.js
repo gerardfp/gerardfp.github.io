@@ -2,34 +2,24 @@ const fs = require('fs');
 const glob = require('glob');
 const swig = require('swig-templates');
 
-const codelabFiles = glob.sync('*/codelab.json');
-let codelabs = {};
-for (let i = 0; i < codelabFiles.length; i++) {
-    var codelab = JSON.parse(fs.readFileSync(codelabFiles[i]));
-    for(const category of codelab.category){
-        let [categoryUrl, categoryName] = category.split(":");
-        codelabs[categoryUrl] = codelabs[categoryUrl] || {categoryName: categoryName, categoryUrl: categoryUrl, codelabs: [], tags: []};
-        codelab.mainTag = codelab.tags[0];
-        codelabs[categoryUrl].codelabs.push(codelab);
-        if(codelabs[categoryUrl].tags.indexOf(codelab.tags[0]) === -1) codelabs[categoryUrl].tags.push(codelab.tags[0]);
+const modulsFile = glob.sync('moduls.json');
+
+const moduls = JSON.parse(fs.readFileSync(modulsFile[0]));
+
+
+for (const modul in moduls) {
+    for (const activ of moduls[modul].activs) {
+        moduls[modul].tags = moduls[modul].tags || [];
+        if(moduls[modul].tags.indexOf(activ.tag) === -1) moduls[modul].tags.push(activ.tag);
     }
 }
 
-for(const category in codelabs){
-    codelabs[category].codelabs.sort((a, b) => (parseInt(a.status) > parseInt(b.status)) ? 1 : -1)
-}
-
-// const template = fs.readFileSync('tpt/moduls.html');
-// const html = swig.render(template.toString(), { locals: {codelabs: codelabs }});
-// fs.writeFileSync(`index.html`, new Buffer.from(html)); 
-
-for(const category in codelabs){
+for(const modul in moduls){
     const template = fs.readFileSync('_templates/modul.html');
-    const html = swig.render(template.toString(), { locals: codelabs[category] });
-    const dir = codelabs[category].categoryUrl;
+    const html = swig.render(template.toString(), { locals: moduls[modul] });
 
-    if (!fs.existsSync(dir)){
-        fs.mkdirSync(dir);
+    if (!fs.existsSync(modul)){
+        fs.mkdirSync(modul);
     }
-    fs.writeFileSync(`${dir}/index.html`, new Buffer.from(html));    
+    fs.writeFileSync(`${modul}/index.html`, new Buffer.from(html));    
 }

@@ -1,0 +1,69 @@
+{
+    "dam-m3": {
+        "nom": "DAM - M3 - Programació bàsica",
+        "activs" : [
+            { "url": "javatutorial", "nom": "Java Tutorial", "tag": "java"},
+            { "url": "objectes", "nom": "Objectes", "tag": "java"},
+            { "url": "conversio", "nom": "Conversió de tipus", "tag": "java"},
+            { "url": "flowchart", "nom": "Flowchart", "tag": "java"},
+            { "url": "blocks", "nom": "Block Programming", "tag": "java"},
+            { "url": "seleccio", "nom": "Estructures de selecció", "tag": ""},
+            { "url": "debugger", "nom": "Debugger", "tag": "java"},
+            { "url": "loops", "nom": "Loops", "tag": "java"},
+            { "url": "intellij", "nom": "IntelliJ", "tag": "java"},
+            { "url": "arrays", "nom": "Arrays", "tag": "java"},
+            { "url": "matrius", "nom": "Matrius", "tag": "java"},
+            { "url": "github", "nom": "Control de versions", "tag": "java"},
+            { "url": "format", "nom": "Formatació d'Strings", "tag": "java"},
+            { "url": "datetime", "nom": "Random & Datetime", "tag": "java"},
+            { "url": "input", "nom": "Validació de dades d'entrada", "tag": "java"},
+            { "url": "refactoring", "nom": "Refactoring", "tag": "java"},
+            { "url": "junit", "nom": "JUnit", "tag": "java"},
+            { "url": "libgdx", "nom": "LibGDX", "tag": "java"},
+            { "url": "javadoc", "nom": "Javadoc", "tag": "java"},
+            { "url": "gradle", "nom": "Gradle", "tag": "java"},
+            { "url": "android", "nom": "Android", "tag": "Java"},
+            { "url": "locale", "nom": "Locale", "tag": "java"},
+            { "url": "mvc", "nom": "MVC", "tag": "java"},
+            { "url": "regexp", "nom": "Expressions regulars", "tag": "java"}
+        ]
+    },
+    "dam-m8":{
+        "nom": "DAM - M8 - Programació multimèdia i dispositius mòbils",
+        "activs" : [
+            { "url": "apps", "nom": "Apps", "tag": "android" },
+            { "url": "fragments", "nom": "Fragments", "tag": "android" },
+            { "url": "navigation", "nom": "Navigation", "tag": "android"},
+            { "url": "mvvm", "nom": "Model-View-VieModel", "tag": "android"},
+            { "url": "recyclerview", "nom": "RecyclerView", "tag": "android"},
+            { "url": "room", "nom": "Room", "tag": "android"},
+            { "url": "retrofit", "nom": "Retrofit", "tag": "android"},
+            { "url": "firebase", "nom": "Firebase", "tag": "firebase" },
+            { "url": "authentication", "nom": "Authentication", "tag": "firebase"},
+            { "url": "firestore", "nom": "Firestore", "tag": "firebase"},
+            { "url": "storage", "nom": "Storage", "tag": "firebase"}
+        ]
+    },
+    "smx-m8": {
+        "nom" : "SMX - M8 - Aplicacions Web",
+        "activs": [
+            { "url": "entorndetreball", "nom" : "Entorn de treball", "tag": "web"},
+            { "url": "webapps", "nom" : "Aplicacions web", "tag": "web"},
+            { "url": "webtasks", "nom" : "WebTasks", "tag": "web"},
+            { "url": "einesgoogle", "nom" : "Eines google", "tag": "web"},
+            { "url": "webfilemanager", "nom" : "WebFilemanager", "tag": "web"},
+            { "url": "webvideo", "nom" : "WebVideo", "tag": "web"},
+            { "url": "owncloud", "nom" : "Owncloud", "tag": "web"},
+            { "url": "webcms", "nom" : "WebCMS", "tag": "web"},
+            { "url": "webaccounts", "nom" : "WebAccounts", "tag": "web"},
+            { "url": "wordpress", "nom" : "Wordpress", "tag": "web"},
+            { "url": "prestashop", "nom" : "Prestashop", "tag": "web"},
+            { "url": "weblms", "nom" : "WebLMS", "tag": "web"},
+            { "url": "webforum", "nom" : "WebForum", "tag": "web"},
+            { "url": "moodle", "nom" : "Moodle", "tag": "web"},
+            { "url": "inicihtml", "nom" : "Inici en HTML", "tag": "web"},
+            { "url": "inicicss", "nom" : "Inici en CSS", "tag": "web"}
+
+        ]
+    }
+}

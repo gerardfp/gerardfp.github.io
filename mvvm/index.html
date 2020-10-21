@@ -636,9 +636,9 @@
         En las llamadas de vuelta, se informa del resultado y también del progreso y los errores. 
         El ViewModel se los notifica a la Vista mediante variables <w>LiveData</w>.</p>
 
-    <p>Cambia la clase <w>SimuladorHipotca</w> para que comunique el resultado mediante un <w>callback</w>:</p>
+    <p>Cambia la clase <w>SimuladorHipoteca</w> para que comunique el resultado mediante un <w>callback</w>:</p>
     <scfile>
-        SimuladorHipotca.java
+        SimuladorHipoteca.java
     </scfile>
     <sc java data-line="13-15, 17, 24">
         public class SimuladorHipoteca {
@@ -934,7 +934,7 @@
     <p>El Model notificará al Viewmodel llamando a estos métodos al principio y al final del método <w>calcular()</w>:</p>
 
     <scfile>
-        SimuladorHipotca.java
+        SimuladorHipoteca.java
     </scfile>
     <sc java data-line="3,4,9,13">
         interface Callback {

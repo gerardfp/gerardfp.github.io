@@ -118,15 +118,15 @@ a {
 </style>
 
 <div class="title">
-    <span>{{categoryName}}</span>
+    <span>{{nom}}</span>
 </div>
 <div class="cards">
 
-{% for codelab in codelabs -%}
-    <a href="/{{codelab.url}}">
-        <div class="card {{codelab.mainTag}}">
+{% for activ in activs -%}
+    <a href="/{{activ.url}}">
+        <div class="card {{activ.tag}}">
             <div class="card-title">
-                <span>{{codelab.title}}</span>
+                <span>{{activ.nom}}</span>
             </div>
             <div class="card-description">
 
