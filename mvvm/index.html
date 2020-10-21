@@ -873,6 +873,9 @@
                 public void onClick(View view) {
                     boolean error = false;
     
+                    double capital = 0;
+                    int plazo = 0;
+                    
                     try {
                         capital = Double.parseDouble(binding.capital.getText().toString());
                     } catch (Exception e){
@@ -984,7 +987,7 @@
         MiHipotecaFragment.java
     </scfile>
     <sc java>
-        miHipotecaViewModel.calculando.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+        miHipotecaViewModel.calculando.observe(getViewLifecycleOwner(), new Observer&lt;Boolean&gt;() {
             @Override
             public void onChanged(Boolean calculando) {
                 if (calculando) {
