@@ -475,7 +475,7 @@
 
     <p>El código del ViewModel queda así:</p>
     <scfile>
-        HipotecaViewModel.java
+        MiHipotecaViewModel.java
     </scfile>
     <sc java>
         public class MiHipotecaViewModel extends AndroidViewModel {
@@ -546,7 +546,7 @@
             public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
                 super.onViewCreated(view, savedInstanceState);
 
-                MiHipotecaViewModel miHipotecaViewModel = new ViewModelProvider(this).get(MiHipotecaViewModel.class);
+                final MiHipotecaViewModel miHipotecaViewModel = new ViewModelProvider(this).get(MiHipotecaViewModel.class);
 
                 binding.calcular.setOnClickListener(new View.OnClickListener() {
                     @Override
