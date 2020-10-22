@@ -1,197 +1,295 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
 
-<!doctype html>
+<nav></nav>
 
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <meta name="theme-color" content="#4F7DC9">
-  <meta charset="UTF-8">
-  <title>Gestor de tasques</title>
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
-  <style>
-    .success {
-      color: #1e8e3e;
-    }
-    .error {
-      color: red;
-    }
-  </style>
-</head>
-<body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-  <google-codelab codelab-gaid=""
-                  id="webtasks"
-                  title="Gestor de tasques"
-                  environment="web"
-                  feedback-link="/smx-m8">
+<header>
+    <h1>Web Tasks</h1>
+
+    <abstract>
+        En aquesta activitat desenvolupareu una aplicació web que consisteix en un gestor de tasques.
+
+    </abstract>
+</header>
+
+<section>
+    <h2>Prepara el servidor</h2>
+
+    <p>Necessitaràs tenir preparat un contenidor amb aquests paquets de software instal·lats:</p>
+    <ul>
+        <li><w>apache2</w>: El servidor web Apache</li>
+        <li><w>php</w>: el motor PHP per a executar scripts.</li>
+        <li><w>mysql-server</w>: el motor de base de dades MySQL</li>
+        <li><w>php-mysql</w>: extensió per accedir a la base de dades des d'un script PHP</li>
+    </ul>
+
+    <p>Hauràs de connectar la carpeta <w>/var/www/html</w> del contenidor amb una carpeta del teu ordinador. 
+    Així, podràs editar els arxius del contenidor des del teu ordinador utilitzant VSCode.</p>
+</section>
+
+<section>
+    <h2>Pàgina estàtica</h2>
+    <p>Comença el desenvolupament de l'aplicació creant una versió estàtica. Aquesta versió t'ajudarà a veure què 
+        és el que s'ha d'aconseguir. Després desenvoluparàs la versió dinàmica basant-te en aquest prototip estàtic.
+    </p>
+
+    <p>Crea un arxiu <file>index.html</file> i desenvolupa el prototip estàtic. Aquest prototip no funcionarà, però 
+    et servirà de guia per veure com ha de ser el resultat final.</p>
+
+    <p>La pàgina haurà de tenir:</p>
+    <ul>
+        <li>
+            <p>Un formulari amb:</p>
+            <ul>
+                <li>un camp per a escriure la descripció de la tasca</li>
+                <li>un desplegable per a seleccionar la prioritat (ALTA o BAIXA)</li>
+                <li>un botó per a afegir la tasca</li>
+            </ul>
+        </li>
+        <li>
+            <p>Una llista que mostri les tasques. Cada tasca de la llista ha de tenir:</p>
+            <ul>
+                <li>La seva descripció</li>
+                <li>Una icona per a eliminar-la</li>
+                <li>Un color de fons distint segons la seva prioritat</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Elements HTML</h3>
+    <p>Comença escrivint primer el codi HTML. Després posaràs l'estil (colors, tamanys) amb CSS.</p>
+    <p>El resultat hauria de ser una cosa semblant a aquesta:</p>
+    <img src="img/webtasks1.png">
+
+    <p>Formulari:</p>
+    <ul>
+        <li><p>Per a crear el formulari has d'utilitzar l'element <w>&lt;form&gt;</w></p>
+        <li><p>Per al camp de text utilitza l'element <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_elem_input"><m>&lt;input&gt;</m> <ic>&#xf35d;</ic></a></p>
+        <li><p>Per al desplegable utilitza l'element <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_elem_select_size"><m>&lt;select&gt;</m> <ic>&#xf35d;</ic></a></p>
+        <li><p>Per al botó utilitza l'element <w>&lt;input type="submit"&gt;</w></p>    
+    </ul>
+
+    <p>Llista:</p>
+    <ul>
+        <li><p>Per a crear la llista has d'utilitzar l'element <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_lists_unordered"><m>&lt;ul&gt;</m> <ic>&#xf35d;</ic></a></p></li>
+        <li><p>Per a fer enllaços has amb imatges d'utilitzar conjuntament els elements <a href="https://www.w3schools.com/html/tryit.asp?filename=tryhtml_links_image"><m>&lt;a&gt;</m> i <m>&lt;img&gt;</m> <ic>&#xf35d;</ic></a></p></li>
+    </ul>
+
+    <h3>Queries</h3>
+    <p>El següent pas és comprovar que les accions d'afegir i eliminar posen les dades correctes a la query, ja que aquestes 
+        dades després les utilitzarà el servidor. És clar, que de moment aquestes accions no funcionaran, però ho faran quan
+        programis el servidor.
+    </p>
+
+    <p>Quan l'usuari prem el botó "Afegir", a la query s'han de posar la descripcio i la prioritat de la tasca. La query 
+        hauria de quedar semblant a aquesta: <w>?afegir=Fer exercici&prioritat=ALTA</w> (en lloc de "Fer exercici" i "ALTA", 
+        haurien de ser els valors que l'usuari introdueixi al formulari).
+    </p>
+
+    <img src="img/webtasks2.gif">
+
+    <p>Quan l'usuari prem l'enllaç d'eliminar, a la query s'ha d'afegir la tasca que s'ha d'eliminar. 
+        És important que a aquesta dada li posem un nom diferent per a distingir-la de la dada que utilitzem per a afegir.
+        La query per a eliminar una tasca podria quedar així: <w>?eliminar=Fer exercici</w> (en lloc de "Fer exercici", hauria de
+        ser la descripció de la tasca corresponent).
+    </p>
+
+    <img src="img/webtasks3.gif">
+
+    <h3>Estil CSS</h3>
+    <p>El següent pas és crear el codi CSS que ens permeti veure en diferents colors les tasques segons la seva prioritat.</p>
+
+    <p>Hauràs de crear dues classes CSS distintes, una per a la prioritat ALTA i una altra per a la BAIXA.
+        Als elements de classe ALTA se'ls posarà un color de fons, i 
+        als de classe BAIXA se'ls posarà un altre color diferent.
+    </p>
+    <ul>
+        <li>
+            <p>Per a crear classes CSS has de posar un punt i després el nom de classe. A dintre de les claus has de posar 
+            les propietats que s'aplicaran als elements HTML que tinguin aquesta classe.</p>
+
+            <sc css>
+                .nom-de-la-classe {
+                    propietats
+                }
+            </sc>
+        </li>
+        <li>
+            <p>Per a assignar classes als elements HTML utilitza l'atribut <w>class</w> amb el nom de la classe que li vulguis
+            assignar:</p>
+            <sc html>
+                &lt;element class="nom-de-la-classe"&gt;
+            </sc>
+        </li>
+        <li><p>La propietat CSS per a canviar el color de fons és <a href="https://www.w3schools.com/cssref/pr_background-color.asp"><m>background-color</m> <ic>&#xf35d;</ic></a></p></li>
+    </ul>
+
+    <p>Exemple: </p>
+    <sc html>
+        &lt;style&gt;
+            .classe-exemple-1 {
+                background-color: red;
+            }
+
+            .classe-exemple-2 {
+                background-color: green;
+            }
+        &lt;/style&gt;
+
+        &lt;p class="classe-exemple-1"&gt;Aquest text es veu en fons red&lt;/p&gt;
+        &lt;p class="classe-exemple-2"&gt;Aquest text es veu en fons green&lt;/p&gt;
+    </sc>
+
+    <p>Per ultim pots canviar el tamany de les imatges amb la propietat <a href="https://www.w3schools.com/cssref/pr_dim_width.asp"><m>width</m> <ic>&#xf35d;</ic></a> i pots donar una mica d'espai als 
+    elements de la llista amb les propietats <a href="https://www.w3schools.com/cssref/pr_margin.asp"><m>margin</m> <ic>&#xf35d;</ic></a> i <a href="https://www.w3schools.com/cssref/pr_padding.asp"><m>padding</m> <ic>&#xf35d;</ic></a>.</p>
+
+    <p>Exemple:</p>
+    <sc css>
+        .icona {
+            width: 1em;
+        }
+
+        .tasca {
+            margin: 1em;
+            padding: .5em;
+        }
+    </sc>
+
+    <p>Després d'aplicar el CSS, la pàgina hauria de quedar semblant a aquesta:</p>
+
+    <img src="img/webtasks4.png">
+</section>
+
+<section>
+    <h2>Pàgina dinàmica</h2>
+    <p>Per a fer la pàgina dinàmica l'hauràs de desenvolupar amb PHP i utilitzar MySQL per a guardar les tasques.</p>
+
+    <h3>Base de dades</h3>
+    <p>El primer pas serà crear la base de dades.</p>
+    <p>Utilitza la comanda <w>mysql -e</w> per a executar les accions sobre la base de dades.</p>
+
+    <shell>
+        mysql -e "<replace>ACCIO_A_REALITZAR</replace>"
+    </shell>
+
+    <p>Realitza les següents accions:</p>
+    <ul>
+        <li>
+            <p>Crea la base de dades:</p>
+            <sc sql>
+                CREATE DATABASE <replace>nom_base_de_dades</replace>
+            </sc>
+        </li>
+        <li>
+            <p>Crea un usuari per a administrar la base de dades:</p>
+            <sc sql>
+                CREATE USER '<replace>nom_usuari_admin</replace>'@'localhost' IDENTIFIED BY '<replace>password_usuari_admin</replace>'
+            </sc>
+        </li>
+        <li>
+            <p>Dona privilegis a l'usuari per a administrar la base de dades:</p>
+            <sc sql>
+                GRANT ALL PRIVILEGES ON <replace>nom_base_de_dades</replace>.* TO '<replace>nom_usuari_admin</replace>'@'localhost'; FLUSH PRIVILEGES
+            </sc>
+        </li>
+    </ul>
+
+    <p>Un cop creada la base de dades, crearem una taula per a guardar les tasques. Cada tasca es guardarà en una fila de la taula.
+        Aquesta taula tindrà dos camps: descripció i prioritat.</p>
     
-      <google-codelab-step label="Gestor de tasques" duration="0">
-        <p class="image-container"><img style="width: 539.00px" src="img/785cf5b6686413c3.gif"></p>
-<h3 is-upgraded><a href="https://github.com/gerardfp/webtasks" target="_blank">https://github.com/gerardfp/webtasks</a> </h3>
-<p class="image-container"><img style="width: 697.70px" src="img/ddb678a79fcb81d8.png"></p>
+        <img src="img/webtasks5.png">
+    <p>Per a crear una taula utilitza la següent sentència SQL:</p>
+
+    <sc sql>
+        CREATE TABLE <replace>nom_base_de_dades</replace>.<replace>nom_taula</replace>(<replace>camp1</replace> TEXT, <replace>camp2</replace> TEXT)
+    </sc>
+
+    <p>Pots afegir unes tasques <em>de prova</em> a la taula (per veure que funciona correctament) amb aquesta sentència:</p>
+
+    <sc sql>
+        INSERT INTO <replace>nom_base_de_dades</replace>.<replace>nom_taula</replace> VALUES ('<replace>valor camp 1</replace>','<replace>valor camp2</replace>')
+    </sc>
+
+    <p>Per consultar les tasques que hi ha la taula ho pots fer amb: </p>
+
+    <sc sql>
+        SELECT * FROM <replace>nom_base_de_dades</replace>.<replace>nom_taula</replace>
+    </sc>
+
+    <p>Per a eliminar <strong>totes</strong> les tasques de la taula:</p>
+    <sc sql>
+        DELETE FROM <replace>nom_base_de_dades</replace>.<replace>nom_taula</replace>
+    </sc>
+
+    <p>Per a eliminar les tasques de la taula que tinguin un valor determinat en un camp:</p>
+    <sc sql>
+        DELETE FROM <replace>nom_base_de_dades</replace>.<replace>nom_taula</replace> WHERE <replace>camp</replace> = '<replace>valor</replace>'
+    </sc>
 
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Crea el contenidor" duration="0">
-        <pre>lxc launch ubuntu:20.04 myweb</pre>
-<pre>lxc exec myweb bash</pre>
-<p>Instal·la els paquets necessaris</p>
-<pre>apt update
-apt install apache2 php mysql-server php-mysql</pre>
+    <h3>Script PHP</h3>
+    <p>L'últim pas en el desenvolupament de l'aplicació és programar l'script PHP per a que interactuï amb la base de dades, 
+        és a dir, que obtingui les tasques, o les insereixi/elimini en funció dels paràmetres de la query.
+    </p>
 
+    <p>En els arxius PHP pots mesclar codi HTML i codi PHP. El codi PHP l'has de posar entre les marques <w>&lt;?php</w> i <w>?&gt;</w>.
+    El codi HTML serà estàtic, i el codi PHP pot ser dinàmic.</p>
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Crea la base de dades" duration="0">
-        <pre>mysql -e &#34;
-DROP DATABASE IF EXISTS mytasks_database;
-DROP USER IF EXISTS &#39;mytasks_user&#39;@&#39;localhost&#39;;
+    <p>Per a <em>volcar</em> codi HTML des del codi PHP, has d'utilitzar la sentència <w>echo</w> i posar entre cometes el que vols <em>volcar</em>.</p>
 
-CREATE DATABASE mytasks_database;
-CREATE USER &#39;mytasks_user&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;mytasks_password&#39;; 
-GRANT ALL PRIVILEGES ON mytasks_database.* TO &#39;mytasks_user&#39;@&#39;localhost&#39;; 
-FLUSH PRIVILEGES;
-CREATE TABLE mytasks_database.taks(task TEXT);
-&#34;</pre>
-<pre>mysql -e &#34;
-INSERT INTO mytasks_database.tasks VALUES (&#39;Comprar pan&#39;);
-INSERT INTO mytasks_database.tasks VALUES (&#39;Aprobar SMX&#39;);
-&#34;
-mysql -e &#34;SELECT * FROM mytasks_database.tasks;&#34;</pre>
+    <p>Per exemple:</p>
 
+    <sc php>
+        &lt;h1&gt;El contingut HTML és estàtic.&lt;/h1&gt;
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Programa la WebApp" duration="0">
-        <h3 is-upgraded><a href="https://github.com/gerardfp/webapps/blob/master/index.php" target="_blank">index.php</a> </h3>
-<pre><sc>&lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;
-&lt;h1&gt;MY BLOG!&lt;/h1&gt;
-&lt;a href=&#39;new_post.php&#39;&gt;Crear nuevo post&lt;/a&gt;
+        &lt;?php
+        echo "&lt;h1&gt;Amb PHP podem volcar contingut dinàmic&lt;/h1&gt;";
+        ?&gt;
+    </sc>
 
-&lt;?php
-$mysqli = new mysqli(&#34;localhost&#34;, &#34;my_user&#34;, &#34;my_password&#34;, &#34;my_database&#34;);
+    <p>Per a obtenir dades de la query des del codi PHP, hem d'utilitzar <w>$_GET</w>, posant el nom de la dada així: <w>$_GET['<replace>nom_dada</replace>']</w>.</p>
 
-$res = $mysqli-&gt;query(&#34;SELECT * FROM posts&#34;);
+    <p>Per exemple, si volem imprimir la dada <w>missatge</w> d'aquesta query <w>?missatge=hola</w>, ho podem fer així:</p>
 
-while ($row = $res-&gt;fetch_assoc()) {
-    echo &#34;&lt;h2&gt;&#34; . $row[&#39;title&#39;] . &#34;&lt;/h2&gt;\n&#34;;
-    echo &#34;&lt;p&gt;&#34; . $row[&#39;content&#39;] . &#34;&lt;/p&gt;\n&#34;;
-}
-?&gt;</sc></pre>
-<h3 is-upgraded><a href="https://github.com/gerardfp/webapps/blob/master/new_post.php" target="_blank">new_post.php</a></h3>
-<pre><sc>&lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;
+    <sc php>
+        &lt;?php
+        echo "&lt;h1&gt;";              // &lt;h1&gt;
+        echo $_GET['missatge'];   // hola
+        echo "&lt;/h1&gt;";             // &lt;/h1&gt;
+        ?&gt;
+    </sc>
 
-&lt;form id=&#34;form&#34; action=&#34;insert_post.php&#34; method=&#34;get&#34;&gt;
-            &lt;label for=&#34;title&#34;&gt;Titulo:&lt;/label&gt;
-            &lt;input id=&#34;title&#34; type=&#34;text&#34; name=&#34;title&#34; size=&#34;46&#34; required/&gt;
-            &lt;label for=&#34;content&#34;&gt;Contenido:&lt;/label&gt;
-            &lt;textarea id=&#34;content&#34; type=&#34;text&#34; name=&#34;content&#34; rows=&#34;8&#34; cols=&#34;64&#34; required&gt;&lt;/textarea&gt;
-            &lt;input id=&#34;submit&#34; type=&#34;submit&#34; value=&#34;Crear post&#34; disabled/&gt;
-&lt;/form&gt;
+    <p>Si posem el <w>$_GET</w> entre cometes <w>" "</w> li hem d'afegir unes claus <w>{ }</w> així: <w>${_GET['<replace>nom_dada</replace>']}</w>:</p>
 
-&lt;script&gt;
-document.getElementById(&#39;form&#39;).addEventListener(&#34;keyup&#34;, () =&gt; {
-            document.getElementById(&#34;submit&#34;).disabled = !form.checkValidity();
-});
-&lt;/script&gt;</sc></pre>
-<h3 is-upgraded><a href="https://github.com/gerardfp/webapps/blob/master/insert_post.php" target="_blank">insert_post.php</a></h3>
-<pre><sc>&lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;&gt;
+    <sc php>
+        &lt;?php
+        echo "&lt;h1&gt;${_GET['missatge']}&lt;/h1&gt;";   // &lt;h1&gt;hola&lt;/h1&gt;
+        ?&gt;
+    </sc>
 
-&lt;?php
-$mysqli = new mysqli(&#34;localhost&#34;, &#34;my_user&#34;, &#34;my_password&#34;, &#34;my_database&#34;);
+    <sc php>
+        $db = new mysqli("localhost", "<replace>nom_usuari_admin</replace>", "<replace>password_usuari_admin</replace>", "<replace>nom_base_de_dades</replace>");
+    </sc>
 
-$stmt = $mysqli-&gt;prepare(&#34;INSERT INTO posts VALUES (?,?)&#34;);
+    <sc php>
+        $stmt = $db-&gt;prepare("INSERT INTO <replace>nom_taula</replace> VALUES(?,?)");
+        $stmt-&gt;bind_param("ss", $_GET['<replace>nom_dada1_query</replace>'], $_GET['<replace>nom_dada2_query</replace>']);
+        $stmt-&gt;execute();
+    </sc>
 
-$stmt-&gt;bind_param(&#34;ss&#34;, $titulo, $contenido);
+    <sc php>
+        $stmt = $db-&gt;prepare("DELETE FROM <replace>nom_taula</replace> WHERE <replace>camp</replace> = ?");
+        $stmt-&gt;bind_param("s", $_GET['<replace>nom_dada_query</replace>']);
+        $stmt-&gt;execute();
+    </sc>
 
-$titulo = $_GET[&#39;title&#39;];
-$contenido = $_GET[&#39;content&#39;];
-
-$stmt-&gt;execute();
-
-$stmt-&gt;close();
-
-echo &#34;&lt;h3&gt;Entrada añadida!&lt;/h3&gt;&#34;;
-echo &#34;&lt;a href=&#39;/&#39;&gt;Volver&lt;/a&gt;&#34;;
-?&gt;</sc></pre>
-<h3 is-upgraded><a href="https://github.com/gerardfp/webapps/blob/master/style.css" target="_blank">style.css</a></h3>
-<pre><sc>h1 {
-    background-color: #135e96;
-    color: white;
-    padding: 16px;
-}
-
-a {
-    background-color: #c9356e;
-    color: white;
-    padding: 16px;
-    border-radius: 8px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-a:hover {
-    background-color: #a9154e;
-}
-
-h2 {
-    color: #135e96;
-    padding-top: 64px;
-    border-bottom: 1px solid #135e96;
-}
-
-p {
-    background-color: #e1e1e9;
-    padding:32px;
-    border-radius: 4px;
-}
-
-h3 {
-    background-color: #f1f1f1;
-    border: 1px solid #919191;
-    border-left: 4px solid #46b450;
-    padding: 16px;
-}
-
-input, textarea {
-    display: block;
-    padding: 16px;
-}
-
-input[type=submit] {
-    background-color: #46b450;
-    color: white;
-    padding: 16px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-input[type=submit]:hover {
-    background-color: #269430;
-}
-
-input[type=submit]:disabled {
-    background-color: gray;
-}
-
-label {
-    margin-top: 32px;
-}</sc></pre>
-
-
-      </google-codelab-step>
-    
-  </google-codelab>
-
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
-
-</body>
-</html>
+    <sc php>
+        foreach ($db-&gt;query("SELECT * FROM <replace>nom_taula</replace>") as $fila) {
+            $fila['<replace>camp</replace>']
+            "${fila['<replace>camp</replace>']}"             
+        }
+    </sc>
+</section>
