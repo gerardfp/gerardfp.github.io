@@ -30,20 +30,25 @@ header {
     margin: 0 auto;
     max-width: 50em;
     padding: 1rem 1rem 1rem 1rem;
-    box-shadow: 0px 1px 2px 0px rgba(60,64,67,0.3),0px 2px 6px 2px rgba(60,64,67,0.15);
-    border-radius: 0px 0px 4px 4px;
-    background-color: #42b983;
-    color: white;
+    /* box-shadow: 0px 1px 2px 0px rgba(60,64,67,0.3),0px 2px 6px 2px rgba(60,64,67,0.15); */
+    /* border-radius: 0px 0px 4px 4px; */
+    /* background-color: #42b983;
+    background-color: #2d2d2d; */
+    /* color: white; */
+    /* background: #333; */
+    /* color: white; */
+    /* color: black; */
 }
 
 abstract {
     background: white;
-    color: black;
+    /* color: black; */
     display: block;
     padding: 1em 1.2em 2em 1.2em;
     border-radius: 4px;
     /* box-shadow: inset 0px 1px 2px 0px rgba(60,64,67,0.3), inset 0px 2px 6px 2px rgba(60,64,67,0.15); */
 }
+
 @media(min-width: 480px){
     abstract {
         padding: 1em 2em 2em 2em;
@@ -97,6 +102,7 @@ h1 {
     font-size: 3em;
     margin-top: 4rem;
     text-align: center;
+    color: black;
 }
 
 h2 {
@@ -430,7 +436,7 @@ tech {
 replace {
     border: 1px dotted #3e4240;
     border-radius: 4px;
-    color: #c7254e;;
+    color: #f82f62;;
     /* background: #f9f2f4; */
     padding: .1em .5em;
 }
@@ -688,6 +694,7 @@ question o label {
     flex-grow: 1;
     margin: 0;
     padding: 0;
+    overflow: auto;
 }
 
 question o:hover {
@@ -838,6 +845,7 @@ question[match] o.highlight {
 o label > div {
     display: inline-block;
     flex-grow: 1;
+    overflow: auto;
 }
 
 o div.sc-toolbar pre {
@@ -1056,7 +1064,7 @@ sidenav {
     background-color: #111;
     overflow-x: hidden;
     overflow-y: auto;
-    transition: max-width .8s;
+    transition: max-width .4s;
     padding-top: 60px;
     border-bottom: 1px solid gray;
     width: 0;
@@ -1075,6 +1083,7 @@ hamb-close {
     margin-left: 50px;
     cursor: pointer;
 }
+
 hamb-close::before {
     content: '\00d7';
 }
@@ -1086,7 +1095,7 @@ sidenav a.sidenav1 {
     color: #949494;
     display: block;
     transition: 0.3s;
-    width: 300px;
+    /* width: 300px; */
     line-height: 1.2;
 }
 
@@ -1097,9 +1106,20 @@ sidenav a.sidenav2 {
     color: #818181;
     display: block;
     transition: 0.3s;
-    width: 300px;
+    /* width: 300px; */
     line-height: 1.2;
 }
+
+sidenav a {
+    width: 240px;
+}
+
+@media(min-width: 560px){
+    sidenav a {
+        width: 360px;
+    }
+}
+
 
 sidenav a:hover {
     color: #f1f1f1;
@@ -1110,15 +1130,16 @@ sidenav a + a {
 }
 
 nav {
-    background-color: #333; /* Black background color */
-    position: fixed; /* Make it stick/fixed */
-    top: 0; /* Stay on top */
-    width: 100%; /* Full width */
-    transition: top 0.3s; /* Transition effect when sliding down (and up) */    
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    transition: top 0.3s; 
 }
 
 nav.hide {
-    top: -50px;
+    top: -54px;
+    /* top: -100%; */
 }
 
 hamb-open {
@@ -1131,6 +1152,8 @@ hamb-open {
 hamb-open::before {
     content: '\2630';
 }
+
+
 
 .token > .token > .inline-color-wrapper {
     display: none;

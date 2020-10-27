@@ -63,7 +63,10 @@ var sidenavItemCLicked;
 
 function navigation(){
   // add sidenav and nav
+
   document.querySelectorAll('nav').forEach((nav) => {
+
+
     var hambopen = document.createElement('hamb-open');
     var sidenav = document.createElement('sidenav');
     var hambclose = document.createElement('hamb-close');
@@ -73,6 +76,13 @@ function navigation(){
   
     document.body.appendChild(nav);
     document.body.appendChild(sidenav);
+
+    document.body.addEventListener('click', (e) => { 
+      if(e.target != hambopen){
+        sidenav.classList.remove('open');
+        nav.classList.add('hide');
+      } 
+    });
   
     // build sidenav menu
     document.querySelectorAll('section').forEach((s, i) => {

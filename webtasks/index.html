@@ -84,7 +84,7 @@
         programis el servidor.
     </p>
 
-    <p>Quan l'usuari prem el botó "Afegir", a la query s'han de posar la descripcio i la prioritat de la tasca. La query 
+    <p>Quan l'usuari prem el botó "Afegir", a la query s'han de posar la descripció i la prioritat de la tasca. La query 
         hauria de quedar semblant a aquesta: <w>?afegir=Fer exercici&prioritat=ALTA</w> (en lloc de "Fer exercici" i "ALTA", 
         haurien de ser els valors que l'usuari introdueixi al formulari).
     </p>
@@ -92,15 +92,15 @@
     <img src="img/webtasks2.gif">
 
     <p>Quan l'usuari prem l'enllaç d'eliminar, a la query s'ha d'afegir la tasca que s'ha d'eliminar. 
-        És important que a aquesta dada li posem un nom diferent per a distingir-la de la dada que utilitzem per a afegir.
-        La query per a eliminar una tasca podria quedar així: <w>?eliminar=Fer exercici</w> (en lloc de "Fer exercici", hauria de
+        És important que a aquesta dada li posis un nom diferent per a distingir-la de la dada que s'utilitza per a afegir.
+        La query per a eliminar una tasca hauria de quedar així: <w>?eliminar=Fer exercici</w> (en lloc de "Fer exercici", hauria de
         ser la descripció de la tasca corresponent).
     </p>
 
     <img src="img/webtasks3.gif">
 
     <h3>Estil CSS</h3>
-    <p>El següent pas és crear el codi CSS que ens permeti veure en diferents colors les tasques segons la seva prioritat.</p>
+    <p>El següent pas és crear el codi CSS que permeti veure en diferents colors les tasques segons la seva prioritat.</p>
 
     <p>Hauràs de crear dues classes CSS distintes, una per a la prioritat ALTA i una altra per a la BAIXA.
         Als elements de classe ALTA se'ls posarà un color de fons, i 
@@ -143,7 +143,8 @@
         &lt;p class="classe-exemple-2"&gt;Aquest text es veu en fons green&lt;/p&gt;
     </sc>
 
-    <p>Per ultim pots canviar el tamany de les imatges amb la propietat <a href="https://www.w3schools.com/cssref/pr_dim_width.asp"><m>width</m> <ic>&#xf35d;</ic></a> i pots donar una mica d'espai als 
+    <p>Per últim pots canviar el tamany de les imatges amb la propietat <a href="https://www.w3schools.com/cssref/pr_dim_width.asp"><m>width</m> <ic>&#xf35d;</ic></a> 
+        i pots donar una mica d'espai als 
     elements de la llista amb les propietats <a href="https://www.w3schools.com/cssref/pr_margin.asp"><m>margin</m> <ic>&#xf35d;</ic></a> i <a href="https://www.w3schools.com/cssref/pr_padding.asp"><m>padding</m> <ic>&#xf35d;</ic></a>.</p>
 
     <p>Exemple:</p>
@@ -175,59 +176,58 @@
         mysql -e "<replace>ACCIO_A_REALITZAR</replace>"
     </shell>
 
-    <p>Realitza les següents accions:</p>
+    <p>Les accions bàsiques que es poden realitzar són:</p>
+
     <ul>
-        <li>
-            <p>Crea la base de dades:</p>
-            <sc sql>
-                CREATE DATABASE <replace>nom_base_de_dades</replace>
-            </sc>
-        </li>
-        <li>
-            <p>Crea un usuari per a administrar la base de dades:</p>
-            <sc sql>
-                CREATE USER '<replace>nom_usuari_admin</replace>'@'localhost' IDENTIFIED BY '<replace>password_usuari_admin</replace>'
-            </sc>
-        </li>
-        <li>
-            <p>Dona privilegis a l'usuari per a administrar la base de dades:</p>
-            <sc sql>
-                GRANT ALL PRIVILEGES ON <replace>nom_base_de_dades</replace>.* TO '<replace>nom_usuari_admin</replace>'@'localhost'; FLUSH PRIVILEGES
-            </sc>
-        </li>
-    </ul>
-
-    <p>Un cop creada la base de dades, crearem una taula per a guardar les tasques. Cada tasca es guardarà en una fila de la taula.
-        Aquesta taula tindrà dos camps: descripció i prioritat.</p>
-    
-        <img src="img/webtasks5.png">
-    <p>Per a crear una taula utilitza la següent sentència SQL:</p>
-
+    <li><p>Crear una base de dades:</p>
+    <sc sql>
+        CREATE DATABASE <replace>nom_base_de_dades</replace>
+    </sc>
+    </li>
+    <li><p>Eliminar una base de dades:</p>
+    <sc sql>
+        DROP DATABASE <replace>nom_base_de_dades</replace>
+    </sc>
+    </li>
+    <li><p>Crear un usuari per a administrar la base de dades:</p>
+    <sc sql>
+        CREATE USER '<replace>nom_usuari_admin</replace>'@'localhost' IDENTIFIED BY '<replace>password_usuari_admin</replace>'
+    </sc>
+    </li>
+    <li><p>Donar privilegis a l'usuari per a administrar la base de dades:</p>
+    <sc sql>
+        GRANT ALL PRIVILEGES ON <replace>nom_base_de_dades</replace>.* TO '<replace>nom_usuari_admin</replace>'@'localhost'; FLUSH PRIVILEGES
+    </sc>
+    </li>
+    <li><p>Crear una taula:</p>
     <sc sql>
         CREATE TABLE <replace>nom_base_de_dades</replace>.<replace>nom_taula</replace>(<replace>camp1</replace> TEXT, <replace>camp2</replace> TEXT)
     </sc>
-
-    <p>Pots afegir unes tasques <em>de prova</em> a la taula (per veure que funciona correctament) amb aquesta sentència:</p>
-
+    </li>
+    <li><p>Inserir files a una taula:</p>
     <sc sql>
         INSERT INTO <replace>nom_base_de_dades</replace>.<replace>nom_taula</replace> VALUES ('<replace>valor camp 1</replace>','<replace>valor camp2</replace>')
     </sc>
-
-    <p>Per consultar les tasques que hi ha la taula ho pots fer amb: </p>
-
+    </li>
+    <li><p>Per obtenir totes les files d'una taula: </p>
     <sc sql>
         SELECT * FROM <replace>nom_base_de_dades</replace>.<replace>nom_taula</replace>
     </sc>
-
-    <p>Per a eliminar <strong>totes</strong> les tasques de la taula:</p>
+    </li>
+    <li><p>Per a eliminar <strong>totes</strong> les files d'una taula:</p>
     <sc sql>
         DELETE FROM <replace>nom_base_de_dades</replace>.<replace>nom_taula</replace>
     </sc>
-
-    <p>Per a eliminar les tasques de la taula que tinguin un valor determinat en un camp:</p>
+    </li>
+    <li><p>Per a eliminar les files d'una taula que tinguin un valor determinat en un camp:</p>
     <sc sql>
         DELETE FROM <replace>nom_base_de_dades</replace>.<replace>nom_taula</replace> WHERE <replace>camp</replace> = '<replace>valor</replace>'
     </sc>
+    </li>
+    <p>Per a aquesta webapp necessitaràs una taula per guardar les tasques. 
+        Cada tasca es guardarà en una fila d'aquesta taula.
+        La taula tindrà dos camps: descripció i prioritat.</p>
+    <img src="img/webtasks5.png">
 
 
     <h3>Script PHP</h3>
@@ -252,7 +252,7 @@
 
     <p>Per a obtenir dades de la query des del codi PHP, hem d'utilitzar <w>$_GET</w>, posant el nom de la dada així: <w>$_GET['<replace>nom_dada</replace>']</w>.</p>
 
-    <p>Per exemple, si volem imprimir la dada <w>missatge</w> d'aquesta query <w>?missatge=hola</w>, ho podem fer així:</p>
+    <p>Per exemple, per a imprimir la dada <w>missatge</w> d'aquesta query <w>?missatge=hola</w>, es pot fer així:</p>
 
     <sc php>
         &lt;?php
@@ -262,7 +262,7 @@
         ?&gt;
     </sc>
 
-    <p>Si posem el <w>$_GET</w> entre cometes <w>" "</w> li hem d'afegir unes claus <w>{ }</w> així: <w>${_GET['<replace>nom_dada</replace>']}</w>:</p>
+    <p>Si es posa el <w>$_GET</w> entre cometes <w>" "</w>, se li han d'afegir unes claus <w>{ }</w> així: <w>${_GET['<replace>nom_dada</replace>']}</w>:</p>
 
     <sc php>
         &lt;?php
@@ -270,26 +270,90 @@
         ?&gt;
     </sc>
 
+    <h3>Accés a la base de dades amb PHP</h3>
+
+    <h4>Connexió</h4>
+    <p>Per a accedir a la base de dades des del PHP, en primer lloc s'ha de fer una connexió amb el servidor MySQL:</p>
     <sc php>
         $db = new mysqli("localhost", "<replace>nom_usuari_admin</replace>", "<replace>password_usuari_admin</replace>", "<replace>nom_base_de_dades</replace>");
     </sc>
 
+    <p>Un cop feta la connexió, es poden realitzar accions utilitzant el connector <w>$db</w>.</p>
+
+    <h4>Insert</h4>
+    <p>Per a inserir una fila a una taula cal realitzar aquestes 3 sentències.</p>
+    <sc php>
+        $stmt = $db-&gt;prepare("INSERT INTO <replace>nom_taula</replace> VALUES(?,?)");
+        $stmt-&gt;bind_param("ss", <replace>valor1</replace>, <replace>valor2</replace>);
+        $stmt-&gt;execute();
+    </sc>
+    <ul>
+        <li><p>A la primera sentència es defineix l'acció <w>INSERT</w> però no es posen els valor que s'han d'inserir, 
+        sinò que s'han de posar interrogants <w>?</w> en lloc dels valors.</p></li>
+        <li><p>A la segona és quan es lliguen els interrogants amb els valors que s'han d'inserir. S'han de posar 
+            tantes <w>s</w> com valors hi ha (en l'exemple hi ha 2 valors, per això hi han dues <w>ss</w>). Després es posen els valors separats amb comes.
+        </p></li>
+        <li><p>A la tercera sentència s'executa l'acció <w>INSERT</w> i les dades queden guardades a la taula.</p></li>
+    </ul>
+
+    <p>Així doncs, per a inserir les dades que obtenim de la query, es pot de fer així.</p>
     <sc php>
         $stmt = $db-&gt;prepare("INSERT INTO <replace>nom_taula</replace> VALUES(?,?)");
         $stmt-&gt;bind_param("ss", $_GET['<replace>nom_dada1_query</replace>'], $_GET['<replace>nom_dada2_query</replace>']);
         $stmt-&gt;execute();
     </sc>
 
+    <h4>Delete</h4>
+    <p>Per a eliminar dades es fa d'una forma similar a la inserció, però amb l'acció <w>DELETE</w></p>
     <sc php>
         $stmt = $db-&gt;prepare("DELETE FROM <replace>nom_taula</replace> WHERE <replace>camp</replace> = ?");
         $stmt-&gt;bind_param("s", $_GET['<replace>nom_dada_query</replace>']);
         $stmt-&gt;execute();
     </sc>
 
+    <h4>Select</h4>
+    <p>Per a obtenir totes les files de la taula, i fer alguna cosa amb per a cada fila, es pot utilitzar la 
+        següent construcció:
+    </p>
     <sc php>
         foreach ($db-&gt;query("SELECT * FROM <replace>nom_taula</replace>") as $fila) {
-            $fila['<replace>camp</replace>']
-            "${fila['<replace>camp</replace>']}"             
+
+            // el codi que hi hagi aquí
+            // es repetirà
+            // per a cada fila de la taula
+
         }
     </sc>
+    <p>El que hi hagi a dintre de les claus es repetirà per a cada fila de la taula (<em>foreach</em>).</p>
+
+    <p>Es pot accedir als camps de cada fila amb <w>$fila['<replace>camp</replace>']</w> (o <w>"${fila['<replace>camp</replace>']}"</w>).</p>
+
+    <p>Per exemple, per a mostrar un camp determinat de cadascuna de les files de la taula es pot fer així:</p>
+
+    <sc php data-line="2">
+        foreach ($db-&gt;query("SELECT * FROM <replace>nom_taula</replace>") as $fila) {
+            echo "${fila['<replace>camp</replace>']}"             
+        }
+    </sc>
+
+    <h3>Accions opcionals</h3>
+
+    <p>De les tres accions que realitza la app (INSERT, DELETE, SELECT), les dues primeres només s'han de 
+        realitzar si a la query hi han les dades <w>afegir</w> o <w>eliminar</w>.
+    </p>
+
+    <p>Es pot utilitzar la següent construcció per a realitzar accions únicament si a la 
+        query hi ha una determinada dada: 
+    </p>
+
+    <sc php>
+        if (!empty($_GET['<replace>nom_dada_query</replace>'])) {
+
+            // les accions que hi hagi aqui
+            // nomes es realitzen si a la query
+            // hi ha la dada <replace>nom_dada_query</replace>
+
+        }
+    </sc>
+
 </section>

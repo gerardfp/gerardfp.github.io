@@ -1,49 +1,253 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
 
-<!doctype html>
+<nav></nav>
+<header>
+  <h1>LiveData</h1>
+  <abstract>
+    <p><w>LiveData</w> es una classe para contener datos observables.</p>
+    <p>Está diseñada específicamente para ser utilizada en Activities, Fragments o Servicios, de forma
+      que únicamente notifica a los observadores si la Activity, Fragment o Servicio está en ejecución.
+    </p>     
 
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <meta name="theme-color" content="#4F7DC9">
-  <meta charset="UTF-8">
-  <title>LiveData</title>
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
-  <style>
-    .success {
-      color: #1e8e3e;
-    }
-    .error {
-      color: red;
-    }
-  </style>
-</head>
-<body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-  <google-codelab codelab-gaid=""
-                  id="livedata"
-                  title="LiveData"
-                  environment="web"
-                  feedback-link="/dam-m8">
-    
-      <google-codelab-step label="LiveData" duration="0">
-        <h3 is-upgraded><a href="https://github.com/gerardfp/livedata" target="_blank">https://github.com/gerardfp/livedata</a></h3>
+    <p>Desarrollaremos una app que consiste en un Entrenador de gimnasia.</p>
 
+    <img src="img/livedata.gif.gif"/>
+  </abstract>
+</header>
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Práctica" duration="0">
+<section>
+  <h2>Crea el proyecto</h2>
+    <ul>
+        <li>
+            <p>
+                <p>Selecciona <mo>Empty Activity</mo> como plantilla.</p>
+            </p>
+        </li>
+        <li>
+            <p>Añade las siguientes dependencias: </p>
+              
+            <scfile>
+                build.gradle (Module: app)
+            </scfile>
+            <sc>
+                implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'
+                implementation 'androidx.lifecycle:lifecycle-livedata:2.2.0'
         
+                implementation 'androidx.navigation:navigation-fragment:2.3.0'
+                implementation 'androidx.navigation:navigation-ui:2.3.0'
+            
+                implementation 'com.github.bumptech.glide:glide:4.11.0'
+                annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+            </sc>
 
-      </google-codelab-step>
-    
-  </google-codelab>
+            <info>
+              <p>La librería <a href="https://github.com/bumptech/glide">Glide</a> sirve para cargar imágenes</p>
+            </info>
+        </li>
+        <li>
+            <p>Activa el ViewBinding</p>
+            <scfile>
+                build.gradle (Module: app)
+            </scfile>
+            <sc>
+                android {
+                    buildFeatures {
+                        viewBinding true
+                    }
+                }
+            </sc>
+        </li>
 
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+        <li>
+            <p>Crea el Grafo de Navegación <file>res/navigation/nav_graph.xml</file>.</p>
+            <p>Añade el <w>NavHostFragment</w> al layout de la MainActivity:</p>
+            <scfile>
+                res/layout/activity_main.xml
+            </scfile>
+            <sc xml>
+                &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+                &lt;androidx.constraintlayout.widget.ConstraintLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+                    android:layout_width=&quot;match_parent&quot;
+                    android:layout_height=&quot;match_parent&quot;
+                    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;&gt;
 
-</body>
-</html>
+                    &lt;androidx.fragment.app.FragmentContainerView
+                        android:name=&quot;androidx.navigation.fragment.NavHostFragment&quot;
+                        android:id=&quot;@+id/nav_host_fragment&quot;
+                        android:layout_width=&quot;match_parent&quot;
+                        android:layout_height=&quot;match_parent&quot;
+                        app:defaultNavHost=&quot;true&quot;
+                        app:navGraph=&quot;@navigation/nav_graph&quot; /&gt;
+
+                &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+            </sc>
+        </li>
+        <li>
+            <p>Crea un destino en el <file>nav_graph.xml</file>llamado <w>EntrenadorFragment</w>:</p>
+
+            <p>Configura el ViewBinding:</p>
+
+            <scfile>
+                EntrenadorFragment.java
+            </scfile>
+            <sc java>
+                import android.os.Bundle;
+                import android.view.LayoutInflater;
+                import android.view.View;
+                import android.view.ViewGroup;
+                import androidx.annotation.NonNull;
+                import androidx.fragment.app.Fragment;
+
+                public class EntrenadorFragment extends Fragment {
+                    private FragmentEntrenadorBinding binding;
+
+                    @Override
+                    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+                        return (binding = FragmentEntrenadorBinding.inflate(inflater, container, false)).getRoot();
+                    }
+
+                    @Override
+                    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                        super.onViewCreated(view, savedInstanceState);
+                    }
+                }
+            </sc>
+
+            <p>Añade las siguientes <w>View</w> al layout:</p>
+            <scfile>
+                res/layout/fragment_entrenador.xml
+            </scfile>
+            <sc xml>
+              &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+              &lt;FrameLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+                  xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+                  android:layout_width=&quot;match_parent&quot;
+                  android:layout_height=&quot;match_parent&quot;
+                  tools:context=&quot;.EntrenadorFragment&quot;&gt;
+              
+                  &lt;ImageView
+                      android:id=&quot;@+id/image&quot;
+                      android:layout_width=&quot;match_parent&quot;
+                      android:layout_height=&quot;match_parent&quot; /&gt;
+                  &lt;TextView
+                      android:id=&quot;@+id/time&quot;
+                      android:layout_width=&quot;match_parent&quot;
+                      android:layout_height=&quot;wrap_content&quot;
+                      android:gravity=&quot;center&quot;
+                      android:textSize=&quot;48sp&quot;/&gt;
+                  &lt;TextView
+                      android:id=&quot;@+id/cambio&quot;
+                      android:layout_width=&quot;match_parent&quot;
+                      android:layout_height=&quot;match_parent&quot;
+                      android:background=&quot;#ddee44&quot;
+                      android:textColor=&quot;@color/white&quot;
+                      android:visibility=&quot;gone&quot;
+                      android:text=&quot;CAMBIO&quot;
+                      android:gravity=&quot;center&quot;
+                      android:textSize=&quot;48sp&quot;/&gt;
+              &lt;/FrameLayout&gt;
+            </sc>
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h2>Entrenador</h2>
+
+    <scfile>
+        Entrenador.java
+    </scfile>
+    <sc java>
+        import java.util.Random;
+        import java.util.concurrent.Executors;
+        import java.util.concurrent.ScheduledExecutorService;
+        import java.util.concurrent.ScheduledFuture;
+
+        import static java.util.concurrent.TimeUnit.SECONDS;
+
+        public class Entrenador {
+
+            interface EntrenadorListener {
+                void cuandoDeLaOrden(String orden);
+            }
+
+            Random random = new Random();
+            ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+            ScheduledFuture&lt;?&gt; entrenando;
+
+            void iniciarEjercicios(EntrenadorListener entrenadorListener){
+                if (entrenando == null || entrenando.isCancelled()){
+
+                    entrenando = scheduler.scheduleAtFixedRate(new Runnable() {
+                        int ejercicio;
+                        int repeticiones = -1;
+                        @Override
+                        public void run() {
+                            if(repeticiones &lt; 0){
+                                repeticiones = random.nextInt(3)+3;
+                                ejercicio = random.nextInt(4);
+                            }
+                            entrenadorListener.cuandoDeLaOrden(&quot;EJERCICIO-&quot;+ejercicio + &quot;:&quot; + repeticiones--);
+                        }
+                    }, 0, 1, SECONDS);
+                }
+            }
+
+            void pararEjercicios(){
+                if(entrenando != null) entrenando.cancel(true);
+            }
+        }
+    </sc>
+
+    <info>
+        <p></p>
+        <sc java>
+            import java.util.Scanner;
+
+            public class Main {
+                public static void main(String[] args) {
+                    Entrenador entrenador = new Entrenador();
+                    Scanner scanner = new Scanner(System.in);
+
+                    while(true){
+                        if(scanner.nextLine().equals("i")){
+                            System.out.println("Iniciando entrenador...");
+                            entrenador.iniciarEjercicios(new Entrenador.EntrenadorListener() {
+                                @Override
+                                public void cuandoDeLaOrden(String orden) {
+                                    System.out.println(orden);
+                                }
+                            });
+                        } else {
+                            System.out.println("Parando entrenador...");
+                            entrenador.pararEjercicios();
+                        }
+                    }
+                }
+            }
+        </sc>
+
+        <shell>
+            <in>iniciar</in>
+            Iniciando entrenador...
+            EJERCICIO-3:3
+            EJERCICIO-3:2
+            EJERCICIO-3:1
+            EJERCICIO-3:0
+            EJERCICIO-1:3
+            EJERCICIO-1:2
+            EJERCICIO-1:1
+            EJERCICIO-1:0
+            EJERCICIO-4:3
+            EJERCICIO-4:2
+            EJERCICIO-4:1
+            EJERCICIO-4:0
+            <in>parar</in>
+            Parando entenador...
+        </shell>
+    </info>
+</section>

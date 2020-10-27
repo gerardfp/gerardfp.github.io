@@ -1,0 +1,265 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script defer src="m-letter.js"></script>
+<style>
+    draw-letters {
+        display: block;
+        position: relative;
+    }
+    canvas {
+        position: relative;
+        top: 0;
+        left: 0;
+        border: 1px solid black;
+        width: 600;
+        height: 400;
+    }
+
+    svg {
+        border: 1px solid purple;
+    }
+
+    svg#pathd { display: none}
+
+    path {
+        fill:none;
+        stroke:#000000;
+        stroke-width:5;
+        stroke-linecap:round;
+        stroke-linejoin:round;
+        stroke-miterlimit:4;
+    }
+    #letters {
+        display: flex;
+        flex-flow: row wrap;
+        align-content: space-between;
+        justify-content: space-between;
+    }
+    #letters m-letter {
+        width: 60;
+        height: 40;
+    }
+    #letters m-letter:nth-child(5n) {
+        page-break-after: always;
+    }
+    #letters m-letter:nth-child(25n) {
+        page-break-after: avoid;
+    }
+
+</style>
+
+
+<div id="window">
+    <div id="letterChoice" class="screen">
+        <div id="letters"></div>
+    </div>
+
+    <div id="drawLetter" class="screen">
+        <draw-letters letters="abc"></draw-letters>
+    </div>
+</div>
+
+<!-- <div style="display: none"> -->
+<div style="display:none">
+    <svg id="pathd" viewbox="-5 -5 160 110">
+        <path id="path" />
+    </svg>
+</div>
+
+
+<script>
+var currentLetter;
+
+var currentScreen = 'letterChoice';
+
+function setScreen(screen){
+    document.querySelectorAll('.screen').forEach(s => {
+        s.style.display = 'none';
+    });
+
+    console.log('#'+screen);
+    document.getElementById(screen).style.display = 'block';
+}
+
+
+setScreen('letterChoice');
+
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+var c1 = document.createElement("canvas");
+var c2 = document.createElement("canvas");
+var c3 = document.createElement("canvas");
+
+document.body.appendChild(c1);
+document.body.appendChild(c2);
+document.body.appendChild(c3);
+
+var ctx1 = c1.getContext("2d");
+var ctx2 = c2.getContext("2d");
+var ctx3 = c3.getContext("2d");
+
+var path = document.getElementById('path');
+
+// doLetters();
+showLetters();
+
+function doLetters(){
+
+}
+
+// doLetter('a');
+
+async function doLetter(letter) {
+    for(d of letters[letter]) {
+        console.log(d);
+        path.setAttribute('d', d);
+        await demoWrite(path);
+    }
+}
+
+function drawPoint(ctx, point, color){
+    ctx.fillStyle = color;
+
+    ctx.beginPath();
+    ctx.arc(point.x, point.y, 5, 0, 2 * Math.PI);
+    ctx.fill();
+}
+
+async function demoWrite(letterPath) {
+    return await new Promise(resolve => {
+        var i = 0;
+        const interval = setInterval(() => {
+            var pathLength = letterPath.getTotalLength();
+            var pt = letterPath.getPointAtLength(pathLength - i);  
+            drawPoint(ctx1, pt, '#ead8a2');
+            i += 1;
+            if (pathLength - i < 0) {
+                resolve('foo');
+                clearInterval(interval);
+            };
+        }, 10);
+    });
+}
+
+function showLetters(){
+    for(letter of alphabet){
+        var mLetter = document.createElement('m-letter');
+        mLetter.setAttribute('letter', letter);
+        mLetter.onclick = () => {
+            var currentLetter = letter;
+            setScreen('drawLetter');
+        };
+        document.getElementById('letters').appendChild(mLetter);
+    }
+}
+
+
+// var mipath = document.getElementById("mipath");
+// var mipathlength = mipath.getTotalLength();
+
+// var start = new Point(mipath.getPointAtLength(mipathlength).x, mipath.getPointAtLength(mipathlength).y);
+
+// var points = [];
+
+// for (i = 0; i<mipathlength; i+=15){
+//     points.push(new Point(mipath.getPointAtLength(i).x, mipath.getPointAtLength(i).y))
+// }
+
+// for(p of points) {
+//     p.draw(ctx, '#aeaeae');
+// }
+
+// var next = 0;
+// start.draw(ctx2, '#ff0000');
+
+
+// var pos = { x: 0, y: 0 };
+
+// function setPosition(e) {
+//   pos.x = e.clientX;
+//   pos.y = e.clientY;
+// }
+
+// var grab = false;
+
+// c3.onmousedown = (e) => {
+//     setPosition(e);
+    
+
+//     if(dist(pos, start) < 20) {
+//         grab = true;
+//     } else {
+//         grab = false;
+//     }
+// }
+
+// c3.onmousemove = (e) => {
+//     if(e.buttons !== 1) return;
+
+//     setPosition(e);
+//     console.log("yeaaa = " + grab);
+//     console.log(pos);
+//     console.log(points[next]);
+
+//     if(grab) {
+//         if(dist(pos, points[next]) < 20) {
+//             points[next].draw(ctx2);
+//             start = points[next];
+//         } else {
+//             grab = false;
+//         }
+
+//         if(dist(pos, points[next+1]) < 15) {
+//             next++;
+//             ctx3.clearRect(0,0,c3.width,c3.height);
+//             points[next].draw(ctx3,'#ffff00');
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+
+// var i =0 ;
+// setInterval(()=> {
+//     var  pathLength = mipath.getTotalLength();
+//     var  pt = mipath.getPointAtLength(pathLength -i);  // halfway along the path
+//     console.log("x="+pt.x+" y="+pt.y);
+
+//     ctx.beginPath();
+//     ctx.arc(pt.x, pt.y, 5, 0, 2 * Math.PI);
+//     ctx.stroke();
+//     i += 10;
+// }, 100);
+
+
+
+
+
+
+
+// c.onmousedown = setPosition;
+// c.onmouseenter = setPosition;
+
+// c.onmousemove = (e) => {
+//   if (e.buttons !== 1) return;
+
+//   ctx.beginPath();
+
+//   ctx.lineWidth = 5;
+//   ctx.lineCap = 'round';
+//   ctx.strokeStyle = '#c0392b';
+
+//   ctx.moveTo(pos.x, pos.y);
+//   setPosition(e);
+//   ctx.lineTo(pos.x, pos.y);
+
+//   ctx.stroke();
+// };
+
+
+</script>
