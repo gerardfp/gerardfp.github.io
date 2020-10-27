@@ -67,19 +67,19 @@
         fer-ho, tot sabent que perdrem precisió. En aquest cas hem d'explicitar el casting.
     </p>
 
-    <p>Per a realitzar un casting explícit, s'ha d'escriure el tipus al que es vol convertir entre parèntesi, just
-        abans del valor que es vol convertir.
+    <p>Per a realitzar un casting explícit, s'ha d'escriure el <strong>tipus al que es vol convertir</strong> entre parèntesi, just
+        abans del <strong>valor que es vol convertir</strong>.
     </p>
 
-    <java code>
+    <sc java>
         (tipus) valor
-    </java>
+    </sc>
 
-    <p>Els següents exemples il·lustren l'us del casting explicit:</p>
+    <p>Els següents exemples il·lustren l'ús del casting explícit:</p>
 
     <sc java>
         // de int a char
-        char bar = (char) 65633;   // bar es 97, el valor màxim de char es 65535
+        char bar = (char) 65633;   // bar es 97 (el valor màxim de char es 65535)
 
         // de float a char
         char baz = (char) 97.53f;  // baz es 97, es perden els decimals
@@ -163,7 +163,7 @@
     </sc>
 
     <h3>charAt()</h3>
-    <p>Lògicament, no podem convertir un <w>String</w> en un <w>char</w>, ja que la l'String pot tenir varis caracters.
+    <p>Lògicament, no podem convertir un <w>String</w> en un <w>char</w>, ja que l'String pot tenir varis caracters.
     Però podem usar el mètode <w>charAt()</w> per a obtenir un caracter que estigui en una determinada posició.</p>
     <sc java>
         char foo = "java8".charAt(0);  // foo es 'j' 
