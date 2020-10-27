@@ -203,21 +203,21 @@
                 <sc java>
                     if (val == 10) {
                         System.out.println("val == 10");
-                    } else if (val >= 20 && val < 50) {
-                        System.out.println("20 <= val < 50");
+                    } else if (val >= 20 && val &lt; 50) {
+                        System.out.println("20 &lt;= val &lt; 50");
                     } else {
-                        if (val < 20) {
-                            System.out.println("val < 20");
+                        if (val &lt; 20) {
+                            System.out.println("val &lt; 20");
                         } else {
                             System.out.println("val >= 50");
                         }
                     }
                 </sc>
             </statement>
-            <o>val < 20</o>
+            <o>val &lt; 20</o>
             <o correct>val >= 50</o>
             <o>val == 10</o>
-            <o>20 <= val < 50</o>
+            <o>20 &lt;= val &lt; 50</o>
             <o>Cap d'aquestes</o>
         </question>
 
@@ -227,23 +227,23 @@
             </statement>
 
             <o><sc java>
-                if i < j { 
+                if i &lt; j { 
                     String a = "Hello";
                  }</sc></o>
             <o><sc java>
-                if (i < j): 
+                if (i &lt; j): 
                 String a = "Hello";
                 </sc></o>
             <o correct><sc java>
-                if (i < j) { 
+                if (i &lt; j) { 
                     String a = "Hello";
                 }</sc></o>
             <o><sc java>
-                if {i < j} ( 
+                if {i &lt; j} ( 
                     String a = "Hello";
                 )</sc></o>
             <o><sc java>
-                if [i < j] 
+                if [i &lt; j] 
                     String a = "Hello";
                 </sc></o>
         </question>
@@ -252,7 +252,7 @@
             <statement>
                 <p>Selecciona la sortida del programa segons el valor de la variable <w>a</w>.</p>
                 <sc java>
-                    if (a <= 0) {
+                    if (a &lt;= 0) {
                         if(a == 0) {
                             System.out.println("a");
                         } else { 
@@ -309,7 +309,7 @@
     <p>Aquest codi es perfectament vàlid, però en cas de que hi hagi moltes branques pot arribar a ser molt dens.</p>
 
     <h3>switch, case, default</h3>
-    <p>La sentència <w>switch</w> proporciona una forma de escollir entre múltiples accions en el cas de que una 
+    <p>La sentència <w>switch</w> proporciona una forma d'escollir entre múltiples accions en el cas de que una 
     variable o expressió tingui un valor o un altre.</p>
 
     <p>Utilitzant la sentència <w>switch</w> el codi anterior es veuria així:</p>
@@ -418,7 +418,7 @@
         }
     </sc>
 
-    <p>Recorda que el s'executen totes les sentències a partir del <w>case</w> que coincideix amb l'expressió fins que es troba
+    <p>Recorda que s'executen totes les sentències a partir del <w>case</w> que coincideix amb l'expressió fins que es troba
     un <w>break</w>, així doncs en el cas de que la variable <w>producte</w> sigui <string>Pomes</string>, també s'executarà 
     la sentència <ln>7</ln>, fins a trobar el <w>break</w> de la línia <ln>8</ln>.</p>
 
