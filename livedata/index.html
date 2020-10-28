@@ -8,7 +8,7 @@
 <header>
   <h1>LiveData</h1>
   <abstract>
-    <p><w>LiveData</w> es una classe para contener datos observables.</p>
+    <p><a href="https://developer.android.com/topic/libraries/architecture/livedata">LiveData</a> es una clase para contener datos observables.</p>
     <p>Está diseñada específicamente para ser utilizada en Activities, Fragments o Servicios, de forma
       que únicamente notifica a los observadores si la Activity, Fragment o Servicio está en ejecución.
     </p>
@@ -18,6 +18,8 @@
     <p>Desarrollaremos una app que consiste en un Entrenador de gimnasia.</p>
 
     <img src="img/livedata.gif"/>
+
+    <a href="https://github.com/damm8/LiveData">https://github.com/gerardfp/LiveData</a>
   </abstract>
 </header>
 
@@ -154,6 +156,7 @@
               &lt;/FrameLayout&gt;
             </sc>
         </li>
+        <li>Necesitarás descargar <a href="https://github.com/damm8/LiveData/tree/master/app/src/main/res/drawable-v24">los gifs de los ejercicios</a> y arrastrarlos a la carpeta <folder>res/drawable</folder>.</li>
     </ul>
 </section>
 
@@ -215,7 +218,7 @@
     <info>
         <p>La clase <w>ScheduledExecutorService</w> contiene el método <w>scheduleAtFixedRate()</w>, que permite ejecutar
         una tarea en segundo plano cada cierto tiempo predefinido.</p>
-        <p>En este caso, ejecuta el método que da la orden de entrenamiento cada segundo.</p>
+        <p>En este caso, ejecuta el método que da la <strong>orden de entrenamiento</strong> cada segundo.</p>
     </info>
 
     <info>
@@ -277,11 +280,11 @@
 <section>
     <h2>LiveData</h2>
 
-    <p>Hay dos formas de utilitzar LiveData: instanciando la clase MutableLiveData o extendiendo la clase LiveData.</p>
+    <p>Hay dos formas de utilitzar LiveData: instanciando la clase <w>MutableLiveData</w> o extendiendo la clase <w>LiveData</w>.</p>
 
     <h3>MutableLiveData</h3>
 
-    <p>Para crear un objeto de clase <w>MutableLiveData</w>, hay que poner en el diamante <w>&lt;&gt;</w>el tipo 
+    <p>Para instanciar un objeto de clase <w>MutableLiveData</w>, hay que poner en el diamante <w>&lt;&gt;</w>el tipo 
     de datos que va a almacenar. Por ejemplo para crear un MutableLiveData de tipo <w>Integer</w>:</p>
 
     <sc java>
@@ -307,7 +310,7 @@
 
     <p>Los dos métodos causan que se notifique a los observadores del cambio de valor.</p>
 
-    <p>Para observar un objeto <w>LiveData</w> o <w>MutableLiveData</w>se debe llamar al metodo <w>observe()</w>.
+    <p>Para observar un objeto <w>LiveData</w> o <w>MutableLiveData</w> se debe llamar al método <w>observe()</w>.
     A este método hay que pasarle la Activity o el Fragment desde los cuales se observa, y el callback <w>Observer</w> 
     al cual se llamará para notificar los cambios del valor. Las notificaciones de los cambios de valor,
     únicamente se realizarán si la Activity o el Fragment están <em>en ejecución</em>.
@@ -331,20 +334,19 @@
     <p>En el caso de un objeto MutableLiveData es una entidad externa la que llama a los 
         métodos <w>setValue()</w> o <w>postValue()</w> para cambiar el valor.</p>
 
-    <p>Es posible extender la clase <w>LiveData</w> para hacer que sea el propio objeto el que cambie su valor.</p>
-
-    <p>Cuando se extiende la clase <w>LiveData</w> hay dos métodos que hay que anular:</p>
+    <p>Es posible extender la clase <w>LiveData</w> para hacer que sea el propio objeto el que cambie su valor. 
+        Cuando se extiende la clase <w>LiveData</w> hay dos métodos que hay que anular:</p>
     <ul>
-        <li><p>onActive(): este método se ejecuta cuando se tiene un observador activo.</p></li>
-        <li><p>onInactive(): este método se ejecuta cuando ya no tiene ningún observador activo.</p></li>
+        <li><p><w>onActive()</w>: este método se ejecuta cuando tiene un observador activo.</p></li>
+        <li><p><w>onInactive()</w>: este método se ejecuta cuando ya no tiene ningún observador activo.</p></li>
     </ul>
 
     <p>El método <w>setValue()</w> actualiza el valor y notifica a los observadores activos.</p>
 
     <h3>Conclusión</h3>
-    <p>Para cambiar el valor de un <w>MutableLiveData</w> hay que llamar al método <w>setValue()</w> (o <w>postValue()</w>), 
+    <p>Para cambiar el valor de un <w>MutableLiveData</w> hay que llamar al método <w>setValue()</w> o <w>postValue()</w>, 
     desde una entidad externa.</p>
-    <p>Para cambiar el valor de un <w>LiveData</w> es el propio <w>LiveData</w> el que llama al método <w>setValue()</w>.</p>
+    <p>Para cambiar el valor de un <w>LiveData</w> es el propio <w>LiveData</w> el que llama al método <w>setValue()</w> o <w>postValue()</w>.</p>
 
     <img src="img/mutablevslive.png">
 
@@ -357,12 +359,12 @@
         nadie deba indicárselo.</p>
 
     <observe>
-        <p>En la <a href="../mvvm">actividad anterior</a>, hicimos que el modelo calculase la cuota cuando 
+        <p>En la <a href="../mvvm">actividad anterior</a>, hicimos que el Model calculase la cuota cuando 
         se pulsaba al botón. En cambio ahora, el entrenador irá cambiando de ejercicio sin que nadie se lo ordene.
         </p>
     </observe>
 
-    <p>Es importante comprender que el entrenador solo debe ir emitiendo ejercicios si ha algun observador activo,
+    <p>Es importante comprender que el entrenador solo debe ir emitiendo ejercicios si hay algún observador activo,
         es decir, si el fragment está en ejecución.
     </p>
 
@@ -394,47 +396,47 @@
         };
     </sc>
 
-    <p>Ahora en el momento en que haya algun observador de la variable <w>ordenLiveData</w>, se llamará al método
+    <p>Ahora, en el momento en que haya algún observador de la variable <w>ordenLiveData</w>, se llamará al método
     <w>onActive()</w> y el entrenador empezará el entenamiento e irá cambiando el valor de la <w>orden</w>, notificando
-    a los obsrevadores la nueva orden.</p>
+    la nueva orden a los observadores.</p>
 
     <img src="img/EntrenadorLiveData.png">
 
     <p>Cuando no haya ningún observador (es decir, cuando se cierre el fragment), el entrenador parará el entrenamiento.</p>
-    
-    
-
 
 </section>
+
+
+
 
 <section>
     <h2>Transformaciones</h2>
 
     <p>En este punto ya tenemos la variable <w>ordenLiveData</w> que va emitiendo las órdenes de ejercicios.</p>
 
-    <p>Podría parecer que desde la vista ya podemos observar esta variable y usar su valor para mostrar al usuario 
+    <p>Podría parecer que desde la Vista ya podemos observar esta variable y usar su valor para mostrar al usuario 
         la imagen del ejercicio correspondiente, prescindiendo así del <w>ViewModel</w>. Sin embargo, el ViewModel 
-        cumple otra función más, que es transformar los datos del modelo en los datos que necesita la vista.
+        cumple otra función más, que es transformar los datos del Modelo en los datos que necesita la vista.
     </p>
 
-    <p>En este caso, el modelo (el entrenador) envia las ordenes en formato String, separando con dos puntos el 
-        ejercicio que hay que hacer y la repetición. La vista, por su parte necesita saber por separado 
-        qué imagen debe mostrar y el número de repetición. Será entonces el ViewModel el que transformará el el String
+    <p>En este caso, el modelo (el entrenador) envía las órdenes en formato String, separando con dos puntos el 
+        ejercicio que hay que hacer y la repetición (<m>EJERCICIO2:5</m>). La Vista, por su parte necesita saber por separado 
+        qué imagen debe mostrar y el número de repetición. Será entonces el ViewModel el que transformará el String
         emitido por <w>ordenLiveData</w> en los dos datos diferentes que necesita la Vista.
     </p>
 
-    <p>Haremos dos transformaciones:</p>
+    <p>Se deberán hacer dos transformaciones:</p>
     <ul>
-        <li><p>En una, observaremos el <w>ordenLiveData</w> y lo transformaremos en otro LiveData <w>ejercicioLiveData</w>que solamente
+        <li><p>En una, se observará el <w>ordenLiveData</w> y se transformará en otro LiveData <w>ejercicioLiveData</w>que solamente
         contenga la imagen que se debe mostrar, y que solo cambie, cuando cambie el ejercicio (no la repetición).</p></li>
-    <li><p>En la otra, observaremos el <w>ordenLiveData</w> y lo transformaremos en el LiveData <w>repeticionLiveData</w> que contenga 
+    <li><p>En la otra, se observará el <w>ordenLiveData</w> y se transformará en el LiveData <w>repeticionLiveData</w> que contenga 
         la repetición.</p></li>
     </ul>
 
     <img src="img/transformation.png">
 
-    <p>Para transfromar un LiveData en otro, Android proporciona la clase <w>Tranformations</w>. Esta clase tiene el 
-        método <w>swtichMap()</w> que permite observar un LiveData y retornar otro LiveData diferente.</p>
+    <p>Para transfromar un LiveData en otro, Android proporciona la clase <w>Transformations</w>. Esta clase tiene el 
+        método <w>switchMap()</w> que permite observar un LiveData y retornar otro LiveData diferente.</p>
 
     <sc java>
         LiveData liveDataTransformado = Transformations.switchMap(livedataOriginal, <em>Método_de_transformación</em>);
@@ -519,12 +521,12 @@
         }
     </sc>
 
-    <p>Para transformar la <strong>orden</strong> en el <strong>ejercicio</strong>, guardamos el ejercicioAnterior, de forma
+    <p>Para transformar la <strong>orden</strong> en el <strong>ejercicio</strong>, guardamos el <w>ejercicioAnterior</w>, de forma
     que solo retornamos un nuevo LiveData con la imagen correspondiente si ha cambiado el ejercicio respecto a la orden anterior. 
     Si es el mismo ejercicio que el anterior, retornamos <w>null</w>, y en ese caso no se aplica la transformación,
     y no se notifica al observador.</p>
 
-    <p>Para transformar la <strong>orden</strong> en la repetición, solo hay que quedarse con lo que hay después de los dos puntos.
+    <p>Para transformar la <strong>orden</strong> en la <strong>repetición</strong>, solo hay que quedarse con lo que hay después de los dos puntos.
     En este caso, no hay que tener en cuenta la orden anterior, ya que la repetición siempre va cambiando.</p>
 
 </section>
@@ -599,4 +601,12 @@
         }
     </sc>
 
+</section>
+
+<section>
+    <h2>Práctica</h2>
+
+    <p>Implementa un Model con una variable <w>LiveData</w> que vaya emitiendo datos cuando se la observa.</p>
+    <p>Implementa un ViewModel que transforme los datos del Modelo en otro <w>LiveData</w>.</p>
+    <p>Implementa una Vista que observe el LiveData del ViewModel y lo muestre al usuario con imágenes.</p>
 </section>
