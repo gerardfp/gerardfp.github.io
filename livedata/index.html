@@ -11,11 +11,13 @@
     <p><w>LiveData</w> es una classe para contener datos observables.</p>
     <p>Está diseñada específicamente para ser utilizada en Activities, Fragments o Servicios, de forma
       que únicamente notifica a los observadores si la Activity, Fragment o Servicio está en ejecución.
-    </p>     
+    </p>
+    <p>Android proporciona las clases <w>LiveData</w> y <w>MutableLiveData</w> que permiten almacenar
+    cualquier tipo de datos, y observar sus cambios.</p>
 
     <p>Desarrollaremos una app que consiste en un Entrenador de gimnasia.</p>
 
-    <img src="img/livedata.gif.gif"/>
+    <img src="img/livedata.gif"/>
   </abstract>
 </header>
 
@@ -158,6 +160,10 @@
 <section>
     <h2>Entrenador</h2>
 
+    <p>La siguiente clase implementa el <w>Entrenador</w>. Su función es dar órdenes, que consisten en qué ejercicio 
+    hay que hacer y el número de repetición. Cuando el número de repetición llega a 0, avisa del cambio y cambia de 
+    ejercicio.</p>
+
     <scfile>
         Entrenador.java
     </scfile>
@@ -166,45 +172,56 @@
         import java.util.concurrent.Executors;
         import java.util.concurrent.ScheduledExecutorService;
         import java.util.concurrent.ScheduledFuture;
-
+        
         import static java.util.concurrent.TimeUnit.SECONDS;
-
+        
         public class Entrenador {
-
+        
             interface EntrenadorListener {
                 void cuandoDeLaOrden(String orden);
             }
-
+        
             Random random = new Random();
             ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
             ScheduledFuture&lt;?&gt; entrenando;
-
-            void iniciarEjercicios(EntrenadorListener entrenadorListener){
-                if (entrenando == null || entrenando.isCancelled()){
-
+        
+            void iniciarEntrenamiento(EntrenadorListener entrenadorListener) {
+                if (entrenando == null || entrenando.isCancelled()) {
                     entrenando = scheduler.scheduleAtFixedRate(new Runnable() {
                         int ejercicio;
                         int repeticiones = -1;
+        
                         @Override
                         public void run() {
-                            if(repeticiones &lt; 0){
-                                repeticiones = random.nextInt(3)+3;
-                                ejercicio = random.nextInt(4);
+                            if (repeticiones &lt; 0) {
+                                repeticiones = random.nextInt(3) + 3;
+                                ejercicio = random.nextInt(5)+1;
                             }
-                            entrenadorListener.cuandoDeLaOrden(&quot;EJERCICIO-&quot;+ejercicio + &quot;:&quot; + repeticiones--);
+                            entrenadorListener.cuandoDeLaOrden(&quot;EJERCICIO&quot; + ejercicio + &quot;:&quot; + (repeticiones == 0 ? &quot;CAMBIO&quot; : repeticiones));
+                            repeticiones--;
                         }
                     }, 0, 1, SECONDS);
                 }
             }
-
-            void pararEjercicios(){
-                if(entrenando != null) entrenando.cancel(true);
+        
+            void pararEntrenamiento() {
+                if (entrenando != null) {
+                    entrenando.cancel(true);
+                }
             }
         }
     </sc>
 
     <info>
-        <p></p>
+        <p>La clase <w>ScheduledExecutorService</w> contiene el método <w>scheduleAtFixedRate()</w>, que permite ejecutar
+        una tarea en segundo plano cada cierto tiempo predefinido.</p>
+        <p>En este caso, ejecuta el método que da la orden de entrenamiento cada segundo.</p>
+    </info>
+
+    <info>
+        <p>Una aplicación de consola típica que utiliza la clase <w>Entrenador</w> se puede implementar de la siguiente forma. 
+        Observa que cuando se llama al método <w>iniciarEjercicios()</w> se le pasa el <em>callback</em>, mediante el cual 
+        el entrenador responderá con las órdenes.</p>
         <sc java>
             import java.util.Scanner;
 
@@ -231,23 +248,355 @@
             }
         </sc>
 
+        <p>Si ejecutamos el programa e iniciamos el entrenador, éste empezará a dar órdenes:</p>
+
         <shell>
             <in>iniciar</in>
             Iniciando entrenador...
-            EJERCICIO-3:3
-            EJERCICIO-3:2
-            EJERCICIO-3:1
-            EJERCICIO-3:0
-            EJERCICIO-1:3
-            EJERCICIO-1:2
-            EJERCICIO-1:1
-            EJERCICIO-1:0
-            EJERCICIO-4:3
-            EJERCICIO-4:2
-            EJERCICIO-4:1
-            EJERCICIO-4:0
+            EJERCICIO2:3
+            EJERCICIO2:2
+            EJERCICIO2:1
+            EJERCICIO2:CAMBIO
+            EJERCICIO1:3
+            EJERCICIO1:2
+            EJERCICIO1:1
+            EJERCICIO1:CAMBIO
+            EJERCICIO4:3
+            EJERCICIO4:2
+            EJERCICIO4:1
+            EJERCICIO4:CAMBIO
+            EJERCICIO3:6
+            EJERCICIO3:5
+            EJERCICIO3:4
             <in>parar</in>
             Parando entenador...
         </shell>
     </info>
+</section>
+
+<section>
+    <h2>LiveData</h2>
+
+    <p>Hay dos formas de utilitzar LiveData: instanciando la clase MutableLiveData o extendiendo la clase LiveData.</p>
+
+    <h3>MutableLiveData</h3>
+
+    <p>Para crear un objeto de clase <w>MutableLiveData</w>, hay que poner en el diamante <w>&lt;&gt;</w>el tipo 
+    de datos que va a almacenar. Por ejemplo para crear un MutableLiveData de tipo <w>Integer</w>:</p>
+
+    <sc java>
+        MutableLiveData&lt;Integer&gt; numeroEnteroLiveData = new MutableLiveData&lt;&gt;();
+    </sc>
+
+    <p>En el constructor se le puede pasar el valor inicial que tendrá el dato:</p>
+
+    <sc java>
+        MutableLiveData&lt;Integer&gt; numeroEnteroLiveData = new MutableLiveData&lt;&gt;(2400);
+    </sc>
+
+    <p>Para cambiar el valor que contiene un MutableLiveData, se proporcionan dos métodos:</p>
+    <ul>
+        <li><p><w>setValue()</w>: permite cambiar el valor desde el <strong><em>main thread</em></strong></p></li>
+        <li><p><w>postValue()</w>: permite cambiar el valor desde un <strong><em>thread</em> en segundo plano</p></strong></li>
+    </ul>
+
+    <sc java>
+        numeroEnteroLiveData.setValue(-500);    // solo se puede hacer desde el main thread
+        numeroEnteroLiveData.postValue(7802);
+    </sc>
+
+    <p>Los dos métodos causan que se notifique a los observadores del cambio de valor.</p>
+
+    <p>Para observar un objeto <w>LiveData</w> o <w>MutableLiveData</w>se debe llamar al metodo <w>observe()</w>.
+    A este método hay que pasarle la Activity o el Fragment desde los cuales se observa, y el callback <w>Observer</w> 
+    al cual se llamará para notificar los cambios del valor. Las notificaciones de los cambios de valor,
+    únicamente se realizarán si la Activity o el Fragment están <em>en ejecución</em>.
+
+    <p>Para obtener el Fragment o Activity y poder pasárselo al método <w>observe()</w>, se puede utilizar el método 
+    <w>getViewLifecycleOwner()</w>.</p>
+
+    <p>El siguiente código ilustra cómo se empieza a observar un objeto <w>LiveData</w>:</p>
+
+    <sc java>
+        numeroEnteroLiveData.observe(getViewLifecycleOwner(), new Observer&lt;Integer&gt;(){
+            @Override
+            public void onChangd(@Nullable Integer valor){
+                // actualizar la UI con el nuevo valor
+            }
+        });
+    </sc>
+
+    <h3>LiveData</h3>
+
+    <p>En el caso de un objeto MutableLiveData es una entidad externa la que llama a los 
+        métodos <w>setValue()</w> o <w>postValue()</w> para cambiar el valor.</p>
+
+    <p>Es posible extender la clase <w>LiveData</w> para hacer que sea el propio objeto el que cambie su valor.</p>
+
+    <p>Cuando se extiende la clase <w>LiveData</w> hay dos métodos que hay que anular:</p>
+    <ul>
+        <li><p>onActive(): este método se ejecuta cuando se tiene un observador activo.</p></li>
+        <li><p>onInactive(): este método se ejecuta cuando ya no tiene ningún observador activo.</p></li>
+    </ul>
+
+    <p>El método <w>setValue()</w> actualiza el valor y notifica a los observadores activos.</p>
+
+    <h3>Conclusión</h3>
+    <p>Para cambiar el valor de un <w>MutableLiveData</w> hay que llamar al método <w>setValue()</w> (o <w>postValue()</w>), 
+    desde una entidad externa.</p>
+    <p>Para cambiar el valor de un <w>LiveData</w> es el propio <w>LiveData</w> el que llama al método <w>setValue()</w>.</p>
+
+    <img src="img/mutablevslive.png">
+
+</section>
+
+<section>
+    <h2>Implementación LiveData</h2>
+    <p>En el caso de la clase <w>Entrendador</w>, es muy útil extender la clase <w>LiveData</w>. Ya que 
+        de esta forma será el propio <w>Entenador</w> el que vaya cambiando de ejercicio por su cuenta sin que 
+        nadie deba indicárselo.</p>
+
+    <observe>
+        <p>En la <a href="../mvvm">actividad anterior</a>, hicimos que el modelo calculase la cuota cuando 
+        se pulsaba al botón. En cambio ahora, el entrenador irá cambiando de ejercicio sin que nadie se lo ordene.
+        </p>
+    </observe>
+
+    <p>Es importante comprender que el entrenador solo debe ir emitiendo ejercicios si ha algun observador activo,
+        es decir, si el fragment está en ejecución.
+    </p>
+
+    <p>La implementación del <w>LiveData</w> quedaría así:</p>
+
+    <scfile>
+        Entenador.java
+    </scfile>
+    <sc java>
+        LiveData&lt;String&gt; ordenLiveData = new LiveData&lt;String&gt;() {
+            @Override
+            protected void onActive() {
+                super.onActive();
+    
+                iniciarEntrenamiento(new EntrenadorListener() {
+                    @Override
+                    public void cuandoDeLaOrden(String orden) {
+                        postValue(orden);
+                    }
+                });
+            }
+    
+            @Override
+            protected void onInactive() {
+                super.onInactive();
+    
+                pararEntrenamiento();
+            }
+        };
+    </sc>
+
+    <p>Ahora en el momento en que haya algun observador de la variable <w>ordenLiveData</w>, se llamará al método
+    <w>onActive()</w> y el entrenador empezará el entenamiento e irá cambiando el valor de la <w>orden</w>, notificando
+    a los obsrevadores la nueva orden.</p>
+
+    <img src="img/EntrenadorLiveData.png">
+
+    <p>Cuando no haya ningún observador (es decir, cuando se cierre el fragment), el entrenador parará el entrenamiento.</p>
+    
+    
+
+
+</section>
+
+<section>
+    <h2>Transformaciones</h2>
+
+    <p>En este punto ya tenemos la variable <w>ordenLiveData</w> que va emitiendo las órdenes de ejercicios.</p>
+
+    <p>Podría parecer que desde la vista ya podemos observar esta variable y usar su valor para mostrar al usuario 
+        la imagen del ejercicio correspondiente, prescindiendo así del <w>ViewModel</w>. Sin embargo, el ViewModel 
+        cumple otra función más, que es transformar los datos del modelo en los datos que necesita la vista.
+    </p>
+
+    <p>En este caso, el modelo (el entrenador) envia las ordenes en formato String, separando con dos puntos el 
+        ejercicio que hay que hacer y la repetición. La vista, por su parte necesita saber por separado 
+        qué imagen debe mostrar y el número de repetición. Será entonces el ViewModel el que transformará el el String
+        emitido por <w>ordenLiveData</w> en los dos datos diferentes que necesita la Vista.
+    </p>
+
+    <p>Haremos dos transformaciones:</p>
+    <ul>
+        <li><p>En una, observaremos el <w>ordenLiveData</w> y lo transformaremos en otro LiveData <w>ejercicioLiveData</w>que solamente
+        contenga la imagen que se debe mostrar, y que solo cambie, cuando cambie el ejercicio (no la repetición).</p></li>
+    <li><p>En la otra, observaremos el <w>ordenLiveData</w> y lo transformaremos en el LiveData <w>repeticionLiveData</w> que contenga 
+        la repetición.</p></li>
+    </ul>
+
+    <img src="img/transformation.png">
+
+    <p>Para transfromar un LiveData en otro, Android proporciona la clase <w>Tranformations</w>. Esta clase tiene el 
+        método <w>swtichMap()</w> que permite observar un LiveData y retornar otro LiveData diferente.</p>
+
+    <sc java>
+        LiveData liveDataTransformado = Transformations.switchMap(livedataOriginal, <em>Método_de_transformación</em>);
+    </sc>
+    
+
+    <p>La implementación del <w>EntenadorViewModel</w> queda así:</p>
+
+    <scfile>
+        EntrenadorViewModel.java
+    </scfile>
+    <sc java>
+        import android.app.Application;
+
+        import androidx.annotation.NonNull;
+        import androidx.arch.core.util.Function;
+        import androidx.lifecycle.AndroidViewModel;
+        import androidx.lifecycle.LiveData;
+        import androidx.lifecycle.MutableLiveData;
+        import androidx.lifecycle.Transformations;
+
+        public class EntrenadorViewModel extends AndroidViewModel {
+            Entrenador entrenador;
+
+            LiveData&lt;Integer&gt; ejercicioLiveData;
+            LiveData&lt;String&gt; repeticionLiveData;
+
+            public EntrenadorViewModel(@NonNull Application application) {
+                super(application);
+
+                entrenador = new Entrenador();
+
+                ejercicioLiveData = Transformations.switchMap(entrenador.ordenLiveData, new Function&lt;String, LiveData&lt;Integer&gt;&gt;() {
+
+                    String ejercicioAnterior;
+
+                    @Override
+                    public LiveData&lt;Integer&gt; apply(String orden) {
+
+                        String ejercicio = orden.split(&quot;:&quot;)[0];
+
+                        if(!ejercicio.equals(ejercicioAnterior)){
+                            ejercicioAnterior = ejercicio;
+                            int imagen;
+                            switch (ejercicio) {
+                                case &quot;EJERCICIO1&quot;:
+                                default:
+                                    imagen = R.drawable.e1;
+                                    break;
+                                case &quot;EJERCICIO2&quot;:
+                                    imagen = R.drawable.e2;
+                                    break;
+                                case &quot;EJERCICIO3&quot;:
+                                    imagen = R.drawable.e3;
+                                    break;
+                                case &quot;EJERCICIO4&quot;:
+                                    imagen = R.drawable.e4;
+                                    break;
+                            }
+
+                            return new MutableLiveData&lt;&gt;(imagen);
+                        }
+                        return null;
+                    }
+                });
+
+                repeticionLiveData = Transformations.switchMap(entrenador.ordenLiveData, new Function&lt;String, LiveData&lt;String&gt;&gt;() {
+                    @Override
+                    public LiveData&lt;String&gt; apply(String orden) {
+                        return new MutableLiveData&lt;&gt;(orden.split(&quot;:&quot;)[1]);
+                    }
+                });
+            }
+
+            LiveData&lt;Integer&gt; obtenerEjercicio(){
+                return ejercicioLiveData;
+            }
+
+            LiveData&lt;String&gt; obtenerRepeticion(){
+                return repeticionLiveData;
+            }
+        }
+    </sc>
+
+    <p>Para transformar la <strong>orden</strong> en el <strong>ejercicio</strong>, guardamos el ejercicioAnterior, de forma
+    que solo retornamos un nuevo LiveData con la imagen correspondiente si ha cambiado el ejercicio respecto a la orden anterior. 
+    Si es el mismo ejercicio que el anterior, retornamos <w>null</w>, y en ese caso no se aplica la transformación,
+    y no se notifica al observador.</p>
+
+    <p>Para transformar la <strong>orden</strong> en la repetición, solo hay que quedarse con lo que hay después de los dos puntos.
+    En este caso, no hay que tener en cuenta la orden anterior, ya que la repetición siempre va cambiando.</p>
+
+</section>
+
+<section>
+    <h2>Actualizar la vista</h2>
+
+    <p>El último paso ya solo es que la vista observe el ejercicio y la repetición y los vaya mostrando al usuario.</p>
+
+    <p>Para mostrar imágenes se utiliza la librería <a href="https://github.com/bumptech/glide">Glide</a>. Su uso es muy sencillo,
+    hay que pasarle el Fragment, y decirle la imagen que quieres cargar y el ImageView donde lo quieres cargar:</p>
+
+    <sc java>
+        Glide.with(fragment).load(imagen).into(imageView);
+    </sc>
+
+    <p>La implementación de la vista queda así:</p>
+
+    <scfile>
+        EntrenadorFragment.java
+    </scfile>
+    <sc java>
+        import android.os.Bundle;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+
+        import androidx.annotation.NonNull;
+        import androidx.annotation.Nullable;
+        import androidx.fragment.app.Fragment;
+        import androidx.lifecycle.Observer;
+        import androidx.lifecycle.ViewModelProvider;
+
+        import com.bumptech.glide.Glide;
+        import com.company.livedata.databinding.FragmentEntrenadorBinding;
+
+
+        public class EntrenadorFragment extends Fragment {
+
+            private FragmentEntrenadorBinding binding;
+
+            @Override
+            public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+                return (binding = FragmentEntrenadorBinding.inflate(inflater, container, false)).getRoot();
+            }
+
+            @Override
+            public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                super.onViewCreated(view, savedInstanceState);
+
+                EntrenadorViewModel entrenadorViewModel = new ViewModelProvider(this).get(EntrenadorViewModel.class);
+
+                entrenadorViewModel.obtenerEjercicio().observe(getViewLifecycleOwner(), new Observer&lt;Integer&gt;() {
+                    @Override
+                    public void onChanged(Integer ejercicio) {
+                        Glide.with(EntrenadorFragment.this).load(ejercicio).into(binding.ejercicio);
+                    }
+                });
+
+                entrenadorViewModel.obtenerRepeticion().observe(getViewLifecycleOwner(), new Observer&lt;String&gt;() {
+                    @Override
+                    public void onChanged(String repeticion) {
+                        if(repeticion.equals(&quot;CAMBIO&quot;)){
+                            binding.cambio.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.cambio.setVisibility(View.GONE);
+                        }
+                        binding.repeticion.setText(repeticion);
+                    }
+                });
+            }
+        }
+    </sc>
+
 </section>

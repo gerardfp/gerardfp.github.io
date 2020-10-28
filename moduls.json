@@ -35,6 +35,7 @@
             { "url": "fragments", "nom": "Fragments", "tag": "android" },
             { "url": "navigation", "nom": "Navigation", "tag": "android"},
             { "url": "mvvm", "nom": "Model-View-VieModel", "tag": "android"},
+            { "url": "livedata", "nom": "LiveData", "tag": "android"},
             { "url": "recyclerview", "nom": "RecyclerView", "tag": "android"},
             { "url": "room", "nom": "Room", "tag": "android"},
             { "url": "retrofit", "nom": "Retrofit", "tag": "android"},
