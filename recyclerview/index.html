@@ -165,7 +165,7 @@
 
 <section>
     <h2>RecyclerView</h2>
-    <p><w>RecyclerView</w> es un widget que permite mostrar y hacer <em>scroll</em> en una lista de elementos basados en gandes conjuntos de datos (o 
+    <p><w>RecyclerView</w> es un widget que permite mostrar y hacer <em>scroll</em> en una lista de elementos basados en grandes conjuntos de datos (o 
     datos que cambian frecuentemente).</p>
 
     <img src="img/list_mail.png">
@@ -190,26 +190,51 @@
 <section>
     <h2>RecyclerView</h2>
 
-    <p>Empezaremos programando el <w>RecyclerViewFragment</w></p>
+    <p>Empezaremos programando el <w>RecyclerViewFragment</w> para que muestre en un <w>RecyclerView</w> 
+        la lista de elementos (los del ArrayList).</p>
+
+    <p>Será necesario poner a punto los 3 elementos:</p>
+    <ul>
+        <li>RecyclerView</li>
+        <li>ViewHolder</li>
+        <li>Adapter</li>
+    </ul>
 
 
     <h3>RecyclerView</h3>
 
-    <p></p>
+    <p>El ReciclerView es solamente el contenedor en el cual se van a mostrar los datos. Se añade al layout 
+        en el cual se tiene que mostrar la lista (es decir, en el layout del RecyclerElementosFragment). 
+    </p>
+
+    <p>En principio el RecyclerView estará vació. Y será más adelante cuando lo rellenaremos (con código Java) con 
+        los elementos del ArrayList.
+    </p>
+
+    <p>Lo único a tener en cuenta cuando se añade al layout es especificar la disposición de los elementos; se hace
+        con el atributo <w>app:layoutManager</w> y en esta app utilizamos el <w>LinearLayoutManager</w>.
+    </p>
 
     <scfile>
         fragment_recycler_elementos.xml
     </scfile>
-    <sc xml>
-        &lt;androidx.recyclerview.widget.RecyclerView
-            android:id=&quot;@+id/recycler&quot;
-            android:layout_width=&quot;match_parent&quot;
-            android:layout_height=&quot;match_parent&quot;
-            app:layoutManager=&quot;androidx.recyclerview.widget.LinearLayoutManager&quot; /&gt;
+    <sc xml data-line="2-6">
+        &lt;FrameLayout ...&gt;
+            &lt;androidx.recyclerview.widget.RecyclerView
+                android:id=&quot;@+id/recycler&quot;
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;match_parent&quot;
+                app:layoutManager=&quot;androidx.recyclerview.widget.LinearLayoutManager&quot; /&gt;
+        &lt;/FrameLayout&gt;
     </sc>
 
     <h3>ViewHolder</h3>
 
+    <p>El ViewHolder és la plantilla para mostrar un elemento de la lista. Se debe crear un fichero con la disposición 
+        y una clase que habilite el ViewBinding.
+    </p>
+
+    <p>En el fichero de layout, ponemos un TextView para mostrar el <w>nombre</w> del elemento, y un RatingBar para la <w>valoracion</w>.</p>
     <scfile>
         viewholder_elemento.xml
     </scfile>
@@ -233,54 +258,133 @@
         &lt;/LinearLayout&gt;
     </sc>
 
+    <img src="img/rv_viewholderxml.png">
+
+    <p>El TextView y el RatingBar los rellenaremos con los datos de un elemento de la lista. Para ello, 
+        creamos una clase en la que guardaremos la variable <w>binding</w>, mediante la cual accederemos
+        al TextView y al RatingBar</p>
+
+    <p>Llamaremos a esta clase <w>ElementoViewHolder</w>. Debe extender de la clase <w>RecyclerView.ViewHolder</w>.</p>
+
     <scfile>
         RecyclerElementosFragment.java
     </scfile>
-    <sc java>
-        class ElementoViewHolder extends RecyclerView.ViewHolder {
-            private final ViewholderElementoBinding binding;
+    <sc java data-line="4-11">
+        public class RecyclerElementosFragment extends Fragment {
+            // ...
 
-            public ElementoViewHolder(ViewholderElementoBinding binding) {
-                super(binding.getRoot());
-                this.binding = binding;
+            class ElementoViewHolder extends RecyclerView.ViewHolder {
+                private final ViewholderElementoBinding binding;
+
+                public ElementoViewHolder(ViewholderElementoBinding binding) {
+                    super(binding.getRoot());
+                    this.binding = binding;
+                }
             }
         }
     </sc>
 
     <h3>Adapter</h3>
 
+    <p>El <w>Adapter</w> será el encargado de crear las copias del ViewHolder, y rellenarlas con los datos del ArrayList.</p>
+
+    <p>Para crear un Adaptador hay que extender la clase <w>RecyclerView.Adapter</w> y se debe especificar en el diamante <w>&lt;&gt;</w> 
+    la clase del ViewHolder.</p>
+
+    <p>Se deben anular 3 métodos:</p>
+
+    <ul>
+        <li><p><w>onCreateViewHolder()</w>: este método lo llama el RecyclerView cuando necesita una nueva copia del ViewHolder 
+        para mostrar un elemento.</p></li>
+        <li><p><w>onBindViewHolder()</w>: lo llama el RecyclerView para rellenar los datos de un ViewHolder en una posición determinada.</p></li>
+        <li><p><w>getItemCount()</w>: lo llama el RecyclerView para saber cuántos elementos en total se van a mostrar.</p></li>
+    </ul>
+
+    <p>Por último, también es muy común hacer que el adaptador mantenga una referencia al ArrayList de los elementos. Para ello,
+        declaramos una variable, y un método para establecerla. Un aspecto clave de este método es la llamada a <w>notifyDatasetChanged()</w>. 
+        Este método notifica al RecyclerView que la lista ha cambiado y que debe volver a regenerar todos los ViewHolders.
+    </p>
+
+    <p>El código del adaptador queda así:</p>
     <scfile>
         RecyclerElementosFragment.java
     </scfile>
-    <sc java>
-        class ElementosAdapter extends RecyclerView.Adapter&lt;ElementoViewHolder&gt; {
+    <sc java data-line="4-32">
+        public class RecyclerElementosFragment extends Fragment {
+            // ...
 
-            List&lt;Elemento&gt; elementos;
-    
-            @NonNull
+            class ElementosAdapter extends RecyclerView.Adapter&lt;ElementoViewHolder&gt; {
+
+                List&lt;Elemento&gt; elementos;
+        
+                @NonNull
+                @Override
+                public ElementoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    return new ElementoViewHolder(ViewholderElementoBinding.inflate(getLayoutInflater(), parent, false));
+                }
+        
+                @Override
+                public void onBindViewHolder(@NonNull ElementoViewHolder holder, int position) {
+        
+                    Elemento elemento = elementos.get(position);
+        
+                    holder.binding.nombre.setText(elemento.nombre);
+                    holder.binding.valoracion.setRating(elemento.valoracion);
+                }
+        
+                @Override
+                public int getItemCount() {
+                    return elementos != null ? elementos.size() : 0;
+                }
+        
+                public void establecerLista(List&lt;Elemento&gt; elementos){
+                    this.elementos = elementos;
+                    notifyDataSetChanged();
+                }
+            }
+        }
+    </sc>
+
+    <p>Una vez creada la clase, hay que crear un objeto y asignarlo al RecyclerView con el método <w>setAdapter()</w>.</p>
+    <scfile>
+        RecyclerElementosFragment.java
+    </scfile>
+    <sc java data-line="8,9">
+        public class RecyclerElementosFragment extends Fragment {
+            // ...
+
             @Override
-            public ElementoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return new ElementoViewHolder(ViewholderElementoBinding.inflate(getLayoutInflater(), parent, false));
+            public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                // ...
+
+                ElementosAdapter elementosAdapter = new ElementosAdapter();
+                binding.recycler.setAdapter(elementosAdapter);
             }
-    
+            // ...
+        }
+    </sc>
+
+    <p>El último paso solo es asignar la lista de elementos del adaptador (la variable <w>elementos</w>). La lista 
+    la observaremos del ViewModel y la asignaremos llamando al método <w>establecerLista()</w>.</p>
+    <scfile>
+        RecyclerElementosFragment.java
+    </scfile>
+    <sc java data-line="8-13">
+        public class RecyclerElementosFragment extends Fragment {
+            // ...
+
             @Override
-            public void onBindViewHolder(@NonNull ElementoViewHolder holder, int position) {
-    
-                Elemento elemento = elementos.get(position);
-    
-                holder.binding.nombre.setText(elemento.nombre);
-                holder.binding.valoracion.setRating(elemento.valoracion);
+            public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                // ...
+
+                elementosViewModel.obtenerListaElementos().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
+                    @Override
+                    public void onChanged(List&lt;Elemento&gt; elementos) {
+                        elementosAdapter.establecerLista(elementos);
+                    }
+                });
             }
-    
-            @Override
-            public int getItemCount() {
-                return elementos != null ? elementos.size() : 0;
-            }
-    
-            public void establecerLista(List&lt;Elemento&gt; elementos){
-                this.elementos = elementos;
-                notifyDataSetChanged();
-            }
+            // ...
         }
     </sc>
 </section>
