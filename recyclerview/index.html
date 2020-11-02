@@ -241,11 +241,11 @@
 
     <h3>RecyclerView</h3>
 
-    <p>El <w>ReciclerView</w> es solamente el contenedor en el cual se van a mostrar los datos. Se añade al layout 
-        en el cual se tiene que mostrar la lista (es decir, en el layout del RecyclerElementosFragment). 
+    <p>El <w>RecyclerView</w> es solamente el contenedor en el cual se van a mostrar los datos. Se añade al layout 
+        en el cual se tiene que mostrar la lista. En esta app, en el layout del RecyclerElementosFragment. 
     </p>
 
-    <p>En principio el RecyclerView estará vacío, y será más adelante cuando se rellenará (con código Java) con 
+    <p>En principio el RecyclerView estará vacío, y será más adelante cuando se rellenará (mediante código Java) con 
         los Elementos del ArrayList.
     </p>
 
@@ -504,14 +504,14 @@
                 // referencia al Array que obtenemos del ViewModel
                 List&lt;Elemento&gt; elementos;    
         
-                // Crear un nuevo ViewHolder
+                // crear un nuevo ViewHolder
                 @NonNull
                 @Override
                 public ElementoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                     return new ElementoViewHolder(ViewholderElementoBinding.inflate(getLayoutInflater(), parent, false));
                 }
 
-                // Rellenar un ViewHolder en una posición del Recycler con los datos del elemento que 
+                // rellenar un ViewHolder en una posición del Recycler con los datos del elemento que 
                 // esté en esa misma posición en el Array 
                 @Override
                 public void onBindViewHolder(@NonNull ElementoViewHolder holder, int position) {
@@ -522,7 +522,7 @@
                     holder.binding.valoracion.setRating(elemento.valoracion);
                 }
         
-                // Informar al Recycler de cuántos elementos habrá en la lista
+                // informar al Recycler de cuántos elementos habrá en la lista
                 @Override
                 public int getItemCount() {
                     return elementos != null ? elementos.size() : 0;
