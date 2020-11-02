@@ -466,7 +466,7 @@
         </step>
     </stepper>
 
-    <p>La sentència <w>switch</w> només finalitza el bucle en el qual 
+    <p>La sentència <w>break</w> només finalitza el bucle en el qual 
     està col·locada. Si aquest bucle està dintre d'un altre bucle, el 
     bucle exterior no s'aturarà.</p>
 
@@ -2421,9 +2421,769 @@
                 0 1 2 3 4 ⏎
             </shell>
         </step>
-
     </stepper>
 
+    <h3>Etiquetar loops</h3>
+    <p>Hem vist que el <w>break</w> només finalitza el bucle més interior; on está col·locat el <w>break</w>.</p>
+    <p>També és possible finalitzar un bucle més extern amb <w>break</w>, però és necessari posar una etiqueta al bucle
+    que volem finalitzar.</p>
+    <p>Per a posar una etiqueta a un bucle, es posa el nom de la etiqueta seguit de dos punts <w>:</w>, just abans del bucle.</p>
+
+    <sc java>
+        nometiqueta:
+        for (...) {
+
+        }
+    </sc>
+
+    <p>Després, podem indicar al <w>break</w> quin bucle volem finalitzar indicant el nom de la etiqueta just després 
+        de la paraula <w>break</w>.</p>
+
+    <sc java>
+        bucleX:
+        for (...) {
+            for (...) {
+                for (...) {
+                    break bucleX;   // finalitza el bucle etiquetat amb 'bucleX'
+                }
+            }
+        }
+    </sc>
+    
+    <p>El següent exemple mostra com finalitzar un bucle etiquetat:</p>
+
+    <stepper style="--sc-h:9; --mm-h:2; --sh-h:1; --ex-h:2; --sc-w:22;    --sc-mh:9; --mm-mh:2; --sh-mh:1; --ex-mh:2;">
+ 
+        <step>
+            <explanation></explanation>
+            <sc java>
+                bucle_de_la_i:
+                for (int i = 0; i &lt; 10; i++) {
+                    bucle_de_la_j:
+                    for (int j = 0; j &lt; 10; j++) {
+                        System.out.print(j + " ");
+                        if (i == j) {
+                            break bucle_de_la_i;
+                        }
+                    }
+                    System.out.println();
+                }        
+            </sc>
+            <mem></mem>
+            <shell></shell>
+        </step>
+
+        <step>
+            <explanation></explanation>
+            <sc java>
+                bucle_de_la_i:
+                for (<h>int i = 0</h>; i &lt; 10; i++) {
+                    bucle_de_la_j:
+                    for (int j = 0; j &lt; 10; j++) {
+                        System.out.print(j + " ");
+                        if (i == j) {
+                            break bucle_de_la_i;
+                        }
+                    }
+                    System.out.println();
+                }        
+            </sc>
+            <mem></mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                bucle_de_la_i:
+                for (int i = 0; <h>i &lt; 10</h>; i++) {
+                    bucle_de_la_j:
+                    for (int j = 0; j &lt; 10; j++) {
+                        System.out.print(j + " ");
+                        if (i == j) {
+                            break bucle_de_la_i;
+                        }
+                    }
+                    System.out.println();
+                }        
+            </sc>
+            <mem>
+                i: 0
+            </mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                bucle_de_la_i:
+                for (int i = 0; i &lt; 10; i++) {
+                    bucle_de_la_j:
+                    for (<h>int j = 0</h>; j &lt; 10; j++) {
+                        System.out.print(j + " ");
+                        if (i == j) {
+                            break bucle_de_la_i;
+                        }
+                    }
+                    System.out.println();
+                }        
+            </sc>
+            <mem>
+                i: 0
+            </mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                bucle_de_la_i:
+                for (int i = 0; i &lt; 10; i++) {
+                    bucle_de_la_j:
+                    for (int j = 0; <h>j &lt; 10</h>; j++) {
+                        System.out.print(j + " ");
+                        if (i == j) {
+                            break bucle_de_la_i;
+                        }
+                    }
+                    System.out.println();
+                }        
+            </sc>
+            <mem>
+                i: 0
+                j: 0
+            </mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                bucle_de_la_i:
+                for (int i = 0; i &lt; 10; i++) {
+                    bucle_de_la_j:
+                    for (int j = 0; j &lt; 10; j++) {
+                        <h>System.out.print(j + " ");</h>
+                        if (i == j) {
+                            break bucle_de_la_i;
+                        }
+                    }
+                    System.out.println();
+                }        
+            </sc>
+            <mem>
+                i: 0
+                j: 0
+            </mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                bucle_de_la_i:
+                for (int i = 0; i &lt; 10; i++) {
+                    bucle_de_la_j:
+                    for (int j = 0; j &lt; 10; j++) {
+                        System.out.print(j + " ");
+                        if (<h>i == j</h>) {
+                            break bucle_de_la_i;
+                        }
+                    }
+                    System.out.println();
+                }        
+            </sc>
+            <mem>
+                i: 0
+                j: 0
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+        <step>
+            <explanation>
+                Aquest break finalitzarà el bucle etiquetat amb <w>bucle_de_la_i</w>, és a dir, l'extern.
+            </explanation>
+            <sc java>
+                bucle_de_la_i:
+                for (int i = 0; i &lt; 10; i++) {
+                    bucle_de_la_j:
+                    for (int j = 0; j &lt; 10; j++) {
+                        System.out.print(j + " ");
+                        if (i == j) {
+                            <h>break bucle_de_la_i;</h>
+                        }
+                    }
+                    System.out.println();
+                }        
+            </sc>
+            <mem>
+                i: 0
+                j: 0
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+        <step>
+            <explanation>
+                Aquest break finalitzarà el bucle etiquetat amb <w>bucle_de_la_i</w>, és a dir, l'extern.
+            </explanation>
+            <sc java>
+                bucle_de_la_i:
+                for (int i = 0; i &lt; 10; i++) {
+                    bucle_de_la_j:
+                    for (int j = 0; j &lt; 10; j++) {
+                        System.out.print(j + " ");
+                        if (i == j) {
+                            break bucle_de_la_i;
+                        }
+                    }
+                    System.out.println();
+                }        
+                <h>// el programa continua aquí...</h>
+            </sc>
+            <mem>
+                i: 0
+                j: 0
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+    </stepper>
+</section>
+
+<section>
+    <h2>Sentència continue</h2>
+    <p>La sentència <w>continue</w> fa que un bucle se salti la iteració actual i vagi a la següent.</p>
+
+    <p>Es pot utilitzar amb tots els tipus de bucles:</p>
+    <ul>
+        <li><p>Dintre del <strong>bucle-for</strong>, la sentència <w>continue</w> fa que immediatament es vagi 
+        directament a la sentència de <strong>modificació</strong>.</p></li>
+        <li><p>Dinre del <strong>while</strong>/<strong>do-while</strong>, fa que es vagi directament a la condició.</p></li>
+    </ul>
+
+    <p>Al següent exemple, només els nombres parells s'imprimeixen. Els imparells se salten:</p>
+
+    <stepper style="--sc-h:6; --mm-h:2; --sh-h:1; --ex-h:2; --sc-w:22;    --sc-mh:6; --mm-mh:2; --sh-mh:1; --ex-mh:2;">
+ 
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; i++) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem></mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                <h>int n = 5;</h>
+                for (int i = 0; i &lt; n; i++) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem></mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int n = 5;
+                for (<h>int i = 0;</h> i &lt; n; i++) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+            </mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; <h>i &lt; n</h>; i++) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 0
+            </mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation>
+                El <m>0</m> és parell, no s'entra a l'<m>if</m>
+            </explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; i++) {
+                    if (<h>i % 2 != 0</h>) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 0
+            </mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation>            </explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; i++) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    <h>System.out.print(i + " ");</h>
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 0
+            </mem>
+            <shell></shell>
+        </step>
+        <step>
+            <explanation>            </explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; <h>i++</h>) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 0
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; <h>i &lt; n</h>; i++) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 1
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+        <step>
+            <explanation>
+                L'<m>1</m> és parell, sí que s'entra a l'<m>if</m>
+            </explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; i++) {
+                    if (<h>i % 2 != 0</h>) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 1
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+        <step>
+            <explanation>
+                El <m>continue</m> fa que se salti la iteració actual i vagi directament a la modificació
+            </explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; i++) {
+                    if (i % 2 != 0) {
+                        <h>continue;</h>
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 1
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+        <step>
+            <explanation>            </explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; <h>i++</h>) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 1
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+        <step>
+            <explanation>            </explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; <h>i &lt; n</h>; i++) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 2
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+        <step>
+            <explanation>El <m>2</m> és parell</explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; i++) {
+                    if (<h>i % 2 != 0</h>) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 2
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; i++) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    <h>System.out.print(i + " ");</h>
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 2
+            </mem>
+            <shell>
+                0
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; <h>i++</h>) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 2
+            </mem>
+            <shell>
+                0 2
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; <h>i &lt; n</h>; i++) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 3
+            </mem>
+            <shell>
+                0 2
+            </shell>
+        </step>
+        <step>
+            <explanation>El <m>3</m> és imparell</explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; i++) {
+                    if (<h>i % 2 != 0</h>) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 3
+            </mem>
+            <shell>
+                0 2
+            </shell>
+        </step>
+        <step>
+            <explanation>Directament a la modificació</explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; i++) {
+                    if (i % 2 != 0) {
+                        <h>continue;</h>
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 3
+            </mem>
+            <shell>
+                0 2
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; <h>i++</h>) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 3
+            </mem>
+            <shell>
+                0 2
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; <h>i &lt; n</h>; i++) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 4
+            </mem>
+            <shell>
+                0 2
+            </shell>
+        </step>
+        <step>
+            <explanation>El <m>4</m> és parell. No s'entra a l'<m>if</m></explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; i++) {
+                    if (<h>i % 2 != 0</h>) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 4
+            </mem>
+            <shell>
+                0 2
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; i++) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    <h>System.out.print(i + " ");</h>
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 4
+            </mem>
+            <shell>
+                0 2
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; <h>i++</h>) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 4
+            </mem>
+            <shell>
+                0 2 4
+            </shell>
+        </step>
+        <step>
+            <explanation>El bucle acaba quan <w>i: 5</w> ja no és menor a <w>n: 5</w></explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; <h>i &lt; n</h>; i++) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+            </sc>
+            <mem>
+                n: 5
+                i: 5
+            </mem>
+            <shell>
+                0 2 4
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int n = 5;
+                for (int i = 0; i &lt; n; i++) {
+                    if (i % 2 != 0) {
+                        continue;
+                    }
+                    System.out.print(i + " ");
+                }
+                <h>// program goes here....</h>
+            </sc>
+            <mem>
+                n: 5
+            </mem>
+            <shell>
+                0 2 4
+            </shell>
+        </step>
+    </stepper>
+    
+    <p>En la pràctica la sentència <w>continue</w> s'utilitza molt poc. Normalment es pot reescriure el bucle
+    per a que se salti la iteració sense utilitzar <w>continue</w>. L'anterior programa es podria haver escrit així:</p>
+
+    <sc java>
+        int n = 5;
+        for (int i = 0; i &lt; n; i++) {
+            if (i % 2 == 0) {
+                System.out.print(i + " ");
+            }
+        }
+    </sc>
+
+    <quizz>
+        <question single>
+            <statement>
+                <p>Què imprimeix el següent codi?</p>
+                <sc java>
+                    for (int i = 0; i &lt; 11; i++) {
+                        if (i % 2 != 0) {
+                            continue;
+                        } 
+                        System.out.print(i + " ");
+                    }
+                </sc>
+            </statement>
+            <o correct>0 2 4 6 8 10</o>
+            <o>1 3 5 7 9</o>
+            <o>0 2 4 6 8 10 11</o>
+            <o>0</o>
+        </question>
+        <question text>
+            <statement>
+                <p>Quants números imprimex el següent programa?</p>
+                <sc java> 
+                    for (int i = 0; i &lt; 5; i++) {
+                        System.out.println(i);
+                        if (i &lt; 3) {
+                            continue;
+                        } else {
+                            for (int j = 0; j &lt; 5; j++) {
+                                System.out.println(j);
+                            }
+                        }        
+                    }
+                </sc>
+            </statement>
+            <o>15</o>
+        </question>
+    </quizz>
+
+    <challenge>
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/galib">Gàlib</a>
+        </p>
+    </challenge>
 </section>
 
 

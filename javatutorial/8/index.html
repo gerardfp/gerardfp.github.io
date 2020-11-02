@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav> 
+<header>
+    <h1>Arrays</h1>
+    <abstract>
+        <p>Els arrays són estructures que permeten guardar múltiples dades del mateix tipus.
+        </p>
+        <p>Aprendràs:</p>
+        <check>A crear i modificar <strong>arrays</strong> de tipus primitius</check>
+        <check>A iterar sobre els valors d'un <strong>array</strong></check>
+    </abstract>
+</header>
+
+<section>
+    <h2>Arrays</h2>
+    <p>Quan es necessita processar múltiples dades del mateix tipus, es poden guardar en un <strong>array</strong>
+    i processar-les conjuntament com una sola unitat. És una forma convinent de fer-ho quan hi ha una gran quantitat
+    de dades o quan no se sap a priori quantes dades hi haurà.</p>
+
+    <p>Has de considerar un <strong>array</strong> com una col·lecció d'elements del mateix tipus. Tots els elements
+    es guarden a la memòria de forma seqüencial (un darrere de l'altre).</p>
+
+    <p>Imagina un programa on hem de processar les notes dels alumnes. Per a guardar-les en memòria podríem utilitzar
+        difrents variables de tipus <w>float</w>:
+    </p>
+
+    <sc java>
+        float nota1 = 5.6f;
+        float nota2 = 9.8f;
+        float nota3 = 7.75f;
+        float nota4 = 6.25f;
+    </sc>
+
+    <img src="img/arraysvsvars1.png">
+
+    <p>En casos com aquest, podem utilitzar un <strong>array</strong> per a emmagatzemar totes les notes en una 
+    única variable:</p>
+
+    <sc java>
+        float[] notes = { 5.6f, 9.8f, 7.75f, 6.25f };
+    </sc>
+
+    <img src="img/arraysvsvars2.png">
+
+    <p>Un array proporciona un únic nom per a tots els elements. La quantitat d'elements que es pot emmagatzemar s'estableix
+        quan es crea l'array i no es pot canviar. Sí que es pot canviar un element guardat a l'array.
+    </p>
+
+    <p>Per a accedir a un element de l'array (per obtenir el seu valor, o modificar-lo) 
+        s'ha d'utilitzar el seu <strong>índex</strong> numèric. Els índex comencen per <w>0</w>:</p>
+
+    <img src="img/arrayindex.png">
+
+    <warn>
+        <p>El primer element d'un array té index <w>0</w>, i l'últim té l'índex igual al <w>tamany - 1</w>.</p>
+    </warn>
+</section>
+
+<section>
+    <h2>Crear un array</h2>
+
+    <p>Per a <strong>declarar</strong> un array hem de posar els caracters <w>[]</w> després del tipus dels elements de l'array:</p>
+
+    <sc java>
+        tipusElements[] nomArray;
+    </sc>
+
+    <p>Per exemple, per a crear un array d'enters:</p>
+
+    <sc java>
+        int[] arrayEnters;
+    </sc>
+
+    <p>Per a <strong>inicialitzar</strong> els valors d'un array, podem enumerar-los entre claus <w>{}</w> i separats per comes <w>,</w>:</p>
+
+    <sc java>
+        int[] arrayEnters = { 23, 34, 45, 56 };
+
+        String[] arrayStrings = { "this", "is", "an", "array", "of", "Strings" };
+    </sc>
+
+    <p>També es pot inicialitzar un array simplement indicant el seu tamany (la quantitat d'elements). 
+        En aquest cas el valor <strong>dels elements</strong> de l'array serà un valor per defecte segons el tipus.
+    </p>
+
+    <sc java>
+        tipusElements[] nomArray = new tipusElements[tamany];
+    </sc>
+
+    <p>Per als tipus numèrics, el valor per defecte és <w>0</w>, per als booleans és <w>false</w> i per als Strings és el
+    valor especial <w>null</w>.</p>
+
+    <sc java>
+        int[] arrayEnters = new int[5];            // { 0, 0, 0, 0, 0 }    
+        float[] arrayFloats = new float[5];        // { 0.0, 0.0, 0.0, 0.0, 0.0 }
+        char[] arrayChars = new char[5];           // { 0, 0, 0, 0, 0 }
+        boolean[] arrayBooleans = new boolean[5];  // { false, false, false, false }
+        String[] arrayStrings = new String[5];     // { null, null, null, null, null }
+    </sc>
+</section>
+<section>
+    <h2>Tamany d'un array</h2>
+
+    <p>El tamany (o longitud) d'un array es refereix al nombre d'elements que té.</p>
+    <p>Com hem vist, un array no es pot canviar de tamany un cop creat 
+        (<em>tot i que sí que es pot crear un array diferent y copiar-hi les dades</em>).</p>
+
+    <p>Per a obtenir el tamany d'un array, es pot accedir a la propietat espcial <w>length</w>. Aquí tens un exemple:</p>
+    <sc java>
+        int[] arrayEnters = { 1, 2, 3, 4 };
+        
+        int tamany = arrayEnters.length; // quantitat d'elements de l'array
+        
+        System.out.println(tamany); // 4
+    </sc>
+</section>
+
+<section>
+    <h2>Accedir als elements</h2>
+
+    <p>Per a accedir a un element d'un array s'ha posar l'índex de l'element entre corxets <w>[]</w> després del nom de l'array.</p>
+    
+    <sc java>
+        nomArray[indexElement]
+    </sc>
+
+    <p>D'aquesta forma pots obtenir el valor d'un element, o modificar-lo.</p>
+
+    <sc java>
+        String[] arrayStrings = { "hola", "que", "tal" };
+
+
+        // obtenim el valor de l'element en la posició 0, i l'imprimim
+        System.out.println(arrayStrings[0]);  // hola
+
+        // obtenim el valor de l'element en la posició 1, i l'assignem a la variable element
+        String element = arrayStrings[1];   // element: "que"
+
+
+        // modifiquem el valor de l'element en la posició 2
+        arrayStrings[2] = "qual";   // arrayStrings: {"hola", "que", "qual" }
+    </sc>
+</section>
+
+<section>
+    <h2>ArrayIndexOutOfBoundsException</h2>
+
+    // in progress 
+    <p>Si un programa tracta d'accedir a un element d'un array utilitzant un índex inferior a <w>0</w> o igual o superior
+    al <w>tamany</w>, el programa s'aturarà amb una exepció <w>ArrayIndexOutOfBoundsException</w>. Significa que 
+    l'índex al qual s'està tractant d'accedir està fora dels límits de l'array:</p>
+
+
+    <sc java>
+        int[] numeros = { 101 }
+    </sc>
+    <p>Els índex</p>
+</section>
