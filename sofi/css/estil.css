@@ -791,10 +791,11 @@ question button::before {
 
 
 
-question[match] div {
+question[match] div.left, question[match] div.right {
     display: inline-block;
     width: 50%;
 }
+
 
 question[match] o {
     border: 1px solid #e1e1e1;
@@ -944,6 +945,12 @@ stepper step explanation, stepper step sc, stepper step mem, stepper step shell 
     font-size: 14px;
 }
 
+mem {
+    display: block;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
 stepper step sc {
     margin: 0;
     min-height: 100%;
@@ -969,17 +976,17 @@ stepper explanation w {
     font-size: 14px;
 }
 
-stepper mem {
+mem {
     font-family: 'Consolas', monospace;
     background: #2d2d2d;
     /* padding: 1em; */
 }
 
-stepper mem b {
+mem b {
     color: greenyellow;
 }
 
-stepper mem comment {
+mem comment {
     color: #999;
 }
 

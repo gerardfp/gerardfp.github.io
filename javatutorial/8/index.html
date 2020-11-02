@@ -112,7 +112,7 @@
 
     <p>Per a obtenir el tamany d'un array, es pot accedir a la propietat espcial <w>length</w>. Aquí tens un exemple:</p>
     <sc java>
-        int[] arrayEnters = { 1, 2, 3, 4 };
+        int[] arrayEnters = { 13, 25, 37, 49 };
         
         int tamany = arrayEnters.length; // quantitat d'elements de l'array
         
@@ -148,16 +148,65 @@
 </section>
 
 <section>
-    <h2>ArrayIndexOutOfBoundsException</h2>
+    <h2>Array Index Out Of Bounds Exception</h2>
 
-    // in progress 
     <p>Si un programa tracta d'accedir a un element d'un array utilitzant un índex inferior a <w>0</w> o igual o superior
     al <w>tamany</w>, el programa s'aturarà amb una exepció <w>ArrayIndexOutOfBoundsException</w>. Significa que 
     l'índex al qual s'està tractant d'accedir està fora dels límits de l'array:</p>
 
 
     <sc java>
-        int[] numeros = { 101 }
+        int[] numeros = { 13, 24, 35, 46 };
+
+        System.out.println(numeros[-1]);   // OutOfBounds, l'index mes baix es 0
+        System.out.println(numeros[4]);    // OutOfBounds, l'index mes alt es 3
     </sc>
-    <p>Els índex</p>
+
+    <p>Si executem aquest programa, s'aturarà amb la execepció <w>ArrayIndexOutOfBoundsException</w>:</p>
+
+    <shell>
+        <exception>Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index -1 out of bounds for length 4</exception>
+    </shell>
+
+    <img src="img/outofbounds.png">
+
+    <quizz>
+        <question match>
+            <statement>
+                <p>Si tenim aquest array:</p>
+                <sc java>
+                    int[] numbers = { 1, 2, 3, 5, 4, 6, 4 };
+                </sc>
+                <p>Emparella les següents operacions amb el seu resultat:</p>
+            </statement>
+
+            <o>numbers[0]</o>  <o>1</o>
+            <o>numbers[6]</o>  <o>4</o>
+            <o>numbers.length</o>  <o>7</o>
+            <o>numbers[7]</o>  <o>OutOfBounds</o>
+        </question>
+
+        <question single>
+            <statement>
+                <p>Quin serà el valor de l'array <w>numbers</w> després d'executar aquest codi?</p>
+                <sc java>
+                    int[] numbers = new int[5];
+
+                    numbers[3] = 79;
+                </sc>
+            </statement>
+
+            <o><mem>{ 0, 0, 79, 0, 0 }</mem></o>
+            <o><mem>{ 5, 5, 79, 5, 5 }</mem></o>
+            <o correct><mem>{ 0, 0, 0, 79, 0 }</mem></o>
+            <o>Execpció OutOfBounds</o>
+        </question>
+    </quizz>
+
+    <challenge>
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/inicialitzar-array">Inicialitzar array</a>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/new-array">New array</a>
+        </p>
+    </challenge>
 </section>

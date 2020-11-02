@@ -44,7 +44,7 @@ function syntaxHighlight(){
     Prism.highlightElement(codeWrap);
   });
 
-  document.querySelectorAll('shell, stepper mem').forEach(b => {
+  document.querySelectorAll('shell, mem').forEach(b => {
     var preWrap = document.createElement('pre');
     var codeWrap = document.createElement('code');
 
@@ -281,7 +281,7 @@ function doMatchQuestion(q){
   var rightdiv = document.createElement('div');
   rightdiv.classList.add('right');
  
-  q.insertBefore(rightdiv, q.querySelector('button'));
+  q.insertBefore(rightdiv, q.querySelector('button.check'));
   q.insertBefore(leftdiv, rightdiv);
 
   // sortable
