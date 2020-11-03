@@ -712,7 +712,7 @@
 </section>
 
 <section>
-    <h2>El servidor web</h2>
+    <h2>Servidor web</h2>
 
     <p>El servidor web és un software que respon a les peticions dels clients en la WWW. Un servidor web pot tenir un o més llocs
         web. 
@@ -928,41 +928,77 @@
         <li><p>A <ln>9</ln> mirem si ens ha arribat una firma</p></li>
         <li><p>Si ens ha arribat la firma, la inserim a la base de dades (<ln>10</ln> - <ln>13</ln>)</p></li>
     </ul>
-    
+</section>
 
-    <h3>Rebre dades</h3>
-    <p>El servidor també pot acceptar dades extra incloses en la petició del client. Aquestes dades poden ser text o fitxers.</p>
-    
-    <p>A l'exemple webash hem vist com el navegador pot enviar dades extra obtenint-les de la query o d'un formulari.</p>
+<section>
+    <h2>Client web</h2>
 
-    <p>Veurem ara com el nagegador pot enviar fitxers quan fa una petició al servidor.</p>
+    <p>Un client web és un software per a realitzar peticions HTTP a un servidor web.</p>
 
-    <p>Crea aquest arxiu al servidor:</p>
+    <p>Els navegadors web són clients web que connecten a un servidor, descarreguen les seves pàgines i les mostren a l'usuari.</p>
+
+    <p>També hi ha altres clients web que només descarreguen les pàgines d'un servidor, sense mostrar-les. Un exemple d'aquests 
+        clients són <w>wget</w> i <w>curl</w>. Són dos programes de consola capaços de descarregar una pàgina web o un 
+        altre recurs. Veiem un exemple d'ús <w>wget</w>:</p>
+
+    <host>@host</host>
+    <shell>wget info.cern.ch</shell>
+
+    <p>Amb aquesta comanda, <w>wget</w> ha realitzat la petició al servidor <url>info.cern.ch</url> i ha guardat la pàgina. Podem
+    veure el contingut de la pàgina amb aquesta comanda:</p>
+
+    <host>@host</host>
+    <shell>cat index.html</shell>
+
+    <p>El que veiem és el codi HTML de la pàgina <file>index.html</file>.</p>
+
+    <p>Els navegadors web, a més de descarregar la pàgina, interpreten el codi HTML i el mostren a l'usuari, permetent-li 
+        navegar dintre d'ella o fer click als seus enllaços per a navegar a altres pàgines.
+    </p>
+
+    <p>Hi ha navegadors web que s'executen en mode gràfic (Firefox, Chrome, etc.) i altres que es poden executar a 
+        la consola en mode text. Alguns exemples són: <w>lynx</w>, <w>w3m</w>, <w>browsh</w>. Provem el lynx:</p>
+
+    <host>@container</host>
+    <shell>apt install lynx</shell>
+
+    <host>@container</host>
+    <shell>lynx info.cern.ch</shell>
+
+    <h3>Pàgines web</h3>
+    <p>Les pàgines web són una colecció d'informació que consisteix en un o més fitxers de text escrits en HTML. Les pàgines
+        web també poden fer ús de codi JavaScript, i codi CSS:
+    </p>
+    <ul>
+        <li><p>El codi HTML descriu el contingut i estructura d'una pàgina web. El contingut pot ser text, imatges, vídeos, etc.</p></li>
+        <li><p>El codi CSS descriu la presentació de la pàgina.</p></li>
+        <li><p>El codi JavaScript descriu el comportament de la pàgina.</p></li>
+    </ul>
+
+    <p>Veiem un petit exemple:</p>
 
     <scfile>
-        /var/www/html/upload.php
+        index.html
     </scfile>
-    <p>php mysql</p>
-</section>
+    <sc html>
+        &lt;p&gt;HTML &amp; CSS &amp; JavaScript&lt;/p&gt;
 
-<section>
-    <h2>El navegador web</h2>
+        &lt;style&gt;
+            @import url(&#39;https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&#39;);
 
-    
-    <p>html css javascript</p>
+            p {
+                font-family: &#39;Gloria Hallelujah&#39;;
+                font-size: 48px;
+                color: #f7d21f;
+                font-weight: bold;
+            }
+        &lt;/style&gt;
 
-    <p>apis</p>
-</section>
+        &lt;script&gt;
+            setInterval(() =&gt; {
+                document.body.insertAdjacentHTML(&#39;beforeend&#39;, &#39;&lt;img src=&quot;https://raw.githubusercontent.com/smxm8/static/main/homer.png&quot;&#39;);
+            }, 1000);
+        &lt;/script&gt;
+    </sc>
 
-
-
-<section>
-    <h2>Formats de dades</h2>
-    <p>json xml</p>
-</section>
-
-<section>
-    <h2>Frameworks</h2>
-
-    <p>angular</p>
 </section>

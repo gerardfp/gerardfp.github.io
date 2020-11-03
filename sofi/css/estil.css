@@ -908,17 +908,21 @@ stepper step {
 
 @media(min-width: 860px){
     stepper step {
-        --sum: calc(var(--mm-h) + var(--sh-h) +var(--ex-h));
+        --sum: calc(var(--mm-h) + var(--sh-h) + var(--ex-h));
         --size: max(var(--sum), var(--sc-h));
     
-        --mh: calc(var(--mm-h)*var(--size)/var(--sum));
-        --sh: calc(var(--sh-h)*var(--size)/var(--sum));
-        --ch: calc(var(--ex-h)*var(--size)/var(--sum));
+        --mh: calc(var(--mm-h) * var(--size)/var(--sum));
+        --sh: calc(var(--sh-h) * var(--size)/var(--sum));
+        --ch: calc(var(--ex-h) * var(--size)/var(--sum));
+
+        --he1: calc(1em + 1.6em * var(--ch));
+        --he2: calc(1.8em + 1.32em * var(--mh));
+        --he3: calc(1.8em + 1.32em * var(--sh));
+        --wi1: calc(1em * var(--sc-w));
     
-        grid-template:  "sc ex" calc(1em + 1.6em*var(--ch)) 
-                        "sc mm" calc(1.8em + 1.32em*var(--mh))
-                        "sc sh" calc(1.8em + 1.32em*var(--sh)) /
-                        calc(1em*var(--sc-w)) 1fr;
+        grid-template:  "sc ex" var(--he1) 
+                        "sc mm" var(--he2) 
+                        "sc sh" var(--he3) / var(--wi1)  1fr;
 
     }
 }
