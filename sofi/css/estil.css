@@ -911,9 +911,9 @@ stepper step {
         --sum: calc(var(--mm-h) + var(--sh-h) + var(--ex-h));
         --size: max(var(--sum), var(--sc-h));
     
-        --mh: calc(var(--mm-h) * var(--size)/var(--sum));
-        --sh: calc(var(--sh-h) * var(--size)/var(--sum));
-        --ch: calc(var(--ex-h) * var(--size)/var(--sum));
+        --mh: calc(var(--mm-h) * var(--size) / var(--sum));
+        --sh: calc(var(--sh-h) * var(--size) / var(--sum));
+        --ch: calc(var(--ex-h) * var(--size) / var(--sum));
 
         --he1: calc(1em + 1.6em * var(--ch));
         --he2: calc(1.8em + 1.32em * var(--mh));
