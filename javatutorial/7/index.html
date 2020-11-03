@@ -35,7 +35,7 @@
     sigui <w>5</w> amb l'ús de la sentència <w>break</w> que hi ha a dintre del condicional.
     </p>
 
-    <stepper style="--sc-h:9; --mm-h:1; --sh-h:1; --ex-h:1; --sc-w:22;    --sc-mh:9; --mm-mh:1; --sh-mh:1; --ex-mh:2;">
+    <stepper style="--sc-h:7; --mm-h:1; --sh-h:1; --ex-h:1; --sc-w:22;    --sc-mh:9; --mm-mh:1; --sh-mh:1; --ex-mh:2;">
         <step>
             <explanation></explanation>
             <sc java>
@@ -226,7 +226,7 @@
             <shell>10 9 </shell>
         </step>
         <step>
-            <explanation>10 no és igual a 5</explanation>
+            <explanation>8 no és igual a 5</explanation>
             <sc java>
                 int i = 10;
                 while (true) { 
@@ -290,7 +290,7 @@
             <shell>10 9 8 </shell>
         </step>
         <step>
-            <explanation>10 no és igual a 5</explanation>
+            <explanation>7 no és igual a 5</explanation>
             <sc java>
                 int i = 10;
                 while (true) { 
@@ -353,7 +353,7 @@
             <shell>10 9 8 7 </shell>
         </step>
         <step>
-            <explanation>10 no és igual a 5</explanation>
+            <explanation>6 no és igual a 5</explanation>
             <sc java>
                 int i = 10;
                 while (true) { 
@@ -385,10 +385,7 @@
 
 
         <step>
-            <explanation>
-                Aquest bucle, en principi, no pararia mai, ja que la 
-                seva condició sempre és <w>true</w>.
-            </explanation>
+            <explanation>            </explanation>
             <sc java>
                 int i = 10;
                 while (<h>true</h>) { 
@@ -433,7 +430,7 @@
             <shell>10 9 8 7 6 5</shell>
         </step>
         <step>
-            <explanation></explanation>
+            <explanation>El <w>break</w> trencarà el bucle</explanation>
             <sc java>
                 int i = 10;
                 while (true) { 
@@ -459,7 +456,7 @@
                     }
                     i--;
                 }        
-                <h>// el programa continua...</h>
+                <h>// el programa continuaria aqui...</h>
             </sc>
             <mem>i: 5</mem>
             <shell>10 9 8 7 6 5 </shell>
@@ -472,7 +469,7 @@
 
     <p>El següent programa exemplifica aquest comportament:</p>
 
-    <stepper style="--sc-h:10; --mm-h:2; --sh-h:5; --ex-h:2; --sc-w:22;    --sc-mh:10; --mm-mh:2; --sh-mh:5; --ex-mh:2;">
+    <stepper style="--sc-h:10; --mm-h:2; --sh-h:5; --ex-h:2; --sc-w:22;    --sc-mh:10; --mm-mh:2; --sh-mh:5; --ex-mh:3;">
         <step>
             <explanation></explanation>
             <sc java>
@@ -2452,7 +2449,7 @@
     
     <p>El següent exemple mostra com finalitzar un bucle etiquetat:</p>
 
-    <stepper style="--sc-h:9; --mm-h:2; --sh-h:1; --ex-h:2; --sc-w:22;    --sc-mh:9; --mm-mh:2; --sh-mh:1; --ex-mh:2;">
+    <stepper style="--sc-h:9; --mm-h:2; --sh-h:1; --ex-h:2; --sc-w:22;    --sc-mh:12; --mm-mh:2; --sh-mh:1; --ex-mh:2;">
  
         <step>
             <explanation></explanation>
@@ -2663,7 +2660,7 @@
 
     <p>Al següent exemple, només els nombres parells s'imprimeixen. Els imparells se salten:</p>
 
-    <stepper style="--sc-h:6; --mm-h:2; --sh-h:1; --ex-h:2; --sc-w:22;    --sc-mh:6; --mm-mh:2; --sh-mh:1; --ex-mh:2;">
+    <stepper style="--sc-h:6; --mm-h:2; --sh-h:1; --ex-h:2; --sc-w:22;    --sc-mh:8; --mm-mh:2; --sh-mh:1; --ex-mh:2;">
  
         <step>
             <explanation></explanation>
