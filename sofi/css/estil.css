@@ -293,6 +293,13 @@ shell consume {
 }
 
 
+shell + clar {
+    display: block;
+    background-color: rgb(226, 226, 226);
+    padding: 1em;
+    border-radius: 4px;
+}
+
 sc {
     display: block;
     font-size: 14px;
