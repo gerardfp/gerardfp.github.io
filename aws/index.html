@@ -132,6 +132,7 @@
 
     <p>En primer lugar hay que establecer los permisos <w>400</w> al fichero de la clave privada <w>awsm8.pem</w>:</p>
 
+    <host>@host</host>
     <shell>chmod 400 awsm8.pem</shell>
     <clar>Si el fichero <w>awsm8.pem</w> está en otra carpeta, debes indicarlo. Por ejemplo, si está en <w>Escritorio</w> 
         deberías poner: <w>Escritorio/awsm8.pem</clar>
@@ -140,6 +141,7 @@
         <li>
             <p>El acceso SSH desde Linux es muy sencillo. Simplemente abre el terminal y ejecuta:</p>
 
+            <host>@host</host>
             <shell>ssh -i awsm8.pem ubuntu@<replace>IP_DE_LA_INSTANCIA</replace></shell>
             <clar>Reemplaza <replace>IP_DE_LA_INSTANCIA</replace> por la IP correspondiente.</clar>
         
@@ -160,11 +162,11 @@
             <host>@instancia</host>
             <shell>
                 sudo chown -R ubuntu:ubuntu /var/www/html
-                sudo apt install apache2
             </shell>
 
             <p>Ahora puedes usar <w>sshfs</w> para conectar las carpetas:</p>
 
+            <host>@host</host>
             <shell>sshfs -o IdentityFile=awsm8.pem ubuntu@<replace>IP_DE_LA_INSTANCIA</replace>:/var/www/html <replace>carpeta</replace></shell>
             <clar>Reemplaza <replace>carpeta</replace> por la carpeta de tu ordenador donde quieres que te aparezcan los
             ficheros de la instancia.</clar>
@@ -292,5 +294,12 @@
             <img src="img/aws35.png">
         </li>
     </ul>
+
+    <h3>Editar las páginas web</h3>
+
+    <p>Una vez sincronizada una carpeta local con la carpeta <w>/var/www/html</w> de la instancia, ya puedes abrir 
+    la carpeta local con VSCode y editar los ficheros web.</p>
+
+    <p>Puedes ver la web simplemente poniendo la IP de la instancia en la barra de direcciones del Navegador Web.</p>
 
 </section>
