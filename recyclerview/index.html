@@ -15,14 +15,14 @@
 
     <img src="img/recyclerview.gif"/>
 
-    <a href="https://github.com/gerardfp/RecyclerView">https://github.com/gerardfp/RecyclerView</a>
+    <a href="https://github.com/gerardfp/recyclerciew">https://github.com/gerardfp/recyclerview</a>
   </abstract>
 </header>
 
 <section>
     <h2>Crea el proyecto</h2>
 
-    <p>Clona (o descarga) este repositorio: <a href="https://github.com/gerardfp/RecyclerView_template">https://github.com/gerardfp/RecyclerView_template</a></p>
+    <p>Clona (o descarga) este repositorio: <a href="https://github.com/gerardfp/recyclerview_template">https://github.com/gerardfp/recyclerview_template</a></p>
     
     <p>En esta plantilla de proyecto se ha implementado la base de la arquitectura MVVM:</p>
     <ul>
@@ -104,7 +104,7 @@
                         callback.cuandoFinalice(elementos);
                     }
 
-                    public void actualizarValoracion(Elemento elemento, float valoracion) {
+                    public void actualizar(Elemento elemento, float valoracion) {
                         elemento.valoracion = valoracion;
                     }
                 }
@@ -143,11 +143,11 @@
                         listaElementos.setValue(elementosRepositorio.elementos);
                     }
 
-                    MutableLiveData&lt;List&lt;Elemento&gt;&gt; obtenerListaElementos(){
+                    MutableLiveData&lt;List&lt;Elemento&gt;&gt; obtenerElementos(){
                         return listaElementos;
                     }
 
-                    void insertarElemento(Elemento elemento){
+                    void insertar(Elemento elemento){
                         elementosRepositorio.insertar(elemento, new ElementosRepositorio.Callback() {
                             @Override
                             public void cuandoFinalice(List&lt;Elemento&gt; elementos) {
@@ -156,7 +156,7 @@
                         });
                     }
 
-                    void eliminarElemento(Elemento elemento){
+                    void eliminar(Elemento elemento){
                         elementosRepositorio.eliminar(elemento, new ElementosRepositorio.Callback() {
                             @Override
                             public void cuandoFinalice(List&lt;Elemento&gt; elementos) {
@@ -165,8 +165,8 @@
                         });
                     }
 
-                    void actualizarValoracionElemento(Elemento elemento, float valoracion){
-                        elementosRepositorio.actualizarValoracion(elemento, valoracion);
+                    void actualizar(Elemento elemento, float valoracion){
+                        elementosRepositorio.actualizar(elemento, valoracion);
                     }
                 }
             </sc>
@@ -453,7 +453,7 @@
             public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
                 // ...
 
-                elementosViewModel.obtenerListaElementos().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
+                elementosViewModel.obtenerElementos().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
                     @Override
                     public void onChanged(List&lt;Elemento&gt; elementos) {
                         elementosAdapter.establecerLista(elementos);
@@ -503,7 +503,7 @@
                 binding.recycler.setAdapter(elementosAdapter);
 
                 // obtener el array de Elementos, y pasarselo al Adaptador
-                elementosViewModel.obtenerListaElementos().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
+                elementosViewModel.obtenerElementos().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
                     @Override
                     public void onChanged(List&lt;Elemento&gt; elementos) {
                         elementosAdapter.establecerLista(elementos);
@@ -604,7 +604,7 @@
                 @Override
                 public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                     if(fromUser) {
-                        elementosViewModel.actualizarValoracionElemento(elemento, rating);
+                        elementosViewModel.actualizar(elemento, rating);
                     }
                 }
             });
@@ -636,7 +636,7 @@
         <w>ElementosAdapter</w> que nos retorne dicho Elemento.
         
     <p>Una vez obtenido el Elemento que está asociado al ViewHolder que se ha deslizado, llamamos al 
-        método <w>eliminarElemento()</w> del ViewModel, para que lo elimine.
+        método <w>eliminar()</w> del ViewModel, para que lo elimine.
     </p>
 
     <scfile>
@@ -663,7 +663,7 @@
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         int posicion = viewHolder.getAdapterPosition();
                         Elemento elemento = elementosAdapter.obtenerElemento(posicion);
-                        elementosViewModel.eliminarElemento(elemento);
+                        elementosViewModel.eliminar(elemento);
 
                     }
                 }).attachToRecyclerView(binding.recycler);
@@ -709,7 +709,7 @@
             
             //...
 
-            void establecerElementoSeleccionado(Elemento elemento){
+            void seleccionar(Elemento elemento){
                 elementoSeleccionado.setValue(elemento);
             }
         }
@@ -729,7 +729,7 @@
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    elementosViewModel.establecerElementoSeleccionado(elemento);
+                    elementosViewModel.seleccionar(elemento);
                     navController.navigate(R.id.action_recyclerElementosFragment_to_mostrarElementoFragment);
                 }
             });
@@ -772,7 +772,7 @@
                             @Override
                             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                                 if(fromUser){
-                                    elementosViewModel.actualizarValoracionElemento(elemento, rating);
+                                    elementosViewModel.actualizar(elemento, rating);
                                 }
                             }
                         });
@@ -810,7 +810,7 @@
                         String nombre = binding.nombre.getText().toString();
                         String descripcion = binding.descripcion.getText().toString();
         
-                        elementosViewModel.insertarElemento(new Elemento(nombre, descripcion));
+                        elementosViewModel.insertar(new Elemento(nombre, descripcion));
         
                         navController.popBackStack();
                     }
