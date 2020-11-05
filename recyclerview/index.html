@@ -143,7 +143,7 @@
                         listaElementos.setValue(elementosRepositorio.elementos);
                     }
 
-                    MutableLiveData&lt;List&lt;Elemento&gt;&gt; obtenerElementos(){
+                    MutableLiveData&lt;List&lt;Elemento&gt;&gt; obtener(){
                         return listaElementos;
                     }
 
@@ -453,7 +453,7 @@
             public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
                 // ...
 
-                elementosViewModel.obtenerElementos().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
+                elementosViewModel.obtener().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
                     @Override
                     public void onChanged(List&lt;Elemento&gt; elementos) {
                         elementosAdapter.establecerLista(elementos);
@@ -503,7 +503,7 @@
                 binding.recycler.setAdapter(elementosAdapter);
 
                 // obtener el array de Elementos, y pasarselo al Adaptador
-                elementosViewModel.obtenerElementos().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
+                elementosViewModel.obtener().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
                     @Override
                     public void onChanged(List&lt;Elemento&gt; elementos) {
                         elementosAdapter.establecerLista(elementos);
@@ -642,7 +642,7 @@
     <scfile>
         RecyclerElementosFragment.java       
     </scfile>
-    <sc java data-line="8-23, 32-34">
+    <sc java data-line="8-24, 32-34">
         public class RecyclerElementosFragment extends Fragment {
             // ...
 
@@ -696,12 +696,12 @@
     <p>La acción a realizar cuando se haga click en el <w>itemView</w> será navegar a la pantalla <w>MostrarElementoFragment</w>,
         pero previamente guardaremos en el ViewModel cuál ha sido el Elemento asociado al ViewHolder en el que se ha hecho click.</p>
 
-    <p>Creamos esta variable <w>elementoSeleccionado</w> en el ViewModel, y un método <em>setter</em> para establecerla:</p>
+    <p>Creamos esta variable <w>elementoSeleccionado</w> en el ViewModel, y métodos <em>setter/getter</em> para establecerla y obtenerla:</p>
 
     <scfile>
         ElementosViewModel.java
     </scfile>
-    <sc java data-line="4,8-10">
+    <sc java data-line="4,8-14">
         public class ElementosViewModel extends AndroidViewModel {
             //...
             
@@ -711,6 +711,10 @@
 
             void seleccionar(Elemento elemento){
                 elementoSeleccionado.setValue(elemento);
+            }
+
+            MutableLiveData&lt;Elemento&gt; seleccionado(){
+                return elementoSeleccionado;
             }
         }
     </sc>
@@ -761,7 +765,7 @@
             public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
                 //...
 
-                elementosViewModel.elementoSeleccionado.observe(getViewLifecycleOwner(), new Observer&lt;Elemento&gt;() {
+                elementosViewModel.seleccionado().observe(getViewLifecycleOwner(), new Observer&lt;Elemento&gt;() {
                     @Override
                     public void onChanged(Elemento elemento) {
                         binding.nombre.setText(elemento.nombre);
