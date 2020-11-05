@@ -63,7 +63,7 @@
             <p>La clase <w>ElementosRepositorio</w> mantiene los Elementos en un <w>ArrayList</w>:</p>
             <ul>
                 <li><p>En el constructor se añaden algunos Elementos de ejemplo.</p></li>
-                <li><p>Tiene dos métodos para <w>anyadir()</w> o <w>eliminar()</w> un Elemento, que retornan en un <em>callback</em>, 
+                <li><p>Tiene dos métodos para <w>insertar()</w> o <w>eliminar()</w> un Elemento, que retornan en un <em>callback</em>, 
                     el <w>ArrayList</w> de Elementos resultante.</p>
                     <p>También tiene un método para actualizar la valoración de un Elemento.</p>
                 </li>
@@ -94,7 +94,7 @@
                         elementos.add(new Elemento(&quot;Elemento constructivo&quot;,&quot;Un elemento constructivo es cada uno de los componentes materiales que integran una obra de construcción. Se suelen clasificar en estructurales y compartimentadores.&quot;));
                     }
 
-                    void anyadir(Elemento elemento, Callback callback){
+                    void insertar(Elemento elemento, Callback callback){
                         elementos.add(elemento);
                         callback.cuandoFinalice(elementos);
                     }
@@ -112,7 +112,7 @@
         </li>
 
         <li>
-            <p>Se ha creado un <w>ViewModel</w> que expone las acciones sobre el modelo (añadir y eliminar), guardando
+            <p>Se ha creado un <w>ViewModel</w> que expone las acciones sobre el modelo (insertar y eliminar), guardando
             el array de Elementos en un <w>MutableLiveData</w> que pueda ser observado por las vistas.
             También expone la acción de actualizar la valoración.
             </p>
@@ -147,8 +147,8 @@
                         return listaElementos;
                     }
 
-                    void anyadirElemento(Elemento elemento){
-                        elementosRepositorio.anyadir(elemento, new ElementosRepositorio.Callback() {
+                    void insertarElemento(Elemento elemento){
+                        elementosRepositorio.insertar(elemento, new ElementosRepositorio.Callback() {
                             @Override
                             public void cuandoFinalice(List&lt;Elemento&gt; elementos) {
                                 listaElementos.setValue(elementos);
@@ -672,7 +672,6 @@
             //...
 
             class ElementosAdapter extends RecyclerView.Adapter&lt;ElementoViewHolder&gt; {
-
                 // ...
 
                 public Elemento obtenerElemento(int posicion){
@@ -790,7 +789,7 @@
     <h2>NuevoElementoFragment</h2>
 
     <p>La pantalla <w>NuevoElementoFragment</w> permite introducir el <w>nombre</w> y <w>descripcion</w> de un 
-    Elemento y llama al método <w>anyadirElemento()</w> del ViewModel para añadirlo a la lista (cuando se hace clic en el botón).</p>
+    Elemento y llama al método <w>insertarElemento()</w> del ViewModel para añadirlo a la lista (cuando se hace clic en el botón).</p>
 
     <p>Automáticamente, vuelve a la pantalla anterior con <w>popBackStack()</w>:</p>
     
@@ -811,7 +810,7 @@
                         String nombre = binding.nombre.getText().toString();
                         String descripcion = binding.descripcion.getText().toString();
         
-                        elementosViewModel.anyadirElemento(new Elemento(nombre, descripcion));
+                        elementosViewModel.insertarElemento(new Elemento(nombre, descripcion));
         
                         navController.popBackStack();
                     }
