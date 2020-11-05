@@ -64,7 +64,9 @@
             <ul>
                 <li><p>En el constructor se añaden algunos Elementos de ejemplo.</p></li>
                 <li><p>Tiene dos métodos para <w>anyadir()</w> o <w>eliminar()</w> un Elemento, que retornan en un <em>callback</em>, 
-                    el <w>ArrayList</w> de Elementos resultante.</p></li>
+                    el <w>ArrayList</w> de Elementos resultante.</p>
+                    <p>También tiene un método para actualizar la valoración de un Elemento.</p>
+                </li>
             </ul>
             
             
@@ -97,9 +99,13 @@
                         callback.cuandoFinalice(elementos);
                     }
 
-                    void eliminar(int posicion, Callback callback) {
-                        elementos.remove(posicion);
+                    void eliminar(Elemento elemento, Callback callback) {
+                        elementos.remove(elemento);
                         callback.cuandoFinalice(elementos);
+                    }
+
+                    public void actualizarValoracion(Elemento elemento, float valoracion) {
+                        elemento.valoracion = valoracion;
                     }
                 }
             </sc>
@@ -107,7 +113,9 @@
 
         <li>
             <p>Se ha creado un <w>ViewModel</w> que expone las acciones sobre el modelo (añadir y eliminar), guardando
-            el array de Elementos en un <w>MutableLiveData</w> que pueda ser observado por las vistas.</p>
+            el array de Elementos en un <w>MutableLiveData</w> que pueda ser observado por las vistas.
+            También expone la acción de actualizar la valoración.
+            </p>
 
             <scfile>
                 ElementosViewModel.java
@@ -148,13 +156,17 @@
                         });
                     }
 
-                    void eliminarElemento(int posicion){
-                        elementosRepositorio.eliminar(posicion, new ElementosRepositorio.Callback() {
+                    void eliminarElemento(Elemento elemento){
+                        elementosRepositorio.eliminar(elemento, new ElementosRepositorio.Callback() {
                             @Override
                             public void cuandoFinalice(List&lt;Elemento&gt; elementos) {
                                 listaElementos.setValue(elementos);
                             }
                         });
+                    }
+
+                    void actualizarValoracionElemento(Elemento elemento, float valoracion){
+                        elementosRepositorio.actualizarValoracion(elemento, valoracion);
                     }
                 }
             </sc>
@@ -592,7 +604,7 @@
                 @Override
                 public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                     if(fromUser) {
-                        elemento.valoracion = rating;
+                        elementosViewModel.actualizarValoracionElemento(elemento, rating);
                     }
                 }
             });
@@ -615,14 +627,22 @@
     </ul>
 
     <p>Para esta app solamente implementaremos <w>onSwiped()</w> y la acción que realizaremos será eliminar el Elemento que se ha
-    deslizado. Obtenemos la posición en el RecyclerView del ViewHolder que ha sido deslizado con <w>getAdapterPosition()</w>, y llamamos al método 
-    <w>eliminarElemento()</w> del ViewModel, para que elimine el Elemento que esté en esa misma posición.
+    deslizado.</p>
+    
+    <p>El callback <w>onSwiped()</w> nos pasa el ViewHolder que se ha deslizado, y podemos obtener su posición en el 
+        RecyclerView con <w>getAdapterPosition()</w>.</p>
+        
+    <p>Para obtener el objeto Elemento que está asociado al ViewHolder de esa posición añadiremos un método al 
+        <w>ElementosAdapter</w> que nos retorne dicho Elemento.
+        
+    <p>Una vez obtenido el Elemento que está asociado al ViewHolder que se ha deslizado, llamamos al 
+        método <w>eliminarElemento()</w> del ViewModel, para que lo elimine.
     </p>
 
     <scfile>
         RecyclerElementosFragment.java       
     </scfile>
-    <sc java data-line="8-23">
+    <sc java data-line="8-23, 32-34">
         public class RecyclerElementosFragment extends Fragment {
             // ...
 
@@ -642,13 +662,23 @@
                     @Override
                     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                         int posicion = viewHolder.getAdapterPosition();
-                        elementosViewModel.eliminarElemento(posicion);
+                        Elemento elemento = elementosAdapter.obtenerElemento(posicion);
+                        elementosViewModel.eliminarElemento(elemento);
 
                     }
                 }).attachToRecyclerView(binding.recycler);
             }
 
             //...
+
+            class ElementosAdapter extends RecyclerView.Adapter&lt;ElementoViewHolder&gt; {
+
+                // ...
+
+                public Elemento obtenerElemento(int posicion){
+                    return elementos.get(posicion);
+                }
+            }
         }
     </sc>
 
@@ -743,7 +773,7 @@
                             @Override
                             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                                 if(fromUser){
-                                    elemento.valoracion = rating;
+                                    elementosViewModel.actualizarValoracionElemento(elemento, rating);
                                 }
                             }
                         });
