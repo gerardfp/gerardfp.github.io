@@ -608,4 +608,11 @@
     <p>Implementa un Model con una variable <w>LiveData</w> que vaya emitiendo datos cuando se la observa.</p>
     <p>Implementa un ViewModel que transforme los datos del Modelo en otro <w>LiveData</w>.</p>
     <p>Implementa una Vista que observe el <w>LiveData</w> del ViewModel y lo muestre al usuario con imágenes.</p>
+
+    <p>Por ejemplo:</p>
+    <ul>
+        <li><p>El LiveData del modelo puede ir emitiendo un String cada segundo que diga: "sol", "nubes", "lluvia", "viento".</p></li>
+        <li><p>El ViewModel puede transformar ese String en un identificador de imagen como R.drawable.sol, etc.</p></li>
+        <li><p>La Vista muestra la imagen correspondiente.</p></li>
+    </ul>
 </section>

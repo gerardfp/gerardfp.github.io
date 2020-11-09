@@ -102,7 +102,15 @@
         boolean[] arrayBooleans = new boolean[5];  // { false, false, false, false }
         String[] arrayStrings = new String[5];     // { null, null, null, null, null }
     </sc>
+
+    <challenge>
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/inicialitzar-array">Inicialitzar array</a>
+        </p>
+    </challenge>
 </section>
+
+
 <section>
     <h2>Tamany d'un array</h2>
 
@@ -145,6 +153,14 @@
         // modifiquem el valor de l'element en la posició 2
         arrayStrings[2] = "qual";   // arrayStrings: {"hola", "que", "qual" }
     </sc>
+
+    <challenge>
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/new-array">New array</a>
+            <br>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/true-index">True index</a>
+        </p>
+    </challenge>
 </section>
 
 <section>
@@ -202,12 +218,40 @@
             <o>Execpció OutOfBounds</o>
         </question>
     </quizz>
+</section>
 
-    <challenge>
-        <p>
-            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/inicialitzar-array">Inicialitzar array</a>
-            <br>
-            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/new-array">New array</a>
-        </p>
-    </challenge>
+<section>
+    <h2>Recòrrer un array</h2>
+
+    <p>Quan diem recòrrer un array significa accedir un per un a cadascun dels elements de l'array.</p>
+
+    <p>Podem utilitzar un bucle <w>for</w> amb una variable <w>i</w> que vagi tenint els valors des de <w>0</w> (la primera 
+    posició de l'array) fins a <w>length - 1</w> (l'última posició). Llavors, utilitzarem la variable <w>i</w> com a índex 
+    de l'array, i així aconseguirem accedir a tots els elements:</p>
+
+    <p>El següent codi accedeix a cadascun dels elements de l'array, per a imprimir-lo:</p>
+    <sc java>
+        String[] paraules = { "anem", "a", "recorrer", "aquest", "array" };
+
+        for (int i = 0; i &lt; paraules.length; i++) {
+            System.out.println(i + " -&gt; " + paraules[i]);
+        }
+    </sc>
+    <shell>
+        0 -> anem
+        1 -> a
+        2 -> recorrer
+        3 -> aquest
+        4 -> array
+    </shell>
+</section>
+
+<section>
+    <h2>Arrays multidimensionals</h2>
+
+    <p>In progress...</p>
+
+    <sc java>
+        int[][] array = { { 13, 16, 17 }, { 43, 46, 48 }, { 71, 75, 79 } };
+    </sc>
 </section>
