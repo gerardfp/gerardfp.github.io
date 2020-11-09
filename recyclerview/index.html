@@ -94,6 +94,10 @@
                         elementos.add(new Elemento(&quot;Elemento constructivo&quot;,&quot;Un elemento constructivo es cada uno de los componentes materiales que integran una obra de construcción. Se suelen clasificar en estructurales y compartimentadores.&quot;));
                     }
 
+                    List&lt;Elemento&gt; obtener() {
+                        return elementos;
+                    }
+
                     void insertar(Elemento elemento, Callback callback){
                         elementos.add(elemento);
                         callback.cuandoFinalice(elementos);
@@ -104,8 +108,9 @@
                         callback.cuandoFinalice(elementos);
                     }
 
-                    public void actualizar(Elemento elemento, float valoracion) {
+                    void actualizar(Elemento elemento, float valoracion, Callback callback) {
                         elemento.valoracion = valoracion;
+                        callback.cuandoFinalice(elementos);
                     }
                 }
             </sc>
@@ -133,14 +138,14 @@
 
                     ElementosRepositorio elementosRepositorio;
 
-                    MutableLiveData&lt;List&lt;Elemento&gt;&gt; listaElementos = new MutableLiveData&lt;&gt;();
+                    MutableLiveData&lt;List&lt;Elemento&gt;&gt; listElementosMutableLiveData = new MutableLiveData&lt;&gt;();
 
                     public ElementosViewModel(@NonNull Application application) {
                         super(application);
 
                         elementosRepositorio = new ElementosRepositorio();
 
-                        listaElementos.setValue(elementosRepositorio.elementos);
+                        listElementosMutableLiveData.setValue(elementosRepositorio.obtener());
                     }
 
                     MutableLiveData&lt;List&lt;Elemento&gt;&gt; obtener(){
@@ -151,7 +156,7 @@
                         elementosRepositorio.insertar(elemento, new ElementosRepositorio.Callback() {
                             @Override
                             public void cuandoFinalice(List&lt;Elemento&gt; elementos) {
-                                listaElementos.setValue(elementos);
+                                listElementosMutableLiveData.setValue(elementos);
                             }
                         });
                     }
@@ -160,13 +165,18 @@
                         elementosRepositorio.eliminar(elemento, new ElementosRepositorio.Callback() {
                             @Override
                             public void cuandoFinalice(List&lt;Elemento&gt; elementos) {
-                                listaElementos.setValue(elementos);
+                                listElementosMutableLiveData.setValue(elementos);
                             }
                         });
                     }
 
                     void actualizar(Elemento elemento, float valoracion){
-                        elementosRepositorio.actualizar(elemento, valoracion);
+                        elementosRepositorio.actualizar(elemento, valoracion, new ElementosRepositorio.Callback() {
+                            @Override
+                            public void cuandoFinalice(List&lt;Elemento&gt; elementos) {
+                                listElementosMutableLiveData.setValue(elementos);
+                            }
+                        });
                     }
                 }
             </sc>
@@ -269,10 +279,12 @@
     <scfile>
         res/layout/fragment_recycler_elementos.xml
     </scfile>
-    <sc xml data-line="2-6">
+    <sc xml data-line="4-8">
         &lt;FrameLayout ...&gt;
+            //...
+
             &lt;androidx.recyclerview.widget.RecyclerView
-                android:id=&quot;@+id/recycler&quot;
+                android:id=&quot;@+id/recyclerView&quot;
                 android:layout_width=&quot;match_parent&quot;
                 android:layout_height=&quot;match_parent&quot;
                 app:layoutManager=&quot;androidx.recyclerview.widget.LinearLayoutManager&quot; /&gt;
@@ -434,7 +446,7 @@
                 // ...
 
                 ElementosAdapter elementosAdapter = new ElementosAdapter();
-                binding.recycler.setAdapter(elementosAdapter);
+                binding.recyclerView.setAdapter(elementosAdapter);
             }
             // ...
         }
@@ -500,7 +512,7 @@
                 ElementosAdapter elementosAdapter = new ElementosAdapter();
                 
                 // asociar el Adaptador con el RecyclerView
-                binding.recycler.setAdapter(elementosAdapter);
+                binding.recyclerView.setAdapter(elementosAdapter);
 
                 // obtener el array de Elementos, y pasarselo al Adaptador
                 elementosViewModel.obtener().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
@@ -666,7 +678,7 @@
                         elementosViewModel.eliminar(elemento);
 
                     }
-                }).attachToRecyclerView(binding.recycler);
+                }).attachToRecyclerView(binding.recyclerView);
             }
 
             //...
@@ -793,7 +805,7 @@
     <h2>NuevoElementoFragment</h2>
 
     <p>La pantalla <w>NuevoElementoFragment</w> permite introducir el <w>nombre</w> y <w>descripcion</w> de un 
-    Elemento y llama al método <w>insertarElemento()</w> del ViewModel para añadirlo a la lista (cuando se hace clic en el botón).</p>
+    Elemento y llama al método <w>insertar()</w> del ViewModel para añadirlo a la lista (cuando se hace clic en el botón).</p>
 
     <p>Automáticamente, vuelve a la pantalla anterior con <w>popBackStack()</w>:</p>
     

@@ -12,8 +12,8 @@
         una librería (ORM) para la persistencia local de datos en una base de datos SQLite.
     </p>
 
-    <p>Modificaremos la app de la <a href="../recyclerview/">práctica anterior</a> para que guarde los <strong>elementos genéricos</strong>
-        en una base de datos. De esta forma, los datos no se perderán cuando se cierre la app.</p>
+    <p>Modificaremos la app de la <a href="../recyclerview/">práctica anterior (RecyclerView)</a> para que guarde los <strong>elementos genéricos</strong>
+        en una base de datos. De esta forma los datos no se perderán cuando se cierre la app.</p>
 
     <img src="img/recyclerview.gif"/>
 
@@ -25,14 +25,15 @@
 <section>
     <h2>Crea el proyecto</h2>
 
-    <p>Clona (o descarga) el proyecto anterior: <a href="https://github.com/gerardfp/recyclerview">https://github.com/gerardfp/recyclerview</a></p>
+    <p>Para este proyecto partiremos de una copia del proyecto <a href="../recyclerview/">RecyclerView</a>.</p>
+    <p>Clona o descarga: <a href="https://github.com/gerardfp/room_template">https://github.com/gerardfp/room_template</a></p>
 
     <optional>
         <p>Puedes añadir ahora las dependencias para la librería Room, 
             o puedes hacer que el propio Android Studio lo haga después (con <kbd>Ctrl + Intro</kbd>)</p>
 
         <scfile>
-            build.gralde (Module: app)
+            build.gradle (Module: app)
         </scfile>
         <sc none>
             dependencies {
@@ -47,43 +48,926 @@
 <section>
     <h2>Room</h2>
 
+    <p>La librería Room es una capa de acceso a bases de datos SQLite en aplicaciones Android. 
+        Proporciona una forma sencilla de crear y acceder a la base de datos. Utiliza el <em>mapeo</em> objeto-relacional, 
+        que consiste en que cada fila de una tabla de la base de datos corresponde con un objeto en el código Java. 
+        Además está diseñada para integrarse fácilmente con la arquitectura MVVM. 
+    </p>
+
     <p>Para usar la librería Room hay que definir 3 componentes:</p>
 
     <ul>
-        <li>
-            <p><strong>Database</strong>: contiene la referencia a la base de datos.</p>
+        <li><p><strong>Database</strong>: contiene la referencia a la <strong>base de datos</strong>.</p></li>
+        <li><p><strong>Entity</strong>: representa una <strong>tabla</strong> de la base de datos.</p></li>
+        <li><p><strong>Dao</strong>: contiene los métodos con las <strong>consultas</strong> para acceder a la base de datos.</p></li>
+    </ul>
+</section>
 
-            <p>Esta clase se debe anotar con <w>@Database</w> y debe:</p>
-            <ul>
-                <li><p>Ser una clase abstracta que extienda de <w>RoomDatabase</w></p></li>
-                <li><p>Incluir la lista de entidades dentro de la anotación <w>@Database</w></p></li>
-                <li><p>Contener un método abstracto que retorne la clase anotada con <w>@Dao</w></p></li>
-            </ul>
 
-        </li>
-        <li><p><strong>Entity</strong>: representa una tabla de la base de datos.</p>
-            <p>Las entidades se definen con clases anotadas con <w>@Entity</w>. Cada campo de clase correspone a 
-            un campo de la tabla.</p>
-        </li>
-        <li>
-            <p><strong>Dao</strong>: contiene los métodos con las consultas para acceder a la base de datos.</p>
-            <p>Esta clase se debe anotar con <w>@Dao</w>.</p>
-            <p>Los métodos de acceso se anotan con <w>@Query</w>, <w>@Insert</w>, <w></w></p>
-        </li>
+<section>
+    <h2>Database</h2>
+    <p>Para crear la base de datos se ha de crear una clase que debe:</p>
+    <ul>
+        <li><p>Ser abstracta</p></li>
+        <li><p>Extender <w>RoomDatabase</w></p></li>
+        <li><p>Estar anotada con @Database</p></li>
+        <li><p>Incluir la lista de entidades dentro de la anotación <w>@Database</w></p></li>
+        <li><p>Contener un método abstracto que retorne la clase anotada con <w>@Dao</w></p></li>
     </ul>
 
-    <h3>Database</h3>
-    <p>En primer lugar hay que crear una clase abstracta que extienda de <w>RoomDatabase</w>. 
-        Esta clase servirá para crear una base de datos nueva, o obtenerla si ya está creada.</p>
-
-    <p>Hay que crear esta clase utilizando el patrón <a href="https://en.wikipedia.org/wiki/Singleton_pattern#Lazy_initialization">singleton</a>, 
+    <p>Dentro de la clase se llama al metodo estático <w>Room.databaseBuilder()</w> para obtener la referencia a la base de datos.</p>
+    <p>Es conveniente utilizar el patrón <a href="https://en.wikipedia.org/wiki/Singleton_pattern#Lazy_initialization">singleton</a>, 
         que asegura que solo habrá una única instancia de la base de datos.
     </p>
 
-    <p>La clase se debe anotar con <w>@Database</w> indicando las entitdades (tablas).</p>
+    <p>Crea la clase <w>ElementosBaseDeDatos</w>:</p>
+    <scfile>
+        ElementosBaseDeDatos.java
+    </scfile>
+    <sc java>
+        import android.content.Context;
 
-    <h3>Entities</h3>
-    <p>Las tablas de la base de datos se definen anotando una clase con <w>@Entity</w></p>
+        import androidx.room.Database;
+        import androidx.room.Room;
+        import androidx.room.RoomDatabase;
+
+        @Database(entities = {}, version = 1, exportSchema = false)
+        public abstract class ElementosBaseDeDatos extends RoomDatabase {
+
+            private static volatile ElementosBaseDeDatos INSTANCIA;
+
+            static ElementosBaseDeDatos obtenerInstancia(final Context context) {
+                if (INSTANCIA == null) {
+                    synchronized (ElementosBaseDeDatos.class) {
+                        if (INSTANCIA == null) {
+                            INSTANCIA = Room.databaseBuilder(context,
+                                    ElementosBaseDeDatos.class, "elementos.db")
+                                    .fallbackToDestructiveMigration()
+                                    .build();
+                        }
+                    }
+                }
+                return INSTANCIA;
+            }
+        }
+    </sc>
+
+    <p>Cuando se llame al método <w>obtenerInstancia()</w>, Room creará la base de datos SQLite (<w>elementos.db</w>), o utilizará la base de datos existente.</p>
+
+    <p>La llamada al método <w>.fallbackToDestructiveMigration()</w> hará que en caso de que alteremos el esquema de la base de datos 
+        (añadiendo tablas, campos, etc...), la base de datos se destruya y se vuelva a crear. 
+    </p>
+
+    <info>
+        <p>También se pueden añadir métodos para proporcionar una migración no destructiva. Ver:
+            <a href="https://developer.android.com/training/data-storage/room/migrating-db-versions">Migrating Room databases</a>
+        </p>
+    </info>
+</section>
 
 
+<section>
+    <h2>Entity</h2>
+    <p>Las tablas de la base de datos se definen anotando una clase con <w>@Entity</w>. Room creará una tabla en la base de datos por cada 
+    clase anotada con <w>@Entity</w>. Los campos de la tabla corresponderán con los campos de la clase.</p>
+
+    <p>En esta app habrá una única tabla para almacenar los Elementos. Para definir la tabla será suficiente con anotar la clase <w>Elemento</w>
+    con <w>@Entity</w>.</p> 
+    <p>Añadiremos un campo <w>id</w> que anotaremos con <w>@PrimaryKey</w>, que será la clave primaria de la tabla. La propiedad
+    <w>autoGenerate = true</w>, hará que SQLite asigne el valor automáticamente.</p>
+    
+    <p>Anota la clase <w>Elemento</w> de la siguiente forma:</p>
+    <scfile>
+        Elemento.java
+    </scfile>
+    <sc java data-line="4, 6-7">
+        import androidx.room.Entity;
+        import androidx.room.PrimaryKey;
+
+        @Entity
+        public class Elemento {
+            @PrimaryKey(autoGenerate = true)
+            int id;
+
+            String nombre;
+            String descripcion;
+            float valoracion;
+
+            public Elemento(String nombre, String descripcion) {
+                this.nombre = nombre;
+                this.descripcion = descripcion;
+            }
+        }
+    </sc>
+
+    <p>Una vez anotadas las entidades, hay que asociarlas con una base de datos.</p>
+
+    <p>Añade la entidad <w>Elemento.class</w> a la lista de <w>entities</w> de la base de datos:</p>
+    <scfile>
+        ElementosBaseDeDatos.java
+    </scfile>
+    <sc java data-line="1">
+        @Database(entities = { Elemento.class }, version = 1, exportSchema = false)
+        public abstract class ElementosBaseDeDatos extends RoomDatabase {
+            // ...
+        }
+    </sc>
+
+
+    <p>A partir de estas anotaciones Room creará la siguiente tabla en la base de datos:</p>
+
+    <sc sql>
+        CREATE TABLE Elemento(id INTEGER PRIMARY KEY, nombre TEXT, descripcion TEXT, valoracion REAL);
+    </sc>    
+</section>
+
+<section>
+    <h2>Dao</h2>
+    <p>Para acceder a los datos, Room utiliza <em>data access objects</em>, o DAOs.</p>
+    <p>La clase DAO contiene métodos para acceder a la base de datos (select, insert, update, delete). Cada método está asociado a una consulta SQL.</p>
+
+    <p>Room proporciona anotaciones para autogenerar las consultas SQL (<w>@Query</w>, <w>@Insert</w>, <w>@Update</w>, <w>@Delete</w>).</p>
+    <p>El DAO puede ser un interfaz o una clase abstracta. Room implementará automáticamente los métodos 
+        a partir de las anotaciones, generando las consultas SQL apropiadas.</p>
+
+    <p>Puedes crear la clase <w>ElementosDao</w> dentro mismo de la clase <w>ElementosBaseDeDatos</w> (también se podría crear 
+        en un fichero a parte):</p>
+
+    <scfile>
+        ElementosBaseDeDatos.java
+    </scfile>
+    <sc java data-line="3,7-20">
+        public abstract class ElementosBaseDeDatos extends RoomDatabase {
+
+            public abstract ElementosDao obtenerElementosDao();
+
+            //...
+            
+            @Dao
+            interface ElementosDao {
+                @Query(&quot;SELECT * FROM Elemento&quot;)
+                LiveData&lt;List&lt;Elemento&gt;&gt; obtener();
+        
+                @Insert
+                void insertar(Elemento elemento);
+        
+                @Update
+                void actualizar(Elemento elemento);
+        
+                @Delete
+                void eliminar(Elemento elemento);
+            }
+        }
+    </sc>
+
+    <ul>
+        <li>
+            <p>El método <w>obtener()</w> está anotado con <w>@Query</w> y se especifica la consulta SQL que se debe hacer cuando se llame a este método.
+                El resultado de la consulta (la lista de elementos <w>List&lt;Elemento&gt;</w>) se retornará como un <w>LiveData</w>. De esta forma 
+                el Array se actualizará cuando cambien los datos de la tabla Elemento, y podemos observarlo desde la Vista para actualizar la Interfaz de usuario
+                automáticamente. Es decir, no habrá que estar continuamente consultando la base de datos, sino que se observará y ella misma notificará de los cambios. 
+                </p>            
+        </li>
+        <li>Los métodos <w>insertar()</w>, <w>actualizar()</w> y <w>eliminar()</w>, reciben un objeto Elemento como parámetro y Room ejecutará las sentencias 
+        SQL correspondientes automáticamente con los datos de ese Elemento.</li>
+    </ul>
+
+    <p>El método abstracto <w>obtenerElementosDao()</w> será implementado por Room, y retornará un objeto de 
+        clase <w>ElementosDao</w> con todos los métodos implementados. 
+    Utilizaremos los métodos de este objeto en la app para acceder a la base de datos. </p>
+</section>
+
+<section>
+    <h2>Acceso a la base de datos</h2>
+
+    <p>Una vez creada la base de datos, definidas las tablas, y los métodos de acceso, ya podemos utilizarla en la app.</p>
+
+    <p>En la versión actual de la app los Elementos se guardaban en un ArrayList de la clase <w>ElementosRepositorio</w>. 
+        Modificaremos esta clase para que guarde los Elementos en la base de datos utilizando el <w>ElementosDao</w>.</p>
+
+    <p>Pasaremos de esta arquitectura:</p>
+    <img src="img/dbarqub.png">
+
+    <p>A esta:</p>
+
+    <img src="img/dbarqu.png">
+
+    <p>Empezaremos borrando todas las referencias al ArrayList.</p>
+    <p><strong>Elimina</strong> las líneas resaltadas:</p>
+
+    <scfile>
+        ElementosRepositorio.java
+    </scfile>
+    <sc java data-line="3,10-15,19,23-24,28-29,34">
+        public class ElementosRepositorio {
+
+            List&lt;Elemento&gt; elementos = new ArrayList&lt;&gt;();
+        
+            interface Callback {
+                void cuandoFinalice(List&lt;Elemento&gt; elementos);
+            }
+        
+            ElementosRepositorio(){
+                elementos.add(new Elemento(&quot;Elemento químico&quot;, &quot;Es un átomo con moléculas, aquella sustancia que no puede ser descompuesta mediante una reacción química, en otras más simples. Pueden existir dos átomos de un mismo elemento con características distintas y, en el caso de que estos posean número másico distinto, pertenecen al mismo elemento pero en lo que se conoce como uno de sus isótopos.&quot;));
+                elementos.add(new Elemento(&quot;Elemento de un conjunto&quot;, &quot;En teoría de conjuntos, un elemento o miembro de un conjunto (o familia de conjuntos) es un objeto que forma parte de ese conjunto (o familia).&quot;));
+                elementos.add(new Elemento(&quot;Elemento sintético&quot;, &quot;En química, un elemento sintético es un elemento químico que no aparece de forma natural en la Tierra, y solo puede ser creado artificialmente.&quot;));
+                elementos.add(new Elemento(&quot;Elemento algebraico&quot;, &quot;En matemáticas, más concretamente en álgebra abstracta y teoría de cuerpos, se dice que un elemento es algebraico sobre un cuerpo si es raíz de algún polinomio con coeficientes en dicho cuerpo. Los elementos algebraicos sobre el cuerpo de los números racionales reciben el nombre de números algebraicos.&quot;));
+                elementos.add(new Elemento(&quot;Elementos de la naturaleza&quot;,&quot;Los cuatro o cinco elementos de la naturaleza —normalmente agua, tierra, fuego y aire, a los que se añade la quintaesencia o éter— eran, para muchas doctrinas antiguas, los constituyentes básicos de la materia y explicaban el comportamiento de la naturaleza. El modelo estuvo vigente hasta que la ciencia moderna empezó a desentrañar los elementos y reacciones químicas.&quot;));
+                elementos.add(new Elemento(&quot;Elemento constructivo&quot;,&quot;Un elemento constructivo es cada uno de los componentes materiales que integran una obra de construcción. Se suelen clasificar en estructurales y compartimentadores.&quot;));
+            }
+
+            List&lt;Elemento&gt; obtener() {
+                return elementos;
+            }
+        
+            void insertar(Elemento elemento, Callback callback){
+                elementos.add(elemento);
+                callback.cuandoFinalice(elementos);
+            }
+        
+            void eliminar(Elemento elemento, Callback callback) {
+                elementos.remove(elemento);
+                callback.cuandoFinalice(elementos);
+            }
+        
+            void actualizar(Elemento elemento, float valoracion, Callback callback) {
+                elemento.valoracion = valoracion;
+                callback.cuandoFinalice(elementos);
+            }
+        }
+    </sc>
+
+    <p>Por su parte, el <w>ElementosViewModel</w> accedía directamente al ArrayList de Elementos. 
+        Ahora que ya no existe el Array debemos borrar dicha referencia.</p>
+
+    <p><strong>Elimina</strong> la siguiente línea:</p>
+    <scfile>
+        ElementosViewModel.java
+    </scfile>
+    <sc java data-line="6">
+        public class ElementosViewModel extends AndroidViewModel {
+        
+            public ElementosViewModel(@NonNull Application application) {
+                // ...
+        
+                listaElementos.setValue(elementosRepositorio.obtener());
+            }
+
+            //...
+        }
+    </sc>    
+
+
+    <h3>Obtener el ElementosDao</h3>
+    <p>La clase <w>ElementosRepositorio</w> necesitará un objeto <w>ElementosDao</w> para poder ejecutar los métodos <w>obtener()</w>, <w>insertar()</w>, 
+    <w>actualizar()</w> y <w>eliminar()</w>. 
+    <p>Para obtener el <w>ElementosDao</w> se debe obtener la instancia de la base de datos con <w>ElementosDatabase.obtenerInstancia()</w>, 
+    y llamar al método <w>obtenerElementosDao()</w>.</p>
+
+    <p>Para llamar al método <w>ElementosDatabase.obtenerInstancia()</w> se necesita el parámetro <w>Application</w>, así que lo añadimos al constructor
+        de la clase <w>ElementosRepositorio</w>.</p>
+
+    
+    <scfile>
+        ElementosRepositorio.java
+    </scfile>
+    <sc java data-line="3, 5-7">
+        public class ElementosRepositorio {
+
+            ElementosBaseDeDatos.ElementosDao elementosDao;
+
+            ElementosRepositorio(Application application){
+                elementosDao = ElementosBaseDeDatos.obtenerInstancia(application).obtenerElementosDao();
+            }
+
+            // ...
+        }
+    </sc>
+
+    <p>Por su parte, el <w>ElementosViewModel</w> deberá pasar la referencia a <w>Application</w> cuando instancia el 
+    repositorio:</p>
+
+    <scfile>
+        ElementosViewModel.java
+    </scfile>
+    <sc java data-line="6">
+        public class ElementosViewModel extends AndroidViewModel {
+        
+            public ElementosViewModel(@NonNull Application application) {
+                // ...
+        
+                elementosRepositorio = new ElementosRepositorio(application);
+            }
+
+            //...
+        }
+    </sc>
+
+
+
+
+
+
+
+    <h3>Query</h3>
+    <p>Para consultar los Elementos de la base de datos, el repositorio únicamente debe llamar al método <w>obtener()</w>
+    del DAO. El DAO retorna el resultado de la consulta como un LiveData. Este LiveData se irá actualizando permanentemente
+    según vaya cambiando el contenido de la base de datos.</p>
+
+    <p>Será suficiente con que el Repositorio retorne este LiveData para que pueda ser observado por la Vista.</p>
+
+    <scfile>
+        ElementosRepositorio.java
+    </scfile>
+    <sc java data-line="4-6">
+        public class ElementosRepositorio {
+            // ...
+         
+            LiveData&lt;List&lt;Elemento&gt;&gt; obtener(){
+                return elementosDao.obtener();
+            }
+        }
+    </sc>
+
+    <p>El ViewModel transmite directamente el objeto LiveData a la Vista:</p>
+    <scfile>
+        ElementosViewModel.java
+    </scfile>
+    <sc java data-line="4-6">
+        public class ElementosViewModel extends AndroidViewModel {
+            // ...
+                
+            LiveData&lt;List&lt;Elemento&gt;&gt; obtener(){
+                return elementosRepositorio.obtener();
+            }
+        }
+    </sc>
+
+
+    <h3>Insert, Update, Delete</h3>
+
+    <p>Las operaciones que modifican la base de datos se deben hacer en una tarea en segundo plano. 
+        Para ello creamos un objeto <w>Executor</w> en el repositorio:
+    </p>
+
+    <scfile>
+        ElementosRepositorio.java
+    </scfile>
+    <sc java data-line="3">
+        public class ElementosRepositorio {
+            
+            Executor executor = Executors.newSingleThreadExecutor();
+
+            //...
+        }
+    </sc>
+
+    <p>Los métodos del Repositorio ejecutan las consultas correspondientes del DAO en segundo plano para no 
+        bloquear el Thread Principal:</p>
+    <scfile>
+        ElementosRepositorio.java
+    </scfile>
+    <sc java data-line="4-30">
+        public class ElementosRepositorio {
+            //...
+
+            void insertar(Elemento elemento){
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        elementosDao.insertar(elemento);
+                    }
+                });
+            }
+        
+            void eliminar(Elemento elemento) {
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        elementosDao.eliminar(elemento);
+                    }
+                });
+            }
+        
+            public void actualizar(Elemento elemento, float valoracion) {
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        elemento.valoracion = valoracion;
+                        elementosDao.actualizar(elemento);
+                    }
+                });
+            }
+        }
+    </sc>
+
+    <p>Debido a que estos cambios sobre los datos se reflejarán automáticamente en el LiveData de la consulta SELECT, 
+        ya no es necesario el <em>callback</em> para retornar la lista resultante.
+    </p>
+
+    <p>De esta forma el ViewModel se simplifica bastante, ya que no es necesario que mantenga el LiveData actualizado, sino 
+        que será el propio Room el que lo vaya actualizando.
+    </p>
+
+    <scfile>
+        ElementosViewModel.java
+    </scfile>
+    <sc java data-line="4-14">
+        public class ElementosViewModel extends AndroidViewModel {
+            //...
+
+            void insertar(Elemento elemento){
+                elementosRepositorio.insertar(elemento);
+            }
+        
+            void eliminar(Elemento elemento){
+                elementosRepositorio.eliminar(elemento);
+            }
+        
+            void actualizar(Elemento elemento, float valoracion){
+                elementosRepositorio.actualizar(elemento, valoracion);
+            }
+        }
+    </sc>
+
+    <p>Por último, solamente queda limpiar el código que queda sin utilizar:</p>
+
+    <p><strong>Elimina</strong> estas líneas:</p>
+    <scfile>
+        ElementosViewModel.java
+    </scfile>
+    <sc java data-line="3">
+        public class ElementosViewModel extends AndroidViewModel {        
+         
+            MutableLiveData&lt;List&lt;Elemento&gt;&gt; listElementosMutableLiveData = new MutableLiveData&lt;&gt;();
+        
+        }
+    </sc>
+    <scfile>
+        ElementosRepositorio.java
+    </scfile>
+    <sc java data-line="3-5">
+        public class ElementosRepositorio {
+        
+            interface Callback {
+                void cuandoFinalice(List&lt;Elemento&gt; elementos);
+            }
+
+        }
+    </sc>
+
+    <p><strong>Ahora puedes ejecutar la app y los datos ya se guardan en la base de datos.</strong></p>
+
+    <p>Observa que no ha sido necesario tocar el código de la Vista (fragments) para implementar los cambios 
+        en el Modelo.
+    </p>
+</section>
+
+<section>
+    <h2>Más Valorados y Búsqueda</h2>
+
+    <p>Añadiremos un par de Pantallas a la app:</p>
+    <ul>
+        <li><p><w>RecyclerValoracionFragment</w>: mostrará la lista de Elementos ordenados por valoración.</p></li>
+        <li><p><w>RecyclerBusquedaFrgment</w>: muestrará la lista los Elementos que coincidan con un término de busqueda.</p></li>
+    </ul>
+
+    <p>Añadiremos también un <w>BottomNavigationView</w> para navegar a estas pantallas, y un <w>SearchView</w> para introducir el término.</p>
+
+    <h3>Pantallas y navegación</h3>
+
+    <p>Las pantallas <w>RecyclerValoracionFragment</w> y <w>RecyclerBusquedaFrgment</w>, són en realidad iguales que la pantalla
+        que ya tenemos <w>RecyclerValoracionFragment</w>. Lo único que cambia en ellas es la consulta SQL que se debe realizar.</p>
+    
+    <img src="img/recyclers.png">
+
+    <p>Para crearlos podríamos copiar&pegar el 
+        fragment <w>RecyclerElementosFragment</w> y cambiar la llamada a <w>obtener()</w> por las llamadas a <w>másValorados()</w> 
+        y <w>buscar()</w>. Sin embargo, podemos hacer uso de la herencia y extender el <w>RecyclerElementosFragment</w>. 
+        Es decir, los fragments de valoración y búsqueda aprovecharán el código Java y el layout XML del 
+        fragment <w>RecyclerElementosFragment</w></p>
+
+    <p>De esta forma, para crear los dos fragments únicamente necesitamos una clase Java que extienda de 
+        <w>RecyclerElementosFragment</w>.</p>
+
+    <p>Crea estas dos clases Java:</p>
+
+    <scfile>
+        RecyclerValoracionFragment.java
+    </scfile>
+    <sc java>
+        public class RecyclerValoracionFragment extends RecyclerElementosFragment {
+        }
+    </sc>
+    <scfile>
+        RecyclerBusquedaFragment.java
+    </scfile>
+    <sc java>
+        public class RecyclerValoracionFragment extends RecyclerElementosFragment {
+        }
+    </sc>
+
+    <h4>NavGraph</h4>
+
+    <p>Ahora hay que añadir estos dos fragments al <w>nav_graph.xml</w>. Y también modificar 
+        las acciones de navegación, ya que a los fragments <w>MostrarElemento</w> y <w>NuevoElemento</w> 
+        también se podrá acceder ahora desde las pantallas de valoración y búsqueda.</p>
+        
+    <p>En lugar de triplicar las flechas de navegación, usaremos acciones globales:</p>
+
+    <img src="img/nav_graphn.png">
+
+    <img src="img/nav_graphy.png">
+
+    <p>El <w>nav_graph</w> quedará así:</p>
+    <scfile>
+        nav_graph.xml
+    </scfile>
+    <sc xml>
+        &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        &lt;navigation xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+            xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+            xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+            android:id=&quot;@+id/nav_graph&quot;
+            app:startDestination=&quot;@id/recyclerElementosFragment&quot;&gt;
+        
+            &lt;fragment
+                android:id=&quot;@+id/recyclerElementosFragment&quot;
+                android:name=&quot;com.company.room.RecyclerElementosFragment&quot;
+                android:label=&quot;fragment_recycler_elementos&quot;
+                tools:layout=&quot;@layout/fragment_recycler_elementos&quot; /&gt;
+            &lt;fragment
+                android:id=&quot;@+id/recyclerValoracionFragment&quot;
+                android:name=&quot;com.company.room.RecyclerValoracionFragment&quot;
+                android:label=&quot;RecyclerValoracionFragment&quot;
+                tools:layout=&quot;@layout/fragment_recycler_elementos&quot; /&gt;
+            &lt;fragment
+                android:id=&quot;@+id/recyclerBuscarFragment&quot;
+                android:name=&quot;com.company.room.RecyclerBuscarFragment&quot;
+                android:label=&quot;RecyclerBuscarFragment&quot;
+                tools:layout=&quot;@layout/fragment_recycler_elementos&quot; /&gt;
+        
+            &lt;action
+                android:id=&quot;@+id/action_mostrarElementoFragment&quot;
+                app:destination=&quot;@id/mostrarElementoFragment&quot; /&gt;
+            &lt;action
+                android:id=&quot;@+id/action_nuevoElementoFragment&quot;
+                app:destination=&quot;@id/nuevoElementoFragment&quot; /&gt;
+        
+            &lt;fragment
+                android:id=&quot;@+id/nuevoElementoFragment&quot;
+                android:name=&quot;com.company.room.NuevoElementoFragment&quot;
+                android:label=&quot;fragment_nuevo_elementok&quot;
+                tools:layout=&quot;@layout/fragment_nuevo_elemento&quot; /&gt;
+            &lt;fragment
+                android:id=&quot;@+id/mostrarElementoFragment&quot;
+                android:name=&quot;com.company.room.MostrarElementoFragment&quot;
+                android:label=&quot;fragment_mostrar_elemento&quot;
+                tools:layout=&quot;@layout/fragment_mostrar_elemento&quot; /&gt;
+        &lt;/navigation&gt;
+    </sc>
+
+    <p>También hay que cambiar las referencias a las acciones de navegación que tenemos puestas en el código Java:</p>
+
+    <scfile>
+        RecyclerElementosFragment.java
+    </scfile>
+    <sc java diff>
+
+-        navController.navigate(R.id.action_recyclerElementosFragment_to_nuevoElementoFragment);
++        navController.navigate(R.id.action_nuevoElementoFragment);
+
+        // ...
+-        navController.navigate(R.id.action_recyclerElementosFragment_to_mostrarElementoFragment);
++        navController.navigate(R.id.action_mostrarElementoFragment);
+    </sc>
+
+    <h4>MainActivity</h4>
+
+    <p>Navegaremos a estas pantallas usando un <w>BottomNavigationView</w>, que añadimos en la <w>MainActivity</w>. 
+    También añadimos el <w>SearchView</w> que permita introducir el término de búsqueda:</p>
+
+    <scfile>
+        activity_main.xml
+    </scfile>
+    <sc xml>
+        &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        &lt;androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+            xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;match_parent&quot;&gt;
+        
+            &lt;androidx.appcompat.widget.SearchView
+                android:id=&quot;@+id/searchView&quot;
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;wrap_content&quot;
+                app:layout_constraintTop_toTopOf=&quot;parent&quot;
+                app:layout_constraintBottom_toTopOf=&quot;@id/fragment&quot;
+                app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
+                app:layout_constraintRight_toRightOf=&quot;parent&quot;/&gt;
+        
+            &lt;androidx.fragment.app.FragmentContainerView
+                android:id=&quot;@+id/fragment&quot;
+                android:name=&quot;androidx.navigation.fragment.NavHostFragment&quot;
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;0dp&quot;
+                app:defaultNavHost=&quot;true&quot;
+                app:navGraph=&quot;@navigation/nav_graph&quot;
+                app:layout_constraintTop_toBottomOf=&quot;@id/searchView&quot;
+                app:layout_constraintBottom_toTopOf=&quot;@id/bottom_nav_view&quot;
+                app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
+                app:layout_constraintRight_toRightOf=&quot;parent&quot;/&gt;
+        
+            &lt;com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id=&quot;@+id/bottom_nav_view&quot;
+                android:layout_width=&quot;0dp&quot;
+                android:layout_height=&quot;wrap_content&quot;
+                app:menu=&quot;@menu/bottom_menu&quot;
+                app:labelVisibilityMode=&quot;unlabeled&quot;
+                app:layout_constraintTop_toBottomOf=&quot;@id/fragment&quot;
+                app:layout_constraintBottom_toBottomOf=&quot;parent&quot;
+                app:layout_constraintLeft_toLeftOf=&quot;parent&quot;
+                app:layout_constraintRight_toRightOf=&quot;parent&quot;/&gt;
+        
+        &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+    </sc>
+
+    <p>Creamos el fichero de menú <w>bottom_menu.xml</w>, con los ítems para navegar a las pantallas:</p>
+
+    <scfile>
+        res/menu/bottom_menu.xml
+    </scfile>
+    <sc xml>
+        &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        &lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+            &lt;item
+                android:id=&quot;@+id/recyclerElementosFragment&quot;
+                android:icon=&quot;@android:drawable/ic_input_get&quot;
+                android:title=&quot;Elementos&quot; /&gt;
+        
+            &lt;item
+                android:id=&quot;@+id/recyclerValoracionFragment&quot;
+                android:icon=&quot;@android:drawable/btn_star_big_on&quot;
+                android:title=&quot;Valoración&quot; /&gt;
+        
+            &lt;item
+                android:id=&quot;@+id/recyclerBuscarFragment&quot;
+                android:icon=&quot;@android:drawable/ic_menu_search&quot;
+                android:title=&quot;Buscar&quot; /&gt;
+        
+        &lt;/menu&gt;
+    </sc>
+
+    <p>También configuramos la navegación en la <w>MainActivity</w>:</p>
+
+    <scfile>
+        MainActivity.java
+    </scfile>
+    <sc java data-line="5-6">
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            // ...
+
+            NavController navController = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment)).getNavController();
+            NavigationUI.setupWithNavController(binding.bottomNavView, navController);
+        }
+    </sc>
+
+    <p>La navegación de la app queda así:</p>
+    <img src="img/nav_host.png">
+
+    <p>La <w>MainActivity</w> tiene el <w>SearchView</w>, el <w>NavHost</w> y el <w>BottomNavigationView</w>.</p>
+
+    <p>No obstante, no en todos los fragments queremos mostrar el <w>BottomNavigationView</w>. Cuando se navegue a los 
+    fragments de Mostrar y Nuevo no queremos que se muestre.</p>
+    <p>Y el <w>SearchView</w> únicamente lo queremos mostrar cuando se navegue a la pantalla de buscar.</p>
+
+    <p>Los componentes del la MainActivity que queremos mostrar ocultar, los podemos gestionar en el <em>callback</em> 
+        <w>onDestinationChanged()</w>. Este <em>callback</em> es ejecutado cada vez que se navega a un destino, y se 
+        pasa como parámetro el destino al cual se ha navegado. Aprovecharemos para mostrar/ocultar el <w>BottomNavigationView</w>
+        y el <w>SearchView</w> en las pantallas que deseamos: 
+    </p>
+
+    <scfile>
+        MainActivity.java
+    </scfile>
+    <sc java data-line="5-24">
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            // ...
+
+            navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+                @Override
+                public void onDestinationChanged(@NonNull NavController controller,
+                                                @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                    if (destination.getId() == R.id.nuevoElementoFragment
+                            || destination.getId() == R.id.mostrarElementoFragment) {
+                        binding.bottomNavView.setVisibility(View.GONE);
+                    } else {
+                        binding.bottomNavView.setVisibility(View.VISIBLE);
+                    }
+
+                    if (destination.getId() == R.id.recyclerBuscarFragment){
+                        binding.searchView.setVisibility(View.VISIBLE);
+                        binding.searchView.setIconified(false);
+                        binding.searchView.requestFocusFromTouch();
+                    } else {
+                        binding.searchView.setVisibility(View.GONE);
+                    }
+                }
+            });
+        }
+    </sc>
+
+    <p>Ahora ya tenemos implementada la navegación a las diferentes pantallas de al app. El siguiente paso es 
+        implementar la funcionalidades "más valorados" y "búsqueda".
+    </p>
+
+    <h3>Model</h3>
+
+    <p>Añadiremos al <w>ElementosDao</w> las consultas correspondientes a "más valorados" y "búsqueda":</p>
+
+    <scfile>
+        ElementosBaseDeDatos.java
+    </scfile>
+    <sc java data-line="5-9">
+        @Dao
+        interface ElementosDao {
+            // ...
+
+            @Query(&quot;SELECT * FROM Elemento ORDER BY valoracion DESC&quot;)
+            LiveData&lt;List&lt;Elemento&gt;&gt; masValorados();
+    
+            @Query(&quot;SELECT * FROM Elemento WHERE nombre LIKE &#39;%&#39; || :d || &#39;%&#39;&quot;)
+            LiveData&lt;List&lt;Elemento&gt;&gt; buscar(String d);
+        }
+    </sc>
+
+    <observe>
+        <p>Para añadir un parámetro a una consulta, ha que poner el nombre del parámetro precedido de dos puntos <w>:</w> 
+            (ver: <a href="https://developer.android.com/training/data-storage/room/accessing-data#query-params">query-params</a>).
+        </p>
+        <p>
+            El operador <w>||</w> es el operador de concatenación SQL.
+        </p>
+    </observe>
+
+    <p>Estas consultas serán llamadas por el repositorio:</w></p>
+
+    <scfile>
+        ElementosRepositorio.java
+    </scfile>
+    <sc java data-line="4-10">
+        public class ElementosRepositorio {
+            // ...
+
+            LiveData&lt;List&lt;Elemento&gt;&gt; masValorados() {
+                return elementosDao.masValorados();
+            }
+        
+            LiveData&lt;List&lt;Elemento&gt;&gt; buscar(String d) {
+                return elementosDao.buscar(d);
+            }
+        }
+    </sc>
+
+    <h3>ViewModel</h3>
+    <p>El ViewModel expondrá a la Vista el acceso a los métodos <w>masValorados()</w> y <w>busqueda()</w>.</p>
+
+    <p>El método <w>masValorados()</w> no tiene nada en especial, simplemente retorna el resultado de la consulta:</p>
+
+    <scfile>
+        ElementosViewModel.java
+    </scfile>
+    <sc java data-line="4-6">
+        public class ElementosViewModel extends AndroidViewModel {
+            // ... 
+
+            LiveData&lt;List&lt;Elemento&gt;&gt; masValorados(){
+                return elementosRepositorio.masValorados();
+            }
+        }
+    </sc>
+
+    <p>El método <w>busqueda()</w>, sin embargo, tiene que pasar como parámetro el termino de busqueda introducido en el 
+    <w>SearchView</w> que hemos puesto en la <w>MainActivity</w>.</p>
+
+    <p>Crearemos una variable <w>terminoBusqueda</w> que guardará el texto introducido en el <w>SearchView</w>. 
+    Crearemos esta variable como <w>MutableLiveData</w> y usaremos <w>Transformations</w> para observar los cambios 
+    en el término de busqueda y transformarlo en la consulta correspondiente. También añadiremos un método para 
+    establecer el <w>terminoBusqueda</w>.
+    </p>
+
+    <scfile>
+        ElementosViewModel.java
+    </scfile>
+    <sc java data-line="4,8-19">
+        public class ElementosViewModel extends AndroidViewModel {
+            // ... 
+
+            MutableLiveData&lt;String&gt; terminoBusqueda = new MutableLiveData&lt;&gt;();
+
+            // ...
+
+            LiveData&lt;List&lt;Elemento&gt;&gt; buscar(){
+                return Transformations.switchMap(terminoBusqueda, new Function&lt;String, LiveData&lt;List&lt;Elemento&gt;&gt;&gt;() {
+                    @Override
+                    public LiveData&lt;List&lt;Elemento&gt;&gt; apply(String input) {
+                        return elementosRepositorio.buscar(input);
+                    }
+                });
+            }
+        
+            void establecerTerminoBusqueda(String s){
+                terminoBusqueda.setValue(s);
+            }
+        }
+    </sc>
+
+    <h3>View</h3>
+
+    <p>Establecemos un listener al <w>SearchView</w> en la <w>MainActivity</w> para detectar los cambios en el texto 
+    introducido. Cuando se produzca algún cambio actualizaremos el <w>terminoBusqueda</w> en el ViewModel (<em>automáticamente se
+    ejecutará la Transformación y se llamará a la consulta</em>).</p>
+
+    <scfile>
+        MainActivity.java
+    </scfile>
+    <sc java data-line="5-14">
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            // ...
+
+            binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) { return false; }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    elementosViewModel.establecerTerminoBusqueda(newText);
+                    return false;
+                }
+            });
+        }
+    </sc>
+    
+    <p>Ya solo queda hacer que los fragments Valorados y Buscar, obtengan los datos correspondientes del ViewModel.</p>
+
+    <p>Para ello, lo único que hay que cambiar respecto al <w>RecyclerElementosFragment</w> es la llamada al método 
+    <w>obtener()</w> del ViewModel, y sustiturirla por las llamadas a <w>másValorados()</w> y <w>buscar()</w>.</p>
+
+    <p>Es esta llamada la que se debe anular/sobreescribir (@Override) en los fragments Valorados y Buscar.</p>
+    <p>Haremos un método en el <w>RecyclerElementosFragment</w> que realice esta llamada y que sobreescriban los otros dos 
+    fragments con sus llamadas correspondientes.</p>
+
+    <scfile>
+        RecyclerElementosFragment.java
+    </scfile>
+    <sc java diff>
+        public class RecyclerElementosFragment extends Fragment {
+
+            // ...
+
+            @Override
+            public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+-                elementosViewModel.obtener().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
++                obtenerElementos().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
+                    @Override
+                    public void onChanged(List&lt;Elemento&gt; elementos) {
+                        elementosAdapter.establecerLista(elementos);
+                    }
+                });
+            }
+
+            LiveData&lt;List&lt;Elemento&gt;&gt; obtenerElementos(){
+                return elementosViewModel.obtener();
+            }
+        }
+    </sc>
+
+    <scfile>
+        RecyclerBuscarFragment.java
+    </scfile>
+    <sc java>
+        public class RecyclerBuscarFragment extends RecyclerElementosFragment {
+            @Override
+            LiveData&lt;List&lt;Elemento&gt;&gt; obtenerElementos() {
+                return elementosViewModel.buscar();
+            }
+        }
+    </sc>
+
+    <scfile>
+        RecyclerValoracionFragment.java
+    </scfile>
+    <sc java>
+        public class RecyclerValoracionFragment extends RecyclerElementosFragment {
+            @Override
+            LiveData&lt;List&lt;Elemento&gt;&gt; obtenerElementos() {
+                return elementosViewModel.masValorados();
+            }
+        }        
+    </sc>
 </section>

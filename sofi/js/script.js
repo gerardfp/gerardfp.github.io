@@ -32,13 +32,34 @@ function syntaxHighlight(){
     b.innerHTML = '';
     b.appendChild(preWrap);
 
+
+    // b.getAttributeNames().forEach(an => {
+    //   preWrap.setAttribute(an, b.getAttribute(an));
+    //   codeWrap.setAttribute(an, b.getAttribute(an));
+    // });
+
+    var attrs = b.getAttributeNames();
+    
+    if(b.hasAttribute('diff')){
+      codeWrap.classList.add('diff-highlight'); 
+      // codeWrap.classList.add('language-diff');
+
+      if(attrs[0] != null){
+        codeWrap.classList.add('language-diff-' + attrs[0]);
+      } else {
+        codeWrap.classList.add('language-diff');
+      } 
+      b.removeAttribute('diff');
+    }
+
     if(b.hasAttribute('data-line')){
       preWrap.setAttribute('data-line', b.getAttribute('data-line'));
+      b.removeAttribute('data-line');
     }
-    var attrs = b.getAttributeNames();
+
     if(attrs[0] != null){
-      b.removeAttribute(attrs[0]);
       codeWrap.classList.add('language-' + attrs[0]);
+      b.removeAttribute(attrs[0]);
     }
 
     Prism.highlightElement(codeWrap);
