@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<header>
+    <h1>Errors comuns</h1>
+</header>
+
+<section>
+    <ul>
+        <li>
+            <p>Posar punt-i-coma després de <w>if</w>, <w>for</w>, <w>while</w>:</p>
+            <sc java>
+                if (tal == cual); {
+
+                }
+            </sc>
+
+            <sc java>
+                for (int i=0; i &lt; 10; i++); {
+
+                }
+            </sc>
+            <p>Excepte en comptades excepcions, no es posa punt-i-coma.</p>
+        </li>
+
+        <li>
+            <p>Posar un igual <w>=</w> en la condició de <w>if</w>, <w>for</w>, <w>while</w>:</p>
+            <sc java>
+                if (a = b){
+
+                }
+            </sc>
+            <p>Quan es vol fer una comparació s'han d'utilitzar dos iguals <w>==</w>.</p>
+        </li>
+
+        <li>
+            <p>Comparar Strings amb <w>==</w>:</p>
+            <sc java>
+                if (variable == "hola"){
+
+                }
+            </sc>
+            <p>Per a comparar Strings és amb <w>.equals()</w>:</p>
+            <sc java>
+                if (variable.equals("hola")){
+
+                }
+            </sc>
+        </li>
+    </ul>
+</section>
