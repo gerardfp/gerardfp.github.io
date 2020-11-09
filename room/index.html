@@ -70,7 +70,7 @@
     <ul>
         <li><p>Ser abstracta</p></li>
         <li><p>Extender <w>RoomDatabase</w></p></li>
-        <li><p>Estar anotada con @Database</p></li>
+        <li><p>Estar anotada con <w>@Database</w></p></li>
         <li><p>Incluir la lista de entidades dentro de la anotación <w>@Database</w></p></li>
         <li><p>Contener un método abstracto que retorne la clase anotada con <w>@Dao</w></p></li>
     </ul>
@@ -112,7 +112,8 @@
         }
     </sc>
 
-    <p>Cuando se llame al método <w>obtenerInstancia()</w>, Room creará la base de datos SQLite (<w>elementos.db</w>), o utilizará la base de datos existente.</p>
+    <p>Cuando se llame al método <w>obtenerInstancia()</w>, Room creará la base de datos SQLite (<w>elementos.db</w>), 
+        o utilizará la base de datos existente si ya se había creado anteriormente.</p>
 
     <p>La llamada al método <w>.fallbackToDestructiveMigration()</w> hará que en caso de que alteremos el esquema de la base de datos 
         (añadiendo tablas, campos, etc...), la base de datos se destruya y se vuelva a crear. 
@@ -534,16 +535,18 @@
 
     <p>Añadiremos también un <w>BottomNavigationView</w> para navegar a estas pantallas, y un <w>SearchView</w> para introducir el término.</p>
 
+
+
     <h3>Pantallas y navegación</h3>
 
     <p>Las pantallas <w>RecyclerValoracionFragment</w> y <w>RecyclerBusquedaFrgment</w>, són en realidad iguales que la pantalla
-        que ya tenemos <w>RecyclerValoracionFragment</w>. Lo único que cambia en ellas es la consulta SQL que se debe realizar.</p>
+        que ya tenemos <w>RecyclerElementosFragment</w>. Lo único que cambia en ellas es la consulta SQL que se debe realizar.</p>
     
     <img src="img/recyclers.png">
 
     <p>Para crearlos podríamos copiar&pegar el 
-        fragment <w>RecyclerElementosFragment</w> y cambiar la llamada a <w>obtener()</w> por las llamadas a <w>másValorados()</w> 
-        y <w>buscar()</w>. Sin embargo, podemos hacer uso de la herencia y extender el <w>RecyclerElementosFragment</w>. 
+        fragment <w>RecyclerElementosFragment</w> y cambiar la llamada a <w>obtener()</w> por otras llamadas que obtengan
+        los más valorados o la búsqueda. Sin embargo, podemos hacer uso de la herencia y extender el <w>RecyclerElementosFragment</w>. 
         Es decir, los fragments de valoración y búsqueda aprovecharán el código Java y el layout XML del 
         fragment <w>RecyclerElementosFragment</w></p>
 
@@ -557,6 +560,7 @@
     </scfile>
     <sc java>
         public class RecyclerValoracionFragment extends RecyclerElementosFragment {
+
         }
     </sc>
     <scfile>
@@ -564,6 +568,7 @@
     </scfile>
     <sc java>
         public class RecyclerValoracionFragment extends RecyclerElementosFragment {
+
         }
     </sc>
 
@@ -645,7 +650,7 @@
     <h4>MainActivity</h4>
 
     <p>Navegaremos a estas pantallas usando un <w>BottomNavigationView</w>, que añadimos en la <w>MainActivity</w>. 
-    También añadimos el <w>SearchView</w> que permita introducir el término de búsqueda:</p>
+    También añadimos el <w>SearchView</w> que permitirá introducir el término de búsqueda:</p>
 
     <scfile>
         activity_main.xml
@@ -739,14 +744,13 @@
 
     <p>La <w>MainActivity</w> tiene el <w>SearchView</w>, el <w>NavHost</w> y el <w>BottomNavigationView</w>.</p>
 
-    <p>No obstante, no en todos los fragments queremos mostrar el <w>BottomNavigationView</w>. Cuando se navegue a los 
-    fragments de Mostrar y Nuevo no queremos que se muestre.</p>
-    <p>Y el <w>SearchView</w> únicamente lo queremos mostrar cuando se navegue a la pantalla de buscar.</p>
+    <p>No obstante, no en todos los fragments queremos mostrar el <w>BottomNavigationView</w>: cuando se navegue a los 
+    fragments de Mostrar y Nuevo no queremos que se muestre. Y el <w>SearchView</w> únicamente lo queremos mostrar cuando se navegue a la pantalla de buscar.</p>
 
     <p>Los componentes del la MainActivity que queremos mostrar ocultar, los podemos gestionar en el <em>callback</em> 
-        <w>onDestinationChanged()</w>. Este <em>callback</em> es ejecutado cada vez que se navega a un destino, y se 
-        pasa como parámetro el destino al cual se ha navegado. Aprovecharemos para mostrar/ocultar el <w>BottomNavigationView</w>
-        y el <w>SearchView</w> en las pantallas que deseamos: 
+        <w>onDestinationChanged()</w>. Este <em>callback</em> es llamado por el <w>navController</w> cada vez que se 
+        navega a un destino, y se pasa como parámetro el destino al cual se ha navegado. Aprovecharemos para 
+        mostrar/ocultar el <w>BottomNavigationView</w> y el <w>SearchView</w> en las pantallas que deseamos: 
     </p>
 
     <scfile>
@@ -780,6 +784,11 @@
         }
     </sc>
 
+    <info>
+        <p>La llamada a <w>setIconified(false)</w> hace que el SearchView se muestre expandido y se pueda introducir el texto.</p>
+        <p>La llamada a <w>requestFocusFromTouch()</w> hace que el foco se ponga sobre el SearchView y automáticamente se depliegue el teclado.</p>
+    </info>
+
     <p>Ahora ya tenemos implementada la navegación a las diferentes pantallas de al app. El siguiente paso es 
         implementar la funcionalidades "más valorados" y "búsqueda".
     </p>
@@ -799,12 +808,13 @@
             @Query(&quot;SELECT * FROM Elemento ORDER BY valoracion DESC&quot;)
             LiveData&lt;List&lt;Elemento&gt;&gt; masValorados();
     
-            @Query(&quot;SELECT * FROM Elemento WHERE nombre LIKE &#39;%&#39; || :d || &#39;%&#39;&quot;)
-            LiveData&lt;List&lt;Elemento&gt;&gt; buscar(String d);
+            @Query(&quot;SELECT * FROM Elemento WHERE nombre LIKE &#39;%&#39; || :t || &#39;%&#39;&quot;)
+            LiveData&lt;List&lt;Elemento&gt;&gt; buscar(String t);
         }
     </sc>
 
     <observe>
+
         <p>Para añadir un parámetro a una consulta, ha que poner el nombre del parámetro precedido de dos puntos <w>:</w> 
             (ver: <a href="https://developer.android.com/training/data-storage/room/accessing-data#query-params">query-params</a>).
         </p>
@@ -826,8 +836,8 @@
                 return elementosDao.masValorados();
             }
         
-            LiveData&lt;List&lt;Elemento&gt;&gt; buscar(String d) {
-                return elementosDao.buscar(d);
+            LiveData&lt;List&lt;Elemento&gt;&gt; buscar(String t) {
+                return elementosDao.buscar(t);
             }
         }
     </sc>
@@ -850,12 +860,12 @@
         }
     </sc>
 
-    <p>El método <w>busqueda()</w>, sin embargo, tiene que pasar como parámetro el termino de busqueda introducido en el 
+    <p>El método <w>busqueda()</w>, sin embargo, tiene que pasar como parámetro el término de búsqueda introducido en el 
     <w>SearchView</w> que hemos puesto en la <w>MainActivity</w>.</p>
 
     <p>Crearemos una variable <w>terminoBusqueda</w> que guardará el texto introducido en el <w>SearchView</w>. 
-    Crearemos esta variable como <w>MutableLiveData</w> y usaremos <w>Transformations</w> para observar los cambios 
-    en el término de busqueda y transformarlo en la consulta correspondiente. También añadiremos un método para 
+    Crearemos esta variable como <w>MutableLiveData</w> y usaremos <w>Transformations</w> para observar  el término de busqueda 
+    y transformarlo en la consulta correspondiente. También añadiremos un método para 
     establecer el <w>terminoBusqueda</w>.
     </p>
 
@@ -879,8 +889,8 @@
                 });
             }
         
-            void establecerTerminoBusqueda(String s){
-                terminoBusqueda.setValue(s);
+            void establecerTerminoBusqueda(String t){
+                terminoBusqueda.setValue(t);
             }
         }
     </sc>
@@ -915,30 +925,34 @@
     <p>Ya solo queda hacer que los fragments Valorados y Buscar, obtengan los datos correspondientes del ViewModel.</p>
 
     <p>Para ello, lo único que hay que cambiar respecto al <w>RecyclerElementosFragment</w> es la llamada al método 
-    <w>obtener()</w> del ViewModel, y sustiturirla por las llamadas a <w>másValorados()</w> y <w>buscar()</w>.</p>
+    <w>obtener()</w> del ViewModel, y sustiturirla por las llamadas a <w>masValorados()</w> y <w>buscar()</w>.</p>
 
     <p>Es esta llamada la que se debe anular/sobreescribir (@Override) en los fragments Valorados y Buscar.</p>
-    <p>Haremos un método en el <w>RecyclerElementosFragment</w> que realice esta llamada y que sobreescriban los otros dos 
-    fragments con sus llamadas correspondientes.</p>
+    <p>Haremos un método en el <w>RecyclerElementosFragment</w> que realice esta llamada, y de esta forma 
+        los fragments Valorados y Buscar podrán sobreescribirlo con sus llamadas correspondientes.</p>
 
+
+    <p>Sustituye la llamada a <w>elementosViewModel.obtener()</w>, por una llamada al método <w>obtenerElementos()</w> que 
+    retorne la llamada original a <w>elementosViewModel.obtener()</w>: </p>
     <scfile>
         RecyclerElementosFragment.java
     </scfile>
-    <sc java diff>
+    <sc java data-line="8,18-20">
         public class RecyclerElementosFragment extends Fragment {
-
             // ...
 
             @Override
             public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                // ...
 
--                elementosViewModel.obtener().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
-+                obtenerElementos().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
+                obtenerElementos().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
                     @Override
                     public void onChanged(List&lt;Elemento&gt; elementos) {
                         elementosAdapter.establecerLista(elementos);
                     }
                 });
+
+                // ...
             }
 
             LiveData&lt;List&lt;Elemento&gt;&gt; obtenerElementos(){
@@ -946,6 +960,9 @@
             }
         }
     </sc>
+
+    <p>Los fragments Buscar y Valorados, solo tienen que sobreescribir/anular la llamada a <w>obtenerElementos()</w>, y 
+    efectuar sus llamadas correspondientes:</p>
 
     <scfile>
         RecyclerBuscarFragment.java
@@ -970,4 +987,12 @@
             }
         }        
     </sc>
+</section>
+
+<section>
+    <h2>Práctica</h2>
+
+    <p>Modifica tu práctica anterior del RecyclerView para que almacene los datos en una base de datos.</p>
+
+    <p>Además de las pantallas master/detail, añade una pantalla para introducir elementos en la base de datos.</p>
 </section>
