@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<header>
+    <h1>Esquemes algorísmics</h1>
+</header>
+
+
+<section>
+    <h4>Repetir un nombre de vegades</h4>
+    <sc java>
+
+        int X = scanner.nextInt();
+        for (int i=0; i &lt; X; i++) {
+
+        }
+    </sc>
+
+    <h4>Repetir fins que es compleixi una condició</h4>
+    <sc java>
+        // repetir fins a trobar el valor "END" a l'entrada  
+
+        String paraula = scanner.next();
+
+        for (; !paraula.equals("END"); ) {   
+    
+            if(paraula <replace>###</replace>) {
+
+            }
+            
+            paraula = scanner.next();
+        }
+    </sc>
+
+    
+    <sc java>
+        // repetir fins a trobar el valor "END" a l'entrada  
+
+        for (String paraula = scanner.next(); !paraula.equals("END"); paraula = scanner.next()) {   
+    
+            if(paraula <replace>###</replace>) {
+
+            }
+            
+            paraula = scanner.next();
+        }
+    </sc>
+
+    <sc java>
+        // repetir fins a trobar el valor "END" a l'entrada  
+
+        String paraula = scanner.next();
+
+        while (!paraula.equals("END")) {   
+    
+            if(paraula <replace>###</replace>) {
+
+            }
+            
+            paraula = scanner.next();
+        }
+    </sc>
+
+    <h4>Iterar en un rang</h4>
+    <sc java>
+
+        // ascendent (de 10 a 23)
+        for (int i = 10; i &lt;= 23; i++) {
+            
+        }
+
+        // descendent (de 23 a 10)
+        for (int i = 23; i >= 10; i--) {
+            
+        }
+    </sc>
+
+    <h4>Comptador</h4>
+    <sc java>
+       
+
+        int comptador = 0;
+        for (<replace>###</replace>) {
+            if (<replace>###</replace>) {
+                comptador++; 
+            }
+        }
+        System.out.println(comptador);
+    </sc>
+
+    <h4>Bandera (FLAG)</h4>
+
+    <sc java>
+        boolean heTrobatElQueBuscava = false;
+
+        for (<replace>###</replace>) {
+            if (<replace>###</replace>) {
+                heTrobatElQueBuscava = true;
+            }
+        }
+
+        if (heTrobatElQueBuscava) {
+
+        }
+    </sc>
+
+    <h4>Maxim/Minim</h4>
+    <sc java>
+        int maxim = Integer.MIN_VALUE;
+
+        for (<replace>###</replace>) {
+
+            int valor = <replace>###</replace>;
+
+            if (valor &gt; maxim) {
+                maxim = valor;
+            }
+        }
+
+        System.out.println(maxim);
+    </sc>
+
+    <sc java>
+        int minim = Integer.MAX_VALUE;
+
+        for (<replace>###</replace>) {
+
+            int valor = <replace>###</replace>;
+
+            if (valor &lt; minim) {
+                minim = valor;
+            }
+        }
+
+        System.out.println(minim);
+    </sc>
+</section>
