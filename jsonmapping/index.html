@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav>
+<header>
+  <h1>Mapear JSON a Java</h1>
+</header>
+
+<section>
+    <p>El formato de datos <a href="https://www.json.org">JSON</a> se basa en dos estructuras:</p>
+    <ul>
+        <li><strong>Objetos</strong>: son una colección de pares clave/valor, y van entre llaves <w>{ }</w></p></li>
+        <li><strong>Arrays</strong>: son una lista de valores, y van entre corchetes <w>[ ]</w></li>
+    </ul>
+
+    <h3>Objetos</h3>
+    <p>Para mapear un objeto JSON a Java, se debe definir una clase que contenga los campos equivalentes
+    a las claves del objeto JSON, y el tipo de estos campos debe ser del mismo tipo que los valores del objeto JSON.</p>
+
+    <p>El nombre de la clase puede ser cualquiera (<strong>a veces es difícil pensar qué nombre poner</strong>), pero el nombre de los campos
+    debe coincidir con las claves del objeto JSON.</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 1em">
+        <sc json>
+            {
+                "nombre": "Juan",
+                "edad": 18,
+                "nota": 7.75,
+                "matriculado": true
+            }
+        </sc>
+        <sc java>
+            class Estudiante {
+                String nombre;
+                int edad;
+                float nota;
+                boolean matriculado;
+            }
+        </sc>
+    </div>
+
+    <p>También es posible que el valor de una clave JSON sea otro objeto. En este caso, se deberán crear una clase por cada tipo
+        de objeto:
+    </p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 1em">
+        <sc json>
+            {
+                "nombre": "Juan",
+                "ciclo" : {
+                    "titulo": "DAM",
+                    "curso": 2
+                }
+            }
+        </sc>
+        <sc java>
+            class Estudiante {
+                String nombre;
+                CicloFormativo ciclo;
+            }
+
+            class CicloFormativo {
+                String titulo;
+                int curso;
+            }
+        </sc>
+    </div>
+
+    <h3>Arrays</h3>
+    <p>Para mapear listas JSON a Java, se debe crear una <w>List</w> con el tipo adecuado a los elementos de la lista JSON:</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 1em">
+        <sc json>
+            [ "SMX", "DAM", "ASIX", "DAW" ]
+        </sc>
+        <sc java>
+            List&lt;String&gt;
+        </sc>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 1em">
+        <sc json>
+            [ 4, 13, 22, 35 ]
+        </sc>
+        <sc java>
+            List&lt;Integer&gt;
+        </sc>
+    </div>
+
+    <p>El valor de una clave de un objeto JSON, puede ser una lista:</p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 1em">
+        <sc json>
+            {
+                "notas": [ 6.5, 7.75, 4.1, 9.95 ]
+            }
+        </sc>
+        <sc java>
+            class Boletin {
+                List&lt;Integer&gt; notas;
+            }
+        </sc>
+    </div>
+
+    <p>Los elementos de una lista pueden ser objetos (<strong>todos tienen que ser de la misma clase</strong>):</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 1em">
+        <sc json>
+            {
+                "estudiantes": [ 
+                    { "nombre": "juan" }, 
+                    { "nombre": "luis" }, 
+                    { "nombre": "paco" } 
+                ]
+            }
+        </sc>
+        <sc java>
+            class Curso {
+                List&lt;Estudiante&gt; estudiantes;
+            }
+
+            class Estudiante {
+                String nombre;
+            }
+        </sc>
+    </div>
+</section>

@@ -1,409 +1,488 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
 
-<!doctype html>
+<nav></nav>
+<header>
+  <h1>Retrofit</h1>
+  <abstract>
+    <p><a href="https://square.github.io/retrofit/">Retrofit</a> es 
+        una librería para realizar peticiones a una API HTTP.</p>
 
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <meta name="theme-color" content="#4F7DC9">
-  <meta charset="UTF-8">
-  <title>Retrofit</title>
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
-  <style>
-    .success {
-      color: #1e8e3e;
-    }
-    .error {
-      color: red;
-    }
-  </style>
-</head>
-<body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-  <google-codelab codelab-gaid=""
-                  id="retrofit"
-                  title="Retrofit"
-                  environment="web"
-                  feedback-link="/dam-m8">
-    
-      <google-codelab-step label="Retrofit" duration="0">
-        <p>El objetivo de esta práctica es aprender a usar las librerías <a href="https://square.github.io/retrofit/" target="_blank">Retrofit</a> y <a href="https://github.com/bumptech/glide" target="_blank">Glide</a>.</p>
-<p>La librería <sc>Retrofit</sc> permite acceder a API REST.</p>
-<p>La librería <sc>Glide</sc> permite cargar imágenes.</p>
-<p>Desarrollaremos una App que buscará un término en la <a href="https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/" target="_blank">API de iTunes</a> y mostrará el contenido encontrado.</p>
-<h3 is-upgraded><a href="https://github.com/gerardfp/retrofit" target="_blank">https://github.com/gerardfp/retrofit</a></h3>
-<p class="image-container"><img style="width: 242.00px" src="img/49a3a62fe8cbfd03.gif"></p>
+    <p>Desarrollaremos una app que buscará un término en la 
+        <a href="https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/">API de iTunes</a> 
+        y mostrará el contenido encontrado.</p>
 
+    <img src="img/recyclerview.gif"/>
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Crea el proyecto" duration="0">
-        <h2 is-upgraded>Dependencias</h2>
-<p>Añade las librerías <sc>Retrofit</sc> y <sc>Glide</sc> en las dependencias <sc>build.gradle (Module: app)</sc>:</p>
-<pre><sc>implementation &#39;com.squareup.retrofit2:retrofit:2.6.2&#39;
-implementation &#39;com.squareup.retrofit2:converter-gson:2.6.2&#39;
+    <a href="https://github.com/gerardfp/recyclerview">https://github.com/gerardfp/recyclerview</a>
+  </abstract>
+</header>
 
+<section>
+    <h2>Crea el proyecto</h2>
 
-implementation &#39;com.github.bumptech.glide:glide:4.10.0&#39;
-annotationProcessor &#39;com.github.bumptech.glide:compiler:4.10.0&#39;</sc></pre>
+    <ul>
+        <li>
+            <p>Añade las dependencias para las librerías Retrofit y Glide:</p>
+            <scfile>
+                build.gradle (Module: app)
+            </scfile>
+            <sc groovy data-line="4-5,7-8">
 
+                dependencies {
+                    // ...
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="API Model" duration="0">
-        <p>La respuesta de la llamada a la API <a href="http://api.themoviedb.org/3/discover/movie?api_key=YOUR_API_KEY" target="_blank"><sc>http://itunes.apple.com/search?term=beatles</sc></a> es similar a la siguiente:</p>
-<p>*Únicamente tenemos que tener en cuenta los datos <strong>de interés</strong> para nuestra app</p>
-<pre><sc>{
-    &#34;results&#34;: [
-        {
-            &#34;artistName&#34;: &#34;The Beatles&#34;,
-            &#34;trackName&#34;: &#34;Let It Be&#34;,
-            &#34;artworkUrl100&#34;: &#34;https://mzstatic.com/image/39b2caf.jpg&#34;,
-        },
-        {
-            &#34;artistName&#34;: &#34;The Beatles&#34;,
-            &#34;trackName&#34;: &#34;Here Comes the Sun&#34;,
-            &#34;artworkUrl100&#34;: &#34;https://mzstatic.com/image/6edbf5a8.jpg&#34;,
-        },
-    ]
-}</sc></pre>
-<p>La respuesta es un objeto que contiene las siguientes variables:</p>
-<ul>
-<li><sc>results</sc> de tipo <sc>ArrayList</sc></li>
-</ul>
-<p>Cada elemento del ArrayList <sc>results</sc> es un objeto que contiene la siguientes variables:</p>
-<ul>
-<li><sc>artistName</sc> de tipo <sc>String</sc></li>
-<li><sc>trackName</sc> de tipo <sc>String</sc></li>
-<li><sc>artworkUrl100</sc> de tipo <sc>String</sc></li>
-</ul>
-<p>Así pues podemos modelar estos objetos con las siguientes clases:</p>
-<pre><sc>public class ItunesResponse {
-   public List&lt;Content&gt; results;
-}</sc></pre>
-<pre><sc>public class Content {
-   public String artistName;
-   public String trackName;
-   public String artworkUrl100;
-}</sc></pre>
-<aside class="special"><p>Para organizar el código, crea estas dos clases dentro de un package llamado <sc>model</sc>.</p>
-<p class="image-container"><img style="width: 167.00px" src="img/82fd9369871026f7.png"></p>
-</aside>
-<p>A la hora de modelar un JSON, la regla a seguir es:</p>
-<p>Por cada  <sc>{</sc>  se ha de crear una clase, y por cada  <sc>[</sc>  un ArrayList:</p>
-<p class="image-container"><img style="width: 736.40px" src="img/9d00021dea43e552.png"></p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="API Calls" duration="0">
-        <p>Definimos las llamadas a la API en un Interface</p>
-<pre><sc>import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
-
-public interface ItunesApi {
-   @GET(&#34;search/&#34;)
-   Call&lt;ItunesResponse&gt; buscar(@Query(&#34;term&#34;) String term);
-}</sc></pre>
-<aside class="special"><p>Para organizar el código, crea esta clase dentro de un package llamado <sc>api</sc>.</p>
-</aside>
-<p>Retrofit transformará cada llamada al método <sc>buscar()</sc> en una llamada a la API.</p>
-<p>Con la anotación <sc>@GET</sc> indicamos la URL a la que se debe acceder. En este caso, la anotación <sc>@GET(&#34;search/&#34;)</sc> se transforma en la URL <a href="https://itunes.apple.com/search/" target="_blank"><sc>https://itunes.apple.com/</sc><strong><sc>search/</sc></strong></a></p>
-<p>La anotación <sc>@Query</sc> sirve para añadir parámetros a la URL. En este caso la anotación <sc>@Query(&#34;term&#34;)</sc> añadirá a la URL el parámetro <sc>?term=</sc>. El valor de este parámetro será el que le pasemos a la llamada a <sc>buscar()</sc>.</p>
-<p>Por ejemplo, si efectuamos la llamada <sc>buscar(&#34;beatles&#34;)</sc> se añadirá a la URL el parámetro <sc>?term=beatles</sc>, con lo cual la llamada quedará así <a href="https://itunes.apple.com/search/?term=beatles" target="_blank"><sc>https://itunes.apple.com/search/</sc><strong><sc>?term=beatles</sc></strong></a></p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Api Module" duration="0">
-        <p>La siguiente clase ItunesApiModule es la que genera la implementación del interfaz ItunesApi que hemos definido anteriormente.</p>
-<ul>
-<li>Se especifica la URL Base <a href="https://itunes.apple.com/" target="_blank"><strong><sc>https://itunes.apple.com/</sc></strong></a></li>
-<li>Se añade el conversor Gson, que será el encargado de parsear el JSON que devulve iTunes y convertirlo en objetos de las clases que hemos definido (<sc>ItunesResponse</sc> y <sc>Content</sc>)</li>
-</ul>
-<pre><sc>import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-public class ItunesApiModule {
-   public static ItunesApi itunesApi = new Retrofit.Builder()
-           .baseUrl(&#34;https://itunes.apple.com/&#34;)
-           .addConverterFactory(GsonConverterFactory.create())
-           .build()
-           .create(ItunesApi.class);
-}</sc></pre>
-<aside class="special"><p>Crea esta clase dentro del package <sc>api</sc>.</p>
-</aside>
-<p>El objeto <sc>itunesApi</sc> contiene la implementación de todos los métodos que hayamos definido en la clase <sc>ItunesApi</sc>.</p>
-<h2 is-upgraded>Opcional</h2>
-<p>Con el fin de <em>debuggear</em> la app, y ver en el Logcat las llamadas que se realicen a la API, podemos añadir un <sc>Interceptor</sc>. Su función será interceptar cada llamada que se realice y <em>loggearla</em> en el Logcat:</p>
-<pre><sc>import android.util.Log;
-import java.io.IOException;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-public class ItunesApiModule {
-   public static ItunesApi itunesApi = new Retrofit.Builder()
-           .baseUrl(&#34;https://itunes.apple.com/&#34;)
-           .client(new OkHttpClient.Builder()
-                   .addInterceptor(new Interceptor() {
-                       @Override
-                       public Response intercept(Chain chain) throws IOException {
-                           Request request = chain.request();
-
-                           long t1 = System.nanoTime();
-                           Log.e(&#34;INTERCEPTOR&#34;, String.format(&#34;Sending request %s on %s%n%s&#34;,
-                                   request.url(), chain.connection(), request.headers()));
-
-                           okhttp3.Response response = chain.proceed(request);
-
-                           long t2 = System.nanoTime();
-                           Log.e(&#34;INTERCEPTOR---&#34;, String.format(&#34;Received response for %s in %.1fms%n%s&#34;,
-                                   response.request().url(), (t2 - t1) / 1e6d, response.headers()));
-
-                           return response;
-                       }
-                   })
-                   .build()
-           )
-           .addConverterFactory(GsonConverterFactory.create())
-           .build()
-           .create(ItunesApi.class);
-}</sc></pre>
-<p>Con este Interceptor, cada vez que nuestra app realice una llamada a la API, se mostrará en el Logcat:</p>
-<p class="image-container"><img style="width: 736.40px" src="img/7c7115559e0425d5.png"></p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="ViewModel" duration="0">
-        <p class="image-container"><img style="width: 661.00px" src="img/3cc96e17b368b6bb.png"></p>
-<pre><sc>import android.app.Application;
-import androidx.annotation.NonNull;
-import androidx.arch.core.util.Function;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class MainViewModel extends AndroidViewModel {
-
-    MutableLiveData&lt;String&gt; terminoBusqueda = new MutableLiveData&lt;&gt;();
-
-    public LiveData&lt;RespuestaItunes&gt; respuestaItunesLiveData = Transformations.switchMap(terminoBusqueda, new Function&lt;String, LiveData&lt;RespuestaItunes&gt;&gt;() {
-        @Override
-        public LiveData&lt;RespuestaItunes&gt; apply(String termino) {
-            final MutableLiveData&lt;RespuestaItunes&gt; respuestaItunesMutableLiveData = new MutableLiveData&lt;&gt;();
-
-            ItunesApiModule.itunesApi.buscar(termino).enqueue(new Callback&lt;RespuestaItunes&gt;() {
-                @Override
-                public void onResponse(Call&lt;RespuestaItunes&gt; call, Response&lt;RespuestaItunes&gt; response) {
-                    respuestaItunesMutableLiveData.postValue(response.body());
-                }
-
-                @Override
-                public void onFailure(Call&lt;RespuestaItunes&gt; call, Throwable t) {}
-            });
-
-            return respuestaItunesMutableLiveData;
-        }
-    });
-
-    public MainViewModel(@NonNull Application application) {
-        super(application);
-    }
-
-    public void establecerTerminoBusqueda(String termino){
-        terminoBusqueda.setValue(termino);
-    }
-}</sc></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="MainFragment" duration="0">
-        <p><sc>fragment_main.xml</sc></p>
-<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;FrameLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
-   android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;match_parent&#34;
-   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
-   tools:context=&#34;.view.MainFragment&#34;&gt;
-
-   &lt;LinearLayout
-       android:layout_width=&#34;match_parent&#34;
-       android:layout_height=&#34;match_parent&#34;
-       android:layout_marginLeft=&#34;16dp&#34;
-       android:layout_marginRight=&#34;16dp&#34;
-       android:orientation=&#34;vertical&#34;&gt;
-
-       &lt;SearchView
-           android:id=&#34;@+id/searchview_termino&#34;
-           android:layout_width=&#34;match_parent&#34;
-           android:layout_height=&#34;wrap_content&#34; /&gt;
-
-       &lt;androidx.recyclerview.widget.RecyclerView
-           android:id=&#34;@+id/recyclerview_contenidos&#34;
-           android:layout_width=&#34;match_parent&#34;
-           android:layout_height=&#34;wrap_content&#34;
-           app:layoutManager=&#34;androidx.recyclerview.widget.GridLayoutManager&#34;
-           app:spanCount=&#34;2&#34;/&gt;
-
-   &lt;/LinearLayout&gt;
-
-&lt;/FrameLayout&gt;</sc></pre>
-<p><sc>viewholder_contenido.xml</sc></p>
-<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
-&lt;LinearLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
-   android:orientation=&#34;vertical&#34;
-   android:layout_width=&#34;match_parent&#34;
-   android:layout_height=&#34;wrap_content&#34;
-   android:layout_marginBottom=&#34;16dp&#34;&gt;
-
-   &lt;TextView
-       android:id=&#34;@+id/textview_artist&#34;
-       android:layout_width=&#34;match_parent&#34;
-       android:layout_height=&#34;wrap_content&#34;
-       android:textSize=&#34;16sp&#34;/&gt;
-   &lt;TextView
-       android:id=&#34;@+id/textview_title&#34;
-       android:layout_width=&#34;match_parent&#34;
-       android:layout_height=&#34;wrap_content&#34;
-       android:textSize=&#34;20sp&#34;
-       android:textStyle=&#34;bold&#34;/&gt;
-   &lt;ImageView
-       android:id=&#34;@+id/textview_artwork&#34;
-       android:layout_width=&#34;wrap_content&#34;
-       android:layout_height=&#34;wrap_content&#34;
-       android:adjustViewBounds=&#34;true&#34;/&gt;
-
-&lt;/LinearLayout&gt;</sc></pre>
-<p><sc>MainFragment.java</sc></p>
-<pre><sc>import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.SearchView;
-import android.widget.TextView;
-import com.bumptech.glide.Glide;
-import java.util.List;
-
-public class MainFragment extends Fragment {
-
-   ContenidosAdapter contenidosAdapter;
-   MainViewModel mainViewModel;
-
-   public MainFragment() { }
-
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-       return inflater.inflate(R.layout.fragment_main, container, false);
-   }
-
-   @Override
-   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-       super.onViewCreated(view, savedInstanceState);
-
-       mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-
-       RecyclerView recyclerView = view.findViewById(R.id.recyclerview_contenidos);
-
-       contenidosAdapter = new ContenidosAdapter();
-       recyclerView.setAdapter(contenidosAdapter);
-
-       SearchView searchView = view.findViewById(R.id.searchview_termino);
-       searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-           @Override
-           public boolean onQueryTextSubmit(String s) { return false; }
-
-           @Override
-           public boolean onQueryTextChange(String s) {
-               mainViewModel.establecerTerminoBusqueda(s);
-               return false;
-           }
-       });
-
-       mainViewModel.respuestaItunesLiveData.observe(getViewLifecycleOwner(), new Observer&lt;RespuestaItunes&gt;() {
-           @Override
-           public void onChanged(RespuestaItunes respuestaItunes) {
-               contenidosAdapter.establecerListaContenido(respuestaItunes.results); // if != null
-           }
-       });
-   }
-
-   class ContenidosAdapter extends RecyclerView.Adapter&lt;ContenidosAdapter.ContenidoViewHolder&gt;{
-
-       List&lt;Contenido&gt; contenidoList;
-
-       @NonNull
-       @Override
-       public ContenidoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-           return new ContenidoViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_contenido, parent, false));
-       }
-
-       @Override
-       public void onBindViewHolder(@NonNull ContenidoViewHolder holder, int position) {
-           Contenido contenido = contenidoList.get(position);
-
-           holder.titleTextView.setText(contenido.trackName);
-           holder.artistTextView.setText(contenido.artistName);
-           Glide.with(requireActivity()).load(contenido.artworkUrl100).into(holder.artworkImageView);
-       }
-
-       @Override
-       public int getItemCount() {
-           return contenidoList == null ? 0 : contenidoList.size();
-       }
-
-       void establecerListaContenido(List&lt;Contenido&gt; list){
-           contenidoList = list;
-           notifyDataSetChanged();
-       }
-
-       class ContenidoViewHolder extends RecyclerView.ViewHolder {
-           TextView titleTextView, artistTextView;
-           ImageView artworkImageView;
-
-           public ContenidoViewHolder(@NonNull View itemView) {
-               super(itemView);
-               titleTextView = itemView.findViewById(R.id.textview_title);
-               artistTextView = itemView.findViewById(R.id.textview_artist);
-               artworkImageView = itemView.findViewById(R.id.textview_artwork);
-           }
-       }
-   }
-}</sc></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Práctica" duration="0">
+                    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+                    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
         
+                    implementation 'com.github.bumptech.glide:glide:4.11.0'
+                    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+                }
+            </sc>        
+        </li>
 
-      </google-codelab-step>
+        <li>
+            <p>Configura el ViewBinding</p>
+
+            <scfile>
+                build.gradle (Module: app)
+            </scfile>
+            <sc groovy data-line="4-6">
+                android {
+                    //...
+
+                    buildFeatures {
+                        viewBinding true
+                    }
+                }
+            </sc>
+        </li>
     
-  </google-codelab>
+        <li>
+            <p>Concede permiso de acceso a internet a la App:</p>
+            <scfile>
+                AndroidManifest.xml
+            </scfile>
+            <sc xml data-line="3">
+                &lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; ...&gt;
 
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+                    &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;
 
-</body>
-</html>
+                    // ...
+                &lt;/manifest&gt;
+                </sc>
+            </sc>
+
+        </li>
+        <li>
+            <p>Crea el grafo de navegación <file>nav_graph.xml</file></p>
+        </li>
+        <li>
+            <p>Añade el NavHostFragment en el layout de la MainActivity</p>
+
+            <scfile>
+                activity_main.xml
+            </scfile>
+            <sc xml>
+                &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+                &lt;androidx.constraintlayout.widget.ConstraintLayout
+                    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+                    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+                    android:layout_width=&quot;match_parent&quot;
+                    android:layout_height=&quot;match_parent&quot;&gt;
+
+                    &lt;androidx.fragment.app.FragmentContainerView
+                        android:id=&quot;@+id/fragment&quot;
+                        android:name=&quot;androidx.navigation.fragment.NavHostFragment&quot;
+                        android:layout_width=&quot;match_parent&quot;
+                        android:layout_height=&quot;match_parent&quot;
+                        app:defaultNavHost=&quot;true&quot;
+                        app:navGraph=&quot;@navigation/nav_graph&quot; /&gt;
+
+                &lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+            </sc>
+        </li>
+        <li>
+            <p>Crea un nuevo destino en el grafo de navegación llamado <w>ItunesFragment</w></p>
+            <p>Configura el ViewBinding:</p>
+            <scfile>
+                ItunesFragment.java
+            </scfile>
+            <sc java>
+                public class ItunesFragment extends Fragment {
+                    private FragmentItunesBinding binding;
+                
+                    @Override
+                    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                                             Bundle savedInstanceState) {
+                        return (binding = FragmentItunesBinding.inflate(inflater, container, false)).getRoot();
+                    }
+                
+                    @Override
+                    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                        super.onViewCreated(view, savedInstanceState);
+                        
+                    }
+                }
+            </sc>
+        </li>
+    </ul>
+
+</section>
+
+<section>
+    <h2>Itunes Api</h2>
+    <p>Utilizaremos la librería <strong>retrofit</strong> para realizar llamadas a la api de Itunes y obtener los datos.
+    La librería GSON, realizará el mapeo entre datos JSON y objetos Java.</p>
+
+    <p>Para utilizar retrofit hay que se necesitan 3 cosas:</p>
+    <ul>
+        <li>Las clases para mapear el JSON</li>
+        <li>Un interfaz que defina las llamadas HTTP</li>
+        <li>Una variable en la que retrofit implementará el interfaz</li>
+    </ul>
+
+    <p>Crearemos estos 3 componentes en el mismo fichero (aunque se podría hacer en ficheros distintos). Crearemos la clase <w>Itunes.java</w>
+    y pondremos estos 3 componentes como elementos <w>static</w> de esta clase:</p>
+
+    <p>Crea el fichero <w>Itunes.java</w>:</p>
+
+    <scfile>
+        Itunes.java
+    </scfile>
+    <sc java>
+        public class Itunes {
+
+        }
+    </sc>
+
+    <h3>Clases para el mapeo</h3>
+
+    <p>La respuesta de la llamada a la API <a href="http://itunes.apple.com/search?term=beatles">http://itunes.apple.com/search?term=beatles</a> es similar a la siguiente:</p>
+    <sc json>
+        {
+            "results": [
+                {
+                    "artistName": "The Beatles",
+                    "trackName": "Let It Be",
+                    "artworkUrl100": "https://mzstatic.com/image/39b2caf.jpg"
+                },
+                {
+                    "artistName": "The Beatles",
+                    "trackName": "Here Comes the Sun",
+                    "artworkUrl100": "https://mzstatic.com/image/6edbf5a8.jpg"
+                }
+            ]
+        }
+    </sc>
+
+    <warn>
+        <p>Solamente se deben tener en cuenta los datos que sean de interés para la app</p>
+    </warn>
+
+    <p>Se necesitarán estas dos clases para mapear la respuesta en objetos Java:</p>
+
+    <scfile>
+        Itunes.java
+    </scfile>
+    <sc java data-line="2-10">
+        class Itunes {
+            class Respuesta {
+                List&lt;Contenido&gt; results;
+            }
+
+            class Contenido {
+                String artistName;
+                String trackName;
+                String artworkUrl100;
+            }
+        }
+    </sc>
+
+    <h3>Api interface</h3>
+
+    <p>El siguiente paso es crear un interfaz que defina las llamadas a la API REST.</p>
+
+    <p>Definimos un método mediante el cual haremos la llamada, y especificamos la ruta de la URL a la que se debe hacer 
+        la petición:
+    </p>
+    <scfile>
+        Itunes.java
+    </scfile>
+    <sc java data-line="4-13">
+        class Itunes {
+            //...
+
+            public static Api api = new Retrofit.Builder()
+                    .baseUrl("https://itunes.apple.com/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                    .create(Api.class);
+            
+            public interface Api {
+                @GET("search/?term=beatles")
+                Call&lt;Respuesta&gt; buscarBeatles();
+            }
+        }
+    </sc>
+
+    <p>Retrofit implementará automáticamente los métodos del objeto <w>api</w> a partir de los métodos definidos en 
+        el <w>interface Api</w>.</p>
+
+    <p>Cuando se llame <w>buscarBeatles()</w> se hará la petición a <url>https://itunes.apple.com/<replace>search/?term=beatles</replace></url>.
+    
+    <p>La respuesta a la llamada <w>buscarBeatles()</w> será un objeto de clase <w>Respuesta</w> rellenado con los datos obtenidos del JSON que haya 
+    devuelto la petición.</p>
+</section>
+
+<section>
+    <h2>ViewModel</h2>
+
+    <p>En el ViewModel añadiremos un método <w>buscarBeatles()</w> que a su vez haga la llamada a <w>buscarBeatles()</w> de la API. La respuesta de la llamada la 
+    guardaremos en un <w>MutableLiveData</w> que será observado por la Vista.</p>
+
+    <p>La llamada a la API se debe hacer en segundo plano, para no bloquear el Thread Principal. Retrofit gestiona estas llamadas 
+        en segundo plano llamando al método <w>enqueue()</w> y pasándole el <w>Callback</w> para que nos devuelva la respuesta 
+        (o el error). Para obtener los datos "en sí" de la respuesta hay que acceder a través del método <w>body()</w>.
+    </p>
+
+    <p>El ViewModel quedará así:</p>
+    <scfile>
+        ItunesViewModel.java
+    </scfile>
+    <sc java>
+        public class ItunesViewModel extends AndroidViewModel {
+
+            MutableLiveData&lt;Itunes.Respuesta&gt; respuestaMutableLiveData = new MutableLiveData&lt;&gt;();
+        
+            public ItunesViewModel(@NonNull Application application) {
+                super(application);
+            }
+        
+            public void buscarBeatles(){
+                Itunes.api.buscarBeatles().enqueue(new Callback&lt;Itunes.Respuesta&gt;() {
+                    @Override
+                    public void onResponse(@NonNull Call&lt;Itunes.Respuesta&gt; call, @NonNull Response&lt;Itunes.Respuesta&gt; response) {
+                        respuestaMutableLiveData.postValue(response.body());
+                    }
+        
+                    @Override
+                    public void onFailure(@NonNull Call&lt;Itunes.Respuesta&gt; call, @NonNull Throwable t) {}
+                });
+            }
+        }
+    </sc>
+
+    <info>
+        <p>El callback <w>onFailure</w> se invocará cuando haya un error de red o cuando no se pueda procesar la respuesta. 
+        En esta app no gestionaremos el error, pero estaría bien, al menos, que se notificara al usuario.</p>
+    </info>
+</section>
+
+<section>
+    <h2>ItunesFragment</h2>
+
+    <p>El <w>ItunesFragment</w> debe dar la orden al ViewModel de que haga la petición a la API. También observará la variable 
+        <w>respuestaMutableLiveData</w>, para mostrar los resultados en un <w>RecyclerView</w>.</p>
+
+    <p>Primero veremos como obtener la Respuesta de la API, y la mostraremos en el <w>Log</w>, y después implementaremos 
+    el RecyclerView.</p>
+
+    <scfile>
+        ItunesFragment.java
+    </scfile>
+    <sc java>
+        @Override
+        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+            // ...
+
+            ItunesViewModel itunesViewModel = new ViewModelProvider(this).get(ItunesViewModel.class);
+
+            itunesViewModel.buscarBeatles();
+
+            itunesViewModel.respuestaMutableLiveData.observe(getViewLifecycleOwner(), new Observer&lt;Itunes.Respuesta&gt;() {
+                @Override
+                public void onChanged(Itunes.Respuesta respuesta) {
+                    respuesta.results.forEach(contenido -&gt; Log.e(&quot;ABCD&quot;, contenido.artistName + &quot;, &quot; + contenido.trackName + &quot;, &quot; + contenido.artworkUrl100));
+                }
+            });
+        }
+    </sc>
+
+    <p>Si ejecutamos la app, en el Logcat podremos ver cada <w>Contenido</w> del array <w>results</w> de la respuesta:</p>
+    <shell>
+        E/ABCD: The Beatles, Here Comes the Sun, https://mzstatic.com/image/6edbf5a8.jpg
+        E/ABCD: The Beatles, Let It Be, https://mzstatic.com/image/a81e35cd.jpg
+        E/ABCD: The Beatles, Come Together, https://mzstatic.com/image/96ae4cf.jpg
+        E/ABCD: The Beatles, Hey Jude, https://mzstatic.com/image/fe9cb34a.jpg
+    </shell>
+
+    <h3>RecyclerView</h3>
+
+    <p>El siguiente paso es mostrar el array <w>result</w> (<w>List&lt;Contenido&gt; result;</w>) en un RecyclerView.</p>
+
+    <ul>
+        <li>
+            <p>Añadiremos el <w>&lt;RecyclerView&gt;</w> al layout:</p>
+            <scfile>
+                fragment_itunes.xml
+            </scfile>
+            <sc xml>
+                &lt;androidx.recyclerview.widget.RecyclerView
+                    android:id=&quot;@+id/recyclerview_contenidos&quot;
+                    android:layout_width=&quot;match_parent&quot;
+                    android:layout_height=&quot;wrap_content&quot;
+                    app:layoutManager=&quot;androidx.recyclerview.widget.GridLayoutManager&quot;
+                    app:spanCount=&quot;2&quot;/&gt;
+            </sc>
+
+            <p>Hemos usado el GridLayoutManager para mostrar los elementos en rejilla. En el atributo <w>spanCount</w> hemos 
+            especificado <w>2</w> columnas para la rejilla.</p>
+        </li>
+        <li>
+            <p>Creamos el ViewHolder:</p>
+            <ul>
+                <li><p>Layout:</p>
+                    <scfile>
+                        res/layout/viewholder_contenido.xml
+                    </scfile>
+                    <sc xml>
+                        &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+                        &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+                            android:layout_width=&quot;match_parent&quot;
+                            android:layout_height=&quot;wrap_content&quot;
+                            android:orientation=&quot;vertical&quot;&gt;
+                            &lt;TextView
+                                android:id=&quot;@+id/artist&quot;
+                                android:layout_width=&quot;match_parent&quot;
+                                android:layout_height=&quot;wrap_content&quot; /&gt;
+                            &lt;TextView
+                                android:id=&quot;@+id/title&quot;
+                                android:layout_width=&quot;match_parent&quot;
+                                android:layout_height=&quot;wrap_content&quot; /&gt;
+                            &lt;ImageView
+                                android:id=&quot;@+id/artwork&quot;
+                                android:layout_width=&quot;wrap_content&quot;
+                                android:layout_height=&quot;wrap_content&quot;
+                                android:adjustViewBounds=&quot;true&quot;/&gt;
+                        &lt;/LinearLayout&gt;
+                    </sc>
+                </li>
+                <li>
+                    <p>Clase:</p>
+                    <scfile>
+                        ItunesFragment.java
+                    </scfile>
+                    <sc java data-line="4-11">
+                        public class ItunesFragment extends Fragment {
+                            // ...
+
+                            static class ContenidoViewHolder extends RecyclerView.ViewHolder {
+                                ViewholderContenidoBinding binding;
+                        
+                                public ContenidoViewHolder(@NonNull ViewholderContenidoBinding binding) {
+                                    super(binding.getRoot());
+                                    this.binding = binding;
+                                }
+                            }
+                        }
+                    </sc>
+                </li>
+            </ul>
+        </li>
+        <li><p>Creamos el Adaptador:</p>
+
+            <scfile>
+                ItunesFragment.java
+            </scfile>
+            <sc java data-line="4-31">
+                public class ItunesFragment extends Fragment {
+                    //...
+
+                    class ContenidosAdapter extends RecyclerView.Adapter&lt;ContenidoViewHolder&gt;{
+                        List&lt;Itunes.Contenido&gt; contenidoList;
+                
+                        @NonNull
+                        @Override
+                        public ContenidoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                            return new ContenidoViewHolder(ViewholderContenidoBinding.inflate(getLayoutInflater(), parent, false));
+                        }
+                
+                        @Override
+                        public void onBindViewHolder(@NonNull ContenidoViewHolder holder, int position) {
+                            Itunes.Contenido contenido = contenidoList.get(position);
+                
+                            holder.binding.title.setText(contenido.trackName);
+                            holder.binding.artist.setText(contenido.artistName);
+                            Glide.with(requireActivity()).load(contenido.artworkUrl100).into(holder.binding.artwork);
+                        }
+                
+                        @Override
+                        public int getItemCount() {
+                            return contenidoList == null ? 0 : contenidoList.size();
+                        }
+                
+                        void establecerListaContenido(List&lt;Itunes.Contenido&gt; contenidoList){
+                            this.contenidoList = contenidoList;
+                            notifyDataSetChanged();
+                        }
+                    }
+                }
+            </sc>
+
+        </li>
+        <li>
+            <p>Establecemos el Adaptador al RecyclerView:</p>
+            <scfile>
+                ItunesFragment.java
+            </scfile>
+            <sc java data-line="5,6">
+                @Override
+                public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                    //...
+
+                    ContenidosAdapter contenidosAdapter = new ContenidosAdapter();
+                    binding.recyclerviewContenidos.setAdapter(contenidosAdapter);
+                }
+            </sc>
+        </li>
+
+        <li>
+            <p>Actualizamos la lista del Adaptador cuando obtengamos la respuesta de la API:</p>
+            <scfile>
+                ItunesFragment.java
+            </scfile>
+            <sc java data-line="5-11">
+                @Override
+                public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+                    //...
+
+                    itunesViewModel.respuestaMutableLiveData.observe(getViewLifecycleOwner(), new Observer&lt;Itunes.Respuesta&gt;() {
+                        @Override
+                        public void onChanged(Itunes.Respuesta respuesta) {
+                            contenidosAdapter.establecerListaContenido(respuesta.results);
+                            // respuesta.results.forEach(r -&gt; Log.e(&quot;ABCD&quot;, r.artistName + &quot;, &quot; + r.trackName + &quot;, &quot; + r.artworkUrl100));
+                        }
+                    });
+                }
+            </sc>
+        </li>
+    </ul>
+
+    <p><strong>Si ejecutas la app, debería verse la lista de contenidos de los Beatles.</strong></p>
+
+</section>
+
+<section>
+    <h2>Búsqueda</h2>
+
+    // IN PROGRESS...
+    <p></p>
+    
+el parámetro <w>texto</w> que se pase al metodo <w>buscar()</w> se añadirá a la query de la URL con el nombre <w>term</w>. 
+Por ejemplo: si se llama al método <w>buscar("beatles")</w> se efectuará la siguiente petición: <url>https://itunes.apple.com/<replace>search/?term=beatles</replace></url> </p>
+
+</section>

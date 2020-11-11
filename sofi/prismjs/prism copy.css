@@ -1,5 +1,5 @@
-/* PrismJS 1.22.0
-https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+clike+javascript+bash+c+csharp+cpp+css-extras+dart+diff+firestore-security-rules+gdscript+git+groovy+java+json+kotlin+markup-templating+php+plsql+python+sql&plugins=line-highlight+line-numbers+autolinker+remove-initial-line-feed+inline-color+previewers+keep-markup+command-line+normalize-whitespace+data-uri-highlight+toolbar+copy-to-clipboard+match-braces+diff-highlight+filter-highlight-all+treeview */
+/* PrismJS 1.21.0
+https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+clike+javascript+bash+c+csharp+cpp+css-extras+dart+diff+firestore-security-rules+gdscript+java+javadoc+javadoclike+json+kotlin+markup-templating+php+python+jsx+sql&plugins=line-highlight+line-numbers+autolinker+wpd+file-highlight+jsonp-highlight+inline-color+previewers+keep-markup+command-line+normalize-whitespace+data-uri-highlight+toolbar+copy-to-clipboard+download-button+match-braces+diff-highlight+filter-highlight-all+treeview */
 /**
  * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
  * Based on https://github.com/chriskempson/tomorrow-theme
@@ -226,6 +226,17 @@ pre[class*="language-"].line-numbers > code {
 
 .token a {
 	color: inherit;
+}
+code[class*="language-"] a[href],
+pre[class*="language-"] a[href] {
+	cursor: help;
+	text-decoration: none;
+}
+
+code[class*="language-"] a[href]:hover,
+pre[class*="language-"] a[href]:hover {
+	cursor: help;
+	text-decoration: underline;
 }
 span.inline-color-wrapper {
 	/*

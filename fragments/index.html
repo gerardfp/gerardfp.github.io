@@ -71,12 +71,12 @@
             <scfile>
                 build.gradle (Module: app)
             </scfile>
-            <sc>
+            <sc groovy data-line="4-5">
                 dependencies {
-                    def nav_version = &#34;2.3.0&#34;
-        
-                    implementation &#34;androidx.navigation:navigation-fragment:$nav_version&#34;
-                    implementation &#34;androidx.navigation:navigation-ui:$nav_version&#34;
+                    //...
+
+                    implementation &#34;androidx.navigation:navigation-fragment:2.3.0
+                    implementation &#34;androidx.navigation:navigation-ui:2.3.0
                 }
             </sc>
 
@@ -790,13 +790,18 @@
             nav_graph.xml
         </a>
     </scfile>
-    <sc xml data-line="3-6">
+    <sc xml data-line="6-9">
+        ...
+
         &lt;action
             ...
+           
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" /&gt;
+        
+        ...
     </sc>
 
     <optional>

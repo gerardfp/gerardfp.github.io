@@ -534,15 +534,15 @@
 
   <scfile>
     <a href="https://github.com/gerardfp/ContadorDeClics/blob/master/app/build.gradle">
-      app/build.gradle
+      build.gradle (Module: app)
     </a>
   </scfile>
-  <sc none data-line="3-5">
+  <sc groovy data-line="3-5">
     android {
-      . . .
-      buildFeatures {
-        viewBinding = true
-      }
+        //...
+        buildFeatures {
+            viewBinding true
+        }
     }
   </sc>
 
@@ -550,6 +550,9 @@
   a los elementos XML. También hay que modificar la llamada a <w>setContentView()</w>, 
   de la siguiente manera:</p>
   
+  <scfile>
+    MainActivity.java
+  </scfile>
   <sc java data-line="3,8,10">
     public class MainActivity extends AppCompatActivity {
 
@@ -588,6 +591,9 @@
   En el método <w>onClick()</w> de este objeto programaremos lo 
   que queremos que se haga cuando se pulse el botón:</p>
 
+  <scfile>
+    MainActivity.java
+  </scfile>
 <sc java data-line="15-21">
   public class MainActivity extends AppCompatActivity {
 
@@ -635,7 +641,7 @@
 
 <p>Finalmente, el código de la aplicación queda así:</p>
 
-<scfile><a href="https://github.com/gerardfp/ContadorDeClics/blob/master/app/src/main/java/com/company/contadordeclics/MainActivity.java" target="_blank">app/src/main/java/com/company/contadordeclics/MainActivity.java</a></scfile>
+<scfile><a href="https://github.com/gerardfp/ContadorDeClics/blob/master/app/src/main/java/com/company/contadordeclics/MainActivity.java">MainActivity.java</a></scfile>
 <sc java>
   public class MainActivity extends AppCompatActivity {
 
