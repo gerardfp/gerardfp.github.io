@@ -32,13 +32,16 @@
             <scfile>
                 build.gradle (Module: app)
             </scfile>
-            <sc>
-                implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'
-                implementation 'androidx.lifecycle:lifecycle-livedata:2.2.0'
-        
-                implementation 'androidx.navigation:navigation-fragment:2.3.0'
-                implementation 'androidx.navigation:navigation-ui:2.3.0'
+            <sc groovy data-line="4-8">
+                dependencies {
+                    //...
+                 
+                    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'
+                    implementation 'androidx.lifecycle:lifecycle-livedata:2.2.0'
             
+                    implementation 'androidx.navigation:navigation-fragment:2.3.0'
+                    implementation 'androidx.navigation:navigation-ui:2.3.0'                    
+                }
             </sc>        
         </li>
         <li>
@@ -46,8 +49,10 @@
             <scfile>
                 build.gradle (Module: app)
             </scfile>
-            <sc>
+            <sc groovy data-line="4-6">
                 android {
+                    // ...
+
                     buildFeatures {
                         viewBinding true
                     }
