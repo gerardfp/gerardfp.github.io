@@ -135,17 +135,18 @@
 
 <section>
     <h2>Itunes Api</h2>
-    <p>Utilizaremos la librería <strong>retrofit</strong> para realizar llamadas a la api de Itunes y obtener los datos.
+    <p>Utilizaremos la librería <strong>retrofit</strong> para realizar llamadas a la API de iTunes y obtener los datos.
     La librería GSON, realizará el mapeo entre datos JSON y objetos Java.</p>
 
-    <p>Para utilizar retrofit hay que se necesitan 3 cosas:</p>
+    <p>Para utilizar retrofit se necesitan 3 cosas:</p>
     <ul>
         <li>Las clases para mapear el JSON</li>
-        <li>Un interfaz que defina las llamadas HTTP</li>
+        <li>Una <em>interface</em> que defina las llamadas HTTP</li>
         <li>Una variable en la que retrofit implementará el interfaz</li>
     </ul>
 
-    <p>Crearemos estos 3 componentes en el mismo fichero (aunque se podría hacer en ficheros distintos). Crearemos la clase <w>Itunes.java</w>
+    <p>Crearemos estos 3 componentes en el mismo fichero (aunque se podría hacer en ficheros distintos). 
+        Crearemos la clase <w>Itunes.java</w>
     y pondremos estos 3 componentes como elementos <w>static</w> de esta clase:</p>
 
     <p>Crea el fichero <w>Itunes.java</w>:</p>
@@ -212,11 +213,11 @@
 
     <h3>Api interface</h3>
 
-    <p>El siguiente paso es crear un interfaz que defina las llamadas a la API REST.</p>
+    <p>El siguiente paso es crear una <em>interface</em> que defina las llamadas a la API REST.</p>
 
-    <p>Las anotaciones en los métodos (y sus parámetros) del interfaz indican la petición que se debe realizar a la API</p>
+    <p>Las anotaciones en los métodos (y sus parámetros) de la interfaz indican la petición que se debe realizar a la API</p>
 
-    <p>Cada método del interfaz debe tener una anotación que indique el método HTTP (GET, POST, ...). En la anotación se 
+    <p>Cada método de la interfaz debe tener una anotación que indique el método HTTP (GET, POST, ...). En la anotación se 
         debe especificar la ruta relativa del recurso.</p>
 
     <p>Definiremos un método <w>buscar()</w> mediante el cual haremos la llamada al recurso <w>search/</w> de la API.
@@ -243,7 +244,7 @@
         }
     </sc>
 
-    <p>Retrofit implementará automáticamente los métodos del objeto <w>api</w> definidos en el <w>interface Api</w>.
+    <p>Retrofit implementará automáticamente los métodos del objeto <w>api</w> definidos en la <w>interface Api</w>.
     A cada petición HTTP se la añadirá la <w>baseUrl</w> especificada (https://itunes.apple.com/).
     </p>
 
@@ -595,6 +596,7 @@
                     }
                 }
             </sc>
+            <p><strong>Publica las reglas</strong></p>
         </li>
         <li>
             <p>En el panel de <fbb>Datos</fbb> se pueden modificar los datos (añadir, modificar, eliminar). 
