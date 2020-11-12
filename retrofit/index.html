@@ -15,9 +15,9 @@
         <a href="https://affiliate.itunes.apple.com/resources/documentation/itunes-store-web-service-search-api/">API de iTunes</a> 
         y mostrará el contenido encontrado.</p>
 
-    <img src="img/recyclerview.gif"/>
+    <img src="img/retrofit.gif"/>
 
-    <a href="https://github.com/gerardfp/recyclerview">https://github.com/gerardfp/recyclerview</a>
+    <a href="https://github.com/gerardfp/retrofit">https://github.com/gerardfp/retrofit</a>
   </abstract>
 </header>
 
@@ -188,8 +188,10 @@
     <scfile>
         Itunes.java
     </scfile>
-    <sc java data-line="2-10">
-        class Itunes {
+    <sc java data-line="4-12">
+        public class Itunes {
+            //...
+
             class Respuesta {
                 List&lt;Contenido&gt; results;
             }
@@ -202,18 +204,30 @@
         }
     </sc>
 
+    <info>
+        <p>Aquí tienes más info sobre  <a href="../jsonmapping">cómo mapear JSON a JAVA</a></p>
+
+        <p>También puedes usar herramientas automáticas como <a href="http://www.jsonschema2pojo.org/">jsonschema2pojo</a></p>
+    </info>
+
     <h3>Api interface</h3>
 
     <p>El siguiente paso es crear un interfaz que defina las llamadas a la API REST.</p>
 
-    <p>Definimos un método mediante el cual haremos la llamada, y especificamos la ruta de la URL a la que se debe hacer 
-        la petición:
+    <p>Las anotaciones en los métodos (y sus parámetros) del interfaz indican la petición que se debe realizar a la API</p>
+
+    <p>Cada método del interfaz debe tener una anotación que indique el método HTTP (GET, POST, ...). En la anotación se 
+        debe especificar la ruta relativa del recurso.</p>
+
+    <p>Definiremos un método <w>buscar()</w> mediante el cual haremos la llamada al recurso <w>search/</w> de la API.
+        Añadiremos un parámetro al método (<w>String texto</w>) cuyo valor se añadirá a la URL con el nombre <w>term</w>:</p>
+
     </p>
     <scfile>
         Itunes.java
     </scfile>
     <sc java data-line="4-13">
-        class Itunes {
+        public class Itunes {
             //...
 
             public static Api api = new Retrofit.Builder()
@@ -223,26 +237,29 @@
                     .create(Api.class);
             
             public interface Api {
-                @GET("search/?term=beatles")
-                Call&lt;Respuesta&gt; buscarBeatles();
+                @GET("search/")
+                Call&lt;Respuesta&gt; buscar(@Query(&quot;term&quot;) String texto);
             }
         }
     </sc>
 
-    <p>Retrofit implementará automáticamente los métodos del objeto <w>api</w> a partir de los métodos definidos en 
-        el <w>interface Api</w>.</p>
+    <p>Retrofit implementará automáticamente los métodos del objeto <w>api</w> definidos en el <w>interface Api</w>.
+    A cada petición HTTP se la añadirá la <w>baseUrl</w> especificada (https://itunes.apple.com/).
+    </p>
 
-    <p>Cuando se llame <w>buscarBeatles()</w> se hará la petición a <url>https://itunes.apple.com/<replace>search/?term=beatles</replace></url>.
+    <p>Por ejemplo: cuando se llame al método <w>buscar("nirvana")</w> se hará la petición a 
+        <url>https://itunes.apple.com/<replace>search/?term=nirvana</replace></url>. El valor del parámetro <w>texto</w> se
+        ha añadido a la URL con el nombre <w>term</w> (que hemos especificado en la anotación <w>@Query</w>).
     
-    <p>La respuesta a la llamada <w>buscarBeatles()</w> será un objeto de clase <w>Respuesta</w> rellenado con los datos obtenidos del JSON que haya 
+    <p>Retrofit nos devolverá un objeto de clase <w>Respuesta</w> rellenado con los datos obtenidos del JSON que haya 
     devuelto la petición.</p>
 </section>
 
 <section>
     <h2>ViewModel</h2>
 
-    <p>En el ViewModel añadiremos un método <w>buscarBeatles()</w> que a su vez haga la llamada a <w>buscarBeatles()</w> de la API. La respuesta de la llamada la 
-    guardaremos en un <w>MutableLiveData</w> que será observado por la Vista.</p>
+    <p>En el ViewModel añadiremos un método <w>buscar(String texto)</w> que a su vez haga la llamada a <w>buscar(String texto)</w> de la API. 
+        La respuesta de la llamada la guardaremos en un <w>MutableLiveData</w> que será observado por la Vista.</p>
 
     <p>La llamada a la API se debe hacer en segundo plano, para no bloquear el Thread Principal. Retrofit gestiona estas llamadas 
         en segundo plano llamando al método <w>enqueue()</w> y pasándole el <w>Callback</w> para que nos devuelva la respuesta 
@@ -262,8 +279,8 @@
                 super(application);
             }
         
-            public void buscarBeatles(){
-                Itunes.api.buscarBeatles().enqueue(new Callback&lt;Itunes.Respuesta&gt;() {
+            public void buscar(String texto){
+                Itunes.api.buscar(texto).enqueue(new Callback&lt;Itunes.Respuesta&gt;() {
                     @Override
                     public void onResponse(@NonNull Call&lt;Itunes.Respuesta&gt; call, @NonNull Response&lt;Itunes.Respuesta&gt; response) {
                         respuestaMutableLiveData.postValue(response.body());
@@ -285,12 +302,39 @@
 <section>
     <h2>ItunesFragment</h2>
 
-    <p>El <w>ItunesFragment</w> debe dar la orden al ViewModel de que haga la petición a la API. También observará la variable 
+    <p>El <w>ItunesFragment</w> debe dar la orden al ViewModel de que haga la petición a la API, cada vez que cambie
+        el texto introducido por el usuario en el SearchView.</p> 
+        <p>También observará la variable 
         <w>respuestaMutableLiveData</w>, para mostrar los resultados en un <w>RecyclerView</w>.</p>
 
-    <p>Primero veremos como obtener la Respuesta de la API, y la mostraremos en el <w>Log</w>, y después implementaremos 
-    el RecyclerView.</p>
+    <h3>SearchView</h3>
+    <p>Primero veremos como obtener la Respuesta de la API, según vaya cambiando el SearchView. 
+        La mostraremos de momento en el <w>Log</w>, y después implementaremos el RecyclerView.</p>
 
+    <p>El primer paso es añadir el <w>&lt;SearchView&gt;</w> al layout</p>
+
+    <scfile>
+        fragment_itunes.xml
+    </scfile>
+    <sc xml>
+        &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        &lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; 
+            xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+            android:layout_width=&quot;match_parent&quot;
+            android:layout_height=&quot;match_parent&quot;
+            android:orientation=&quot;vertical&quot;&gt;
+        
+            &lt;SearchView
+                android:id=&quot;@+id/texto&quot;
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;wrap_content&quot; /&gt;
+        &lt;/LinearLayout&gt;
+    </sc>
+
+    <p>Implementamos el <em>listener</em> del <w>SearchView</w> que nos pasará el texto introducido cada vez que cambie mediante
+    el <em>callback</em> <w>onQueryTextChange()</w>. En ese momento, damos la orden al ViewModel de que haga la petición a la API.</p>
+
+    <p>Por otro lado, observamos la variable <w>respuestaMutableLiveData</w> y mostramos la respuesta en el Logcat.</p>
     <scfile>
         ItunesFragment.java
     </scfile>
@@ -301,7 +345,16 @@
 
             ItunesViewModel itunesViewModel = new ViewModelProvider(this).get(ItunesViewModel.class);
 
-            itunesViewModel.buscarBeatles();
+            binding.texto.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) { return false; }
+    
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    itunesViewModel.buscar(s);
+                    return false;
+                }
+            });
 
             itunesViewModel.respuestaMutableLiveData.observe(getViewLifecycleOwner(), new Observer&lt;Itunes.Respuesta&gt;() {
                 @Override
@@ -312,17 +365,20 @@
         }
     </sc>
 
-    <p>Si ejecutamos la app, en el Logcat podremos ver cada <w>Contenido</w> del array <w>results</w> de la respuesta:</p>
+    <p>Si ejecutamos la app, en el Logcat podremos ver cada <w>Contenido</w> del array <w>results</w> de la respuesta, 
+    según vayamos introduciendo texto en el SearchView:</p>
     <shell>
-        E/ABCD: The Beatles, Here Comes the Sun, https://mzstatic.com/image/6edbf5a8.jpg
-        E/ABCD: The Beatles, Let It Be, https://mzstatic.com/image/a81e35cd.jpg
-        E/ABCD: The Beatles, Come Together, https://mzstatic.com/image/96ae4cf.jpg
-        E/ABCD: The Beatles, Hey Jude, https://mzstatic.com/image/fe9cb34a.jpg
+        E/ABCD: Nirvana, Radio Friendly Unit Shifter, https://mzstatic.com/image/6edbf5a8.jpg
+        E/ABCD: Nirvana, Pennyroyal Tea, https://mzstatic.com/image/a81e35cd.jpg
+        E/ABCD: Nirvana, Serve the Servants, https://mzstatic.com/image/96ae4cf.jpg
+        E/ABCD: Nirvana, Scentless Apprentice, https://mzstatic.com/image/fe9cb34a.jpg
+        ...
+        ...
     </shell>
 
     <h3>RecyclerView</h3>
 
-    <p>El siguiente paso es mostrar el array <w>result</w> (<w>List&lt;Contenido&gt; result;</w>) en un RecyclerView.</p>
+    <p>El siguiente paso es mostrar el array <w>result</w> (<w>List&lt;Contenido&gt; result</w>) en un RecyclerView.</p>
 
     <ul>
         <li>
@@ -472,17 +528,116 @@
         </li>
     </ul>
 
-    <p><strong>Si ejecutas la app, debería verse la lista de contenidos de los Beatles.</strong></p>
-
+    <p><strong>Si ejecutas la app, debería verse la lista de contenidos.</strong></p>
 </section>
 
 <section>
-    <h2>Búsqueda</h2>
+    <h2>Práctica</h2>
 
-    // IN PROGRESS...
-    <p></p>
-    
-el parámetro <w>texto</w> que se pase al metodo <w>buscar()</w> se añadirá a la query de la URL con el nombre <w>term</w>. 
-Por ejemplo: si se llama al método <w>buscar("beatles")</w> se efectuará la siguiente petición: <url>https://itunes.apple.com/<replace>search/?term=beatles</replace></url> </p>
+    <p>En esta práctica debes implementar una API, y una app que muestre en un RecyclerView una lista con datos obtenidos de la API.</p>
 
+    <p>Para implementar la API se necesita un servidor expuesto a Internet. Implementar una API REST básica puede ser 
+        bastante sencillo con frameworks como <a href="https://spring.io/projects/spring-boot">Spring Boot</a> 
+        o <a href="https://eclipse-ee4j.github.io/jersey/">Jersey</a>.</p>
+    <p>En otros lenguajes hay muchísimas opciones como 
+        <a href="https://www.djangoproject.com/">Django</a>,
+        <a href="https://flask.palletsprojects.com">Flask</a>,
+        <a href="https://laravel.com/">Laravel</a>, <a href="https://expressjs.com/">Express.js</a>, 
+        <a href="https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.2&tabs=visual-studio">ASP.NET Core</a>,
+        <a href="https://rubyonrails.org/">Rails</a>, y un largo etcétera.
+    </p>
+
+    <p>También hay otras herramientas que automatizan la creación de una API REST como 
+        <a href="https://www.prisma.io/">Prisma</a>,
+        <a href="http://postgrest.org">PostgREST</a>,
+        <a href="https://sheet.best/">sheet.best</a>.
+    </p>
+
+    <p>La lista de opciones es casi infita...</p>
+
+    <h3>Firebase</h3>
+
+    <p>Para esta práctica utilizaremos Firebase.</p>
+
+    <style>
+        fbb {
+            color: #1a73e8;
+            font-weight: bold;
+        }
+    </style>
+    <ol>
+        <li>
+            <p>Loguéate en la consola de <a href="https://console.firebase.google.com">Firebase</a></p>
+        </li>
+        <li>
+            <p>Haz click en <fbb>Crear un proyecto</fbb>. Introduce el nombre que desees para el proyecto. No es necesario que habilites
+                Google Analytics.
+            </p>
+        </li>
+        <li>
+            <p>En el menú lateral haz click en <fbb>Cloud Firestore</fbb>. Luego en <fbb>Crear base de datos</fbb></p>
+            <img src="img/fb1.png">
+            <p>Selecciona el "modo producción". Este modo no permite el acceso de <strong>lectura, escritura</strong> 
+                a la base de datos.
+            A continuación modificarmos las reglas para permitir el acceso de lectura.</p>
+            <p>En la <fbb>Ubicación</fbb> selecciona <name>eur3</name>.</p>
+        </li>
+        <li>
+            <p>Una vez creada la base de datos, accede al panel <fbb>Reglas</fbb> e introduce las siguientes reglas:</p>
+            <sc firestore-security-rules>
+                rules_version = '2';
+                service cloud.firestore {
+                    match /databases/{database}/documents {
+                        match /{document=**} {
+                            allow read;
+                            allow write: if false;
+                        }
+                    }
+                }
+            </sc>
+        </li>
+        <li>
+            <p>En el panel de <fbb>Datos</fbb> se pueden modificar los datos (añadir, modificar, eliminar). 
+                Crearemos una colección 
+                de albums de música a modo de ejemplo. En tu práctica la debes hacer de lo que quieras.
+            </p>
+
+            <p>Haz click en <fbb>+ Iniciar colección</fbb>. En el "ID de colección" introduce <name>Albums</name></p>
+
+            <p>Ahora añadiremos el primer "Documento" de la colección "Albums". Es decir, el primer álbum.</p>
+            <p>El "ID del documento" puedes establecerlo con "ID automático".</p>
+            <p>A continuación introduce los campos y los valores del primer álbum:</p>
+            <img src="img/fb2.png">
+            <p>Para añadir más albums haz click en <fbb>+ Añadir documento</fbb>.</p>
+        </li>
+        <li>
+            <p>
+                Para añadir imágenes utilizaremos el servicio <fbb>Storage</fbb>.
+            </p>
+
+            <p>Haz click en <fbb>Subir archvo</fbb> y selecciona la imagen.</p>
+
+            <img src="img/fb3.png">
+
+            <p>Una vez subida, obtén la URL de descarga en el panel lateral derecho:</p>
+
+            <img src="img/fb4.png">
+        </li>
+        <li>
+            <p>Vuelve a la base de datos, y añade el campo "imagen" al documento (<em>album</em>), el valor de este campo será
+            la URL de la imagen: </p>
+
+            <img src="img/fb5.png">
+        </li>
+    </ol>
+
+    <p>Ahora ya puedes acceder a la API REST así:</p>
+
+    <a href="https://firestore.googleapis.com/v1/projects/retrofit-683b2/databases/(default)/documents/albums">
+    https://firestore.googleapis.com/v1/projects/<replace>retrofit-683b2</replace>/databases/(default)/documents/<replace>albums</replace>
+    </a>
+    <p>Reemplaza <replace>albums</replace> por el ID de tu colección.</p>
+    <p>Reemplaza <replace>retrofit-683b2</replace> por el ID de tu proyecto:</p>
+
+    <img src="img/fb6.png">
 </section>
