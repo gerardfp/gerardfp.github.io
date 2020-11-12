@@ -705,6 +705,66 @@
     <p>Puede parecer que el mecanismo de <w>callback</w> no aporta nada respecto al <w>return</w>, pero en los 
     siguientes apartados veremos que ofrece más versatilidad, ya que en el callback se pueden definir distintos 
     métodos no solo para tratar el resultado, sino también los errores y el proceso.</p>
+
+    <observe>
+        <p>Desde una aplicación típica de consola, el <w>SimuladorHipoteca</w> <em>versión callback</em> se podría 
+        utilizar así:</p>
+
+        <sc java>
+            import java.util.Scanner;
+
+            class SimuladorHipoteca {
+
+                public static class Solicitud {
+                    public double capital;
+                    public int plazo;
+
+                    public Solicitud(double capital, int plazo) {
+                        this.capital = capital;
+                        this.plazo = plazo;
+                    }
+                }
+
+                interface Callback {
+                    void cuandoEsteCalculadaLaCuota(double cuota);
+                }
+
+                public void calcular(Solicitud solicitud, Callback callback) {
+                    double interes = 0;
+                    try {
+                        Thread.sleep(2500);  // long run operation
+                        interes = 0.01605;
+                    } catch (InterruptedException e) {}
+
+                    double cuota = solicitud.capital*interes/12/(1-Math.pow(1+(interes/12),-solicitud.plazo*12));
+
+                    callback.cuandoEsteCalculadaLaCuota(cuota);
+                }
+            }
+
+            public class Main {
+                public static void main(String[] args) {
+                    Scanner scanner = new Scanner(System.in);
+
+                    SimuladorHipoteca simulador = new SimuladorHipoteca();
+
+                    System.out.println("Introduzca el capital:");
+                    double capital = scanner.nextDouble();
+                    System.out.println("Introduzca el plazo:");
+                    int plazo = scanner.nextInt();
+
+                    SimuladorHipoteca.Solicitud solicitud = new SimuladorHipoteca.Solicitud(capital, plazo);
+
+                    simulador.calcular(solicitud, new SimuladorHipoteca.Callback() {
+                        @Override
+                        public void cuandoEsteCalculadaLaCuota(double cuota) {
+                            System.out.println("Cuota: " + String.format("%.2f", cuota));
+                        }
+                    });
+                }
+            }
+        </sc>
+    </observe>
 </section>
 
 <section>
