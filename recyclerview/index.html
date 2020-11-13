@@ -279,15 +279,17 @@
     <scfile>
         res/layout/fragment_recycler_elementos.xml
     </scfile>
-    <sc xml data-line="4-8">
+    <sc xml>
         &lt;FrameLayout ...&gt;
             //...
 
+        <add>
             &lt;androidx.recyclerview.widget.RecyclerView
                 android:id=&quot;@+id/recyclerView&quot;
                 android:layout_width=&quot;match_parent&quot;
                 android:layout_height=&quot;match_parent&quot;
                 app:layoutManager=&quot;androidx.recyclerview.widget.LinearLayoutManager&quot; /&gt;
+        </add>
         &lt;/FrameLayout&gt;
     </sc>
 
@@ -335,10 +337,11 @@
     <scfile>
         RecyclerElementosFragment.java
     </scfile>
-    <sc java data-line="4-11">
+    <sc java>
         public class RecyclerElementosFragment extends Fragment {
             // ...
 
+        <add>
             class ElementoViewHolder extends RecyclerView.ViewHolder {
                 private final ViewholderElementoBinding binding;
 
@@ -347,6 +350,7 @@
                     this.binding = binding;
                 }
             }
+        </add>
         }
     </sc>
 
@@ -387,10 +391,11 @@
     <scfile>
         RecyclerElementosFragment.java
     </scfile>
-    <sc java data-line="4-32">
+    <sc java>
         public class RecyclerElementosFragment extends Fragment {
             // ...
 
+        <add>
             class ElementosAdapter extends RecyclerView.Adapter&lt;ElementoViewHolder&gt; {
 
                 List&lt;Elemento&gt; elementos;
@@ -420,6 +425,7 @@
                     notifyDataSetChanged();
                 }
             }
+        </add>
         }
     </sc>
 
@@ -437,7 +443,7 @@
     <scfile>
         RecyclerElementosFragment.java
     </scfile>
-    <sc java data-line="8,9">
+    <sc java>
         public class RecyclerElementosFragment extends Fragment {
             // ...
 
@@ -445,8 +451,10 @@
             public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
                 // ...
 
+        <add>
                 ElementosAdapter elementosAdapter = new ElementosAdapter();
                 binding.recyclerView.setAdapter(elementosAdapter);
+        </add>
             }
             // ...
         }
@@ -457,7 +465,7 @@
     <scfile>
         RecyclerElementosFragment.java
     </scfile>
-    <sc java data-line="8-13">
+    <sc java>
         public class RecyclerElementosFragment extends Fragment {
             // ...
 
@@ -465,12 +473,14 @@
             public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
                 // ...
 
+        <add>
                 elementosViewModel.obtener().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
                     @Override
                     public void onChanged(List&lt;Elemento&gt; elementos) {
                         elementosAdapter.establecerLista(elementos);
                     }
                 });
+        </add>
             }
             // ...
         }
@@ -606,12 +616,13 @@
     <scfile>
         RecyclerElementosFragment.java
     </scfile>
-    <sc java data-line="6-13">
+    <sc java>
         // ...
         @Override
         public void onBindViewHolder(@NonNull ElementoViewHolder holder, int position) {
             // ...
 
+        <add>
             holder.binding.valoracion.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                 @Override
                 public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -620,6 +631,7 @@
                     }
                 }
             });
+        </add>
         }
     </sc>
 
@@ -654,7 +666,7 @@
     <scfile>
         RecyclerElementosFragment.java       
     </scfile>
-    <sc java data-line="8-24, 32-34">
+    <sc java>
         public class RecyclerElementosFragment extends Fragment {
             // ...
 
@@ -662,6 +674,7 @@
             public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
                 // ...
 
+        <add>
                 new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
                         ItemTouchHelper.UP | ItemTouchHelper.DOWN,
                         ItemTouchHelper.RIGHT  | ItemTouchHelper.LEFT) {
@@ -679,6 +692,7 @@
 
                     }
                 }).attachToRecyclerView(binding.recyclerView);
+        </add>
             }
 
             //...
@@ -686,9 +700,11 @@
             class ElementosAdapter extends RecyclerView.Adapter&lt;ElementoViewHolder&gt; {
                 // ...
 
+        <add>
                 public Elemento obtenerElemento(int posicion){
                     return elementos.get(posicion);
                 }
+        </add>
             }
         }
     </sc>
@@ -713,14 +729,17 @@
     <scfile>
         ElementosViewModel.java
     </scfile>
-    <sc java data-line="4,8-14">
+    <sc java>
         public class ElementosViewModel extends AndroidViewModel {
             //...
             
+        <add>
             MutableLiveData&lt;Elemento&gt; elementoSeleccionado = new MutableLiveData&lt;&gt;();
-            
+        </add>
+
             //...
 
+        <add>
             void seleccionar(Elemento elemento){
                 elementoSeleccionado.setValue(elemento);
             }
@@ -728,6 +747,7 @@
             MutableLiveData&lt;Elemento&gt; seleccionado(){
                 return elementoSeleccionado;
             }
+        </add>
         }
     </sc>
 
@@ -736,12 +756,13 @@
     <scfile>
         RecyclerElementosFragment.java
     </scfile>
-    <sc java data-line="6-12">
+    <sc java>
         // ...
         @Override
         public void onBindViewHolder(@NonNull ElementoViewHolder holder, int position) {
             // ...
 
+        <add>
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -749,6 +770,7 @@
                     navController.navigate(R.id.action_recyclerElementosFragment_to_mostrarElementoFragment);
                 }
             });
+        </add>
         }
     </sc>
 
@@ -769,7 +791,7 @@
     <scfile>
         MostrarElementoFragment.java
     </scfile>
-    <sc java data-line="8-24">
+    <sc java>
         public class MostrarElementoFragment extends Fragment {
             //...
 
@@ -777,6 +799,7 @@
             public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
                 //...
 
+        <add>
                 elementosViewModel.seleccionado().observe(getViewLifecycleOwner(), new Observer&lt;Elemento&gt;() {
                     @Override
                     public void onChanged(Elemento elemento) {
@@ -794,6 +817,7 @@
                         });
                     }
                 });
+        </add>
             }
         }
     </sc>
@@ -812,7 +836,7 @@
     <scfile>
         NuevoElementoFragment.java
     </scfile>
-    <sc java data-line="8-18">
+    <sc java>
         public class NuevoElementoFragment extends Fragment {
             //...
 
@@ -820,6 +844,7 @@
             public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
                 //...
 
+        <add>
                 binding.crear.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -831,6 +856,7 @@
                         navController.popBackStack();
                     }
                 });
+        </add>
             }
         }
     </sc>

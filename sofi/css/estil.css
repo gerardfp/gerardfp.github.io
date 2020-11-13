@@ -220,6 +220,33 @@ div.line-highlight::before, div.line-highlight[data-end]::after {
 }
 
 
+add, rem, hig, low {
+    display: inline-block;
+    
+    min-width: calc(100% + 2em);
+    /* min-height: 18.9px; */
+    padding: 0 1rem;
+    margin: 0 -1rem;
+}
+
+add {
+    background-color: #0c5a0c88;
+}
+
+rem {
+    background-color: #5c0a0c88;
+}
+
+hig {
+    background-color: #5a5a0c88;
+}
+
+low {
+    opacity: .6;
+}
+
+
+
 
 host {
     /* background: #2c2c2c; */

@@ -35,12 +35,19 @@
         <scfile>
             build.gradle (Module: app)
         </scfile>
-        <sc none>
+        <sc groovy>
+            <low>
             dependencies {
+                // ...
+            </low>
 
+            <add>
                 implementation 'androidx.room:room-runtime:2.2.5'
                 annotationProcessor 'androidx.room:room-compiler:2.2.5'
+            </add>
+            <low>
             }
+            </low>
         </sc>
     </optional>
 </section>
@@ -141,14 +148,18 @@
     <scfile>
         Elemento.java
     </scfile>
-    <sc java data-line="4, 6-7">
+    <sc java>
         import androidx.room.Entity;
         import androidx.room.PrimaryKey;
 
+        <add>
         @Entity
+        </add>
         public class Elemento {
+        <add>
             @PrimaryKey(autoGenerate = true)
             int id;
+        </add>
 
             String nombre;
             String descripcion;
@@ -167,8 +178,10 @@
     <scfile>
         ElementosBaseDeDatos.java
     </scfile>
-    <sc java data-line="1">
+    <sc java>
+        <add>
         @Database(entities = { Elemento.class }, version = 1, exportSchema = false)
+        </add>
         public abstract class ElementosBaseDeDatos extends RoomDatabase {
             // ...
         }
@@ -197,13 +210,20 @@
     <scfile>
         ElementosBaseDeDatos.java
     </scfile>
-    <sc java data-line="3,7-20">
+    <sc java>
+        <low>
         public abstract class ElementosBaseDeDatos extends RoomDatabase {
+        </low>
 
+        <add>
             public abstract ElementosDao obtenerElementosDao();
+        </add>
 
+        <low>
             //...
-            
+        </low>
+
+        <add>
             @Dao
             interface ElementosDao {
                 @Query(&quot;SELECT * FROM Elemento&quot;)
@@ -218,7 +238,10 @@
                 @Delete
                 void eliminar(Elemento elemento);
             }
+        </add>
+        <low>
         }
+        </low>
     </sc>
 
     <ul>
@@ -259,41 +282,53 @@
     <scfile>
         ElementosRepositorio.java
     </scfile>
-    <sc java data-line="3,10-15,19,23-24,28-29,34">
+    <sc java>
         public class ElementosRepositorio {
 
+        <rem>
             List&lt;Elemento&gt; elementos = new ArrayList&lt;&gt;();
-        
+        </rem>
+
             interface Callback {
                 void cuandoFinalice(List&lt;Elemento&gt; elementos);
             }
         
             ElementosRepositorio(){
+        <rem>
                 elementos.add(new Elemento(&quot;Elemento químico&quot;, &quot;Es un átomo con moléculas, aquella sustancia que no puede ser descompuesta mediante una reacción química, en otras más simples. Pueden existir dos átomos de un mismo elemento con características distintas y, en el caso de que estos posean número másico distinto, pertenecen al mismo elemento pero en lo que se conoce como uno de sus isótopos.&quot;));
                 elementos.add(new Elemento(&quot;Elemento de un conjunto&quot;, &quot;En teoría de conjuntos, un elemento o miembro de un conjunto (o familia de conjuntos) es un objeto que forma parte de ese conjunto (o familia).&quot;));
                 elementos.add(new Elemento(&quot;Elemento sintético&quot;, &quot;En química, un elemento sintético es un elemento químico que no aparece de forma natural en la Tierra, y solo puede ser creado artificialmente.&quot;));
                 elementos.add(new Elemento(&quot;Elemento algebraico&quot;, &quot;En matemáticas, más concretamente en álgebra abstracta y teoría de cuerpos, se dice que un elemento es algebraico sobre un cuerpo si es raíz de algún polinomio con coeficientes en dicho cuerpo. Los elementos algebraicos sobre el cuerpo de los números racionales reciben el nombre de números algebraicos.&quot;));
                 elementos.add(new Elemento(&quot;Elementos de la naturaleza&quot;,&quot;Los cuatro o cinco elementos de la naturaleza —normalmente agua, tierra, fuego y aire, a los que se añade la quintaesencia o éter— eran, para muchas doctrinas antiguas, los constituyentes básicos de la materia y explicaban el comportamiento de la naturaleza. El modelo estuvo vigente hasta que la ciencia moderna empezó a desentrañar los elementos y reacciones químicas.&quot;));
                 elementos.add(new Elemento(&quot;Elemento constructivo&quot;,&quot;Un elemento constructivo es cada uno de los componentes materiales que integran una obra de construcción. Se suelen clasificar en estructurales y compartimentadores.&quot;));
+        </rem>
             }
 
             List&lt;Elemento&gt; obtener() {
+        <rem>
                 return elementos;
+        </rem>  
             }
         
             void insertar(Elemento elemento, Callback callback){
+        <rem>
                 elementos.add(elemento);
                 callback.cuandoFinalice(elementos);
+        </rem>
             }
         
             void eliminar(Elemento elemento, Callback callback) {
+        <rem>
                 elementos.remove(elemento);
                 callback.cuandoFinalice(elementos);
+        </rem>
             }
         
             void actualizar(Elemento elemento, float valoracion, Callback callback) {
+        <rem>
                 elemento.valoracion = valoracion;
                 callback.cuandoFinalice(elementos);
+        </rem>
             }
         }
     </sc>
@@ -305,13 +340,15 @@
     <scfile>
         ElementosViewModel.java
     </scfile>
-    <sc java data-line="6">
+    <sc java>
         public class ElementosViewModel extends AndroidViewModel {
         
             public ElementosViewModel(@NonNull Application application) {
                 // ...
-        
+
+        <rem>
                 listaElementos.setValue(elementosRepositorio.obtener());
+        </rem>
             }
 
             //...
@@ -332,14 +369,16 @@
     <scfile>
         ElementosRepositorio.java
     </scfile>
-    <sc java data-line="3, 5-7">
+    <sc java>
         public class ElementosRepositorio {
 
+        <add>
             ElementosBaseDeDatos.ElementosDao elementosDao;
 
             ElementosRepositorio(Application application){
                 elementosDao = ElementosBaseDeDatos.obtenerInstancia(application).obtenerElementosDao();
             }
+        </add>
 
             // ...
         }
@@ -351,13 +390,15 @@
     <scfile>
         ElementosViewModel.java
     </scfile>
-    <sc java data-line="6">
+    <sc java>
         public class ElementosViewModel extends AndroidViewModel {
         
             public ElementosViewModel(@NonNull Application application) {
                 // ...
-        
+
+        <add>
                 elementosRepositorio = new ElementosRepositorio(application);
+        </add>
             }
 
             //...
@@ -380,13 +421,15 @@
     <scfile>
         ElementosRepositorio.java
     </scfile>
-    <sc java data-line="4-6">
+    <sc java>
         public class ElementosRepositorio {
             // ...
-         
+        
+        <add>
             LiveData&lt;List&lt;Elemento&gt;&gt; obtener(){
                 return elementosDao.obtener();
             }
+        </add>
         }
     </sc>
 
@@ -394,13 +437,15 @@
     <scfile>
         ElementosViewModel.java
     </scfile>
-    <sc java data-line="4-6">
+    <sc java>
         public class ElementosViewModel extends AndroidViewModel {
             // ...
-                
+        
+        <add>
             LiveData&lt;List&lt;Elemento&gt;&gt; obtener(){
                 return elementosRepositorio.obtener();
             }
+        </add>
         }
     </sc>
 
@@ -414,10 +459,12 @@
     <scfile>
         ElementosRepositorio.java
     </scfile>
-    <sc java data-line="3">
+    <sc java>
         public class ElementosRepositorio {
             
+        <add>
             Executor executor = Executors.newSingleThreadExecutor();
+        </add>
 
             //...
         }
@@ -428,10 +475,11 @@
     <scfile>
         ElementosRepositorio.java
     </scfile>
-    <sc java data-line="4-30">
+    <sc java>
         public class ElementosRepositorio {
             //...
 
+        <add>
             void insertar(Elemento elemento){
                 executor.execute(new Runnable() {
                     @Override
@@ -459,6 +507,7 @@
                     }
                 });
             }
+        </add>
         }
     </sc>
 
@@ -473,10 +522,11 @@
     <scfile>
         ElementosViewModel.java
     </scfile>
-    <sc java data-line="4-14">
+    <sc java>
         public class ElementosViewModel extends AndroidViewModel {
             //...
 
+        <add>
             void insertar(Elemento elemento){
                 elementosRepositorio.insertar(elemento);
             }
@@ -488,6 +538,7 @@
             void actualizar(Elemento elemento, float valoracion){
                 elementosRepositorio.actualizar(elemento, valoracion);
             }
+        </add>
         }
     </sc>
 
@@ -497,22 +548,26 @@
     <scfile>
         ElementosViewModel.java
     </scfile>
-    <sc java data-line="3">
+    <sc java>
         public class ElementosViewModel extends AndroidViewModel {        
          
+        <rem>
             MutableLiveData&lt;List&lt;Elemento&gt;&gt; listElementosMutableLiveData = new MutableLiveData&lt;&gt;();
-        
+        </rem>
+
         }
     </sc>
     <scfile>
         ElementosRepositorio.java
     </scfile>
-    <sc java data-line="3-5">
+    <sc java>
         public class ElementosRepositorio {
         
+        <rem>
             interface Callback {
                 void cuandoFinalice(List&lt;Elemento&gt; elementos);
             }
+        </rem>
 
         }
     </sc>
@@ -637,14 +692,23 @@
     <scfile>
         RecyclerElementosFragment.java
     </scfile>
-    <sc java diff>
+    <sc java>
 
--        navController.navigate(R.id.action_recyclerElementosFragment_to_nuevoElementoFragment);
-+        navController.navigate(R.id.action_nuevoElementoFragment);
+        <rem>
+        navController.navigate(R.id.action_recyclerElementosFragment_to_nuevoElementoFragment);
+        </rem>
+        <add>
+        navController.navigate(R.id.action_nuevoElementoFragment);
+        </add>
 
         // ...
--        navController.navigate(R.id.action_recyclerElementosFragment_to_mostrarElementoFragment);
-+        navController.navigate(R.id.action_mostrarElementoFragment);
+
+        <rem>
+        navController.navigate(R.id.action_recyclerElementosFragment_to_mostrarElementoFragment);
+        </rem>
+        <add>
+        navController.navigate(R.id.action_mostrarElementoFragment);
+        </add>
     </sc>
 
     <h4>MainActivity</h4>
@@ -720,7 +784,6 @@
                 android:id=&quot;@+id/recyclerBuscarFragment&quot;
                 android:icon=&quot;@android:drawable/ic_menu_search&quot;
                 android:title=&quot;Buscar&quot; /&gt;
-        
         &lt;/menu&gt;
     </sc>
 
@@ -729,13 +792,15 @@
     <scfile>
         MainActivity.java
     </scfile>
-    <sc java data-line="5-6">
+    <sc java>
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             // ...
 
+        <add>
             NavController navController = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment)).getNavController();
             NavigationUI.setupWithNavController(binding.bottomNavView, navController);
+        </add>
         }
     </sc>
 
@@ -747,7 +812,7 @@
     <p>No obstante, no en todos los fragments queremos mostrar el <w>BottomNavigationView</w>: cuando se navegue a los 
     fragments de Mostrar y Nuevo no queremos que se muestre. Y el <w>SearchView</w> únicamente lo queremos mostrar cuando se navegue a la pantalla de buscar.</p>
 
-    <p>Los componentes del la MainActivity que queremos mostrar ocultar, los podemos gestionar en el <em>callback</em> 
+    <p>Los componentes del la MainActivity que queremos mostrar/ocultar, los podemos gestionar en el <em>callback</em> 
         <w>onDestinationChanged()</w>. Este <em>callback</em> es llamado por el <w>navController</w> cada vez que se 
         navega a un destino, y se pasa como parámetro el destino al cual se ha navegado. Aprovecharemos para 
         mostrar/ocultar el <w>BottomNavigationView</w> y el <w>SearchView</w> en las pantallas que deseamos: 
@@ -756,11 +821,12 @@
     <scfile>
         MainActivity.java
     </scfile>
-    <sc java data-line="5-24">
+    <sc java>
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             // ...
 
+        <add>
             navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
                 @Override
                 public void onDestinationChanged(@NonNull NavController controller,
@@ -781,6 +847,7 @@
                     }
                 }
             });
+        </add>
         }
     </sc>
 
@@ -800,16 +867,18 @@
     <scfile>
         ElementosBaseDeDatos.java
     </scfile>
-    <sc java data-line="5-9">
+    <sc java>
         @Dao
         interface ElementosDao {
             // ...
 
+        <add>
             @Query(&quot;SELECT * FROM Elemento ORDER BY valoracion DESC&quot;)
             LiveData&lt;List&lt;Elemento&gt;&gt; masValorados();
     
             @Query(&quot;SELECT * FROM Elemento WHERE nombre LIKE &#39;%&#39; || :t || &#39;%&#39;&quot;)
             LiveData&lt;List&lt;Elemento&gt;&gt; buscar(String t);
+        </add>
         }
     </sc>
 
@@ -828,10 +897,11 @@
     <scfile>
         ElementosRepositorio.java
     </scfile>
-    <sc java data-line="4-10">
+    <sc java>
         public class ElementosRepositorio {
             // ...
 
+        <add>
             LiveData&lt;List&lt;Elemento&gt;&gt; masValorados() {
                 return elementosDao.masValorados();
             }
@@ -839,6 +909,7 @@
             LiveData&lt;List&lt;Elemento&gt;&gt; buscar(String t) {
                 return elementosDao.buscar(t);
             }
+        </add>
         }
     </sc>
 
@@ -850,48 +921,58 @@
     <scfile>
         ElementosViewModel.java
     </scfile>
-    <sc java data-line="4-6">
+    <sc java>
         public class ElementosViewModel extends AndroidViewModel {
             // ... 
 
+        <add>
             LiveData&lt;List&lt;Elemento&gt;&gt; masValorados(){
                 return elementosRepositorio.masValorados();
             }
+        </add>
         }
     </sc>
 
     <p>El método <w>busqueda()</w>, sin embargo, tiene que pasar como parámetro el término de búsqueda introducido en el 
     <w>SearchView</w> que hemos puesto en la <w>MainActivity</w>.</p>
 
-    <p>Crearemos una variable <w>terminoBusqueda</w> que guardará el texto introducido en el <w>SearchView</w>. 
-    Crearemos esta variable como <w>MutableLiveData</w> y usaremos <w>Transformations</w> para observar  el término de busqueda 
-    y transformarlo en la consulta correspondiente. También añadiremos un método para 
-    establecer el <w>terminoBusqueda</w>.
+    <p>Crearemos una variable <w>MutableLiveData</w> a la que llamaremos <w>terminoBusqueda</w>, 
+        que guardará el texto introducido en el <w>SearchView</w>. 
+        También añadiremos un método para establecer el <w>terminoBusqueda</w>.</p>
+    <p>Por otra parte, usaremos <w>Transformations</w> para observar la variable <w>terminoBusqueda</w>  
+    y realizar la consulta que buscará el término en la base de datos. Guardaremos el resultado en la variable <w>resultadoBusqueda</w>.
+    También añadiremos el <em>getter</em> <w>buscar()</w> para obtener la variable <w>resultadoBusqueda</w>. 
     </p>
 
     <scfile>
         ElementosViewModel.java
     </scfile>
-    <sc java data-line="4,8-19">
+    <sc java>
         public class ElementosViewModel extends AndroidViewModel {
             // ... 
 
+        <add>
             MutableLiveData&lt;String&gt; terminoBusqueda = new MutableLiveData&lt;&gt;();
+
+            LiveData&lt;List&lt;Elemento&gt;&gt; resultadoBusqueda = Transformations.switchMap(terminoBusqueda, new Function&lt;String, LiveData&lt;List&lt;Elemento&gt;&gt;&gt;() {
+                @Override
+                public LiveData&lt;List&lt;Elemento&gt;&gt; apply(String input) {
+                    return elementosRepositorio.buscar(input);
+                }
+            });
+        </add>
 
             // ...
 
+        <add>
             LiveData&lt;List&lt;Elemento&gt;&gt; buscar(){
-                return Transformations.switchMap(terminoBusqueda, new Function&lt;String, LiveData&lt;List&lt;Elemento&gt;&gt;&gt;() {
-                    @Override
-                    public LiveData&lt;List&lt;Elemento&gt;&gt; apply(String input) {
-                        return elementosRepositorio.buscar(input);
-                    }
-                });
+                return resultadoBusqueda;
             }
         
             void establecerTerminoBusqueda(String t){
                 terminoBusqueda.setValue(t);
             }
+        </add>
         }
     </sc>
 
@@ -904,11 +985,12 @@
     <scfile>
         MainActivity.java
     </scfile>
-    <sc java data-line="5-14">
+    <sc java>
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             // ...
 
+        <add>
             binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) { return false; }
@@ -919,6 +1001,7 @@
                     return false;
                 }
             });
+        </add>
         }
     </sc>
     
@@ -937,7 +1020,7 @@
     <scfile>
         RecyclerElementosFragment.java
     </scfile>
-    <sc java data-line="8,18-20">
+    <sc java>
         public class RecyclerElementosFragment extends Fragment {
             // ...
 
@@ -945,7 +1028,9 @@
             public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
                 // ...
 
+        <hig>
                 obtenerElementos().observe(getViewLifecycleOwner(), new Observer&lt;List&lt;Elemento&gt;&gt;() {
+        </hig>
                     @Override
                     public void onChanged(List&lt;Elemento&gt; elementos) {
                         elementosAdapter.establecerLista(elementos);
@@ -955,9 +1040,11 @@
                 // ...
             }
 
+        <add>
             LiveData&lt;List&lt;Elemento&gt;&gt; obtenerElementos(){
                 return elementosViewModel.obtener();
             }
+        </add>
         }
     </sc>
 
@@ -969,10 +1056,12 @@
     </scfile>
     <sc java>
         public class RecyclerBuscarFragment extends RecyclerElementosFragment {
+        <add>
             @Override
             LiveData&lt;List&lt;Elemento&gt;&gt; obtenerElementos() {
                 return elementosViewModel.buscar();
             }
+        </add>
         }
     </sc>
 
@@ -981,10 +1070,12 @@
     </scfile>
     <sc java>
         public class RecyclerValoracionFragment extends RecyclerElementosFragment {
+        <add>
             @Override
             LiveData&lt;List&lt;Elemento&gt;&gt; obtenerElementos() {
                 return elementosViewModel.masValorados();
             }
+        </add>
         }        
     </sc>
 </section>

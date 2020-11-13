@@ -30,17 +30,21 @@
             <scfile>
                 build.gradle (Module: app)
             </scfile>
-            <sc groovy data-line="4-5,7-8">
-
+            <sc groovy>
+                <low>
                 dependencies {
                     // ...
-
+                </low>
+                <add>
                     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
                     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
         
                     implementation 'com.github.bumptech.glide:glide:4.11.0'
                     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+                </add>
+                <low>
                 }
+                </low>
             </sc>        
         </li>
 
@@ -50,14 +54,19 @@
             <scfile>
                 build.gradle (Module: app)
             </scfile>
-            <sc groovy data-line="4-6">
+            <sc groovy>
+                <low>
                 android {
                     //...
-
+                </low>
+                <add>
                     buildFeatures {
                         viewBinding true
                     }
+                </add>
+                <low>    
                 }
+                </low>
             </sc>
         </li>
     
@@ -66,14 +75,17 @@
             <scfile>
                 AndroidManifest.xml
             </scfile>
-            <sc xml data-line="3">
+            <sc xml>
+                <low>
                 &lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; ...&gt;
-
+                </low>
+                <add>
                     &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;
-
+                </add>
+                <low>
                     // ...
                 &lt;/manifest&gt;
-                </sc>
+                </low>
             </sc>
 
         </li>
@@ -189,10 +201,13 @@
     <scfile>
         Itunes.java
     </scfile>
-    <sc java data-line="4-12">
+    <sc java>
+        <low>
         public class Itunes {
             //...
+        </low>
 
+        <add>
             class Respuesta {
                 List&lt;Contenido&gt; results;
             }
@@ -202,7 +217,10 @@
                 String trackName;
                 String artworkUrl100;
             }
+        </add>
+        <low>
         }
+        </low>
     </sc>
 
     <info>
@@ -227,10 +245,13 @@
     <scfile>
         Itunes.java
     </scfile>
-    <sc java data-line="4-13">
+    <sc java>
+        <low>
         public class Itunes {
             //...
 
+        </low>
+        <add>
             public static Api api = new Retrofit.Builder()
                     .baseUrl("https://itunes.apple.com/")
                     .addConverterFactory(GsonConverterFactory.create())
@@ -241,7 +262,10 @@
                 @GET("search/")
                 Call&lt;Respuesta&gt; buscar(@Query(&quot;term&quot;) String texto);
             }
+        </add>
+        <low>
         }
+        </low>
     </sc>
 
     <p>Retrofit implementará automáticamente los métodos del objeto <w>api</w> definidos en la <w>interface Api</w>.
@@ -340,10 +364,12 @@
         ItunesFragment.java
     </scfile>
     <sc java>
+        <low>
         @Override
         public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
             // ...
-
+        </low>
+        <add>
             ItunesViewModel itunesViewModel = new ViewModelProvider(this).get(ItunesViewModel.class);
 
             binding.texto.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -363,7 +389,10 @@
                     respuesta.results.forEach(contenido -&gt; Log.e(&quot;ABCD&quot;, contenido.artistName + &quot;, &quot; + contenido.trackName + &quot;, &quot; + contenido.artworkUrl100));
                 }
             });
+        </add>
+        <low>
         }
+        </low>
     </sc>
 
     <p>Si ejecutamos la app, en el Logcat podremos ver cada <w>Contenido</w> del array <w>results</w> de la respuesta, 
@@ -433,10 +462,13 @@
                     <scfile>
                         ItunesFragment.java
                     </scfile>
-                    <sc java data-line="4-11">
+                    <sc java>
+                        <low>
                         public class ItunesFragment extends Fragment {
                             // ...
+                        </low>
 
+                        <add>
                             static class ContenidoViewHolder extends RecyclerView.ViewHolder {
                                 ViewholderContenidoBinding binding;
                         
@@ -445,7 +477,10 @@
                                     this.binding = binding;
                                 }
                             }
+                        </add>
+                        <low>
                         }
+                        </low>
                     </sc>
                 </li>
             </ul>
@@ -455,10 +490,13 @@
             <scfile>
                 ItunesFragment.java
             </scfile>
-            <sc java data-line="4-31">
+            <sc java>
+                <low>
                 public class ItunesFragment extends Fragment {
                     //...
+                </low>
 
+                <add>
                     class ContenidosAdapter extends RecyclerView.Adapter&lt;ContenidoViewHolder&gt;{
                         List&lt;Itunes.Contenido&gt; contenidoList;
                 
@@ -487,7 +525,10 @@
                             notifyDataSetChanged();
                         }
                     }
+                </add>
+                <low>
                 }
+                </low>
             </sc>
 
         </li>
@@ -496,14 +537,20 @@
             <scfile>
                 ItunesFragment.java
             </scfile>
-            <sc java data-line="5,6">
+            <sc java>
+                <low>
                 @Override
                 public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
                     //...
+                </low>
 
+                <add>
                     ContenidosAdapter contenidosAdapter = new ContenidosAdapter();
                     binding.recyclerviewContenidos.setAdapter(contenidosAdapter);
+                </add>
+                <low>
                 }
+                </low>
             </sc>
         </li>
 
@@ -512,11 +559,14 @@
             <scfile>
                 ItunesFragment.java
             </scfile>
-            <sc java data-line="5-11">
+            <sc java>
+                <low>
                 @Override
                 public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
                     //...
+                </low>
 
+                <add>
                     itunesViewModel.respuestaMutableLiveData.observe(getViewLifecycleOwner(), new Observer&lt;Itunes.Respuesta&gt;() {
                         @Override
                         public void onChanged(Itunes.Respuesta respuesta) {
@@ -524,7 +574,10 @@
                             // respuesta.results.forEach(r -&gt; Log.e(&quot;ABCD&quot;, r.artistName + &quot;, &quot; + r.trackName + &quot;, &quot; + r.artworkUrl100));
                         }
                     });
+                </add>
+                <low>
                 }
+                </low>
             </sc>
         </li>
     </ul>
@@ -584,7 +637,7 @@
             <p>En la <fbb>Ubicación</fbb> selecciona <name>eur3</name>.</p>
         </li>
         <li>
-            <p>Una vez creada la base de datos, accede al panel <fbb>Reglas</fbb> e introduce las siguientes reglas:</p>
+            <p>Una vez creada la base de datos, accede al panel <fbb>Reglas</fbb> e introduce las siguientes reglas. Publícalas.</p>
             <sc firestore-security-rules>
                 rules_version = '2';
                 service cloud.firestore {
@@ -596,7 +649,6 @@
                     }
                 }
             </sc>
-            <p><strong>Publica las reglas</strong></p>
         </li>
         <li>
             <p>En el panel de <fbb>Datos</fbb> se pueden modificar los datos (añadir, modificar, eliminar). 

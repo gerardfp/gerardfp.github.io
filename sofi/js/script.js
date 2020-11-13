@@ -24,6 +24,7 @@ function pageTitle(){
 function syntaxHighlight(){
   document.querySelectorAll('sc').forEach(b => {
 
+
     var preWrap = document.createElement('pre');
     var codeWrap = document.createElement('code');
 
@@ -63,6 +64,13 @@ function syntaxHighlight(){
     }
 
     Prism.highlightElement(codeWrap);
+
+    codeWrap.querySelectorAll('add, rem, hig, low').forEach(k => {
+      k.innerHTML = k.innerHTML.replace(/^(?:\r?\n|\r)/, '');
+    });
+    // console.log(codeWrap.innerHTML);
+
+    //codewrap eliminar els salts de linea despres de add i rem
   });
 
   document.querySelectorAll('shell, mem').forEach(b => {
