@@ -8,10 +8,7 @@
     body * {
         line-height: normal;
     }
-    body h4 {
-        margin: 1em 0;
-        font-size: 1em;
-    }
+
     sample shell {
         margin-bottom: .4em;
     }
@@ -30,12 +27,63 @@
         border-radius: 4px;
         padding: 1em;
     }
+
+    var {
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-style: italic;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+    details {
+        background-color: rgb(255, 253, 158);
+        padding: 1em;
+        border-radius: 4px;
+    }
+
+    summary {
+        list-style: none;
+    }
+
+    summary ic::after {
+        content: ' clica aquí...';
+    }
+
+    hh3 {
+        display: block;
+        font-weight: bold;
+        margin: 1.4em 0 0.8em 0;
+        font-size: 1.4em;
+    }
+    
+    hh4 {
+        display: block;
+        margin: 1em 0 0.6em 0;
+        font-size: 1em;
+        font-weight: bold;
+        color: #666;
+    }
 </style>
 
 <nav></nav>
 <header>
   <h1>ASIX/DAM-M3-UF1: Examen parcial</h1>
   <abstract>
+      <ul>
+          <li><p>L'examen consta de 5 exercicis</p></li>
+          <li><p>Cada exercici té una puntuació de 2.5</p></li>
+          <li>
+              <p>S'han d'entregar 5 arxius <w>.java</w> amb els noms:</p>
+                <ul>
+                    <li><p><w>E1.java</w></p></li>
+                    <li><p><w>E2.java</w></p></li>
+                    <li><p><w>E3.java</w></p></li>
+                    <li><p><w>E4.java</w></p></li>
+                    <li><p><w>E5.java</w></p></li>
+                </ul>
+        </li>
+        <li>Per a la nota final de l'examen comptaran els 4 exercicis amb millor puntuació.</li>
+      </ul>
   </abstract>
 </header>
 
@@ -54,13 +102,9 @@
     <p>Si el tren està a 20 km de l'estació, quants km recorrerà 
         l'ocell fins que el tren arribi a l'estació?</p>
 
-    <p><strong>Descripció de l'algorisme</strong></p>
+   
 
-    <p>Caldrà en primer lloc esbrinar el temps que triga el tren en arribar a l'estació. 
-        Després es calcula la distància recorreguda per l'ocell en funció d'aquest temps i 
-        la velocitat a la que vola l'ocell.</p>
-
-    <h3>Format d'entrada</h3>
+    <hh3>Format d'entrada</hh3>
     <p>L'entrada consisteix en tres nombres decimals:</p>
 
     <ul>
@@ -69,12 +113,19 @@
         <li><p>Velocitat de l'ocell</p></li>
     </ul>
 
-    <h3>Format de sortida</h3>
+    <hh3>Format de sortida</hh3>
     <p>S'imprimirà la distància recorreguda per l'ocell en format <w>float</w></p>
 
-    <h3>Casos de prova</h3>
+    <hh3>Suggerència per a la solució</hh3>
+    <details>
+        <summary><ic>&#xf0eb;</ic> </summary>
+        <p>En primer lloc cal esbrinar el temps que triga el tren en arribar a l'estació.</p>
+        <p>Després, segons aquest temps i la velocitat a la que vola l'ocell, es calcula la distància recorreguda per l'ocell.</p>
+    </details>
+
+    <hh3>Casos de prova</hh3>
     <sample>
-        <h4>Cas de prova 1</h4>
+        <hh4>Cas de prova 1</hh4>
         <shell>
             <in>10
             10
@@ -89,7 +140,7 @@
     </sample>
 
     <sample>
-        <h4>Cas de prova 2</h4>
+        <hh4>Cas de prova 2</hh4>
         <shell>
             <in>50
             10
@@ -104,7 +155,7 @@
     </sample>
 
     <sample>
-        <h4>Cas de prova 4</h4>
+        <hh4>Cas de prova 3</hh4>
         <shell>
             <in>15
             30
@@ -117,7 +168,7 @@
     
 
     <sample>
-        <h4>Cas de prova 5</h4>
+        <hh4>Cas de prova 4</hh4>
         <shell>
             <in>32,5
             65
@@ -130,11 +181,108 @@
     
 </section>
 
+
+
 <section>
     <h2>Exercici 2: Dintre de termini</h2>
 
     <p>Donades tres dates, digues si la segona és posterior a la primera i anterior a la tercera.</p>
+
+    <hh3>Format d'entrada</hh3>
+    <p>L'entrada consisteix en tres dates en format <w>dd / mm / yyyy</w>.</p>
+    <p>Les tres dates són distintes.</p>
+
+    <hh3>Format de sortida</hh3>
+    <p>S'imprimirà <w>true</w> si la segona data és posterior a la primera i anterior a la tercera, i <w>false</w> en cas contrari.</p>
+    
+    
+    <hh3>Suggerència per a la solució</hh3>
+    <details>
+        <summary><ic>&#xf0eb;</ic> </summary>
+        <p>Cal llegir el dia, més i any de cada data amb <w>nextInt()</w>. S'hauràn de descartar les barres <w>/</w> amb <w>next()</w></p>
+        <p>Una possible idea per a la solució és presuposar que la segona data està enmig (<w>true</w>) 
+            i després veure si es compleix alguna condició que impliqui que realment no està enmig (<w>false</w>).
+        </p>
+
+        <sc java>
+            boolean enmig = true;
+
+            if (any1 > any2) {
+                enmig = false;
+            }
+            if (any2 > any3) {
+                enmig = false;
+            }
+
+            // resta de condicions ...
+
+            System.out.println(enmig);
+        </sc>
+    </details>
+
+
+    <hh3>Casos de prova</hh3>
+    <sample>
+        <hh4>Cas de prova 1</hh4>
+        <shell>
+            <in>7 / 1 / 1999      17 / 10 / 2050      7 / 1 / 2020</in>
+        </shell>
+        <shell>
+            false
+        </shell>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 2</hh4>
+        <shell>
+            <in>7 / 1 / 2050      7 / 12 / 2050      27 / 12 / 2050</in>
+        </shell>
+        <shell>
+            true
+        </shell>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 3</hh4>
+        <shell>
+            <in>7 / 10 / 2050      17 / 10 / 2020      7 / 1 / 2050 </in>
+        </shell>
+        <shell>
+            false
+        </shell>
+    </sample>
+    <sample>
+        <hh4>Cas de prova 4</hh4>
+        <shell>
+            <in>17 / 10 / 1999      7 / 1 / 2020      7 / 1 / 2050 </in>
+        </shell>
+        <shell>
+            true
+        </shell>
+    </sample>
+    <sample>
+        <hh4>Cas de prova 5</hh4>
+        <shell>
+            <in>17 / 12 / 2020      7 / 12 / 2020      27 / 10 / 1999 </in>
+        </shell>
+        <shell>
+            false
+        </shell>
+    </sample>
+    <sample>
+        <hh4>Cas de prova 6</hh4>
+        <shell>
+            <in>27 / 12 / 2020      7 / 1 / 2050      7 / 10 / 2050</in>
+        </shell>
+        <shell>
+            true
+        </shell>
+    </sample>
+
 </section>
+
+
+
 
 <section>
     <h2>Exercici 3: Inode flags</h2>
@@ -174,18 +322,16 @@
 
     <p>Escriu un programa que a partir del <strong>bit-field</strong> d'un fitxer imprimeixi els atributs que té activats.</p>
 
-    <p><strong>Descripció de l'alogrisme</strong></p>
+   
 
-    <p>Un possible solució al problema consisteix en tractar de restar al <em>bit-field</em> la puntuació de cada atribut (de més puntuació a menys).
-        Si es pot restar sense que quedi un número negatiu, aleshores és que té aquell atribut activat.
-    </p>
 
-    <h3>Format d'entrada</h3>
+    <hh3>Format d'entrada</hh3>
     <p>L'entrada consisteix en un número enter que representa el <strong>bit-field</strong> d'un arxiu.</p>
 
-    <h3>Format de sortida</h3>
+    <hh3>Format de sortida</hh3>
     <p>S'imprimirà el <strong>Nom</strong> dels atributs que té activats el fitxer en ordre de major a menor puntuació:</p>
 
+    
     <sc none>
         EXT4_NOATIME_FL
         EXT4_NODUMP_FL
@@ -197,10 +343,30 @@
         EXT4_SECRM_FL
     </sc>
 
-    <h3>Casos de prova</h3>
+    <hh3>Suggerència per a la solució</hh3>
+    <details>
+        <summary><ic>&#xf0eb;</ic></summary>
+        
+        <p>Un possible solució al problema consisteix en tractar de restar al <em>bit-field</em> la puntuació de 
+            cada atribut (de més puntuació a menys).</p>
+        <p>Si es pot restar sense que quedi un número negatiu, aleshores és que té aquell atribut activat.</p>
+        <p>Per exemple: suposem que el bit-field es <strong>34</strong>:
+        <ul>
+            <li><p>tractem de restar 128: no es pot</p></li>
+            <li><p>tractem de restar 64: no es pot</p></li>
+            <li><p>tractem de restar 32: sí que es pot. Imprimim <w>EXT4_APPEND_FL</w>. Li restem 32 i queda <strong>2</strong></p></li>
+            <li><p>tractem de restar 16: no es pot</p></li>
+            <li><p>tractem de restar 8: no es pot</p></li>
+            <li><p>tractem de restar 4: no es pot</p></li>
+            <li><p>tractem de restar 2: sí que es pot. Imprimim <w>EXT4_UNRM_FL</w>. Li restem 2 i queda <strong>0</strong></p></li>
+            <li><p>tractem de restar 1: no es pot</p></li>
+        </ul>
+    </details>
+
+    <hh3>Casos de prova</hh3>
 
     <sample>
-        <h4>Cas de prova 1</h4>
+        <hh4>Cas de prova 1</hh4>
         <shell><in>10</in></shell>
         <shell>
             EXT4_SYNC_FL
@@ -216,7 +382,7 @@
     </sample>
 
     <sample>
-        <h4>Cas de prova 2</h4>
+        <hh4>Cas de prova 2</hh4>
         <shell><in>11</in></shell>
         <shell>
             EXT4_SYNC_FL
@@ -227,7 +393,7 @@
     </sample>
 
     <sample>
-        <h4>Cas de prova 3</h4>
+        <hh4>Cas de prova 3</hh4>
         <shell><in>23</in></shell>
         <shell>
             EXT4_IMMUTABLE_FL
@@ -239,7 +405,7 @@
     </sample>
 
     <sample>
-        <h4>Cas de prova 4</h4>
+        <hh4>Cas de prova 4</hh4>
         <shell><in>31</in></shell>
         <shell>
             EXT4_IMMUTABLE_FL
@@ -252,7 +418,7 @@
     </sample>
 
     <sample>
-        <h4>Cas de prova 5</h4>
+        <hh4>Cas de prova 5</hh4>
         <shell><in>170</in></shell>
         <shell>
             EXT4_NOATIME_FL
@@ -264,7 +430,7 @@
     </sample>
 
     <sample>
-        <h4>Cas de prova 6</h4>
+        <hh4>Cas de prova 6</hh4>
         <shell><in>255</in></shell>
         <shell>
             EXT4_NOATIME_FL
@@ -280,7 +446,7 @@
     </sample>
 
     <sample>
-        <h4>Cas de prova 7</h4>
+        <hh4>Cas de prova 7</hh4>
         <shell><in>1</in></shell>
         <shell>
             EXT4_SECRM_FL
@@ -288,7 +454,7 @@
     </sample>
 
     <sample>
-        <h4>Cas de prova 8</h4>
+        <hh4>Cas de prova 8</hh4>
         <shell><in>64</in></shell>
         <shell>
             EXT4_NODUMP_FL
@@ -314,39 +480,14 @@
         <li><p>La quantitat de parèntesis oberts que no s'hagin tancat</p></li>
     </ul>
     
-    <p><strong>Descripció de l'alogrisme</strong></p>
+    
 
-    <p>Un possible solució al problema consisteix en:</p>
-    <ul>
-        <li><p>Crear tres comptadors: un per als parèntesis <w>oberts</w>, un per als <w>tancats</w>, i un per al <w>total</w> 
-            de parèntesis (oberts i tancats).</p></li>
-        <li>
-            <p>Aleshores, es van llegint una a una les paraules de l'expressió.</p>
-            <ul>
-                <li><p>Si la paraula llegida es un parèntesi obert <w>(</w>, es suma 1 al comptador de parèntesis <w>oberts</w>, 
-                    i també es suma 1 al <w>total</w> de parèntesis.</p>
-                </li>
-                <li>
-                    <p>Si es llegeix un parèntesi tancat <w>)</w>, sumem 1 al de <w>tancats</w>, i al <w>total</w>. </p>
-                    <p>A més a més, mirem si el comptador de <w>tancats</w> és major al d'<w>oberts</w>, 
-                        i si és així, és que hi ha un error de parèntesi mal tancat. Imprimirm l'error, 
-                        i restem 1 al comptador de <w>tancats</w>.
-                </p>
-                </li>
-            </ul>
-        </li>
-        <li>Un cop s'han acabat de llegir tota l'expressió, s'haurien d'haver comptat el mateix número d'<w>oberts</w> 
-            que de <w>tancats</w>, en cas contrari, és que falten parèntesis per tancar.</li>
-            
-    </p></li>
-    </ul>
-
-    <h3>Format d'entrada</h3>
+    <hh3>Format d'entrada</hh3>
     
     <p>L'entrada consisteix en una expressió. Els elements de l'expressió estan separats per espais en blanc.</p>
     <p>L'expressió finalitza amb la paraula <w>END</w>.</p>
         
-    <h3>Format de sortida</h3>
+    <hh3>Format de sortida</hh3>
     <p>S'imprimirà:</p>
 
     <p><w>ERROR: parentesi {posicio} mal tancat</w> per cada parèntesi mal tancat, on <w>{posicio}</w> és la posició d'aquest parèntesi</p>
@@ -355,9 +496,53 @@
     
     <p>Si els parèntesis estan ben emparellats, no s'ha d'imprimir res.</p>
 
-    <h3>Casos de prova</h3>
+    <hh3>Suggerència per a la solució</hh3>
+    <details>
+        <summary><ic>&#xf0eb;</ic></summary>
+        
+        <p>Un possible solució al problema consisteix en:</p>
+        <ul>
+            <li><p>Crear tres comptadors:</p>
+                <ul>
+                    <li><p>un per als parèntesis <w>oberts</w></p></li>
+                    <li><p>un per als <w>tancats</w></p></li>
+                    <li><p> un per al <w>total</w> 
+                        de parèntesis (oberts i tancats)</p></li>
+                </ul>
+            </li>
+            <li>
+                <p>Aleshores, es van llegint una a una les paraules de l'expressió.</p>
+                <ul>
+                    <li><p>Si la paraula llegida es un parèntesi obert <w>(</w>,</p>
+                        <ul>
+                            <li><p>es suma 1 al comptador de parèntesis <w>oberts</w></p></li>
+                            <li><p>també es suma 1 al <w>total</w> de parèntesis.</p></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Si es llegeix un parèntesi tancat <w>)</w></p>
+                        <ul>
+                            <li><p>es suma 1 al de <w>tancats</w></p></li>
+                            <li><p>es suma 1 al de <w>total</w></p></li>
+                            <li><p>A més a més, mirem si el comptador de <w>tancats</w> és major al d'<w>oberts</w></p>
+                                <ul><li>si és així, és que hi ha un error de parèntesi mal tancat. Imprimirm l'error, 
+                                    i restem 1 al comptador de <w>tancats</w></li></ul> 
+
+                        </ul>
+                    </p>
+                    </li>
+                </ul>
+            </li>
+            <li>Un cop s'han acabat de llegir tota l'expressió, s'haurien d'haver comptat el mateix número d'<w>oberts</w> 
+                que de <w>tancats</w>, en cas contrari, és que falten parèntesis per tancar.</li>
+                
+        </p></li>
+        </ul>
+    </details>
+
+    <hh3>Casos de prova</hh3>
     <sample>
-    <h4>Cas de prova 1</h4>
+    <hh4>Cas de prova 1</hh4>
     <shell>
         <in>( 2 + 1 ) * 4     END</in>
     </shell>
@@ -365,7 +550,7 @@
     </sample>
 
     <sample>
-    <h4>Cas de prova 2</h4>
+    <hh4>Cas de prova 2</hh4>
     <shell>
         <in>( ( 2 + 1 ) * 4 )    END</in>
     </shell>
@@ -373,7 +558,7 @@
     </sample>
 
     <sample>
-    <h4>Cas de prova 3</h4>
+    <hh4>Cas de prova 3</hh4>
     <shell>
         <in>2 + 1 ) * 4     END</in>
     </shell>
@@ -381,7 +566,7 @@
     </sample>
 
     <sample>
-    <h4>Cas de prova 4</h4>
+    <hh4>Cas de prova 4</hh4>
     <shell>
         <in>( 2 + 1 ) * 4 )     END</in>
     </shell>
@@ -389,7 +574,7 @@
     </sample>
 
     <sample>
-    <h4>Cas de prova 5</h4>
+    <hh4>Cas de prova 5</hh4>
     <shell>
         <in>2 + 1 ) * 4 )     END</in>
     </shell>
@@ -400,7 +585,7 @@
     </shell>
 </sample>
     <sample>
-    <h4>Cas de prova 6</h4>
+    <hh4>Cas de prova 6</hh4>
     <shell>
         <in>( 2 + 1 ) * 4 )     END</in>
     </shell>
@@ -408,7 +593,7 @@
     <shell>ERROR: parentesi 3 mal tancat</shell>
 </sample>
     <sample>
-    <h4>Cas de prova 7</h4>
+    <hh4>Cas de prova 7</hh4>
     <shell>
         <in>( 2 + 2 ) * 3 ) + ( 3 + 2 ) * 3 )        END</in>
     </shell>
@@ -419,7 +604,7 @@
     </shell>
 </sample>
     <sample>
-    <h4>Cas de prova 8</h4>
+    <hh4>Cas de prova 8</hh4>
     <shell>
         <in>( 2 + 1 * 4     END</in>
     </shell>
@@ -430,7 +615,7 @@
 </sample>
 
     <sample>
-    <h4>Cas de prova 9</h4>
+    <hh4>Cas de prova 9</hh4>
     <shell>
         <in>( 2 + ( 1 * 4     END</in>
     </shell>
@@ -440,7 +625,7 @@
     </shell>
 </sample>
     <sample>
-    <h4>Cas de prova 10</h4>
+    <hh4>Cas de prova 10</hh4>
     <shell>
         <in>( 2 + ( 1 + ( 3 * 4 )     END</in>
     </shell>
@@ -450,7 +635,7 @@
     </shell>
     <sample>
     </sample>
-    <h4>Cas de prova 11</h4>
+    <hh4>Cas de prova 11</hh4>
     <shell>
         <in>( 2 * ( 2 * ( 2 - 2 ) * ( 2 - 2 )   END</in>
     </shell>
@@ -460,7 +645,7 @@
     </shell>
 </sample>
     <sample>
-    <h4>Cas de prova 12</h4>
+    <hh4>Cas de prova 12</hh4>
     <shell>
         <in>2 - ( 2 * 2 ) + ( 2 - 2      END</in>
     </shell>
@@ -468,7 +653,7 @@
     <shell>ERROR: falta tancar 1 parentesis</shell>
 </sample>
     <sample>
-    <h4>Cas de prova 13</h4>
+    <hh4>Cas de prova 13</hh4>
     <shell>
         <in>2 - ( 2 * 2 ) ) * ( 2 + 2     END</in>
     </shell>
@@ -478,8 +663,9 @@
         ERROR: falta tancar 1 parentesis
     </shell>
 </sample>
+
     <sample>
-    <h4>Cas de prova 14</h4>
+    <hh4>Cas de prova 14</hh4>
     <shell>
         <in>2 * 2 ) + ( 2 - 2       END</in>
     </shell>
@@ -492,8 +678,135 @@
 </section>
 
 <section>
-    <h2>Black Friday</h2>
-    <p>Llega el Black Friday y hay que subir los precios.</p>
+    <h2>Exercici 5: Black Friday</h2>
+    <p>Arriba el Black Friday i s'han d'apujar els preus!</p>
 
-    <p>Escribe un programa que suba el precio de los productos un tanto por cien</p>
+    <p>Escriu un programa que apuji el preu dels productes un tant per cent determinat.</p>
+
+
+
+    <hh3>Format d'entrada</hh3>
+    
+    <p>L'entrada consisteix en vàries sèries de productes.</p>
+    <p>Per a cada sèrie s'indica el número de productes <var>N</var> 
+        i el tant per cent <var>T</var> que s'han d'apujar els seus preus.</p>
+    <p>A continuació venen els productes de la sèrie. Per a cada producte s'indica el seu codi <var>C</var> i preu <var>P</var>.</p>
+
+    <ul>
+        <li><p><var>N</var>: enter</p></li>
+        <li><p><var>T</var>: decimal</p></li>
+        <li><p><var>C</var>: paraula</p></li>
+        <li><p><var>P</var>: decimal</p></li>
+    </ul>
+
+    
+    <p>L'entrada acaba amb dos zeros.</p>
+        
+    <hh3>Format de sortida</hh3>
+    <p>S'imprimirà cada producte en una nova línia: el codi i el preu apujat.</p>
+
+    <hh3>Suggerència per a la solució</hh3>
+    <details>
+        <summary><ic>&#xf0eb;</ic></summary>
+        
+        <p>En aquest problema cladrà fer dos fors niats (un dintre de l'altre). El de fora es repetirà fins trobar dos zeros
+            a l'entrada. El de dintre es repetirà tantes vegades com productes hi hagi en la sèrie
+    </details>
+
+    <hh3>Casos de prova</hh3>
+
+    <sample>
+        <hh4>Cas de prova 1</hh4>
+        <shell>
+            <in>2 5
+            HW_Hled2 100
+            KLM_403G 10
+            
+            3 10
+            yCat9000 1000
+            SK8_Plus 500
+            TK_CPANA 100
+            
+            0 0</in>
+        </shell>
+        <shell>
+            HW_Hled2 105.0
+            KLM_403G 10.5
+            yCat9000 1100.0
+            SK8_Plus 550.0
+            TK_CPANA 110.0
+        </shell>
+        <expl>
+            Els primers 2 productes s'apujen un 5%<br>
+            Els següents 3 productes s'apujen un 10%
+        </expl>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 2</hh4>
+        <shell>
+            <in>2 15
+            UE_Boom_2 59
+            Ezviz_C3T 34,99
+
+            3 10
+            Beko_BSSA2 181,35
+            HP_M404dn 161,60
+            Epson_EH_TW610 599
+            
+            0 0</in>
+        </shell>
+        <shell>
+            UE_Boom_2 67.85
+            Ezviz_C3T 40.238503
+            Beko_BSSA2 199.485
+            HP_M404dn 177.76001
+            Epson_EH_TW610 658.9
+        </shell>
+        <expl>
+            Els primers 2 productes s'apujen un 15%<br>
+            Els següents 3 productes s'apujen un 10%
+        </expl>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 3</hh4>
+        <shell>
+            <in>5 3,33
+            Mi_TV_4S 349
+            Mi_Band_4 19
+            Nest_Mini2 19
+            IdeaPad_3 649
+            A51_5G 289
+
+            3 7
+            Cyclone_V10 399
+            iPhone_11 584
+            TV_QLED_65 1299
+
+            2 13
+            HW_T530 149
+            MediaPad_M5 175
+
+            0 0</in>
+        </shell>
+        <shell>
+            Mi_TV_4S 360.6217
+            Mi_Band_4 19.6327
+            Nest_Mini2 19.6327
+            IdeaPad_3 670.6117
+            A51_5G 298.6237
+            Cyclone_V10 426.93
+            iPhone_11 624.88
+            TV_QLED_65 1389.93
+            HW_T530 168.37
+            MediaPad_M5 197.75
+        </shell>
+        <expl>
+            Els primers 5 productes s'apujen un 3,33%<br>
+            Els següents 3 productes s'apujen un 7%<br>
+            Els següents 2 productes s'apujen un 13%<br>
+        </expl>
+    </sample>
+    
 </section>
