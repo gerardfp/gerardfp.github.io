@@ -188,111 +188,12 @@
 
 
 
-<section>
-    <h2>Exercici 2: Dintre de termini</h2>
-
-    <p>Donades tres dates, digues si la segona és posterior a la primera i anterior a la tercera.</p>
-
-    <hh3>Format d'entrada</hh3>
-    <p>L'entrada consisteix en tres dates en format <w>dd / mm / yyyy</w>.</p>
-    <p>Les tres dates són distintes.</p>
-
-    <hh3>Format de sortida</hh3>
-    <p>S'imprimirà <w>true</w> si la segona data és posterior a la primera i anterior a la tercera, i <w>false</w> en cas contrari.</p>
-    
-    
-    <hh3>Suggerència per a la solució</hh3>
-    <details>
-        <summary><ic>&#xf0eb;</ic> </summary>
-        <p>Cal llegir el dia, mes i any de cada data amb <w>nextInt()</w>. S'hauràn de descartar les barres <w>/</w> amb <w>next()</w>.</p>
-        <p>Una possible idea per a la solució és presuposar que la segona data està enmig, 
-            i després veure si es compleix alguna condició que impliqui que realment no està enmig.
-        </p>
-
-        <sc java>
-            // suposem que està enmig
-            boolean enmig = true;
-
-            // mirem si hi ha alguna condició
-            // que contradigui la presuposició incial
-            if (any1 > any2) {
-                enmig = false;
-            } else if (any2 > any3) {
-                enmig = false;
-            }
-            // resta de condicions
-            
-            // imprimim el resultat
-            System.out.println(enmig);
-        </sc>
-    </details>
-
-
-    <hh3>Casos de prova</hh3>
-    <sample>
-        <hh4>Cas de prova 1</hh4>
-        <shell>
-            <in>7 / 1 / 1999      17 / 10 / 2050      7 / 1 / 2020</in>
-        </shell>
-        <shell>
-            false
-        </shell>
-    </sample>
-
-    <sample>
-        <hh4>Cas de prova 2</hh4>
-        <shell>
-            <in>7 / 1 / 2050      7 / 12 / 2050      27 / 12 / 2050</in>
-        </shell>
-        <shell>
-            true
-        </shell>
-    </sample>
-
-    <sample>
-        <hh4>Cas de prova 3</hh4>
-        <shell>
-            <in>7 / 10 / 2050      17 / 10 / 2020      7 / 1 / 2050 </in>
-        </shell>
-        <shell>
-            false
-        </shell>
-    </sample>
-    <sample>
-        <hh4>Cas de prova 4</hh4>
-        <shell>
-            <in>17 / 10 / 1999      7 / 1 / 2020      7 / 1 / 2050 </in>
-        </shell>
-        <shell>
-            true
-        </shell>
-    </sample>
-    <sample>
-        <hh4>Cas de prova 5</hh4>
-        <shell>
-            <in>17 / 12 / 2020      7 / 12 / 2020      27 / 10 / 1999 </in>
-        </shell>
-        <shell>
-            false
-        </shell>
-    </sample>
-    <sample>
-        <hh4>Cas de prova 6</hh4>
-        <shell>
-            <in>27 / 12 / 2020      7 / 1 / 2050      7 / 10 / 2050</in>
-        </shell>
-        <shell>
-            true
-        </shell>
-    </sample>
-
-</section>
 
 
 
 
 <section>
-    <h2>Exercici 3: Inode flags</h2>
+    <h2>Exercici 2: Inode flags</h2>
     <p>Un arxiu de Linux té una sèrie d'atributs que es poden activar o desactivar amb la comanda <w>chattr</w>.</p>
 
     <p>Els atributs que té activats/desactivats un arxiu es guarden amb una estructura anomenada <strong>bit-field</strong>:</p>
@@ -469,6 +370,109 @@
     </sample>
 
 </section>
+
+
+<section>
+    <h2>Exercici 3: Dintre de termini</h2>
+
+    <p>Donades tres dates, digues si la segona és posterior a la primera i anterior a la tercera.</p>
+
+    <hh3>Format d'entrada</hh3>
+    <p>L'entrada consisteix en tres dates en format <w>dd / mm / yyyy</w>.</p>
+    <p>Les tres dates són distintes.</p>
+
+    <hh3>Format de sortida</hh3>
+    <p>S'imprimirà <w>true</w> si la segona data és posterior a la primera i anterior a la tercera, i <w>false</w> en cas contrari.</p>
+    
+    
+    <hh3>Suggerència per a la solució</hh3>
+    <details>
+        <summary><ic>&#xf0eb;</ic> </summary>
+        <p>Cal llegir el dia, mes i any de cada data amb <w>nextInt()</w>. S'hauràn de descartar les barres <w>/</w> amb <w>next()</w>.</p>
+        <p>Una possible idea per a la solució és presuposar que la segona data està enmig, 
+            i després veure si es compleix alguna condició que impliqui que realment no està enmig.
+        </p>
+
+        <sc java>
+            // suposem que està enmig
+            boolean enmig = true;
+
+            // mirem si hi ha alguna condició
+            // que contradigui la presuposició incial
+            if (any1 > any2) {
+                enmig = false;
+            } else if (any2 > any3) {
+                enmig = false;
+            }
+            // resta de condicions
+            
+            // imprimim el resultat
+            System.out.println(enmig);
+        </sc>
+    </details>
+
+
+    <hh3>Casos de prova</hh3>
+    <sample>
+        <hh4>Cas de prova 1</hh4>
+        <shell>
+            <in>7 / 1 / 1999      17 / 10 / 2050      7 / 1 / 2020</in>
+        </shell>
+        <shell>
+            false
+        </shell>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 2</hh4>
+        <shell>
+            <in>7 / 1 / 2050      7 / 12 / 2050      27 / 12 / 2050</in>
+        </shell>
+        <shell>
+            true
+        </shell>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 3</hh4>
+        <shell>
+            <in>7 / 10 / 2050      17 / 10 / 2020      7 / 1 / 2050 </in>
+        </shell>
+        <shell>
+            false
+        </shell>
+    </sample>
+    <sample>
+        <hh4>Cas de prova 4</hh4>
+        <shell>
+            <in>17 / 10 / 1999      7 / 1 / 2020      7 / 1 / 2050 </in>
+        </shell>
+        <shell>
+            true
+        </shell>
+    </sample>
+    <sample>
+        <hh4>Cas de prova 5</hh4>
+        <shell>
+            <in>17 / 12 / 2020      7 / 12 / 2020      27 / 10 / 1999 </in>
+        </shell>
+        <shell>
+            false
+        </shell>
+    </sample>
+    <sample>
+        <hh4>Cas de prova 6</hh4>
+        <shell>
+            <in>27 / 12 / 2020      7 / 1 / 2050      7 / 10 / 2050</in>
+        </shell>
+        <shell>
+            true
+        </shell>
+    </sample>
+
+</section>
+
+
 
 <section>
     <h2>Exercici 4: Parèntesis</h2>
@@ -716,7 +720,7 @@
     <details>
         <summary><ic>&#xf0eb;</ic></summary>
         
-        <p>En aquest problema cadrà fer dos <w>for</w> niats (un dintre de l'altre). L'exterior es repetirà fins trobar dos zeros
+        <p>En aquest problema cadrà fer dos bucles niats (un dintre de l'altre). L'exterior es repetirà fins trobar dos zeros
             a l'entrada. L'interior es repetirà tantes vegades com productes hi hagi en la sèrie.
     </details>
 
