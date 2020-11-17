@@ -43,10 +43,15 @@
 
     summary {
         list-style: none;
+        color: #999;
+        cursor: pointer;
     }
 
     summary ic::after {
         content: ' clica aquí...';
+        font-family: Arial, Helvetica, sans-serif;
+        font-style: italic;
+        font-size: 0.8em;
     }
 
     hh3 {
@@ -59,7 +64,7 @@
     hh4 {
         display: block;
         margin: 1em 0 0.6em 0;
-        font-size: 1em;
+        font-size: 1.2em;
         font-weight: bold;
         color: #666;
     }
@@ -92,15 +97,15 @@
 
     <img src="img/birdtrain.gif">
 
-    <p>Un tren s'aproxima a 10km/h cap a l'estació. 
-        Un ocell vola a 30km/h des de l'estació en direcció al tren. 
-        Quan l'ocell arriba fins al tren, dona mitja volta i torna 
-        cap a l'estació, i quan arriba a l'estació fa una altra 
-        vegada mitja volta fins al tren... i així fins que el tren 
-        arriba a l'estació.</p>
+    <p>El problema "A train and a bird" diu així</p>
     
-    <p>Si el tren està a 20 km de l'estació, quants km recorrerà 
-        l'ocell fins que el tren arribi a l'estació?</p>
+    <p><em>Un tren es troba a 20km de l'estació i s'aproxima a 10km/h cap a l'estació.<br>
+        Al mateix temps, un ocell vola a 30km/h des de l'estació en direcció al tren. <br>
+        Quan l'ocell arriba fins al tren, dona mitja volta i torna cap a l'estació,<br> 
+        i quan arriba a l'estació fa una altra vegada mitja volta fins al tren...<br> 
+        i així fins que el tren arriba a l'estació.</em></p>
+    
+    <p>Quants kms recorrerà l'ocell fins que el tren arribi a l'estació?</p>
 
    
 
@@ -199,23 +204,25 @@
     <hh3>Suggerència per a la solució</hh3>
     <details>
         <summary><ic>&#xf0eb;</ic> </summary>
-        <p>Cal llegir el dia, més i any de cada data amb <w>nextInt()</w>. S'hauràn de descartar les barres <w>/</w> amb <w>next()</w></p>
-        <p>Una possible idea per a la solució és presuposar que la segona data està enmig (<w>true</w>) 
-            i després veure si es compleix alguna condició que impliqui que realment no està enmig (<w>false</w>).
+        <p>Cal llegir el dia, mes i any de cada data amb <w>nextInt()</w>. S'hauràn de descartar les barres <w>/</w> amb <w>next()</w>.</p>
+        <p>Una possible idea per a la solució és presuposar que la segona data està enmig, 
+            i després veure si es compleix alguna condició que impliqui que realment no està enmig.
         </p>
 
         <sc java>
+            // suposem que està enmig
             boolean enmig = true;
 
+            // mirem si hi ha alguna condició
+            // que contradigui la presuposició incial
             if (any1 > any2) {
                 enmig = false;
-            }
-            if (any2 > any3) {
+            } else if (any2 > any3) {
                 enmig = false;
             }
-
-            // resta de condicions ...
-
+            // resta de condicions
+            
+            // imprimim el resultat
             System.out.println(enmig);
         </sc>
     </details>
@@ -513,7 +520,7 @@
             <li>
                 <p>Aleshores, es van llegint una a una les paraules de l'expressió.</p>
                 <ul>
-                    <li><p>Si la paraula llegida es un parèntesi obert <w>(</w>,</p>
+                    <li><p>Si la paraula llegida es un parèntesi obert <w>(</w></p>
                         <ul>
                             <li><p>es suma 1 al comptador de parèntesis <w>oberts</w></p></li>
                             <li><p>també es suma 1 al <w>total</w> de parèntesis.</p></li>
@@ -533,7 +540,7 @@
                     </li>
                 </ul>
             </li>
-            <li>Un cop s'han acabat de llegir tota l'expressió, s'haurien d'haver comptat el mateix número d'<w>oberts</w> 
+            <li>Un cop s'ha acabat de llegir tota l'expressió, s'haurien d'haver comptat el mateix número d'<w>oberts</w> 
                 que de <w>tancats</w>, en cas contrari, és que falten parèntesis per tancar.</li>
                 
         </p></li>
@@ -709,8 +716,8 @@
     <details>
         <summary><ic>&#xf0eb;</ic></summary>
         
-        <p>En aquest problema cladrà fer dos fors niats (un dintre de l'altre). El de fora es repetirà fins trobar dos zeros
-            a l'entrada. El de dintre es repetirà tantes vegades com productes hi hagi en la sèrie
+        <p>En aquest problema cadrà fer dos <w>for</w> niats (un dintre de l'altre). L'exterior es repetirà fins trobar dos zeros
+            a l'entrada. L'interior es repetirà tantes vegades com productes hi hagi en la sèrie.
     </details>
 
     <hh3>Casos de prova</hh3>
