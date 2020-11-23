@@ -126,6 +126,12 @@
         
         System.out.println(tamany); // 4
     </sc>
+
+    <p>Els índex d'un array sempre van des de <w>0</w> fins a <w>length - 1</w>.</p>
+    <p>A l'<w>arrayEnters</w> de l'exemple anterior, els índex van de <w>0</w> fins a <w>3</w> (<w>4 - 1</w>).</p>
+
+    <img src="img/arraylength.png">
+
 </section>
 
 <section>
@@ -221,6 +227,437 @@
 </section>
 
 <section>
+    <h2>Llegir un array de l'entrada</h2>
+
+    <p>Utilitzant un bucle podem llegir una llista de dades de l'entrada i guardar-les en un array.</p>
+
+    <p>Per exemple, la següent entrada consisteix en dues línies. La primera conté el número d'elements, i a 
+        la segona hi ha la llista d'elements.
+    </p>
+    <shell>
+        <in>5
+        101 102 504 302 881</in>
+    </shell>
+    <p>Podem crear un array amb <w>length</w> igual al número d'elements i després utilitzar un bucle per a llegir
+    els elements i guardar-los a l'array. La variable <w>i</w> del bucle determina l'índex (posició) de l'array 
+    on es guardarà el valor llegit. Per tant, la variable <w>i</w> haurà d'anar des de <w>0</w> fins a <w>length - 1</w>.</p>
+
+    <stepper style="--sc-h:6; --mm-h:3; --sh-h:2; --ex-h:2; --sc-w:22;    --sc-mh:6; --mm-mh:3; --sh-mh:2; --ex-mh:2;">
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; i &lt; len; i++) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem></mem>
+            <shell>
+                <in>5
+                101 102 504 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation>Llegim el número d'elements</explanation>
+            <sc java>
+                <h>int len = scanner.nextInt();</h>
+                int[] array = new int[len];
+        
+                for (int i = 0; i &lt; len; i++) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem></mem>
+            <shell>
+                <in>5
+                101 102 504 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation>Creem un array de tamany igual al número de l'elements.</explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                <h>int[] array = new int[len];</h>
+        
+                for (int i = 0; i &lt; len; i++) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem>
+                len: 5
+            </mem>
+            <shell>
+                <in><consumed>5</consumed>
+                101 102 504 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation>Usarem la variable <w>i</w> per a saber en quina posició hem de guardar els valors que llegim. </explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (<h>int i = 0</h>; i &lt; len; i++) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 0, 0, 0, 0, 0 }
+            </mem>
+            <shell>
+                <in><consumed>5</consumed>
+                101 102 504 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; <h>i &lt; len</h>; i++) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 0, 0, 0, 0, 0 }
+                i: 0
+            </mem>
+            <shell>
+                <in><consumed>5</consumed>
+                101 102 504 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation>Llegim un valor de l'entrada i el guardem en la posició que indica la <w>i</w>, és a dir, la posició <w>0</w></explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; i &lt; len; i++) {
+                    <h>array[i] = scanner.nextInt();</h>
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 0, 0, 0, 0, 0 }
+                i: 0
+            </mem>
+            <shell>
+                <in><consumed>5</consumed>
+                101 102 504 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation>Sumem <w>1</w> a la <w>i</w>, així el pròxim element es guardarà a la posició <w>1</w></explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; i &lt; len; <h>i++</h>) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 0, 0, 0, 0 }
+                i: 0
+            </mem>
+            <shell>
+                <in><consumed>5
+                101</consumed> 102 504 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; <h>i &lt; len</h>; i++) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 0, 0, 0, 0 }
+                i: 1
+            </mem>
+            <shell>
+                <in><consumed>5
+                101</consumed> 102 504 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation>Llegim un valor de l'entrada i el guardem en la posició que indica la <w>i</w> (la <w>1</w>)</explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; i &lt; len; i++) {
+                    <h>array[i] = scanner.nextInt();</h>
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 0, 0, 0, 0 }
+                i: 1
+            </mem>
+            <shell>
+                <in><consumed>5
+                101</consumed> 102 504 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation>La <w>i</w> ja serà <w>2</w>, i el següent element el guardarem en aquest índex (posició).</explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; i &lt; len; <h>i++</h>) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 102, 0, 0, 0 }
+                i: 1
+            </mem>
+            <shell>
+                <in><consumed>5
+                101 102</consumed> 504 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; <h>i &lt; len</h>; i++) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 102, 0, 0, 0 }
+                i: 2
+            </mem>
+            <shell>
+                <in><consumed>5
+                101 102</consumed> 504 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; i &lt; len; i++) {
+                    <h>array[i] = scanner.nextInt();</h>
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 102, 0, 0, 0 }
+                i: 2
+            </mem>
+            <shell>
+                <in><consumed>5
+                101 102</consumed> 504 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; i &lt; len; <h>i++</h>) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 102, 504, 0, 0 }
+                i: 2
+            </mem>
+            <shell>
+                <in><consumed>5
+                101 102 504</consumed> 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; <h>i &lt; len</h>; i++) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 102, 504, 0, 0 }
+                i: 3
+            </mem>
+            <shell>
+                <in><consumed>5
+                101 102 504</consumed> 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; i &lt; len; i++) {
+                    <h>array[i] = scanner.nextInt();</h>
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 102, 504, 0, 0 }
+                i: 3
+            </mem>
+            <shell>
+                <in><consumed>5
+                101 102 504</consumed> 302 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; i &lt; len; <h>i++</h>) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 102, 504, 302, 0 }
+                i: 3
+            </mem>
+            <shell>
+                <in><consumed>5
+                101 102 504 302</consumed> 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; <h>i &lt; len</h>; i++) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 102, 504, 302, 0 }
+                i: 4
+            </mem>
+            <shell>
+                <in><consumed>5
+                101 102 504 302</consumed> 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation></explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; i &lt; len; i++) {
+                    <h>array[i] = scanner.nextInt();</h>
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 102, 504, 302, 0 }
+                i: 4
+            </mem>
+            <shell>
+                <in><consumed>5
+                101 102 504 302</consumed> 881</in>
+            </shell>
+        </step>
+        <step>
+            <explanation>Ja hem aconseguit guardar en l'array tots els números. Avancem la <w>i</w> per última vegada...</explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; i &lt; len; <h>i++</h>) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 102, 504, 302, 881 }
+                i: 4
+            </mem>
+            <shell>
+                <in><consumed>5
+                101 102 504 302 881</consumed></in>
+            </shell>
+        </step>
+        <step>
+            <explanation>La <w>i</w> ja no és menor que el tamany de l'array, sortim del bucle.</explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; <h>i &lt; len</h>; i++) {
+                    array[i] = scanner.nextInt();
+                }       
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 102, 504, 302, 881 }
+                i: 5
+            </mem>
+            <shell>
+                <in><consumed>5
+                101 102 504 302 881</consumed></in>
+            </shell>
+        </step>
+        <step>
+            <explanation>A la variable <w>array</w> tenim guardats tots els números de l'entrada.</explanation>
+            <sc java>
+                int len = scanner.nextInt();
+                int[] array = new int[len];
+        
+                for (int i = 0; i &lt; len; i++) {
+                    array[i] = scanner.nextInt();
+                }
+                
+                <h>// el programa continua per aquí...</h>
+            </sc>
+            <mem>
+                len: 5
+                array: { 101, 102, 504, 302, 881 }
+            </mem>
+            <shell>
+                <in><consumed>5
+                101 102 504 302 881</consumed></in>
+            </shell>
+        </step>
+
+    </stepper>
+</section>
+
+<section>
     <h2>Recòrrer un array</h2>
 
     <p>Quan diem recòrrer un array significa accedir un per un a cadascun dels elements de l'array.</p>
@@ -237,6 +674,7 @@
             System.out.println(i + " -&gt; " + paraules[i]);
         }
     </sc>
+
     <shell>
         0 -> anem
         1 -> a
@@ -249,9 +687,137 @@
 <section>
     <h2>Arrays multidimensionals</h2>
 
-    <p>In progress...</p>
+    <p>Als arrays que hem vist fins ara, el tipus dels seus elements eren tipus primitius (<w>int</w>, <w>float</w>, <w>boolean</w>, <w>String</w>).
+        Aquests arrays s'anomenen <strong>unidimensionals</strong>.</p>
+    <p>Java també permet l'ús d'arrays <strong>multidimensionals</strong>. Són aquells arrays on el els seus elements són altres arrays.</p>
+
+    <p>Per a declarar un array multidimensional, indiquem tants corxets <w>[]</w> com dimensions ha de tenir l'array:</p>
 
     <sc java>
-        int[][] array = { { 13, 16, 17 }, { 43, 46, 48 }, { 71, 75, 79 } };
+        tipus[][] nomArray;       // array de dues dimensions
+        tipus[][][] nomArray;    // array de tres dimensions
+        tipus[][][][] nomArray;    // array de quatre dimensions
+        ...
     </sc>
+
+    <p>En la declaració d'un array, el <w>tipus</w> pot ser qualsevol tipus primitiu (<w>int</w>, <w>float</w>, <w>boolean</w>, <w>String</w>).</p>
+
+    <p>Per exemple, es poden declarar els següents arrays:</p>
+
+    <sc java>
+        int[][] arrayP;
+        boolean[][][] arrayQ;
+        String[][] arrayR;
+        float[][][][] arrayS;
+    </sc>
+
+    <p>La forma de llegir la declaració d'arrays és:</p>
+
+    <ul>
+        <li><p>
+            Per als arrays <strong>unidimensionals</strong>:
+        </p>
+            <img src="img/intarray.png">
+        </li>
+        <li><p>
+            Per als arrays <strong>multidimensionals</strong>:
+        </p>
+            <img src="img/intarrayarray.png">
+    </li>
+    </ul>
+
+    <p>Per exemple el següent <w>array</w> és un array multidimensional. Els seus elements són arrays d'enters:</p>
+
+    <sc java>
+        int[][] array = { { 13, 16, 17, 18, 19 }, { 43, 44, 46, 48, 49 }, { 71, 72, 73, 78, 79 } };
+    </sc>
+
+
+
+    <p>Aquest <w>array</w> té tres elements. Cadascun d'aquests tres elements és un altre array amb 5 elements.</p>
+    <p>Per a accedir als elements dels arrays interns, hem d'indicar la posició de l'array intern dintre de l'array extern, 
+        i la posició de l'element dintre de l'array intern.
+    </p>
+
+    <sc java>
+        int[][] array = { { 13, 16, 17, 18, 19 }, { 43, 44, 46, 48, 49 }, { 71, 72, 73, 78, 79 } };
+
+        int a = array[0][0];   // a és 13
+        int b = array[1][2];   // b és 46
+        int c = array[2][3];   // c és 78
+    </sc>
+
+    <img src="img/multiarray.png">
+
+    <h3>Inicialització</h3>
+
+    <p>Podem inicialitzar un array amb valors literals de la manera que hem vist abans. El més habitual és posar cada array intern
+        en una nova línia (com una taula). Per exemple:
+    </p>
+
+    <sc java>
+        boolean[][] array = {
+            { true, true, true },
+            { false, false, true },
+            { false, false, false }
+        };
+    </sc>
+
+    <p>També es pot crear un array multidimensional indicant els seus tamanys:</p>
+
+    <sc java>
+        float[][] array = new float[2][5];    // { { 0f, 0f, 0f, 0f, 0f }, { 0f, 0f, 0f, 0f, 0f } }
+
+        float[][] array = new float[5][2];    // { { 0f, 0f }, { 0f, 0f }, { 0f, 0f }, { 0f, 0f }, { 0f, 0f } }
+    </sc>
+
+    <info>
+        <p>Els valors per defecte seran els mateixos que per als arrays:</p>
+            <m>
+            <ul>
+                <li>int: 0</li>
+                <li>float: 0f</li>
+                <li>boolean: false</li>
+                <li>String: null</li>
+            </ul>
+            </m>
+    </info>
+
+    <h3>Llegir un array bi-dimensional de l'entrada</h3>
+
+    <p></p>
+
+    <shell>
+        3 5
+        13 14 16 17 19
+        43 44 46 48 49
+        55 56 57 58 59
+    </shell>
+
+    <sc java>
+        int files = scanner.nextInt();
+        int columnes = scanner.nextInt();
+
+        int[][] array = new int[files][columnes];
+
+        for (int i = 0; i &lt; files; i++) {
+            for (int j = 0; j &lt; columnes; j++) {
+                array[i][j] = scanner.nextInt(); 
+            }
+        }
+    </sc>
+
+    <h3>Imprimir un array en format de taula</h3>
+
+    <sc java>
+        int[][] array = { { 13, 16, 17, 18, 19 }, { 43, 44, 46, 48, 49 }, { 71, 72, 73, 78, 79 } };
+
+        for (int i = 0; i &lt; array.length; i++) {
+            for (int j = 0; j &lt; array[i].length; j++) {
+                System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+    </sc>
+
 </section>
