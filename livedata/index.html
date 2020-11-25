@@ -242,7 +242,7 @@
                     while(true){
                         if(scanner.nextLine().equals("i")){
                             System.out.println("Iniciando entrenador...");
-                            entrenador.iniciarEjercicios(new Entrenador.EntrenadorListener() {
+                            entrenador.iniciarEntrenamiento(new Entrenador.EntrenadorListener() {
                                 @Override
                                 public void cuandoDeLaOrden(String orden) {
                                     System.out.println(orden);
@@ -250,7 +250,7 @@
                             });
                         } else {
                             System.out.println("Parando entrenador...");
-                            entrenador.pararEjercicios();
+                            entrenador.pararEntrenamiento();
                         }
                     }
                 }
