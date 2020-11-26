@@ -4,22 +4,24 @@
 <script type="module" src="/sofi/js/script.js"></script>
 <link rel="stylesheet" href="/sofi/css/estil.css">
 
-<nav></nav>
 <header>
-  <h1>NextCloud</h1>
+  <img src="img/logo.png">
   <abstract>
-    <p>https://nextcloud.com</p>
+    <p>Esta práctica consiste en instalar, configurar y administrar <a href="https://nextcloud.com">NextCloud</a>.</p>
   </abstract>
 </header>
 
 <section>
-    <h2>Instalación</h2>
+    <h3>Instalación mínima</h3>
 
+
+
+    <p>Utiliza los siguientes comandos para obtener una instalación mínima funcional de NextCloud</p>
+    
     <shell>
       apt update
-      apt install -y apache2 unzip php mysql-server php-mysql php-zip php-dom php-mbstring 
-                        php-gd php-curl
-      /etc/init.d/apache2 restart
+      apt install -y apache2 unzip php mysql-server php-mysql php-zip php-dom php-mbstring php-gd php-curl
+
       wget https://download.nextcloud.com/server/releases/nextcloud-20.0.2.zip
       unzip nextcloud-20.0.2.zip -d /var/www/html
       chown -R www-data:www-data /var/www/html
@@ -29,9 +31,116 @@
       mysql -e "GRANT ALL PRIVILEGES ON nextcloud.* TO 'admin'@'localhost'; FLUSH PRIVILEGES"
     </shell>
 
-    <h2>Apps</h2>
+    <info>
+      <p>Estos pasos se describen en la sección
+        <a href="https://docs.nextcloud.com/server/20/admin_manual/installation/example_ubuntu.html#example-installation-on-ubuntu-20-04-lts">
+          Example installation on Ubuntu 20.04 LTS
+        </a>
+      </p>
+    </info>
+    <p>Cuando termine, navega a <url>http://<replace>IP_CONTENEDOR</replace>/nextcloud</url> 
+    y finaliza el proceso de instalación.</p>
 
-    <h2>Usuarios y grupos</h2>
+    <h3>Configuración del servidor</h3>
 
-    <h2>Compartir archivos y directorios</h2>
+    <p>Una vez instalado, accede como administrador y navega a "Administración" > "Vista general".</p>
+
+    <p>En la sección "Avisos de seguridad y configuración" se muestran varios errores relativos a la configuración:</p>
+
+    <img src="img/nextcloud2.png">
+
+    <p>Corrige los siguientes errores:</p>
+
+    <ul>
+      <li>
+        <p>"output_buffering must be disabled" y "Directorio de datos accesibles desde internet"</p>
+
+    <p>Para corregirlos sigue la guía
+      <a href=" https://docs.nextcloud.com/server/20/admin_manual/installation/source_installation.html#apache-web-server-configuration">
+        Apache Web server configuration</a>. <strong>Presta atención</strong> al DocumentRoot que se especifica en la guía y 
+      si es necesario modifícalo convenientemente. <strong>Presta atención</strong> también al Sistema Operativo que utilizas. 
+      Instala también los modulos de Apache recommendados.</p>
+
+    </li>
+    
+    <li>
+      <p>"Límite de memoria PHP por debajo de 512MB"</p>
+      <p>Para corregir este error, deberás cambiar el parámetro de configuración adecuado en el fichero <w>/etc/php/<replace>7.4</replace>/apache2/php.ini</w></p>
+    </li>
+
+    <li><p>"faltan módulos de PHP recomendados".</p>
+      <p>Para resolver este error debes instalar los modulos con <w>apt install</w></p></li>
+  </ul>
+
+  <p>Finalmente la sección "Avisos y seguridad" debe quedar con estos errores:</p>
+
+  <img src="img/nextcloud4.png">
+  
+  <p>Además de corregir los errores de seguridad y configuración, también se debe configurar 
+    el servidor para permitir:
+  </p>
+  <ul>
+    <li><p>Subida de ficheros de tamaño hasta 16GB</p>
+      <p>
+        Consulta 
+        <a href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/big_file_upload_configuration.html#configuring-your-web-server">
+        Configuring your Webserver
+        </a>
+      </p>
+    </li>
+  </ul>
+
+
+  <h3>Administración de NextCloud</h3>
+
+    <h4>Configuración de NextCloud</h4>
+    <ul>
+      <li>Configura un SMTP server</li>
+      <li>Longitud mínima contraseña de 10 caracteres</li>
+      <li>Personaliza el tema</li>
+    </ul>
+
+    <h4>Usuarios y grupos</h4>
+    <ul>
+      <li>Crea usuarios</li>
+      <li>Usa la opción "Send email to new user", y edita la plantilla del email.</li>
+      <li>Concede permisos "Super Administrator / Group Administrator"</li>
+      <li>Gestiona grupos</li>
+      <li>Establece "Default quotas / user quotas"</li>
+      <li>Reestablece el "admin password"</li>
+    </ul>
+  </li>
+
+    <h4>Archivos y directorios</h4>
+    <ul>
+      <li>File access control:
+        <ul>
+          <li>Bloquea la subida de archivos de mas de 5MB a usuarios que no sean del grupo "premium"</li>
+          <li>Crea dos reglas más y justifícalas (piensa en dos supuestos en los que serían útiles estas reglas).</li>  
+        </ul>
+      </li>
+    </ul>
+
+    <h4>Apps</h4>
+    <ul>
+      <li>Instala, configura y utiliza aplicaciones de las 
+        siguientes categorías:
+      <ul>
+        <li>Archivos</li>
+        <li>Monitorización</li>
+        <li>Organización</li>
+        <li>Seguridad</li>
+      </ul>
+      </li>
+    </ul>
+
+    <h3>Uso de NextCloud</h3>
+    <p>Accede a NextCloud para crear, eliminar y compartir ficheros usando:</p>
+    <ul>
+      <li>Web interface</li>
+      <li>WebDAV</li>
+      <li>cURL</li>
+      <li>App Desktop/Mobile</li>
+    </ul>
+
 </section>
