@@ -1,0 +1,180 @@
+<meta charset="utf-8">
+
+<style>
+    * { box-sizing: border-box;}
+    body { 
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: steelblue;
+        color: white;
+        text-align: center;
+        padding: 3em;
+    }
+
+    .MP04 { background-color: #f0932b; }
+    .MP06 { background-color:#4834d4;   }
+    .MP07 { background-color: #6ab04c;  }
+    .MP08 { background-color: #f9ca24; }
+    .MP10 { background-color:#eb4d4b; }
+    .MP12 { background-color:#be2edd;}
+    .T    { background-color: #535c68;}
+
+    table {
+        border-collapse: collapse;
+        border: 1px solid #38678f;
+        width: 700px;
+       
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        background: white;
+        color: #333;
+        margin: 2em auto;
+    }
+
+    th {
+        background-color: steelblue;
+        font-weight: lighter;
+        text-shadow: 0 1px 0 #38678f;
+        color: white;
+        padding: 1em;
+        border: 1px solid #38678f;
+        width: 16%;
+        box-shadow: inset 0px 1px 2px #568ebd;
+    }
+
+    tr {
+        border-bottom: 1px solid #cccccc;
+    }
+
+    tr:last-child {
+        border-bottom: 0px;
+    }
+    
+    td {
+        border-right: 1px solid #cccccc;
+        padding: 1em;
+        
+    }
+
+    .horari td {
+        font-weight: bold;
+        color: fefefe;
+        text-shadow: 0 1px 0 #38678f;
+    }
+
+    td:last-child {
+        border-right: 0px;
+    }
+
+    td:first-child {
+        font-weight: normal;
+        color: #333;
+        text-shadow: none;
+    }
+    
+    .horari td {
+        text-align: center;
+    }
+
+    .pati td {
+        padding: .3em;
+    }
+
+
+    .zero {
+        display: none;
+    }
+
+    .moduls tr:nth-child(odd) {
+        background-color: #d7e4ef;
+    }
+</style>
+
+<h1>CFGM Sist. Microinf. I Xarxes</h1>
+<p>Curs: 2r Grup: C</p>
+<p>Tutor: Federico Jerez</p>
+<p>Aula Snowden</p>
+
+<h2>Curs 2020-2021</h2>
+<table class="horari">
+    <tr>
+        <th>HORA</th>
+        <th>Dilluns</th>
+        <th>Dimarts</th>
+        <th>Dimecres</th>
+        <th>Dijous</th>
+        <th>Divendres</th>
+    </tr>
+    <tr>
+        <td>15.00-16.00</td>
+        <td></td>
+        <td class="T">T</td>
+        <td></td>
+        <td rowspan="2" class="MP04">MP04</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>16.00-17.00</td>
+        <td rowspan="2" class="MP06">MP06</td>
+        <td rowspan="2" class="MP08">MP08</td>
+        <td rowspan="2" class="MP04">MP04</td>
+        <td rowspan="2" class="MP08">MP08</td>
+    </tr>
+    <tr>
+        <td>17.00-17.55</td>
+        <td class="MP12">MP12</td>
+        <td class="zero"></td>
+    </tr>
+    <tr class="pati">
+        <td>17.55-18.15</td>
+        <td colspan="5"></td>
+    </tr>
+    <tr>
+        <td>18.15-19.10</td>
+        <td rowspan="2" class="MP07">MP07</td>
+        <td class="MP12">MP12</td>
+        <td class="MP07">MP07</td>
+        <td class="MP10">MP10</td>
+        <td class="MP12">MP12</td>
+    </tr>
+    <tr>
+        <td>19.10-20.05</td>
+        <td rowspan="2" class="MP07">MP07</td>
+        <td rowspan="2" class="MP06">MP06</td>
+        <td rowspan="2" class="MP08">MP08</td>
+        <td class="MP10">MP10</td>
+    </tr>
+    <tr>
+        <td>20.05-21.00</td>
+        <td class="zero"></td>
+    </tr>
+</table>
+
+<table class="moduls">
+    <tr>
+        <th>Mòduls professionals</th>
+        <th>Professorat</th>
+    </tr>
+    <tr>
+        <td><strong>MP04</strong> Sistemes operatius en xarxa</td>
+        <td>Josep Manel Cos</td>
+    </tr>
+    <tr>
+        <td><strong>MP06</strong> Seguretat informàtica</td>
+        <td>Federico Jerez</td>
+    </tr>
+    <tr>
+        <td><strong>MP07</strong> Serveis de xarxa</td>
+        <td>Daniel Martínez</td>
+    </tr>
+    <tr>
+        <td><strong>MP08</strong> Aplicacions web</td>
+        <td>Gerard Falcó, Maribel Perramon</td>
+    </tr>
+    <tr>
+        <td><strong>MP10</strong> Empresa i iniciativa emprenedora</td>
+        <td>David Rodríguez</td>
+    </tr>
+    <tr>
+        <td><strong>MP12</strong> Crèdit de síntesi</td>
+        <td>David Rodriguez</td>
+    </tr>
+</table>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<style>
+    @font-face {
+        font-family: 'FASolid';
+        src: url("fa-solid-900.ttf");
+    }
+
+    body {
+        margin: 0 auto;
+        font-family: RobotoDraft,Roboto,'Helvetica Neue',sans-serif;
+        width: 900px;
+    
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+    th {
+        border-bottom: 1px solid rgb(230,230,230);
+        color: rgb(130,130,130);
+        text-align: left;
+        font-size: 0.75em;
+        font-weight: 700;
+        padding: 16px 16px 16px 32px;
+    }
+
+    td {
+        white-space: nowrap;
+        font-size: 0.8em;
+        padding: 16px 16px 16px 32px;
+        height: 72px;
+    }
+
+    .avatar {
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+    }
+
+    .toolbar {
+        background-color: #3f51b5;
+        color: rgba(255,255,255,0.87);
+        height: 128px;
+        display: flex;
+        align-items: flex-end;
+        font-size: 1.3em;
+        box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+        padding: 0em 1em 1em 1em;
+    }
+
+    input.search {
+        background: 0;
+        line-height: 26px;
+        border-width: 0 0 1px;
+        color: white;
+        font-size: 100%;
+        flex: 1;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    span.search{
+        font-family: 'FASolid';
+        margin-left: auto;
+    }
+
+</style>
+
+
+
+<div class="toolbar">
+    <span class="title">Llistat d'alumnes</span>
+    <input class="search hide">
+    <span class="search">&#xf002;</span>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Nom</th>
+            <th>Correu</th>
+            <th>Github</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><img class="avatar" src="https://github.com/francoloorbryan.png?v=3&s=96" /></td>
+            <td>Bryan Franco</td>
+            <td>francoloorbryan@elpuig.xeill.net</td>
+            <td>https://github.com/francoloorbryan</td>
+        </tr>
+        <tr>
+            <td><img class="avatar" src="https://github.com/aptgetkhosro.png?v=3&s=96" /></td>
+            <td>Khosrov Khosrovyan</td>
+            <td>kkhosrovyan@elpuig.xeill.net</td>
+            <td>https://github.com/aptgetkhosro</td>
+        </tr>
+        <tr>
+            <td><img class="avatar" src="https://github.com/barrientos59.png?v=3&s=96" /></td>
+            <td>Mario Barrientos Pereira</td>
+            <td>barrientos59@elpuig.xeill.net</td>
+            <td>https://github.com/barrientos59</td>
+        </tr>
+        <tr>
+            <td><img class="avatar" src="https://github.com/Gery11.png?v=3&s=96" /></td>
+            <td>Gerard Carrillo Lagos</td>
+            <td>gery11@elpuig.xeill.net</td>
+            <td>https://github.com/Gery11</td>
+        </tr>
+        <tr>
+            <td><img class="avatar" src="https://github.com/jorddonaire.png?v=3&s=96" /></td>
+            <td>Jordi Donaire</td>
+            <td>jorddonaire@elpuig.xeill.net</td>
+            <td>https://github.com/jorddonaire</td>
+        </tr>
+        <tr>
+            <td><img class="avatar" src="https://github.com/Alex560021.png?v=3&s=96" /></td>
+            <td>Alexandru Neculai Farauanu </td>
+            <td>afarauanu13@elpuig.xeill.net</td>
+            <td>https://github.com/Alex560021</td>
+        </tr>
+        <tr>
+            <td><img class="avatar" src="https://github.com/mark7bcn.png?v=3&s=96" /></td>
+            <td>Marc Gonzalez Soriano</td>
+            <td>marcgonzalezsoriano@elpuig.xeill.net</td>
+            <td>https://github.com/mark7bcn</td>
+        </tr>
+        <tr>
+            <td><img class="avatar" src="https://github.com/.png?v=3&s=96" /></td>
+            <td>Pau Guiot Vazquez</td>
+            <td>pguiot15@elpuig.xeill.net</td>
+            <td>https://github.com/</td>
+        </tr>
+        <tr>
+            <td><img class="avatar" src="https://github.com/tmorales17.png?v=3&s=96" /></td>
+            <td>Tomás Morales San Gregorio</td>
+            <td>tmorales@elpuig.xeill.net</td>
+            <td>https://github.com/tmorales17</td>
+        </tr>
+        <tr>
+            <td><img class="avatar" src="https://github.com/alexanderortizb.png?v=3&s=96" /></td>
+            <td>Alexander Manuel Ortiz Betancourt</td>
+            <td>ortizalexb@elpuig.xeill.net</td>
+            <td>https://github.com/alexanderortizb</td>
+        </tr>
+        <tr>
+            <td><img class="avatar" src="https://github.com/paubach711.png?v=3&s=96" /></td>
+            <td>Pau Ubach Robles</td>
+            <td>paubach711@elpuig.xeill.net</td>
+            <td>https://github.com/paubach711</td>
+        </tr>
+        <tr>
+            <td><img class="avatar" src="https://github.com/mariovg12.png?v=3&s=96" /></td>
+            <td>Mario Varela Gómez</td>
+            <td>mariovarela11@elpuig.xeill.net</td>
+            <td>https://github.com/mariovg12</td>
+        </tr>
+        <tr>
+            <td><img class="avatar" src="https://github.com/None37.png?v=3&s=96" /></td>
+            <td>Juan Miguel Expósito Olmos</td>
+            <td>jmiguelexpo@elpuig.xeill.net</td>
+            <td>https://github.com/None37</td>
+        </tr>
+        <tr>
+            <td><img class="avatar" src="https://github.com/.png?v=3&s=96" /></td>
+            <td>Alex Castillo Mañas</td>
+            <td>alexcm@elpuig.xeill.net</td>
+            <td>https://github.com/</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+<script>
+    document.querySelector("span.search").onclick = () => {
+        document.querySelector("input.search").classList.toggle('hide');
+        document.querySelector(".title").classList.toggle('hide');
+    };
+
+    document.querySelector("input.search").oninput = (e) => {
+        document.querySelectorAll('tbody tr').forEach((row) => {
+            row.style.display = row.textContent.toLowerCase().indexOf(e.target.value.toLowerCase()) === -1 ? 'none' : 'table-row';
+        });
+    };
+</script>
