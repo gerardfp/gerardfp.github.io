@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/sofi/css/estil.css">
+<script type="module" src="/sofi/js/script.js"></script>
+<style>
+    body {max-width: 80%; margin:1em auto;}
+    input {display: none;}
+    label {display: inline-block; background-color: steelblue; margin: 2em; padding: 1em; border-radius: 4px; color: white}
+</style>
+<input type="file" id="file">
+<label for="file">Selecciona fichero JSON...</label>
+
+<script type="module">
+import {syntaxHighlight} from '/sofi/js/script.js';
+
+document.querySelector("input[type=file]").oninput = (event) => {
+    document.querySelector("label").style.display = 'none';
+    var reader = new FileReader();
+    reader.onload = (event) => { show(JSON.parse(event.target.result)); };
+    reader.readAsText(event.target.files[0]);
+}
+
+function show(o){
+
+    // {
+    //     challenge: "priemr",
+    //     codes: ["dsf", "dsaf"]
+    // }
+
+    let cs = {};
+    console.log(o);
+    for(let s of o.submissions){
+        if(s.challenge in cs){
+            if(s.score > cs[s.challenge].score){
+                cs[s.challenge].score = s.score;
+                cs[s.challenge].challenge = s.challenge;
+                cs[s.challenge].codes = [s.code];
+            }
+            else if(s.score == cs[s.challenge].score && !cs[s.challenge].codes.includes(s.code)){
+                cs[s.challenge].codes.push(s.code);
+            }
+        } else {
+            cs[s.challenge] = {"challenge": s.challenge, "codes": [s.code], "score": s.score}
+        }
+    }
+
+    console.log(cs);
+    for(let c in cs){
+        console.log(cs[c]);
+        document.body.insertAdjacentHTML('beforeend',"<p>"+cs[c].challenge+"</p>");
+
+        for(let code of cs[c].codes){
+            document.body.insertAdjacentHTML('beforeend',"<sc java>"+
+                code
+                .replaceAll("<","&lt;")
+                .replaceAll(/import.*\n/g,"")
+                .replace(/\s*public class Solution {\n\n*/,"")
+                .replace(/\s*public static void main\(String\[\] args\)\s*{\s*\n/,"")
+                .replace(/\s*\/\* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. \*\/\n/,"")
+                .replace(/Scanner scanner = new Scanner\(System.in\);\n/,"")
+                .replace(/\n\s*\n(\s*\n)+/,"\n\n")
+                .replace(/\n*\s*}\s*\n*\s*}$/,"")
+                +"</sc>");
+        }
+    }
+    syntaxHighlight();
+}
+</script>
+

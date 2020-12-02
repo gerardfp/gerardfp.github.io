@@ -527,3 +527,5 @@ function doStepper(){
     }
   });
 }
+
+export {syntaxHighlight};
