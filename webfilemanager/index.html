@@ -1,93 +1,77 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
 
-<!doctype html>
+<nav></nav>
+<header>
+    <h1>WebFileManager</h1>
 
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <meta name="theme-color" content="#4F7DC9">
-  <meta charset="UTF-8">
-  <title>Gestor d&#39;arxius web</title>
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
-  <style>
-    .success {
-      color: #1e8e3e;
-    }
-    .error {
-      color: red;
-    }
-  </style>
-</head>
-<body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-  <google-codelab codelab-gaid=""
-                  id="webfilemanager"
-                  title="Gestor d&#39;arxius web"
-                  environment="web"
-                  feedback-link="/smx-m8">
-    
-      <google-codelab-step label="Gestor d&#39;arxius web" duration="0">
-        <p class="image-container"><img style="width: 675.00px" src="img/4942bcca096256f8.gif"></p>
-<h3 is-upgraded><a href="https://github.com/gerardfp/webfilemanager" target="_blank">https://github.com/gerardfp/webfilemanager</a> </h3>
+    <abstract>
+        <p>Implementa un gestor d'arxius web senzill que permeti carregar, descarregar i esborrar arxius.
+        </p>
 
+        <img src="img/wfm.gif">
+        <p>
+            Necessitaràs <a href="/setupwebserver/">tenir preparat un contenidor</a>.
+        </p>
+    </abstract>
+</header>
+<section>
+    <h2>Formulari de càrrega de fitxers</h2>
+    <p>Per a que l'usuari pugui carregar (<em>upload</em>) fitxers al servidor, caldrà implementar un formulari que permeti seleccionar 
+        el fitxer.
+    </p>
+    <p>En aquest formulari cal afegir l'atribut <w>enctype=&quot;multipart/form-data&quot;</w>. Amb un camp <w>&lt;input type="file"&gt;</w> s'obrirà la finestra 
+    per a seleccionar el fitxer.</p>
+    <sc html>
+        &lt;form enctype=&quot;multipart/form-data&quot; method=&quot;POST&quot;&gt;
+            &lt;input name=&quot;<replace>nom_dada</replace>&quot; type=&quot;file&quot;&gt;
+            &lt;input type=&quot;submit&quot; value=&quot;Carrega el fitxer...&quot;&gt;
+        &lt;/form&gt;
+    </sc>
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Crea el contenidor" duration="0">
-        <pre>lxc launch ubuntu:20.04 mywebfilemanager</pre>
-<pre>lxc exec mywebfilemanager bash</pre>
-<p>Instal·la els paquets necessaris</p>
-<pre>apt update
-apt install apache2 php</pre>
+    <p>Quan l'usuari premi el botó <w>submit</w>, el fitxer s'enviarà al servidor.</p>
 
+    <h2>Obtenir el fitxer al servidor</h2>
+    <p>Per a que el servidor obtingui el fitxer que se li envia, podem utilitzar el següent codi PHP:</p>
+    <sc php>
+        &lt;?php
+        if(isset($_FILES['<replace>nom_dada</replace>'])){
+            move_uploaded_file($_FILES['<replace>nom_dada</replace>']['tmp_name'], "<replace>directori</replace>/{$_FILES['<replace>nom_dada</replace>']['name']}");
+        }
+        ?&gt;
+    </sc>
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Càrrega de fitxers" duration="0">
-        <pre><sc>&lt;form id=&#34;upload-form&#34; enctype=&#34;multipart/form-data&#34; action=&#34;index.php&#34; method=&#34;POST&#34;&gt;
-    &lt;input id=&#34;file&#34; name=&#34;userfile&#34; type=&#34;file&#34; onchange=&#34;document.getElementById(&#39;upload-form&#39;).submit()&#34;/&gt;
-&lt;/form&gt;
+    <p>Caldrà substituir <replace>nom_dada</replace> pel nom que si li hagi donat al camp fitxer del formulari. I també s'haurà de 
+    substituir <replace>directori</replace> pel directori del servidor on es guardarà el fitxer.</p>
 
-&lt;?php
-$uploaddir = &#39;uploads/&#39;;
-$uploadfile = $uploaddir . basename($_FILES[&#39;userfile&#39;][&#39;name&#39;]);
+    <h2>Eliminar un fitxer</h2>
+    <p>Per a eliminar un fitxer es pot fer servir aquest codi PHP:</p>
+    <sc php>
+        &lt;?php
+        if(isset($_GET['<replace>nom_dada</replace>'])){
+            unlink("<replace>directori</replace>/{$_GET['<replace>nom_dada</replace>']}");
+        }
+        ?&gt;
+    </sc>
+    <p>Caldrà substituir <replace>nom_dada</replace> per el nom de la dada que s'hagi enviat a la <w>query</w>.</p>
 
-move_uploaded_file($_FILES[&#39;userfile&#39;][&#39;tmp_name&#39;], $uploadfile);
-?&gt;</sc></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Llistat de fitxers" duration="0">
-        <pre><sc>&lt;?php
-if ($handle = opendir($uploaddir)) {
-            while (($file = readdir($handle)) !== false) {
-                    if ($file != &#34;.&#34; &amp;&amp; $file != &#34;..&#34;) {
-                                    echo &#34;&lt;p&gt;$file&lt;/p&gt;&#34;;
-                    }
+    <h2>Llistar els fitxers</h2>
+    <p>Per a mostrar la llista de fitxers es pot fer així:</p>
+    <sc php>
+        &lt;?php
+        if ($handle = opendir(&#39;<replace>directori</replace>/&#39;)) {
+            while (($file = readdir($handle))) {
+                if ($file != &quot;.&quot; &amp;&amp; $file != &quot;..&quot;) {
+                    echo &quot;&lt;p&gt;$file&lt;/p&gt;&quot;;
+                }
             }
             closedir($handle);
-}
-?&gt;</sc></pre>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Esborrat de fitxers" duration="0">
-        <pre><sc>if(isset($_GET[&#39;delete&#39;])){
-            unlink($uploaddir . $_GET[&#39;delete&#39;]);
-}</sc></pre>
-
-
-      </google-codelab-step>
-    
-  </google-codelab>
-
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
-
-</body>
-</html>
+        }
+        ?&gt;
+    </sc>
+    <p>S'haurà de canviar la línia <w>echo "&lt;p&gt;$file&lt;/p&gt;";</w> per tal de mostrar cada fitxer 
+    de la manera que es desitji.</p>
+</section>
