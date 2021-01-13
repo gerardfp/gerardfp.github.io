@@ -164,6 +164,17 @@
         arrayStrings[2] = "qual";   // arrayStrings: {"hola", "que", "qual" }
     </sc>
 
+    <p>Un altre exemple:</p>
+    <sc java>
+        int[] arrayEnters = { 111, 456, 888, 954 };
+
+        System.out.println(arrayEnters[2]);   // 888
+
+        int element = arrayEnters[3];   // 954
+
+        arrayEnters[1] = 30000;   // arrayEnters: { 111, 30000, 888, 954 }
+    </sc>
+
     <challenge>
         <p>
             <a href="https://www.hackerrank.com/contests/dam-m3/challenges/new-array">New array</a>
@@ -789,7 +800,7 @@
 
     <h3>Llegir un array bi-dimensional de l'entrada</h3>
 
-    <p></p>
+    <p>Suposem que tenim a l'entrada el següent array bi-dimensional:</p>
 
     <shell>
         3 5
@@ -798,6 +809,10 @@
         55 56 57 58 59
     </shell>
 
+    <p>El primer nombre <m>3</m> indica la quantitat de files de la matriu, i el <m>5</m> indica
+    la quantitat de columnes.</p>
+
+    <p>Podem utilizar el següent esquema per a llegir aquest array:</p>
     <sc java>
         int files = scanner.nextInt();
         int columnes = scanner.nextInt();
@@ -824,4 +839,37 @@
         }
     </sc>
 
+    <quizz>
+        <question single>
+            <statement>
+                <p>Per a definir una matriu d'enters de dues files i tres columnes, podem utilitzar</p>
+            </statement>
+            <o><w>int[][] matriu = new matriu[2][3];</w></o>
+            <o correct><w>int[][] matriu = new int[2][3];</w></o>
+            <o><w>int[2][3] matriu = new int[3][2];</w></o>
+            <o><w>int[][] matriu = new matriu[2][3];</w></o>
+        </question>
+        <question>
+            <statement>
+                <p>Indica si la forma d'inicialitzar aquesta matriu és correcta:</p>
+                <sc java>
+                    float[][] mat = new float[2][2];
+
+                    mat[0] = new float[]{ 1.5f, 1.3f };
+                    mat[1] = new float[]{ 2.3f, 2.7f };
+                </sc>
+            </statement>
+            <o correct>Sí</o>
+            <o>No</o>
+        </question>
+    </quizz>
+
+    <challenge>
+        <p>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/buscando-minas">Cercant mines</a>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/matrix-arrays">Matrix</a>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/xirtam">Xirtam</a>
+            <a href="https://www.hackerrank.com/contests/dam-m3/challenges/bomberman-2">Bomberman</a>
+        </p>
+    </challenge>
 </section>
