@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<header>
+  <img src="img/logo.svg">
+  <abstract>
+    <p>Esta práctica consiste en instalar, configurar y administrar <a href="https://moodle.org">Moodle</a>.</p>
+  </abstract>
+</header>
+
+<section>
+    <h3>Instalación</h3>
+
+    <p>Instala la versión 3.10 de Moodle en un contenedor.</p>
+
+    <info>
+      <p>Estos pasos se describen en la sección
+        <a href="https://docs.moodle.org/310/en/Installation_quick_guide">
+          Installation quick guide
+        </a>
+      </p>
+    </info>
+
+    <p>Se deben instalar todos los módulos de PHP necesarios, de forma que las "Comprobaciones del servidor" queden
+      todas en estado "OK":
+    </p>
+
+    <img src="img/moo1.png">
+      
+  <h3>Administración</h3>
+
+
+    <h4>Apariencia</h4>
+    <ul>
+      <li>Instala y personaliza un <a href="https://moodle.org/plugins/browse.php?list=category&id=3">tema</a></li>
+    </ul>
+
+    <h4>Cursos y categorías</h4>
+
+    <ul>
+      <li>Crea un curso de forma manual</li>
+      <li>Crea cursos usando la opción "Upload courses"</li>
+      <li>Organiza los cursos en las siguientes categorías:
+        <sc none>
+          - Administració i gestió
+              - CFGM Gestió administrativa
+              - CFGS Administració i finances
+            
+          - Informàtica i comunicacions
+              - CFGM Sistemes microinformàtics i xarxes
+              - CFGS Administració de sistemes informàtics en xarxa
+              - CFGS Desenvolupament d'aplicacions multiplataforma</li>
+        </sc>
+      </li>
+    </ul>
+
+
+    <h4>Usuarios y grupos</h4>
+    <ul>
+      <li>Crea un usuario de forma manual</li>
+      <li>Crea usuarios usando la opción "Upload users"</li>
+      <li>Permite que los usuarios puedan registrarse mediante la opción "Email-based self-registration". 
+        Para ello deberás configurar el SMTP (<a href="https://docs.moodle.org/310/en/Email_setup_gmail">Email setup gmail</a>)
+      </li>
+    </ul>
+    
+  </li>
+
+    <h4>Archivos y directorios</h4>
+    <ul>
+      <li>File access control:
+        <ul>
+          <li>Bloquea la subida de archivos de mas de 5MB a usuarios que no sean del grupo "premium"</li>
+          <li>Crea dos reglas más y justifícalas (piensa en dos supuestos en los que serían útiles estas reglas).</li>  
+        </ul>
+      </li>
+    </ul>
+
+    <h4>Plugins</h4>
+    https://moodle.org/plugins/mod_attendance
+    <ul>
+      <li>Instala, configura y utiliza aplicaciones de las 
+        siguientes categorías:
+      <ul>
+        <li>Archivos</li>
+        <li>Monitorización</li>
+        <li>Organización</li>
+        <li>Seguridad</li>
+      </ul>
+      </li>
+    </ul>
+
+    <h3>Uso de NextCloud</h3>
+    <p>Accede a NextCloud usando:</p>
+    <ul>
+      <li>Web interface</li>
+      <li>WebDAV</li>
+      <li>cURL</li>
+      <li>App Desktop/Mobile</li>
+    </ul>
+
+    <p>Comprueba que todas las acciones de administración 
+      hechas anteriormente funcionan correctamente. Para ello, crea los usuarios 
+    y grupos que consideres necesarios. </p>
+
+</section>

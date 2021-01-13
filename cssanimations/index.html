@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+
+<header>
+    <h1>CSS Animations</h1>
+</header>
+<section>
+    <h2>Desenvolupament de la pràctica</h2>
+
+    <ul>
+        <li>
+            <p>Crea 4 elements <w>&lt;div&gt;</w>. Assigna les propietats CSS <w>width</w>, <w>height</w> i 
+                <w>background-color</w>, per a obtenir un resultat similar a aquest:</p>
+            
+                <img src="img/anim1.png">            
+        </li>
+
+        <li>
+            <p>Utilitza la propietat <w>clip-path</w> per a retallar en forma de triangle les copes
+            de l'arbre:</p>
+
+            <img src="img/anim2.png">
+
+            <p>Per a retallar en forma de triangle es pot utilitzar la funció <w>polygon()</w>. 
+            Cal indicar entre parèntesi els punts del triangle. Cada punt es defineix amb el 
+            percentatge de l'<strong>amplada</strong> i el percentatge de l'<strong>alçada</strong>.</p>
+
+            <p>Per exemple, per a retallar amb la forma d'aquest polygon:</p>
+            
+            <img src="img/anim4.png">
+            
+            <p>Podem definir els punts així:</p>
+
+            <sc html>
+                clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 50% 50%, 100% 0%)
+            </sc>
+
+
+        </li>
+    </ul>
+
+
+

@@ -70,7 +70,7 @@
         tipusElements[] nomArray;
     </sc>
 
-    <p>Per exemple, per a crear un array d'enters:</p>
+    <p>Per exemple, per a declarar un array d'enters:</p>
 
     <sc java>
         int[] arrayEnters;
@@ -84,8 +84,8 @@
         String[] arrayStrings = { "this", "is", "an", "array", "of", "Strings" };
     </sc>
 
-    <p>També es pot inicialitzar un array simplement indicant el seu tamany (la quantitat d'elements). 
-        En aquest cas el valor <strong>dels elements</strong> de l'array serà un valor per defecte segons el tipus.
+    <p>També es pot <strong>inicialitzar</strong> un array simplement indicant el seu tamany (la quantitat d'elements). 
+        En aquest cas el valor dels elements de l'array serà un valor per defecte segons el tipus.
     </p>
 
     <sc java>
@@ -97,9 +97,13 @@
 
     <sc java>
         int[] arrayEnters = new int[5];            // { 0, 0, 0, 0, 0 }    
+
         float[] arrayFloats = new float[5];        // { 0.0, 0.0, 0.0, 0.0, 0.0 }
+
         char[] arrayChars = new char[5];           // { 0, 0, 0, 0, 0 }
+
         boolean[] arrayBooleans = new boolean[5];  // { false, false, false, false }
+        
         String[] arrayStrings = new String[5];     // { null, null, null, null, null }
     </sc>
 

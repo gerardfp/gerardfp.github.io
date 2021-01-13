@@ -43,4 +43,19 @@
             app:defaultNavHost=&quot;true&quot;
             app:navGraph=&quot;@navigation/nav_graph&quot; /&gt;
     </sc>
+
+    <scfile>NavController (Fragment)</scfile>
+    <sc java>
+        navController = Navigation.findNavController(view);
+    </sc>
+
+    <scfile>NavController (Activity)</scfile>
+    <sc java>
+        navController = ((NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment)).getNavController();
+    </sc>
+
+    <scfile>NavController (DialogFragment)</scfile>
+    <sc java>
+        navController = Navigation.findNavController(requireParentView());
+    </sc>
 </section>

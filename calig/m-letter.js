@@ -194,7 +194,6 @@ customElements.define('draw-letters', class extends HTMLElement {
 
             console.log("clickkklistener");
             this.addEventListener('click', (e) => {
-                alert('mek');
                 console.log("clickkk");
             });
 
