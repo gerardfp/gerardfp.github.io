@@ -35,20 +35,7 @@
         }
     </sc>
 
-    
-    <sc java>
-        // repetir fins a trobar el valor "END" a l'entrada  
-
-        for (String paraula = scanner.next(); !paraula.equals("END"); paraula = scanner.next()) {   
-    
-            if(paraula <replace>###</replace>) {
-
-            }
-            
-            paraula = scanner.next();
-        }
-    </sc>
-
+    <p>Amb <w>while</w>:</p>
     <sc java>
         // repetir fins a trobar el valor "END" a l'entrada  
 
@@ -61,6 +48,24 @@
             }
         
             paraula = scanner.next();
+        }
+    </sc>
+
+
+    <sc java>
+        // repetir fins a trobar dos zeros a l'entrada  
+
+        int n1 = scanner.nextInt();
+        int n2 = scanner.nextInt();
+
+        while (n1 != 0 && n2 != 0) {   
+            
+            <replace>if(..........) {
+
+            }</replace>
+        
+            n1 = scanner.nextInt();
+            n2 = scanner.nextInt();
         }
     </sc>
 
