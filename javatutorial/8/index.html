@@ -59,6 +59,35 @@
     <warn>
         <p>El primer element d'un array té index <w>0</w>, i l'últim té l'índex igual al <w>tamany - 1</w>.</p>
     </warn>
+
+    <info>
+        <p>Seguint l'analogia de les capses que vam veure amb les variables, podem imaginar un array com una capsa amb múltiples
+            calaixos. La capsa té un nom identificador, i cada calaix té un número d'índex:</p>
+
+        <p>Per exemple, al següent array podem guardar fins a 4 Strings:</p>
+
+        <sc java>
+            String[] unArray = new String[4];
+        </sc>
+
+        <img src="img/array0.png">
+
+        
+        <p>Per a accedir a un calaix (element) de l'array, posem el seu índex entre corxets <w>[index]</w>:</p>
+
+        <sc java>
+            unArray[1] = "Joan";
+        </sc>
+
+        <img src="img/array1.png">
+
+        <p>Podem accedir per a guardar un valor, i també per a obtenir el valor que hi ha guardat. Per exemple, per a imprimir-lo:</p>
+
+        <sc java>
+            System.out.println(unArray[1]);  // Joan
+        </sc>
+
+    </info>
 </section>
 
 <section>

@@ -167,8 +167,10 @@
         No s'ha de tornar a declarar la variable per a canviar-li el valor; únicament
         se li ha d'assignar el nou valor utilitzant l'operador <w>=</w>.
     </p>
+
     <p>Anem a declarar una variable anomenada <w>diaDeLaSetmana</w> i imprimirem
     el seu valor abans i després de canviar-li'l:</p>
+    
     <sc java>
         String diaDeLaSetmana = "Dilluns";
         System.out.println(diaDeLaSetmana); // Dilluns
@@ -185,8 +187,21 @@
         dia = 11;        // ok
         dia = "Dilluns"; // error! El tipus inicial era int
     </sc>
-    </p>
 
+    <warn>
+        <p>Recorda: una variable només pot tenir <strong>un únic valor a la vegada</strong>. 
+            És a dir, quan guardem un valor en una variable, el valor que tenia abans es sobreescriu:
+        </p>
+    
+        <sc java>
+            int edat = 24;
+    
+            edat = 25;
+        </sc>
+
+        <img src="img/variable9.png">
+
+    </warn>
     <challenge>
         <p>Exercicis:
             <br>

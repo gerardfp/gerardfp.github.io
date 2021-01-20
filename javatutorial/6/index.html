@@ -1574,6 +1574,29 @@
         9   18  27  36  45  54  63  72  81 
     </shell>
 
+    <info>
+        <p>Quan niem un bucle dintre d'un altre cal tenir en compte que el bucle intern es repetirà
+            des del principi cada vegada que es faci una nova repetició de l'extern.
+        </p>
+
+        <p>Per exemple, als següents dos bucles, l'extern es repeteix 2 vegades, per tant l'intern 
+            es repetirà des del principi cadascuna d'aquestes dues vegades. És a dir, el bucle intern
+            es farà 3 vegades la primera repetetició de l'extern, i 3 vegades més a la segona repetició de 
+            l'extern.
+        </p>
+        <sc java>
+            for (int i = 0; i &lt; 2; i++) {
+                // ...
+                for (int j = 0; j &lt; 3; j++) {
+                    // ...
+                }
+                // ...
+            }
+        </sc>
+
+        <img src="img/forniat.gif">
+    </info>
+
     <quizz>
         <question single>
             <statement>
