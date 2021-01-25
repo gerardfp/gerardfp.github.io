@@ -1,147 +1,307 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+<style>
+  fbb {
+      color: #1a73e8;
+      font-weight: bold;
+  }
 
-<!doctype html>
+  fbb2 {
+      background-color: #1a73e8;
+      color: white;
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 0.4em 1em;
+  }
+</style>
+<nav></nav>
+<header>
+  <h1>Firebase</h1>
+  <abstract>
+    <p>Firebase es una plataforma que provee una serie de servicios para el desarrollo de apps.</p>
+    <p>Entre estos servicios encontramos:</p>
+    <ul>
+      <li>Firebase Analytics: análisis del uso de nuestras apps</li>
+      <li>Firebase Cloud Messaging: mensajes y notificaciones para iOS y Android</li>
+      <li><strong>Firebase Auth: autenticacion de usuarios</strong></li>
+      <li>Firebase Realtime Database: base de datos en tiempo real</li>
+      <li><strong>Cloud Firestore: base de datos NoSQL</strong></li>
+      <li><strong>Firebase Storage: almacenamiento de ficheros</strong></li>
+      <li>Firebase Hosting: hosting de páginas web</li>
+      <li>ML Kit: funciones de machine learning</li>
+      <li>Crashlytics: análisis de errores en la app</li>
+      <li>Performance: análisis del rendimiento de la app</li>
+      <li>Firebase Test Lab: testeo de la app</li>
+      <li>Admob: integración de anuncios en la app</li>
+      <li>Firebase Dynamic Links: enlaces para instalar la app, con información preintroducida</li>
+    </ul>
+  </abstract>
+</header>
 
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <meta name="theme-color" content="#4F7DC9">
-  <meta charset="UTF-8">
-  <title>Firebase</title>
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
-  <style>
-    .success {
-      color: #1e8e3e;
-    }
-    .error {
-      color: red;
-    }
-  </style>
-</head>
-<body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-  <google-codelab codelab-gaid=""
-                  id="firebase"
-                  title="Firebase"
-                  environment="web"
-                  feedback-link="/dam-m8">
+<section>
+    <h2>Crea el proyecto</h2>
+
+    <p>Selecciona "Empty Activity" como plantilla para la MainActivity.</p>
+</section>
+
+<section>
+    <h2>Conecta la app a Firebase</h2>
+
+    <ul>
+      <li><p>Selecciona <mo>Herramientas</mo><mo>Firebase</mo> para abrir la ventana del Asistente.</p></li>
+      <li>
+        <p>Haz click en <b>Authentication</b>, y luego en <b>Authenticate using Google Sign-in</b>:</p>
+        <img style="width: 546.00px" src="img/firebase1.png">
+      </li>
+      <li><p>Haz clic en <b>Connect to Firebase</p></b>
+        <img style="width: 339.00px" src="img/7e9110d209d0a785.png">
+      </li>
+
+      <li><p>Se abrirá la <b>Consola de Firebase</b> en el navegador web. 
+        Loguéate con una cuenta y haz clic en <fbb>Add project</fbb></p>:
+
+        <img src="img/firebase2.png">
+      </li>
+
+      <li>
+        <p>Introduce un nombre del proyecto (el que desees) y haz clic en <fbb2>Continue</fbb2></p>
+        <img style="width: 339.00px" src="img/firebase3.png">
+      </li>
+      <li>
+        <p>En el paso 2, <b>no</b> es necesario que actives Google Analytics. Haz clic en <fbb2>Create project</fbb2></p>
+        <img style="width: 339.00px" src="img/firebase4.png">
+      </li>
+    </ul>
+
+    <h3>Añade la huella SHA-1 de la app</h3>
+    <p>El siguiente paso es añadir la huella SHA-1 de nuestra app. Esto 
+      permitirá a nuestra app acceder a los servicios de Firebase.
+
+    <ul>
+      <li><p>Abre la ventana <mo>Gradle</mo> y haz click en la tarea <b>signInReport</b></p>
+        <img src="img/firebase7.png">
+      </li>
+      <li>
+        <p>Copia la clave SHA-1 que aparece en el panel inferior</p>
+        <img src="img/firebase8.png">
+      </li>
+
+      <li>
+        <p>Ahora ve a la <a href="https://console.firebase.google.com/">Consola Firebase</a>. 
+          Abre el proyecto firebase, y ve a <b>Settings</b> / <b>Project settings</b>:</p>
+
+          <img style="width: 339.00px" src="img/firebase9.png">
+      </li>
+
+      <li>
+        <p>Ve al apartado <b>SHA certificate fingerprints</b> y haz clic en <fbb>Add fingerprint</fbb>:</p>
+      
+        <img style="width: 239.00px" src="img/firebase10.png">
+      </li>
+
+      <li>
+        <p>Pega la clave y haz clic en <fbb2>Save</fbb2>:</p>
+
+        <img style="width: 339.00px"  src="img/firebase11.png">
+
+      </li>
+    </ul>
+</section>
+
+<section>
+    <h2>Autenticación</h2>
+
+    <p>Una vez conectada la app con Firebase, desarollaremos la autenticación de usuarios con cuenta Google.</p>
+
+    <h3>Añade las librerías del Firebase Authentication SDK</h3>
+
+    <ul>
+      <li>
+        <p>Haz click en <b>Add the Firebase Authentication SDK to you app</b>:</p>
+        <img style="width: 339.00px" src="img/firebase5.png">
+      </li>
+      <li>Aparecerá un diálogo informando de los cambios que se van a realizar en los ficheros <w>build.gradle</w>.
+       Haz clic en <fbb2>Accept changes</fbb2>.</li>
+    </ul>
+
+  
+  <h3>Activa el proveedor de autenticación Google</h3>
+
+    <p>Ahora activaremos la autenticación mediante cuentas de Google.</p>
+
+    <ul>
+      <li>
+        <p>Ve al apartado <b>Authentication</b> y haz clic en <b>Get started</b>:</p>
+
+        <img src="img/firebase12.png">
+      </li>
+
+      <li>
+        <p>Haz clic en el <em>provider</em> Google. Introduce un <b>Project support email</b> y haz clic en <fbb2>Save</fbb2>:</p>
+        <img src="img/firebase13.png">
+      </li>
+    </ul>
+
+    <h3>Prueba la autenticación</h3>
+
+    <p>Por último programaremos un pequeño <em>test</em> para ver que 
+      la app para que realiza correctamente la auntenticación con una cuenta de Google:</p>
+
+    <p>Primero añade estas tres dependencias en el <w>build.gradle (module: App)</w></p>
+    <sc groovy>
+      implementation 'com.google.android.gms:play-services-auth:19.0.0'
+      implementation 'androidx.activity:activity:1.2.0-rc01'
+      implementation 'androidx.fragment:fragment:1.3.0-rc01'
+    </sc>
+
+    <p>Pon este código en la <w>MainActivity</w>:</p>
+
+    <sc java>
+      import android.content.Intent;
+      import android.os.Bundle;
+      
+      import androidx.activity.result.ActivityResultLauncher;
+      import androidx.activity.result.contract.ActivityResultContracts;
+      import androidx.appcompat.app.AppCompatActivity;
+      
+      import com.google.android.gms.auth.api.signin.GoogleSignIn;
+      import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+      import com.google.android.gms.common.api.ApiException;
+      import com.google.firebase.auth.FirebaseAuth;
+      import com.google.firebase.auth.GoogleAuthProvider;
+      
+      public class MainActivity extends AppCompatActivity {
+      
+          @Override
+          protected void onCreate(Bundle savedInstanceState) {
+              super.onCreate(savedInstanceState);
+              setContentView(R.layout.activity_main);
+      
+              signInClient.launch(GoogleSignIn.getClient(this, new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).build()).getSignInIntent());
+          }
+      
+          ActivityResultLauncher&lt;Intent&gt; signInClient = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -&gt; {
+              try {
+                  FirebaseAuth.getInstance().signInWithCredential(GoogleAuthProvider.getCredential(GoogleSignIn.getSignedInAccountFromIntent(result.getData()).getResult(ApiException.class).getIdToken(), null));
+              } catch (ApiException e) {}
+          });
+      }
+    </sc>
+
+    <p><b>Ejecuta la app y autentícate con una cuenta de Google. Luego comprueba que en la <a href="https://console.firebase.google.com">Consola Firebase del Proyecto</a> aparece el usuario que se ha autenticado:</b></p>
+    <img src="img/firebase14.png">
+  </section>
+
+  <section>
+    <h2>Firestore</h2>
+
+    <p>Habilitaremos una base de datos Firestore, que permitirá a nuestra app guardar
+      datos en la nube.
+    </p>
+
+    <h3>Añade las librerías del Cloud Firestore SDK</h3>
+    <ul>
+      <li>
+        <p>Ve al <b>Asistente Firebase</b> de Android Studio, 
+          y selecciona la opción <b>Cloud Firestore</b>. Haz clic en
+        <b>Get started with Cloud Firestore</b></p>
+          <img style="width: 339.00px"  src="img/firebase15.png">
+      </li>
+
+      <li><p>Haz clic en <b>Add the Cloud Firestore SDK to your app</b>:</p>
+        <img style="width: 339.00px"  src="img/firebase16.png">
+      </li>
+
+      <li><p>Aparecerá un diálogo informando de los cambios que se van a realizar en los ficheros <w>build.gradle</w>.
+        Haz clic en <fbb2>Accept changes</fbb2>.</p></li> 
+    </ul>
+
+    <h3>Crea la base de datos Firestore</h3>
+
+    <ul>
+      <li>
+        <p>Ve a la <a href="https://console.firebase.google.com/">Consola de Firebase</a>, 
+      y abre el proyecto firebase.</p></li>
+
+      <li>
+        <p>Ve al apartado <b>Cloud Firestore</b> y haz clic en <b>Create database</b>:</p>
+        <img src="img/firebase17.png">
+      </li>
+
+      <li>
+        <p>Selecciona "Start in <b>production mode</b>". Haz clic en <fbb2>Next</fbb2></p>
+        <img src="img/firebase18png.png">
+      </li>
+
+      <li>
+        <p>Selecciona la localización <b>eur3 (europe-west)</b> y clic en <fbb2>Enable</fbb2></p>
+        <img style="width: 339.00px"  src="img/firebase19.png">
+      </li>
+    </ul>
+
+    <h3>Establece las reglas de acceso a la base de datos</h3>
+
+    <p>Cambiaremos las reglas de acceso a la base de datos para permitir la lectura y escritura</p>
+
+    <ul>
+      <li>
+        <p>Ve a la pestaña <b>Rules</b> y establece las siguientes reglas:</p>
+
+        <sc firestore-security-rules>
+          rules_version = '2';
+          service cloud.firestore {
+              match /databases/{database}/documents {
+                  match /{document=**} {
+                    allow read, write;
+                  }
+              }
+          }
+        </sc>
+
+        <p>Publica las reglas haciendo clic en <fbb2>Publish</fbb2>:</p>
+
+        <img style="width: 339.00px" src="img/firebase20.png">
+      </li>
+    </ul>
+
+    <h3>Prueba la base de datos</h3>
+
+    <p>Programaremos un pequeño <em>test</em> de escritura de datos.</p>
+
+
+    <sc java>
+      public class MainActivity extends AppCompatActivity {
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+
+          //...
+
+
+          class Post {
+            public String title;
+            public String message;
+
+            Post(String t, String m){ title = t; message=m; }
+        }
+
+        FirebaseFirestore.getInstance().collection("posts").add(new Post("Hello", "hello world!"));
+      }
+    </sc>
+  </section>
+
+  <section>
+    <h3>Storage</h3>
+
+    <p>El servicio <b>Storage</b> permite subir ficheros a la nube, y descargarlos mediante una 
+    URL de descarga.</p>
+
     
-      <google-codelab-step label="Firebase" duration="0">
-        <p class="image-container"><img style="width: 232.00px" src="img/751a2e683b31ba1e.png"></p>
-<p>Firebase es una plataforma que provee una serie de servicios para el desarrollo de apps.</p>
-<p>Entre estos servicios encontramos:</p>
-<ul>
-<li>Firebase Analytics: análisis del uso de nuestras apps</li>
-<li>Firebase Cloud Messaging: mensajes y notificaciones para iOS y Android</li>
-<li><strong>Firebase Auth: autenticacion de usuarios</strong></li>
-<li>Firebase Realtime Database: base de datos en tiempo real</li>
-<li><strong>Cloud Firestore: base de datos NoSQL</strong></li>
-<li><strong>Firebase Storage: almacenamiento de ficheros</strong></li>
-<li>Firebase Hosting: hosting de páginas web</li>
-<li>ML Kit: funciones de machine learning</li>
-<li>Crashlytics: análisis de errores en la app</li>
-<li>Performance: análisis del rendimiento de la app</li>
-<li>Firebase Test Lab: testeo de la app</li>
-<li>Admob: integración de anuncios en la app</li>
-<li>Firebase Dynamic Links: enlaces para instalar la app, con información preintroducida</li>
-</ul>
-<h3 is-upgraded><a href="https://github.com/gerardfp/firebase" target="_blank">https://github.com/gerardfp/firebase</a></h3>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Crea el proyecto" duration="0">
-        <p>Selecciona &#34;<strong>Empty Activity</strong>&#34; como plantilla para la activity principal.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Connecta la app a Firebase" duration="0">
-        <aside class="special"><p>Seguiremos este tutorial: <a href="https://firebase.google.com/docs/android/setup?authuser=0#assistant" target="_blank">https://firebase.google.com/docs/android/setup?authuser=0#assistant</a></p>
-</aside>
-<ol type="1" start="1">
-<li>Selecciona <strong><sc>Herramientas</sc></strong><strong> &gt; </strong><strong><sc>Firebase</sc></strong> para abrir la ventana del <strong>Asistente</strong>.</li>
-<li>Haz clic en <strong>Authentication</strong>, y luego en &#34;<strong>Email and password authentication</strong>&#34;.<br></li>
-</ol>
-<p class="image-container"><img style="width: 546.00px" src="img/a8dac09c5136e57a.png"></p>
-<ol type="1" start="3">
-<li>Haz clic en &#34;<strong>Connect to Firebase</strong>&#34;<br><br><img style="width: 339.00px" src="img/7e9110d209d0a785.png"><br>Selecciona una cuenta de Google y haz click en <img style="width: 103.00px" src="img/304cdd79c1e465a8.png"><br><br>En la ventana que aparece haz click en &#34;<strong>Connect to Firebase</strong>&#34;<br><br><img style="width: 673.00px" src="img/18cbdf472194f10.png"></li>
-</ol>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Añade la Autenticacion con Firebase" duration="0">
-        <ol type="1" start="1">
-<li>Haz clic en &#34;<strong>Add Firebase Authentication to your app</strong>&#34;<br><br><img style="width: 408.00px" src="img/3e2aed1459a22f33.png"></li>
-</ol>
-<p>Haz clic en &#34;<strong>Accept changes</strong>&#34;</p>
-<p class="image-container"><img style="width: 630.00px" src="img/a08c10e3b6236e96.png"></p>
-<ol type="1" start="2">
-<li>Ve a la Consola de Firebase: <a href="https://console.firebase.google.com" target="_blank">https://console.firebase.google.com</a> </li>
-</ol>
-<p>Accede al proyecto<br><img style="width: 308.00px" src="img/685bc69ddb77cba0.png"><br></p>
-<ol type="1" start="3">
-<li>Ve al apartado &#34;<strong>Authentication</strong>&#34; <br><br><img style="width: 245.00px" src="img/86215678c582fd98.png"><br></li>
-<li>Haz clic en &#34;<strong>Setup sign-in method</strong>&#34;<br><br> <img style="width: 191.00px" src="img/12a32cc1f08159d7.png"><br></li>
-<li>Activa &#34;Email/Password&#34; y &#34;Google&#34;<br><br><img style="width: 736.40px" src="img/81147dd7fba370f0.png"><br><img style="width: 736.40px" src="img/34207a9846fbf4b.png"></li>
-<li>Añade la siguiente dependencia en el archivo <sc>build.gradle (Module: app)</sc><br></li>
-</ol>
-<p><sc>implementation </sc><strong><sc>&#39;com.google.android.gms:play-services-auth:17.0.0&#39;</sc></strong></p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Añade la base de datos Firestore" duration="0">
-        <ol type="1" start="1">
-<li>Selecciona &#34;<strong>Firestore</strong>&#34; en el Assistente y haz clic en &#34;Read and write documents with Cloud Firestore&#34;<br><br><img style="width: 446.00px" src="img/45c79847bfa5818.png"><br></li>
-<li>Haz clic en &#34;<strong>Add Cloud Firestore to your app</strong>&#34;<br><br><img style="width: 336.00px" src="img/142c40811e0239e9.png"><br><br>Haz clic en &#34;<strong>Accept Changes</strong>&#34;<br><br><img style="width: 632.00px" src="img/a990e58323b963ca.png"><br></li>
-<li>Ve a la Consola de Firebase: <a href="https://console.firebase.google.com" target="_blank">https://console.firebase.google.com</a> <br></li>
-<li>Ve al apartado &#34;<strong>Database</strong>&#34; <br><br><img style="width: 233.00px" src="img/4e7dfecd4684ed7.png"><br></li>
-<li>Haz clic en &#34;<strong>Create database</strong>&#34;<br><br> <img style="width: 151.00px" src="img/e099ff058fc452cb.png"><br></li>
-<li>Selecciona &#34;<strong>Start in production mode</strong>&#34;<br><br> <img style="width: 241.00px" src="img/11cf372aae2ed15f.png"><br></li>
-<li>Selecciona &#34;<strong>eur3 (europe-west)</strong>&#34;<br><br><img style="width: 410.00px" src="img/f4a50867f08a39bb.png"><br></li>
-<li>Ve a la pestaña &#34;<strong>Rules</strong>&#34;<br><br> <img style="width: 74.00px" src="img/5276c93b0ad56670.png"><br></li>
-<li>Cambia a <sc>true</sc> el permiso de escritura<br><br><img style="width: 353.00px" src="img/b72f51fcd2961fe1.png"><br><br>Publica los cambios en las reglas <br><br><img style="width: 97.00px" src="img/e9a8c6b1686f9861.png"></li>
-</ol>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Añade Storage" duration="0">
-        <ol type="1" start="1">
-<li>Selecciona &#34;Storage&#34; en el Asistente y haz clic en &#34;<strong>Upload and download a file with Cloud Storage</strong>&#34;<br><br><img style="width: 570.00px" src="img/b3972a90cc1bb213.png"><br></li>
-<li>Haz clic en &#34;<strong>Add Cloud Storage to your app</strong>&#34;<br><br><img style="width: 337.00px" src="img/78dadec873317a2e.png"><br><br>Haz clic en &#34;<strong>Accept Changes</strong>&#34;<br><br><img style="width: 628.00px" src="img/54adf618abf1a04a.png"><br></li>
-<li>Activa <strong>Storage</strong> en la consola de firebase:<br><br>Ve a &#34;<strong>Storage</strong>&#34;<br><br> <img style="width: 141.00px" src="img/490f08e4f7ef7812.png"><br><br>Haz clic en &#34;<strong>Get started</strong>&#34;<br><br> <img style="width: 122.00px" src="img/99cd227866edaee4.png"><br><br>Haz clic en &#34;<strong>Next</strong>&#34;<br><br><img style="width: 603.00px" src="img/8433d449dc8fbeba.png"></li>
-</ol>
-<p><br>        Selecciona &#34;<strong>eur3 (europe-west)</strong>&#34; y haz clic en &#34;<strong>Done</strong>&#34;</p>
-<p class="image-container"><img style="width: 604.00px" src="img/59fda610d33b93be.png"></p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="Prueba que todo funciona" duration="0">
-        <p>Añadiremos un poco de código para probar que todo funciona...</p>
-<p>En el método <sc>onCreate()</sc> de la <sc>MainActivity.java</sc> añade el siguiente código:</p>
-<pre><sc>// Authentication
-FirebaseAuth.getInstance().createUserWithEmailAndPassword(&#34;test@test.es&#34;, &#34;123456&#34;);
-
-FirebaseAuth.getInstance().signInWithEmailAndPassword(&#34;test@test.es&#34;, &#34;123456&#34;);
-
-
-// Database
-class Post {
-   public String title;
-   public String message;
-
-   Post(String t, String m){ title = t; message=m; }
-}
-
-FirebaseFirestore.getInstance().collection(&#34;posts&#34;).add(new Post(&#34;Hello&#34;, &#34;hello world!&#34;));
-
-
-// Storage
+    <sc java>
+      // Storage
 byte[] bytes = {-1,-40,-1,-32,0,16,74,70,73,70,0,1,2,0,0,1,0,1,0,0,-1,-37,0,67,0,8,6,6,7,6,
        5,8,7,7,7,9,9,8,10,12,20,13,12,11,11,12,25,18,19,15,20,29,26,31,30,29,26,28,28,32,
        36,46,39,32,34,44,35,28,28,40,55,41,44,48,49,52,52,52,31,39,57,61,56,50,60,46,51,52,
@@ -175,24 +335,6 @@ byte[] bytes = {-1,-40,-1,-32,0,16,74,70,73,70,0,1,2,0,0,1,0,1,0,0,-1,-37,0,67,0
        53,2,-91,-107,81,85,91,-51,80,-78,2,-20,-50,65,-36,-72,27,-107,-50,-33,30,10,127,89,
        -65,43,-65,-85,-73,-7,109,-78,-36,-19,110,62,-53,117,111,77,79,-1,-39};
 
-FirebaseStorage.getInstance().getReference(&#34;emoji.jpg&#34;).putBytes(bytes);
-</sc></pre>
-<p>Comprueba que se ha creado el usuario:</p>
-<p class="image-container"><img style="width: 736.40px" src="img/b2877ca8481fa114.png"></p>
-<p>Comprueba que se ha añadido el <sc>Post</sc> en la base de datos:</p>
-<p class="image-container"><img style="width: 736.40px" src="img/41cfcddd3fbc18e6.png"></p>
-<p>Comprueba que se ha subido el fichero <sc>emoji.jpg</sc>:</p>
-<p class="image-container"><img style="width: 736.40px" src="img/a2c1f1e8cdf354c2.png"></p>
-
-
-      </google-codelab-step>
-    
-  </google-codelab>
-
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
-
-</body>
-</html>
+      FirebaseStorage.getInstance().getReference("emoji.jpg").putBytes(bytes);
+    </sc>
+  </section>
