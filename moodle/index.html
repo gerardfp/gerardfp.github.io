@@ -32,6 +32,31 @@
       
   <h3>Administración</h3>
 
+  <warn>
+    <p>Cambiar contraseña de admin:</p>
+
+    <p>Primero hay que averiguar el nombre de la base de datos:</p>
+    <shell>
+      mysql -e "show databases;"
+    </shell>
+
+    <p>Una vez sabemos el nombre de la base de datos, averiguamos el 
+      nombre de la "tabla de usuarios"</p>
+    </p>
+    <shell>
+      msyql -e "use <replace>nombre_bd</replace>; show tables"
+    </shell>
+
+    <p>Ahora averiguamos el nombre de usuario del administrador:</p>
+
+    <shell>
+      msyql -e "SELECT * FROM <replace>nombre_bd</replace>.<replace>tabla_usuarios</replace>"
+    </shell>
+    <shell>
+      mysql -e "UPDATE <replace>nombre_bd</replace>.<replace>tabla_usuarios</replace> SET password = MD5('el_nuevo_password') WHERE username='<replace>admin</replace>';"
+    </shell>
+  </warn>
+
 
     <h4>Apariencia</h4>
     <ul>
