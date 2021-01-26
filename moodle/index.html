@@ -30,33 +30,58 @@
 
     <img src="img/moo1.png">
       
+    <warn>
+      <p>Cambiar contraseña de admin:</p>
+  
+      <p>Primero hay que averiguar el nombre de la base de datos:</p>
+      <shell>
+        mysql -e "show databases;"
+      </shell>
+  
+      <p>Una vez sabemos el nombre de la base de datos, averiguamos el 
+        nombre de la "tabla de usuarios"</p>
+      </p>
+      <shell>
+        mysql -e "use <replace>nombre_bd</replace>; show tables"
+      </shell>
+  
+      <p>Ahora averiguamos el nombre de usuario del administrador:</p>
+  
+      <shell>
+        mysql -e "SELECT * FROM <replace>nombre_bd</replace>.<replace>tabla_usuarios</replace>"
+      </shell>
+      <shell>
+        mysql -e "UPDATE <replace>nombre_bd</replace>.<replace>tabla_usuarios</replace> SET password = MD5('<replace>el_nuevo_password</replace>') WHERE username='<replace>admin</replace>';"
+      </shell>
+    </warn>
+
+    <warn>
+      <p>Activar SSL</p>
+
+      <p>Para activar SSL, ejectua los siguientes comandos.</p>
+      <p><b>Comprueba las rutas de:</b></p>
+      <ul>
+        <li>Fichero de configuración apache del sitio Moodle (<w>/etc/apache2/sites-enabled/000-default.conf</w>)</li>
+        <li>Fichero de configuración de Moodle (<w>/var/www/html/moodle/config.php</w>)</li>
+      </ul>
+
+      <shell>
+        apt install ssl-cert
+
+        make-ssl-cert generate-default-snakeoil --force-overwrite
+
+        a2enmod ssl
+
+        sed -i &#39;s/&lt;VirtualHost \*:80&gt;/&lt;VirtualHost \*:443&gt;\n\tSSLEngine On\n\tSSLCertificateFile \/etc\/ssl\/certs\/ssl-cert-snakeoil.pem\n\tSSLCertificateKeyFile \/etc\/ssl\/private\/ssl-cert-snakeoil.key/&#39; /etc/apache2/sites-enabled/000-default.conf
+
+        sed -i &#39;s/http:/https:/&#39; /var/www/html/moodle/config.php
+
+        systemctl restart apache2
+      </shell>
+    </warn>
   <h3>Administración</h3>
 
-  <warn>
-    <p>Cambiar contraseña de admin:</p>
-
-    <p>Primero hay que averiguar el nombre de la base de datos:</p>
-    <shell>
-      mysql -e "show databases;"
-    </shell>
-
-    <p>Una vez sabemos el nombre de la base de datos, averiguamos el 
-      nombre de la "tabla de usuarios"</p>
-    </p>
-    <shell>
-      msyql -e "use <replace>nombre_bd</replace>; show tables"
-    </shell>
-
-    <p>Ahora averiguamos el nombre de usuario del administrador:</p>
-
-    <shell>
-      msyql -e "SELECT * FROM <replace>nombre_bd</replace>.<replace>tabla_usuarios</replace>"
-    </shell>
-    <shell>
-      mysql -e "UPDATE <replace>nombre_bd</replace>.<replace>tabla_usuarios</replace> SET password = MD5('el_nuevo_password') WHERE username='<replace>admin</replace>';"
-    </shell>
-  </warn>
-
+  
 
     <h4>Apariencia</h4>
     <ul>
