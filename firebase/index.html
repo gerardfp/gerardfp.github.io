@@ -51,10 +51,15 @@
     <h2>Conecta la app a Firebase</h2>
 
     <ul>
-      <li><p>Selecciona <mo>Herramientas</mo><mo>Firebase</mo> para abrir la ventana del Asistente.</p></li>
+      <li><p>Selecciona <mo>Herramientas</mo><mo>Firebase</mo> para abrir la ventana del <b>Asistente</b>.</p></li>
       <li>
         <p>Haz click en <b>Authentication</b>, y luego en <b>Authenticate using Google Sign-in</b>:</p>
         <img style="width: 546.00px" src="img/firebase1.png">
+
+        <optional>
+          <p>Es posible que en lugar de <b>Authenticate using Google Sign-in</b> te aparezca 
+          <b>Authenticate using email and password</b>. No importa, haz clic igualmente.</p>
+        </optional>
       </li>
       <li><p>Haz clic en <b>Connect to Firebase</p></b>
         <img style="width: 339.00px" src="img/7e9110d209d0a785.png">
@@ -81,7 +86,7 @@
       permitirá a nuestra app acceder a los servicios de Firebase.
 
     <ul>
-      <li><p>Abre la ventana <mo>Gradle</mo> y haz click en la tarea <b>signInReport</b></p>
+      <li><p>En Studio, abre la ventana <mo>Gradle</mo> y haz click en la tarea <b>signInReport</b></p>
         <img src="img/firebase7.png">
       </li>
       <li>
@@ -97,7 +102,7 @@
       </li>
 
       <li>
-        <p>Ve al apartado <b>SHA certificate fingerprints</b> y haz clic en <fbb>Add fingerprint</fbb>:</p>
+        <p>Baja hasta el apartado <b>SHA certificate fingerprints</b> y haz clic en <fbb>Add fingerprint</fbb>:</p>
       
         <img style="width: 239.00px" src="img/firebase10.png">
       </li>
@@ -120,7 +125,7 @@
 
     <ul>
       <li>
-        <p>Haz click en <b>Add the Firebase Authentication SDK to you app</b>:</p>
+        <p>En Studio, vuelve al asistente Firebase, y haz click en <b>Add the Firebase Authentication SDK to you app</b>:</p>
         <img style="width: 339.00px" src="img/firebase5.png">
       </li>
       <li>Aparecerá un diálogo informando de los cambios que se van a realizar en los ficheros <w>build.gradle</w>.
@@ -134,7 +139,7 @@
 
     <ul>
       <li>
-        <p>Ve al apartado <b>Authentication</b> y haz clic en <b>Get started</b>:</p>
+        <p>En la <a href="https://console.firebase.google.com/">Consola Firebase</a>, ve al apartado <b>Authentication</b> y haz clic en <b>Get started</b>:</p>
 
         <img src="img/firebase12.png">
       </li>
@@ -291,6 +296,8 @@
         FirebaseFirestore.getInstance().collection("posts").add(new Post("Hello", "hello world!"));
       }
     </sc>
+
+    <p><b>Comprueba que los datos se han guardado en la base de datos Firestore.</b></p>
   </section>
 
   <section>
@@ -299,7 +306,17 @@
     <p>El servicio <b>Storage</b> permite subir ficheros a la nube, y descargarlos mediante una 
     URL de descarga.</p>
 
+    <p>Los pasos para activarlo son los mismos que hemos hecho antes:</p>
+
+    <ul>
+      <li>
+        <p>Desde el Asistente Firebase de Android Studio, añade las librerías <b>Storage</b> a la app.</p></li>
+      <li><p>En la Consola Firebase, ve a la opción <b>Storage</b> y comprueba que está activado.</p></li>
+      <li><p>En la sección <b>Rules</b> del Storage, edita y <b>publica</b> las reglas para permitir la 
+      lectura/escritura de ficheros.</p></li>
+    </ul>
     
+    <p>Por último, prueba que funciona añadiendo este código a la app.</p>
     <sc java>
       // Storage
 byte[] bytes = {-1,-40,-1,-32,0,16,74,70,73,70,0,1,2,0,0,1,0,1,0,0,-1,-37,0,67,0,8,6,6,7,6,
@@ -337,4 +354,6 @@ byte[] bytes = {-1,-40,-1,-32,0,16,74,70,73,70,0,1,2,0,0,1,0,1,0,0,-1,-37,0,67,0
 
       FirebaseStorage.getInstance().getReference("emoji.jpg").putBytes(bytes);
     </sc>
+
+    <p><b>Comprueba que se ha subido el fichero al Storage.</b></p>
   </section>
