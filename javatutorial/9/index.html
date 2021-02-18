@@ -15,31 +15,80 @@
     </abstract>
 </header>
 
+<!--Analogy, Diagram, Example, Plain English, Technical-->
 <section>
     <h2>Classes i objectes</h2>
 
-    <p>Un <strong>objecte</strong> és una variable que té altres variables a dintre. És una forma d'agrupar
-    variables relacionades entre sí.</p>
+    <p>Un objecte és una agrupació de variables (i mètodes, que veurem més endavant). S'utilitzen per a organitzar el codi, agrupant aquelles
+        variables i mètodes que estan relacionades entre sí.</p>
 
-    <p>Per exemple, si estem fent un programa que tracta amb productes, pot ser necessitem guardar, per exemple, els codis, els preus 
-        i l'stock d'aquests productes. Per a guardar el codi i el preu d'un únic producte podríem utilitzar aquestes dues variables:
+    <p>Si seguim l'analogia de les capses que vam utilitzar per a les variables i arrays, podríem veure un objecte com una capsa
+        que a dintre conté altres capses.
+    </p>
+
+    
+
+    <p>Per exemple, si estem fent un programa per a gestionar un institut, segurament necessitem guardar dades dels alumnes.
+        Per exemple, podríem utilitzar aquestes tres variables per a guardar les dades d'un alumne:
     </p>
 
     <sc java>
-        String codi = "HWL900";
-        float preu = 99.5f;
-        int stock = 10;
+        String nom = "Joan";
+        int edat = 25;
+        float nota = 7.5f;
     </sc>
 
-    <p>Ara bé, si volem emmagatzemar les dades de 5 productes, necessitaríem 10 variables, o dos arrays com aquests:</p>
+    <img style="width: 340px" src="img/c1.png">
+
+    <p>Un objecte ens permetria tenir aquestes tres variables agrupades.</p>
+
+    <p>Per a crear objectes, primer s'ha de definir una classe especificant quines variables tindran aquests objectes.</p>
+
+    <p>Definim la classe <w>Alumne</w> i especifiquem les tres variables que tindran els objectes d'aquesta classe:</p>
+    <sc java>
+        class Alumne {
+            String nom;
+            int edat;
+            float nota;
+        }
+    </sc>
+
+    <p>Un cop definida la classe, es poden crear objectes a partir d'ella d'aquesta manera:</p>
 
     <sc java>
-        String[] codis = { "HWL900", "SW30", "ZX64", "iBnn", "A-10" };
-        float[] preus = { 99.5f, 64f, 39.5f, 40f, 9.99f };
-        int[] stocks = { 10, 30, 44, 8, 200 };
+        Alumne unAlumne = new Alumne();
     </sc>
 
+    <p>A partir de la definició de la classe <w>Alumne</w> hem creat un objecte i l'hem assignat a la variable <w>unAlumne</w>.
+        L'objecte al que fa referència la variable <w>unAlumne</w> conté totes les variables que s'han definit a classe <w>Alumne</w>. 
+    Se sol dir que la definició d'una classe és com el plànol amb el qual s'han de construir els objectes d'aquesta classe.
+    </p>
 
+    <img style="width: 600px"  src="img/c2.png">
+
+    <p>Podem utilitzar la definició de la classe <w>Alumne</w> per a crear nous objectes d'aquesta classe. Per exemple, podem crear 
+    un nou objecte per a guardar les dades d'un altre alumne:</p>
+
+    <sc java>
+        Alumne unAltreAlumne = new Alumne();
+    </sc>
+
+    <img style="width: 600px" src="img/c4.png">
+
+
+
+
+
+
+    <p>Per a accedir a les variables que hi ha a dintre d'un objecte utilitzarem l'operador punt <w>.</w>:</p>
+
+    <sc java>
+        unAlumne.nom = "Joan";
+        unAlumne.edat = 25;
+        unAlumne.nota = 7.5f;
+    </sc>
+
+    <img style="width: 300px"  src="img/c3.png">
 
     // TODOOO
     <p>
