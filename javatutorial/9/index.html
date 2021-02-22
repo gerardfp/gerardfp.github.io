@@ -76,10 +76,6 @@
     <img style="width: 600px" src="img/c4.png">
 
 
-
-
-
-
     <p>Per a accedir a les variables que hi ha a dintre d'un objecte utilitzarem l'operador punt <w>.</w>:</p>
 
     <sc java>
@@ -90,6 +86,32 @@
 
     <img style="width: 300px"  src="img/c3.png">
 
+    <p>Així doncs, la sintaxi per a definir una classe és:</p>
+
+    <sc java>
+        class NomClasse {
+            tipus nomCamp;
+            tipus nomCamp2;
+
+            ...
+        }
+    </sc>
+
+    <p>Per a crear objectes d'una classe:</p>
+
+    <sc java>
+        NomClasse nomObjecte = new NomClasse();
+    </sc>
+
+    <p>Per a accedir als camps d'un objecte utilitzarem:</p>
+
+    <sc java>
+        nomObjecte.nomCamp
+    </sc>
+
+    
+
+    <!--
     // TODOOO
     <p>
     Sharing references
@@ -118,6 +140,8 @@ This is a common feature in Java available for classes since they are reference 
             float height;
         }
     </sc>
+
+    -->
 </section>
 
 
@@ -219,13 +243,6 @@ This is a common feature in Java available for classes since they are reference 
 
     <challenge>
         <a href="https://www.hackerrank.com/contests/dam-m3/challenges/definir-la-classe-comptecorrent">Definir la classe CompteCorrent</a>
-        <br>
-        Write a class named Book. It must have three fields: string field title, int field yearOfPublishing and boolean field isAvailable.
-        <p>Define a class named Box. It must have four fields:
-
-            length, height and width of the double type
-            a field named innerBox of the same type as the defined class
         
-        Do not make the fields private.</p>
     </challenge>
 </section>
