@@ -76,6 +76,24 @@
         systemctl restart apache2
       </shell>
     </warn>
+    <warn>
+      <p>Actualizar la IP del sitio Wordpress</p>
+
+      <p>Si la IP del servidor cambia, hay que actualizar la URL del sitio Wordpress a la nueva IP.</p>
+
+      <p>El primer paso es conocer el nombre de la base de datos:</p>
+
+      <shell>
+        mysql -e "show databases;"
+      </shell>
+
+      <p>Luego hay que actualizar dos campos en la base de datos, para establecer la nueva URL:</p>
+
+      <shell>
+        mysql -e "UPDATE <replace>wpdb</replace>.wp_options SET option_value='<replace>http://x.x.x.x/</replace>' WHERE option_name IN ('siteurl', 'home');"
+      </shell>
+    </warn>
+    </section>
 </section>
 
 <section>
