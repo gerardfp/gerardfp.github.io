@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav> 
+<header>
+    <h1>Mètodes</h1>
+    <abstract>
+        <p>        </p>
+        <p>Aprendràs:</p>
+        <check>A declarar <strong>mètodes</strong></check>
+        <check>A invocar <strong>mètodes</strong> dels objectes</check>
+    </abstract>
+</header>
+
+<!--Analogy, Diagram, Example, Plain English, Technical-->
+<section>
+    <h2>Mètodes</h2>
+
+    <p>A més a més de variables, els objectes també poden tenir mètodes.</p>
+    <p>Els mètodes, també anomenats <strong>funcions</strong>, són blocs de codi als quals els hi posem un nom.
+    Ens permeten executar aquest codi des d'altres parts del programa, invocant-los pel seu nom. 
+    Quan s'invoca un mètode, el programa salta al bloc de codi d'aquest mètode, i després retorna al lloc on
+        s'havia invocat. Veiem un exemple:
+    </p>
+
+    <sc java>
+        class Alumne {
+            String nom;
+        
+            void saludar(){
+                System.out.println("Hola");
+                System.out.println("Que tal?");
+            }
+        }
+        
+        public class Main {
+            public static void main(String[] args) {
+        
+                Alumne unAlumne = new Alumne();
+        
+                System.out.println("Ara farem una salutacio");
+                unAlumne.saludar();
+                System.out.println("Adeeeu");
+            }
+        }
+    </sc>
+
+    <p>El següent programa imprimirà:</p>
+
+    <shell>
+        Ara farem una salutacio
+        Hola
+        Que tal?
+        Adeeeu
+    </shell>
+
+    <p>Quan hem invocat al mètode <w>saludar()</w> de l'objecte <w>unAlumne</w>, el fluxe d'execució ha saltat al bloc de codi
+    d'aquest mètode, i en finalitzar a tornat al lloc des d'on s'havia invocat:
+    </p>
+
+    <img src="img/m1.png">
+
+    <h3>Accés als camps de l'objecte</h3>
+
+    <p>Els mètodes d'un objecte poden accedir als camps d'aquest objecte:</p>
+
+    <sc java>
+        class Alumne {
+            String nom;
+        
+            void saludar(){
+                System.out.println("Hola, em dic " + nom);
+            }
+        }
+        
+        public class Main {
+            public static void main(String[] args) {
+        
+                Alumne unAlumne = new Alumne();
+        
+                unAlumne.nom = "Joan";
+                unAlumne.saludar();
+        
+                Alumne unAltreAlumne = new Alumne();
+        
+                unAltreAlumne.nom = "Anna";
+                unAltreAlumne.saludar();
+            }
+        }
+    </sc>
+
+    <shell>
+        Hola, em dic Joan
+        Hola, em dic Anna
+    </shell>
+    
+    <img src="img/m2.png">
+</section>
+
+
+<section>
+
+    <quizz>
+        <question single>
+            <statement>
+                <p>Per a definir una classe amb un camp enter, quina és la forma correcta de fer-ho?</p>
+            </statement>
+            <o>
+                <sc java>
+                    new LaMevaClasse() { }
+                </sc>
+            </o>
+            <o>
+                <sc java>
+                    class LaMevaClasse(){
+                        int elMeuCamp;
+                    }
+                </sc>
+            </o>
+            <o>
+                <sc java>
+                    LaMevaClasse {
+                        int elMeuCamp;
+                    }
+                </sc>
+            </o>
+            <o correct>
+                <sc java>
+                    class LaMevaClasse {
+                        int elMeuCamp;
+                    }
+                </sc>
+            </o>
+            <o>
+                <sc java>
+                    LaMevaClasse() {
+                        int elMeuCamp;
+                    }
+                </sc>
+            </o>
+        </question>
+        <question multi>
+            <statement>
+                <p>Donada la següent classe:</p>
+                <sc java>
+                    class Point3D {
+                        double x, y, z;
+                    }
+                </sc>
+                <p>Diges les afirmacions correctes sobre ella:</p>
+            </statement>
+            <o correct>La classe té tres camps del mateix tipus</o>
+            <o correct>La sentència <w>Ponint3D p = new Ponint3D();</w> crea un objecte d'aquesta classe</o>
+            <o>La declaració de la classe és incorrecta</o>
+            <o>Els valors dels camps són sempre els mateixos per a tots els objectes de la classe.</o>
+        </question>
+        <question single>
+            <statement>
+                <p>Quina és la paraula-clau per a crear objectes d'una classe?</p>
+            </statement>
+            <o>throw</o>
+            <o>type</o>
+            <o correct>new</o>
+            <o>create</o>
+        </question>
+        <question single>
+            <statement>
+                <p>Suposa qe tens aquesta classe al teu programa:</p>
+                <sc java>
+                    class Hotel {
+                        String name;
+                        String address;
+                        int rating;
+                    }
+                </sc>
+                <p>Hi han diversos objectes d'aquesta classe:</p>
+                <sc java>
+                    Hotel h1 = new Hotel();
+                    Hotel h2 = new Hotel();
+                    Hotel h3 = h2;
+
+                    h2.rating = 9;
+                    h3.rating = 8;
+                    h1.rating = 7;
+                </sc>
+                <p>Quin és el valor de <w>h2.rating</w> després d'executar el codi anterior?</p>
+            </statement>
+            <o>0</o>
+            <o>9</o>
+            <o>7</o>
+            <o correct>8</o>
+
+        </question>
+    </quizz>
+
+    <challenge>
+        <a href="https://www.hackerrank.com/contests/dam-m3/challenges/definir-la-classe-comptecorrent">Definir la classe CompteCorrent</a>
+        
+    </challenge>
+</section>
