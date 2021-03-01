@@ -25,7 +25,6 @@
     <p>Si seguim l'analogia de les capses que vam utilitzar per a les variables i arrays, podríem veure un objecte com una capsa
         que a dintre conté altres capses.
     </p>
-
     
 
     <p>Per exemple, si estem fent un programa per a gestionar un institut, segurament necessitem guardar dades dels alumnes.
@@ -41,6 +40,8 @@
     <img style="width: 340px" src="img/c1.png">
 
     <p>Un objecte ens permetria tenir aquestes tres variables agrupades.</p>
+
+    <h3>Crear objectes</h3>
 
     <p>Per a crear objectes, primer s'ha de definir una classe especificant quines variables tindran aquests objectes.</p>
 
@@ -109,8 +110,30 @@
         nomObjecte.nomCamp
     </sc>
 
-    
+    <h3>Arrays d'objectes</h3>
 
+    <p>Si destijem guardar dades de diversos alumnes, posem que en són tres, ens serà convinent utilitzar un array d'objectes de classe <w>Alumne</w>:</p>
+
+    <sc java>
+        Alumne[] alumnes = new Alumne[3];
+
+        alumnes[0] = new Alumne();
+        alumnes[0].nom = "Joan";
+        alumnes[0].edat = 25;
+        alumnes[0].nota = 7.5f;
+
+        alumnes[1] = new Alumne();
+        alumnes[1].nom = "Anna";
+        alumnes[1].edat = 30;
+        alumnes[1].nota = 8.75f;
+
+        alumnes[2] = new Alumne();
+        alumnes[2].nom = "Marc";
+        alumnes[2].edat = 18;
+        alumnes[2].nota = 6.2f;
+    </sc>
+
+    <img src="">
     <!--
     // TODOOO
     <p>
