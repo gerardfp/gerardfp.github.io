@@ -98,104 +98,143 @@
     </shell>
     
     <img src="img/m2.png">
-    
+
+    <h3>Paràmetres i valor de retorn</h3>
+
+    <p>Quan s'invoca un mètode es possible passar-li dades. El mètode ha de definir quins tipus de dades ha de rebre, 
+        i quan s'invoca el mètode se li han de passar obligatòriament dades d'aquests tipus. 
+        
+        Un mètode també pot retornar dades al punt des d'on s'ha invocat. Les dades
+        que  a un mètode s'anomenen <strong>paràmetres</strong>, i 
+        les que retorna s'anomenen <strong>valor de retorn</strong>.
+    </p>
+
+    <p>Quan definim un mètode és necessari, doncs, especificar els seus paràmetres. És a dir, 
+        els tipus de les dades que ha de rebre i donar un identificador a cadascuna d'aquestes dades.
+    </p>
+
+    <p>De la mateixa forma caldrà especificar el tipus de dada que retorna el mètode.</p>
+
+    <p>Quan definim un mètode hem d'indicar en primer lloc el tipus de dada que retorna. A continuació el nom del mètode, i
+        després la llista de paràmetres entre parèntesis <w>()</w>. Després ja ve el bloc d'instruccions del mètode entre claus <w>{}</w>
+    </p>
+
+    <sc java>
+        TipusDelValorDeRetorn nomDelMetode(TipusDelParametre1 identificadorDelParametre1, ...) {
+            // bloc d'instruccions
+        }
+    </sc>
+
+    <p>Per exemple anem a definir un mètode al qual li passem un número i un total, i ens retorna el percentatge que 
+        representa aquest número del total:</p>
+
+    <sc java>
+        class Calculadora {
+
+            float calculaPercentatge(int unitats, int total) {
+                return unitats*100f/total;
+            }
+        }
+    </sc>
+
+    <p>La definició d'aquest mètode indica que quan s'invoqui, se li han de passar dos números <w>int</w>. 
+        Les dues variables (<w>unitats</w> i <w>total</w>) que hem definit entre els parèntesis, tindràn el 
+    valor que se li passi quan s'invoqui el mètode. També s'indica que el mètode retornarà un valor de tipus <w>float</w>.
+    </p>
+
+    <p>Podem invocar aquest mètode de la següent manera:</p>
+
+    <sc java>
+        <low>
+        class Calculadora {
+            float calculaPercentatge(int unitats, int total) {
+                return unitats*100f/total;
+            }
+        }
+
+        public class Main {
+            public static void main(String[] args){
+                Calculadora calculadora = new Calculadora();</low>
+
+                System.out.println( calculadora.calculaPercentatge(10, 20) );
+
+                System.out.println( calculadora.calculaPercentatge(15, 20) );
+        <low>
+            }
+        }</low>
+    </sc>
+
+    <p>A la primera invocació del mètode el paràmetre <w>unitats</w> rep el valor <w>10</w>, i el paràmetre <w>total</w>
+    rep el valor <w>20</w>. El mètode retorna el valor <w>50.0</w>, i aquest valor és el que es passa al mètode println 
+    per que l'imprimeixi.</p>
+
+    <p>A la segona invocació del mètode el paràmetre <w>unitats</w> rep el valor <w>15</w>, i el paràmetre <w>total</w>
+        rep el valor <w>20</w>. El mètode retorna el valor <w>75.0</w>, i aquest valor és el que es passa al mètode println 
+        per que l'imprimeixi.</p>
+
+    <p>En aquest codi hem passat el valor retornat pel mètode <w>calculaPercentatge()</w> directament al mètode <w>println()</w>.
+
+        També es pot emmagatzemar el valor retornat per un mètode en una variable, per a ser utilitzat més endavant.
+    </p>
+
+    <sc java>
+        <low>
+        class Calculadora {
+            float calculaPercentatge(int unitats, int total) {
+                return unitats*100f/total;
+            }
+        }
+
+        public class Main {
+            public static void main(String[] args){
+                Calculadora calculadora = new Calculadora();</low>
+
+                float percentatge = calculadora.calculaPercentatge(10, 20);
+
+                if (percentatge > 50) {
+                    System.out.println("El percentatge " + percentatge + " es majoria.")
+                }
+        <low>
+            }
+        }</low>
+    </sc>
+
+    <p>Es a dir, quan finalitzi un mètode, el seu valor de retorn serà utilitzat allà on s'ha invocat el mètode:</p>
+
+    <sc java>
+        <low>
+        class Calculadora {
+            float calculaPercentatge(int unitats, int total) {
+                return unitats*100f/total;
+            }
+        }
+
+        public class Main {
+            public static void main(String[] args){
+                Calculadora calculadora = new Calculadora();</low>
+
+                if (calculadora.calculaPercentatge(10, 20) &lt; 10) {
+                    System.out.println("El percentatge es molt baix.")
+                }
+        <low>
+            }
+        }</low>
+    </sc>
+
+    <h4>void</h4>
+
+    <p>També es possible que un mètode no retorni cap valor, aleshores especificarem <w>void</w> com a tipus de retorn a la seva
+    declaració:</p>
+
+    <sc java>
+        class Calculadora {
+            
+        }
+    </sc>
+
 </section>
 
-
 <section>
-
-    <quizz>
-        <question single>
-            <statement>
-                <p>Per a definir una classe amb un camp enter, quina és la forma correcta de fer-ho?</p>
-            </statement>
-            <o>
-                <sc java>
-                    new LaMevaClasse() { }
-                </sc>
-            </o>
-            <o>
-                <sc java>
-                    class LaMevaClasse(){
-                        int elMeuCamp;
-                    }
-                </sc>
-            </o>
-            <o>
-                <sc java>
-                    LaMevaClasse {
-                        int elMeuCamp;
-                    }
-                </sc>
-            </o>
-            <o correct>
-                <sc java>
-                    class LaMevaClasse {
-                        int elMeuCamp;
-                    }
-                </sc>
-            </o>
-            <o>
-                <sc java>
-                    LaMevaClasse() {
-                        int elMeuCamp;
-                    }
-                </sc>
-            </o>
-        </question>
-        <question multi>
-            <statement>
-                <p>Donada la següent classe:</p>
-                <sc java>
-                    class Point3D {
-                        double x, y, z;
-                    }
-                </sc>
-                <p>Diges les afirmacions correctes sobre ella:</p>
-            </statement>
-            <o correct>La classe té tres camps del mateix tipus</o>
-            <o correct>La sentència <w>Ponint3D p = new Ponint3D();</w> crea un objecte d'aquesta classe</o>
-            <o>La declaració de la classe és incorrecta</o>
-            <o>Els valors dels camps són sempre els mateixos per a tots els objectes de la classe.</o>
-        </question>
-        <question single>
-            <statement>
-                <p>Quina és la paraula-clau per a crear objectes d'una classe?</p>
-            </statement>
-            <o>throw</o>
-            <o>type</o>
-            <o correct>new</o>
-            <o>create</o>
-        </question>
-        <question single>
-            <statement>
-                <p>Suposa qe tens aquesta classe al teu programa:</p>
-                <sc java>
-                    class Hotel {
-                        String name;
-                        String address;
-                        int rating;
-                    }
-                </sc>
-                <p>Hi han diversos objectes d'aquesta classe:</p>
-                <sc java>
-                    Hotel h1 = new Hotel();
-                    Hotel h2 = new Hotel();
-                    Hotel h3 = h2;
-
-                    h2.rating = 9;
-                    h3.rating = 8;
-                    h1.rating = 7;
-                </sc>
-                <p>Quin és el valor de <w>h2.rating</w> després d'executar el codi anterior?</p>
-            </statement>
-            <o>0</o>
-            <o>9</o>
-            <o>7</o>
-            <o correct>8</o>
-
-        </question>
-    </quizz>
 
     <challenge>
         <a href="https://www.hackerrank.com/contests/dam-m3/challenges/definir-la-classe-comptecorrent">Definir la classe CompteCorrent</a>
