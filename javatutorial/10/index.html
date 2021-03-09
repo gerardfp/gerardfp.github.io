@@ -242,7 +242,7 @@
         
                 calculadora.calculaPercentatge(10, 20);
 
-                if (calculadora.resultat < 10) {
+                if (calculadora.resultat &lt; 10) {
                     System.out.println("El percentatge es molt baix.")
                 }
         <low>
@@ -571,7 +571,7 @@
     <stepper class="stepper2">
         <step>
             <explanation>
-
+                <img src="img/refd0.png">
             </explanation>
             <sc java>
                 class Professor {
@@ -586,6 +586,139 @@
                 unProfessor.aprovar(nota);
 
                 System.out.println(nota);  // 0
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refd0.png">
+            </explanation>
+            <sc java>
+                class Professor {
+                    void aprovar(float parametreNota) {
+                        parametreNota = 5;
+                    }
+                }
+
+                <h>float nota = 0;</h>
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(nota);
+
+                System.out.println(nota);  // 0
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refd1.png">
+            </explanation>
+            <sc java>
+                class Professor {
+                    void aprovar(float parametreNota) {
+                        parametreNota = 5;
+                    }
+                }
+
+                float nota = 0;
+                Professor unProfessor = <h>new Professor()</h>;
+
+                unProfessor.aprovar(nota);
+
+                System.out.println(nota);  // 0
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refd2.png">
+            </explanation>
+            <sc java>
+                class Professor {
+                    void aprovar(float parametreNota) {
+                        parametreNota = 5;
+                    }
+                }
+
+                float nota = 0;
+                <h>Professor unProfessor = new Professor();</h>
+
+                unProfessor.aprovar(nota);
+
+                System.out.println(nota);  // 0
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refd3.png">
+            </explanation>
+            <sc java>
+                class Professor {
+                    void aprovar(float parametreNota) {
+                        parametreNota = 5;
+                    }
+                }
+
+                float nota = 0;
+                Professor unProfessor = new Professor();
+
+                <h>unProfessor.aprovar(nota);</h>
+
+                System.out.println(nota);  // 0
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refd3.png">
+            </explanation>
+            <sc java>
+                class Professor {
+                    void aprovar(<h>float parametreNota</h>) {
+                        parametreNota = 5;
+                    }
+                }
+
+                float nota = 0;
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(nota);
+
+                System.out.println(nota);  // 0
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refd4.png">
+            </explanation>
+            <sc java>
+                class Professor {
+                    void aprovar(float parametreNota) {
+                        <h>parametreNota = 5;</h>
+                    }
+                }
+
+                float nota = 0;
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(nota);
+
+                System.out.println(nota);  // 0
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refd5.png">
+            </explanation>
+            <sc java>
+                class Professor {
+                    void aprovar(float parametreNota) {
+                        parametreNota = 5;
+                    }
+                }
+
+                float nota = 0;
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(nota);
+
+                <h>System.out.println(nota);</h>  // 0
             </sc>
         </step>
     </stepper>
