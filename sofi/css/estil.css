@@ -940,6 +940,17 @@ stepper step {
     grid-gap: 2px;
 }
 
+stepper.stepper2 step {
+    display: grid;
+
+    grid-template:    "sc"
+                      "ex" /
+                      100%;
+
+
+    grid-gap: 2px;
+}
+
 @media(min-width: 860px){
     stepper step {
         --sum: calc(var(--mm-h) + var(--sh-h) + var(--ex-h));
@@ -959,6 +970,8 @@ stepper step {
                         "sc sh" var(--he3) / var(--wi1)  1fr;
 
     }
+
+    
 }
 
 stepper step explanation {
@@ -1013,6 +1026,15 @@ stepper explanation {
     /* font-family: 'Consolas', monospace; */
 }
 
+stepper.stepper2 explanation {
+    background-color: transparent;
+    padding: 0;
+}
+
+stepper.stepper2 img {
+    margin: 0;
+}
+
 stepper explanation w {
     font-size: 14px;
 }
@@ -1040,6 +1062,14 @@ stepper step {
 }
 
 stepper step.current {
+    display: grid;
+}
+
+stepper.stepper2 step {
+    display: none;
+}
+
+stepper.stepper2 step.current {
     display: grid;
 }
 

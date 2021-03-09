@@ -228,16 +228,586 @@
 
     <sc java>
         class Calculadora {
-            
+            float resultat;
+
+            void calculaPercentatge(int unitats, int total){
+                resultat = unitats*100f/total;
+            }
         }
+
+        <low>
+        public class Main {
+            public static void main(String[] args){</low>
+                Calculadora calculadora = new Calculadora();
+        
+                calculadora.calculaPercentatge(10, 20);
+
+                if (calculadora.resultat < 10) {
+                    System.out.println("El percentatge es molt baix.")
+                }
+        <low>
+            }
+        }</low>
     </sc>
 
 </section>
 
+<section>
+    <h2>Variables primitives i de referència</h2>
+
+    <p>Les variables en Java es classifiquen en "primitives" i "de referència".</p>
+
+    <p>Les variables <strong>primitives</strong> són aquelles de tipus <w>int</w>, <w>float</w>, <w>boolean</w>, <w>char</w>, ... Per exemple:</p>
+
+    <sc java>
+        int unNumero;
+        float unAltreNumero;
+        
+        // les variables 'unNumero' i 'unAltreNumero' són variables primitives.
+    </sc>
+    <p>Les variables <strong>de referència</strong> són aquelles les quals el seu tipus és un array o una classe. Per exemple:</p>
+
+    <sc java>
+        int[] unArrayDeNumeros;
+        Alumne alumne;
+        Alumne[] alumnes;
+
+        // les variables 'unArrayDeNumeros', 'alumne' i 'alumnes' són variables de referència.
+    </sc>
+    
+    <p>Les variables prmitives emmagatzemen el valor que se les assigna, mentre que les variables de referència emmgatzemen una 
+        referència a l'objecte o array que se les assigna.
+    </p>
+
+    <sc java>
+        int unNumero = 99;
+
+        int[] tresNumeros = new int[3];
+
+        class Alumne {
+            int edat;
+            float nota;
+        }
+
+        Alumne alumne = new Alumne();
+    </sc>
+
+    <img src="img/ref1.png">
+
+    <p>La diferència entre emmagatzemar el valor o la referència s'observa quan assignem el valor d'una variable a un altra, 
+        de forma directa amb <w>=</w>, o quan fem el pas de paràmetres a mètodes.
+    </p>
+
+    <p>Vejem què passa quan assignem una variable <strong>primitiva</strong> a una altra:</p>
+
+    <stepper class="stepper2">
+        <step>
+            <explanation>
+                 <img src="img/refb0.png">
+            </explanation>
+            <sc java>
+                int numA = 98 + 1;
+        
+                int numB = numA;
+        
+                numB = 55;
+        
+                System.out.println(numA);       // 99
+                System.out.println(numB);       // 55
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                 <img src="img/refb0.png">
+            </explanation>
+            <sc java>
+                int numA = <h>98 + 1</h>;
+        
+                int numB = numA;
+        
+                numB = 55;
+        
+                System.out.println(numA);       // 99
+                System.out.println(numB);       // 55
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refb1.png">
+            </explanation>
+            <sc java>
+                <h>int numA = 98 + 1;</h>
+        
+                int numB = numA;
+        
+                numB = 55;
+        
+                System.out.println(numA);       // 99
+                System.out.println(numB);       // 55
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                  <img src="img/refb2.png">
+            </explanation>
+            <sc java>
+                int numA = 98 + 1;
+        
+                <h>int numB = numA;</h>
+        
+                numB = 55;
+        
+                System.out.println(numA);       // 99
+                System.out.println(numB);       // 55
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                  <img src="img/refb3.png">
+            </explanation>
+            <sc java>
+                int numA = 98 + 1;
+        
+                int numB = numA;
+        
+                <h>numB = 55;</h>
+        
+                System.out.println(numA);       // 99
+                System.out.println(numB);       // 55
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                  <img src="img/refb4.png">
+            </explanation>
+            <sc java>
+                int numA = 98 + 1;
+        
+                int numB = numA;
+        
+                numB = 55;
+        
+                <h>System.out.println(numA);</h>       // 99
+                System.out.println(numB);       // 55
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                  <img src="img/refb4.png">
+            </explanation>
+            <sc java>
+                int numA = 98 + 1;
+        
+                int numB = numA;
+        
+                numB = 55;
+        
+                System.out.println(numA);       // 99
+                <h>System.out.println(numB);</h>       // 55
+            </sc>
+        </step>
+        
+    </stepper>
+   
+    <p>Vejem què passa quan assignem una variable <strong>de referència</strong> a una altra:</p>
+    <stepper class="stepper2">
+        <step>
+            <explanation>
+                <img src="img/refc0.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                Alumne aluA = new Alumne();
+                aluA.nota = 10;
+
+                Alumne aluB = aluA;
+                aluB.nota = 5;
+
+                System.out.println(aluA.nota);
+                System.out.println(aluB.nota);
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refc0.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                Alumne aluA = <h>new Alumne()</h>;
+                aluA.nota = 10;
+
+                Alumne aluB = aluA;
+                aluB.nota = 5;
+
+                System.out.println(aluA.nota);
+                System.out.println(aluB.nota);
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refc1.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                <h>Alumne aluA = new Alumne();</h>
+                aluA.nota = 10;
+
+                Alumne aluB = aluA;
+                aluB.nota = 5;
+
+                System.out.println(aluA.nota);
+                System.out.println(aluB.nota);
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refc2.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                Alumne aluA = new Alumne();
+                <h>aluA.nota = 10;</h>
+
+                Alumne aluB = aluA;
+                aluB.nota = 5;
+
+                System.out.println(aluA.nota);
+                System.out.println(aluB.nota);
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refc3.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                Alumne aluA = new Alumne();
+                aluA.nota = 10;
+
+                <h>Alumne aluB = aluA;</h>
+                aluB.nota = 5;
+
+                System.out.println(aluA.nota);
+                System.out.println(aluB.nota);
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refc4.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                Alumne aluA = new Alumne();
+                aluA.nota = 10;
+
+                Alumne aluB = aluA;
+                <h>aluB.nota = 5;</h>
+
+                System.out.println(aluA.nota);
+                System.out.println(aluB.nota);
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refc5.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                Alumne aluA = new Alumne();
+                aluA.nota = 10;
+
+                Alumne aluB = aluA;
+                aluB.nota = 5;
+
+                <h>System.out.println(aluA.nota);</h>
+                System.out.println(aluB.nota);
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refc5.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                Alumne aluA = new Alumne();
+                aluA.nota = 10;
+
+                Alumne aluB = aluA;
+                aluB.nota = 5;
+
+                System.out.println(aluA.nota);
+                <h>System.out.println(aluB.nota);</h>
+
+            </sc>
+        </step>
+    </stepper>
+
+    <p>Vejem què passa quan passem per paràmetre una variable <strong>primitiva</strong>:</p>
+
+    <stepper class="stepper2">
+        <step>
+            <explanation>
+
+            </explanation>
+            <sc java>
+                class Professor {
+                    void aprovar(float parametreNota) {
+                        parametreNota = 5;
+                    }
+                }
+
+                float nota = 0;
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(nota);
+
+                System.out.println(nota);  // 0
+            </sc>
+        </step>
+    </stepper>
+    <p>Vejem què passa quan passem per paràmetre una variable <strong>de referència</strong>:</p>
+
+    <stepper class="stepper2" style="--sc-h:5; --mm-h:0; --sh-h:0; --ex-h:17; --sc-w:20;    --sc-mh:5; --mm-mh:1; --sh-mh:7; --ex-mh:1;">
+        <step>
+            <explanation>
+                <img src="img/refa2.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                Alumne unAlumne = new Alumne();
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(unAlumne);
+
+                System.out.println(unAlumne.nota);  // 5
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refa2.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                Alumne unAlumne = <h>new Alumne()</h>;
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(unAlumne);
+
+                System.out.println(unAlumne.nota);  // 5
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refa3.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                <h>Alumne unAlumne = new Alumne()</h>;
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(unAlumne);
+
+                System.out.println(unAlumne.nota);  // 5
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refa4.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                Alumne unAlumne = new Alumne();
+                Professor unProfessor = <h>new Professor()</h>;
+
+                unProfessor.aprovar(unAlumne);
+
+                System.out.println(unAlumne.nota);  // 5
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refa5.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                Alumne unAlumne = new Alumne();
+                <h>Professor unProfessor = new Professor()</h>;
+
+                unProfessor.aprovar(unAlumne);
+
+                System.out.println(unAlumne.nota);  // 5
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refa6.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                Alumne unAlumne = new Alumne();
+                Professor unProfessor = new Professor();
+
+                <h>unProfessor.aprovar(unAlumne);</h>
+
+                System.out.println(unAlumne.nota);  // 5
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refa6.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(<h>Alumne parametreAlumne</h>) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                Alumne unAlumne = new Alumne();
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(unAlumne);
+
+                System.out.println(unAlumne.nota);  // 5
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refa7.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        <h>parametreAlumne.nota = 5</h>;
+                    }
+                }
+
+                Alumne unAlumne = new Alumne();
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(unAlumne);
+
+                System.out.println(unAlumne.nota);  // 5
+            </sc>
+        </step>
+        <step>
+            <explanation>
+                <img src="img/refa8.png">
+            </explanation>
+            <sc java>
+                class Alumne {
+                    float nota;
+                }
+
+                class Professor {
+                    void aprovar(Alumne parametreAlumne) {
+                        parametreAlumne.nota = 5;
+                    }
+                }
+
+                Alumne unAlumne = new Alumne();
+                Professor unProfessor = new Professor();
+
+                unProfessor.aprovar(unAlumne);
+
+                <h>System.out.println(unAlumne.nota);</h>  // 5
+            </sc>
+        </step>
+    </stepper>
+
+</section>
+
+<!--
 <section>
 
     <challenge>
         <a href="https://www.hackerrank.com/contests/dam-m3/challenges/definir-la-classe-comptecorrent">Definir la classe CompteCorrent</a>
         
     </challenge>
-</section>
+</section>-->
