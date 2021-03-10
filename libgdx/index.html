@@ -458,6 +458,35 @@
 </section>
 
 <section>
+    <h2>Alarmas</h2>
+
+    <sc java>
+        public class TimerScreen extends BaseScreen {
+
+            float gameTime;
+            float alarmTime;
+            float alarmDuration = 1;  // 1 segundo
+        
+            TimerScreen(MyGdxGame game) {
+                super(game);
+            }
+        
+            @Override
+            public void render(float delta) {
+        
+               gameTime += delta;
+        
+               if(gameTime > alarmTime){
+                   alarmTime = gameTime + alarmDuration;
+                   System.out.println("Alarm");
+               }
+            }
+        }
+    </sc>
+
+</section>
+
+<section>
     <h2>Colisiones</h2>
 
     <p><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Intersector.html"><w>Intersector</w></a></p>
