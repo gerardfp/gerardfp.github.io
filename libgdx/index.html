@@ -1,243 +1,465 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
 
-<!doctype html>
+<nav></nav> 
+<header>
+   <h1><img src="img/libgdx.png"></h1>
+</header>
 
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <meta name="theme-color" content="#4F7DC9">
-  <meta charset="UTF-8">
-  <title>LibGDX</title>
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
-  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
-  <style>
-    .success {
-      color: #1e8e3e;
+<section>
+    <h2>Setup</h2>
+
+    <ol>
+      <li>
+        <p>Descarga <a href="https://libgdx.com/assets/downloads/legacy_setup/gdx-setup_latest.jar">gdx-setup.jar</a></p>
+        
+        <p>Genera proyecto</p>
+        <img src="img/l1.png">
+    
+      </li>
+
+      <li>
+        <p>IntelliJ: <mo>Open...</mo></p>
+
+        <p>Java 8: modifica los ficheros <w>desktop/build.gradle</w>  y  <w>core/build.gradle</w>. 
+        <sc>
+          sourceCompatibility = 1.8
+        </sc>
+        <p>Sync Gradle</p>
+        <img src="img/l2.png">      
+      </li>
+
+      <li>
+        <p><mo>Run 'DesktopLauncher.main()'</mo></p>
+
+        <img src="img/l3.png">
+      </li>
+    </ol>
+</section>
+
+<section>
+  <h2>Pantallas</h2>
+
+  <p>Haz que la clase <w>MyGdxGame</w> extienda de <w>Game</w>, y que navegue automáticamente a una PantallaInicial.</p>
+
+  <sc java>
+    public class MyGdxGame extends Game {
+        @Override public void create() {setScreen(new PantallaIncial(this));}
+        @Override public void render () { super.render(); }
     }
-    .error {
-      color: red;
+  </sc>
+
+  <warn>
+    <p>La classe <w>PantallaInicial</w> la crearemos a continación</p>
+  </warn>
+
+  <p>Crea la clase <w>BaseScreen</w> con el siguiente código:</p>
+
+  <sc java>
+    import com.badlogic.gdx.Screen;
+
+    public class BaseScreen implements Screen {
+        public final MyGdxGame game;
+        public BaseScreen(MyGdxGame game){ this.game = game; }
+        public void setScreen(Screen screen){ game.setScreen(screen); }
+        @Override public void show() {}
+        @Override public void render(float delta) {}
+        @Override public void resize(int width, int height) {}
+        @Override public void pause() {}
+        @Override public void resume() {}
+        @Override public void hide() {}
+        @Override public void dispose() {}
     }
-  </style>
-</head>
-<body>
-  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-  <google-codelab codelab-gaid=""
-                  id="libgdx"
-                  title="LibGDX"
-                  environment="web"
-                  feedback-link="https://github.com/gerardfp">
+  </sc>
+
+
+  <p>Crea cada pantalla en una clase nueva. Haz que esta clase extienda de <w>BaseScreen</w></p>
+
+  <sc java>
+    public class PantallaIncial extends BaseScreen {
+
+        public PantallaIncial(MyGdxGame game) { super(game); }
+        
+        @Override 
+        public void show() { }
+        
+        @Override
+        public void render(float delta) { }
+    }
+  </sc>
+
+  <p>Utiliza el método <w>setScreen()</w> para navegar a otras pantallas. Por ejemplo:</p>
+
+
+  <sc java>
+        public class PantallaIncial extends BaseScreen {
     
-      <google-codelab-step label="Introducció" duration="0">
-        <p class="image-container"><img style="width: 394.00px" src="img/edc894e0d05b1d4a.png"></p>
-<p>L&#39;objectiu d&#39;aquest CodeLab és prendre contacte amb la llibreria de desenvolupament de jocs libGDX.</p>
-<p>libGDX és un <em>framework</em> de desenvolupament de jocs lliure i de codi obert escrit en llenguatge de programació Java. Permet el desenvolupament de jocs per a plataformes Desktop, Web i Mòbil (Windows, Linux, OSX, Android, iOS i avegadors web) utilitzant el mateix codi base.</p>
+            public PantallaIncial(MyGdxGame game) { super(game); }
+            
+            @Override 
+            public void show() { }
+            
+            @Override
+            public void render(float delta) { 
+        <add>
+                setScreen(new Pantalla2(game));</add>
+            }
+        }
+  </sc>
+</section>
 
+<section>
+    <h2>Botones</h2>
 
-      </google-codelab-step>
+    <p>Copia las imagenes a la carpeta <w>core/assets</w></p>
+    <div style="display: flex;">
+        <img style="width: 60px" src="img/button_start_up.png">
+        <img style="width: 60px" src="img/button_start_over.png">
+        <img style="width: 60px" src="img/button_quit_up.png">
+        <img style="width: 60px" src="img/button_quit_over.png">
+    </div>
+
+    <ol>
+        <li>Establece el "estilo" del botón</li>
+        <li>Crea el <w>ImageButton</w>, y establece su posicion, tamaño y el click listener. </li>
+        <li>Añade el boton al <w>Stage</w> (el stage le pasa los clicks al botón)</li>
+        <li>Llama a <w>stage.act()</w> y <w>stage.draw()</w></li>
+    </ol>
+
+    <sc java>
+        import com.badlogic.gdx.Gdx;
+        import com.badlogic.gdx.graphics.GL20;
+        import com.badlogic.gdx.graphics.Texture;
+        import com.badlogic.gdx.graphics.g2d.TextureRegion;
+        import com.badlogic.gdx.scenes.scene2d.InputEvent;
+        import com.badlogic.gdx.scenes.scene2d.InputListener;
+        import com.badlogic.gdx.scenes.scene2d.Stage;
+        import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+        import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
+        public class PantallaIncial extends BaseScreen {
+
+            PantallaIncial(MyGdxGame game) {
+                super(game);
+            }
+
+            Stage stage;
+
+            @Override
+            public void show() {
+                // Boton START
+                ImageButton.ImageButtonStyle buttonStartStyle = new ImageButton.ImageButtonStyle();
+                buttonStartStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("button_start_up.png")));
+                buttonStartStyle.over = new TextureRegionDrawable(new TextureRegion(new Texture("button_start_over.png")));
+
+                ImageButton buttonStart = new ImageButton(buttonStartStyle);
+                buttonStart.setPosition(280, 200);
+                buttonStart.setSize(24*3, 10*3);
+                buttonStart.addListener(new InputListener(){
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        setScreen(new Pantalla2(game));
+                        return true;
+                    }
+                });
+
+                // Boton QUIT
+                ImageButton.ImageButtonStyle buttonQuitStyle = new ImageButton.ImageButtonStyle();
+                buttonQuitStyle.up = new TextureRegionDrawable(new TextureRegion(new Texture("button_quit_up.png")));
+                buttonQuitStyle.over = new TextureRegionDrawable(new TextureRegion(new Texture("button_quit_over.png")));
+
+                ImageButton buttonQuit = new ImageButton(buttonQuitStyle);
+                buttonQuit.setPosition(280, 160);
+                buttonQuit.setSize(24*3, 10*3);
+                buttonQuit.addListener(new InputListener(){
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                        Gdx.app.exit();
+                        System.exit(0);
+                        return true;
+                    }
+                });
+
+                Gdx.input.setInputProcessor(stage = new Stage());
+                stage.addActor(buttonStart);
+                stage.addActor(buttonQuit);
+            }
+
+            @Override
+            public void render(float delta) {
+                Gdx.gl.glClearColor(1, 1, 1, 1);
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+                stage.act();
+                stage.draw();
+            }
+        }
+    </sc>
+</section>
+
+<section>
+    <h2>SpriteBatch</h2>
+
+    <p>Texturas</p>
+
+    <div style="display: flex">
+        <img style="width: 100px" src="img/background.png">    
+        <img style="width: 100px" src="img/ballon_red.png"> 
+        <img style="width: 100px" src="img/ballon_green.png"> 
+        <img style="width: 100px" src="img/ballon_blue.png">    
+    </div>
     
-      <google-codelab-step label="Crea el projecte" duration="0">
-        <p>Descarrega l&#39;app de creació de projectes &#34;libGDX Setup App&#34;</p>
-<p><a href="https://libgdx.badlogicgames.com/download.html" target="_blank"><paper-button class="colored" raised>Descarrega LibGDX Setup App</paper-button></a></p>
-<p>Executa la Setup App i configura el projecte. </p>
-<p>Per a aquest CodeLab marca únicament la opció &#34;<sc>Desktop</sc>&#34;</p>
-<p class="image-container"><img style="width: 601.00px" src="img/3a78607db73cfcd2.png"></p>
-<p>Quan li dones al botó &#34;Generate&#34;, la setup app et generarà un projecte llest per a obrir amb IntelliJ.</p>
-<p>Executa IntelliJ i obre el projecte generat: <sc>File</sc> &gt; <sc>Open...</sc></p>
-<p>Selecciona la carpeta</p>
-<p class="image-container"><img style="width: 426.00px" src="img/3545fa4871af0500.png"></p>
-<p>Confirma la importació del projecte:</p>
-<p class="image-container"><img style="width: 550.00px" src="img/82b87ee94055c80a.png"></p>
+    <ol>
+        <li>Carga las texturas, e instancia el <w>SpriteBatch</w> en el método <w>show()</w></li>
+        <li>Llama a <w>batch.begin()</w> antes de dibujar, y a <w>batch.end()</w> después</li>
+        <li>Utiliza el método <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/SpriteBatch.html#draw-com.badlogic.gdx.graphics.Texture-float-float-"><w>draw</w></a> para dibujar texturas</li>
+    </ol>
 
+    <sc java>
+        import com.badlogic.gdx.Gdx;
+        import com.badlogic.gdx.graphics.GL20;
+        import com.badlogic.gdx.graphics.Texture;
+        import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-      </google-codelab-step>
+        public class PantallaJuego extends BaseScreen {
+
+            PantallaJuego(MyGdxGame game) {
+                super(game);
+            }
+
+            SpriteBatch spriteBatch;
+            Texture background, ballonRed, ballonGreen, ballonBlue;
+
+            @Override
+            public void show() {
+                spriteBatch = new SpriteBatch();
+
+                background = new Texture("background.png");
+                ballonRed = new Texture("ballon_red.png");
+                ballonGreen = new Texture("ballon_green.png");
+                ballonBlue = new Texture("ballon_blue.png");
+            }
+
+            @Override
+            public void render(float delta) {
+                spriteBatch.begin();
+
+                spriteBatch.draw(background, 0, 0, 640, 480);
+
+                spriteBatch.draw(ballonRed, 60, 60);
+                spriteBatch.draw(ballonGreen, 120, 160);
+                spriteBatch.draw(ballonBlue, 160, 260);
+
+                spriteBatch.draw(ballonRed, 360, 60, 100, 100);
+                spriteBatch.draw(ballonGreen, 460, 160, 80, 80);
+                spriteBatch.draw(ballonBlue, 260, 260, 140, 140);
+
+                spriteBatch.end();
+            }
+        }
+    </sc>
+</section>
+
+<section>
+    <h2>Texto</h2>
+
+    <ol>
+        <li>Instancia las clases <w>BitmapFont</w> y <w>SpriteBatch</w></li>
+        <li>Utiliza el método <a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/BitmapFont.html#draw-com.badlogic.gdx.graphics.g2d.Batch-java.lang.CharSequence-float-float-"><w>BitmapFont.draw()</w></a> para dibujar texto en pantalla</li>
+        <li>Opcionalmente: establece el color y la escala del texto</li>
+    </ol>
+    <sc java>
+        import com.badlogic.gdx.Gdx;
+        import com.badlogic.gdx.graphics.Color;
+        import com.badlogic.gdx.graphics.GL20;
+        import com.badlogic.gdx.graphics.g2d.BitmapFont;
+        import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+        public class BitmapFontScreen extends BaseScreen {
+
+            BitmapFontScreen(MyGdxGame game) {
+                super(game);
+            }
+
+            SpriteBatch spriteBatch;
+            BitmapFont bitmapFont;
+
+            @Override
+            public void show() {
+                spriteBatch = new SpriteBatch();
+                bitmapFont = new BitmapFont();
+            }
+
+            @Override
+            public void render(float delta) {
+                Gdx.gl.glClearColor(0.5f, 0.7f, 1, 1);
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+                spriteBatch.begin();
+
+                bitmapFont.getData().setScale(1);
+                bitmapFont.setColor(new Color(1f, 0.2f, 0.2f, 1));
+                bitmapFont.draw(spriteBatch, "lib", 160, 300);
+
+                bitmapFont.getData().setScale(2);
+                bitmapFont.setColor(new Color(0.2f, 1f, 0.2f, 1));
+                bitmapFont.draw(spriteBatch, "GDX", 200f, 300f);
+
+                bitmapFont.setColor(new Color(0.2f, 0.2f, 1f, 1));
+                bitmapFont.getData().setScale(3);
+                bitmapFont.draw(spriteBatch, String.valueOf(2021), 300f, 300f);
+
+                spriteBatch.end();
+            }
+        }
+    </sc>
+</section>
+
+<section>
+    <h2>Objects</h2>
+
+    <sc java>
+        import com.badlogic.gdx.graphics.Texture;
+        import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+        
+        public class Globo {
+        
+            enum ColorGlobo {ROJO, VERDE, AZUL}
+        
+            static Texture globoRed = new Texture("ballon_red.png");
+            static Texture globoGreen = new Texture("ballon_green.png");
+            static Texture globoBlue = new Texture("ballon_blue.png");
+            float x, y, size;
+            float speed;
+            ColorGlobo color;
+        
+            Globo(float x, float y, float size, float speed, ColorGlobo color) {
+                this.x = x;
+                this.y = y;
+                this.size = size;
+                this.speed = speed;
+                this.color = color;
+            }
+        
+            public void update(float delta) {
+                x += speed * delta;
+                y += speed * delta;
+            }
+        
+            public void render(SpriteBatch spriteBatch) {
+                Texture texture;
+                switch (color) {
+                    case ROJO:
+                    default:
+                        texture = globoRed;
+                        break;
+                    case VERDE:
+                        texture = globoGreen;
+                        break;
+                    case AZUL:
+                        texture = globoBlue;
+                        break;
+                }
+                spriteBatch.draw(texture, x, y, size, size);
+            }
+        }
+        
+    </sc>
+
+    <sc java>
+        import com.badlogic.gdx.Gdx;
+        import com.badlogic.gdx.graphics.GL20;
+        import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+        
+        import java.util.ArrayList;
+        import java.util.List;
+        
+        public class ObjectsScreen extends BaseScreen {
+        
+            ObjectsScreen(MyGdxGame game) {
+                super(game);
+            }
+        
+            SpriteBatch spriteBatch;
+            List&lt;Globo&gt; globoList;
+        
+            @Override
+            public void show() {
+                spriteBatch = new SpriteBatch();
+        
+                globoList = new ArrayList&lt;&gt;();
+                globoList.add(new Globo(10, 10, 30, 20, Globo.ColorGlobo.ROJO));
+                globoList.add(new Globo(50, 50, 50, 12, Globo.ColorGlobo.VERDE));
+                globoList.add(new Globo(100, 100, 70, 8, Globo.ColorGlobo.AZUL));
+            }
+        
+            @Override
+            public void render(float delta) {
+                Gdx.gl.glClearColor(1, 1, 1, 1);
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        
+                for(Globo globo: globoList) globo.update(delta);
+        
+                spriteBatch.begin();
+                for(Globo globo: globoList) globo.render(spriteBatch);
+                spriteBatch.end();
+            }
+        }        
+    </sc>
+
+</section>
+
+<section>
+    <h2>Input</h2>
+
+    <p><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/Input.html">Gdx.input</a></p>
     
-      <google-codelab-step label="Estructura del projecte" duration="0">
-        <p>La <sc>LibGDX Setup App</sc> ens ha creat la següent estructura del projecte:</p>
-<p>Al directori <sc>Core</sc> trobem el codi font del nostre joc. Allà és on programarem les classes del joc.</p>
-<p>Al directori <sc>Desktop</sc> trobem la classe que executa el joc per a la plataforma d&#39;escriptori.</p>
-<p class="image-container"><img style="width: 615.00px" src="img/674a160ff1687671.png"></p>
-<p>A la classe <sc>MyGdxGame</sc> trobem els següents tres mètodes:</p>
-<table>
-<tr><td colspan="1" rowspan="1"><p><sc>create()</sc></p>
-</td><td colspan="1" rowspan="1"><p>Aquest mètode s&#39;executa un cop a l&#39;iniciar el joc. Aquí carregarem tot els recursos que necessitem per al joc (imatges, objectes, etc)</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><sc>render()</sc></p>
-</td><td colspan="1" rowspan="1"><p>Aquest mètode s&#39;executa en bucle mentre s&#39;estigui executant el joc. Aquí programarem la lògica del joc</p>
-</td></tr>
-<tr><td colspan="1" rowspan="1"><p><sc>dispose()</sc></p>
-</td><td colspan="1" rowspan="1"><p>Aquest mètode s&#39;executa un cop abans de que es tanqui el joc. Aquí alliberarem els recursos que hem carregat.</p>
-</td></tr>
-</table>
+    <warn>
+        <p>La coordenada vertical del puntero está invertida respecto a la coordenada de dibujo.</p>
 
+        <sc java>
+            int mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+        </sc>
+    </warn>
+    <sc java>
+        import com.badlogic.gdx.Gdx;
+        import com.badlogic.gdx.Input;
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="ShapeRenderer" duration="0">
-        <p>La classe <sc>ShapeRenderer</sc> ens permet dibuixar figures geomètriques.</p>
-<p>Vegem un petit exemple:</p>
-<pre><sc>public class MyGdxGame extends ApplicationAdapter {
+        public class InputScreen extends BaseScreen {
 
-  ShapeRenderer shapeRenderer;
+            InputScreen(MyGdxGame game) {
+                super(game);
+            }
 
-  @Override
-  public void create () {
-     shapeRenderer = new ShapeRenderer();
-  }
+            @Override
+            public void render(float delta) {
 
-  @Override
-  public void render () {
-     Gdx.gl.glClearColor(0f, 0.7372f, 0.8313f, 1);
-     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+                if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+                    System.out.println("Mouse-left just touched at: " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight()-Gdx.input.getY()));
+                }
+                
+                if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT)){
+                    System.out.println("Mouse-right is touched at: " + Gdx.input.getX() + ":" + (Gdx.graphics.getHeight()-Gdx.input.getY()));
+                }
 
-     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-    
-     shapeRenderer.setColor(1, 0.5960f, 0, 1);
-     shapeRenderer.circle(300,200,100);
-    
-     shapeRenderer.setColor(0.9137f, 0.1176f, 0.3882f, 1);
-     shapeRenderer.rect(50,100,550, 40);
+                if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
+                    System.out.println("Key A just pressed");
+                }
+                
+                if(Gdx.input.isKeyPressed(Input.Keys.S)){
+                    System.out.println("Key S is pressed");
+                }
+            }
+        }
+    </sc>
+</section>
 
-     shapeRenderer.end();
-  }
- 
-  @Override
-  public void dispose () {
-       shapeRenderer.dispose();
-  }
-}</sc></pre>
-<ul>
-<li>Al mètode <sc>create()</sc> creem l&#39;objecte ShapeRenderer que utilitzarem per a dibuixar els figures del nostre joc.</li>
-<li>Al mètode <sc>render()</sc> dibuixem les figures:</li>
-</ul>
-<p>En primer lloc esborrem la pantalla amb el color Blau (<sc>0f, 0.7372f, 0.8313f, 1</sc>):</p>
-<pre><sc>Gdx.gl.glClearColor(0f, 0.7372f, 0.8313f, 1);
-Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</sc></pre>
-<p>A continuació obrim el <sc>ShapeRenderer</sc> per a dibuixar figures. La constant <sc>ShapeRenderer.ShapeType.</sc><strong><em><sc>Filled</sc></em></strong> indica que volem reomplir les figures que dibuixarem:</p>
-<pre><sc>shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);</sc></pre>
-<p>Establim el color a taronja (<sc>1, 0.5960f, 0, 1</sc>) i dibuixem un cercle en la posició (<sc>300,200</sc>) i de tamany (<sc>100</sc>):</p>
-<pre><sc>shapeRenderer.setColor(1, 0.5960f, 0, 1);
-shapeRenderer.circle(300,200,100);</sc></pre>
-<p>Establim el color a vermell (<sc>0.9137f, 0.1176f, 0.3882f, 1</sc>) i dibuixem un rectanble en la posció (<sc>50,100</sc>) i d&#39;amplada (<sc>550</sc>) i altura (<sc>40</sc>).</p>
-<pre><sc>shapeRenderer.setColor(0.9137f, 0.1176f, 0.3882f, 1);
-shapeRenderer.rect(50,100,550, 40);</sc></pre>
-<p>Per últim tanquem el <sc>ShapeRenderer</sc>:</p>
-<pre><sc>shapeRenderer.end();</sc></pre>
-<ul>
-<li>Al mètode <sc>dispose()</sc> alliberem l&#39;objecte ShapeRenderer</li>
-</ul>
-<p>Iniciem el joc executant el mètode <sc>DesktopLauncher.main()</sc>:</p>
-<p class="image-container"><img style="width: 566.00px" src="img/6f29ab8863ce1f24.png"></p>
-<p>I veurem el següent:</p>
-<p class="image-container"><img style="width: 338.00px" src="img/e26ac7c522723267.png"></p>
+<section>
+    <h2>Colisiones</h2>
 
+    <p><a href="https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/math/Intersector.html"><w>Intersector</w></a></p>
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Bouncing balls" duration="0">
-        <p>Farem una petita demo en la que unes boles van rebotant per la finestra</p>
-<p class="image-container"><img style="width: 551.00px" src="img/9f619f0f35814ed3.gif"></p>
-<p>Al mètode <sc>render()</sc> afegim cada cert temps aleatori, una nova bola a l&#39;array de boles. Els valors de posició, tamany, color i velocitat els generem també aleatòriament:</p>
-<pre><sc>import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.utils.Array;
-
-import java.util.Random;
-
-public class MyGdxGame extends ApplicationAdapter {
-
-   Array&lt;Ball&gt; balls;
-   Random random;
-
-  @Override
-  public void create () {
-      balls = new Array&lt;Ball&gt;();
-      random = new Random();
-  }
-
-  @Override
-  public void render () {
-     Gdx.gl.glClearColor(0f, 0.7372f, 0.8313f, 1);
-     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-     if(random.nextInt(100) == 1){
-         int x = random.nextInt(Gdx.graphics.getWidth());
-         int y = random.nextInt(Gdx.graphics.getHeight());
-         int radius = random.nextInt(80)+5;
-         float r = random.nextFloat();
-         float g = random.nextFloat();
-         float b = random.nextFloat();
-         int speedX = random.nextInt(10)+1;
-         int speedY = random.nextInt(25)+5;
-         balls.add(new Ball(x,y,radius,r,g,b,speedX,speedY));
-     }
-
-     for(Ball ball: balls) {
-         ball.render();
-     }
-  }
-}</sc></pre>
-<p>La lògica del moviment d&#39;una bola consisteix en anar augmentant la velocitat vertical en funció de la gravetat, y al mateix temps modificar la posició en funció de la velocitat.</p>
-<p>El rebot s&#39;aconsegueix comprovant quan la bola xoca amb el terra o amb una de les parets laterals:</p>
-<pre><sc>import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
-public class Ball {
-   float x,y, radius, r,g,b,speedX, speedY;
-   float reboundSpeed;
-   float GRAVITY = -0.4f;
-
-   ShapeRenderer shapeRenderer;
-
-   public Ball(float x, float y, float radius, float r, float g, float b, float speedX, float speedY) {
-       this.x = x;
-       this.y = y;
-       this.radius = radius;
-       this.r = r;
-       this.g = g;
-       this.b = b;
-       this.speedX = speedX;
-       this.speedY = speedY;
-       this.reboundSpeed = speedY;
-
-       shapeRenderer = new ShapeRenderer();
-   }
-
-   void render(){
-       speedY += GRAVITY;
-
-       y += speedY;
-       x += speedX;
-
-       if(y &lt; radius){
-           y=radius;
-           speedY = reboundSpeed;
-       }
-
-       if(x &lt; radius){
-           x = radius;
-           speedX *= -1;
-       } else if(x &gt; Gdx.graphics.getWidth()-radius){
-           x = Gdx.graphics.getWidth()-radius;
-           speedX *= -1;
-       }
-
-       shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-       shapeRenderer.setColor(r, g, b, 1);
-       shapeRenderer.circle(x, y, radius);
-       shapeRenderer.end();
-   }
-}</sc></pre>
-
-
-      </google-codelab-step>
-    
-  </google-codelab>
-
-  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
-  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
-
-</body>
-</html>
+</section>
