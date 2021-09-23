@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav>
+<header>
+  <h1>DAM - M6 Accés a dades - UF1 Persistència en fitxers</h1>
+  <abstract>
+
+  </abstract>
+</header>
+
+<section>
+    <h2>Path operations</h2>
+
+    <p><a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Paths.html">Paths</a>
+    , <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>
+    , <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html">Files</a>
+
+    <p>Un objecte de classe <w>Path</w> conté el nom de fitxer i la llista de directoris 
+        que s’utilitzen per construir el camí i s’utilitza per examinar, 
+        localitzar i manipular fitxers i directoris.</p>
+
+        <p>Per a obtenir un objecte <w>Path</w> utilitza el mètode static <w>Paths.get()</w> </p>
+    <sc java>
+        Path path = Paths.get("/ruta/al/fitxer/o/directori");
+    </sc>
+
+    <p>Exemples</p>
+    <sc java>
+        // obtenir el nom d'un fitxer, i unir-lo a la ruta d'un altre directori
+        Path file = Paths.get("/usr/local/file.txt");
+        Path dir = Paths.get("/home/user");
+
+        System.out.println(dir.resolve(file.getFileName()));  //    /home/user/file.txt
+    
+
+        // relativitzar una ruta respecte a una altra
+        Path file = Paths.get("/a/b/c/d.txt");
+        Path dir = Paths.get("/a/b/");
+
+        System.out.println(dir.relativize(file)); //     c/d.txt
+    </sc>
+
+    <p>La classe <w>Files</w> conté mètodes estàtics per a fer operacions sobre fitxers i directoris</p>
+    
+    <sc java>
+        // crear un directori i els seus parents
+        Files.createDirectories(Paths.get("/some/non/existing/directories"));    
+
+        // Imprimir el contingut d'un directori
+        Files.list(Paths.get("/some/directory")).forEach(System.out::println);
+
+        // Obtenir la llista dels continguts niats d'un directori
+        List&lt;Path&gt; list = Files.walk(Paths.get("/this/directory")).collect(Collectors.toList());
+   
+        // Imprimir els fitxers regulars d'un directori ordenats per tamany
+        Files.list(Paths.get("/another/directori"))
+            .filter(Files::isRegularFile)
+            .sorted(Comparator.comparingLong(path -> { try { return Files.size(path); } catch (IOException e) { return 0; }}))
+            .forEach(System.out::println);
+
+        // Obtenir l'any, mes i dia de la data d'ultima modificació
+        Path file = Paths.get("/one/more/file");
+
+        LocalDateTime time = LocalDateTime.parse(Files.getLastModifiedTime(file).toString(), DateTimeFormatter.ISO_DATE_TIME);
+
+        System.out.println(time.getYear());
+        System.out.println(time.getMonthValue());
+        System.out.println(time.getDayOfMonth());
+    </sc>
+
+    <!--
+        https://stackoverflow.com/questions/27644361/how-can-i-throw-checked-exceptions-from-inside-java-8-streams
+    -->
+</section>

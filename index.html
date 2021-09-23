@@ -5,6 +5,8 @@
 <style>
 
 :root {
+    --dades-color: #dc503d;
+    --dades-image: url('/dades.png');
     --mobils-color: #3ddc84;
     --mobils-image: url('/mobils.jpg');
     --web-color: #4285f4;
@@ -57,6 +59,11 @@ a {
     object-fit: cover;
 }
 
+.card.dades{
+    background-color: var(--dades-color);
+    border-color: var(--dades-color);
+}
+
 .card.mobils{
     background-color: var(--mobils-color);
     border-color: var(--mobils-color);
@@ -99,6 +106,12 @@ a {
 </head>
 
 <div class="cards">
+    <a href="/dam-m6">
+        <div class="card dades">
+            <h1>DAM-M6-Accés a dades</h1>
+            <img src="dades.png">
+        </div>
+    </a>
     <a href="/dam-m8">
         <div class="card mobils">
             <h1>DAM-M8-Aplicacions mòbils</h1>

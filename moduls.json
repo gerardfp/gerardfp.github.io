@@ -66,5 +66,14 @@
             { "url": "inicicss", "nom" : "Inici en CSS", "tag": "web"}
 
         ]
+    },
+    "dam-m6": {
+        "nom" : "DAM - M6 - Accés a dades",
+        "activs": [
+            { "url": "dam-m6-uf1", "nom" : "UF1 - Persistència en fitxers", "tag": "java"},
+            { "url": "dam-m6-uf1", "nom" : "UF2 - Persistència en BDR-OR-OO", "tag": "java"},
+            { "url": "dam-m6-uf1", "nom" : "UF3 - Persistència en BD Natives XML", "tag": "java"},
+            { "url": "dam-m6-uf1", "nom" : "UF4 - Components d'accés a dades", "tag": "java"}
+        ]
     }
 }
