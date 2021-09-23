@@ -71,9 +71,18 @@
         "nom" : "DAM - M6 - Accés a dades",
         "activs": [
             { "url": "dam-m6-uf1", "nom" : "UF1 - Persistència en fitxers", "tag": "java"},
-            { "url": "dam-m6-uf1", "nom" : "UF2 - Persistència en BDR-OR-OO", "tag": "java"},
-            { "url": "dam-m6-uf1", "nom" : "UF3 - Persistència en BD Natives XML", "tag": "java"},
-            { "url": "dam-m6-uf1", "nom" : "UF4 - Components d'accés a dades", "tag": "java"}
+            { "url": "dam-m6-uf2", "nom" : "UF2 - Persistència en BDR-OR-OO", "tag": "java"},
+            { "url": "dam-m6-uf3", "nom" : "UF3 - Persistència en BD Natives XML", "tag": "java"},
+            { "url": "dam-m6-uf4", "nom" : "UF4 - Components d'accés a dades", "tag": "java"}
+        ]
+    },
+    "daw-m8": {
+        "nom" : "DAW - M8 - Desplegament d'aplicacions web",
+        "activs": [
+            { "url": "daw-m8-uf1", "nom" : "UF1 - Servidors web i transferència de fitxers", "tag": "web"},
+            { "url": "daw-m8-uf2", "nom" : "UF2 - Servidors d’aplicacions web", "tag": "web"},
+            { "url": "daw-m8-uf3", "nom" : "UF3 - Desplegament d’aplicacions web", "tag": "web"},
+            { "url": "daw-m8-uf4", "nom" : "UF4 - Control de versions i documentació", "tag": "web"}
         ]
     }
 }
