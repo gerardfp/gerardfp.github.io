@@ -76,3 +76,98 @@
         https://stackoverflow.com/questions/27644361/how-can-i-throw-checked-exceptions-from-inside-java-8-streams
     -->
 </section>
+
+<section>
+    <h2>Read/write</h2>
+
+    <h3>Orientat a bytes</h3>
+    <h4>OutputStream / InputStream</h4>
+    <sc java>
+        // escriure
+        OutputStream os = Files.newOutputStream(path);
+        os.write(63);
+        os.write(127);
+        os.write(33);
+
+        // llegir un byte
+        InputStream is = Files.newInputStream(path);
+        int a = is.read();
+
+        // llegir tots els bytes un a un
+        InputStream is = Files.newInputStream(path);
+        for (int a; (a = is.read()) != -1;){
+            System.out.println(a);
+        }
+    </sc>
+
+    <h3>Orientat a caracters</h3>
+    <h4>DataOutputStream / DataInputStream</h4>
+    <ul>
+        <li><w>write()</w> escriu l'últim byte d'un enter
+        <li><w>writeUTF()</w> als 2 primers bytes guarda la longitud del string (en bytes, no en caracters) i després el string (max 65535)
+        <li><w>writeInt()</w> escriu un enter (4 bytes)
+        </ul>
+    <sc java>
+        try (DataOutputStream dos = new DataOutputStream(Files.newOutputStream(Paths.get("bytes.dat")))){
+            dos.write(20292);
+            dos.writeUTF("Ç");
+            dos.writeInt(34);
+        }
+
+        try(DataInputStream dis = new DataInputStream(Files.newInputStream(Paths.get("bytes.dat")))) {
+            int a = dis.read();
+            String b = dis.readUTF();
+            int c = dis.readInt();
+        }
+    </sc>
+
+    <h4>OutputStreamWriter / InputStreamReader</h4>
+    <p>Es llegeix/escriu UTF-8. Li hem d'indicar quants caracters volem llegir.</p>
+    <sc java>
+        try (OutputStreamWriter osw = new OutputStreamWriter(Files.newOutputStream(Paths.get("chars.txt")))){
+            osw.write(8986);
+            osw.write("Ç");
+        }
+
+        try(InputStreamReader isr = new InputStreamReader(new FileInputStream("chars.txt"))) {
+            char[] buffer = new char[2];
+            isr.read(buffer);
+            System.out.println(String.valueOf(buffer));  // ⌚Ç
+        }
+    </sc>
+
+    <h4>Files.writeString / Files.write / Files.lines</h4>
+    <sc java>
+        // escriure un string
+        try {
+            Files.writeString(Paths.get("string.txt"), "This is a string");
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
+         
+    </sc>
+
+    <sc java>
+        // escriure una List en varies linies
+        List&lt;String&gt; lines = Arrays.asList("linea1","linea2", "linea3");
+
+            try {
+                Files.write(Paths.get("lines.txt"), lines);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+         
+    </sc>
+
+    <sc java>
+        // llegir varies linies en un Stream
+        try (Stream&lt;String&gt; lines = Files.lines(Paths.get("lines.txt"))) {
+            lines.forEach(System.out::println);
+        }
+
+        // --- alternativa
+        Files.lines(Paths.get("lines.txt"))
+            .forEach(System.out::println);
+
+    </sc>
+</section>
