@@ -80,9 +80,6 @@
 <section>
     <h2>Read/write</h2>
 
-    <h3>UTF-8</h3>
-
-    
     <h3>Orientat a bytes</h3>
     <h4>OutputStream / InputStream</h4>
     <sc java>
@@ -104,6 +101,16 @@
     </sc>
 
     <h3>Orientat a caracters</h3>
+    <h4>UTF-8</h4>
+
+    <table>
+        <tr><td colspan="2">First code point</td><td colspan="2">Last code point</td><td>Byte 1</td><td>Byte 2</td><td>Byte 3</td><td>Byte 4</td></tr>
+        <tr><td>0000</td><td>0</td><td>007F</td><td>127</td><td>0xxxxxxx</td></tr>
+        <tr><td>0080</td><td>128</td><td>07FF</td><td>2047</td><td>110xxxxx</td><td>10xxxxxx</td></tr>
+        <tr><td>0800</td><td>2048</td><td>FFFF</td><td>65535</td><td>110xxxxx</td><td>10xxxxxx</td><td>10xxxxxx</td></tr>
+        <tr><td>10000</td><td>65536</td><td>10FFFF</td><td>1114111</td><td>110xxxxx</td><td>10xxxxxx</td><td>10xxxxxx</td><td>10xxxxxx</td></tr>
+    </table>
+
     <h4>DataOutputStream / DataInputStream</h4>
     <ul>
         <li><w>write()</w> escriu l'últim byte d'un enter
