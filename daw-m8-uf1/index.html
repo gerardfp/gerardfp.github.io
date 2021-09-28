@@ -14,6 +14,11 @@
             d'aplicacions web.
         </p>
     </abstract>
+
+    <form>
+        <input type="text" name="replace-IP_SERVIDOR" placeholder="Introdueix la IP del teu servidor web">
+        <input type="submit">
+    </form>
 </header>
 
 <section>
@@ -181,7 +186,8 @@
         <p><a href="https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/">
             Restricting Access with HTTP Basic Authentication</a></p>
     </info>
-    <p>Primer necessitarem instal·lar el paquet <w>apache2-utils</w></p>
+    <p>Primer necessitarem instal·lar el paquet <w>apache2-utils</w>. Aquest paquet conté el programa <w>htpasswd</w> que permet
+    emmagatzemar usuaris i contrasenyes en un arxiu.</p>
 
     <host>@host</host>
     <shell>apt install apache2-utils</shell>
@@ -233,7 +239,7 @@
     <p>Per a accedir a la pàgina web haurem d'especificar un usuari i contrasenya vàlids</p>
 
     <host>@host</host>
-    <shell>wget http://joan:joanpass@localhost</shell>
+    <shell>wget http://joan:joanpass@<IP_SERVIDOR>192.168.122.79</IP_SERVIDOR></shell>
 
     <h3>Host</h3>
     <p>El host és l'adreça IP o nom DNS del servidor.</p>
@@ -290,64 +296,81 @@
     
         <host>@host</host>
         <shell>
-            printf 'GET /index.html HTTP/1.0\r\nHost aaa.com\r\n\r\n' | nc <replace>{IP_SERVIDOR}</replace> 80
-            printf 'GET /index.html HTTP/1.0\r\nHost bbb.com\r\n\r\n' | nc <replace>{IP_SERVIDOR}</replace> 80
+            printf 'GET /index.html HTTP/1.0\r\nHost aaa.com\r\n\r\n' | nc <IP_SERVIDOR>IP_SERVIDOR</IP_SERVIDOR> 80
+            printf 'GET /index.html HTTP/1.0\r\nHost bbb.com\r\n\r\n' | nc <IP_SERVIDOR>IP_SERVIDOR</IP_SERVIDOR> 80
         </shell>
     
 
     <p>Observa que segons el <w>Host</w> indicat a la petició, es retorna una web o l'altra.</p>
 
+    <p>Si tractem de realitzar amb Firefox aquesta petició no ens serà possible. Si posem "aaa.com" o "bbb.com" a la
+        barra d'adreces, Firefox tractarà de resoldre el nom DNS i no podrà. I si posem la IP del servidor web a la barra
+        d'adreces, aleshores no estarem especificant el host a la petició.
+        <br>
+        Podem fer un <i>apanyo</i> temporal, i posar la resolucio dels noms "aaa.com" i "bbb.com" al fitxer <w>/etc/hosts</w>:
+    </p>
+
+    <shell>
+        sudo nano /etc/hosts
+    </shell>
+
+    <scfile>
+        /etc/hosts
+    </scfile>
+    <sc>
+        <low>
+        ...    
+        </low>
+        <add>
+        <IP_SERVIDOR></IP_SERVIDOR>  aaa.com
+        <IP_SERVIDOR></IP_SERVIDOR>  bbb.com
+        </add>
+    </sc>
+    
 
     <h3>Port</h3>
 
-    <p>Configurem NGINX per a permetre conexions al port <w>8080</w>:</p>
-    
-        <host>@host</host>
-        <shell>
-            nano /etc/apache2/ports.conf
-        </shell>
-    
-    
-    <scfile>
-        /etc/apache2/ports.conf
-    </scfile>
-    <sc none data-line="2">
-        Listen 80
-        Listen 8080
+    <p>NGNIX pot servir llocs web diferents en funció del port TCP del servidor al que es faci la petició.</p>
+    <p>Configurarem dos llocs diferents: un si es fa la connexió al port <w>80</w>, 
+        i l'altre si es fa la connexió al port <w>1234</w></p>
 
-
-        # resta de lines
-        # ...
-    </sc>
-
-    <p>Servim dues pàgines diferents en funcio del port de conexió:</p>
 
     <scfile>
-        /etc/apache2/sites-enabled/000-default
+        /etc/nginx/sites-enabled/default
     </scfile>
     <sc none>
-        &lt;VirtualHost *:80&gt;
-            DocumentRoot /var/www/html/aaa.com
-        &lt;/VirtualHost&gt;
+        server {
+            listen 80;
+            root /var/www/html/aaa.com;
+        }
 
-        &lt;VirtualHost *:8080&gt;
-            DocumentRoot /var/www/html/bbb.com
-        &lt;/VirtualHost&gt;
+        server {
+            listen 1234;
+            root /var/www/html/bbb.com;
+        }
     </sc>
 
-    <p>Accedim a <url>http://<replace>ip_contenidor</replace>:80</url></p>
-    <p>Accedim a <url>http://<replace>ip_contenidor</replace>:8080</url></p>
+    <p>Accedim a <url>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR>:80</url></p>
+    <p>Accedim a <url>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR>:1234</url></p>
 
 
 
+    <warn>
+        <p>Reestablim la configuració del lloc per defecte, per a deixar-la neta per al pas següent</p>
+        <host></host>
+        <shell>
+            printf "server {\n\tlisten 80;\n\troot /var/www/html;\n}\n" > /etc/nginx/sites-enabled/default
+        </shell>
+    
+    </warn>
 
 
     <h3>Path</h3>
 
     <p>Si no s'especifica cap arxiu en el <w>path</w>, 
-        per defecte, el servidor apache servirà l'arixu 
-        <file>index.html</file>, i si aquest arxiu no existeix,
-        servirà una pàgina que llistarà els arxius del directori:
+        per defecte, el servidor NGINX servirà l'arxiu <w>index.html</w>, 
+        o el que indiquem amb el paràmetre
+        <w>index</w> de la configuracio del lloc.
     </p>
 
     <p>Anem a crear diversos arxius al directory <folder>/var/www/html</folder>:</p>
@@ -358,7 +381,6 @@
             echo "&lt;h1&gt;Home page&lt;/h1&gt;" > /var/www/html/index.html
             echo "&lt;h1&gt;Pagina xxx &lt;/h1&gt;" > /var/www/html/xxx.html
             echo "&lt;h1&gt;Pagina yyy &lt;/h1&gt;" > /var/www/html/yyy.html
-            echo "&lt;h1&gt;Pagina zzz &lt;/h1&gt;" > /var/www/html/zzz.html
         </shell>
      
     
@@ -368,7 +390,7 @@
         <host>@host</host>
         <shell>
             ls /var/www/html
-            index.html   xxx.html   yyy.html   zzz.html
+            index.html   xxx.html   yyy.html
         </shell>
     
 
@@ -379,18 +401,6 @@
 
     <p>Si l'arxiu que posem a la url (e.g. <url>http://10.2.4.1/opq.html</url>) no existeix, apache ens servirà una 
     pàgina <strong>"Not Found"</strong></p>
-
-    <p>Per últim, esborrem l'arxiu <file>index.html</file>:</p>
-    
-        <host>@host</host>
-        <shell>
-            rm /var/www/html/index.html
-        </shell>
-    
-    <p>... i comprovem que Apache ens mostra un pàgina amb la llista d'arxius del 
-        directori, quan no especifiquem cap arxiu a la url <url>http://10.2.4.1/</url> i no hi ha un <file>index.html</file>:
-    </p>
-    <img src="img/filelist.png">
 
 
     <p>Al <w>path</w> de la url també es poden especificar els directoris on es troba l'arxiu que se solicita. Apache
@@ -432,6 +442,15 @@
 
     <p>Ara, per a accedir al recurs <file>mmm.html</file>, la URL que cal posar és <url>http://10.2.4.1/bbb/mmm.html</url>.</p>
 
+    <warn>
+        <p>Reestablim la configuració del lloc per defecte, per a deixar-la neta per al pas següent</p>
+        <host></host>
+        <shell>
+            printf "server {\n\tlisten 80;\n\troot /var/www/html;\n}\n" > /etc/nginx/sites-enabled/default
+        </shell>
+    
+    </warn>
+
 
     <h3>Query</h3>
 
@@ -448,21 +467,6 @@
     <p>Anem a fer al nostre contenidor un recurs que accepti una <w>query</w> amb dades extra i faci alguna cosa amb aquestes
     dades.</p>
 
-    <warn>
-        <p>Abans anem a ressetejar la configuració d'Apache, ja que abans l'hem deixat una mica trastocada. Tornarem a posar
-            el <w>DocumentRoot</w> al seu lloc habitual.
-        </p>
-
-        
-            <host>@host</host>
-            <shell>
-                printf "&lt;VirtualHost *:80&gt;\n\tDocumentRoot /var/www/html\n&lt;/VirtualHost&gt;" > /etc/apache2/sites-enabled/000-default.conf
-                
-                /etc/init.d/apache2 restart
-            </shell>
-        
-    </warn>
-
     <p>Primer hem de comprendre que el recurs no pot ser una pàgina <w>HTML</w>, ja que el llenguatge HTML només és per a 
     definir el contingut de la pàgina. És a dir, amb HTML no podem accedir a les dades de la <w>query</w>.</p>
 
@@ -473,8 +477,58 @@
 
     
         <host>@host</host>
-        <shell>apt install -y php</shell>
+        <shell>apt install -y php php-fpm</shell>
     
+
+    <p>Afegirem la següent configuració al lloc NGINX</p>
+    <scfile>
+
+    </scfile>
+    <sc>
+        <low>
+        server {
+            ...
+            
+        </low>
+        <add>
+            location ~ \.php$ {
+                fastcgi_pass  127.0.0.1:9000;
+                include fastcgi.conf;
+            }
+        </add>
+        <low>
+        }
+        </low>
+
+    </sc>
+
+    <p>Configurem php-fpm per a escoltar al port 9000</p>
+
+    <scfile>
+        /etc/php/7.4/fpm/pool.d/www.conf
+    </scfile>
+    <sc>
+        <low>
+        ...    
+        </low>
+        <rem>
+        listen = /run/php/php7.4-fpm.sock
+        </rem>
+        <add>
+        listen = 9000
+        </add>
+        <low>
+        ...
+        </low>
+
+    </sc>
+
+    <p>Reiniciem el servidor NGINX i PHP-FPM</p>
+
+    <host></host>
+    <shell>
+        systemctl restart php7.4-fpm nginx
+    </shell>
 
     <p>Crearem un senzill script <w>php</w> que ens permetrà executar comandes al servidor a través del navegador web.</p>
 
@@ -505,6 +559,7 @@
 
     <img src="img/webash2.png">
 
+    <!--
     <observe>
         <p>Fixa't que el que fa l'script <w>php</w> és generar codi HTML amb els <w>echo</w>. Apache executa 
             l'script i retorna al navegador tot el que ha mostrar l'script amb els <w>echo</w>.</p>
@@ -523,7 +578,7 @@
             ?&gt;
         </sc>
     </observe>
-
+-->
     <p>De moment, el nostre codi PHP sempre mostra el mateix contingut, independentment de la <w>query</w> que li passem.
     És a dir, posis les dades que posis a la <w>query</w>, l'script les ignorarà. Per exemple: 
     <url>http://10.2.4.164/webash.php?comanda=pstree</url>, o <url>http://10.2.4.164/webash.php?hola=quetal</url></p>
