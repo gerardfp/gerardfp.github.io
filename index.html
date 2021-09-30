@@ -5,6 +5,10 @@
 <style>
 
 :root {
+    --dades-color: #dc503d;
+    --dades-image: url('/dades.png');
+    --desplegament-color: #dcd93d;
+    --desplegament-image: url('/desplegament.png');
     --mobils-color: #3ddc84;
     --mobils-image: url('/mobils.jpg');
     --web-color: #4285f4;
@@ -57,6 +61,16 @@ a {
     object-fit: cover;
 }
 
+.card.dades{
+    background-color: var(--dades-color);
+    border-color: var(--dades-color);
+}
+
+.card.desplegament{
+    background-color: var(--desplegament-color);
+    border-color: var(--desplegament-color);
+}
+
 .card.mobils{
     background-color: var(--mobils-color);
     border-color: var(--mobils-color);
@@ -99,6 +113,18 @@ a {
 </head>
 
 <div class="cards">
+    <a href="/dam-m6">
+        <div class="card dades">
+            <h1>DAM-M6-Accés a dades</h1>
+            <img src="dades.png">
+        </div>
+    </a>
+    <a href="/daw-m8">
+        <div class="card desplegament">
+            <h1>DAW-M8-Desplegament d'aplicacions web</h1>
+            <img src="desplegament.png">
+        </div>
+    </a>
     <a href="/dam-m8">
         <div class="card mobils">
             <h1>DAM-M8-Aplicacions mòbils</h1>

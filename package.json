@@ -5,7 +5,8 @@
   "main": "build.js",
   "dependencies": {
     "glob": "^7.1.6",
-    "swig-templates": "^2.0.3"
+    "swig-templates": "^2.0.3",
+    "node-static": ""
   },
   "devDependencies": {},
   "scripts": {

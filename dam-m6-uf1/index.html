@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav>
+<header>
+  <h1>DAM - M6 Accés a dades - UF1 Persistència en fitxers</h1>
+  <abstract>
+
+  </abstract>
+</header>
+
+<section>
+    <h2>Path operations</h2>
+
+    <p><a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Paths.html">Paths</a>
+    , <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a>
+    , <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html">Files</a>
+
+    <p>Un objecte de classe <w>Path</w> conté el nom de fitxer i la llista de directoris 
+        que s’utilitzen per construir el camí i s’utilitza per examinar, 
+        localitzar i manipular fitxers i directoris.</p>
+
+        <p>Per a obtenir un objecte <w>Path</w> utilitza el mètode static <w>Paths.get()</w> </p>
+    <sc java>
+        Path path = Paths.get("/ruta/al/fitxer/o/directori");
+    </sc>
+
+    <p>Exemples</p>
+    <sc java>
+        // obtenir el nom d'un fitxer, i unir-lo a la ruta d'un altre directori
+        Path file = Paths.get("/usr/local/file.txt");
+        Path dir = Paths.get("/home/user");
+
+        System.out.println(dir.resolve(file.getFileName()));  //    /home/user/file.txt
+    
+
+        // relativitzar una ruta respecte a una altra
+        Path file = Paths.get("/a/b/c/d.txt");
+        Path dir = Paths.get("/a/b/");
+
+        System.out.println(dir.relativize(file)); //     c/d.txt
+    </sc>
+
+    <p>La classe <w>Files</w> conté mètodes estàtics per a fer operacions sobre fitxers i directoris</p>
+    
+    <sc java>
+        // crear un directori i els seus parents
+        Files.createDirectories(Paths.get("/some/non/existing/directories"));    
+
+        // Imprimir el contingut d'un directori
+        Files.list(Paths.get("/some/directory")).forEach(System.out::println);
+
+        // Obtenir la llista dels continguts niats d'un directori
+        List&lt;Path&gt; list = Files.walk(Paths.get("/this/directory")).collect(Collectors.toList());
+   
+        // Imprimir els fitxers regulars d'un directori ordenats per tamany
+        Files.list(Paths.get("/another/directori"))
+            .filter(Files::isRegularFile)
+            .sorted(Comparator.comparingLong(path -> { try { return Files.size(path); } catch (IOException e) { return 0; }}))
+            .forEach(System.out::println);
+
+        // Obtenir l'any, mes i dia de la data d'ultima modificació
+        Path file = Paths.get("/one/more/file");
+
+        LocalDateTime time = LocalDateTime.parse(Files.getLastModifiedTime(file).toString(), DateTimeFormatter.ISO_DATE_TIME);
+
+        System.out.println(time.getYear());
+        System.out.println(time.getMonthValue());
+        System.out.println(time.getDayOfMonth());
+    </sc>
+
+    <!--
+        https://stackoverflow.com/questions/27644361/how-can-i-throw-checked-exceptions-from-inside-java-8-streams
+    -->
+</section>
+
+<section>
+    <h2>Read/write</h2>
+
+    <h3>Orientat a bytes</h3>
+    <h4>OutputStream / InputStream</h4>
+    <sc java>
+        // escriure bytes a un fitxer
+        OutputStream os = Files.newOutputStream(path);
+        os.write(63);
+        os.write(127);
+        os.write(33);
+
+        // llegir un byte d'un fitxer
+        InputStream is = Files.newInputStream(path);
+        int a = is.read();
+
+        // llegir tots els bytes un a un
+        InputStream is = Files.newInputStream(path);
+        for (int a; (a = is.read()) != -1;){
+            System.out.println(a);
+        }
+    </sc>
+
+    <h3>Orientat a caracters</h3>
+    <h4>UTF-8</h4>
+
+    <table>
+        <tr><td colspan="2">First code point</td><td colspan="2">Last code point</td><td>Byte 1</td><td>Byte 2</td><td>Byte 3</td><td>Byte 4</td></tr>
+        <tr><td>0000</td><td>0</td><td>007F</td><td>127</td><td>0xxxxxxx</td></tr>
+        <tr><td>0080</td><td>128</td><td>07FF</td><td>2047</td><td>110xxxxx</td><td>10xxxxxx</td></tr>
+        <tr><td>0800</td><td>2048</td><td>FFFF</td><td>65535</td><td>110xxxxx</td><td>10xxxxxx</td><td>10xxxxxx</td></tr>
+        <tr><td>10000</td><td>65536</td><td>10FFFF</td><td>1114111</td><td>110xxxxx</td><td>10xxxxxx</td><td>10xxxxxx</td><td>10xxxxxx</td></tr>
+    </table>
+
+    <h4>DataOutputStream / DataInputStream</h4>
+    <ul>
+        <li><w>write()</w> escriu l'últim byte d'un enter
+        <li><w>writeUTF()</w> als 2 primers bytes guarda la longitud del string (en bytes, no en caracters) i després el string (max 65535)
+        <li><w>writeInt()</w> escriu un enter (4 bytes)
+        </ul>
+    <sc java>
+        try (DataOutputStream dos = new DataOutputStream(Files.newOutputStream(Paths.get("bytes.dat")))){
+            dos.write(20292);
+            dos.writeUTF("Ç");
+            dos.writeInt(34);
+        }
+
+        try(DataInputStream dis = new DataInputStream(Files.newInputStream(Paths.get("bytes.dat")))) {
+            int a = dis.read();
+            String b = dis.readUTF();
+            int c = dis.readInt();
+        }
+    </sc>
+
+    <h4>OutputStreamWriter / InputStreamReader</h4>
+    <p>Es llegeix/escriu UTF-8. Li hem d'indicar quants caracters volem llegir.</p>
+    <sc java>
+        try (OutputStreamWriter osw = new OutputStreamWriter(Files.newOutputStream(Paths.get("chars.txt")))){
+            osw.write(8986);
+            osw.write("Ç");
+        }
+
+        try(InputStreamReader isr = new InputStreamReader(new FileInputStream("chars.txt"))) {
+            char[] buffer = new char[2];
+            isr.read(buffer);
+            System.out.println(String.valueOf(buffer));  // ⌚Ç
+        }
+    </sc>
+
+    <h4>Files.writeString / Files.write / Files.lines</h4>
+    <sc java>
+        // escriure un string
+        try {
+            Files.writeString(Paths.get("string.txt"), "This is a string");
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
+         
+    </sc>
+
+    <sc java>
+        // escriure una List en varies linies
+        List&lt;String&gt; lines = Arrays.asList("linea1","linea2", "linea3");
+
+            try {
+                Files.write(Paths.get("lines.txt"), lines);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+         
+    </sc>
+
+    <sc java>
+        // llegir varies linies en un Stream
+        try (Stream&lt;String&gt; lines = Files.lines(Paths.get("lines.txt"))) {
+            lines.forEach(System.out::println);
+        }
+
+        // --- alternativa
+        Files.lines(Paths.get("lines.txt"))
+            .forEach(System.out::println);
+
+    </sc>
+</section>
