@@ -359,7 +359,7 @@
         <p>Reestablim la configuració del lloc per defecte, per a deixar-la neta per al pas següent</p>
         <host></host>
         <shell>
-            printf "server {\n\tlisten 80;\n\troot /var/www/html;\n}\n" > /etc/nginx/sites-enabled/default
+            printf "server {\n\troot /var/www/html;\n}\n" > /etc/nginx/sites-enabled/default
         </shell>
     
     </warn>
@@ -370,7 +370,7 @@
     <p>Si no s'especifica cap arxiu en el <w>path</w>, 
         per defecte, el servidor NGINX servirà l'arxiu <w>index.html</w>, 
         o el que indiquem amb el paràmetre
-        <w>index</w> de la configuracio del lloc.
+        <w>index</w> de la configuració del lloc.
     </p>
 
     <p>Anem a crear diversos arxius al directory <folder>/var/www/html</folder>:</p>
@@ -383,52 +383,49 @@
             echo "&lt;h1&gt;Pagina yyy &lt;/h1&gt;" > /var/www/html/yyy.html
         </shell>
      
-    
-    <p>Comprovem que tenim aquests arxius a <folder>/var/www/html</folder>:</p>
 
-    
-        <host>@host</host>
-        <shell>
-            ls /var/www/html
-            index.html   xxx.html   yyy.html
-        </shell>
-    
-
-    <p>Si ara fem una petició al servidor sense indicar cap arxiu <url>http://10.2.4.1</url>
+    <p>Si ara fem una petició al servidor sense indicar cap arxiu <url>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR></url>
     el servidor ens enviarà l'arxiu <file>index.html</file> </p>
 
-    <p>Si especifiquem algun arxiu a la petició (e.g. <url>http://10.2.4.1/xxx.html</url>) Apache ens servirà aquest arxiu.</p>
+    <p>Si especifiquem algun arxiu a la petició (e.g. <url>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR>/xxx.html</url>) Apache ens servirà aquest arxiu.</p>
 
-    <p>Si l'arxiu que posem a la url (e.g. <url>http://10.2.4.1/opq.html</url>) no existeix, apache ens servirà una 
+    <p>Si l'arxiu que posem a la url (e.g. <url>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR>/opq.html</url>) no existeix, apache ens servirà una 
     pàgina <strong>"Not Found"</strong></p>
 
 
-    <p>Al <w>path</w> de la url també es poden especificar els directoris on es troba l'arxiu que se solicita. Apache
-    buscarà aquest arxius a partir del <w>DocumentRoot</w>.</p>
+    <p>Al <w>path</w> de la URL també es poden especificar els directoris on es troba l'arxiu que se solicita. NGINX
+    buscarà aquest arxius a partir del <w>root</w>.</p>
 
-    <p>Per exemple, si el <w>DocumentRoot</w> és <w>/var/www/html</w>, i fem aquesta petició: 
-        <url>http://10.2.4.1/aaa/bbb/mmm.html</url>, Apache buscarà aquest arxiu 
+    <p>Per exemple, si el <w>root</w> és <w>/var/www/html</w>, i fem aquesta petició: 
+        <url>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR>/aaa/bbb/mmm.html</url>, NGINX buscarà aquest arxiu 
         <w>/var/www/html/aaa/bbb/mmm.html</w>. Comprovem-ho:</p>
 
     
-        <host>@host</host>
-        <shell>
-            mkdir -p /var/www/html/aaa/bbb/
-            echo "&lt;h1&gt;Pagina mmm &lt;/h1&gt;" > /var/www/html/aaa/bbb/mmm.html
-        </shell>
+    <host>@host</host>
+    <shell>
+        mkdir -p /var/www/html/aaa/bbb/
+        echo "&lt;h1&gt;Pagina mmm&lt;/h1&gt;" > /var/www/html/aaa/bbb/mmm.html
+    </shell>
     
     
-    <p>Comprova que s'accedeix al recurs <file>mmm.html</file> amb aquesta URL <url>http://10.2.4.1/aaa/bbb/mmm.html</url>.</p>
+    <p>Comprova que s'accedeix al recurs <file>mmm.html</file> amb aquesta URL <url>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR>/aaa/bbb/mmm.html</url>.</p>
 
-    <p>Ara anem a canviar el <w>DocumentRoot</w>, i farem que sigui <folder>/var/www/html/aaa/</folder>:</p>
+    <p>Ara anem a canviar el <w>root</w>, i farem que sigui <folder>/var/www/html/aaa/</folder>:</p>
 
     <scfile>
-        /etc/apache2/sites-enabled/000-default
+        /etc/nginx/sites-enabled/default
     </scfile>
     <sc none>
-        &lt;VirtualHost *:80&gt;
-            DocumentRoot /var/www/html/aaa
-        &lt;/VirtualHost&gt;
+        <low>
+        server {
+            ...
+        </low>
+        <add>
+            root /var/www/html/aaa;
+        </add>
+        <low>
+        }
+        </low>
     </sc>
 
     <p>Reiniciem el servidor:</p>
@@ -436,19 +433,18 @@
     
         <host>@host</host>
         <shell>
-            /etc/init.d/apache2 restart
+            systemctl restart nginx
         </shell>
     
 
-    <p>Ara, per a accedir al recurs <file>mmm.html</file>, la URL que cal posar és <url>http://10.2.4.1/bbb/mmm.html</url>.</p>
+    <p>Ara, per a accedir al recurs <file>mmm.html</file>, la URL que cal posar és <url>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR>/bbb/mmm.html</url>.</p>
 
     <warn>
         <p>Reestablim la configuració del lloc per defecte, per a deixar-la neta per al pas següent</p>
         <host></host>
         <shell>
-            printf "server {\n\tlisten 80;\n\troot /var/www/html;\n}\n" > /etc/nginx/sites-enabled/default
+            printf "server {\n\troot /var/www/html;\n}\n" > /etc/nginx/sites-enabled/default
         </shell>
-    
     </warn>
 
 
@@ -474,15 +470,14 @@
     Anem a veure uns exemples simples amb el que es pot fer amb <w>PHP</w>.</p>
 
     <p>Primer l'instal·lem:</p>
-
     
-        <host>@host</host>
-        <shell>apt install -y php php-fpm</shell>
+    <host>@host</host>
+    <shell>apt install -y php php-fpm</shell>
     
 
-    <p>Afegirem la següent configuració al lloc NGINX</p>
+    <p>Afegirem la següent configuració al lloc NGINX:</p>
     <scfile>
-
+        /etc/nginx/sites-enabled/default
     </scfile>
     <sc>
         <low>
@@ -502,7 +497,7 @@
 
     </sc>
 
-    <p>Configurem php-fpm per a escoltar al port 9000</p>
+    <p>Configurem <w>php-fpm</w> per a escoltar al port 9000:</p>
 
     <scfile>
         /etc/php/7.4/fpm/pool.d/www.conf
@@ -525,7 +520,7 @@
 
     <p>Reiniciem el servidor NGINX i PHP-FPM</p>
 
-    <host></host>
+    <host>@server</host>
     <shell>
         systemctl restart php7.4-fpm nginx
     </shell>
@@ -555,7 +550,7 @@
         ?&gt;
     </sc>
 
-    <p>Si accedim al recurs <w>http://10.2.4.164/webash.php</w> veurem la pàgina generada per l'script <file>webash.php</file>:</p>
+    <p>Si accedim al recurs <w>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR>/webash.php</w> veurem la pàgina generada per l'script <file>webash.php</file>:</p>
 
     <img src="img/webash2.png">
 
@@ -581,7 +576,7 @@
 -->
     <p>De moment, el nostre codi PHP sempre mostra el mateix contingut, independentment de la <w>query</w> que li passem.
     És a dir, posis les dades que posis a la <w>query</w>, l'script les ignorarà. Per exemple: 
-    <url>http://10.2.4.164/webash.php?comanda=pstree</url>, o <url>http://10.2.4.164/webash.php?hola=quetal</url></p>
+    <url>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR>/webash.php?comanda=pstree</url>, o <url>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR>/webash.php?hola=quetal</url></p>
 
     <p>Anem a modificar l'script per que agafi una dada de la <w>query</w> i faci alguna cosa:</p>
 
@@ -589,19 +584,24 @@
     <scfile>
         /var/www/html/webash.php
     </scfile>
-    <sc php data-line="6,7,8">
+    <sc php>
+        <low>
         &lt;?php
         echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
         echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
         echo "&lt;span&gt;web&bash&lt/span&gt;";
-
+        </low>
+        <add>
         echo "&lt;h1&gt;Hola ";
         echo $_GET['usuari'];
         echo "&lt;/h1&gt;";
+        </add>
+        <low>
         ?&gt;
+        </low>
     </sc>
 
-    <p>Ara posem la query <w>usuari=gerard</w> a la url: <url>http://10.2.4.164/webash.php?usuari=gerard</url>. 
+    <p>Ara posem la query <w>usuari=gerard</w> a la url: <url>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR>/webash.php?usuari=gerard</url>. 
     L'script php genera aquesta web:</p>
 
     <img src="img/webash3.png">
@@ -617,59 +617,50 @@
 
     </observe>
 
+    <!--
     <p>Quan introduïm alguna cosa en el camp de text, per exemple <name>hola</name> i li donem al botó <mo>Executar</mo></p>
+    -->
+    <p>Avançarem amb el webash, i ara farem que quan a la query se li passi una dada anomenada <w>comanda</w>, l'script agafarà el valor
+    d'aquesta dada i l'executarà al sistema operatiu, retornant el seu resultat.</p>
 
-    <p>Avançarem amb el webash, i ara farem que se li passi una dada anomenada <w>comanda</w>. L'script agafarà el valor
-    d'aquesta dada i l'executarà al sistema operatiu.</p>
-
-    <p>Esborra les línies anteriors, i afegeix aquesta línia:</p>
+    <p>Esborra les línies anteriors, i afegeix aquestes línies:</p>
     <scfile>
         /var/www/html/webash.php
     </scfile>
-    <sc php data-line="6">
+    <sc php>
         &lt;?php
         echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
         echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
         echo "&lt;span&gt;web&bash&lt/span&gt;";
 
-        system($_GET['comanda']);
+        <rem>
+        echo "&lt;h1&gt;Hola ";
+        echo $_GET['usuari'];
+        echo "&lt;/h1&gt;";
+        </rem>
+
+        <add>
+        echo "&lt;pre style='width: 80ch; padding: 2ch; overflow: auto; color: white; background: #300A24;'>";
+        system("exec 2&gt;&1 && " . $_GET['comanda']);
+        echo "&lt;/pre&gt;";
+        </add>
         ?&gt;
     </sc>
 
     <p>Ara l'script agafarà el valor de la dada anomenada <w>comanda</w> i l'executarà. Per exemple podem executar 
-    la <w>pstree</w> així: <url>http://10.2.4.164/webash.php?comanda=pstree</url>:</p>
+    la <w>pstree</w> així: <url>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR>/webash.php?comanda=df -h</url>:</p>
 
-    <img src="img/webash4.png">
+    <img src="img/webash5.png">
 
     <observe>
         <p>La funció <w>system</w> executa el que se li posi entre els parèntesi, i el resultat de la comanda, 
         s'inclou a la pàgina generada.</p>
 
         <p>El que està executant aleshores la funció <w>system</w> és el valor de la dada <w>comanda</w> de la query.
-        Prova a posar aquesta url <url>http://10.2.4.164/webash.php?comanda=cal</url> o qualsevol altra comanda a 
+        Prova a posar aquesta url <url>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR>/webash.php?comanda=cal</url> o qualsevol altra comanda a 
         la query.</p>
     </observe>
-
-    <p>Seguirem ara donant un mica d'estil a les dades generades per <w>system</w>, ja que queden totes seguides i 
-    sense format. Posarem tot el que genera el <w>system</w> dintre d'un element <w>&lt;pre&gt;</w>. Li posarem
-    també una mica d'estil CSS al <w>&lt;pre&gt;</w>.</p>
-    <scfile>
-        /var/www/html/webash.php
-    </scfile>
-    <sc php data-line="6,8">
-        &lt;?php
-        echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
-        echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
-        echo "&lt;span&gt;web&bash&lt/span&gt;";
-
-        echo "&lt;pre style='width: 80ch; padding: 2ch; overflow: auto; color: white; background: #300A24;'>";
-        system($_GET['comanda']);
-        echo "&lt;/pre&gt;";
-        ?&gt;
-    </sc>
-
-    <p>Provem a veure com queda <url>http://10.2.4.164/webash.php?comanda=df -h</url></p>
-    <img src="img/webash5.png">
+    
 
     <p>Per últim, afegirem a webash una forma més còmoda de realitzar comandes, que no sigui posant-les a la url.
         Afegirem un formulari amb un camp de text i un botó:
@@ -684,11 +675,13 @@
         echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
         echo "&lt;span&gt;web&bash&lt/span&gt;";
 
+        <add>
         echo "&lt;form&gt;";
         echo "&lt;input name='comanda'&gt";
         echo "&lt;input type='submit' value='Executar'&gt;";
         echo "&lt;/form&gt;";
-
+        </add>
+    
         echo "&lt;pre style='width: 80ch; padding: 2ch; overflow: auto; color: white; background: #300A24;'>";
         system($_GET['comanda']);
         echo "&lt;/pre&gt;";
@@ -702,45 +695,6 @@
     <p>Quan es premi el botó Executar, automàticament el navegador web agafarà els camps del <w>&lt;form&gt;</w> i els afegirà 
     a la query de la petició. Anomenarà les dades de la query segons l'atribut <w>name</w> dels <w>&lt;input&gt;</w> i el 
     valor serà el que s'hagi escrit en ells. Prova a executar algunes comandes!</p>
-
-    <p>Acabarem fent un algunes de consideracions.</p>
-    <p>La primera és que si tractes de fer una comanda invàlida, no veuràs cap error, ja que la funció <w>system</w>, 
-    només mostra les dades de la sortida estàndard (STDOUT). Si volem veure també les dades que es mostren a la 
-    sortida d'errors (STDERR), podem redirigir-ho amb <w>exec 2&gt;&1</w>. Canvia la línia indicada: </p>
-
-    <scfile>
-        /var/www/html/webash.php
-    </scfile>
-    <sc php data-line="12">
-        &lt;?php
-        echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
-        echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
-        echo "&lt;span&gt;web&bash&lt/span&gt;";
-
-        echo "&lt;form&gt;";
-        echo "&lt;input name='comanda'&gt";
-        echo "&lt;input type='submit' value='Executar'&gt;";
-        echo "&lt;/form&gt;";
-
-        echo "&lt;pre style='width: 80ch; padding: 2ch; overflow: auto; color: white; background: #300A24;'>";
-        system("exec 2&gt;&1 && " . $_GET['comanda']);
-        echo "&lt;/pre&gt;";
-        ?&gt;
-    </sc>
-
-    <p>Ara prova a executar qualsevol comanda que generi errors i sí es mostraran:</p>
-
-    <img src="img/webash7.png">
-
-    <p>La segona consideració és que les comandes s'executen amb els permisos de l'usuari <w>www-data</w>, 
-    i això significa que només podran fer allò que l'usuari <w>www-data</w> tingui permès fer. Per exemple:</p>
-
-    <img src="img/webash8.png">
-
-    <p>L'ultima consideració és que el directori de treball és on es troba l'arxiu <file>webash.php</file>, 
-    així que totes les rutes que hi hagi a les comandes són relatives a aquest directori:</p>
-
-    <img src="img/webash9.png">
 
     <h3>Fragment</h3>
     <p>El <w>fragment</w> serveix per a fer que el navegador posicioni la pàgina en una secció determinada. Aquesta part
@@ -828,7 +782,7 @@
 
     <p>Instal·la <w>php</w> al servidor:</p>
     <host>@host</host>
-    <shell>apt install -y php</shell>
+    <shell>apt install -y php php-fpm</shell>
 
     <p>Escriu aquest script PHP:</p>
 
