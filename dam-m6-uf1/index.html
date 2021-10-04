@@ -82,17 +82,23 @@
 
     <h3>Orientat a bytes</h3>
     <h4>OutputStream / InputStream</h4>
+    <p><w>write()</w></p>
     <sc java>
         // escriure bytes a un fitxer
         OutputStream os = Files.newOutputStream(path);
         os.write(63);
         os.write(127);
         os.write(33);
+    </sc>
 
+    <p><w>read()</w></p>
+    <sc java>
         // llegir un byte d'un fitxer
         InputStream is = Files.newInputStream(path);
         int a = is.read();
+    </sc>
 
+    <sc java>
         // llegir tots els bytes un a un
         InputStream is = Files.newInputStream(path);
         for (int a; (a = is.read()) != -1;){
@@ -111,6 +117,99 @@
         <tr><td>10000</td><td>65536</td><td>10FFFF</td><td>1114111</td><td>110xxxxx</td><td>10xxxxxx</td><td>10xxxxxx</td><td>10xxxxxx</td></tr>
     </table>
 
+    <h4>BufferedWriter / BufferedReader</h4>
+
+    <p><w>write("A")</w>, escriu el codepoint del caracter "A" codificat amb UTF-8.
+        <br>
+        <w>write(65)</w>, escriu el codepoint 65 codificat en UTF-8</p>
+
+    <sc java>
+        // Escriure caracters
+        try (BufferedWriter bw = Files.newBufferedWriter(Paths.get("string2.txt"))){
+            bw.write("A");
+            bw.write(8986);
+            bw.write("Java");
+            bw.write(new char[]{'T','M'});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    </sc>
+
+    <p><w>read()</w></p>
+    <sc java>
+        // llegir caracters
+        try (BufferedReader br = Files.newBufferedReader(Paths.get("file.txt"))){
+            char a = (char) br.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    </sc>
+
+    <p><w>readLine()</w></p>
+    <sc java>
+
+        // llegir una línia
+        try (BufferedReader br = Files.newBufferedReader(Paths.get("file.txt"))){
+            String l = br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    </sc>
+
+    <h4>Files.writeString / Files.write / Files.lines</h4>
+    <p><w>Files.writeString()</w></p>
+    <sc java>
+        // escriure un string
+        try {
+            Files.writeString(Paths.get("string.txt"), "This is a string");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+         
+    </sc>
+
+    <p><w>Files.write()</w></p>
+    <sc java>
+        // escriure cada String d'una List en una nova línia
+        List&lt;String&gt; lines = Arrays.asList("linea1","linea2", "linea3");
+
+        try {
+            Files.write(Paths.get("lines.txt"), lines);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+         
+    </sc>
+
+    <p><w>Files.lines()</w></p>
+    <sc java>
+        // llegir varies linies en un Stream
+        try (Stream&lt;String&gt; lines = Files.lines(Paths.get("lines.txt"))) {
+            lines.forEach(System.out::println);
+        }
+
+        // --- alternativa
+        try {
+            Files.lines(Paths.get("lines.txt"))
+                    .forEach(System.out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // recollir l'Stream en una List
+        try {
+            List&lt;String&gt; lines = Files.lines(Paths.get("lines.txt")).collect(Collectors.toList());
+            
+            for(String line : lines) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    </sc>
+
+    <!--
     <h4>DataOutputStream / DataInputStream</h4>
     <ul>
         <li><w>write()</w> escriu l'últim byte d'un enter
@@ -145,39 +244,5 @@
             System.out.println(String.valueOf(buffer));  // ⌚Ç
         }
     </sc>
-
-    <h4>Files.writeString / Files.write / Files.lines</h4>
-    <sc java>
-        // escriure un string
-        try {
-            Files.writeString(Paths.get("string.txt"), "This is a string");
-         } catch (IOException e) {
-            e.printStackTrace();
-         }
-         
-    </sc>
-
-    <sc java>
-        // escriure una List en varies linies
-        List&lt;String&gt; lines = Arrays.asList("linea1","linea2", "linea3");
-
-            try {
-                Files.write(Paths.get("lines.txt"), lines);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-         
-    </sc>
-
-    <sc java>
-        // llegir varies linies en un Stream
-        try (Stream&lt;String&gt; lines = Files.lines(Paths.get("lines.txt"))) {
-            lines.forEach(System.out::println);
-        }
-
-        // --- alternativa
-        Files.lines(Paths.get("lines.txt"))
-            .forEach(System.out::println);
-
-    </sc>
+    -->
 </section>
