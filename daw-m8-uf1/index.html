@@ -173,15 +173,18 @@
         <img src="img/firefox_request.png">
     </info>
 
-    <p>Ho farem ara al servidor que tenim instal·lat al nostre contenidor.</p>
 
     <h3>User</h3>
     <p>Alguns servidors requereixen d'autenticació amb usuari:contrasenya per a accedir 
         a certs recursos</p>
     </p>
 
-    <p>Configurarem el nostre servidor per a requerir usuari:contrasenya en l'accés.</p>
+    <p>Instal·larem el servidor NGINX i realitzarem el configurarem per a requerir usuari:contrasenya en l'accés.</p>
 
+    <host>@server</host>
+    <shell>
+        apt install -y nginx
+    </shell>
     <info>
         <p><a href="https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/">
             Restricting Access with HTTP Basic Authentication</a></p>
@@ -189,24 +192,24 @@
     <p>Primer necessitarem instal·lar el paquet <w>apache2-utils</w>. Aquest paquet conté el programa <w>htpasswd</w> que permet
     emmagatzemar usuaris i contrasenyes en un arxiu.</p>
 
-    <host>@host</host>
+    <host>@server</host>
     <shell>apt install apache2-utils</shell>
 
     <p>Creem l'usuari <w>Joan</w>:</p>
-        <host>@host</host>
+        <host>@server</host>
         <shell>
             htpasswd -c /var/www/contrasenyes joan
         </shell>
 
     <p>Comprovem que s'ha creat l'usuari:</p>
-        <host>@host</host>
+        <host>@server</host>
         <shell>
             cat /var/www/contrasenyes
         </shell>
 
 
     <p>Obrim el fitxer de configuració del lloc per defecte d'NGINX:</p>    
-        <host>@host</host>
+        <host>@server</host>
         <shell>nano /etc/nginx/sites-enabled/default</shell>
     
 
@@ -233,7 +236,7 @@
 
     <p>Per últim reiniciem el servidor NGINX:</p>
 
-    <host>@host</host>
+    <host>@server</host>
     <shell>systemctl restart nginx</shell>
 
     <p>Per a accedir a la pàgina web haurem d'especificar un usuari i contrasenya vàlids</p>
@@ -257,7 +260,7 @@
     <p>Crearem dues carpetes (<folder>aaa.com</folder> i <folder>bbb.com</folder>), 
         i en cadascuna d'elles posarem una web diferent</p>
     
-        <host>@host</host>
+        <host>@server</host>
         <shell>
             mkdir /var/www/html/aaa.com
             mkdir /var/www/html/bbb.com
@@ -376,7 +379,7 @@
     <p>Anem a crear diversos arxius al directory <folder>/var/www/html</folder>:</p>
 
     
-        <host>@host</host>
+        <host>@server</host>
         <shell>
             echo "&lt;h1&gt;Home page&lt;/h1&gt;" > /var/www/html/index.html
             echo "&lt;h1&gt;Pagina xxx &lt;/h1&gt;" > /var/www/html/xxx.html
@@ -401,7 +404,7 @@
         <w>/var/www/html/aaa/bbb/mmm.html</w>. Comprovem-ho:</p>
 
     
-    <host>@host</host>
+    <host>@server</host>
     <shell>
         mkdir -p /var/www/html/aaa/bbb/
         echo "&lt;h1&gt;Pagina mmm&lt;/h1&gt;" > /var/www/html/aaa/bbb/mmm.html
@@ -431,7 +434,7 @@
     <p>Reiniciem el servidor:</p>
 
     
-        <host>@host</host>
+        <host>@server</host>
         <shell>
             systemctl restart nginx
         </shell>
@@ -471,7 +474,7 @@
 
     <p>Primer l'instal·lem:</p>
     
-    <host>@host</host>
+    <host>@server</host>
     <shell>apt install -y php php-fpm</shell>
     
 
@@ -532,7 +535,7 @@
     <p>Anomenarem aquest recurs <strong>WEBASH</strong> (web + bash):</p>
 
     
-        <host>@host</host>
+        <host>@server</host>
         <shell>
             nano /var/www/html/webash.php
         </shell>
@@ -628,11 +631,12 @@
         /var/www/html/webash.php
     </scfile>
     <sc php>
+        <low>
         &lt;?php
         echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
         echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
         echo "&lt;span&gt;web&bash&lt/span&gt;";
-
+        </low>
         <rem>
         echo "&lt;h1&gt;Hola ";
         echo $_GET['usuari'];
@@ -644,7 +648,9 @@
         system("exec 2&gt;&1 && " . $_GET['comanda']);
         echo "&lt;/pre&gt;";
         </add>
+        <low>
         ?&gt;
+        </low>
     </sc>
 
     <p>Ara l'script agafarà el valor de la dada anomenada <w>comanda</w> i l'executarà. Per exemple podem executar 
@@ -704,7 +710,7 @@
 
     <p>Generem un arxiu html extens amb 5 seccions (<w>id=sX</w>) i 30 paràrafs en cada secció:</p>
     
-        <host>@host</host>
+        <host>@server</host>
         <shell>
             for i in {1..5}; do printf "&lt;h1 id='s$i'&gt;Seccio $i&lt;/h1&gt;; for j in {1..30}; do printf "&lt;p&gt;seccio $i, paràgraf $j&lt;/p&gt;"; done; done > /var/www/html/llarg.html
         </shell>
@@ -780,9 +786,59 @@
 
     <p>Provem a fer un continugt dinàmic:</p>
 
-    <p>Instal·la <w>php</w> al servidor:</p>
-    <host>@host</host>
+    <host>@server</host>
     <shell>apt install -y php php-fpm</shell>
+    
+
+    <p>Afegirem la següent configuració al lloc NGINX:</p>
+    <scfile>
+        /etc/nginx/sites-enabled/default
+    </scfile>
+    <sc>
+        <low>
+        server {
+            ...
+            
+        </low>
+        <add>
+            location ~ \.php$ {
+                fastcgi_pass  127.0.0.1:9000;
+                include fastcgi.conf;
+            }
+        </add>
+        <low>
+        }
+        </low>
+
+    </sc>
+
+    <p>Configurem <w>php-fpm</w> per a escoltar al port 9000:</p>
+
+    <scfile>
+        /etc/php/7.4/fpm/pool.d/www.conf
+    </scfile>
+    <sc>
+        <low>
+        ...    
+        </low>
+        <rem>
+        listen = /run/php/php7.4-fpm.sock
+        </rem>
+        <add>
+        listen = 9000
+        </add>
+        <low>
+        ...
+        </low>
+
+    </sc>
+
+    <p>Reiniciem el servidor NGINX i PHP-FPM</p>
+
+    <host>@server</host>
+    <shell>
+        systemctl restart php7.4-fpm nginx
+    </shell>
 
     <p>Escriu aquest script PHP:</p>
 
@@ -814,33 +870,39 @@
 
     <p>Instal·la el gestor de bases de dades MySQL:</p>
 
-    <host>@host</host>
+    <host>@server</host>
     <shell>
-        apt install -y mysql-server
+        wget https://repo.mysql.com//mysql-apt-config_0.8.18-1_all.deb
+
+        apt install -y ./mysql-apt-config_0.8.18-1_all.deb
+
+        apt update
+
+        apt install mysql-server
     </shell>
 
     <p>Crearem una base de dades per a la app <w>TheWall</w>:</p>
 
-    <host>@host</host>
+    <host>@server</host>
     <shell>mysql -e "CREATE DATABASE thewalldb"</shell>
 
     <p>Ara crearem un usuari per a administrar aquesta base de dades:</p>
 
-    <host>@host</host>
+    <host>@server</host>
     <shell>mysql -e "CREATE USER 'thewalldbadmin'@'localhost' IDENTIFIED BY 'pass123'"</shell>
 
     <p>Li donem privilegis a l'usuari <w>thewalldbadmin</w> per a administrar la base de dades <w>thewalldb</w>:</p>
-    <host>@host</host>
+    <host>@server</host>
     <shell>mysql -e "GRANT ALL PRIVILEGES ON thewalldb.* TO 'thewalldbadmin'@'localhost'; FLUSH PRIVILEGES"</shell>
 
     <p>El més habitual és que les bases de dades emmagatzemin la informació en taules. Per a la nostra app crearem una taula
         <w>firmes</w> on es s'aniran guardant les firmes dels visitants. Aquesta taula només tindrà un camp que contindrà una <w>firma</w>.
     </p>
-    <host>@host</host>
+    <host>@server</host>
     <shell>mysql -e "CREATE TABLE thewalldb.firmes(firma TEXT)"</shell>
     
     <p>Insertarem unes quantes firmes de mostra a la taula <w>firmes</w>:</p>
-    <host>@host</host>
+    <host>@server</host>
     <shell>
         mysql -e "INSERT INTO thewalldb.firmes VALUES('hola que tal')"
         mysql -e "INSERT INTO thewalldb.firmes VALUES('pasaba por aqui')"
@@ -849,7 +911,7 @@
     </shell>
 
     <p>Podem veure que les firmes s'han introduït a la taula <w>firmes</w> així:</p>
-    <host>@host</host>
+    <host>@server</host>
     <shell>
         mysql -e "SELECT * FROM thewalldb.firmes"
     </shell>
@@ -861,7 +923,7 @@
     </p>
 
     <p>Insal·larem el paquet <w>php-mysql</w> que permet connectar a una base de dades MySQL des d'un script PHP:</p>
-    <host>@host</host>
+    <host>@server</host>
     <shell>
         apt install -y php-mysql
     </shell>
@@ -870,73 +932,107 @@
     <scfile>
         /var/www/html/thewall.php
     </scfile>
-    <sc php data-line="2,4-6">
+    <sc php>
+        &lt;style&gt; p, input { font-family: sans; padding: 1em; border-radius: .75em; border: 1px solid #deaeae;} &lt;/style&gt;
         &lt;?php
         $db = new mysqli("localhost", "thewalldbadmin", "pass123", "thewalldb");
 
         foreach ($db->query("SELECT * FROM firmes") as $fila) {
-            echo $fila['firma'];
+            echo "&lt;p&gt;".$fila['firma'];
         }
         ?&gt;
     </sc>
 
+    <!--
     <ul>
         <li><p>A la línia <ln>2</ln> connectem amb la base de dades <w>thewalldb</w></p></li>
         <li><p>De <ln>4</ln> a <ln>6</ln >iterem per cada fila de la taula <w>firmes</w> 
             i volquem el camp <w>firma</w> de cada fila a la pàgina</li>
     </ul>
+    -->
 
+    <p>Naveguem a <url>http://<IP_SERVIDOR>ip_servidor</IP_SERVIDOR>/thewall.php</url> i veurem com l'script ha volcat totes les firmes que hi ha a la base de dades:</p>
 
-    <p>Naveguem a <url>http://10.1.2.4/thewall.php</url> i veurem com l'script a volcat totes les firmes de la base de dades:</p>
-
-    <img src="img/wall1.png">
+    <img src="img/thewall.png">
 
     <p>Aquest contingut és dinàmic: depèn del contingut de la base de dades. Ho podem comprovar afegint més 
         firmes a la base de dades:
     </p>
-    <host>@host</host>
+    <host>@server</host>
     <shell>
         mysql -e "INSERT INTO thewalldb.firmes VALUES('te quiero')"
         mysql -e "INSERT INTO thewalldb.firmes VALUES('que pasa?')"
         mysql -e "INSERT INTO thewalldb.firmes VALUES('nunca te olvidare')"
     </shell>
-   
-    <img src="img/wall2.png">
 
-    <p>Acabarem la app <w>thewall</w> permetent que els visitants escriguin la seva firma. Aquesta firma s'enviarà a l'script
+    <p>Acabarem l'script <w>thewall</w> permetent que els visitants escriguin la seva firma. Aquesta firma s'enviarà a l'script
     en la <w>query</w>, i l'script l'obtindrà i la guardarà a la base de dades.</p>
     <scfile>
         /var/www/html/thewall.php
     </scfile>
-    <sc php data-line="1-4, 9, 10-13">
+    <sc php>
+        <low>
+        &lt;style&gt; p, input { font-family: sans; padding: 1em; border-radius: .75em; border: 1px solid #deaeae;} &lt;/style&gt;
+        </low>
+        <add>
         &lt;form&gt;
             &lt;input name="firma"&gt;
             &lt;input type="submit" value="Firmar"&gt;
         &lt;/form&gt;
+        </add>
 
         &lt;?php
         $db = new mysqli("localhost", "thewalldbadmin", "pass123", "thewalldb");
 
+        <add>
         if (isset($_GET["firma"])) {
             $stmt = $db-&gt;prepare("INSERT INTO firmes VALUES(?)");
             $stmt-&gt;bind_param("s", $_GET["firma"]);
             $stmt-&gt;execute();
             $stmt-&gt;close();
         }
-
+        </add>
+        <low>
         foreach ($db-&gt;query("SELECT * FROM firmes") as $fila) {
             echo $fila['firma'];
         }
         ?&gt;
+        </low>
     </sc>
 
+    <!--
     <ul>
         <li><p>De <ln>1</ln> a <ln>4</ln> mostrem el formulari</p></li>
         <li><p>A <ln>9</ln> mirem si ens ha arribat una firma</p></li>
         <li><p>Si ens ha arribat la firma, la inserim a la base de dades (<ln>10</ln> - <ln>13</ln>)</p></li>
     </ul>
+    -->
 </section>
 
+<section>
+    <h2>Load balancing</h2>
+
+
+    <scfile>
+        /etc/nginx/sites-enabled/default
+    </scfile>
+    <sc>
+        upstream backend {
+            server 192.168.122.115:9000;
+            server 192.168.122.126:9000;
+        }
+        
+        server {
+            root /var/www/html;
+        
+            location ~ \.php$ {
+                fastcgi_pass backend;
+                include fastcgi.conf;
+            }
+        }
+    </sc>
+</section>
+<!--
 <section>
     <h2>Client web</h2>
 
@@ -948,13 +1044,13 @@
         clients són <w>wget</w> i <w>curl</w>. Són dos programes de consola capaços de descarregar una pàgina web o un 
         altre recurs. Veiem un exemple d'ús <w>wget</w>:</p>
 
-    <host>@host</host>
+    <host>@server</host>
     <shell>wget info.cern.ch</shell>
 
     <p>Amb aquesta comanda, <w>wget</w> ha realitzat la petició al servidor <url>info.cern.ch</url> i ha guardat la pàgina. Podem
     veure el contingut de la pàgina amb aquesta comanda:</p>
 
-    <host>@host</host>
+    <host>@server</host>
     <shell>cat index.html</shell>
 
     <p>El que veiem és el codi HTML de la pàgina <file>index.html</file>.</p>
@@ -1009,3 +1105,4 @@
     </sc>
 
 </section>
+-->
