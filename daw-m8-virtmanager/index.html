@@ -1,0 +1,110 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav>
+<header>
+    <h1>Virtual Setup</h1>
+</header>
+
+<section>
+
+    <h3>Instal·lar virt-manager</h3>
+   
+    <host>@host</host>
+    <shell>
+        sudo apt install -y virt-manager
+    </shell>
+
+    <h3>Descarregar una imatge de disc dur virtual amb el Debian 11 preinstal·lat</h3>
+
+    <a href="https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-nocloud-amd64.qcow2">
+        https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-nocloud-amd64.qcow2
+    </a>
+
+    <h3>Crear una màquina virtual</h3>
+
+    <p>Obrim <w>virt-manager</w> i anem a <mo>Archivo</mo><mo>Nueva máquina virtual</mo></p>
+
+    <p>Seleccionem l'opció <mo>Importar imagen de disco existente</mo> i fem click en <mo>Adelante</mo>
+
+    <p>Explorem la ruta de l'arxiu de disc dur virtual que hem descarregat abans. Fem click a 
+        <mo>Explorar...</mo> i després a <mo>Explorar localmente</mo>. Seleccioem l'arxiu <w>debian-11-nocloud-amd64.qcow2</w>
+    </p>
+    <p>A l'opció <mo>Choose the operating system"</mo> escrvim <name>Debian 10</name>, i fem click en <mo>Adelante</mo></p>
+
+    <p>Escollim la quatitat de memòria RAM i nuclis que utilitzarà la màquina virtual, i fem click en <mo>Adelante</mo></p>
+
+    <p>En la <mo>Selección de Red</mo> seleccionem l'opció <name>Red virtual 'default': NAT</name>, i fem click en <mo>Finalizar</mo></p>
+
+
+    <h3>Configuració de la màquin</h3>
+
+    <p>Obrim la màquina virtual: la seleccionem i fem click a <mo>Abrir</mo></p>
+
+    <p>Ens loguegem amb l'usuari <w>root</w></p>
+
+    <p>Configurem el teclat instal·lant aquests paquets:</p>
+
+    <host>@virtual</host>
+    <shell>
+        apt update
+        apt install -y keyboard-configuration console-setup
+    </shell>
+
+    <info>
+        El caracter <w>-</w> el pots escriure prement la tecla <kbd>?</kbd>
+    </info>
+
+    <p>A la primera pantalla "Keyboard Layout" selecciona <mo>Other</mo> i després <mo>Spanish</mo> 
+        i <mo>Spanish - Catalan</mo></p>
+
+    <p>A la segona pantalla "Character set to support" seleciona <mo>Guess optimal character set</mo></p>
+
+    <h3>Accés per <w>ssh</w></h3>
+
+    <p>Comprova si a la màquina <w>host</w> tens generades un parell de claus:</p>
+
+    <host>@host</host>
+    <shell>
+        ls ~/.ssh/
+    </shell>
+
+    <p>Si apareixen dos arxius amb el mateix nom, però un d'ells amb l'extensió <w>.pub</w>, 
+    és que ja tens generades un parell de claus. Les pots aprofitar.</p>
+
+    <p>En cas contrari genera un parell de claus nou:</p>
+
+    <host>@host</host>
+    <shell>
+        ssh-keygen
+    </shell>
+
+    <p>Els següent pas es transferir la clau públic <w>.pub</w> a la màquina virtual</p>
+
+    <host>@virtual</host>
+    <shell>
+        mkdir ~/.ssh/
+        nc -l 8000 &gt; ~/.ssh/authorized_keys
+    </shell>
+
+    <p>Esbrinem la ip de la màquina virtual amb <w>ip a</w>.</p>
+
+    <host>@host</host>
+    <shell>
+        nc -N 192.168.122.213 8000 &lt; ~/.ssh/id_rsa.pub
+    </shell>
+
+    <warn>substitueix la IP per la de la màquina virtual, i l'arxiu de clau pública 
+        per el que correspongui.
+    </warn>
+
+    <p>Per últim genera les claus de màquina a la màquina virtual</p>
+
+    <host>@virtual</host>
+    <shell>
+        ssh-keygen -A
+    </shell>
+</section>
