@@ -78,10 +78,8 @@
 </section>
 
 <section>
-    <h2>Read/write</h2>
-
-    <h3>Orientat a bytes</h3>
-    <h4>OutputStream / InputStream</h4>
+    <h2>Orientat a bytes</h2>
+    <h3>OutputStream / InputStream</h3>
     <p><w>write()</w></p>
     <sc java>
         // escriure bytes a un fitxer
@@ -105,9 +103,10 @@
             System.out.println(a);
         }
     </sc>
-
-    <h3>Orientat a caracters</h3>
-    <h4>UTF-8</h4>
+</section>
+<section>
+    <h2>Orientat a caracters</h2>
+    <h3>UTF-8</h3>
 
     <table>
         <tr><td colspan="2">First code point</td><td colspan="2">Last code point</td><td>Byte 1</td><td>Byte 2</td><td>Byte 3</td><td>Byte 4</td></tr>
@@ -117,7 +116,7 @@
         <tr><td>10000</td><td>65536</td><td>10FFFF</td><td>1114111</td><td>110xxxxx</td><td>10xxxxxx</td><td>10xxxxxx</td><td>10xxxxxx</td></tr>
     </table>
 
-    <h4>BufferedWriter / BufferedReader</h4>
+    <h3>BufferedWriter / BufferedReader</h3>
 
     <p><w>write("A")</w>, escriu el codepoint del caracter "A" codificat amb UTF-8.
         <br>
@@ -157,7 +156,7 @@
         }
     </sc>
 
-    <h4>Files.writeString / Files.write / Files.lines</h4>
+    <h3>Files.writeString / Files.write / Files.lines</h3>
     <p><w>Files.writeString()</w></p>
     <sc java>
         // escriure un string
@@ -245,4 +244,149 @@
         }
     </sc>
     -->
+</section>
+
+<section>
+    <h2>JSON/XML</h2>
+
+    <p>Instal·lar la llibreria <a href="https://github.com/FasterXML/jackson">FasterXML/Jackson</a></p>
+
+    <scfile>build.gradle</scfile>
+    <sc groovy>
+        plugins {
+            id 'java'
+        }
+        
+        sourceSets.main.java.srcDirs = [ "src/" ]
+        
+        repositories {
+            mavenCentral()
+        }
+
+        dependencies {
+            implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+        }
+    </sc>
+
+    <p>JSON d'exemple</p>
+
+    <sc json>
+        {
+            "nombre": "Juan",
+            "ciclo": {
+                "titulo": "DAM",
+                "curso": 2
+            },
+            "modulos": [
+                { 
+                    "codigo": "M6", 
+                    "nota": 9.8 
+                },
+                { 
+                    "codigo": "M8", 
+                    "nota": 9.9 
+                }
+            ]
+        }
+    </sc>
+
+    <p>Mapping classes per al JSON d'exemple</p>
+    <sc java>
+        class Estudiante {
+            public String nombre;
+            public CicloFormativo ciclo;
+            public List&lt;Modulo&gt; modulos;
+        }
+
+        class CicloFormativo {
+            public String titulo;
+            public int curso;
+        }
+
+        class Modulo {
+            public String codigo;
+            public float nota;
+        }
+    </sc>
+
+    <h3>JSON &lt;-&gt; String</h3>
+    <p><w>readValue(String, Class&lt;T&gt;)</w></p>
+
+    <sc java>
+        String jsonValue = "{\"nombre\": \"Juan\", \"ciclo\": { \"titulo\": \"DAM\", \"curso\": 2 }, \"modulos\": [ { \"codigo\": \"M6\", \"nota\": 9.8 }, { \"codigo\": \"M8\", \"nota\": 9.9 } ] }";
+        
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Estudiante estudiante = objectMapper.readValue(jsonValue, Estudiante.class);
+
+        <low>
+        System.out.println(estudiante.nombre);
+        System.out.println(estudiante.ciclo.titulo + estudiante.ciclo.curso);
+        System.out.println(estudiante.modulos.stream().map(m -> m.codigo + ": " + m.nota).collect(Collectors.joining("\n")));
+        </low>
+    </sc>
+
+    <p><w>writeValueAsString(Object)</w></p>
+    <sc java>
+        <low>
+        Estudiante estudiante = new Estudiante();
+        estudiante.nombre = "Pepe";
+        estudiante.ciclo = new CicloFormativo();
+        estudiante.ciclo.titulo = "DAW";
+        estudiante.ciclo.curso = 1;
+        estudiante.modulos = new ArrayList&lt;&gt;();
+        estudiante.modulos.add(new Modulo());
+        estudiante.modulos.add(new Modulo());
+        estudiante.modulos.get(0).codigo = "M2";
+        estudiante.modulos.get(0).nota = 7;
+        estudiante.modulos.get(1).codigo = "M3";
+        estudiante.modulos.get(1).nota = 8.2f;
+        </low>
+    
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        String jsonValue = objectMapper.writeValueAsString(estudiante);
+        
+        <low>
+        System.out.println(jsonValue);
+        </low>
+    </sc>
+
+    <h3>JSON &lt;-&gt; File</h3>
+    <p><w>readValue(File, Class&lt;T&gt;)</w></p>
+    <sc java>
+        Estudiante estudiante = objectMapper.readValue(Paths.get("file.json").toFile(), Estudiante.class);
+        
+        <low>
+        System.out.println(estudiante.nombre);
+        System.out.println(estudiante.ciclo.titulo + estudiante.ciclo.curso);
+        System.out.println(estudiante.modulos.stream().map(m -> m.codigo + ": " + m.nota).collect(Collectors.joining("\n")));
+        </low>
+    </sc>
+
+    <p><w>writeValue(File, Object)</w></p>
+    <sc java>
+        <low>
+        Estudiante estudiante = new Estudiante();
+        estudiante.nombre = "Juan";
+        // ...
+        </low>
+        
+        objectMapper.writeValue(Paths.get("file.json").toFile(), estudiante);
+    </sc>
+
+    <h3>JSON &lt;-&gt; URL</h3>
+
+    <p><w>readValue(URL, Class&lt;T&gt;</w></p>
+    <sc java>
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Estudiante estudiante = objectMapper.readValue(new URL("https://gist.githubusercontent.com/gerardfp/b6b72efb17404d46bfc0a13200166167/raw/4864017a335d66a24e6250faabaeef111ca1ebc7/estudiante.json"), Estudiante.class);
+
+        <low>
+        System.out.println(estudiante.nombre);
+        System.out.println(estudiante.ciclo.titulo + estudiante.ciclo.curso);
+        System.out.println(estudiante.modulos.stream().map(m -> m.codigo + ": " + m.nota).collect(Collectors.joining("\n")));
+        </low>
+    </sc>
 </section>
