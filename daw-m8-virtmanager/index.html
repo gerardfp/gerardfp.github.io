@@ -82,10 +82,11 @@
         ssh-keygen
     </shell>
 
-    <p>Els següent pas es transferir la clau públic <w>.pub</w> a la màquina virtual</p>
+    <p>Els següent pas es transferir la clau pública <w>.pub</w> a la màquina virtual</p>
 
     <host>@virtual</host>
     <shell>
+        apt install netcat
         mkdir ~/.ssh/
         nc -l 8000 &gt; ~/.ssh/authorized_keys
     </shell>
@@ -94,6 +95,7 @@
 
     <host>@host</host>
     <shell>
+        sudo apt install netcat
         nc -N 192.168.122.213 8000 &lt; ~/.ssh/id_rsa.pub
     </shell>
 
