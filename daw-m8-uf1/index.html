@@ -675,7 +675,7 @@
     <scfile>
         /var/www/html/webash.php
     </scfile>
-    <sc php data-line="6,7,8,9">
+    <sc php>
         &lt;?php
         echo "&lt;style&gt; body { font-family: Consolas, monospace; }&lt;/style&gt;";
         echo "&lt;span style='font-size: 2em;'&gt;webash/&lt;/span&gt;";
@@ -873,11 +873,8 @@
     <host>@server</host>
     <shell>
         wget https://repo.mysql.com//mysql-apt-config_0.8.18-1_all.deb
-
         apt install -y ./mysql-apt-config_0.8.18-1_all.deb
-
         apt update
-
         apt install mysql-server
     </shell>
 
@@ -1010,16 +1007,40 @@
 </section>
 
 <section>
-    <h2>Load balancing</h2>
+    <h2>NGINX Config</h2>
 
+    <h3>rewrite</h3>
+
+    <p><a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html">http://nginx.org/en/docs/http/ngx_http_rewrite_module.html</a></p>
+
+    <scfile>
+        /etc/nginx/sites-enabled/default
+    </scfile>
+    <sc>        
+        server {
+            root /var/www/html;
+            
+            location / {
+                rewrite ^/$ /index.php last;
+                rewrite ^(.*)$ $1.php last;
+            }
+
+            location ~ \.php$ {
+                fastcgi_pass backend;
+                include fastcgi.conf;
+            }
+        }
+    </sc>
+
+    <h3>Load balancing</h3>
 
     <scfile>
         /etc/nginx/sites-enabled/default
     </scfile>
     <sc>
         upstream backend {
-            server 192.168.122.115:9000;
-            server 192.168.122.126:9000;
+            server 192.168.122.<replace>XXX</replace>:9000;
+            server 192.168.122.<replace>YYY</replace>:9000;
         }
         
         server {
@@ -1030,6 +1051,33 @@
                 include fastcgi.conf;
             }
         }
+    </sc>
+
+    <h3>https</h3>
+
+    <p>Generar el certificat i la clau privada</p>
+
+    <host>@server</host>
+    <shell>
+        openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/CN=192.168.122.<replace>XXX</replace>' -keyout /etc/ssl/private/site.key -out /etc/ssl/certs/site.pem
+    </shell>
+
+    <scfile>
+        /etc/nginx/sites-enabled/default
+    </scfile>
+    <sc>
+        <low>
+        server {
+        </low>
+        <add>
+            listen 443 ssl;
+            ssl_certificate /etc/ssl/certs/site.pem;
+            ssl_certificate_key /etc/ssl/private/site.key;
+        </add>
+        <low>
+            ...
+        }
+        </low>
     </sc>
 </section>
 <!--
