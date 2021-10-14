@@ -40,9 +40,9 @@
     <p>En la <mo>Selección de Red</mo> seleccionem l'opció <name>Red virtual 'default': NAT</name>, i fem click en <mo>Finalizar</mo></p>
 
 
-    <h3>Configuració de la màquin</h3>
+    <h3>Configuració de la màquina</h3>
 
-    <p>Obrim la màquina virtual: la seleccionem i fem click a <mo>Abrir</mo></p>
+    <p>Obrim la màquina virtual, seleccionant-la i fent click a <mo>Abrir</mo></p>
 
     <p>Ens loguegem amb l'usuari <w>root</w></p>
 
@@ -84,6 +84,10 @@
 
     <p>Els següent pas es transferir la clau pública <w>.pub</w> a la màquina virtual</p>
 
+    <p>Utilitzant el programa <w>netcat / nc</w> posem a escoltar la màquina virtual a un port,
+    per exemple el <w>8000</w>. Les dades que es rebin per aquest port les enviarem al fitxer
+    <w>authorized_keys</w>:</p>
+
     <host>@virtual</host>
     <shell>
         apt install netcat
@@ -93,10 +97,13 @@
 
     <p>Esbrinem la ip de la màquina virtual amb <w>ip a</w>.</p>
 
+    <p>Després, des del <w>host</w>, connectem a la màquina virtual i li enviem l'arxiu de 
+    clau pública <w>id_rsa.pub</w>:</p>
+
     <host>@host</host>
     <shell>
         sudo apt install netcat
-        nc -N 192.168.122.213 8000 &lt; ~/.ssh/id_rsa.pub
+        nc -N 192.168.122.XXX 8000 &lt; ~/.ssh/id_rsa.pub
     </shell>
 
     <warn>substitueix la IP per la de la màquina virtual, i l'arxiu de clau pública 
@@ -109,4 +116,21 @@
     <shell>
         ssh-keygen -A
     </shell>
+
+    <p>Reiniciem el servei <w>sshd</w>:</p>
+
+    <host>@virtual</host>
+    <shell>
+        systemctl restart sshd
+    </shell>
+
+    <p>I ja podem accedir per <w>ssh</w> a la màquina virtual:</p>
+
+    <host>@host</host>
+    <shell>
+        ssh root@192.168.122.XXX
+    </shell>
+
+
+
 </section>
