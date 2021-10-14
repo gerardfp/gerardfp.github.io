@@ -75,6 +75,75 @@
     <!--
         https://stackoverflow.com/questions/27644361/how-can-i-throw-checked-exceptions-from-inside-java-8-streams
     -->
+
+    <work>
+        <p><b>Exercici 1 - Flatten</b></p>
+        <p>Fes un programa que rebi com a argument la ruta d'un directori i "aplani" (<i>flatten</i>) 
+            el seu contingut, és a dir, que mogui a aquest mateix directori tots els fitxers 
+            que tingui niats. També haurà d'esborrar tots els directoris niats. 
+            Per exemple, si executem el programa amb aquest directori "niats":</p>
+        <img src="img/ex1.png">
+        <p>hauria de quedar així:</p>
+        <img src="img/ex1-2.png">
+
+        <p>Utilitza aquestes comandes per a crear l'arbre de prova</p>
+        <shell>
+            rm -r /tmp/flatten; mkdir -p /tmp/flatten/aaa/bbb/../ccc/ddd/../../eee/../../fff; touch /tmp/flatten/aaa/a.txt /tmp/flatten/aaa/a2.txt /tmp/flatten/aaa/bbb/b.txt /tmp/flatten/aaa/ccc/c.txt /tmp/flatten/aaa/ccc/ddd/d.txt /tmp/flatten/aaa/eee/e.txt /tmp/flatten/fff/f.txt /tmp/flatten/n.txt
+        </shell>
+    </work>
+    <work>
+        <p><b>Exercici 2 - Treediff</b></p>
+        <p>Fes un programa que rebi com a arguments dos directoris (DirectoriA i DirectoriB). 
+            El programa haura de comparar els fitxers niats (<i>nested</i>) dels dos directoris 
+            i dir:</p>
+        <ol>
+            <li>Els fitxers que estan al DirectoriA i no estan al DirectoriB</li>
+            <li>Els fitxers que estan al DirectoriB i no estan al DirectoriA</li>
+            <li>Els fitxers que estan al DirectoriA i al DirectoriB, però en diferents rutes</li>
+            <li>Els fitxers que estan al DirectoriA i al DirectoriB, a la mateixa ruta</li>
+        </ol>
+
+        <p><i>(quan diem que "està en una altra ruta" significa que o bé està en un altre 
+            directori (relatiu a DirectoriA o DirectoriB) o bé té un altre nom)</i></p>
+
+        <p>Per a saber si dos fitxers son iguals caldrà fixar-se en el seu contingut. 
+            S'haurà de fer un hash del contingut de cada fitxer i comparar-los. 
+            Ho pots fer així:
+        </p>
+
+        <sc java>
+            Path file1 = Paths.get("/aqui/esta/file1");
+            Path file2 = Paths.get("/alla/esta/file2");
+
+            byte[] hash1 = MessageDigest.getInstance("MD5").digest(Files.readAllBytes(file1));
+            byte[] hash2 = MessageDigest.getInstance("MD5").digest(Files.readAllBytes(file2));
+
+            if (Arrays.equals(hash1, hash2)) {
+                // els fitxers file1 i files2 tenen el mateix contingut
+            }
+        </sc>
+
+        <p>Arbre de prova:</p>
+        <shell>
+            rm -r /tmp/dirA; rm -r /tmp/dirB; mkdir -p /tmp/dirA/../dirB; echo "hola" > /tmp/dirA/hola.txt; echo "hola" > /tmp/dirB/hola.txt; echo "adeu" > /tmp/dirA/adeu.txt; echo "adeu" > /tmp/dirB/adeu2.txt; echo "jaja" > /tmp/dirA/jaja.txt; echo "jojo" > /tmp/dirB/jaja.txt; echo "jiji" > /tmp/dirB/jiji.txt; mkdir /tmp/dirA/subdirA; mkdir /tmp/dirB/subdirA; echo "damdamdam" > /tmp/dirA/subdirA/dam.txt; echo "damdamdam" > /tmp/dirB/subdirA/dam.txt; echo "madmadmad" > /tmp/dirA/subdirA/mad.txt; echo "madmadmad" > /tmp/dirB/subdirA/nomad.txt
+        </shell>
+    </work>
+    <work>
+        <p><b>Exercici 3 - DateTree</b></p>
+        <p>Fes un programa que rebi com a argument un directori i organitzi els seus fitxers 
+            niats en directoris segons l'any, mes i dia de la seva data de l'última 
+            modificació.</p>
+        <p>Per exemple, si cridem al programa amb aquest directori:</p>
+
+        <img src="img/ex3.png">
+
+        <p>Hauria de quedar així:</p>
+        <img src="img/ex3-2.png">
+
+        <p>Arbre de prova:</p>
+        <shell>
+            rm -r /tmp/directori; mkdir -p /tmp/directori/aaa/bbb/ccc/../../../ddd; touch -t 202001030000 /tmp/directori/aaa/a.txt; touch -t 202011190000 /tmp/directori/aaa/bbb/b.txt; touch -t 202001190000 /tmp/directori/aaa/bbb/ccc/c.txt; touch -t 202110270000 /tmp/directori/ddd/d.txt; touch -t 201911240000 /tmp/directori/e.txt        </shell>
+    </work>
 </section>
 
 <section>
@@ -103,7 +172,59 @@
             System.out.println(a);
         }
     </sc>
+
+    <work>
+        <p><b>Exercici 4 - Split/Join</b></p>
+        <p>Fes un programa que accepti com a argument la ruta d'un arxiu i nombre de parts.
+            El programa dividirà (<b>split</b>) aquest arxiu en la quantitat de parts especificada. 
+            Els arxius amb les parts estaran a la mateixa ruta que l'arxiu original, 
+            però afegint al final l'extensió <w>.part.$i</w> 
+            (on <w>$i</w> és el número d'ordre de cada part).
+        </p>
+        <p>Exemple:</p>
+        <p>Donats com a arguments la ruta <w>/carpeta/foto.jpg</w> que s'ha de dividir 
+            en <w>4</w> parts, el programa agafarà aquest arxiu:</p>
+
+        <shell>
+            /carpeta/foto.jpg         1024 bytes
+        </shell>
+
+        <p>i el dividirà en aquests 4 arxius:</p>
+
+        <shell>
+            /carpeta/foto.jpg.part.0   256 bytes
+            /carpeta/foto.jpg.part.1   256 bytes
+            /carpeta/foto.jpg.part.2   256 bytes
+            /carpeta/foto.jpg.part.3   256 bytes
+        </shell>
+
+        <p>D'una altra banda el programa també permetrà fer la inversa, és a dir, 
+            ajuntar (<b>join</b>) les diverses parts d'un arxiu per a formar l'arxiu original. 
+            El programa acceptarà com a argument la ruta d'un arxiu i buscarà totes 
+            les parts amb aquesta ruta que tenen afegida l'extensió 
+            <w>.part.$i</w> ajuntant-les per a formar l'arxiu.</p>
+        
+        <p>Exemple:</p>
+        <p>Donada com a argument la ruta <w>/carpeta/foto.jpg</w>, el programa agafarà les 
+            parts que hi hagi:</p>
+        
+        <shell>
+            /carpeta/foto.jpg.part.0   256 bytes
+            /carpeta/foto.jpg.part.1   256 bytes
+            /carpeta/foto.jpg.part.2   256 bytes
+            /carpeta/foto.jpg.part.3   256 bytes
+        </shell>
+
+        <p>i les ajuntarà en aquest arxiu:</p>
+
+        <shell>
+            /carpeta/foto.jpg         1024 bytes
+        </shell>
+    </work>
 </section>
+
+
+
 <section>
     <h2>Orientat a caracters</h2>
     <h3>UTF-8</h3>
@@ -244,6 +365,56 @@
         }
     </sc>
     -->
+
+    <work>
+        <p><b>Exercici 5 - TopFiveScores</b></p>
+
+        <p>Fes un programa que accepti com a arguments el nom i la puntuació (<b>score</b>) 
+            d'un jugador. El programa emmagatzemarà en un fitxer els 5 scores més alts 
+            en ordre de major a menor. Així doncs, si l'score donat com a argument 
+            no està al top 5, no l'emmagatzemarà. En finalitzar l'operació, el programa 
+            mostrarà aquest Top Five per pantalla.</p>
+        <p>Exemple:</p>
+        <shell>
+            $ java top5 "James Gosling" 300
+            ** TOP 5 SCORE **
+            James Gosling       300
+
+            $ java top5 "Anders Hejlsberg" 500
+            ** TOP 5 SCORE **
+            Anders Hejlsberg    500
+            James Gosling       300
+
+            $ java top5 "Chris Lattner" 400
+            ** TOP 5 SCORE **
+            Anders Hejlsberg    500
+            Chris Lattner       400
+            James Gosling       300
+
+            $ java top5 "Brendan Eich" 200
+            ** TOP 5 SCORE **
+            Anders Hejlsberg    500
+            Chris Lattner       400
+            James Gosling       300
+            Brendan Eich        200
+
+            $ java top5 "Bjarne Stroustrup" 600
+            ** TOP 5 SCORE **
+            Bjarne Stroustrup   600
+            Anders Hejlsberg    500
+            Chris Lattner       400
+            James Gosling       300
+            Brendan Eich        200
+
+            $ java top5 "Guido van Rossum" 100
+            ** TOP 5 SCORE **
+            Bjarne Stroustrup   600
+            Anders Hejlsberg    500
+            Chris Lattner       400
+            James Gosling       300
+            Brendan Eich        200
+        </shell>
+    </work>
 </section>
 
 <section>
@@ -389,4 +560,63 @@
         System.out.println(estudiante.modulos.stream().map(m -> m.codigo + ": " + m.nota).collect(Collectors.joining("\n")));
         </low>
     </sc>
+
+    <work>
+        <p><b>Exercici 6 - Agenda</b></p>
+
+        <p>Crea un programa que permeti emmagatzemar contactes a mode d'agenda. 
+            Les dades s'han d'emmagtzemar en un fitxer json.</p>
+        <p>El programa es podrà executar amb les següents opcions:</p>
+        <ul>
+            <li>
+                <p><w>add</w></p>
+                <shell>
+                    myprogram add &lt;contact_name&gt; &lt;contact_phone&gt; &lt;contact_email&gt;
+                </shell>
+                <p> Afegeix el contacte a l'agenda. Si el <w>&lt;contact_name&gt;</w> ja està a l'agenda, el sobreescriu.</p>
+            </li>
+            <li>
+                <p><w>del</w></p>
+                <shell>
+                    myprogram del &lt;contact_name&gt;
+                </shell>
+                <p> Elimina, si existeix, el contacte amb aquest <w>&lt;contact_name&gt;</w>.</p>
+            </li>
+            <li>
+                <p><w>list</w></p>
+                <shell>
+                    myprogram list
+                </shell>
+                <p>Llista tots els contactes que hi ha emmagatzemats.</p>
+            </li>
+            <li>
+                <p><w>find</w></p>
+                <shell>
+                    myprogram find &lt;contact_email&gt;
+                </shell>
+                <p>Llista els contactes que tenen aquest <w>&lt;contact_email&gt;</w>.</p>
+            </li>
+        </ul>
+    </work>
+    <work>
+        <p><b>Exercici 7 - Library</b></p>
+        <p>Genera les classes necessàries per a emmagatzemar dades conformes amb aquest 
+            diagrama E/R. Crea objectes d'aquestes classes i emmagatzema'ls en un fitxer JSON.</p>
+        
+        <img src="img/ex7.png">
+
+        <p>De quina forma modelaries les dades per obtenir les respostes a aquestes peticions?</p>
+        <ul>
+            <li><p>Llibres de cada autor (amb el gènere i el número de copies en cada biblioteca)</p></li>
+            <li><p>Llibres de cada biblioteca (amb el gènere i l'autor).</p></li>
+            <li><p>Biblioteques on trobem cada llibre (amb el gènere, l'autor i el número de còpies)</p></li>
+            <li><p>Autors de cada gènere.</p></li>
+        </ul>
+    </work>
+    <work>
+        <p><b>Exercici 8 - OpenAPI</b></p>
+        <p>Escull diverses APIs públiques i utilitza-les per a obtenir les seves dades. 
+            Hauràs de modelar almenys <b>6</b> respostes diferents.</p>
+        <p><a href="https://github.com/public-apis/public-apis">https://github.com/public-apis/public-apis</a></p>
+    </work>
 </section>
