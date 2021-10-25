@@ -12,5 +12,5 @@ require('http').createServer(function (request, response) {
         // response.setHeader('Access-Control-Allow-Origin', '*');
         file.serve(request, response);
     }).resume();
-}).listen(8080);
-console.log("Listening on http://localhost:8080");
+}).listen(3000);
+console.log("Listening on http://localhost:3000");

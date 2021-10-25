@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav>
+<header>
+  <h1>DAM - M6 Accés a dades - UF2 Persistència en BDR-OR-OO</h1>
+  <abstract>
+    Spring Boot web services using JPA
+
+    <a href="https://github.com/gerardfp/myapi">https://github.com/gerardfp/myapi</a>
+  </abstract>
+</header>
+
+<section>
+    <h2>Database server</h2>
+
+    <h3>Màquina virtual</h3>
+    <p>Descarrega aquesta imagtge de disc dur virtual: <a href="https://github.com/gerardfp/gerardfp.github.io/releases/download/img/debian-11-nocloud-amd64.qcow2">debian-11-nocloud-amd64.qcow2</a></p>
+
+    <p>Crea una nova màquina virtual amb la imatge descarregada.</p>
+
+    <p>Inicia la màquina virtual i esbrina la seva IP.</p>
+
+    <p>Descarrega aquesta clau privada: <a href="https://github.com/gerardfp/gerardfp.github.io/releases/download/img/id_rsa">id_rsa</a></p>
+
+    <p>Utilitza aquesta clau per a accedir a la màquina virtual per ssh:</p>
+
+    <host>@host</host>
+    <shell>
+        ssh -i <replace>/path/to/id_rsa</replace> root@<replace>192.168.122.1</replace>
+    </shell>
+   
+
+    <h3>Docker Postgresql</h3>
+
+    <p>Instal·la Docker a la màquina virtual:</p>
+
+    <host>@virtual</host>
+    <shell>
+        curl -fsSL https://get.docker.com -o get-docker.sh &&  sh get-docker.sh
+    </shell>
+
+    <p>Inicia el contenidor Docker:</p>
+
+    <host>@virtual</host>
+    <shell>
+        docker run -d --name myapi-postgres -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_USER=myapidbadmin -e POSTGRES_DB=myapidb -p 5432:5432 -v /root/db_data:/var/lib/postgresql/data postgres
+    </shell>
+
+    <p>Esbrina el <w>CONTAINER ID</w> amb la comanda:</p>
+
+    <host>@virtual</host>
+    <shell>
+        docker ps
+    </shell>
+
+    <p>Inicia un shell (<em>bash</em>) al contenidor amb la comanda:</p>
+
+    <host>@virtual</host>
+    <shell>
+        docker exec -it <replace>6516a4b4e3c2</replace> bash
+    </shell>
+
+    <p>Accedeix al shell <w>psql</w> amb la comanda:</p>
+    <host>@virtual</host>
+    <shell>
+        psql -U myapidbadmin myapidb
+    </shell>
+
+    <p>Copia i enganxa aquest script SQL al shell:</p>
+
+    <sc sql>
+DROP TABLE IF EXISTS movie, actor, genre, movie_actor, movie_genre CASCADE;
+
+CREATE TABLE IF NOT EXISTS movie (
+	movieid uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+	title text,
+	imageurl text);
+
+CREATE TABLE IF NOT EXISTS actor (
+	actorid uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+	name text,
+	imageurl text);
+
+CREATE TABLE IF NOT EXISTS genre (
+	genreid uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+	label text);
+
+CREATE TABLE IF NOT EXISTS movie_actor (
+	movieid uuid REFERENCES movie(movieid) ON DELETE CASCADE,
+	actorid uuid REFERENCES actor(actorid) ON DELETE CASCADE);
+
+CREATE TABLE IF NOT EXISTS movie_genre (
+	movieid uuid REFERENCES movie(movieid) ON DELETE CASCADE,
+	genreid uuid REFERENCES genre(genreid) ON DELETE CASCADE);
+
+INSERT INTO movie(title, imageurl) VALUES
+	('Movie One','movie1.jpg'),
+	('Movie Two','movie2.jpg'),
+	('Movie Three','movie3.jpg'),
+	('Movie Four','movie4.jpg');
+
+INSERT INTO actor(name, imageurl) VALUES
+	('Actor One','actor1.jpg'),
+	('Actor Two','actor2.jpg'),
+	('Actor Three','actor3.jpg'),
+	('Actor Four','actor4.jpg'),
+	('Actor Five','actor5.jpg');
+
+INSERT INTO genre(label) VALUES
+	('Genre One'),
+	('Genre Two'),
+	('Genre Three');
+
+INSERT INTO movie_actor VALUES
+	((SELECT movieid FROM movie WHERE title='Movie One'),(SELECT actorid FROM actor WHERE name='Actor One')),
+	((SELECT movieid FROM movie WHERE title='Movie One'),(SELECT actorid FROM actor WHERE name='Actor Two')),
+	((SELECT movieid FROM movie WHERE title='Movie Two'),(SELECT actorid FROM actor WHERE name='Actor Three')),
+	((SELECT movieid FROM movie WHERE title='Movie Two'),(SELECT actorid FROM actor WHERE name='Actor Four')),
+	((SELECT movieid FROM movie WHERE title='Movie Three'),(SELECT actorid FROM actor WHERE name='Actor Four')),
+	((SELECT movieid FROM movie WHERE title='Movie Three'),(SELECT actorid FROM actor WHERE name='Actor Five')),
+	((SELECT movieid FROM movie WHERE title='Movie Four'),(SELECT actorid FROM actor WHERE name='Actor One')),
+	((SELECT movieid FROM movie WHERE title='Movie Four'),(SELECT actorid FROM actor WHERE name='Actor Four'));
+
+INSERT INTO movie_genre VALUES
+    ((SELECT movieid FROM movie WHERE title='Movie One'),(SELECT genreid FROM genre WHERE label='Genre One')),
+    ((SELECT movieid FROM movie WHERE title='Movie One'),(SELECT genreid FROM genre WHERE label='Genre Two')),
+    ((SELECT movieid FROM movie WHERE title='Movie Two'),(SELECT genreid FROM genre WHERE label='Genre One')),
+    ((SELECT movieid FROM movie WHERE title='Movie Three'),(SELECT genreid FROM genre WHERE label='Genre One')),
+    ((SELECT movieid FROM movie WHERE title='Movie Three'),(SELECT genreid FROM genre WHERE label='Genre Two')),
+    ((SELECT movieid FROM movie WHERE title='Movie Three'),(SELECT genreid FROM genre WHERE label='Genre Three'));
+    </sc>
+</section>
+
+<section>
+    <h2>Spring boot</h2>
+
+    <p>Accedeix a <a href="https://start.spring.io/">spring initializr</a> per a generar un projecte <strong>Spring Boot</strong></p>
+
+    <p>Selecciona <name>Gradle Project</name></p>
+    <p>Afegeix les dependències:</p>
+    <ul>
+        <li>Spring Web</li>
+        <li>Spring Data JPA</li>
+        <li>PostgreSQL Driver</li>
+    </ul>
+
+    <p>Genera el projecte i descomprimeix-lo. Obre'l amb IntelliJ</p>
+
+    <p>Afegeix una dependència més al fitxer <w>build.gradle</w>:</p>
+
+    <scfile>
+        build.gradle
+    </scfile>
+    <sc groovy>
+        <low>
+        dependencies {
+            ...
+        </low>
+        <add>  
+            implementation "org.mapstruct:mapstruct:1.4.2.Final"
+            annotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
+        </add>
+        <low>    
+        }
+        </low>
+    </sc>
+
+    <p>Load gradle changes <kbd>Ctrl</kbd> + <kbd>Mayús</kbd> + <kbd>O</kbd></p>
+</section>
+
+<section>
+
+</section>
