@@ -1080,6 +1080,194 @@
         </low>
     </sc>
 </section>
+
+<section>
+    <h2>Protocol http</h2>
+
+    <h3>Method</h3>
+
+    <p>POST</p>
+    <sc php>
+        &lt;!DOCTYPE html&gt;
+
+        &lt;form method=&quot;POST&quot;&gt;
+            &lt;input type=&quot;text&quot; name=&quot;identificador&quot;&gt;
+            &lt;input type=&quot;submit&quot;&gt;
+        &lt;/form&gt;
+        &lt;?php
+            echo &quot;&lt;h1&gt;Hola, &quot;.$_POST[&quot;identificador&quot;].&quot;!&lt;/h1&gt;&quot;
+        ?&gt;
+    </sc>
+
+    <p>POST multipart/formdata</p>
+
+    <sc php>
+
+        &lt;!DOCTYPE html&gt;
+        &lt;meta charset=&quot;UTF-8&quot;&gt;
+        &lt;title&gt;File Manager&lt;/title&gt;
+
+        &lt;style&gt;
+        html {
+            font-family: sans;
+        }
+
+        h1 {
+            color: gray;
+            border-bottom: 1px solid gray;
+            padding-bottom: 16px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 200px);
+            grid-template-rows: repeat(auto-fill, 250px);
+            grid-gap: 1em;
+        }
+
+        .file {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+        }
+
+        .file a {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+        }
+
+        .file p {
+            text-align: center;
+        }
+
+        img {
+            max-width: 80%;
+            max-height: 80%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        }
+
+        label {
+            background-color: #55acee;
+            color: white;
+            border: 0px;
+            border-radius: 4px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .trash {
+            background-image: url(data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9JzMwMHB4JyB3aWR0aD0nMzAwcHgnICBmaWxsPSIjMDAwMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGRhdGEtbmFtZT0iTGF5ZXIgMSIgdmlld0JveD0iMCAwIDk2IDk2IiB4PSIwcHgiIHk9IjBweCI+PHRpdGxlPkFydGJvYXJkIDY2PC90aXRsZT48cG9seWdvbiBwb2ludHM9IjQwLjc4IDY2IDU1LjIyIDY2IDU3Ljc2IDQ0IDM4LjI0IDQ0IDQwLjc4IDY2Ij48L3BvbHlnb24+PHBvbHlnb24gcG9pbnRzPSI0NC4yNCAzMSA0My4yNCAzMyA1Mi43NiAzMyA1MS43NiAzMSA0NC4yNCAzMSI+PC9wb2x5Z29uPjxwYXRoIGQ9Ik00OCwyQTQ2LDQ2LDAsMSwwLDk0LDQ4LDQ2LDQ2LDAsMCwwLDQ4LDJaTTYyLDQyLjIzbC0zLDI2QTIsMiwwLDAsMSw1Nyw3MEgzOWEyLDIsMCwwLDEtMi0xLjc3bC0zLTI2YTIsMiwwLDAsMSwuNS0xLjU2QTIsMiwwLDAsMSwzNiw0MEg2MGEyLDIsMCwwLDEsMS40OS42N0EyLDIsMCwwLDEsNjIsNDIuMjNaTTYzLDM3SDMzYTIsMiwwLDAsMSwwLTRoNS43NmwyLjQ1LTQuODlBMiwyLDAsMCwxLDQzLDI3SDUzYTIsMiwwLDAsMSwxLjc5LDEuMTFMNTcuMjQsMzNINjNhMiwyLDAsMCwxLDAsNFoiPjwvcGF0aD48L3N2Zz4=);
+            background-size: contain;
+            width: 30px;
+            height: 30px;
+            display: block;
+            position: relative;
+            top: -80px;
+            left: -6px;
+        }
+
+        input[type=file] {
+            display: none;
+        }
+
+        &lt;/style&gt;
+
+        &lt;h1&gt;&amp;#128194; File manager&lt;/h1&gt;
+        &lt;form id=&quot;upload-form&quot; enctype=&quot;multipart/form-data&quot; method=&quot;POST&quot;&gt;
+            &lt;input id=&quot;file&quot; name=&quot;userfile&quot; type=&quot;file&quot; onchange=&quot;document.getElementById(&#39;upload-form&#39;).submit()&quot;/&gt;
+            &lt;label for=&quot;file&quot;&gt;Upload file...&lt;/label&gt;
+        &lt;/form&gt;
+
+        &lt;?php
+        if(isset($_FILES[&#39;userfile&#39;])){
+            move_uploaded_file($_FILES[&#39;userfile&#39;][&#39;tmp_name&#39;], &#39;uploads/&#39; . $_FILES[&#39;userfile&#39;][&#39;name&#39;]);
+        }
+
+        if(isset($_GET[&#39;delete&#39;])){
+            unlink(&#39;uploads/&#39; . $_GET[&#39;delete&#39;]);
+        }
+        ?&gt;
+
+        &lt;div class=&quot;file-grid&quot;&gt;
+        &lt;?php
+        if ($handle = opendir(&#39;uploads/&#39;)) {
+            while (($file = readdir($handle))) {
+                if ($file != &quot;.&quot; &amp;&amp; $file != &quot;..&quot;) {
+                    echo &quot;
+                    &lt;div class=&#39;file&#39;&gt;
+                        &lt;a href=&#39;uploads/$file&#39;&gt;
+                            &lt;img src=&#39;uploads/$file&#39;&gt;
+                            &lt;p&gt;$file&lt;/p&gt;
+                        &lt;/a&gt;
+                        &lt;a class=&#39;trash&#39; href=&#39;?delete=$file&#39;&gt;&lt;/a&gt;
+                    &lt;/div&gt;
+                &quot;;
+                }
+            }
+            closedir($handle);
+        }
+        ?&gt;
+        &lt;/div&gt;
+    </sc>
+
+    <h3>Cookies</h3>
+
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies">https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies</a></p>
+
+    <shell>
+        nc -l 8000
+    </shell>
+
+    <sc>
+        HTTP/1.0 200 OK
+        Content-Type: text/html
+        Set-Cookie: una_cookie=choco
+        Set-Cookie: una_altra_cookie=strawberry
+
+        &lt;a href=&quot;/&quot;&gt;Tornar&lt;/a&gt;
+        &lt;h1&gt;Hello&lt;/h1&gt;
+    </sc>
+
+    <sc php>
+        &lt;form&gt;
+            &lt;input type=&quot;color&quot; name=&quot;favcolor&quot;&gt;
+            &lt;input type=&quot;submit&quot;&gt;
+        &lt;/form&gt;
+        &lt;?php
+                if(isset($_GET[&#39;favcolor&#39;])){
+                        setcookie(&quot;color&quot;, $_GET[&#39;favcolor&#39;]);
+                }
+        ?&gt;
+        
+        &lt;style&gt;
+        body { background: &lt;?php echo $_COOKIE[&#39;color&#39;] ?&gt; }
+        &lt;/style&gt;
+            
+    </sc>
+
+    <h3>Location</h3>
+
+    <shell>
+        nc -l 8000
+    </shell>
+
+    <sc>
+        HTTP/1.0 303 OK
+        Location: https://wikipedia.org
+    </sc>
+
+    <sc php>
+        &lt;?php
+        header(&quot;location: login.php&quot;);
+        ?&gt;
+    </sc>
+</section>
 <!--
 <section>
     <h2>Client web</h2>
