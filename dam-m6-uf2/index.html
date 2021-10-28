@@ -43,13 +43,41 @@
         curl -fsSL https://get.docker.com -o get-docker.sh &&  sh get-docker.sh
     </shell>
 
-    <p>Inicia el contenidor Docker:</p>
+    <p>Inicia un contenidor Docker amb la base de dades PostreSQL:</p>
 
     <host>@virtual</host>
     <shell>
         docker run -d --name myapi-postgres -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_USER=myapidbadmin -e POSTGRES_DB=myapidb -p 5432:5432 -v /root/db_data:/var/lib/postgresql/data postgres
     </shell>
 
+    <optional>
+        <p>Habilita l'inici automàtic del contenidor:</p>
+
+        <scfile>
+            /etc/systemd/system/myapi-postgres.service
+        </scfile>
+        <sc>
+            [Unit]
+            Description=MyApi container
+            Requires=docker.service
+            After=docker.service
+
+            [Service]
+            Restart=always
+            ExecStart=/usr/bin/docker start -a myapi-postgres
+            ExecStop=/usr/bin/docker stop -t 2 myapi-postgres
+
+            [Install]
+            WantedBy=default.target
+        </sc>
+
+        <host>@virtual</host>
+        <shell>
+            systemctl enable myapi-postgres.service
+        </shell>
+    </optional>
+
+    <p>El següent pas és accedir al contenidor per a crear l'esquema de la base de dades.</p>
     <p>Esbrina el <w>CONTAINER ID</w> amb la comanda:</p>
 
     <host>@virtual</host>
