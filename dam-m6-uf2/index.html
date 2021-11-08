@@ -361,18 +361,22 @@ INSERT INTO movie_genre VALUES
                 src/main/resources/application-production.properties
             </scfile>
             <sc>
-                spring.datasource.url: ${JDBC_DATABASE_URL:}
-                spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
-                spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.PostgreSQLDialect
+                spring.datasource.url=${JDBC_DATABASE_URL:}
+                spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+                spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 
-                flyway.url= ${JDBC_DATABASE_URL:}
-                flyway.schemas= public
-                flyway.user= myapidbadmin
-                flyway.password= mysecretpassword
-                spring.flyway.baseline_on_migrate= true
+                flyway.url=${JDBC_DATABASE_URL:}
+                flyway.schemas=public
+                flyway.user=myapidbadmin
+                flyway.password=mysecretpassword
+                spring.flyway.baseline_on_migrate=true
 
                 server.port=${PORT:5000}
             </sc>
+
+            <observe>
+                <p>Les variables <w>${JDBC_DATABASE_URL:}</w> i <w>${PORT:5000}</w> són variables d'entorn proporcionades per Heroku.</p>
+            </observe>
         </li>
         <li>
             <p>Afegeix aquest arxiu al directori arrel del projecte. És la comanda que executarà Heroku per a iniciar l'aplicació:</p>
