@@ -353,32 +353,73 @@ INSERT INTO movie_genre VALUES
 <section>
     <h2>Heroku deploy</h2>
 
-    <p>Crea un compte a <a href="heroku.com/">Heroku</a></p>
-    <p>Publica el projecte a github</p>
+    <ul>
+        <li>
+            
+            <p>Afegeix aquest arxiu de configuració del projecte:</p>
+            <scfile>
+                src/main/resources/application-production.properties
+            </scfile>
+            <sc>
+                spring.datasource.url: ${JDBC_DATABASE_URL:}
+                spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
+                spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.PostgreSQLDialect
 
-    <scfile>
-        Procfile
-    </scfile>
-    <sc>
-        web: java -Dspring.profiles.active=production -jar build/libs/myapi-0.0.1-SNAPSHOT.jar
-    </sc>
+                flyway.url= ${JDBC_DATABASE_URL:}
+                flyway.schemas= public
+                flyway.user= myapidbadmin
+                flyway.password= mysecretpassword
+                spring.flyway.baseline_on_migrate= true
 
-    <scfile>
-        src/main/resources/application-production.properties
-    </scfile>
-    <sc>
-        spring.datasource.url: ${JDBC_DATABASE_URL:}
-        spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
-        spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.PostgreSQLDialect
+                server.port=${PORT:5000}
+            </sc>
+        </li>
+        <li>
+            <p>Afegeix aquest arxiu al directori arrel del projecte. És la comanda que executarà Heroku per a iniciar l'aplicació:</p>
+            <scfile>
+                Procfile
+            </scfile>
+            <sc>
+                web: java -Dspring.profiles.active=production -jar build/libs/myapi-0.0.1-SNAPSHOT.jar
+            </sc>
 
-        flyway.url= ${JDBC_DATABASE_URL:}
-        flyway.schemas= public
-        flyway.user= myapidbadmin
-        flyway.password= mysecretpassword
-        spring.flyway.baseline_on_migrate= true
+            <observe>
+                <p>Amb l'opció <w>-Dspring.profiles.active=production</w> li diem que agafi l'arxiu de configuració <w>application-<b>production</b>.properties</w></p>
 
-        server.port=${PORT:5000}
-    </sc>
+                <p>El nom del projecte el trobaràs a l'arxiu <w>setting.gradle</w>, i la versió a l'arxiu <w>build.gradle</w>.</p>
+            </observe>
+        </li>
+        <li>
+            <p>Publica el projecte a github.</p>
+        </li>
+
+        <li>
+            <p>Crea un compte a <a href="heroku.com/">Heroku</a></p>
+        </li>
+        <li>
+            <p>Crea una nova app a Heroku:</p>
+            <img src="img/img1.png">
+
+            <ul>
+                <li>
+                    <p>Escull "GITHUB" com a Deployment method</p>
+                    <img src="img/img2.png">
+                </li>
+                <li>
+                    <p>Connecta el repositori github</p>
+                </li>
+                <li>
+                    <p>Activa el desplegament automàtic (cada cop que facis un push, es desplegarà de nou la app)</p>
+                    <img src="img/img3.png">
+                </li>
+                <li>
+                    <p>Per últim fes el desplegament inicial de la app</p>
+                    <img src="img/img4.png">
+                </li>
+            </ul>
+        </li>
+    </ul>
+
 </section>
 <!--
 <section>
