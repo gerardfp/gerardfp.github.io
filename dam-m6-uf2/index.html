@@ -656,8 +656,158 @@ INSERT INTO movie_genre VALUES
 
     <p>Creem el model <w>User</w>:</p>
     <scfile>
-
+        src/main/java/com/example/demo/domain/model/User.java 
     </scfile>
+    <sc java>
+        import javax.persistence.*;
+        import java.util.UUID;
+
+        @Entity
+        @Table(name="usser")
+        public class User {
+            @Id
+            @GeneratedValue(strategy = GenerationType.AUTO)
+            public UUID userid;
+
+            public String username;
+            public String password;
+            public String role;
+            public boolean enabled;
+
+        }
+    </sc>
+
+    <p>Creem el repository:</p>
+    <scfile>
+        src/main/java/com/example/demo/repository/UserRepository.java 
+    </scfile>
+    <sc java>
+        import com.example.demo.domain.model.User;
+        import org.springframework.data.jpa.repository.JpaRepository;
+
+        import java.util.UUID;
+
+        public interface UserRepository extends JpaRepository<User, UUID> {
+
+            User findByUsername(String username);
+        }
+    </sc>
+
+
+    <p>Afegim la configuració de seguretat:</p>
+    <scfile>
+        src/main/java/com/example/demo/SecurityConfig.java
+    </scfile>
+    <sc java>
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.context.annotation.Bean;
+        import org.springframework.context.annotation.Configuration;
+        import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+        import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+        import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+        import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+        import org.springframework.security.config.http.SessionCreationPolicy;
+        import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+        import javax.sql.DataSource;
+
+        @Configuration
+        @EnableWebSecurity
+        public class SecurityConfig extends WebSecurityConfigurerAdapter {
+            @Autowired private DataSource dataSource;
+
+            @Bean
+            public BCryptPasswordEncoder getPasswordEncoder() {
+                return new BCryptPasswordEncoder();
+            }
+
+            @Override
+            protected void configure(HttpSecurity httpSecurity) throws Exception {
+                httpSecurity
+                        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        .and().csrf().disable()
+                        .authorizeRequests()
+                            //.mvcMatchers("/users/register/")
+                            //    .permitAll()
+                            .anyRequest()
+                                .authenticated()
+                        .and()
+                        .httpBasic();
+            }
+
+            @Override
+            protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+                auth
+                        .jdbcAuthentication()
+                        .dataSource(dataSource)
+                        .usersByUsernameQuery("select username, password, enabled from usser where username = ?")
+                        .authoritiesByUsernameQuery("select username, role from usser where username = ?")
+                        .passwordEncoder(getPasswordEncoder());
+            }
+        }
+    </sc>
+
+    <h3>Registre d'usuaris</h3>
+    <p>Per al registre d'usuaris necessitarem una classe (DTO) que per guardar les dades que ens envia l'usuari (username i password):</p>
+
+    <scfile>
+        src/main/java/com/example/demo/domain/dto/UserRegisterRequest.java 
+    </scfile>
+    <sc java>
+        public class UserRegisterRequest {
+            public String username;
+            public String password;
+        }
+    </sc>
+
+    <p>També necessitarem un controlador per atendre les peticions de registre:</p>
+    <scfile>
+        src/main/java/com/example/demo/controller/UserController.java 
+    </scfile>
+    <sc java>
+        import com.example.demo.domain.dto.UserRegisterRequest;
+        import com.example.demo.domain.model.User;
+        import com.example.demo.repository.UserRepository;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+        import org.springframework.web.bind.annotation.*;
+
+        import java.util.List;
+
+        @RestController
+        @RequestMapping("/users")
+        public class UserController {
+
+            @Autowired private UserRepository userRepository;
+            @Autowired private BCryptPasswordEncoder passwordEncoder;
+
+            @PostMapping("/register")
+            public String register(@RequestBody UserRegisterRequest userRegisterRequest) {
+
+                if (userRepository.findByUsername(userRegisterRequest.username) == null) {
+                    User user = new User();
+                    user.username = userRegisterRequest.username;
+                    user.password = passwordEncoder.encode(userRegisterRequest.password);
+                    user.enabled = true;
+                    userRepository.save(user);
+                    return "OK";   // TODO
+                }
+                return "ERROR";    // TODO
+            }
+        }
+    </sc>
+
+    <p>Per últim caldrà permetre l'accés a usuaris no autenticats a l'endpoint de registre:</p>
+
+    <scfile>
+        src/main/java/com/example/demo/SecurityConfig.java
+    </scfile>
+    <sc java>
+        <add>
+        .mvcMatchers("/users/register/")
+            .permitAll()
+        </add>
+    </sc>
 </section>
 <!--
 <section>
