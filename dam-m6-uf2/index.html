@@ -10,7 +10,7 @@
   <abstract>
     Spring Boot web services using JPA
 
-    <a href="https://github.com/gerardfp/myapi">https://github.com/gerardfp/myapi</a>
+    <a href="https://github.com/gerardfp/demo">https://github.com/gerardfp/demo</a>
   </abstract>
 </header>
 
@@ -219,6 +219,79 @@ INSERT INTO movie_genre VALUES
 
     <p>Load gradle changes <kbd>Ctrl</kbd> + <kbd>Mayús</kbd> + <kbd>O</kbd></p>
     -->
+    <p>L'arquitectura bàsica de la nostra ApiHttp amb Spring Boot serà aquesta:</p>
+
+    <img src="img/boot1.png">
+
+    <h3>Model</h3>
+    <p>Les classes Model serveixen per a crear objectes amb les dades i així poder transportar-les d'un component a un altre.</p>
+
+    <p>Començarem creant la classe <w>Movie</w> que ens servirà per a transportar les dades d'una pel·lícula:</p>
+
+    <scfile>
+        src/main/java/com/example/demo/domain/model/Movie.java
+    </scfile>
+    <sc java>
+        import javax.persistence.*;
+        import java.util.UUID;
+
+        @Entity
+        @Table(name = "movie")
+        public class Movie {
+            @Id
+            @GeneratedValue(strategy = GenerationType.AUTO)
+            public UUID movieid;
+
+            public String title;
+            public String imageurl;
+        }
+    </sc>
+
+    <h3>Repository</h3>
+    <scfile>
+        src/main/java/com/example/demo/repository/MovieRepository.java
+    </scfile>
+    <sc java>
+        import com.example.demo.domain.model.Movie;
+        import org.springframework.data.jpa.repository.JpaRepository;
+
+        import java.util.UUID;
+
+        public interface MovieRepository extends JpaRepository&lt;Movie, UUID&gt; {
+
+        }
+    </sc>
+
+    <h3>Controller</h3>
+    <scfile>
+        
+    </scfile>
+    <sc java>
+        import com.example.demo.domain.model.Movie;
+        import com.example.demo.repository.MovieRepository;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.web.bind.annotation.*;
+
+        import java.util.List;
+
+        @RestController
+        @RequestMapping(&quot;/movies&quot;)
+        public class MovieController {
+
+            @Autowired
+            private MovieRepository movieRepository;
+
+            @GetMapping(&quot;/&quot;)
+            public List&lt;Movie&gt; findAllMovies() {
+                return movieRepository.findAll();
+            }
+
+            @PostMapping(&quot;/&quot;)
+            public Movie createMovie(@RequestBody Movie movie) {
+                return movieRepository.save(movie);
+            }
+        }
+    </sc>
 </section>
 
 <section>
@@ -429,6 +502,162 @@ INSERT INTO movie_genre VALUES
         </li>
     </ul>
 
+</section>
+
+<section>
+    <h2>File uploads</h2>
+
+    <p>Afegirem una migració de la base de dades per a crear una taula que emmagatzemi els arxius que carregin (<em>upload</em>)</p>
+
+    <p>Crea aquest arxiu de migració:</p>
+    <scfile>
+        src/main/resources/db/migration/V2__filetable.sql
+    </scfile>
+    <sc sql>
+        CREATE TABLE file (
+            fileid UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+            contenttype TEXT,
+            data bytea);
+    </sc>
+
+    <p>Creem el model:</p>
+    <scfile>
+        src/main/java/com/example/demo/domain/model/File.java 
+    </scfile>
+    <sc java>
+        import org.hibernate.annotations.Type;
+
+        import javax.persistence.*;
+        import java.util.UUID;
+
+        @Entity
+        @Table(name = "file")
+        public class File {
+            @Id
+            @GeneratedValue(strategy = GenerationType.AUTO)
+            public UUID fileid;
+
+            public String contenttype;
+
+            @Lob
+            @Type(type="org.hibernate.type.BinaryType")
+            public byte[] data;
+        }
+    </sc>
+
+    <p>Creem el repository:</p>
+    <scfile>
+        src/main/java/com/example/demo/repository/FileRepository.java 
+    </scfile>
+    <sc java>
+        import com.example.demo.domain.model.File;
+        import org.springframework.data.jpa.repository.JpaRepository;
+
+        import java.util.UUID;
+
+        public interface FileRepository extends JpaRepository&lt;File, UUID&gt; {
+
+        }
+    </sc>
+
+    <p>I per últim el controlador:</p>
+    <scfile>
+        src/main/java/com/example/demo/controller/FileController.java
+    </scfile>
+    <sc java>
+        import com.example.demo.domain.model.File;
+        import com.example.demo.repository.FileRepository;
+        import org.springframework.http.MediaType;
+        import org.springframework.http.ResponseEntity;
+        import org.springframework.web.bind.annotation.*;
+        import org.springframework.web.multipart.MultipartFile;
+
+        import java.util.List;
+        import java.util.UUID;
+
+        @RestController
+        @RequestMapping(&quot;/files&quot;)
+        public class FileController {
+
+            private final FileRepository fileRepository;
+            FileController(FileRepository fileRepository){
+                this.fileRepository = fileRepository;
+            }
+
+            @PostMapping
+            public String upload(@RequestParam(&quot;file&quot;) MultipartFile uploadedFile) {
+                try {
+                    File file = new File();
+                    file.contenttype = uploadedFile.getContentType();
+                    file.data = uploadedFile.getBytes();
+
+                    return fileRepository.save(file).fileid.toString();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+
+
+            @GetMapping(&quot;/{id}&quot;)
+            public ResponseEntity&lt;byte[]&gt; getFile(@PathVariable UUID id) {
+                File file = fileRepository.findById(id).orElse(null);
+
+                if (file == null) return ResponseEntity.notFound().build();
+
+                return ResponseEntity.ok()
+                        .contentType(MediaType.valueOf(file.contenttype))
+                        .contentLength(file.data.length)
+                        .body(file.data);
+            }
+        }
+    </sc>
+</section>
+
+<section>
+    <h2>Autenticació i autorització</h2>
+
+    <p>Crea aquest arxiu de migració:</p>
+    <scfile>
+        src/main/resources/db/migration/V3__usertable.sql
+    </scfile>
+    <sc sql>
+        CREATE TABLE usser (
+            userid uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+            username varchar(24) NOT NULL UNIQUE,
+            password varchar(255) NOT NULL,
+            role varchar(10),
+            enabled boolean DEFAULT true
+          );
+          
+          
+          
+          -- afegim un usuari de prova
+          CREATE EXTENSION IF NOT EXISTS pgcrypto;
+          INSERT INTO usser (username, password) VALUES ('user', crypt('pass', gen_salt('bf')));
+    </sc>
+
+    <p>Afegeix la llibreria <w>spring-boot-starter-security</w>:</p>
+    <scfile>
+        build.gradle
+    </scfile>
+    <sc groovy>
+        <low>
+        dependencies {
+            ...
+        </low>
+        <add>
+            implementation 'org.springframework.boot:spring-boot-starter-security'
+        </add>
+        <low>
+        }
+        </low>
+    </sc>
+
+    <p>Creem el model <w>User</w>:</p>
+    <scfile>
+
+    </scfile>
 </section>
 <!--
 <section>
