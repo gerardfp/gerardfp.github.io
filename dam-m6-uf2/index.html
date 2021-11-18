@@ -264,7 +264,7 @@ INSERT INTO movie_genre VALUES
 
     <h3>Controller</h3>
     <scfile>
-        
+        src/main/java/com/example/demo/controller/MovieController.java
     </scfile>
     <sc java>
         import com.example.demo.domain.model.Movie;
@@ -437,12 +437,6 @@ INSERT INTO movie_genre VALUES
                 spring.datasource.url=${JDBC_DATABASE_URL:}
                 spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
                 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-
-                flyway.url=${JDBC_DATABASE_URL:}
-                flyway.schemas=public
-                flyway.user=myapidbadmin
-                flyway.password=mysecretpassword
-                spring.flyway.baseline_on_migrate=true
 
                 server.port=${PORT:}
             </sc>
@@ -808,6 +802,37 @@ INSERT INTO movie_genre VALUES
             .permitAll()
         </add>
     </sc>
+</section>
+<section>
+    <h2>ResponseEntity</h2>
+
+    <p>Per a que els mètodes REST retornin respostes de forma adequada podem utilitzar la classe <w>ResponseEntity</w>.</p>
+
+    <p>Aquesta classe té uns mètodes <em>builder</em> que ens permeten establir el <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">HttpStatus</a>,
+    les capçaleres HTTP i el cos de la resposta.</p>
+
+    <p>Haurem d'implementar els mètdoes <em>Mapping</em> dels controlladors de forma que retornin un objecte de classe <w>ResponseEntity&lt;?&gt;</w></p>
+
+    <p>Per exemple, en el següent codi retornem l'status 200 (OK) i afegim al cos de la resposta l'objecte <w>movie</w> que tot just s'ha creat.</p>
+
+    <sc java>
+        @PostMapping
+        public ResponseEntity&lt;?&gt; createMovie(@RequestBody Movie movie, Authentication authentication) {
+            Movie movie = movieRepository.save(movie);
+            return ResponseEntity.ok().body(movie);
+        }
+    </sc>
+
+    <p>L'objecte <w>movie</w> que hem posat al <w>body()</w> es serialitzarà a dades JSON així:</p>
+
+    <sc json>
+        {
+            "movieid": "c4806e2b-2e19-4e32-a7cd-8ead8b32350e",
+            "title": "Movie Title",
+            "imageurl": "/url/to/image"
+        }
+    </sc>
+
 </section>
 <!--
 <section>
