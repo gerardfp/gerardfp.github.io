@@ -82,7 +82,8 @@
             { "url": "daw-m8-uf1", "nom" : "UF1 - Servidors web i transferència de fitxers", "tag": "web"},
             { "url": "daw-m8-uf2", "nom" : "UF2 - Servidors d’aplicacions web", "tag": "web"},
             { "url": "daw-m8-uf3", "nom" : "UF3 - Desplegament d’aplicacions web", "tag": "web"},
-            { "url": "daw-m8-uf4", "nom" : "UF4 - Control de versions i documentació", "tag": "web"}
+            { "url": "daw-m8-uf4", "nom" : "UF4 - Control de versions i documentació", "tag": "web"},
+            { "url": "daw-m8-virtmanager", "nom" : "virt-manager setup", "tag": "web"}
         ]
     }
 }
