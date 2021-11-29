@@ -18,8 +18,17 @@
     <ul>
         <li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#server">server</a></li>
         <li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#root">root</a></li>
+        <li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#index">index</a></li>
         <li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#server_name">server_name</a></li>
         <li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#listen">listen</a></li>
         <li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#location">location</a></li>
+
+        <li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#location">ssl</a>
+          <host>root@server</host>
+          <shell>
+            openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj '/CN=mysite.com' -keyout /etc/ssl/private/site.key -out /etc/ssl/certs/site.pem
+          </shell>
+          
+        </li>
     </ul>
 </section>
