@@ -834,6 +834,124 @@ INSERT INTO movie_genre VALUES
     </sc>
 
 </section>
+<section>
+    <h2>Projections</h2>
+
+    <p>Una projecció és quan al "select" d'una consulta posem només un subconjunt de camps.</p>
+
+    <p>Per a fer-ho amb un JpaRepository primer definirem en un <w>interface</w> quins són els camps que volem seleccionar:</p>
+
+    <sc java>
+        public interface ProjectionMovie {
+            UUID getMovieid();
+            String getTitle();
+        
+            Set&lt;ProjectionActor&gt; getActors();
+        }
+    </sc>
+
+    <p>Veiem que en lloc de definir els camps, hem de definir <em>getters</em> seguint l'estàndard <a href="https://docs.oracle.com/javase/tutorial/javabeans/writing/properties.html">JavaBeans</a>.</p>
+
+    <p>Després al Repository podem fer que les consultes retornin objectes conforme a aquests interfaces:</p>
+
+    <sc java>
+        public interface MovieRepository extends JpaRepository&lt;Movie, UUID&gt; {
+
+            List&lt;ProjectionMovie&gt; findBy();
+        }
+    </sc>
+
+    <p>Açò funcionarà per a les consultes que JPA derivades del nom: <a href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation">Query Methods</a></p>
+</section>
+
+<section>
+    <h2>Relacions</h2>
+
+    <h3>@ManyToMany</h3>
+
+    <p>En una relació ManyToMany entre dues entitats hem d'escollir primer una de les dos entitats com la "propietària" de la relació i l'altra com a "no-propietària".</p>
+    <p>A l'entitat "pripietària" definirem les anotacions <w>@ManyToMany</w> i <w>@JoinTable</w>:</p>
+
+    <sc java>
+        @Entity
+        @Table(name = "movie")
+        public class Movie {
+            @Id
+            @GeneratedValue(strategy = GenerationType.AUTO)
+            public UUID movieid;
+
+            public String title;
+            public String imageurl;
+
+            <add>
+            @ManyToMany
+            @JoinTable(name = "movie_actor", joinColumns = @JoinColumn(name = "movieid"), inverseJoinColumns = @JoinColumn(name = "actorid"))
+            public Set&lt;Actor&gt; actors;
+            </add>
+        }
+    </sc>
+
+    <p>A l'entitat "no-propietària" definirem l'anotació <w>@ManyToMany</w> fent referència al camp de l'entitat "propietària" que defineix la relació:</p>
+
+    <sc java>
+        @Entity
+        @Table(name = "actor")
+        public class Actor {
+            @Id
+            @GeneratedValue(strategy = GenerationType.AUTO)
+            public UUID actorid;
+
+            public String name;
+            public String imageurl;
+
+            <add>
+            @ManyToMany(mappedBy = "actors")
+            public Set&lt;Movie&gt; movies;
+            </add>
+        }
+    </sc>
+
+    <p>Com la relació és bidireccional, quan la llibreria Jackson faci la serialització a JSON, es produeix una dependència circular (recursió infinita). 
+        Podem tallar aquesta recursió amb l'anotació <w>@JsonIgnoreProperties</w>:
+    </p>
+
+    <sc java>
+        @Entity
+        @Table(name = "movie")
+        public class Movie {
+            @Id
+            @GeneratedValue(strategy = GenerationType.AUTO)
+            public UUID movieid;
+
+            public String title;
+            public String imageurl;
+
+            @ManyToMany
+            @JoinTable(name = "movie_actor", joinColumns = @JoinColumn(name = "movieid"), inverseJoinColumns = @JoinColumn(name = "actorid"))
+            <add>
+            @JsonIgnoreProperties("movies")
+            </add>
+            public Set&lt;Actor&gt; actors;
+        }
+
+        @Entity
+        @Table(name = "actor")
+        public class Actor {
+            @Id
+            @GeneratedValue(strategy = GenerationType.AUTO)
+            public UUID actorid;
+
+            public String name;
+            public String imageurl;
+
+            @ManyToMany(mappedBy = "actors")
+            <add>
+            @JsonIgnoreProperties("actors")
+            </add>
+            public Set&lt;Movie&gt; movies;
+        }
+    </sc>
+</section>
 <!--
 <section>
     docker network create keycloak-network
