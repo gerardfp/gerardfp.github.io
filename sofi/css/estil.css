@@ -108,11 +108,12 @@ a {
 }
 
 h1 {
-    font-size: 3em;
+    font-size: 2.5em;
     margin-top: 4rem;
     text-align: center;
     color: black;
     font-family: 'Roboto Condensed', sans-serif;
+    line-height: normal;
 }
 
 h2 {
