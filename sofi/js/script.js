@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   syntaxHighlight();
   navigation();
   pageTitle();
+  wrappers();
   //add meta 
   //document.head.insertAdjacentHTML('afterbegin', '<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">');
   replaceParams();
@@ -19,6 +20,33 @@ function pageTitle(){
     title.textContent = document.querySelector('header h1').textContent;
     document.head.appendChild(title);
   }
+}
+
+function wrappers(){
+
+  // wrap
+  var hlElements = ['table', 'img'];
+  hlElements.forEach(hlname => {
+    document.querySelectorAll(hlname).forEach(t => {
+      var tableWrap = document.createElement('div');
+      tableWrap.classList.add(hlname);
+
+      t.parentElement.replaceChild(tableWrap, t);
+      tableWrap.appendChild(t);
+    })  
+  });
+
+
+  //adbefore
+  var hlElements = ['work', 'warn', 'info', 'optional', 'tldr', 'observe', 'quizz', 'challenge', 'project'];
+  hlElements.forEach(hlname => {
+    document.querySelectorAll(hlname).forEach(hl => {
+      var hlWrap = document.createElement('div');
+      hlWrap.classList.add(hlname);
+  
+      hl.parentElement.insertBefore(hlWrap, hl);
+    });
+  });
 }
 
 function syntaxHighlight(){
