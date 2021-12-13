@@ -18,23 +18,25 @@
     <ul>
         <li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#server">server</a></li>
         <li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#root">root</a></li>
-        <li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#index">index</a></li>
+        <li><a href="https://nginx.org/en/docs/http/ngx_http_index_module.html#index">index</a></li>
         <li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#server_name">server_name</a></li>
         <li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#listen">listen</a></li>
         <li><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#location">location</a></li>
 
         <li><a href="https://nginx.org/en/docs/http/configuring_https_servers.html">ssl</a>
-          <host>root@server</host>
           <shell>
             openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/site.key -out /etc/ssl/certs/site.pem
           </shell>
         </li>
         <li><a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#rewrite">rewrite</a></li>
 
-        <li><a href="http://nginx.org/en/docs/http/load_balancing.html">proxy_pass</a></li>
+        <li><a href="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass">proxy_pass</a></li>
 
         <li>
-          <p>fastcgi_pass</p>
+          <a href="https://nginx.org/en/docs/http/ngx_http_fastcgi_module.html#fastcgi_pass">fastcgi_pass</a>
+        </li>
+        <li>
+          <a href="https://nginx.org/en/docs/http/ngx_http_upstream_module.html#upstream">upstream</a>
         </li>
         
     </ul>
