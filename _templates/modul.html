@@ -122,11 +122,11 @@ a {
 </div>
 <div class="cards">
 
-{% for activ in activs -%}
-    <a href="/{{activ.url}}">
-        <div class="card {{activ.tag}}">
+{% for sub in subs -%}
+    <a href="/{{sub.url}}">
+        <div class="card {{sub.tag}}">
             <div class="card-title">
-                <span>{{activ.nom}}</span>
+                <span>{{sub.nom}}</span>
             </div>
             <div class="card-description">
 

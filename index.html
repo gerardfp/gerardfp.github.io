@@ -1,159 +1,62 @@
 <!DOCTYPE html>
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-
-:root {
-    --dades-color: #dc503d;
-    --dades-image: url('/dades.png');
-    --desplegament-color: #dcd93d;
-    --desplegament-image: url('/desplegament.png');
-    --internet-color: #dc3d65;
-    --internet-image: url('/internet.jpg');
-    --mobils-color: #3ddc84;
-    --mobils-image: url('/mobils.jpg');
-    --web-color: #4285f4;
-    --web-image: url('/web.jpg');
-    --programacio-color: #4a148c;
-    --programacio-image: url('/programacio.jpg');
-}
+/*fira-sub*/
+@import url(/sofi/fonts/juliamono-regular.css);
 
 body {
     margin: 0;
-    background-color: #455a64;
-    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(31, 29, 29);
+    font-family: JuliaMono, monospace;
+    color: white;
 }
 
 a {
     text-decoration: none;
-    color: inherit;
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 2em;
-    padding: 3em 1em 1em 1em;
-    margin: auto;
-    max-width: 400px;
-    transition: max-width .5s;
-}
-
-.card {
     color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-bottom: 5px solid;
-    border-radius: 2%;
-    height: 200px;
 }
-
-.card h1 {
-    text-align: center;
-    font-size: 1.6em;
-    padding: 0.3em;
-}
-
-.card img {
-    width: 100%;
-    max-height: 40%;
-    height: auto;
-    object-fit: cover;
-}
-
-.card.dades{
-    background-color: var(--dades-color);
-    border-color: var(--dades-color);
-}
-
-.card.desplegament{
-    background-color: var(--desplegament-color);
-    border-color: var(--desplegament-color);
-}
-
-.card.internet{
-    background-color: var(--internet-color);
-    border-color: var(--internet-color);
-}
-
-.card.mobils{
-    background-color: var(--mobils-color);
-    border-color: var(--mobils-color);
-}
-
-.card.web{
-    background-color: var(--web-color);
-    border-color: var(--web-color);
-}
-
-.card.programacio{
-    background-color: var(--programacio-color);
-    border-color: var(--programacio-color);
-}
-
-@media(min-width: 768px){
-    .cards {
-        grid-template-columns: 1fr 1fr 1fr; 
-        max-width: 700px;
-    }
-
-    .card {
-        height: 250px;
-    }
-}
-
-@media(min-width: 1024px){
-    .cards {
-        max-width: 900px;
-    }
-}
-
-@media(min-width: 1240px){
-    .cards {
-        max-width: 1024px;
-    }
-}
-
 </style>
-</head>
 
-<div class="cards">
-    <a href="/dam-m6">
-        <div class="card dades">
-            <h1>DAM-M6-Accés a dades</h1>
-            <img src="dades.png">
+
+<div class="title"><span>Inici</span></div>
+<div class="items">
+
+<a href="/dam-m3">
+        <div class="item programacio">
+            <div class="card-title">
+                <span>DAM - M3 - Programació bàsica</span>
+            </div>
         </div>
-    </a>
-    <a href="/daw-m8">
-        <div class="card desplegament">
-            <h1>DAW-M8-Desplegament d'aplicacions web</h1>
-            <img src="desplegament.png">
+    </a><a href="/dam-m8">
+        <div class="item mobils">
+            <div class="card-title">
+                <span>DAM - M8 - Programació multimèdia i dispositius mòbils</span>
+            </div>
         </div>
-    </a>
-    <a href="/asix-m8">
-        <div class="card internet">
-            <h1>ASIX-M8-Serveis de xarxa i internet</h1>
-            <img src="internet.jpg">
+    </a><a href="/smx-m8">
+        <div class="item webapps">
+            <div class="card-title">
+                <span>SMX - M8 - Aplicacions Web</span>
+            </div>
         </div>
-    </a>
-    <a href="/dam-m8">
-        <div class="card mobils">
-            <h1>DAM-M8-Aplicacions mòbils</h1>
-            <img src="mobils.jpg">
+    </a><a href="/dam-m6">
+        <div class="item acces">
+            <div class="card-title">
+                <span>DAM - M6 - Accés a dades</span>
+            </div>
         </div>
-    </a>
-    <a href="/dam-m3">
-        <div class="card programacio">
-            <h1>DAM-M3-Programació</h1>
-            <img src="programacio.jpg">
+    </a><a href="/daw-m8">
+        <div class="item deploy">
+            <div class="card-title">
+                <span>DAW - M8 - Desplegament d&#39;aplicacions web</span>
+            </div>
         </div>
-    </a>
-    <a href="/smx-m8">
-        <div class="card web">
-            <h1>SMX-M8-Aplicacions web</h1>
-            <img src="web.jpg">
+    </a><a href="/asix-m8">
+        <div class="item internet">
+            <div class="card-title">
+                <span>ASIX - M8 - Serveis de xarxa i internet</span>
+            </div>
         </div>
     </a>
 </div>

@@ -2,287 +2,96 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-
-:root {
-    --android-color: #239023;
-    --android-icon: url('/android.svg');
-    --java-color: #4a148c;
-    --java-icon: url('/java.svg');
-    --firebase-color: #f57c00;
-    --firebase-icon: url('/firebase.svg');
-    --web-color: #4285f4;
-    --web-icon: url('/web.svg');
-}
+/*fira-sub*/
+@import url(/sofi/fonts/juliamono-regular.css);
 
 body {
     margin: 0;
-    background-color: #eceff1;
-    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(31, 29, 29);
+    font-family: JuliaMono, monospace;
+    color: white;
 }
 
 a {
     text-decoration: none;
-    color: inherit;
-}
-
-.title {
-    font-size: 2em;
-    font-weight: bold;
-    text-align: center;
-    padding: 1em;
-    background-color: white;
-    color: #333;
-    box-shadow: 0 3px 6px -3px #bdbdbd;
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 2em;
-    padding: 1em;
-    margin: auto;
-}
-
-@media(min-width: 648px){
-    .cards {
-        grid-template-columns: 1fr 1fr; 
-    }
-}
-
-@media(min-width: 1024px){
-    .cards {
-        grid-template-columns: 1fr 1fr 1fr; 
-    }
-}
-
-@media(min-width: 1240px){
-    .cards {
-        grid-template-columns: 1fr 1fr 1fr; 
-        max-width: 1200px;
-    }
-}
-
-.card {
-    background-color: white;
-    padding: 1em;
-    border-bottom: 5px solid;
-    border-radius: 2%;
-}
-
-.card-title {
-    font-size: 1.2em;
-}
-
-.card-description {
-    min-height: 2em;
-}
-
-.card-footer {
-    display: flex;
-    justify-content: space-between;
-}
-
-.icon {
-    background-position: 0 50%;
-    background-repeat: no-repeat;
-    background-size: 32px 32px;
-    height: 42px;
-    width: 42px;
-}
-
-.button {
-    width: 96px;
-    height: 42px;
-    border-radius: 4%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: white;
-}
-
-
-.card.android{
-    border-color: var(--android-color);
-}
-
-.card.android .icon{
-    background-image: var(--android-icon);
-}
-
-.card.android .button{
-    background-color: var(--android-color);
-}.card.firebase{
-    border-color: var(--firebase-color);
-}
-
-.card.firebase .icon{
-    background-image: var(--firebase-icon);
-}
-
-.card.firebase .button{
-    background-color: var(--firebase-color);
 }
 </style>
 
-<div class="title">
-    <span>DAM - M8 - Programació multimèdia i dispositius mòbils</span>
-</div>
-<div class="cards">
+<a href="/">Inici</a>
+<div class="title"><span>DAM - M8 - Programació multimèdia i dispositius mòbils</span></div>
+<div class="items">
 
 <a href="/apps">
-        <div class="card android">
+        <div class="item android">
             <div class="card-title">
                 <span>Apps</span>
             </div>
-            <div class="card-description">
-
-            </div>
-            <div class="card-footer">
-                <div class="icon"></div>
-                <div class="button">Start</div>    
-            </div>
         </div>
     </a><a href="/fragments">
-        <div class="card android">
+        <div class="item android">
             <div class="card-title">
                 <span>Fragments</span>
             </div>
-            <div class="card-description">
-
-            </div>
-            <div class="card-footer">
-                <div class="icon"></div>
-                <div class="button">Start</div>    
-            </div>
         </div>
     </a><a href="/navigation">
-        <div class="card android">
+        <div class="item android">
             <div class="card-title">
                 <span>Navigation</span>
             </div>
-            <div class="card-description">
-
-            </div>
-            <div class="card-footer">
-                <div class="icon"></div>
-                <div class="button">Start</div>    
-            </div>
         </div>
     </a><a href="/mvvm">
-        <div class="card android">
+        <div class="item android">
             <div class="card-title">
                 <span>Model-View-ViewModel</span>
             </div>
-            <div class="card-description">
-
-            </div>
-            <div class="card-footer">
-                <div class="icon"></div>
-                <div class="button">Start</div>    
-            </div>
         </div>
     </a><a href="/livedata">
-        <div class="card android">
+        <div class="item android">
             <div class="card-title">
                 <span>LiveData</span>
             </div>
-            <div class="card-description">
-
-            </div>
-            <div class="card-footer">
-                <div class="icon"></div>
-                <div class="button">Start</div>    
-            </div>
         </div>
     </a><a href="/recyclerview">
-        <div class="card android">
+        <div class="item android">
             <div class="card-title">
                 <span>RecyclerView</span>
             </div>
-            <div class="card-description">
-
-            </div>
-            <div class="card-footer">
-                <div class="icon"></div>
-                <div class="button">Start</div>    
-            </div>
         </div>
     </a><a href="/room">
-        <div class="card android">
+        <div class="item android">
             <div class="card-title">
                 <span>Room</span>
             </div>
-            <div class="card-description">
-
-            </div>
-            <div class="card-footer">
-                <div class="icon"></div>
-                <div class="button">Start</div>    
-            </div>
         </div>
     </a><a href="/retrofit">
-        <div class="card android">
+        <div class="item android">
             <div class="card-title">
                 <span>Retrofit</span>
             </div>
-            <div class="card-description">
-
-            </div>
-            <div class="card-footer">
-                <div class="icon"></div>
-                <div class="button">Start</div>    
-            </div>
         </div>
     </a><a href="/firebase">
-        <div class="card firebase">
+        <div class="item firebase">
             <div class="card-title">
                 <span>Firebase</span>
             </div>
-            <div class="card-description">
-
-            </div>
-            <div class="card-footer">
-                <div class="icon"></div>
-                <div class="button">Start</div>    
-            </div>
         </div>
     </a><a href="/authentication">
-        <div class="card firebase">
+        <div class="item firebase">
             <div class="card-title">
                 <span>Authentication</span>
             </div>
-            <div class="card-description">
-
-            </div>
-            <div class="card-footer">
-                <div class="icon"></div>
-                <div class="button">Start</div>    
-            </div>
         </div>
     </a><a href="/firestore">
-        <div class="card firebase">
+        <div class="item firebase">
             <div class="card-title">
                 <span>Firestore</span>
             </div>
-            <div class="card-description">
-
-            </div>
-            <div class="card-footer">
-                <div class="icon"></div>
-                <div class="button">Start</div>    
-            </div>
         </div>
     </a><a href="/storage">
-        <div class="card firebase">
+        <div class="item firebase">
             <div class="card-title">
                 <span>Storage</span>
-            </div>
-            <div class="card-description">
-
-            </div>
-            <div class="card-footer">
-                <div class="icon"></div>
-                <div class="button">Start</div>    
             </div>
         </div>
     </a>
