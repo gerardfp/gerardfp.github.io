@@ -1,0 +1,206 @@
+
+<!doctype html>
+<!--meta {urls: [dam/m3/uf2], tags: [programacio,gradle]}-->
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Gradle</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="gradle"
+                  title="Gradle"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p class="image-container"><img style="width: 545.00px" src="img/e3cab3be3a09b812.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és utlitzar Gradle per a automatitzar la construcció d&#39;una aplicació.</p>
+<p>Gradle és un sistema d&#39;automatització de construcció d&#39;aplicacions. Permet configurar les tasques de construcció i l&#39;ordre en que s&#39;han d&#39;executar. Incorpora un sistema de gestió de dependències que suporta el repositori de llibreries <a href="https://mvnrepository.com/" target="_blank">Maven</a>. En aquest repositori trobem milers de llibreries amb diverses utilitats que podem incorporar als nostres projectes.</p>
+<p>D&#39;aquesta forma és molt fàcil incorporar una llibreria externa a un projecte. Habitualment, només cal indicar el nom i  la versió de la llibreria que volem incorporar i Gradle la descarregarà i la incorporarà al projecte.</p>
+<p>En aquest CodeLab instal·larem instal·larem una llibreria de forma automàtica des del repositori Maven (la llibreria que instal·larem serà, a mode d&#39;exemple, la llibreria SQLite-JDBC que ens proporciona accés a un base de dades SQLite).</p>
+<p>Després aprendrem a instal·lar llibreries que ja es troben al nostre ordinador. Normalment, les llibreries es poden descarregar en format JAR, però en aquest CodeLab el que farem serà crear nosaltres una llibreria simple i importar-la amb Gradle.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;DependenciaGradle&#34;.</p>
+<p>Selecciona &#34;<sc>Gradle</sc>&#34; com a tipus de projecte:</p>
+<p class="image-container"><img style="width: 560.00px" src="img/f007055220e526f2.png"></p>
+<p>Introdueix les següents dades del projecte:</p>
+<p>GroupId: <sc>com.example</sc></p>
+<p>ArtifactId: <sc>dependenciagradle</sc></p>
+<p class="image-container"><img style="width: 580.00px" src="img/52cea57c560399e.png"></p>
+<p>Marca l&#39;opció &#34;Use auto-import&#34;</p>
+<p class="image-container"><img style="width: 502.00px" src="img/a33f27e6388c1337.png"></p>
+<p>Finalitza la creació del projecte:</p>
+<p class="image-container"><img style="width: 495.00px" src="img/e1733c1c86d320c2.png"></p>
+<h2 is-upgraded>Crea un mòdul de projecte</h2>
+<p>Crea un nou mòdul de projecte. Ves al menu <sc>File</sc> &gt; <sc>Add</sc> &gt; <sc>Module...</sc> i segueix les instruccions habituals per a crear un mòdul Java:</p>
+<p class="image-container"><img style="width: 548.00px" src="img/c616cba6b3333d06.png"></p>
+<p class="image-container"><img style="width: 548.00px" src="img/a07cde5b5da15328.png"></p>
+<p>A la carpeta del mòdul que tot just s&#39;ha creat, afegeix una nova classe Java, que contindrà la classe <sc>Main</sc> del projecte:</p>
+<p class="image-container"><img style="width: 637.00px" src="img/1989b68bb402bc72.png"></p>
+<p>Posa-li de nom <sc>Main</sc>:</p>
+<p class="image-container"><img style="width: 347.00px" src="img/de5c1a2330c3062c.png"></p>
+<p>Crea en la classe <sc>Main</sc> el mètode <sc>main()</sc>:</p>
+<pre><sc>public class Main {
+   public static void main(String[] args) {
+      
+   }
+}</sc></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Llibreries del repositori Maven" duration="0">
+        <p>Per a afegir llibreries externes al projecte cal afegir-les al fitxer de configuració <sc>build.gradle</sc></p>
+<p>Trobaràs aquest fitxer a la carpeta arrel del projecte:</p>
+<p class="image-container"><img style="width: 418.00px" src="img/f335e60673d5f1e2.png"></p>
+<p>La llibreria d&#39;exemple que instal·larem és aquesta: <a href="https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc" target="_blank">https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc</a></p>
+<p>Cal afegir doncs aquesta dependencia a l&#39;arxiu <sc>build.gradle</sc> en la secció <sc>dependencies</sc></p>
+<pre><sc>dependencies {
+   testCompile group: &#39;junit&#39;, name: &#39;junit&#39;, version: &#39;4.12&#39;
+   implementation &#39;org.xerial:sqlite-jdbc:3.27.2.1&#39;
+}</sc></pre>
+<aside class="special"><p><strong>Versions: </strong>Un dels aspectes que més dificultat comporten és la compatibilitat de versions entre diferentes dependencies. Cal anar amb compte en que totes les dependencies que afegim a un projecte siguin compatibles entre sí.</p>
+</aside>
+<p>Un cop afegida la llibreria al projecte, refresquem el projecte Gradle per a aplicar els canvis:</p>
+<p class="image-container"><img style="width: 504.00px" src="img/37d9a54f2bc12895.png"></p>
+<p>Ara cal afegir la llibreria als mòduls del projecte on s&#39;usuarà. En el nostre cas al mòdul &#34;<sc>Main</sc>&#34;.</p>
+<p>Anem a <sc>File</sc> &gt; <sc>Project Structure</sc></p>
+<p>A la finestra de configuració del projecte cliquem a l&#39;apartat <sc>Modules</sc> i seleccionem el mòdul <sc>main</sc></p>
+<p>A la pestanya <sc>Dependencies</sc> fem clic a l&#39;icona <img style="width: 20.00px" src="img/a8c998ab11261987.png"> i seleccionem <sc>2 Library</sc></p>
+<p class="image-container"><img style="width: 736.40px" src="img/81696c830cb1e7b9.png"></p>
+<p>Seleccionem la llibreria <sc>org.xerial:sqlite-jdbc</sc></p>
+<p class="image-container"><img style="width: 331.00px" src="img/d2dfee649b39ae0e.png"></p>
+<h2 is-upgraded>Usa la llibreria</h2>
+<p>Un cop tenim incorporada la llibreria al nostre projecte ja la podem utilitzar. </p>
+<p>En el cas de la llibreria SQLite-JDBC, ens permet crear i manipular a una base de dades relacional.</p>
+<p>Realitzarem una prova creant una taula, inserint i consultant dades.</p>
+<pre><sc>import java.sql.*;
+
+public class Main {
+   public static void main(String[] args) throws SQLException{
+
+       String db = &#34;jdbc:sqlite:mydatabase.db&#34;;
+
+       Statement stmt = DriverManager.getConnection(db).createStatement();
+      
+       stmt.execute(&#34;CREATE TABLE prova(camp1 integer, camp2 text);&#34;);
+
+       stmt.execute(&#34;INSERT INTO prova VALUES(6789, &#39;hola gradle&#39;);&#34;);
+       stmt.execute(&#34;INSERT INTO prova VALUES(2345, &#39;hola sqlite&#39;);&#34;);
+      
+       ResultSet rs = stmt.executeQuery(&#34;SELECT * FROM prova;&#34;);
+       while(rs.next()){
+           System.out.println(rs.getInt(&#34;camp1&#34;));
+           System.out.println(rs.getString(&#34;camp2&#34;));
+       }
+   }
+}</sc></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Llibreries locals" duration="0">
+        <p>Com hem dit a la introducció, les llibreries a més de instal·lar-se automàticament des del repositori Maven, també es poden descarregar en format JAR al nostre ordinador i afegir-les des d&#39;ahí.</p>
+<p>En aquest CodeLab aprendrem a crear i exportar una petita llibreria, i a instal·lar-la utilitzant Gradle.</p>
+<h2 is-upgraded>Crear la llibreria</h2>
+<p>El primer pas serà programar una petita llibreria. Crea un projecte &#34;Java&#34; nou i anomena&#39;l <sc>Banner</sc>.</p>
+<p>La llibreria que anem a programar és molt simple, ja que només és una prova. Es tracta d&#39;una classe anomenada <sc>Banner</sc> que té un mètode per a mostrar nombres a l&#39;estil d&#39;un <em>Matrix Display</em>.</p>
+<p>Exemple: </p>
+<pre><sc>Banner.println(34545);</sc></pre>
+<p class="image-container"><img style="width: 274.00px" src="img/15016d461b921b7e.png"></p>
+<p>El codi de la llibreria és aquest:</p>
+<pre><sc>public class Banner {
+   private static String[][] gl = {
+           {&#34;#####&#34;,&#34;#   #&#34;,&#34;#   #&#34;,&#34;#   #&#34;,&#34;#####&#34; }, //0
+           {&#34;  ## &#34;,&#34; # # &#34;,&#34;   # &#34;,&#34;   # &#34;,&#34;   # &#34; }, //1
+           {&#34;#####&#34;,&#34;    #&#34;,&#34;#####&#34;,&#34;#    &#34;,&#34;#####&#34; }, //2
+           {&#34;#####&#34;,&#34;    #&#34;,&#34; ####&#34;,&#34;    #&#34;,&#34;#####&#34; }, //3
+           {&#34;#    &#34;,&#34;#   #&#34;,&#34;#####&#34;,&#34;    #&#34;,&#34;    #&#34; }, //4
+           {&#34;#####&#34;,&#34;#    &#34;,&#34;#####&#34;,&#34;    #&#34;,&#34;#####&#34; }, //5
+           {&#34;#### &#34;,&#34;#    &#34;,&#34;#####&#34;,&#34;#   #&#34;,&#34;#####&#34; }, //6
+           {&#34;#####&#34;,&#34;    #&#34;,&#34;   # &#34;,&#34;  #  &#34;,&#34; #   &#34; }, //7
+           {&#34;#####&#34;,&#34;#   #&#34;,&#34;#####&#34;,&#34;#   #&#34;,&#34;#####&#34; }, //8
+           {&#34;#####&#34;,&#34;#   #&#34;,&#34;#####&#34;,&#34;    #&#34;,&#34;  ## &#34; }  //9
+
+   };
+
+   public static void println(int number){
+       String temp = Integer.toString(number);
+       Integer[] na = new Integer[temp.length()];
+       for (int i = 0; i &lt; temp.length(); i++) {
+           na[i] = temp.charAt(i) - &#39;0&#39;;
+       }
+       for(int i=0; i&lt;5; i++){
+           for(Integer d: na){
+               System.out.print(gl[d][i] + &#34;   &#34;);
+           }
+           System.out.println();
+       }
+   }
+}</sc></pre>
+<p>Crea la classe <sc>Banner</sc> al projecte que tot just has creat i copia-hi el codi.</p>
+<h2 is-upgraded>Crea un Artifact Jar</h2>
+<p>Per a generar un arxiu JAR, primer s&#39;ha de configurar un Artifact de tipus JAR. Un Artifact és un conjunt de recursos que es poden posar en un mateix arxiu.</p>
+<p>Per a configurar l&#39;Artifact cal anar a: <sc>File</sc> &gt; <sc>Project Structure...</sc> &gt; <sc>Artifacts</sc> &gt; <img style="width: 21.00px" src="img/23c70d0b6713c330.png"> &gt; <sc>JAR</sc> &gt; <sc>From modules with dependencies...</sc></p>
+<p class="image-container"><img style="width: 660.00px" src="img/12b96bae97698d4.gif"></p>
+<h2 is-upgraded>Construeix el JAR</h2>
+<p>Un cop definit l&#39;Artifact JAR, ja podem construir l&#39;arxiu JAR amb la llibreria.</p>
+<p>Per fer-ho ves al menú <sc>Build</sc> &gt; <sc>Build Artifacts...</sc></p>
+<p>Seleciona l&#39;opció <sc>Build</sc></p>
+<p class="image-container"><img style="width: 285.00px" src="img/94eb3247f8effd67.png"></p>
+<p>A la carpeta <sc>out/artifacts</sc> ens haurà generat l&#39;arxiu JAR:</p>
+<p class="image-container"><img style="width: 420.00px" src="img/660c42d299cacf78.png"></p>
+<aside class="special"><p>El format de fitxer Java™ Archive (JAR) permet agrupar diversos fitxers en un únic fitxer d&#39;arxiu. Normalment, un fitxer JAR conté els fitxers de classe i els recursos auxiliars associats a miniaplicacions i aplicacions.</p>
+<p>Els fitxers JAR estan empaquetats amb el format de fitxer ZIP, de manera que  es poden utilitzar per a tasques com la compressió de dades sense pèrdua, l&#39;arxiu, la descompressió i el desembalatge d&#39;arxius.</p>
+</aside>
+<h2 is-upgraded>Importa la llibreria</h2>
+<p>Torna al projecte <sc>DependenciaGradle</sc>, i utilitzarem Gradle per a afegir a aquest projecte la llibreria <sc>Banner</sc>.</p>
+<ol type="1" start="1">
+<li>Crea un directori, en l&#39;arrel del projecte, anomenat <sc>libs</sc> (en aquest directori afegiriem totes les llibreries que necessitèssim):<br><img style="width: 239.00px" src="img/923adf70944765f5.png"></li>
+<li>Copia la llibreria Banner.jar dintre d&#39;aquest directori (pots arrossegar-la des d&#39;un projecte a l&#39;altre):<br><img style="width: 673.00px" src="img/486855cf0317efa0.gif"></li>
+<li>Afegeix la dependència a l&#39;arxiu <sc>build.gradle</sc> d<br></li>
+</ol>
+<pre><sc>implementation fileTree(dir: &#39;libs&#39;, include: [&#39;*.jar&#39;])</sc></pre>
+<aside class="special"><p>Amb aquesta dependència, Gradle ens importarà qualsevol llibreria en format JAR que tinguem al directori <sc>libs</sc></p>
+</aside>
+<ol type="1" start="4">
+<li>Obre la finestra Gradle (<sc>View</sc> &gt; <sc>Tool Windows</sc> &gt; <sc>Gradle</sc>) i refresca el projecte clicant la icona <img style="width: 14.00px" src="img/6a40bf9974c5a90e.png"></li>
+</ol>
+<h2 is-upgraded>Usa la llibreria</h2>
+<p>Ja pots usar la llibreria al projecte:</p>
+<pre><sc>Banner.println(123456);</sc></pre>
+<p>Et demanarà que incloguis la llibreria <sc>Banner</sc> al <sc>classpath</sc>:</p>
+<p class="image-container"><img style="width: 394.00px" src="img/d80e949596a19a20.gif"></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>

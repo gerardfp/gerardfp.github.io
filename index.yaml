@@ -1,0 +1,248 @@
+title: "inici"
+items:
+  dam:
+    title: "CFGS Desenvolupament d'aplicacions multiplataforma"
+    items:
+      m3:
+        title: "M3 - Programació bàsica"
+        items:
+          uf1:
+            title: "UF1 - Programacio estructurada"
+            items:
+              examens:
+                title: "Examens"
+                items:
+                  dam-m3-uf1-examen:   
+                    tags: [programacio, android, java]
+              android:
+                tags: [programacio, android, java]
+              blocks:         
+                tags: [programacio, android, java]
+              input:
+                tags: [programacio, android, java]
+          uf2:
+            title: "UF2 - Programacio modular"
+            items:
+              github:      
+                tags: [programacio, android, java]
+              junit:
+                tags: [programacio, android, java]
+          uf3:
+            title: "Acces a fitxers"
+      m6:
+        title: "M6 - Acces a dades"
+        items:
+          uf1:
+            title: "UF1 - Acces a fitxers"
+          uf2:
+            title: "UF2 - BBDD OR"
+          uf3:
+            title: "UF3 - BBDD XML"
+            items:
+              firebase2:
+                tags: [programacio, android, java]
+      m8:
+        title: "M8 - Programació de dispositius mòbils"
+        items:
+          uf1:
+            title: "UF1 - Programació mòbils"
+          uf2:
+            title: "UF2 - Programació multimèdia"
+  asix:
+    title: "CFGS Administració de sistemes informàtics en xarxa"
+    items:
+      m8:
+        title: "M8 - Serveis de xarxa i internet"
+        items:
+          uf1:
+            title: "UF1 - Servidor dns i dhcp"
+          uf2:
+            title: "UF2 - Servidor web"
+            items:
+              docker: 
+                tags: [programacio, android, java]
+          uf3: 
+            title: "UF3 - Servidor de correu i missatgeria"
+          uf4:
+            title: "UF4 - Servidor de vídeo i àudio"
+  daw:
+    title: "CFGS Administració de sistemes informàtics en xarxa"
+    items:
+      m8:
+        title: "M8 - Desplegament d'aplicacions"
+        items:
+          uf1:
+            title: "UF1 - Servidor web"
+          uf2:
+            title: "UF2 - Servidor d'aplicacions"
+          uf3:
+            title: "UF3 - Servidor DNS"
+          uf4:
+            title: "UF4 - Control de versions"
+  smx:
+    title: "CFGM Sistemes microinformàtics i xarxes"
+    items:
+      m8:
+        title: "M8 - Aplicacions web"
+        items:
+          uf1:
+            title: "UF1 - Servidor web"
+          uf2:
+            title: "UF2 - Gestor de continguts"
+          uf3:
+            title: "UF3 - Gestor d'aprenentatge"
+            items:
+              moodle:
+                tags: [programacio, android, java]
+          uf4:
+            title: "UF4 - Gestor de fitxers"
+          uf5:
+            title: "UF5 - Aplicacions ofimàtiques"
+          uf6:
+            title: "UF6 - HTML i CSS"
+materials:
+
+
+      
+  objectes:
+    tags: [programacio, android, java]
+            
+  retrofit:
+    tags: [programacio, android, java]
+        
+  storage:
+    tags: [programacio, android, java]
+         
+  webforum:
+    tags: [programacio, android, java]
+
+  apps:
+    tags: [programacio, android, java]
+            
+  chatbot:
+    tags: [programacio, android, java]
+        
+  datetime:
+    tags: [programacio, android, java]
+            
+  einesgoogle:
+    tags: [programacio, android, java]
+      
+  firestore:
+    tags: [programacio, android, java]
+  
+  gradle:
+    tags: [programacio, android, java]
+      
+  intellij:
+    tags: [programacio, android, java]
+      
+  libgdx:
+    tags: [programacio, android, java]
+    
+  mvvm:
+    tags: [programacio, android, java]
+        
+  persistence:
+    tags: [programacio, android, java]
+         
+  room:
+    tags: [programacio, android, java]
+            
+  webaccounts:
+    tags: [programacio, android, java]
+     
+  weblms:
+    tags: [programacio, android, java]
+
+  arrays:
+    tags: [programacio, android, java]
+          
+  cheat:
+    tags: [programacio, android, java]
+          
+  daw-m8-dockerwp:
+    tags: [programacio, android, java]
+     
+  elementshtml:
+    tags: [programacio, android, java]
+     
+  flowchart:
+    tags: [programacio, android, java]
+  
+  htmllayout:
+    tags: [programacio, android, java]
+  
+  javadoc:
+    tags: [programacio, android, java]
+       
+  livedata:
+    tags: [programacio, android, java]
+  
+  navigation:
+    tags: [programacio, android, java]
+  
+  publishgithubpages:
+    tags: [programacio, android, java]
+  
+  seleccio:
+    tags: [programacio, android, java]
+        
+  webapps:
+    tags: [programacio, android, java]
+         
+  webtasks:
+    tags: [programacio, android, java]
+
+  authentication:  
+    tags: [programacio, android, java]
+  conversio:
+    tags: [programacio, android, java]      
+  daw-m8-virtmanager:
+    tags: [programacio, android, java]  
+  entorndetreball:
+    tags: [programacio, android, java]  
+  format:
+    tags: [programacio, android, java]     
+  inicicss:
+    tags: [programacio, android, java]    
+  javatutorial:
+    tags: [programacio, android, java]  
+  loops:
+    tags: [programacio, android, java]     
+  nextcloud:
+    tags: [programacio, android, java]   
+  recyclerview:
+    tags: [programacio, android, java]        
+  setupwebserver:
+    tags: [programacio, android, java]  
+  webcms:
+    tags: [programacio, android, java]          
+  webtech:
+    tags: [programacio, android, java]
+  aws:
+    tags: [programacio, android, java]             
+  cssanimations:
+    tags: [programacio, android, java]  
+  debugger:
+    tags: [programacio, android, java]            
+  firebase:
+    tags: [programacio, android, java]         
+  fragments:
+    tags: [programacio, android, java]  
+  inicihtml:
+    tags: [programacio, android, java]   
+  jsonmapping:
+    tags: [programacio, android, java]   
+  matrius:
+    tags: [programacio, android, java]   
+  nginx:
+    tags: [programacio, android, java]       
+  refactoring:
+    tags: [programacio, android, java]         
+  springboot:
+    tags: [programacio, android, java]      
+  webfilemanager:
+    tags: [programacio, android, java]  
+  wordpress:
+    tags: [programacio, android, java]

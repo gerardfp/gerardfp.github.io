@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<!--meta {urls: [dam/m3/uf1], tags: [programacio, java]}-->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<style>
+    body * {
+        line-height: normal;
+    }
+
+    sample shell {
+        margin-bottom: .4em;
+    }
+
+    li > ul {
+        margin-bottom: auto;
+    }
+
+    body w {
+        font-size: 14px;
+    }
+
+    expl {
+        display: block;
+        background-color: #efefef;
+        border-radius: 4px;
+        padding: 1em;
+    }
+
+    var {
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-style: italic;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+
+    details {
+        background-color: rgb(255, 253, 158);
+        padding: 1em;
+        border-radius: 4px;
+    }
+
+    summary {
+        list-style: none;
+        color: #999;
+        cursor: pointer;
+    }
+
+    summary ic::after {
+        content: ' clica aquí...';
+        font-family: Arial, Helvetica, sans-serif;
+        font-style: italic;
+        font-size: 0.8em;
+    }
+
+    hh3 {
+        display: block;
+        font-weight: bold;
+        margin: 1.4em 0 0.8em 0;
+        font-size: 1.4em;
+    }
+    
+    hh4 {
+        display: block;
+        margin: 1em 0 0.6em 0;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #666;
+    }
+</style>
+
+<nav></nav>
+<header>
+  <h1>ASIX/DAM-M3-UF1: Examen parcial</h1>
+  <abstract>
+      <ul>
+          <li><p>L'examen consta de 5 exercicis</p></li>
+          <li>
+              <p>S'han d'entregar 5 arxius <w>.java</w> amb els noms:</p>
+                <ul>
+                    <li><p><w>E1.java</w></p></li>
+                    <li><p><w>E2.java</w></p></li>
+                    <li><p><w>E3.java</w></p></li>
+                    <li><p><w>E4.java</w></p></li>
+                    <li><p><w>E5.java</w></p></li>
+                </ul>
+        </li>
+        <li><p>Cada exercici té una puntuació de 2.5</p></li>
+        <li>Per a la nota final de l'examen comptaran els 4 exercicis amb millor puntuació.</li>
+      </ul>
+  </abstract>
+</header>
+
+<section>
+    <h2>Exercici 1: Train-Bird</h2>
+
+    <img src="img/birdtrain.gif">
+
+    <p>El problema "A train and a bird" diu així</p>
+    
+    <p><em>Un tren es troba a 20km de l'estació i s'aproxima a 10km/h cap a l'estació.<br>
+        Al mateix temps, un ocell vola a 30km/h des de l'estació en direcció al tren. <br>
+        Quan l'ocell arriba fins al tren, dona mitja volta i torna cap a l'estació,<br> 
+        i quan arriba a l'estació fa una altra vegada mitja volta fins al tren...<br> 
+        i així fins que el tren arriba a l'estació.</em></p>
+    
+    <p>Quants kms recorrerà l'ocell fins que el tren arribi a l'estació?</p>
+
+   
+
+    <hh3>Format d'entrada</hh3>
+    <p>L'entrada consisteix en tres nombres decimals:</p>
+
+    <ul>
+        <li><p>Distància del tren a l'estació</p></li>
+        <li><p>Velocitat del tren</p></li>
+        <li><p>Velocitat de l'ocell</p></li>
+    </ul>
+
+    <hh3>Format de sortida</hh3>
+    <p>S'imprimirà la distància recorreguda per l'ocell en format <w>float</w></p>
+
+    <hh3>Suggerència per a la solució</hh3>
+    <details>
+        <summary><ic>&#xf0eb;</ic> </summary>
+        <p>En primer lloc cal esbrinar el temps que triga el tren en arribar a l'estació.</p>
+        <p>Després, segons aquest temps i la velocitat a la que vola l'ocell, es calcula la distància recorreguda per l'ocell.</p>
+    </details>
+
+    <hh3>Casos de prova</hh3>
+    <sample>
+        <hh4>Cas de prova 1</hh4>
+        <shell>
+            <in>10
+            10
+            30</in>
+        </shell>
+        <shell>
+            30.0
+        </shell>
+        <expl>
+            El tren trigarà 1 hora en arribar. L'ocell en 1 hora recorrerà 30 kms.
+        </expl>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 2</hh4>
+        <shell>
+            <in>50
+            10
+            100</in>
+        </shell>
+        <shell>
+            500.0
+        </shell>
+        <expl>
+            El tren trigarà 5 hores en arribar. L'ocell en 5 hores recorrerà 500 kms.
+        </expl>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 3</hh4>
+        <shell>
+            <in>15
+            30
+            80</in>
+        </shell>
+        <shell>
+            40.0
+        </shell>
+    </sample>
+    
+
+    <sample>
+        <hh4>Cas de prova 4</hh4>
+        <shell>
+            <in>32,5
+            65
+            55,5</in>
+        </shell>
+        <shell>
+            27.75
+        </shell>
+    </sample>
+    
+</section>
+
+
+
+
+
+
+
+<section>
+    <h2>Exercici 2: Inode flags</h2>
+    <p>Un arxiu de Linux té una sèrie d'atributs que es poden activar o desactivar amb la comanda <w>chattr</w>.</p>
+
+    <p>Els atributs que té activats/desactivats un arxiu es guarden amb una estructura anomenada <strong>bit-field</strong>:</p>
+    <ul>
+        <li>
+            <p>A cada atribut li correspon una puntuació.</p>
+        </li>
+        <li>    
+            <p>El <strong>bit-field</strong> és la suma de les puntuacions dels atributs que estan activats.</p>
+        </li>
+    </ul>
+
+    <p>Els atributs que pot tenir un arxiu, i les seves puntuacions, són:</p>
+
+    <sc none>
++-------------------+-----------+---------------------------------+
+|        Nom        | Puntuació |           Descripció            |
++-------------------+-----------+---------------------------------+
+| EXT4_SECRM_FL     |         1 | Secure deletion                 |
+| EXT4_UNRM_FL      |         2 | Undelete                        |
+| EXT4_COMPR_FL     |         4 | Compress file                   |
+| EXT4_SYNC_FL      |         8 | Synchronous updates             |
+| EXT4_IMMUTABLE_FL |        16 | Immutable file                  |
+| EXT4_APPEND_FL    |        32 | writes to file may only append  |
+| EXT4_NODUMP_FL    |        64 | do not dump file                |
+| EXT4_NOATIME_FL   |       128 | do not update atime             |
++-------------------+-----------+---------------------------------+
+    </sc>
+
+    <p>Per exemple: si un arixu té activats els atributs <w>EXT4_UNRM_FL</w> i <w>EXT4_APPEND_FL</w>, 
+        el seu <em>bit-field</em> serà <strong>34</strong>, que és la suma de la puntuació <strong>2</strong> de 
+        <w>EXT4_UNRM_FL</w> més la puntuació <strong>32</strong> de <w>EXT4_APPEND_FL</w>.
+    </p>
+
+    <p>Escriu un programa que a partir del <strong>bit-field</strong> d'un fitxer imprimeixi els atributs que té activats.</p>
+
+   
+
+
+    <hh3>Format d'entrada</hh3>
+    <p>L'entrada consisteix en un número enter que representa el <strong>bit-field</strong> d'un arxiu.</p>
+
+    <hh3>Format de sortida</hh3>
+    <p>S'imprimirà el <strong>Nom</strong> dels atributs que té activats el fitxer en ordre de major a menor puntuació:</p>
+
+    
+    <sc none>
+        EXT4_NOATIME_FL
+        EXT4_NODUMP_FL
+        EXT4_APPEND_FL
+        EXT4_IMMUTABLE_FL
+        EXT4_SYNC_FL
+        EXT4_COMPR_FL
+        EXT4_UNRM_FL
+        EXT4_SECRM_FL
+    </sc>
+
+    <hh3>Suggerència per a la solució</hh3>
+    <details>
+        <summary><ic>&#xf0eb;</ic></summary>
+        
+        <p>Un possible solució al problema consisteix en tractar de restar al <em>bit-field</em> la puntuació de 
+            cada atribut (de més puntuació a menys).</p>
+        <p>Si es pot restar sense que quedi un número negatiu, aleshores és que té aquell atribut activat.</p>
+        <p>Per exemple: suposem que el bit-field es <strong>34</strong>:
+        <ul>
+            <li><p>tractem de restar 128: no es pot</p></li>
+            <li><p>tractem de restar 64: no es pot</p></li>
+            <li><p>tractem de restar 32: sí que es pot. Imprimim <w>EXT4_APPEND_FL</w>. Li restem 32 i queda <strong>2</strong></p></li>
+            <li><p>tractem de restar 16: no es pot</p></li>
+            <li><p>tractem de restar 8: no es pot</p></li>
+            <li><p>tractem de restar 4: no es pot</p></li>
+            <li><p>tractem de restar 2: sí que es pot. Imprimim <w>EXT4_UNRM_FL</w>. Li restem 2 i queda <strong>0</strong></p></li>
+            <li><p>tractem de restar 1: no es pot</p></li>
+        </ul>
+    </details>
+
+    <hh3>Casos de prova</hh3>
+
+    <sample>
+        <hh4>Cas de prova 1</hh4>
+        <shell><in>10</in></shell>
+        <shell>
+            EXT4_SYNC_FL
+            EXT4_UNRM_FL
+        </shell>
+        <expl>
+            10 = 8 + 2<br><br>
+            <m>
+                EXT4_SYNC_FL  8<br>
+                EXT4_UNRM_FL  2
+            </m>
+        </expl>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 2</hh4>
+        <shell><in>11</in></shell>
+        <shell>
+            EXT4_SYNC_FL
+            EXT4_UNRM_FL
+            EXT4_SECRM_FL
+        </shell>
+        <expl>11 = 8 + 2 + 1</expl>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 3</hh4>
+        <shell><in>23</in></shell>
+        <shell>
+            EXT4_IMMUTABLE_FL
+            EXT4_COMPR_FL
+            EXT4_UNRM_FL
+            EXT4_SECRM_FL
+        </shell>
+        <expl>23 = 16 + 4 + 2 + 1</expl>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 4</hh4>
+        <shell><in>31</in></shell>
+        <shell>
+            EXT4_IMMUTABLE_FL
+            EXT4_SYNC_FL
+            EXT4_COMPR_FL
+            EXT4_UNRM_FL
+            EXT4_SECRM_FL
+        </shell>
+        <expl>31 = 16 + 8 + 4 + 2 + 1</expl>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 5</hh4>
+        <shell><in>170</in></shell>
+        <shell>
+            EXT4_NOATIME_FL
+            EXT4_APPEND_FL
+            EXT4_SYNC_FL
+            EXT4_UNRM_FL
+        </shell>
+        <expl>170 = 128 + 32 + 8 + 2</expl>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 6</hh4>
+        <shell><in>255</in></shell>
+        <shell>
+            EXT4_NOATIME_FL
+            EXT4_NODUMP_FL
+            EXT4_APPEND_FL
+            EXT4_IMMUTABLE_FL
+            EXT4_SYNC_FL
+            EXT4_COMPR_FL
+            EXT4_UNRM_FL
+            EXT4_SECRM_FL
+        </shell>
+        <expl>255 = 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1</expl>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 7</hh4>
+        <shell><in>1</in></shell>
+        <shell>
+            EXT4_SECRM_FL
+        </shell>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 8</hh4>
+        <shell><in>64</in></shell>
+        <shell>
+            EXT4_NODUMP_FL
+        </shell>
+    </sample>
+
+</section>
+
+
+<section>
+    <h2>Exercici 3: Dintre de termini</h2>
+
+    <p>Donades tres dates, digues si la segona és posterior a la primera i anterior a la tercera.</p>
+
+    <hh3>Format d'entrada</hh3>
+    <p>L'entrada consisteix en tres dates en format <w>dd / mm / yyyy</w>.</p>
+    <p>Les tres dates són distintes.</p>
+
+    <hh3>Format de sortida</hh3>
+    <p>S'imprimirà <w>true</w> si la segona data és posterior a la primera i anterior a la tercera, i <w>false</w> en cas contrari.</p>
+    
+    
+    <hh3>Suggerència per a la solució</hh3>
+    <details>
+        <summary><ic>&#xf0eb;</ic> </summary>
+        <p>Cal llegir el dia, mes i any de cada data amb <w>nextInt()</w>. S'hauràn de descartar les barres <w>/</w> amb <w>next()</w>.</p>
+        <p>Una possible idea per a la solució és presuposar que la segona data està enmig, 
+            i després veure si es compleix alguna condició que impliqui que realment no està enmig.
+        </p>
+
+        <sc java>
+            // suposem que està enmig
+            boolean enmig = true;
+
+            // mirem si hi ha alguna condició
+            // que contradigui la presuposició incial
+            if (any1 > any2) {
+                enmig = false;
+            } else if (any2 > any3) {
+                enmig = false;
+            }
+            // resta de condicions
+            
+            // imprimim el resultat
+            System.out.println(enmig);
+        </sc>
+    </details>
+
+
+    <hh3>Casos de prova</hh3>
+    <sample>
+        <hh4>Cas de prova 1</hh4>
+        <shell>
+            <in>7 / 1 / 1999      17 / 10 / 2050      7 / 1 / 2020</in>
+        </shell>
+        <shell>
+            false
+        </shell>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 2</hh4>
+        <shell>
+            <in>7 / 1 / 2050      7 / 12 / 2050      27 / 12 / 2050</in>
+        </shell>
+        <shell>
+            true
+        </shell>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 3</hh4>
+        <shell>
+            <in>7 / 10 / 2050      17 / 10 / 2020      7 / 1 / 2050 </in>
+        </shell>
+        <shell>
+            false
+        </shell>
+    </sample>
+    <sample>
+        <hh4>Cas de prova 4</hh4>
+        <shell>
+            <in>17 / 10 / 1999      7 / 1 / 2020      7 / 1 / 2050 </in>
+        </shell>
+        <shell>
+            true
+        </shell>
+    </sample>
+    <sample>
+        <hh4>Cas de prova 5</hh4>
+        <shell>
+            <in>17 / 12 / 2020      7 / 12 / 2020      27 / 10 / 1999 </in>
+        </shell>
+        <shell>
+            false
+        </shell>
+    </sample>
+    <sample>
+        <hh4>Cas de prova 6</hh4>
+        <shell>
+            <in>27 / 12 / 2020      7 / 1 / 2050      7 / 10 / 2050</in>
+        </shell>
+        <shell>
+            true
+        </shell>
+    </sample>
+
+</section>
+
+
+
+<section>
+    <h2>Exercici 4: Parèntesis</h2>
+    <p>Els parèntesis permeten definir l'ordre de les operacions en una expressió.</p>
+
+    <p>Per exemple: <w>3 * ( 2 + 4 )</w> és distint a <w>( 3 * 2 ) + 4</w></p>
+        
+    <p>Els parèntesis han d'estar ben emparellats: un pàrentesi que s'obre s'ha de tancar, 
+        i no es pot tancar un parèntesi si no s'ha obert abans.</p>
+        
+    <p>Volem fer un programa que ens indiqui si hi ha algun error d'emparellament de parèntesis en una 
+        expressió. El prorgama informarà de:</p>
+        
+    <ul>
+        <li><p>Cada parèntesi tancat que no s'hagi obert prèviament, indicant la posició d'aquest parèntesi</p></li>
+        <li><p>La quantitat de parèntesis oberts que no s'hagin tancat</p></li>
+    </ul>
+    
+    
+
+    <hh3>Format d'entrada</hh3>
+    
+    <p>L'entrada consisteix en una expressió. Els elements de l'expressió estan separats per espais en blanc.</p>
+    <p>L'expressió finalitza amb la paraula <w>END</w>.</p>
+        
+    <hh3>Format de sortida</hh3>
+    <p>S'imprimirà:</p>
+
+    <p><w>ERROR: parentesi {posicio} mal tancat</w> per cada parèntesi mal tancat, on <w>{posicio}</w> és la posició d'aquest parèntesi</p>
+    
+    <p><w>ERROR: falta tancar {quantitat} parentesis</w> si hi ha parèntesis per tancar, on <w>{quantitat}</w> és la quantitat de parèntesis que falta tancar</p>
+    
+    <p>Si els parèntesis estan ben emparellats, no s'ha d'imprimir res.</p>
+
+    <hh3>Suggerència per a la solució</hh3>
+    <details>
+        <summary><ic>&#xf0eb;</ic></summary>
+        
+        <p>Un possible solució al problema consisteix en:</p>
+        <ul>
+            <li><p>Crear tres comptadors:</p>
+                <ul>
+                    <li><p>un per als parèntesis <w>oberts</w></p></li>
+                    <li><p>un per als <w>tancats</w></p></li>
+                    <li><p> un per al <w>total</w> 
+                        de parèntesis (oberts i tancats)</p></li>
+                </ul>
+            </li>
+            <li>
+                <p>Aleshores, es van llegint una a una les paraules de l'expressió.</p>
+                <ul>
+                    <li><p>Si la paraula llegida es un parèntesi obert <w>(</w></p>
+                        <ul>
+                            <li><p>es suma 1 al comptador de parèntesis <w>oberts</w></p></li>
+                            <li><p>també es suma 1 al <w>total</w> de parèntesis.</p></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Si es llegeix un parèntesi tancat <w>)</w></p>
+                        <ul>
+                            <li><p>es suma 1 al de <w>tancats</w></p></li>
+                            <li><p>es suma 1 al de <w>total</w></p></li>
+                            <li><p>A més a més, mirem si el comptador de <w>tancats</w> és major al d'<w>oberts</w></p>
+                                <ul><li>si és així, és que hi ha un error de parèntesi mal tancat. Imprimim l'error, 
+                                    i restem 1 al comptador de <w>tancats</w></li></ul> 
+
+                        </ul>
+                    </p>
+                    </li>
+                </ul>
+            </li>
+            <li>Un cop s'ha acabat de llegir tota l'expressió, s'haurien d'haver comptat el mateix número d'<w>oberts</w> 
+                que de <w>tancats</w>. Si no és així, és que falten parèntesis per tancar.</li>
+                
+        </p></li>
+        </ul>
+    </details>
+
+    <hh3>Casos de prova</hh3>
+    <sample>
+    <hh4>Cas de prova 1</hh4>
+    <shell>
+        <in>( 2 + 1 ) * 4     END</in>
+    </shell>
+    <p>Els parèntesis estan ben emparellats. No s'imprimeix res.</p>
+    </sample>
+
+    <sample>
+    <hh4>Cas de prova 2</hh4>
+    <shell>
+        <in>( ( 2 + 1 ) * 4 )    END</in>
+    </shell>
+    <p>Els parèntesis estan ben emparellats. No s'imprimeix res.</p>
+    </sample>
+
+    <sample>
+    <hh4>Cas de prova 3</hh4>
+    <shell>
+        <in>2 + 1 ) * 4     END</in>
+    </shell>
+    <shell>ERROR: parentesi 1 mal tancat</shell>
+    </sample>
+
+    <sample>
+    <hh4>Cas de prova 4</hh4>
+    <shell>
+        <in>( 2 + 1 ) * 4 )     END</in>
+    </shell>
+    <shell>ERROR: parentesi 3 mal tancat</shell>
+    </sample>
+
+    <sample>
+    <hh4>Cas de prova 5</hh4>
+    <shell>
+        <in>2 + 1 ) * 4 )     END</in>
+    </shell>
+    
+    <shell>
+        ERROR: parentesi 1 mal tancat
+        ERROR: parentesi 2 mal tancat
+    </shell>
+</sample>
+    <sample>
+    <hh4>Cas de prova 6</hh4>
+    <shell>
+        <in>( 2 + 1 ) * 4 )     END</in>
+    </shell>
+    
+    <shell>ERROR: parentesi 3 mal tancat</shell>
+</sample>
+    <sample>
+    <hh4>Cas de prova 7</hh4>
+    <shell>
+        <in>( 2 + 2 ) * 3 ) + ( 3 + 2 ) * 3 )        END</in>
+    </shell>
+    
+    <shell>
+        ERROR: parentesi 3 mal tancat
+        ERROR: parentesi 6 mal tancat
+    </shell>
+</sample>
+    <sample>
+    <hh4>Cas de prova 8</hh4>
+    <shell>
+        <in>( 2 + 1 * 4     END</in>
+    </shell>
+    
+    <shell>
+        ERROR: falta tancar 1 parentesis
+    </shell>
+</sample>
+
+    <sample>
+    <hh4>Cas de prova 9</hh4>
+    <shell>
+        <in>( 2 + ( 1 * 4     END</in>
+    </shell>
+    
+    <shell>
+        ERROR: falta tancar 2 parentesis
+    </shell>
+</sample>
+    <sample>
+    <hh4>Cas de prova 10</hh4>
+    <shell>
+        <in>( 2 + ( 1 + ( 3 * 4 )     END</in>
+    </shell>
+    
+    <shell>
+        ERROR: falta tancar 2 parentesis
+    </shell>
+    <sample>
+    </sample>
+    <hh4>Cas de prova 11</hh4>
+    <shell>
+        <in>( 2 * ( 2 * ( 2 - 2 ) * ( 2 - 2 )   END</in>
+    </shell>
+    
+    <shell>
+        ERROR: falta tancar 2 parentesis
+    </shell>
+</sample>
+    <sample>
+    <hh4>Cas de prova 12</hh4>
+    <shell>
+        <in>2 - ( 2 * 2 ) + ( 2 - 2      END</in>
+    </shell>
+    </sample>
+    <shell>ERROR: falta tancar 1 parentesis</shell>
+</sample>
+    <sample>
+    <hh4>Cas de prova 13</hh4>
+    <shell>
+        <in>2 - ( 2 * 2 ) ) * ( 2 + 2     END</in>
+    </shell>
+    
+    <shell>
+        ERROR: parentesi 3 mal tancat
+        ERROR: falta tancar 1 parentesis
+    </shell>
+</sample>
+
+    <sample>
+    <hh4>Cas de prova 14</hh4>
+    <shell>
+        <in>2 * 2 ) + ( 2 - 2       END</in>
+    </shell>
+    
+    <shell>
+        ERROR: parentesi 1 mal tancat
+        ERROR: falta tancar 1 parentesis
+    </shell>
+</sample>
+</section>
+
+<section>
+    <h2>Exercici 5: Black Friday</h2>
+    <p>Arriba el Black Friday i s'han d'apujar els preus!</p>
+
+    <p>Escriu un programa que apuji el preu dels productes un tant per cent determinat.</p>
+
+
+
+    <hh3>Format d'entrada</hh3>
+    
+    <p>L'entrada consisteix en vàries sèries de productes.</p>
+    <p>Per a cada sèrie s'indica el número de productes <var>N</var> 
+        i el tant per cent <var>T</var> que s'han d'apujar els seus preus.</p>
+    <p>A continuació venen els productes de la sèrie. Per a cada producte s'indica el seu codi <var>C</var> i preu <var>P</var>.</p>
+
+    <ul>
+        <li><p><var>N</var>: enter</p></li>
+        <li><p><var>T</var>: decimal</p></li>
+        <li><p><var>C</var>: paraula</p></li>
+        <li><p><var>P</var>: decimal</p></li>
+    </ul>
+
+    
+    <p>L'entrada acaba amb dos zeros.</p>
+        
+    <hh3>Format de sortida</hh3>
+    <p>S'imprimirà cada producte en una nova línia: el codi i el preu apujat.</p>
+
+    <hh3>Suggerència per a la solució</hh3>
+    <details>
+        <summary><ic>&#xf0eb;</ic></summary>
+        
+        <p>En aquest problema cadrà fer dos bucles niats (un dintre de l'altre). L'exterior es repetirà fins trobar dos zeros
+            a l'entrada. L'interior es repetirà tantes vegades com productes hi hagi en la sèrie.
+    </details>
+
+    <hh3>Casos de prova</hh3>
+
+    <sample>
+        <hh4>Cas de prova 1</hh4>
+        <shell>
+            <in>2 5
+            HW_Hled2 100
+            KLM_403G 10
+            
+            3 10
+            yCat9000 1000
+            SK8_Plus 500
+            TK_CPANA 100
+            
+            0 0</in>
+        </shell>
+        <shell>
+            HW_Hled2 105.0
+            KLM_403G 10.5
+            yCat9000 1100.0
+            SK8_Plus 550.0
+            TK_CPANA 110.0
+        </shell>
+        <expl>
+            Els primers 2 productes s'apujen un 5%<br>
+            Els següents 3 productes s'apujen un 10%
+        </expl>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 2</hh4>
+        <shell>
+            <in>2 15
+            UE_Boom_2 59
+            Ezviz_C3T 34,99
+
+            3 10
+            Beko_BSSA2 181,35
+            HP_M404dn 161,60
+            Epson_EH_TW610 599
+            
+            0 0</in>
+        </shell>
+        <shell>
+            UE_Boom_2 67.85
+            Ezviz_C3T 40.238503
+            Beko_BSSA2 199.485
+            HP_M404dn 177.76001
+            Epson_EH_TW610 658.9
+        </shell>
+        <expl>
+            Els primers 2 productes s'apujen un 15%<br>
+            Els següents 3 productes s'apujen un 10%
+        </expl>
+    </sample>
+
+    <sample>
+        <hh4>Cas de prova 3</hh4>
+        <shell>
+            <in>5 3,33
+            Mi_TV_4S 349
+            Mi_Band_4 19
+            Nest_Mini2 19
+            IdeaPad_3 649
+            A51_5G 289
+
+            3 7
+            Cyclone_V10 399
+            iPhone_11 584
+            TV_QLED_65 1299
+
+            2 13
+            HW_T530 149
+            MediaPad_M5 175
+
+            0 0</in>
+        </shell>
+        <shell>
+            Mi_TV_4S 360.6217
+            Mi_Band_4 19.6327
+            Nest_Mini2 19.6327
+            IdeaPad_3 670.6117
+            A51_5G 298.6237
+            Cyclone_V10 426.93
+            iPhone_11 624.88
+            TV_QLED_65 1389.93
+            HW_T530 168.37
+            MediaPad_M5 197.75
+        </shell>
+        <expl>
+            Els primers 5 productes s'apujen un 3,33%<br>
+            Els següents 3 productes s'apujen un 7%<br>
+            Els següents 2 productes s'apujen un 13%<br>
+        </expl>
+    </sample>
+    
+</section>

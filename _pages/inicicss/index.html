@@ -1,0 +1,120 @@
+<!--meta {urls: [smx/m8/uf6], tags: [web,css]}-->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+
+<header>
+    <h1>Inici amb CSS</h1>
+
+    <resum>En aquesta pràctica començarem amb els fonaments bàsics de CSS.</resum>
+
+    <p>Segueix aquests tutorials de la <strong>Mozilla Developer Network</strong>:</p>
+   
+    <ul>
+        <li><a href="https://developer.mozilla.org/ca/docs/Learn/HTML/Introducci%C3%B3_al_HTML/Fonaments_de_text_HTML">
+            Fonaments de text HTML
+            </a>
+        <li><a href="https://developer.mozilla.org/ca/docs/Learn/HTML/Introducci%C3%B3_al_HTML/Crear_hipervincles">
+            Crear hipervincles
+            </a>
+        <li><a href="https://developer.mozilla.org/ca/docs/Learn/CSS/First_steps/Que_es_el_CSS">
+            Què és el CSS?
+            </a>
+        <li><a href="https://developer.mozilla.org/ca/docs/Learn/CSS/First_steps/Com_comen%C3%A7ar_amb_CSS">
+            Com començar amb CSS
+            </a>
+        <li><a href="https://developer.mozilla.org/ca/docs/Learn/CSS/First_steps/Com_estructurar_el_CSS">
+            Com estructurar el CSS
+            </a>
+    </ul>
+</header>
+<section>
+    <h2>Desenvolupament de la pràctica</h2>
+    <p>La pràctica consisteix a crear una web de receptes de cuina (podeu agafar les receptes de <a href="https://catalunyacuina.com/">CatalunyaCuina</a>).</p>
+    <check>Aquesta web s'haurà de <a href="/publishgithubpages/?replace-nom-repository=smx-m8-a16">publicar a GitHub Pages</a> amb el nom <name>smx-m8-uf5-practica3</name></check>
+    <check>S'haurà de <a href="/setupwebserver/?replace-nom-contenidor=a16">preparar un servidor web local</a>, per al desenvolupament de la web.</check>
+    <check>El desenvolupament de la web haurà de complir, al menys, els següents criteris:</check>
+    <ul>
+        <li>
+            Una pàgina principal on estigui la llista de receptes (<w>&lt;ul&gt;</w> o <w>&lt;ol&gt;</w>):
+            <ul>
+                <li>Aquesta llista ha d'estar imbrincada, classificant les receptes en categories
+                <li>Cada element de la llista ha d'enllaçar a una altra pàgina on es trobi la recepta.
+            </ul>
+        </li>
+        <li>
+            S'haurà de fer la pàgina de, com a mínim, dues receptes. Han de tenir:
+            <ul>
+                <li>Un títol principal
+                <li>Títols secundaris
+                <li>Paràgrafs.
+                <li>Imatges
+                <li>Una llista no ordenada amb els ingredients
+                <li>Una llista ordenada amb les passes a seguir per a la seva elaboració
+                <li>Enllaços a fragments (ingredients i passes)                 
+            </ul>
+        </li>
+        <li>
+            Caldrà donar estil a la pàgina utlitzant CSS:
+            <ul>
+                <li>
+                    S'hauran d'utilitzar les següents formes d'aplicació:
+                    <ul>
+                        <li>Fulls d'estil externs
+                        <li>Fulls d'estil interns
+                        <li>Estils en línia
+                    </ul>
+                </li>
+                <li>
+                    Caldrà utlitzar els següents selectors CSS:
+                    <ul>
+                        <li><w css><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Type_selectors">element</a></w> (exemple: <w css>p</w>)
+                        <li><w css><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Selector_list">element,element</a></w> (exemple: <w css>p, li</w>)
+                        <li><w css><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Class_selectors">.classe</a></w> (exemple: <w css>.especial</w>)
+                        <li><w css><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Class_selectors">element.classe</a></w> (exemple: <w css>li.especial</w>)
+                        <li><w css><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Descendant_combinator">element element</a></w> (exemple: <w css>li em</w>)
+                        <li><w css><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Adjacent_sibling_combinator">element + element</a></w> (exemple: <w css>h1 + p</w>)
+                    </ul>
+                </li>
+                <li>
+                    Caldrà utilitzar, al menys, les següents <strong>propietats</strong>:
+
+                    <ul>
+                        <li><w css>color</w>
+                        <li><w css>font-size</w>
+                        <li><w css>list-style-type</w>
+                        <li><w css>font-weight</w>
+                        <li><w css>text-decoration</w>
+                        <li><w css>background-color</w>
+                        <li><w css>padding</w>
+                        <li><w css>margin</w>
+                        <li><w css>width</w>
+                        <li><w css>height</w>
+                        <li><w css>border</w>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            L'organització dels fitxers i carpetes de la pàgina ha de ser:
+            <ul>
+                <li>El fitxer <file>index.html</file> (pàgina principal) ha d'estar a la carpeta arrel
+                <li>Els fitxers <file>.html</file> de les receptes han d'estar a la carpeta <folder>receptes</folder>
+                <li>El/s fitxer/s <file>.css</file> han d'estar a la carpeta <folder>css</folder>
+                <li>Les imatges han d'estar a la carpeta <folder>img</folder>
+            </ul>
+
+        </li>
+
+    </ul>
+      
+    <h3>Exemple</h3>
+    <h4>Pàgina principal</h4>
+    <img src="img/image7.png">
+    <h4>Pàgina d'una recepta</h4>
+    <img src="img/image8.png">
+</section>

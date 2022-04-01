@@ -4,16 +4,18 @@
   "description": "",
   "main": "build.js",
   "dependencies": {
-    "glob": "^7.1.6",
     "node-static": "",
-    "swig-templates": "^2.0.3"
+    "swig-templates": "^2.0.3",
+    "yaml": "2.0.0-11"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx nodemon -e json,js,thtml --exec 'node ./build.js && node serve.js'"
+    "dev": "npx nodemon -e json,js,thtml --exec 'node ./build.js && node serve.js'",
+    "serve": "npx nodemon -e json,js,thtml --exec 'node serve.js'",
+    "build": "node ./build.js"
   },
   "repository": {
     "type": "git",

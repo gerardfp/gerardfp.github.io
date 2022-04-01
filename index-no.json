@@ -1,0 +1,48 @@
+{
+    "url": "",
+    "title": "Inici",
+    "items": [
+        {
+            "url": "dam/m3",
+            "title": "DAM - M3 - Programació bàsica",
+            "tag": "programacio",
+            "items" : [
+                { "url": "javatutorial", "tag": "java"},
+                { "url": "objectes", "tag": "java"},
+                { "url": "conversio", "tag": "java"}
+            ]
+        },
+        {
+            "url": "dam/m6",
+            "title" : "DAM - M6 - Accés a dades",
+            "tag": "acces",
+            "items": [
+                {
+                    "title": "UF1 - Persistència en fitxers",
+                    "url": "uf1",
+                    "tag": "java",
+                    "items": [
+                        { "url": "persistence", "tag": "java"}
+                    ]
+                },
+                {
+                    "title": "UF2 - Persistència en BDR-OR-OO",
+                    "url": "uf2",
+                    "tag": "java",
+                    "items": [
+                        { "url": "springboot", "tag": "java"}
+                    ]
+                },
+                {
+                    "title": "UF3 - Persistència en BD Natives XML",
+                    "url": "uf3",
+                    "tag": "java",
+                    "items": [
+                        { "url": "firebase222", "tag": "java"}
+                    ]
+                },
+                { "url": "uf4", "title" : "UF4 - Components d'acces", "tag": "java"}
+            ]
+        }
+    ]
+}

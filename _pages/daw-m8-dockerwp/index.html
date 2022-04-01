@@ -1,0 +1,323 @@
+<!--meta {urls: [daw/m8/uf1], tags: [docker]}-->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav>
+<header>
+    <h1>Docker Wordpress</h1>
+</header>
+
+<section>
+
+    <h3>Instal·lar virt-manager</h3>
+   
+    <host>@host</host>
+    <shell>
+        sudo apt update
+        sudo apt install -y virt-manager
+    </shell>
+
+    <h3>Descarregar una imatge de disc dur virtual amb el Debian 11 preinstal·lat</h3>
+
+    <p>Fes click-dreta al següent enllaç i guarda l'arxiu amb el nom <name>debian-wordpress.qcow2</name></p>
+    <a href="https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-nocloud-amd64.qcow2">
+        https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-nocloud-amd64.qcow2
+    </a>
+
+    <p>Redimensionar el tamany del disc dur virtual (afegir 6 Gb)</p>
+
+    <host>@host</host>
+    <shell>
+        sudo qemu-img resize Descargas/debian-wordpress.qcow2 +6G
+    </shell>
+
+    <h3>Crear una màquina virtual</h3>
+
+    <p>Obrim <w>virt-manager</w> i anem a <mo>Archivo</mo><mo>Nueva máquina virtual</mo></p>
+
+    <p>Seleccionem l'opció <mo>Importar imagen de disco existente</mo> i fem click en <mo>Adelante</mo>
+
+    <p>Explorem la ruta de l'arxiu de disc dur virtual que hem descarregat abans. Fem click a 
+        <mo>Explorar...</mo> i després a <mo>Explorar localmente</mo>. Seleccionem l'arxiu <w>debian-11-nocloud-amd64.qcow2</w>
+    </p>
+    <p>A l'opció <mo>Choose the operating system"</mo> escrvim <name>Debian 10</name>, i fem click en <mo>Adelante</mo></p>
+
+    <p>Escollim la quatitat de memòria RAM i nuclis que utilitzarà la màquina virtual, i fem click en <mo>Adelante</mo></p>
+
+    <p>En la <mo>Selección de Red</mo> seleccionem l'opció <name>Red virtual 'default': NAT</name>, i fem click en <mo>Finalizar</mo></p>
+
+
+    <h3>Configuració de la màquina</h3>
+
+    <p>Obrim la màquina virtual, seleccionant-la i fent click a <mo>Abrir</mo></p>
+
+    <p>Ens loguegem amb l'usuari <w>root</w></p>
+
+    <p>Configurem el teclat instal·lant aquests paquets:</p>
+
+    <host>@virtual</host>
+    <shell>
+        apt update
+        apt install -y keyboard-configuration console-setup
+    </shell>
+
+    <info>
+        El caracter <w>-</w> el pots escriure prement la tecla <kbd>?</kbd>
+    </info>
+
+    <p>A la primera pantalla "Keyboard Layout" selecciona <mo>Other</mo> i després <mo>Spanish</mo> 
+        i <mo>Spanish - Catalan</mo></p>
+
+    <p>A la segona pantalla "Character set to support" seleciona <mo>Guess optimal character set</mo></p>
+
+    <h3>Accés per <w>ssh</w></h3>
+
+    <p>Comprova si a la màquina <w>host</w> tens generades un parell de claus:</p>
+
+    <host>@host</host>
+    <shell>
+        ls ~/.ssh/
+    </shell>
+
+    <p>Si apareixen dos arxius amb el mateix nom, però un d'ells amb l'extensió <w>.pub</w>, 
+    és que ja tens generades un parell de claus. Les pots aprofitar.</p>
+
+    <p>En cas contrari genera un parell de claus nou:</p>
+
+    <host>@host</host>
+    <shell>
+        ssh-keygen
+    </shell>
+
+    <p>Els següent pas es transferir la clau pública <w>.pub</w> a la màquina virtual</p>
+
+    <p>Primer esbrinem la IP de la màquina virtual:</p>
+
+    <host>@virtual</host>
+    <shell>
+        ip a
+    </shell>
+
+    <p>Utilitzant el programa <w>netcat / nc</w> posem a escoltar la màquina virtual a un port,
+    per exemple el <w>8000</w>. Les dades que es rebin per aquest port les enviarem al fitxer
+    <w>authorized_keys</w>:</p>
+
+    <host>@virtual</host>
+    <shell>
+        apt install -y netcat
+        mkdir ~/.ssh/
+        nc -l 8000 &gt; ~/.ssh/authorized_keys
+    </shell>
+
+    <p>Després, des del <w>host</w>, connectem a la màquina virtual i li enviem l'arxiu de 
+    clau pública <w>id_rsa.pub</w>:</p>
+
+    <host>@host</host>
+    <shell>
+        sudo apt install -y netcat
+        nc -N 192.168.122.<replace>XXX</replace> 8000 &lt; ~/.ssh/<replace>id_rsa.pub</replace>
+    </shell>
+
+    <warn>substitueix la IP per la de la màquina virtual, i l'arxiu de clau pública 
+        per el que correspongui.
+    </warn>
+
+    <p>Per últim genera les claus de màquina a la màquina virtual</p>
+
+    <host>@virtual</host>
+    <shell>
+        ssh-keygen -A
+    </shell>
+
+    <p>Reiniciem el servei <w>sshd</w>:</p>
+
+    <host>@virtual</host>
+    <shell>
+        systemctl restart sshd
+    </shell>
+
+    <p>I ja podem accedir per <w>ssh</w> a la màquina virtual:</p>
+
+    <host>@host</host>
+    <shell>
+        ssh root@192.168.122.<replace>XXX</replace>
+    </shell>
+</section>
+
+<section>
+    <h2>Crear un compte a Github</h2>
+
+    <p>Accedir a <a href="https://github.com/signup">https://github.com/signup</a> i seguir les passes
+    indicades.</p>
+
+    <h3>Generar un Personal access token</h3>
+
+    <p>Accedir a <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a>
+    i donar-li al botó <mo>Generate new token</mo>
+    </p>
+
+    <p>En el camp <mo>note</mo> escriure algo com <name>treball wordpress token</name></p>
+
+    <p>Marcar el checkbox <mo>repo</mo></p>
+
+    <p>Donar-li al botó <mo>Generate token</mo></p>
+
+    <p><b>Copia i desa aquest token</b> (te'l pots enviar per email). Aquest token serà la contrasenya d'accés.</p>
+
+    <h3>Fer un fork d'aquest repositori</h3>
+
+    <p>Accedeix al repositori <a href="https://github.com/gerardfp/docker-wp">https://github.com/gerardfp/docker-wp</a>
+        i fes un <em>fork</em></p>
+</section>
+
+<section>
+    <h2>Clonar el repositori a la màquina virtual</h2>
+
+    <p>Instal·la <w>git</w> a la màquina virtual:</p>
+
+    <host>@virtual</host>
+    <shell>
+        apt install -y git git-lfs
+    </shell>
+
+    <p>Configura el <b>teu</b> nom i el <b>teu</b> email</p>
+    <host>@virtual</host>
+    <shell>
+        git config --global user.name "<replace>gerard</replace>"
+        git config --global user.email "<replace>gerardfp@gmail.com</replace>"
+    </shell>
+
+    <p>Activa <w>git-lfs</w>:</p>
+    <host>@virtual</host>
+    <shell>
+        git lfs install
+    </shell>
+
+    <p>Clona el repositori:</p>
+
+    <host>@virtual</host>
+    <shell>
+        git clone https://<replace>personal_acces_token</replace>@github.com/<replace>username</replace>/docker-wp
+    </shell>
+
+    <warn>
+        <p>Substitueix el teu personal_acces_token i el teu nom d'usuari.</p>
+    </warn>
+</section>
+
+<section>
+    <h2>Instal·lar Docker en la màquina virtual</h2>
+
+    <p>Instal·la <w>docker</w></p>
+    <host>@virtual</host>
+    <shell>
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sh get-docker.sh
+    </shell>
+
+    <p>Instal·la <w>docker-compose</w></p>
+
+    <host>@virtual</host>
+    <shell>
+        curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        chmod +x /usr/local/bin/docker-compose
+    </shell>
+</section>
+
+<section>
+    <h2>Desplegar el Wordpress</h2>
+
+    <p>Accedeix a la carpeta <w>docker-wp</w>:</p>
+
+    <host>@virtual</host>
+    <shell>
+        cd docker-wp
+    </shell>
+
+    <p>Inicia els contenidors</p>
+    <host>@virtual</host>
+    <shell>
+        docker-compose up -d
+    </shell>
+</section>
+
+<section>
+    <h2>Configura el lloc wordpress</h2>
+
+    <p>Utilitza Firefox per a accedir al teu wordpress. Posa la IP de la màquina virtual i el port 8000</p>
+
+    <p><url>http://192.168.122.<replace>106</replace>:8000</url></p>
+
+    <warn>
+        <p>És possible que doni un error "Establishing database connection". Espera una estona i 
+            recarrega la pàgina.
+        </p>
+    </warn>
+</section>
+
+<section>
+    <h2>Guardar els canvis a Github</h2>
+
+    <p>Assegura't que estàs a la carpeta <w>docker-wp</w>:</p>
+    <host>@virtual</host>
+    <shell>
+        cd ~/docker-wp
+    </shell>
+
+    <p>Publica els canvis a github:</p>
+    <host>@virtual</host>
+    <shell>
+        git add .
+        git commit -a -m"tot canviat"
+        git push
+    </shell>
+
+    <p>Per a descarregar els canvis de github pots utilitzar:</p>
+    <host>@virtual</host>
+    <shell>
+        git pull
+    </shell>
+
+    <p>... o bé, també pots eliminar la carpeta, i tornar a clonar el repo:</p>
+    <host>@virtual</host>
+    <shell>
+        cd
+        rm -r docker-wp
+        git clone https://<replace>personal_acces_token</replace>@github.com/<replace>username</replace>/docker-wp
+    </shell>
+</section>
+
+<section>
+    <h2>Crear un plugin de prova</h2>
+
+    <p>Crea la carpeta i l'arxiu del plugin:</p>
+
+    <host>@virtual</host>
+    <shell>
+        mkdir ~/docker-wp/wp_data/wp-content/plugins/myplugin
+        nano ~/docker-wp/wp_data/wp-content/plugins/myplugin/myplugin.php
+    </shell>
+
+    <scfile>~/docker-wp/wp_data/wp-content/plugins/myplugin/myplugin.php</scfile>
+    <sc php>
+        &lt;?php
+        /**
+        * Plugin Name: My First Plugin
+        * Plugin URI: http://www.mywebsite.com/my-first-plugin
+        * Description: The very first plugin that I have ever created.
+        * Version: 1.0
+        * Author: Your Name
+        * Author URI: http://www.mywebsite.com
+        */
+
+        add_action( &#39;the_content&#39;, &#39;my_thank_you_text&#39; );
+
+        function my_thank_you_text ( $content ) {
+            return $content .= &#39;&lt;p&gt;Thank you for reading!&lt;/p&gt;&#39;;
+        }
+    </sc>
+</section>

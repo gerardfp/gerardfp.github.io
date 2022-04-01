@@ -1,0 +1,178 @@
+<!--meta {urls: [smx/m8/uf6], tags: [web,html]}-->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+
+<header>
+    <h1>Inici en HTML</h1>
+
+    <abstract>
+        <resum>En aquesta pràctica començarem amb els fonaments 
+            bàsics de l'HTML.</resum>
+
+        <p>Segueix aquests dos tutorials de la 
+            <strong>Mozilla Developer Network</strong>:</p>
+    
+        <ul>
+            <li>
+                <p>
+                    <a href="https://developer.mozilla.org/ca/docs/Learn/HTML/Introducci%C3%B3_al_HTML/Getting_started">
+                    Inici en HTML
+                    </a>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <a href="https://developer.mozilla.org/ca/docs/Learn/HTML/Introducci%C3%B3_al_HTML/Qu%C3%A8_hi_ha_en_el_head_Metadades_en_HTML">
+                    Què hi ha en el head? Metadades en HTML
+                    </a>
+                </p>
+            </li>
+        </ul>
+    </abstract>
+</header>
+<section>
+    <h2>Desenvolupament de la pràctica</h2>
+    <p>La pràctica consisteix en crear una pàgina web.</p>
+    <check>Aquesta web s'haurà de <a noicon href="/publishgithubpages/?replace-nom-repository=smx-m8-a15">publicar a GitHub Pages</a> amb el nom <name>smx-m8-uf5-practica2</name></check>
+    <check>S'haurà de <a href="/setupwebserver/?replace-nom-contenidor=a15">preparar un servidor web local</a>, per al desenvolupament de la web.</check>
+    <check>El desenvolupament de la web haurà de complir, al menys, els següents criteris:</check>
+    <ul>
+        
+        <li>La pàgina ha de seguir la recomanació indicada a "Anatomia d'un document HTML"</li>
+        <li>Ha de contenir els següents elements HTML:
+            <ul>
+                <li>Una capçalera principal
+                <li>Dues capçaleres secundàries
+                <li>Paràgrafs
+                <li>Paraules destacadaes
+                <li>Enllaços que portin a altres pàgines d'internet
+                <li>Imatges
+                <li>Els caracters especials <string>&lt; &gt; " ' &</string> 
+                <li>Comentaris
+            </ul>
+        </li>
+        <li>A més a més s'hauràn d'especificar les següents metadades
+            <ul>
+                <li>Títol
+                <li>Codificació de caracters
+                <li>Autor
+                <li>Descripció
+                <li>Favicon
+                <li>Idioma principal del document
+            </ul>
+        </li>
+        <li>Per últim, s'hauran d'enllaçar dos arxius CSS i Javascript:
+            <ul>
+                <li><file>style.css</file></li>
+                <li><file>script.js</file></li>
+            </ul>
+            <p>El contingut dels arxius ha de ser aquest:</p>
+
+            <scfile>style.css</scfile>
+            <sc css>
+html {
+    width: 60em;
+    margin: 0 auto;
+}
+    
+body {
+    margin: 0;
+}
+    
+h1, h2, li {
+    font-family: sans;
+}
+    
+h1 {
+    background-color: #00684B;
+    color: white;
+    padding: 16px;
+    text-align: center;
+}
+    
+h2 {
+    background-color: #03a87c;
+    color: white;
+    padding: 8px 24px;
+    margin-top: 48px;
+}
+    
+em {
+    background-color: #FF9E05;
+    color:white;
+    padding: 2px;
+}
+    
+strong {
+    color: #FF9E05;
+}
+    
+a::after {
+    content: " \2BB5";
+}
+    
+img {
+    max-width: 100%;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+    
+ul {
+    background-color: #FF9E05;
+    padding: 8px 16px;
+}
+    
+ul:empty {
+    padding: 0;
+}
+    
+li {
+    font-weight: bold;
+    color: white;
+    background-color: #00684B;
+    padding: 16px;
+    margin: 8px;
+    list-style-type: none;
+    border-radius: 8px;
+    transition: transform .2s;
+}
+    
+li:hover {
+    transform: scale(1.01);
+}                
+            </sc>
+
+            <scfile>script.js</scfile>
+            <sc javascript>
+const list = document.createElement('ul');
+const info = document.createElement('p');
+    
+info.textContent = 'A sota hi ha una llista dinàmica. Clica aquí \u{1f4cc} per a afegir un nou item a la llista. Clica un item existent per a canviar el seu text.';
+    
+document.body.appendChild(info);
+document.body.appendChild(list);
+    
+info.onclick = () => {
+    const item = document.createElement('li');
+    item.textContent = prompt('Quin contingut vols que tingui l\'item?');
+    list.appendChild(item);
+    
+    item.onclick = (e) => {
+        item.textContent = prompt('Introdueix el nou contingut de l\'item');
+    }
+}     
+            </sc>
+        </li>
+    </ul>
+
+    <h3>Exemple</h3>
+
+    <h4>Sense CSS</h4>
+    <img src="img/nocss.png">
+   
+    <h4>Amb CSS</h4>
+    <img src="img/image8.png">
+</section>

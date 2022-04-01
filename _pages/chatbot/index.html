@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--meta {urls: [dam/m3/uf1], tags: [programacio, java]}-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav>
+<header>
+    <h1>Projecte: ChatBOT</h1>
+    <abstract>
+        <p>Els assistents personals digitals, ajuden a la gent a conduir cotxes,
+            planificar-se el dia, fer compres online. En certa manera, són versions simplificades
+            d'intel·ligència artificial amb les quals pots parlar.
+        </p>
+        <p>En aquest projecte, desenvoluparàs pas a pas un simple bot amb que t'ajudarà a estudiar
+            programació.
+        </p>    
+    </abstract>
+</header>
+
+<section>
+    <h2>Crea el projecte</h2>
+    <p>Comença creant un projecte nou a IntelliJ, en el qual desenvoluparàs el ChatBOT:</p>
+
+    <p>Selecciona <mo>Java</mo> com a tipus de projecte:</p>
+    <img src="img/cb1.png">
+
+    <p>Marca l'opcio <mo>Create project from template</mo></p>
+    <img src="img/cb2.png">
+
+    <p>Posa-li el nom <name>ChatBot</name> al projecte:</p>
+    <img src="img/cb3.png">
+
+    Ara ja pots començar a programar el BOT a l'arxiu <file>Main.java</file>
+</section>
+
+<section>
+    <h2>Etapa 1/4: Hola! Em dic Herbie</h2>
+    <p>A la primera etapa, has d'escriure un bot que mostri una salutació, el seu nom i la seva 
+        data de creació
+    </p>
+    <p>El teu programa haurà d'imprimir les següents línies:</p>
+    <shell>
+        Hola! El meu nom és {botName}.
+        Vaig ser creat en {birthYear}.
+    </shell>
+
+    <p>En lloc de <w>{botName}</w> imprimeix el nom que més t'agradi i substitueix <w>{birthYear}</w>
+    per l'any actual.</p>
+</section>
+
+<section>
+    <h2>Etapa 2/4: I tu, com et dius?</h2>
+    <p>En aquesta segona etapa faràs que el bot interactuï amb l'usuari, mantenint una conversa
+        amb ell.
+    </p>
+    <p>Pots fer que el bot faci preguntes a l'usuari, i que guardi les respostes en variables.
+        El bot utilitzarà aquestes respostes memoritzades a mesura que vagi avançant la conversa. 
+        Així donarà la sensació de que el bot va aprenent i és "intel·ligent".
+    </p>
+
+    <p>Aquí tens un exemple de conversa que podria mantenir el bot amb un usuari:</p>
+
+    <shell>
+        Hola! El meu nom és Herbie.
+        Vaig ser creat l'any 2020.
+        I tu, com et dius?
+        <in>Alan</in>
+        Encantat
+        En quin any vas nèixer?
+        <in>1912</in>
+        Sé que estàs aprenent a programar. Quin llenguatge utilitzes?
+        <in>Java</in>
+        A la gent que heu nascut en 1912 què us agrada fer?
+        <in>desxifrar codis</in>
+        Ah què bé Alan! A mi també m'agrada desxifrar codis.
+        Utilitzes Java per fer programes relacionats amb Desxifrar codis?
+    </shell>
+
+    <p>Fixa't en que el bot ha utilitzat les respostes de l'usuari en les seves pròpies frases!</p>
+</section>

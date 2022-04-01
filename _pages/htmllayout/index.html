@@ -1,0 +1,319 @@
+<!--meta {urls: [smx/m8/uf6], tags: [web,css]}-->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+
+<header>
+    <h1>HTML Layout</h1>
+
+    <abstract>
+        <resum>En aquesta pràctica treballarem la disposició d'elements amb <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox">Flexbox</a>
+            i <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout">Grid</a>.</resum>
+
+        <p>Completa aquests dos jocs:</p>
+    
+        <ul>
+            <li>
+                <p>
+                    <a href="https://flexboxfroggy.com/#es">
+                    Flexbox Froggy
+                    </a>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <a href="https://cssgridgarden.com/#es">
+                    CSS Grid Garden
+                    </a>
+                </p>
+            </li>
+        </ul>
+    </abstract>
+</header>
+
+
+<section>
+    <h3>Ejercicio 1:</h3>
+    <p>Diseña una página como esta:</p> 
+    <img style="width:360px" src="img/flex1.png">
+
+    <p>Puedes utilizar el siguiente código HTML:</p>
+    <sc html>
+        &lt;style&gt;
+            img {width: 60px}
+        &lt;/style&gt;
+        
+        &lt;span&gt;🤖&lt;/span&gt;
+        &lt;span&gt;RobotWeb&lt;/span&gt;
+        &lt;span&gt;🔎&lt;/span&gt;
+        
+        &lt;img src=&quot;1.webp&quot;&gt;
+        &lt;img src=&quot;2.webp&quot;&gt;
+        &lt;img src=&quot;3.webp&quot;&gt;
+        &lt;img src=&quot;4.webp&quot;&gt;
+        
+        &lt;p&gt;Welcome to RobotWeb&lt;/p&gt;
+    </sc>
+    <div style="display: flex;">
+        <img style="width:100px" src="img/1.webp">
+        <img style="width:100px" src="img/2.webp">
+        <img style="width:100px" src="img/3.webp">
+        <img style="width:100px" src="img/4.webp">
+    </div>
+</section>
+
+<section>
+    <h3>Ejercicio 2:</h3>
+
+    <style>
+        hr {
+            margin: 2em 0;
+        }
+    </style>
+    <style>
+    .ex1 {
+        resize: both;
+        overflow: auto;
+        display: grid;
+        background-color: lightskyblue;
+        place-items: center;
+    }
+    
+    .ex1 div {
+        background-color:lightyellow;
+    }
+    </style>
+    
+    <div class="ex1">
+        <div>Estoy siempre centrado</div>
+    </div>
+    
+</section>
+
+<section>
+    <h3>Ejercicio 3:</h3>
+
+    
+    
+    <style>
+    .ex2 {
+        resize: both;
+        overflow: auto;
+        display: flex;
+        flex-wrap: wrap;
+        background-color: lightskyblue;
+        justify-content: center;
+    }
+    
+    .ex2 div{
+        flex: 0 1 150px;
+        margin: 5px;
+        background-color:lightyellow;
+    }
+    </style>
+    
+    <div class="ex2">
+        <div contenteditable="true">Crezco hacia abajo y tengo un ancho máximo de 150px <br> []</div>
+        <div contenteditable="true">Crezco hacia abajo y tengo un ancho máximo de 150px <br> []</div>
+        <div contenteditable="true">Crezco hacia abajo y tengo un ancho máximo de 150px <br> []</div>
+    </div>
+    
+</section>
+
+<section>
+    <h3>Ejercicio 4:</h3>
+    
+    <style>
+    .ex3 {
+        resize: both;
+        overflow: auto;
+        display: grid;
+        grid-template-columns: minmax(150px, 25%) 1fr;
+        background-color: lightskyblue;
+    }
+    
+    .ex3-1{
+        background-color:lightyellow;
+    }
+    
+    .ex3-2 {
+        background-color: lightpink;
+    }
+    </style>
+    
+    <div class="ex3">
+        <div class="ex3-1" contenteditable="true">Tengo un ancho mínimo de 150px, y un máximo del 25% <br> []</div>
+        <div class="ex3-2" contenteditable="true">Ocupo el resto de espacio sobrante <br> []</div>
+    </div>
+    
+</section>
+
+<section>
+    <h3>Ejercicio 5:</h3>
+    
+    <style>
+    .ex4 {
+        resize: both;
+        overflow: auto;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        background-color: lightskyblue;
+    }
+    
+    .ex4-1{
+        background-color:lightyellow;
+    }
+    .ex4-2 {
+        background-color: lightsalmon;
+    }
+    .ex4-3 {
+        background-color: lightpink;
+    }
+    </style>
+    
+    <div class="ex4">
+        <div class="ex4-1" contenteditable="true">Ocupo solo la altura que necesito <br> []</div>
+        <div class="ex4-2" contenteditable="true">Ocupo el resto de altura sobrante <br> []</div>
+        <div class="ex4-3" contenteditable="true">Ocupo solo la altura que necesito <br> []</div>
+    </div>
+    
+</section>
+
+<section>
+    <h3>Ejercicio 6:</h3>
+    
+    <style>
+    .ex5 {
+        resize: both;
+        overflow: auto;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        grid-template-rows: auto 1fr auto;
+        background-color: lightskyblue;
+    }
+    
+    .ex5-1{
+        background-color:lightpink;
+        grid-column: 1 / 4;
+    }
+    .ex5-2 {
+        background-color: lightblue;
+    }
+    .ex5-3 {
+        background-color: lightsalmon;
+    }
+    .ex5-4 {
+        background-color: lightyellow;
+    }
+    .ex5-5 {
+        background-color: lightgreen;
+        grid-column: 1 / 4;
+    }
+    </style>
+    
+    <div class="ex5">
+        <div class="ex5-1" contenteditable="true">Ocupo solo la altura que necesito <br> []</div>
+        <div class="ex5-2" contenteditable="true">Ocupo el ancho que necesito, <br> y crezco de altura <br> []</div>
+        <div class="ex5-3" contenteditable="true">Ocupo el ancho restante, <br> y crezco de altura <br> []</div>
+        <div class="ex5-4" contenteditable="true">Ocupo el ancho que necesito, <br> y crezco de altura <br> []</div>
+        <div class="ex5-5" contenteditable="true">Ocupo solo la altura que necesito <br> []</div>
+    </div>
+    
+</section>
+
+<section>
+    <h3>Ejercicio 7:</h3>
+    <style>
+    
+        .ex6 {
+            resize: both;
+            overflow: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        }
+        
+        .ex6-1{
+            background-color:lightpink;
+        }
+        .ex6-2 {
+            background-color: lightblue;
+        }
+        .ex6-3 {
+            background-color: lightsalmon;
+        }
+        .ex6-4 {
+            background-color: lightyellow;
+        }
+        </style>
+        
+        <div class="ex6">
+            <div class="ex6-1" contenteditable="true">Tenemos un ancho <b>mínimo</b> de 100px. Si no cabemos todos en una fila, ocupamos otra <br> []</div>
+            <div class="ex6-2" contenteditable="true">Tenemos un ancho <b>mínimo</b> de 100px. Si no cabemos todos en una fila, ocupamos otra <br> []</div>
+            <div class="ex6-3" contenteditable="true">Tenemos un ancho <b>mínimo</b> de 100px. Si no cabemos todos en una fila, ocupamos otra <br> []</div>
+            <div class="ex6-4" contenteditable="true">Tenemos un ancho <b>mínimo</b> de 100px. Si no cabemos todos en una fila, ocupamos otra <br> []</div>
+        </div>
+    
+    </section>
+
+    <section>
+        <h3>Ejercicio 8:</h3>
+        <style>
+    
+        .ex7 {
+            resize: both;
+            overflow: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            padding: 1em;
+            border: 1px solid blue;
+        }
+        
+        .ex7-1{
+            background-color:lightpink;
+        }
+        .ex7-2 {
+            background-color: lightblue;
+        }
+        .ex7-3 {
+            background-color: lightsalmon;
+        }
+        .ex7-4 {
+            background-color: lightyellow;
+        }
+        </style>
+        
+        <div class="ex7">
+            <div class="ex7-1" contenteditable="true">Tenemos un ancho de 100px. Si no cabemos todos en una fila, ocupamos otra <br> []</div>
+            <div class="ex7-2" contenteditable="true">Tenemos un ancho de 100px. Si no cabemos todos en una fila, ocupamos otra <br> []</div>
+            <div class="ex7-3" contenteditable="true">Tenemos un ancho de 100px. Si no cabemos todos en una fila, ocupamos otra <br> []</div>
+            <div class="ex7-4" contenteditable="true">Tenemos un ancho de 100px. Si no cabemos todos en una fila, ocupamos otra <br> []</div>
+        </div>
+    
+        <div style="height: 500px;">
+    
+        </div>
+    
+        <script>
+            let observer = new MutationObserver(function(mutations) {
+                mutations.forEach(m => {
+                    m.target.childNodes.forEach(ch => {
+                        if(ch.nodeName != "#text"){
+                            ch.innerHTML = ch.innerHTML.replace(/\[.*\]/, "[" + ch.clientWidth + " x " + ch.clientHeight + "]");
+                        }
+                    });
+                });
+            });
+    
+            document.querySelectorAll("div").forEach(d => {
+                observer.observe(d, {attributes: true});
+            });
+            
+            document.querySelectorAll("div[contenteditable=true]").forEach(d => {
+                d.innerHTML = d.innerHTML.replace(/\[.*\]/, "[" + d.clientWidth + " x " + d.clientHeight + "]");
+            })
+        </script>
+
+</section>

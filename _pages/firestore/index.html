@@ -1,0 +1,409 @@
+
+<!doctype html>
+<!--meta {urls: [dam/m8/uf2], tags: [android, firebase]}-->
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Firestore</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="firestore"
+                  title="Firestore"
+                  environment="web"
+                  feedback-link="/dam-m8">
+    
+      <google-codelab-step label="Firestore" duration="0">
+        <p><a href="https://firebase.google.com/docs/firestore" target="_blank">https://firebase.google.com/docs/firestore</a></p>
+<h3 is-upgraded><a href="https://github.com/gerardfp/firestore" target="_blank">https://github.com/gerardfp/firestore</a></h3>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el proyecto" duration="0">
+        <p>Partiremos del proyecto de la práctica anterior (Firebase Auth).</p>
+<h2 is-upgraded>Añade la base de datos Firestore</h2>
+<ol type="1" start="1">
+<li>Selecciona &#34;<strong>Firestore</strong>&#34; en el Assistente y haz clic en &#34;Read and write documents with Cloud Firestore&#34;<br><br><img style="width: 446.00px" src="img/45c79847bfa5818.png"><br></li>
+<li>Haz clic en &#34;<strong>Add Cloud Firestore to your app</strong>&#34;<br><br><img style="width: 336.00px" src="img/142c40811e0239e9.png"><br><br>Haz clic en &#34;<strong>Accept Changes</strong>&#34;<br><br><img style="width: 632.00px" src="img/a990e58323b963ca.png"><br><br></li>
+</ol>
+<aside class="warning"><p>Ve al archivo <sc>build.gradle (Module: app)</sc> y actualiza el número de versión de la libreria que se acaba de añadir.</p>
+</aside>
+<ol type="1" start="3">
+<li>Ve a la Consola de Firebase: <a href="https://console.firebase.google.com" target="_blank">https://console.firebase.google.com</a> <br></li>
+<li>Ve al apartado &#34;<strong>Database</strong>&#34; <br><br><img style="width: 233.00px" src="img/4e7dfecd4684ed7.png"><br></li>
+<li>Haz clic en &#34;<strong>Create database</strong>&#34;<br><br> <img style="width: 151.00px" src="img/e099ff058fc452cb.png"><br></li>
+<li>Selecciona &#34;<strong>Start in production mode</strong>&#34;<br><br> <img style="width: 241.00px" src="img/11cf372aae2ed15f.png"><br></li>
+<li>Selecciona &#34;<strong>eur3 (europe-west)</strong>&#34;<br><br><img style="width: 410.00px" src="img/f4a50867f08a39bb.png"><br></li>
+<li>Ve a la pestaña &#34;<strong>Rules</strong>&#34;<br><br> <img style="width: 74.00px" src="img/5276c93b0ad56670.png"><br></li>
+<li>Cambia a <sc>true</sc> el permiso de escritura<br><br><img style="width: 353.00px" src="img/b72f51fcd2961fe1.png"><br><br>Publica los cambios en las reglas <br><br><img style="width: 97.00px" src="img/e9a8c6b1686f9861.png"></li>
+</ol>
+<h2 is-upgraded>Desactiva la <em>cache</em></h2>
+<p>El SDK de Firestore para Android tiene activada por defecto la persistencia de datos. Esto significa que cuando hacemos una consulta al servidor, se guarda el resultado en el móvil (<em>cache</em>). Esto va muy bien para ahorrar uso de datos, pero nos puede dar algun quebradero de cabeza durante el desarrollo de la app.</p>
+<p>En el método onCreate() de la MainActivity añade el siguiente código:</p>
+<pre><sc>FirebaseFirestore.getInstance().setFirestoreSettings(new FirebaseFirestoreSettings.Builder()
+       .setPersistenceEnabled(false)
+       .build());</sc></pre>
+<h2 is-upgraded>Añade el siguiente pack de iconos</h2>
+<p><a href="https://drive.google.com/file/d/15bZ7XGDLTOXrbeCXoO9_L1UMvszLDnBG/view?usp=sharing" target="_blank"><paper-button class="colored" raised>Drawable.zip</paper-button></a></p>
+<p>Descomprime el zip y arrastra los iconos a la carpeta <sc>res/drawable</sc></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Diseño de la UI" duration="0">
+        <p>Utilizaremos dos destinaciones: HomeFragment y NewPostFragment</p>
+<h2 is-upgraded>HomeFragment</h2>
+<p>La destinación HomeFragment es la que mostrará la lista de Posts en un <sc>RecyclerView</sc>. También tendrá un <sc>FloatingActionButton</sc> que nos llevará al NewPostFragment:</p>
+<p class="image-container"><img style="width: 249.00px" src="img/325d859623a68533.png"></p>
+<p><sc>layout/fragment_home.xml</sc></p>
+<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;FrameLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+   tools:context=&#34;.HomeFragment&#34;&gt;
+
+   &lt;androidx.recyclerview.widget.RecyclerView
+       android:id=&#34;@+id/postsRecyclerView&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       app:layoutManager=&#34;androidx.recyclerview.widget.LinearLayoutManager&#34;/&gt;
+
+   &lt;com.google.android.material.floatingactionbutton.FloatingActionButton
+       android:id=&#34;@+id/gotoNewPostFragmentButton&#34;
+       android:layout_width=&#34;wrap_content&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:layout_gravity=&#34;bottom|end&#34;
+       android:layout_margin=&#34;@dimen/fab_margin&#34;
+       app:srcCompat=&#34;@drawable/pen&#34; /&gt;
+
+&lt;/FrameLayout&gt;</sc></pre>
+<p><sc>layout/viewholder_post.xml</sc></p>
+<p class="image-container"><img style="width: 727.00px" src="img/759063b9ac88babf.png"></p>
+<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;androidx.cardview.widget.CardView
+   xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:app=&#34;http://schemas.android.com/apk/res-auto&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;wrap_content&#34;
+   app:cardUseCompatPadding=&#34;true&#34;&gt;
+   &lt;LinearLayout
+       android:orientation=&#34;horizontal&#34;
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:padding=&#34;10dp&#34;&gt;
+       &lt;ImageView
+           android:id=&#34;@+id/photoImageView&#34;
+           android:layout_width=&#34;60dp&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:adjustViewBounds=&#34;true&#34;
+           app:srcCompat=&#34;@drawable/user&#34; /&gt;
+       &lt;LinearLayout
+           android:layout_width=&#34;wrap_content&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:orientation=&#34;vertical&#34;
+           android:paddingStart=&#34;10dp&#34;&gt;
+           &lt;TextView
+               android:id=&#34;@+id/authorTextView&#34;
+               style=&#34;@style/Base.TextAppearance.AppCompat.Small&#34;
+               android:layout_width=&#34;wrap_content&#34;
+               android:layout_height=&#34;wrap_content&#34;
+               android:gravity=&#34;center_vertical&#34;
+               android:text=&#34;Author&#34;/&gt;
+           &lt;TextView
+               android:id=&#34;@+id/contentTextView&#34;
+               android:textSize=&#34;20sp&#34;
+               android:layout_width=&#34;wrap_content&#34;
+               android:layout_height=&#34;wrap_content&#34;
+               android:layout_marginTop=&#34;5dp&#34;
+               android:text=&#34;Contenido&#34;/&gt;
+           &lt;LinearLayout
+               android:id=&#34;@+id/likeLinearLayout&#34;
+               android:layout_marginTop=&#34;10dp&#34;
+               android:layout_width=&#34;wrap_content&#34;
+               android:layout_height=&#34;wrap_content&#34;
+               android:orientation=&#34;horizontal&#34;&gt;
+               &lt;ImageView
+                   android:id=&#34;@+id/likeImageView&#34;
+                   app:srcCompat=&#34;@drawable/like_on&#34;
+                   android:adjustViewBounds=&#34;true&#34;
+                   android:layout_width=&#34;20dp&#34;
+                   android:layout_height=&#34;wrap_content&#34;
+                   android:layout_gravity=&#34;center_vertical&#34;/&gt;
+               &lt;TextView
+                   android:id=&#34;@+id/numLikesTextView&#34;
+                   android:layout_width=&#34;wrap_content&#34;
+                   android:layout_height=&#34;wrap_content&#34;
+                   android:layout_marginStart=&#34;4dp&#34;
+                   android:layout_gravity=&#34;center_vertical&#34;
+                   android:text=&#34;200K&#34;/&gt;
+           &lt;/LinearLayout&gt;
+       &lt;/LinearLayout&gt;
+   &lt;/LinearLayout&gt;
+&lt;/androidx.cardview.widget.CardView&gt;</sc></pre>
+<aside class="warning"><p>Para utilizar el elemento <sc>CardView</sc> se debe añadir la siguiente librería</p>
+<p><sc>implementation </sc><strong><sc>&#39;androidx.cardview:cardview:1.0.0&#39;</sc></strong></p>
+</aside>
+<h2 is-upgraded>NewPostFragment</h2>
+<p>Crea la destinación NewPostFragment en <sc>navigation/mobile_navigation.xml</sc>.</p>
+<p>Esta destinación será sencilla (de momento...): un TextView y un Botón</p>
+<p class="image-container"><img style="width: 561.00px" src="img/7f26b7f56ba1bd39.png"></p>
+<p><sc>layout/fragment_new_post.xml</sc></p>
+<pre><sc>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;FrameLayout xmlns:android=&#34;http://schemas.android.com/apk/res/android&#34;
+   xmlns:tools=&#34;http://schemas.android.com/tools&#34;
+   android:layout_width=&#34;match_parent&#34;
+   android:layout_height=&#34;match_parent&#34;
+   tools:context=&#34;NewPostFragment&#34;&gt;
+   &lt;LinearLayout
+       android:layout_width=&#34;match_parent&#34;
+       android:layout_height=&#34;wrap_content&#34;
+       android:orientation=&#34;vertical&#34;&gt;
+       &lt;Button
+           android:id=&#34;@+id/publishButton&#34;
+           android:layout_width=&#34;wrap_content&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:text=&#34;Publish&#34;
+           android:layout_gravity=&#34;end&#34;/&gt;
+       &lt;EditText
+           android:id=&#34;@+id/postContentEditText&#34;
+           android:layout_width=&#34;match_parent&#34;
+           android:layout_height=&#34;wrap_content&#34;
+           android:hint=&#34;¿Qué pasa contigo?&#34;
+           android:textSize=&#34;24sp&#34;
+           android:lines=&#34;6&#34;
+           android:gravity=&#34;top|left&#34;&gt;
+           &lt;requestFocus /&gt;
+       &lt;/EditText&gt;
+   &lt;/LinearLayout&gt;
+&lt;/FrameLayout&gt;</sc></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Publicar nuevos posts" duration="0">
+        <p>Empezaremos con la funcionalidad de añadir nuevos posts (<em>ya que hasta que no se puedan añadir posts no los podremos mostrar en el HomeFragment</em>).</p>
+<p>Lo primero será activar el <sc>FloatingActionButton</sc> del HomeFragment, para que nos lleve al NewPostFragment:</p>
+<pre><sc>public class HomeFragment extends Fragment {
+  
+   private NavController navController;
+
+   // ...
+
+   @Override
+   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+       super.onViewCreated(view, savedInstanceState);
+
+       navController = Navigation.findNavController(view);
+      
+       view.findViewById(R.id.gotoNewPostFragmentButton).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               navController.navigate(R.id.newPostFragment);
+           }
+       });
+   }
+}</sc></pre>
+<p>Una vez ya en el NewPostFragment, empezaremos con los <sc>findViewById()</sc> y los <em>listeners</em>.</p>
+<pre><sc>public class NewPostFragment extends Fragment {
+
+   Button publishButton;
+   EditText postConentEditText;
+
+   // ...
+
+   @Override
+   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+       super.onViewCreated(view, savedInstanceState);
+
+       publishButton = view.findViewById(R.id.publishButton);
+       postConentEditText = view.findViewById(R.id.postContentEditText);
+      
+       publishButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               publicar();
+           }
+       });
+   }
+
+   private void publicar() {
+      
+   }
+}</sc></pre>
+<h2 is-upgraded>Guardar el Post en Firestore</h2>
+<p class="image-container"><img style="width: 666.00px" src="img/485b03536ed1b0b.png"></p>
+<p>Crearemos una colección llamada <sc>posts</sc>, y en ella guardaremos cada post como un documento (<em>un objeto, vamos</em>).</p>
+<p>El primer paso será crear la clase <sc>Post</sc>:</p>
+<pre><sc>public class Post {
+   public String uid;
+   public String author;
+   public String authorPhotoUrl;
+   public String content;
+
+   // Constructor vacio requerido por Firestore
+   public Post() {}
+
+   public Post(String uid, String author, String authorPhotoUrl, String content) {
+       this.uid = uid;
+       this.author = author;
+       this.authorPhotoUrl = authorPhotoUrl;
+       this.content = content;
+   }
+}</sc></pre>
+<p>En el método <sc>publicar()</sc> primero nos aseguramos de que se ha escrito algo, luego desactivamos el botón para que el usuario impaciente no le de dos veces, y luego lo guardamos en la base de datos:</p>
+<pre><sc>private void publicar() {
+   String postContent = postConentEditText.getText().toString();
+
+   if(TextUtils.isEmpty(postContent)){
+       postConentEditText.setError(&#34;Required&#34;);
+       return;
+   }
+
+   publishButton.setEnabled(false);
+
+   guardarEnFirestore(postContent);
+}</sc></pre>
+<p>El método <sc>guardarEnFirestore()</sc> primero obtiene el usuario que está logueado, luego crea un objeto <sc>Post</sc> con los datos necesarios, y por ultimo lo guarda en la colección <sc>posts</sc>. Cuando Firestore haya terminado de guardar el documento, navegamos atrás al HomeFragment.</p>
+<pre><sc>private void guardarEnFirestore(String postContent) {
+   FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+   Post post = new Post(user.getUid(), user.getDisplayName(), user.getPhotoUrl().toString(), postContent);
+
+   FirebaseFirestore.getInstance().collection(&#34;posts&#34;)
+           .add(post)
+           .addOnSuccessListener(new OnSuccessListener&lt;DocumentReference&gt;() {
+               @Override
+               public void onSuccess(DocumentReference documentReference) {
+                   navController.popBackStack();
+               }
+           });
+}</sc></pre>
+<aside class="special"><p>Las referencias a las instancias <sc>FirebaseAuth</sc> y <sc>FirebaseFirestore</sc> será muchas veces más útil guardarlas como campos de clase y inicializarlas en el método <sc>onViewCreated()</sc>.</p>
+</aside>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Mostrar la lista de posts" duration="0">
+        <p>El último paso será mostrar la colección de posts en un RecyclerView. Para ello, usaremos el Adaptador de la librería <a href="https://github.com/firebase/FirebaseUI-Android" target="_blank">FirebaseUI</a>. Añade la siguiente dependencia:</p>
+<pre><sc>implementation &#39;com.firebaseui:firebase-ui-firestore:6.2.0&#39;</sc></pre>
+<p>Comprueba también que tienes la dependencia <a href="https://github.com/bumptech/glide" target="_blank">Glide</a>, ya que la necesitaremos para mostrar las fotos de los usuarios:</p>
+<pre><sc>implementation &#39;com.github.bumptech.glide:glide:4.11.0&#39;
+annotationProcessor &#39;com.github.bumptech.glide:compiler:4.11.0&#39;</sc></pre>
+<h2 is-upgraded>Clase PostViewHolder</h2>
+<p>Hacer los <sc>findViewById()</sc> del <sc>viewholder_post.xml</sc> y guardarlos como campos. </p>
+<pre><sc>class PostViewHolder extends RecyclerView.ViewHolder{
+   ImageView authorPhotoImageView;
+   TextView authorTextView, contentTextView;
+
+   PostViewHolder(@NonNull View itemView) {
+       super(itemView);
+
+       authorPhotoImageView = itemView.findViewById(R.id.authorPhotoImageView);
+       authorTextView = itemView.findViewById(R.id.authorTextView);
+       contentTextView = itemView.findViewById(R.id.contentTextView);
+   }
+}</sc></pre>
+<aside class="special"><p>Esta clase la podrías crear donde prefieras (un nuevo fichero, dentro de la clase HomeFragment, etc.), sin embargo esta vez la crearemos dentro de la clase <sc>PostsAdapter</sc>, que programaremos a continuación.</p>
+</aside>
+<h2 is-upgraded>Clase PostsAdapter</h2>
+<p>Haremos uso de la clase <sc>FirestoreRecyclerAdapter</sc> que acabamos de instalar. </p>
+<p>El primer genérico es la clase de objetos correspondiente a los documentos que se van a mostrar, es decir, la clase <sc>Post</sc>. El segundo es la clase del ViewHolder.</p>
+<p class="image-container"><img style="width: 736.40px" src="img/99cfaf67072aeee5.gif"></p>
+<p>En el método <sc>onCreateViewHolder()</sc> retornamos el <sc>PostViewHolder</sc>, como siempre.</p>
+<p>En el método <sc>onBindViewHolder()</sc> rellenamos el <sc>PostViewHolder</sc> con los datos del <sc>Post</sc>, que ya nos pasa el propio <strong>FirestoreRecyclerAdapter</strong>.</p>
+<p>El código de la clase PostAdapter (y PostViewHolder) queda finalmente así:</p>
+<pre><sc>class PostsAdapter extends FirestoreRecyclerAdapter&lt;Post, PostsAdapter.PostViewHolder&gt; {
+   public PostsAdapter(@NonNull FirestoreRecyclerOptions&lt;Post&gt; options) {super(options);}
+
+   @NonNull
+   @Override
+   public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+       return new PostViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_post, parent, false));
+   }
+
+   @Override
+   protected void onBindViewHolder(@NonNull PostViewHolder holder, int position, @NonNull final Post post) {
+       Glide.with(getContext()).load(post.authorPhotoUrl).circleCrop().into(holder.authorPhotoImageView);
+       holder.authorTextView.setText(post.author);
+       holder.contentTextView.setText(post.content);
+   }
+
+   class PostViewHolder extends RecyclerView.ViewHolder {
+       ImageView authorPhotoImageView;
+       TextView authorTextView, contentTextView;
+
+       PostViewHolder(@NonNull View itemView) {
+           super(itemView);
+
+           authorPhotoImageView = itemView.findViewById(R.id.authorPhotoImageView);
+           authorTextView = itemView.findViewById(R.id.authorTextView);
+           contentTextView = itemView.findViewById(R.id.contentTextView);
+       }
+   }
+}</sc></pre>
+<h2 is-upgraded>Establecer el Adaptador en el RecyclerView</h2>
+<p>Ya solo queda crear el objeto <sc>PostsAdapter</sc> y decirle al RecyclerView que lo use para rellenarse:</p>
+<p>Habrás notado que en el <strong>constructor</strong> del <sc>PostsAdapter</sc> hay que pasarle un objeto de clase <sc>FirestoreRecyclerOptions</sc>. En este objeto es precisamente donde se define la consulta que devuelve los datos con los que hay que rellenar el RecyclerView.</p>
+<p>La forma de hacerlo es la siguiente:</p>
+<pre><sc>public class HomeFragment extends Fragment {
+
+   // ...
+
+   @Override
+   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+       // ...
+
+       RecyclerView postsRecyclerView = view.findViewById(R.id.postsRecyclerView);
+
+       Query query = FirebaseFirestore.getInstance().collection(&#34;posts&#34;).limit(50);
+
+       FirestoreRecyclerOptions&lt;Post&gt; options = new FirestoreRecyclerOptions.Builder&lt;Post&gt;()
+               .setQuery(query, Post.class)
+               .setLifecycleOwner(this)
+               .build();
+
+       postsRecyclerView.setAdapter(new PostsAdapter(options));
+   }
+
+   // class PostsAdapter extends FirestoreRecyclerAdapter ... 
+   
+}</sc></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Gestión de Likes" duration="0">
+        <p>// TODO: </p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,219 @@
+
+<!doctype html>
+<!--meta {urls: [dam/m3/uf1], tags: [programacio, java]}-->
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Depuració</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="debugger"
+                  title="Depuració"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p class="image-container"><img style="width: 371.00px" src="img/569c4ee15c62eaf4.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és la iniciació a l&#39;ús de depurador (<em>debugger</em>).</p>
+<p>La depuració de programes és el procés d&#39;identificar i corregir errors de programació (<em>bugs</em>).</p>
+<p>IntelliJ proporciona una ampli ventall d&#39;eines per a la depuració del codi. Es pot trobar una guia exhaustiva al següent enllaç: <a href="https://www.jetbrains.com/help/idea/debugging-code.html" target="_blank">https://www.jetbrains.com/help/idea/debugging-code.html</a> </p>
+<p>En aquest CodeLab desenvoluparem un IP-Scanner per esbrinar quins ordinadors que són accessibles.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Inicia IntelliJ i crea un nou projecte anomenat &#34;Debugger&#34;.</p>
+<p class="image-container"><img style="width: 548.00px" src="img/9301fcf1aef3ff38.png"></p>
+<p class="image-container"><img style="width: 566.00px" src="img/52d646601a8e62e6.png"></p>
+<p class="image-container"><img style="width: 566.00px" src="img/9ea349d97aa151cc.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="IP-Scanner" duration="0">
+        <p>Per tal de veure si un ordinador és accessible disposem del mètode <sc>isReachable()</sc> de la classe <sc>java.net.InetAddress</sc>.</p>
+<p>El seu ús es molt senzill, únicament hem d&#39;invocar el mètode amb l&#39;adreça IP de l&#39;ordinador que volem comprovar:</p>
+<pre><sc>public class Main {
+    public static void main(String[] args) {
+
+        if(InetAddress.getByName(&#34;192.168.1.1&#34;).isReachable(3000)){
+            System.out.println(&#34;L&#39;ordinador 192.168.1.1 està actiu&#34;);
+        }
+    }
+}</sc></pre>
+<aside class="special"><p>El valor <sc>3000</sc> és un paràmetre que indica el temps que s&#39;ha d&#39;esperar per veure si l&#39;ordinador al que estem connectant respon. Si no respon en el temps indicat es considera que no és accessible. </p>
+</aside>
+<aside class="special"><p>En lloc d&#39;utilitzar la xarxa 192.168.1.x esbrina l&#39;adreça ip del teu ordinador i posa aquesta xarxa.</p>
+</aside>
+<p>El que volem ara és comprovar si són accessibles tots els ordinadors de la xarxa: <sc>192.168.1.</sc><strong><sc>1</sc></strong>, <sc>192.168.1.</sc><strong><sc>2</sc></strong>, <sc>192.168.1.</sc><strong><sc>3</sc></strong> ... fins al <sc>192.168.1.</sc><strong><sc>254</sc></strong></p>
+<p>Si anem <em>copiant i enganxant</em> les instruccions anteriors i canviant la IP de forma manual, el programa funcionaria però... son massa ordinadors! </p>
+<pre><sc>import java.net.InetAddress;
+
+public class Main {
+
+   public static void main(String[] args) throws Exception {
+
+       if (InetAddress.getByName(&#34;192.168.1.1&#34;).isReachable(3000)) {
+           System.out.println(&#34;L&#39;ordinador 192.168.1.1 està actiu&#34;);
+       }
+
+       if (InetAddress.getByName(&#34;192.168.1.2&#34;).isReachable(3000)) {
+           System.out.println(&#34;L&#39;ordinador 192.168.1.2 està actiu&#34;);
+       }
+
+       if (InetAddress.getByName(&#34;192.168.1.3&#34;).isReachable(3000)) {
+           System.out.println(&#34;L&#39;ordinador 192.168.1.3 està actiu&#34;);
+       }
+
+       // Són massa ordinadors!
+
+       if (InetAddress.getByName(&#34;192.168.1.254&#34;).isReachable(3000)) {
+           System.out.println(&#34;L&#39;ordinador 192.168.1.254 està actiu&#34;);
+       }
+   }
+}</sc></pre>
+<p>Si ens fixem bé, estem realitzant la mateixa instrucció tota l&#39;estona, i l&#39;única cosa que canvia és el número de HOST de la IP.</p>
+<p>Podem tractar d&#39;extraure aquest patró amb un bucle:</p>
+<pre><sc>import java.net.InetAddress;
+
+public class Main {
+
+   public static void main(String[] args) throws Exception {
+
+       int host = 1;
+       while (host &lt; 255) {
+           if (InetAddress.getByName(&#34;192.168.1&#34; + host).isReachable(3000)) {
+               System.out.println(&#34;L&#39;ordinador 192.168.1.&#34; + host + &#34; està actiu&#34;);
+               host++;
+           }
+       }
+   }
+}</sc></pre>
+<p>Amb aquest bucle pretenem automatitzar l&#39;execució de la instrucció augmentant en cada iteració el número de HOST.</p>
+<p>Si executem aquest codi, <em>semblarà </em>que no està fent res, ja que no surtirà res a la consola... pot ser no hi ha cap ordinador accessible a la xarxa... comprovem-ho.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Breakpoints" duration="0">
+        <p>Normalment podem anar seguint la execució d&#39;un programa veient que és el que va mostrant a la consola. En aquest cas no ens serveix de res, ja que no mostra res a la consola.</p>
+<p>Una eina millor per a seguir l&#39;execució d&#39;un programa i veure en quin ordre s&#39;estan executant les instruccions és el depurador.</p>
+<p>Els <em>breakpoints </em>són punts en els que podem aturar l&#39;execució d&#39;un programa, i observar pas a pas el seu comportament.</p>
+<p>Per a afegir un breakpoint, només cal posar el cursor sobre la línia on el volem posar i prèmer <sc>Ctrl+F8</sc>.</p>
+<p>També ho podem fer amb el ratolí, fent clic sobre el panell gris que hi ha just al costat del codi:</p>
+<p class="image-container"><img style="width: 685.00px" src="img/902924b3f8afd143.png"></p>
+<p>Quan afegim un breakpoint, s&#39;indica amb un cercle vermell.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Iniciar la depuració" duration="0">
+        <p>Una cop afegit els breakpoints desitjats, es pot iniciar la depuració de l&#39;aplicació.</p>
+<p>Per a iniciar-la fem click a l&#39;icona Debug (<img style="width: 20.00px" src="img/36c28486f16b79d2.png">) o premem <sc>Ctrl+F9</sc>.</p>
+<p>IntelliJ llançará la sessión de depuració. Compilarà i executarà l&#39;aplicació, suspenent-la al primer breakpoint. Podem veure dues coses que han canviat:</p>
+<ul>
+<li>La primera cosa que ha canviat és el color de la primera línea amb un breakpoint. Ara es veurà de color blau:</li>
+</ul>
+<p class="image-container"><img style="width: 701.00px" src="img/b0e1201d7a804c24.png"></p>
+<p>Això significa que l&#39;execució ha arribat al breakpoint i s&#39;ha parat <strong>abans</strong> d&#39;executar la sentència.</p>
+<ul>
+<li>A la part inferior de la finestra, ha sorgit el <sc>Debug Tool Window</sc>, amb molta informació sobre l&#39;execució del programa.</li>
+</ul>
+<p class="image-container"><img style="width: 660.00px" src="img/2da6833647d4a103.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Execució pas a pas" duration="0">
+        <p>Anem a fer un pas en l&#39;execució del programa. Fes click sobre la icona <img alt="icons actions traceOver svg" style="width: 20.00px" src="img/ba4188980955f69.png">, o simplement prem <sc>F8</sc>.</p>
+<p>La següent instrucció es posa en blau:</p>
+<p class="image-container"><img style="width: 736.40px" src="img/e53e41517460fdbb.png"></p>
+<p>Si anem avançant en l&#39;execució del programa amb <img alt="icons actions traceOver svg" style="width: 20.00px" src="img/ba4188980955f69.png">, veurem que el programa es queda permanentment en el bucle <sc>while</sc> i no entra mai en el <sc>if</sc>.</p>
+<p>Si mirem al panell <strong>Variables</strong>, veurem que la variable <sc>host</sc> sempre té el valor <sc>1</sc>, i que no va augmentant.</p>
+<p>Podem deduir que tenim una errada en el lloc on hem posat la sentència <sc>host++</sc>, ja que com no entra mai en el <sc>if</sc>, mai augmenta el valor d&#39;aquesta variable. Corregim-ho:</p>
+<pre><sc>import java.net.InetAddress;
+
+public class Main {
+
+   public static void main(String[] args) throws Exception {
+
+       int host = 1;
+
+       while (host &lt; 255) {
+           if (InetAddress.getByName(&#34;192.168.1&#34; + host).isReachable(3000)) {
+               System.out.println(&#34;L&#39;ordinador 192.168.1.&#34; + host + &#34; està actiu&#34;);
+           }
+           host++;
+       }
+   }
+}</sc></pre>
+<p>Si tornem a fer l&#39;execució passa a passa, veurem com ara la variable <sc>host</sc> sí que va augmentant, de forma que cada vegada comprova si és accessible un ordinador diferent.</p>
+<p>Tot i això, segueix sense aparèixer res a la consola, com si no hi hagués cap ordinador accessible a la xarxa... Què extrany, al menys el nostre ordinador deuria respondre!</p>
+<h2 is-upgraded>Breakpoints condicionals</h2>
+<p>Podem anar avançant l&#39;execució del programa fins que arribi al número de HOST del nostre ordinador (o podríem directament fer que la variable host comenci per aquest número). Però hi ha una altra forma de fer-ho. </p>
+<p>Podem fer que el programa s&#39;executi normalment, sense parades, fins que la variable host arribi al número que desitjem, i aleshores detenir l&#39;execució i passar al mode depuració.</p>
+<p>Suposem que la nostra adreça és <sc>192.168.1.5</sc>. Aleshores volem pausar l&#39;execució quan la variable <sc>host</sc> sigui <sc>5</sc>. O sigui, podem posar un <em>breakpoint </em>condicionat a que la variable <sc>host</sc> tingui el valor <sc>5</sc>.</p>
+<p>Per a fegir un breakpoint condicional, fem click-dreta sobre el <em>breakpoint</em> i afegim la condició desitjada. En el nostre cas, ens interessa que es pari quan el valor de <sc>host</sc> sigui <sc>5</sc>:</p>
+<p class="image-container"><img style="width: 700.00px" src="img/f79ddcababb4f9ee.png"></p>
+<p>Si iniciem la depuració, l&#39;execució del programa s&#39;aturarà en el <em>breakpoint</em> quan es compleixi la condició <sc>host == 5</sc>.</p>
+<p class="image-container"><img style="width: 736.40px" src="img/ae9706c32e341497.png"></p>
+<p>Per què arribats a aquest punt no està entrant en el <sc>if</sc>? Per què la instrucció <sc>InetAddress.</sc><em><sc>getByName</sc></em><sc>(</sc><strong><sc>&#34;192.168.1&#34; </sc></strong><sc>+ host).isReachable(3000)</sc> no està responent si es tracta del nostre ordinador?</p>
+<p>En aquest punt podem tractar de veure si pot ser l&#39;error el tenim en la forma en que construim la ip: <strong><sc>&#34;192.168.1&#34; </sc></strong><sc>+ host</sc></p>
+<h2 is-upgraded>Avaluar expressions</h2>
+<p>Seleccionem l&#39;expressió <strong><sc>&#34;192.168.1&#34; </sc></strong><sc>+ host</sc> i polsem <sc>Alt</sc> + <sc>F8</sc>. A la finestra que ens surtirà pitjem el botó <sc>Evaluate</sc>.</p>
+<p class="image-container"><img style="width: 238.00px" src="img/b9a8999cc8323220.png"></p>
+<p>Podem veure que l&#39;expressió <strong><sc>&#34;192.168.1&#34; </sc></strong><sc>+ host</sc> s&#39;avalua a <strong><sc>&#34;192.168.15&#34;</sc></strong>. És clar, li falta un punt entre mig!</p>
+<p>Amb la informació obtinguda de la depuració del programa ja podem acabar el nostre IP-Scanner:</p>
+<pre><sc>import java.net.InetAddress;
+
+public class Main {
+
+   public static void main(String[] args) throws Exception {
+
+       int host = 1;
+
+       while (host &lt; 255) {
+           if (InetAddress.getByName(&#34;192.168.1.&#34; + host).isReachable(3000)) {
+               System.out.println(&#34;L&#39;ordinador 192.168.1.&#34; + host + &#34; està actiu&#34;);
+           }
+           host++;
+       }
+   }
+}</sc></pre>
+<p>I obtenim el resultat esperat:</p>
+<p><sc>L&#39;ordinador 192.168.1.1 està actiu</sc></p>
+<p><sc>L&#39;ordinador 192.168.1.2 està actiu</sc></p>
+<p><sc>L&#39;ordinador 192.168.1.5 està actiu</sc></p>
+<p><sc>L&#39;ordinador 192.168.1.107 està actiu</sc></p>
+<p><sc>L&#39;ordinador 192.168.1.108 està actiu</sc></p>
+<p class="image-container"><img style="width: 464.00px" src="img/e5038f70d5f1404c.png"></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>

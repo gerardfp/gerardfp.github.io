@@ -1,0 +1,186 @@
+
+<!doctype html>
+<!--meta {urls: [dam/m3/uf1], tags: [programacio]}-->
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Block programming</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/codelab-elements/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="blocks"
+                  title="Block programming"
+                  environment="web"
+                  feedback-link="https://github.com/gerardfp">
+    
+      <google-codelab-step label="Introducció" duration="0">
+        <p class="image-container"><img style="width: 273.00px" src="img/46440c43f4181ea.png"></p>
+<p>L&#39;objectiu d&#39;aquest CodeLab és conèixer les possibilitats de la programació visual basada en blocks per a descriure algorismes.</p>
+<p>La programació estructurada es basa en les estructures de Seqüència, Selecció, Iteració i Recursió de blocs de sentències. Aquestes estructures i blocs es poden representar en diversos formats. El més habitual és el textual, amb els llenguatges de programació, però també es possible descriure&#39;ls mitjançant la composició de blocks, de forma semblant a un puzzle.</p>
+<p>En aquest CodeLab desenvoluparem un petit joc, l&#39;SpaceInvaders, utilitzant la plataforma de desenvolupament d&#39;aplicacións mòbils AppInventor, creada al MIT (Massachussetts Institute of Technology).</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Crea el projecte" duration="0">
+        <p>Accedeix al web <a href="http://ai2.appinventor.mit.edu/" target="_blank">http://ai2.appinventor.mit.edu</a> i registra&#39;t.</p>
+<p>Fes clic al botó <img style="width: 98.00px" src="img/e77053cfced71a52.png">per a crear un nou projecte anomenat <sc>SpaceInavaders</sc></p>
+<p class="image-container"><img style="width: 391.00px" src="img/177643176dc3319f.png"></p>
+<p>El projecte s&#39;obrirà de forma automàtica:</p>
+<p class="image-container"><img style="width: 650.00px" src="img/dced447c9ab6a78a.png"></p>
+<p>Per a llançar les apps en el teu dispositiu mòbil necessitaràs la App <sc>MIT AI2 Companion</sc>. La pots instal·lar de la Play Store.</p>
+<p class="image-container"><img style="width: 512.00px" src="img/db17a02e77cf997b.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Afegeix els components" duration="0">
+        <p>A la part esquerra veuràs la paleta de components, organitzada en grups. Els components s&#39;afegeixen a la App arrossegant-los de la paleta a la pantalla del mòbil.</p>
+<p>Necessitaràs aquestes dues imatges, desa-les al teu ordinador amb els noms <sc>alien.png</sc> i <sc>ship.png</sc></p>
+<p class="image-container"><img style="width: 75.00px" src="img/f1c67b2c4860eeee.png"></p>
+<p class="image-container"><img style="width: 75.00px" src="img/c7986b755d6f8e68.png"></p>
+<p>Afegeix els següents components, i realitza en cadascun l&#39;Acció que s&#39;indica:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p><strong>Component</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Grup de la paleta</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Nom que li has de posar</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Propòsit del component</strong></p>
+</td><td colspan="1" rowspan="1"><p><strong>Acció</strong></p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Canvas</p>
+</td><td colspan="1" rowspan="1"><p>Drawing and Animation</p>
+</td><td colspan="1" rowspan="1"><p><sc>Canvas1</sc></p>
+</td><td colspan="1" rowspan="1"><p>El fons on posarem els sprites</p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Canvia la propietat <sc>Width</sc> a <sc>FillParent</sc></li>
+<li>Canvia la propietat <sc>Height</sc> a <sc>300</sc> píxels.</li>
+<li>Canvia la propietat <sc>BackgroundColor</sc> a <sc>Black</sc></li>
+</ul>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ImageSprite</p>
+</td><td colspan="1" rowspan="1"><p>Drawing and Animation</p>
+</td><td colspan="1" rowspan="1"><p><sc>ShipSprite</sc></p>
+</td><td colspan="1" rowspan="1"><p>La nau del joc</p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Carrega la  image <sc>ship.png</sc> i estableix la propietat <sc>Picture</sc> a <sc>ship.png</sc></li>
+<li>Estableix la propietat <sc>Y</sc> a <sc>230</sc></li>
+</ul>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>ImageSprite</p>
+</td><td colspan="1" rowspan="1"><p>Drawing and Animation</p>
+</td><td colspan="1" rowspan="1"><p><sc>AlienSprite</sc></p>
+</td><td colspan="1" rowspan="1"><p>L&#39;alien del joc</p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Carrega la  image <sc>alien.png</sc> i estableix la propietat <sc>Picture</sc> a <sc>alien.png</sc></li>
+</ul>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>BallSprite</p>
+</td><td colspan="1" rowspan="1"><p>Drawing and Animation</p>
+</td><td colspan="1" rowspan="1"><p><sc>Bullet</sc></p>
+</td><td colspan="1" rowspan="1"><p>La bala que dispara la nau</p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Canvia <sc>PaintColor</sc> a <sc>Green </sc></li>
+<li>Canvia <sc>Radius</sc> a <sc>0</sc></li>
+</ul>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Clock</p>
+</td><td colspan="1" rowspan="1"><p>Sensors</p>
+</td><td colspan="1" rowspan="1"><p><sc>Clock1</sc></p>
+</td><td colspan="1" rowspan="1"><p>Usarem el cronòmetre per moure l&#39;alien cada cert temps</p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Canvia <sc>TimerInterval</sc> a <sc>3000</sc></li>
+</ul>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Label</p>
+</td><td colspan="1" rowspan="1"><p>User Interface</p>
+</td><td colspan="1" rowspan="1"><p><sc>ScoreLabel</sc></p>
+</td><td colspan="1" rowspan="1"><p>Contindrà la puntuació actual</p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Canvia <sc>Text</sc> a <sc>0</sc></li>
+</ul>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>Button</p>
+</td><td colspan="1" rowspan="1"><p>User Interface</p>
+</td><td colspan="1" rowspan="1"><p><sc>ResetButton</sc></p>
+</td><td colspan="1" rowspan="1"><p>Reiniciarà el joc per a poder tornar a jugar</p>
+</td><td colspan="1" rowspan="1"><ul>
+<li>Canvia <sc>Text</sc> a <sc>Reset</sc></li>
+</ul>
+</td></tr>
+</table>
+<p>Un cop afegits els components ha de quedar una estructura així:</p>
+<p class="image-container"><img style="width: 618.00px" src="img/bef8564d72210ba7.png"></p>
+<p>Prova la App seleccionant <sc>Connect</sc> &gt; <sc>AI Companion</sc></p>
+<p class="image-container"><img style="width: 302.00px" src="img/4953beeea381c7fb.png"></p>
+<p>Al teu dispositiu mòbil inicia la MIT AI2 Companion i escaneja el CodiQR.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Programa el comportament dels components" duration="0">
+        <p>Per programar el comportament dels objectes canvia la vista a <sc>Blocks</sc>:</p>
+<p class="image-container"><img style="width: 575.00px" src="img/100b193d142d9e92.png"></p>
+<p>Per a afegir un Block, selecciona el component i arrossega el Block a la finestra de blocs.</p>
+<h2 is-upgraded>Moviment de la nau</h2>
+<p>En aquest joc, l&#39;usuari mourà la nau d&#39;un costat a un altre. Això significa que només canviarem la direcció <sc>X</sc> del sprite de coets. Per fer-ho, utilitzarem el gestor d&#39;esdeveniments <sc>ShipSprite.Dragged</sc> . Quan el coet s&#39;arrossega, ajustarem la propietat <sc>X</sc> per ser la <sc>currentX</sc> on hem arrossegat al sprite.</p>
+<p>Selecciona el component <sc>ShipSprite</sc> i arrossega el block <sc>ShipSprite.Dragged</sc>.</p>
+<p>Dintre d&#39;aquest block arrossega el block <sc>ShipSprite.Set</sc> I uneix-lo amb el block <sc>Variables.Get</sc></p>
+<p class="image-container"><img style="width: 442.00px" src="img/8050780e0fae3095.png"></p>
+<h2 is-upgraded>Disparant la bala</h2>
+<p>Hi ha diverses funcions que volem que tingui la bala en aquest joc. Volem que dispari des de la nau, xoquin ambl&#39;alien i siga invisible després de la col·lisió i abans de ser disparat.</p>
+<p>Comencem utilitzant el bloc <sc>Screen1.initialize</sc> . Quan s&#39;inicialitza la pantalla, programarem la bala com a invisible. Ho fem fent la propietat de visibilitat de la bala a <sc>False</sc>.</p>
+<p>Arrosaga el block <sc>Screen1.Initialize</sc>, Afegeix-li el block <sc>Bullet.Set</sc> i uneix-lo amb el block <sc>Logic.False</sc></p>
+<p class="image-container"><img style="width: 343.00px" src="img/7403c98a0a03680f.png"></p>
+<p>A continuació, volem assegurar-nos que la bala torna a aparèixer quan disparem des de la nau. Quan toquem la nau, volem que la bala comenci a moure&#39;s cap a l&#39;alien. Ho farem utilitzant el gestor d&#39; esdeveniments <sc>ShipSprite.Touched</sc> . Quan es toca la nau, no només volem fixar la bal en visible, sinó que també volem establir la velocitat i la direcció de la bala. La direcció és un valor de <sc>0</sc> a <sc>360</sc> que indica quina direcció ha d&#39;orientar al sprite. 0/360 es troba a l&#39;esquerra, 90 cap amunt, 180 a la dreta i 270 avall. La velocitat es mesura en píxels/seg.</p>
+<p class="image-container"><img style="width: 339.00px" src="img/eef853c61e0ee929.png"></p>
+<p>L&#39;últim que hem de programar és el que passa quan la bala colpeja l&#39;alien. Utilitzarem el controlador d&#39;esdeveniments <sc>Bullet.CollidedWith</sc> . Aquest esdeveniment s&#39;executa sempre que la bala xoca amb un altre sprite. Atès que la nau es troba fixada en una posició <sc>Y</sc> al final de la pantalla, la bala no col·lisionarà mai amb la nau i només ho farà amb el plat. Quan es produeixi la col·lisió, volem que succeeixin dues coses. 1. La puntuació hauria d&#39;augmentar en <sc>1</sc>. 2. La bala hauria de ser invisible.</p>
+<p class="image-container"><img style="width: 598.00px" src="img/431027856dbd2220.png"></p>
+<p>Si has provat el joc, t&#39;hauràs adonat que una vegada es dispara la bala, no deixa disparar de nou. Hem de programar la bala per posar-la just en front de la nau quan el disparem. Podem fer-ho mitjançant el bloc <sc>Bullet.MoveTo</sc> .</p>
+<p>Modifica el block <sc>ShipSprite.Touched</sc> i afegeix-li el block <sc>Bullet.MoveTo</sc></p>
+<p class="image-container"><img style="width: 736.40px" src="img/6aad96c6d2ba1e6a.png"></p>
+<p>Potser us heu adonat que si us no atinem l&#39;alien, la bala es desplaça a la part superior de la pantalla i hi queda enganxada fins que disparem de nou. Per fer que la bala desaparegui quan arribi a la vora superior del llenç, necessitem el gestor d&#39; esdeveniments <sc>Bullet.EdgeReached</sc> .</p>
+<p class="image-container"><img style="width: 343.00px" src="img/1d8a77266eba63d2.png"></p>
+<h2 is-upgraded>Moviment de l&#39;alien</h2>
+<p>Fem el joc una mica més difícil! Ara, quan la bala xoca amb l&#39;alien, canviem la seva ubicació. L&#39;alien mantindrà el mateix valor Y, de manera que només haurem de canviar el X. Podem fer-ho mitjançant el bloc aleatori.</p>
+<p>Modifica el block <sc>Bullet.CollidedWith</sc></p>
+<p class="image-container"><img style="width: 736.40px" src="img/77c1eb09c02b3c7b.png"></p>
+<p>Per fer-ho encara més difícil, també canviarem la posició de l&#39;alien quan el temporitzador acaba.</p>
+<p class="image-container"><img style="width: 736.40px" src="img/8b12110082b7676f.png"></p>
+<h2 is-upgraded>Reiniciar el joc</h2>
+<p>De vegades, els usuaris poden voler reiniciar el joc i restablir la seva puntuació. Quan això succeeix, haurem de tornar la puntuació a 0.</p>
+<p class="image-container"><img style="width: 328.00px" src="img/67f3cc14d043cc34.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Programa complet" duration="0">
+        <p>Aquí teniu el programa complet <strong>SpaceInvaders</strong></p>
+<p class="image-container"><img style="width: 713.00px" src="img/7c9a98c4f2dc5987.png"></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/codelab-elements/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/prettify.js"></script>
+  <script src="https://storage.googleapis.com/codelab-elements/codelab-elements.js"></script>
+
+</body>
+</html>
