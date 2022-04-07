@@ -3,47 +3,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 /*fira-sub*/
-@import url(/sofi/fonts/juliamono-regular.css);
+@import url(/sofi/fonts/Roboto-regular.css);
 
 body {
     margin: 0;
     background-color: rgb(31, 29, 29);
-    font-family: JuliaMono, monospace;
-    color: white;
+    font-family: Roboto, sans;
+    color: hsl(12, 95%, 95%);;
+}
+
+.index {
+    max-width: 1080px;
+    margin: auto;
 }
 
 a {
     text-decoration: none;
-    color: white;
+    color: hsl(12, 95%, 95%);;
+}
+
+.breadcrumb {
+    
+    display: flex;
+    gap: 0px;
+    padding: 0.5em 0em 0.5em 0em;
+    background-color: rgb(21, 21, 145);
+}
+.breadcrumb li {
+    display: flex;
+}
+
+.breadcrumb a {
+    padding: 0 1em;
+}
+
+.breadcrumb li::after {
+    content: "/";
+    display:block;
+}
+
+div.item {
+    padding: 1em;
+    margin: 0.5em 0;
+    background-color: rgb(53, 49, 49)
 }
 </style>
 
-<p>
-    <a href="//">inici</a>
-</p><p>
-    <a href="/dam">CFGS Desenvolupament d&#39;aplicacions multiplataforma</a>
-</p>
+<div class="index">
+    
+        <ul class="breadcrumb">
+        <li>
+            <a href="/"> ⌂ </a>
+        </li>
+        <li>
+            <a href="/dam"> dam </a>
+        </li>
+        
+        </ul>
+    
 
-<div class="title"><span>M6 - Acces a dades</span></div>
-<div class="items">
-
-<a href="/uf1">
-        <div class="item ">
-            <div class="card-title">
-                <span>UF1 - Acces a fitxers</span>
+    <h1>M6 - Acces a dades</h1>
+    <div class="items">
+    <a href="/dam/m6/uf1">
+            <div class="item">
+                <span>UF1 - Persistència en fitxers</span>
             </div>
-        </div>
-    </a><a href="/uf2">
-        <div class="item ">
-            <div class="card-title">
-                <span>UF2 - BBDD OR</span>
+        </a><a href="/dam/m6/uf2">
+            <div class="item">
+                <span>UF2 - Persistència en BDR-BDOR-BDOO</span>
             </div>
-        </div>
-    </a><a href="/dam/m6/uf3">
-        <div class="item ">
-            <div class="card-title">
-                <span>UF3 - BBDD XML</span>
+        </a><a href="/dam/m6/uf3">
+            <div class="item">
+                <span>UF3 - Persistència en BD natives XML</span>
             </div>
-        </div>
-    </a>
+        </a>
+    </div>
 </div>

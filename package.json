@@ -13,8 +13,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx nodemon -e json,js,thtml --exec 'node ./build.js && node serve.js'",
-    "serve": "npx nodemon -e json,js,thtml --exec 'node serve.js'",
+    "dev": "npx nodemon -e json,js,htm,yaml --exec 'node ./build.js && node serve.js'",
+    "serve": "npx nodemon -e json,js,htm,yaml --exec 'node serve.js'",
     "build": "node ./build.js"
   },
   "repository": {

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moodle</title>
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<header>
+  <img src="img/logo.svg">
+  <abstract>
+    <p>Esta práctica consiste en instalar, configurar y administrar <a href="https://moodle.org">Moodle</a>.</p>
+  </abstract>
+</header>
+
+<section>
+    <h3>Instalación</h3>
+
+    <p>Instala la versión 3.10 de Moodle en un contenedor.</p>
+
+    <info>
+      <p>Estos pasos se describen en la sección
+        <a href="https://docs.moodle.org/310/en/Installation_quick_guide">
+          Installation quick guide
+        </a>
+      </p>
+    </info>
+
+    <p>Se deben instalar todos los módulos de PHP necesarios, de forma que las "Comprobaciones del servidor" queden
+      todas en estado "OK":
+    </p>
+
+    <img src="img/moo1.png">
+      
+    <warn>
+      <p>Cambiar contraseña de admin:</p>
+  
+      <p>Primero hay que averiguar el nombre de la base de datos:</p>
+      <shell>
+        mysql -e "show databases;"
+      </shell>
+  
+      <p>Una vez sabemos el nombre de la base de datos, averiguamos el 
+        nombre de la "tabla de usuarios"</p>
+      </p>
+      <shell>
+        mysql -e "use <replace>nombre_bd</replace>; show tables"
+      </shell>
+  
+      <p>Ahora averiguamos el nombre de usuario del administrador:</p>
+  
+      <shell>
+        mysql -e "SELECT * FROM <replace>nombre_bd</replace>.<replace>tabla_usuarios</replace>"
+      </shell>
+      <shell>
+        mysql -e "UPDATE <replace>nombre_bd</replace>.<replace>tabla_usuarios</replace> SET password = MD5('<replace>el_nuevo_password</replace>') WHERE username='<replace>admin</replace>';"
+      </shell>
+    </warn>
+
+    <warn>
+      <p>Activar SSL</p>
+
+      <p>Para activar SSL, ejectua los siguientes comandos.</p>
+      <p><b>Comprueba las rutas de:</b></p>
+      <ul>
+        <li>Fichero de configuración apache del sitio Moodle (<w>/etc/apache2/sites-enabled/000-default.conf</w>)</li>
+        <li>Fichero de configuración de Moodle (<w>/var/www/html/moodle/config.php</w>)</li>
+      </ul>
+
+      <shell>
+        apt install ssl-cert
+
+        make-ssl-cert generate-default-snakeoil --force-overwrite
+
+        a2enmod ssl
+
+        sed -i &#39;s/&lt;VirtualHost \*:80&gt;/&lt;VirtualHost \*:443&gt;\n\tSSLEngine On\n\tSSLCertificateFile \/etc\/ssl\/certs\/ssl-cert-snakeoil.pem\n\tSSLCertificateKeyFile \/etc\/ssl\/private\/ssl-cert-snakeoil.key/&#39; /etc/apache2/sites-enabled/000-default.conf
+
+        sed -i &#39;s/http:/https:/&#39; /var/www/html/moodle/config.php
+
+        systemctl restart apache2
+      </shell>
+    </warn>
+  <h3>Administración</h3>
+
+  
+
+    <h4>Apariencia</h4>
+    <ul>
+      <li>Instala y personaliza un <a href="https://moodle.org/plugins/browse.php?list=category&id=3">tema</a></li>
+      <li>Personaliza la FrontPage</li>
+    </ul>
+
+    <h4>Cursos y categorías</h4>
+    <ul>
+      <li><p>Crea un curso de forma manual</p></li>
+      <li><p>Crea cursos usando la opción "Upload courses"</p></li>
+      <li><p>Organiza los cursos en las siguientes categorías:</p>
+        <sc none>
+          - Administració i gestió
+              - CFGM Gestió administrativa
+              - CFGS Administració i finances
+            
+          - Informàtica i comunicacions
+              - CFGM Sistemes microinformàtics i xarxes
+              - CFGS Administració de sistemes informàtics en xarxa
+              - CFGS Desenvolupament d'aplicacions multiplataforma</li>
+        </sc>
+      </li>
+    </ul>
+
+    <h4>Actividades</h4>
+    <p>En un curso, crea 3 actividades:</p>
+    <ul>
+      <li>Entrega</li>
+      <li>Cuestionario</li>
+      <li>H5P</li>
+    </ul>
+
+
+
+    <h4>Usuarios, cohortes y roles</h4>
+    <ul>
+      <li>Crea un usuario de forma manual</li>
+      <li>Crea usuarios usando la opción "Upload users"</li>
+      <li>Permite que los usuarios puedan registrarse mediante la opción "Email-based self-registration". 
+        Para ello deberás configurar el SMTP (<a href="https://docs.moodle.org/310/en/Email_setup_gmail">Email setup gmail</a>)
+        <img src="img/moodle_smtp.png">
+      </li>
+    <li>Asigna el rol profesor a un usuario un curso</li>
+    <li>Define un rol personalizado y justifícalo</li>
+    <li>Matricula usuarios en un curso</li>
+    <li>Permite en un curso la automatriculación de alumnos con contraseña</li>
+    <li>Permite el acceso de invitado a un curso</li>
+    <li>Crea una cohorte (grupo) y añade usuarios. Matricula la cohorte a un curso.</li>
+  </ul>
+
+  <h4>Seguridad</h4>
+  <ul>
+    <li>Incrementa el tamaño de subida de ficheros máximo. (Crea una Tarea de subida de ficheros en un curso y comprueba que funciona)</li>
+    <li>Programa copias de seguridad de cursos automática. Restaura copias de seguridad.</li>
+  </ul>
+
+  <h4>Plugins</h4>
+  <p>Instala, configura y utiliza los siguientes plugins:</p>
+  <ul>
+    <li><a href="https://moodle.org/plugins/local_intelliboard">IntelliBoard</a></li>
+    <li><a href="https://moodle.org/plugins/mod_hsuforum">Open Forum</a></li>
+    <li><a href="https://moodle.org/plugins/mod_icontent">Content Pages</a></li>
+    <li><a href="https://moodle.org/plugins/block_gchat">Global chat</a></li>
+  </ul>
+
+  <h4>WebServices</h4>
+</section>

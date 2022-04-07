@@ -1,91 +1,47 @@
 const fs = require('fs');
+const path = require('path');
 const swig = require('swig-templates');
 const YAML = require('yaml');
 
 
 let item = YAML.parse(fs.readFileSync('./index.yaml', 'utf8'));
 
-try {
-    // fs.readdirSync("_pages")
-    ["android","apps"].forEach(dir => {
-        // console.log(dir)
-        const html = fs.readFileSync(`_pages/${dir}/index.html`, 'utf8');
-        try {
-            const meta = YAML.parse(html.match(/<!--meta(.*)-->/)[1]);
-            try {
-                meta.title = html.match(/<h1>(.*)<\/h1>/)[1];
-            } catch {
-                try {
-                    meta.title = html.match(/<title>(.*)<\/title>/)[1];
-                } catch {
-                    console.log("no title");
-                    return;
-                }
-            }
-            meta.urls.forEach(url => {
-                let leaf = item.items;
-                url.split("/").forEach(part => {
-                    leaf[part].items = leaf[part].items || {};
-                    leaf = leaf[part].items;
-                });
-                leaf[dir] = meta;
+function getTitle(path){
+    try {       
+        const html = fs.readFileSync(`_materials/${path}/index.html`, 'utf8');
 
-            });
-        } catch(error) {
-            console.log(error);
+        try {
+            return html.match(/<title>(.*)<\/title>/)[1];
+        } catch {
+            try {
+                return html.match(/<h1>(.*)<\/h1>/)[1];                
+            } catch {
+                return null;
+            }
         }
-    });
-} catch (err) {
-    console.log(err);
+    } catch (err) {
+        return null;
+    }
 }
 
-// const item = {
-//     title: "ROOT",
-//     items: {
-//         m3: {
-//             title: "DAMM3",
-//             items: {
-//                 uf1: { title: "UF1" },
-//                 uf2: {
-//                     title: "UF2",
-//                     items: {
-//                         apps: { title: "Apps", },
-//                         android: { title: "Android"}
-//                     }
-//                 }
-//             }
-//         },
-//         m6: {
-//             title: "DAMM6",
-//             items: {
-//                 uf1: { 
-//                     title: "UF1", 
-//                     items: {
-//                         apps: { title: "Apps", },
-//                         java: { title: "Java"}
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
 
 
-log(item);
-item =  trans("/", item);
-log(item);
+// log(item);
+item =  trans("", item);
+// log(item);
 
-function trans(url, item) {
-    const transsubitem = {}
-    transsubitem.url = url;
-    transsubitem.title = item.title;
+function trans(lps, item) {   // lps: lastPathSegment
+    const transsubitem = {};
+    transsubitem.lps = lps;
+    transsubitem.short = item.short;
+    transsubitem.title = item.title || getTitle(lps);
     transsubitem.tags = item.tags;
 
     if (item.items) {
         transsubitem.items = [];
 
-        for (const [url, subitem] of Object.entries(item.items)) {
-            transsubitem.items.push(trans(url, subitem));
+        for (const [lps, subitem] of Object.entries(item.items)) {
+            transsubitem.items.push(trans(lps, subitem));
         }
     }
 
@@ -94,53 +50,78 @@ function trans(url, item) {
 
 
 
-const template = fs.readFileSync('_templates/item.html');
+const template = fs.readFileSync('_templates/item.htm');
 
 item.parent = false;
 item.parents = [];
 
+// log(item);
 renderItem(item);
+log(item);
 
 function renderItem(item){
-    if(!item.items) return;
+    // if(!item.items) return;
 
-    for (const subitem of item.items) {
-        subitem.parents = [...item.parents, item];
-        subitem.parent = item;
-        renderItem(subitem);
-    }
-
-    item.tags = new Set();
-    let i = item.items.length;
-    while(i--) {
-        subitem = item.items[i];
-        item.tags.add(subitem.tag);
-    }
-
- 
-    item.tags = Array.from(item.tags);
-
-    const realUrl = item.url;
+    item.url = item.lps;
     if (item.parent) {
         let ritem = item;  // recursive item
-        while (ritem?.parent?.url && ritem.parent.url != "/") {
-            item.url = ritem.parent.url + '/' + item.url;
+        while (ritem?.parent?.lps && ritem.parent.lps != "") {
+            item.url = ritem.parent.lps + '/' + item.url;
             ritem = ritem.parent;            
         }
     }
 
-    const html = swig.render(template.toString(), { locals: item });
+    if (item.items) {
+        for (const subitem of item.items) {
+            subitem.parents = [...item.parents, item];
+            subitem.parent = item;
+            renderItem(subitem);
+        }
+    
 
-    if(item.url === "/") {
-        fs.writeFileSync(`./index.html`, new Buffer.from(html));
-    } else {
-        if (!fs.existsSync(item.url)){
-            fs.mkdirSync(item.url, { recursive: true });
-        }    
-        fs.writeFileSync(`${item.url}/index.html`, new Buffer.from(html));
+        item.tags = new Set();
+        let i = item.items.length;
+        while(i--) {
+            subitem = item.items[i];
+            item.tags.add(subitem.tag);
+        }
+    
+        item.tags = Array.from(item.tags);
     }
+    
 
     
+
+    
+    if (item.hasOwnProperty('items')){
+        // es un element de l'index
+        const html = swig.render(template.toString(), { locals: item });
+
+        if(item.url === "") {
+            fs.writeFileSync(`./index.html`, new Buffer.from(html));
+        } else {
+            if (!fs.existsSync(item.url)){
+                fs.mkdirSync(item.url, { recursive: true });
+            }    
+            fs.writeFileSync(`${item.url}/index.html`, new Buffer.from(html));
+        }    
+    } else if(fs.existsSync(`./_materials/${item.lps}`)) {
+        // es un material
+        const target = `./_materials/${item.lps}`;
+        try {
+            fs.symlinkSync(target, item.lps);
+        } catch (err) {
+        }
+
+        if (!fs.existsSync(path.dirname(item.url))){
+            fs.mkdirSync(path.dirname(item.url), { recursive: true });
+        }    
+        const relativePath = path.relative(path.dirname(item.url), target);
+        try {
+            fs.symlinkSync(relativePath, "./" + item.url);
+        } catch(err){
+        }
+    }
 }
 
 

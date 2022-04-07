@@ -3,41 +3,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 /*fira-sub*/
-@import url(/sofi/fonts/juliamono-regular.css);
+@import url(/sofi/fonts/Roboto-regular.css);
 
 body {
     margin: 0;
     background-color: rgb(31, 29, 29);
-    font-family: JuliaMono, monospace;
-    color: white;
+    font-family: Roboto, sans;
+    color: hsl(12, 95%, 95%);;
+}
+
+.index {
+    max-width: 1080px;
+    margin: auto;
 }
 
 a {
     text-decoration: none;
-    color: white;
+    color: hsl(12, 95%, 95%);;
+}
+
+.breadcrumb {
+    
+    display: flex;
+    gap: 0px;
+    padding: 0.5em 0em 0.5em 0em;
+    background-color: rgb(21, 21, 145);
+}
+.breadcrumb li {
+    display: flex;
+}
+
+.breadcrumb a {
+    padding: 0 1em;
+}
+
+.breadcrumb li::after {
+    content: "/";
+    display:block;
+}
+
+div.item {
+    padding: 1em;
+    margin: 0.5em 0;
+    background-color: rgb(53, 49, 49)
 }
 </style>
 
-<p>
-    <a href="//">inici</a>
-</p><p>
-    <a href="/dam">CFGS Desenvolupament d&#39;aplicacions multiplataforma</a>
-</p>
+<div class="index">
+    
+        <ul class="breadcrumb">
+        <li>
+            <a href="/"> ⌂ </a>
+        </li>
+        <li>
+            <a href="/dam"> dam </a>
+        </li>
+        
+        </ul>
+    
 
-<div class="title"><span>M8 - Programació de dispositius mòbils</span></div>
-<div class="items">
-
-<a href="/dam/m8/uf1">
-        <div class="item ">
-            <div class="card-title">
-                <span>UF1 - Programació mòbils</span>
+    <h1>M8 - Programació de dispositius mòbils</h1>
+    <div class="items">
+    <a href="/dam/m8/uf1">
+            <div class="item">
+                <span>UF1. Desenvolupament d’aplicacions per dispositius mòbils</span>
             </div>
-        </div>
-    </a><a href="/uf2">
-        <div class="item ">
-            <div class="card-title">
+        </a><a href="/dam/m8/uf2">
+            <div class="item">
                 <span>UF2 - Programació multimèdia</span>
             </div>
-        </div>
-    </a>
+        </a><a href="/dam/m8/uf3">
+            <div class="item">
+                <span>UF3. Desenvolupament de jocs per dispositius mòbils</span>
+            </div>
+        </a>
+    </div>
 </div>

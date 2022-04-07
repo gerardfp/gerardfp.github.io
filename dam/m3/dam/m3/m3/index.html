@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/*fira-sub*/
+@import url(/sofi/fonts/juliamono-regular.css);
+
+body {
+    margin: 0;
+    background-color: rgb(31, 29, 29);
+    font-family: JuliaMono, monospace;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.breadcrumb {
+    display: flex;
+    gap: 0px;
+}
+.breadcrumb li {
+    display: flex;
+    position: relative;
+}
+
+.breadcrumb a {
+    display: block;
+    padding: 0.5em 1em 0.5em 2em;
+    background-color: rgb(21, 21, 145);
+}
+
+.breadcrumb li::after {
+    content: "";
+    float: left;
+    width: 2em;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+}
+
+.breadcrumb li::after {
+    background-color: purple;
+    clip-path: polygon(0% 0%, 50% 50%,0% 100%);
+    right: -2em;
+}
+</style>
+
+<ul class="breadcrumb">
+<li>
+    <a href="/">Inici</a>
+</li><li>
+    <a href="//">CFGS Desenvolupament d&#39;aplicacions multiplataforma</a>
+</li><li>
+    <a href="/dam/dam/dam">M3 - Programació bàsica</a>
+</li>
+</ul>
+
+
+<h1>UF2 - Programacio modular</h1>
+<div class="items">
+
+<a href="/uf2">
+        <div class="item ">
+            <div class="card-title">
+                <span>Control de versions</span>
+            </div>
+        </div>
+    </a><a href="/uf2">
+        <div class="item ">
+            <div class="card-title">
+                <span>JUnit</span>
+            </div>
+        </div>
+    </a>
+</div>

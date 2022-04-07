@@ -3,65 +3,87 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 /*fira-sub*/
-@import url(/sofi/fonts/juliamono-regular.css);
+@import url(/sofi/fonts/Roboto-regular.css);
 
 body {
     margin: 0;
     background-color: rgb(31, 29, 29);
-    font-family: JuliaMono, monospace;
-    color: white;
+    font-family: Roboto, sans;
+    color: hsl(12, 95%, 95%);;
+}
+
+.index {
+    max-width: 1080px;
+    margin: auto;
 }
 
 a {
     text-decoration: none;
-    color: white;
+    color: hsl(12, 95%, 95%);;
+}
+
+.breadcrumb {
+    
+    display: flex;
+    gap: 0px;
+    padding: 0.5em 0em 0.5em 0em;
+    background-color: rgb(21, 21, 145);
+}
+.breadcrumb li {
+    display: flex;
+}
+
+.breadcrumb a {
+    padding: 0 1em;
+}
+
+.breadcrumb li::after {
+    content: "/";
+    display:block;
+}
+
+div.item {
+    padding: 1em;
+    margin: 0.5em 0;
+    background-color: rgb(53, 49, 49)
 }
 </style>
 
-<p>
-    <a href="//">inici</a>
-</p><p>
-    <a href="/smx">CFGM Sistemes microinformàtics i xarxes</a>
-</p>
+<div class="index">
+    
+        <ul class="breadcrumb">
+        <li>
+            <a href="/"> ⌂ </a>
+        </li>
+        <li>
+            <a href="/smx"> smx </a>
+        </li>
+        
+        </ul>
+    
 
-<div class="title"><span>M8 - Aplicacions web</span></div>
-<div class="items">
-
-<a href="/uf1">
-        <div class="item ">
-            <div class="card-title">
-                <span>UF1 - Servidor web</span>
+    <h1>M8 - Aplicacions web</h1>
+    <div class="items">
+    <a href="/smx/m8/uf1">
+            <div class="item">
+                <span>UF1 - Ofimàtica  i  eines web</span>
             </div>
-        </div>
-    </a><a href="/uf2">
-        <div class="item ">
-            <div class="card-title">
-                <span>UF2 - Gestor de continguts</span>
+        </a><a href="/smx/m8/uf2">
+            <div class="item">
+                <span>UF2 - Gestors d’arxius web</span>
             </div>
-        </div>
-    </a><a href="/smx/m8/uf3">
-        <div class="item ">
-            <div class="card-title">
-                <span>UF3 - Gestor d&#39;aprenentatge</span>
+        </a><a href="/smx/m8/uf3">
+            <div class="item">
+                <span>UF3 - Gestors de continguts</span>
             </div>
-        </div>
-    </a><a href="/uf4">
-        <div class="item ">
-            <div class="card-title">
-                <span>UF4 - Gestor de fitxers</span>
+        </a><a href="/smx/m8/uf4">
+            <div class="item">
+                <span>UF4 - Portals web d’aprenentatge </span>
             </div>
-        </div>
-    </a><a href="/uf5">
-        <div class="item ">
-            <div class="card-title">
-                <span>UF5 - Aplicacions ofimàtiques</span>
+        </a><a href="/smx/m8/uf5">
+            <div class="item">
+                <span>UF5 - Fonaments d&#39;HTML i fulls d&#39;estils </span>
             </div>
-        </div>
-    </a><a href="/uf6">
-        <div class="item ">
-            <div class="card-title">
-                <span>UF6 - HTML i CSS</span>
-            </div>
-        </div>
-    </a>
+        </a>
+    </div>
 </div>

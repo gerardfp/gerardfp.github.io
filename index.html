@@ -3,49 +3,73 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 /*fira-sub*/
-@import url(/sofi/fonts/juliamono-regular.css);
+@import url(/sofi/fonts/Roboto-regular.css);
 
 body {
     margin: 0;
     background-color: rgb(31, 29, 29);
-    font-family: JuliaMono, monospace;
-    color: white;
+    font-family: Roboto, sans;
+    color: hsl(12, 95%, 95%);;
+}
+
+.index {
+    max-width: 1080px;
+    margin: auto;
 }
 
 a {
     text-decoration: none;
-    color: white;
+    color: hsl(12, 95%, 95%);;
+}
+
+.breadcrumb {
+    
+    display: flex;
+    gap: 0px;
+    padding: 0.5em 0em 0.5em 0em;
+    background-color: rgb(21, 21, 145);
+}
+.breadcrumb li {
+    display: flex;
+}
+
+.breadcrumb a {
+    padding: 0 1em;
+}
+
+.breadcrumb li::after {
+    content: "/";
+    display:block;
+}
+
+div.item {
+    padding: 1em;
+    margin: 0.5em 0;
+    background-color: rgb(53, 49, 49)
 }
 </style>
 
+<div class="index">
+    
 
-
-<div class="title"><span>inici</span></div>
-<div class="items">
-
-<a href="/dam">
-        <div class="item ">
-            <div class="card-title">
+    <h1>⌂</h1>
+    <div class="items">
+    <a href="/dam">
+            <div class="item">
                 <span>CFGS Desenvolupament d&#39;aplicacions multiplataforma</span>
             </div>
-        </div>
-    </a><a href="/asix">
-        <div class="item ">
-            <div class="card-title">
+        </a><a href="/asix">
+            <div class="item">
                 <span>CFGS Administració de sistemes informàtics en xarxa</span>
             </div>
-        </div>
-    </a><a href="/daw">
-        <div class="item ">
-            <div class="card-title">
-                <span>CFGS Administració de sistemes informàtics en xarxa</span>
+        </a><a href="/daw">
+            <div class="item">
+                <span>CFGS Desenvolupament d&#39;aplicacions web</span>
             </div>
-        </div>
-    </a><a href="/smx">
-        <div class="item ">
-            <div class="card-title">
+        </a><a href="/smx">
+            <div class="item">
                 <span>CFGM Sistemes microinformàtics i xarxes</span>
             </div>
-        </div>
-    </a>
+        </a>
+    </div>
 </div>

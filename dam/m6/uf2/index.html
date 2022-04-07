@@ -3,37 +3,74 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 /*fira-sub*/
-@import url(/sofi/fonts/juliamono-regular.css);
+@import url(/sofi/fonts/Roboto-regular.css);
 
 body {
     margin: 0;
     background-color: rgb(31, 29, 29);
-    font-family: JuliaMono, monospace;
-    color: white;
+    font-family: Roboto, sans;
+    color: hsl(12, 95%, 95%);;
+}
+
+.index {
+    max-width: 1080px;
+    margin: auto;
 }
 
 a {
     text-decoration: none;
-    color: white;
+    color: hsl(12, 95%, 95%);;
+}
+
+.breadcrumb {
+    
+    display: flex;
+    gap: 0px;
+    padding: 0.5em 0em 0.5em 0em;
+    background-color: rgb(21, 21, 145);
+}
+.breadcrumb li {
+    display: flex;
+}
+
+.breadcrumb a {
+    padding: 0 1em;
+}
+
+.breadcrumb li::after {
+    content: "/";
+    display:block;
+}
+
+div.item {
+    padding: 1em;
+    margin: 0.5em 0;
+    background-color: rgb(53, 49, 49)
 }
 </style>
 
-<p>
-    <a href="//">inici</a>
-</p><p>
-    <a href="/dam">Desenvolupament d&#39;aplicaions</a>
-</p><p>
-    <a href="/m6">DAM M6 - Acces a dades</a>
-</p>
+<div class="index">
+    
+        <ul class="breadcrumb">
+        <li>
+            <a href="/"> ⌂ </a>
+        </li>
+        <li>
+            <a href="/dam"> dam </a>
+        </li>
+        <li>
+            <a href="/dam/m6"> m6 </a>
+        </li>
+        
+        </ul>
+    
 
-<div class="title"><span>UF2 - BBDD OR</span></div>
-<div class="items">
-
-<a href="/apps">
-        <div class="item ">
-            <div class="card-title">
-                <span>Apps</span>
+    <h1>UF2 - Persistència en BDR-BDOR-BDOO</h1>
+    <div class="items">
+    <a href="/dam/m6/uf2/springboot">
+            <div class="item">
+                <span>Sping Boot API</span>
             </div>
-        </div>
-    </a>
+        </a>
+    </div>
 </div>
