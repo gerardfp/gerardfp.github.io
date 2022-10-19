@@ -149,7 +149,7 @@
 <section>
     <h2>Getting started</h2>
 
-    <p>En el següent tutorial posarem en funcionament una aplicació-web senzilla que consisteix en una TODO-APP (llista de tasqes).</p>
+    <p>En el següent tutorial posarem en funcionament una aplicació-web senzilla que consisteix en una TODO-APP (llista de tasques).</p>
 
     <info>
     <p>Pots trobar el codi de l'aplicació aquí: <a href="https://github.com/docker/getting-started">https://github.com/docker/getting-started</a></p>
@@ -216,7 +216,7 @@
     les instruccions per a construir una imatge. Construirem una imatge senzilla amb la nostra aplicació:</p>
 
     <ol>
-        <li><p>En la carpeta <w>app</w>, crea un arxiu anomenat <w>Dockerfile</w> amb els següent contingut:</p>
+        <li><p>En la carpeta <w>app</w>, crea un arxiu anomenat <w>Dockerfile</w> amb el següent contingut:</p>
             <scfile>app/Dockerfile</scfile>
             <sc>
                 FROM node:12-alpine
@@ -235,10 +235,11 @@
             </shell>
             <p>Aquesta commanda ha utilitzat l'arxiu Dockerfile per a construir una nova imatge. Segurament t'hauràs adonat de que s'han descarregat
                 un munt de "layers". Això és perquè li hem dit a docker que volem començar a partir de la imatge <w>node:12-alpine</w>. Però, degut a que 
-                no la teníem al nostre ordinador, era necessari descarregar aquesta imatge.
+                no la teníem al nostre ordinador, era necessari descarregar aquesta imatge (i les imatges de la qual aquesta depén...🌀).
             </p>
-            <p>Un cop la imatge <w>node:12-alpine</w> s'ha descarregat, hem copiat la nostra aplicació i hem utilitzat <w>yarn</w> per a instalar les dependències 
-                de l'aplicació. La directiva <w>CMD</w> especifica la comanda que s'ha d'executar quan s'inicia un contenidor a partir d'aquesta imatge.</p>
+            <p>Un cop la imatge <w>node:12-alpine</w> s'ha descarregat, hem copiat la nostra aplicació (la carpeta <w>app</w>) i hem utilitzat <w>yarn</w> per 
+                a instal·lar les dependències de l'aplicació. La directiva <w>CMD</w> especifica la comanda que s'ha d'executar quan s'inicia un contenidor 
+                a partir d'aquesta imatge.</p>
             <p>Finalment, el flag <w>-t</w> posa una etiqueta (<em>tag</em>) a la nostra imatge. És com posar-li un nom. Ja que li hem posat el nom 
                 <w>la-meva-imatge</w>,
             ens podem referir a aquesta imatge quan iniciem un contenidor a partir d'ella.</p>
@@ -307,14 +308,14 @@
             <shell>
                 docker run -dp 9090:3000 la-meva-imatge
             </shell>
-            <p>¡Oh, oh! 😱 Probablement vegis un error semblant a aquest:</p>
+            <p>¡Oh, noooo! 😱 Probablement vegis un error semblant a aquest:</p>
 
             <shell>
                 docker: Error response from daemon: driver failed programming external connectivity on endpoint silly_yonath <br>(3829d660f4d8b29a93636704d71dca641fe5d498af64d50287d2439621becd8b):<br>Bind for 0.0.0.0:9090 failed: port is already allocated
             </shell>
 
             <p>Què ha passat? No s'ha pogut iniciar el nou contenidor degut a que el contenidor antic encara està en marxa. És degut a que el nou contenidor vol 
-                utilitzar el mateix port del host, el 9090, i únicament un procés pot utilitzar un mateix port. 
+                utilitzar el mateix port del host, el 9090, i únicament un procés pot utilitzar un mateix port a la vegada. 
             </p>
 
             <img src="img/la-meva-imatge 2-container.png">
