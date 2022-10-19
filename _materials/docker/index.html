@@ -224,7 +224,6 @@
                 COPY . .
                 RUN yarn install --production
                 CMD ["node", "src/index.js"]
-                EXPOSE 3000
             </sc>
 
             <img src="img/dockerfile.png">
@@ -234,13 +233,152 @@
             <shell>
                 docker build -t la-meva-imatge .
             </shell>
+            <p>Aquesta commanda ha utilitzat l'arxiu Dockerfile per a construir una nova imatge. Segurament t'hauràs adonat de que s'han descarregat
+                un munt de "layers". Això és perquè li hem dit a docker que volem començar a partir de la imatge <w>node:12-alpine</w>. Però, degut a que 
+                no la teníem al nostre ordinador, era necessari descarregar aquesta imatge.
+            </p>
+            <p>Un cop la imatge <w>node:12-alpine</w> s'ha descarregat, hem copiat la nostra aplicació i hem utilitzat <w>yarn</w> per a instalar les dependències 
+                de l'aplicació. La directiva <w>CMD</w> especifica la comanda que s'ha d'executar quan s'inicia un contenidor a partir d'aquesta imatge.</p>
+            <p>Finalment, el flag <w>-t</w> posa una etiqueta (<em>tag</em>) a la nostra imatge. És com posar-li un nom. Ja que li hem posat el nom 
+                <w>la-meva-imatge</w>,
+            ens podem referir a aquesta imatge quan iniciem un contenidor a partir d'ella.</p>
+
+            <p>El <w>.</w> al final de la comanda <w>docker build</w> li diu a docker que ha de buscar l'arxiu <w>Dockerfile</w> al directori actual 
+                en què ens trobem.</p>
+            
+            <img src="img/la-meva-imatge.png">
         </li>
     </ol>
 
-    <shell>
-        docker run -dp 9090:3000 la-meva-imatge
-    </shell>
+    <h3>Iniciar un contenidor</h3>
 
-    <img src="img/todoapp_blue.png">
+    <p>Ara que ja tenim la imatge podem inicar un contenidor que la utilitzi com a base. Per fer-ho, utilitzarem la comanda <w>docker run</w> (tal com hem fet abans).</p>
 
+    <ol>
+        <li><p>Inicia el contenidor amb la comanda <w>docker run</w> tot especificant el nom de la imatge que tot just hem creat:</p>
+            <shell>
+                docker run -dp 9090:3000 la-meva-imatge
+            </shell>
+            <p>Recordes les <em>flags</em> <w>-d</w> i <w>-p</w>? Estem iniciant el contenidor en mode <em>detached</em> (segon plà) i hem mapejat el port 9090 del host
+            amb el port 3000 del contenidor.</p>
+        </li>
+        <li>
+            <p>En uns segons, obre el navegador web i ves a <a href="http://localhost:9090">http://localhost:9090</a>. Hauries de veure l'app (en color blau de fons!)</p>
+            <img src="img/todoapp_blue.png">
+        </li>
+    </ol>
+
+    <p>Així doncs, ja tenim en marxa el contenidor que utilitza la nostra imatge i que té mapejat el port 3000 amb el port 9090 del host. I és a través d'aquest 
+        port 9090 mitjançant el qual accedim a l'aplicació web.</p>
+
+        <img src="img/la-meva-imatge container.png">
+
+    <h3>Reemplaçar un contenidor</h3>
+    <p>Com hem vist, eś molt senzill crear una nova imatge (amb <w>docker build</w>) i iniciar un contenidor que la utilitzi com a base (amb <w>docker run</w>).</p>
+
+    <p>Imagina que ara ens demanen fer meś canvis a l'aplicació. Per exemple, modificar el text que apareix com a <em>placeholder</em> en el camp de text, 
+        <name>New Item</name>, i canviar-lo per <name>Item title</name>.</p>
+
+    <img src="img/item title.png">
+
+    <p>Molt senzill, anem a canviar aquest text.</p>
+
+    <ol>
+        <li>
+            <p>A l'arxiu <w>src/static/js/app.js</w>, modifica la línia 99 i canvia el text:</p>
+            <scfile>src/static/js/app.js</scfile>
+            <sc html>
+                <rem>
+                    placeholder="New Item"
+                </rem>
+                <add>
+                    placeholder="Item title"
+                </add>
+            </sc>
+        </li>
+        <li>
+            <p>Construïm una nova versió de la imatge, utilitzant la mateixa comanda que abans:</p>
+            <shell>
+                docker build -t la-meva-imatge .
+            </shell>
+        </li>
+        <li>
+            <p>Iniciem un nou contenidor que utilitze la imatge actualitzada.</p>
+            <shell>
+                docker run -dp 9090:3000 la-meva-imatge
+            </shell>
+            <p>¡Oh, oh! 😱 Probablement vegis un error semblant a aquest:</p>
+
+            <shell>
+                docker: Error response from daemon: driver failed programming external connectivity on endpoint silly_yonath <br>(3829d660f4d8b29a93636704d71dca641fe5d498af64d50287d2439621becd8b):<br>Bind for 0.0.0.0:9090 failed: port is already allocated
+            </shell>
+
+            <p>Què ha passat? No s'ha pogut iniciar el nou contenidor degut a que el contenidor antic encara està en marxa. És degut a que el nou contenidor vol 
+                utilitzar el mateix port del host, el 9090, i únicament un procés pot utilitzar un mateix port. 
+            </p>
+
+            <img src="img/la-meva-imatge 2-container.png">
+
+            <p>Per a corregir l'error tenim dues opcions: canviar el 
+                port que utilitza el nou contenidor, o esborrar el contenidor antic.</p>
+
+            <optional>
+                <p>Provem a canviar el port que utilitza el nou contenidor.</p>
+
+                <p>Llança el nou contenidor amb un mapeig de ports diferent:</p>
+
+                <shell>
+                    docker run -dp 5678:3000 la-meva-imatge
+                </shell>
+
+                <p>Ara el contenidor s'ha d'haver iniciat correctament i hauríem de poder accedir a l'aplicació a <a href="http://localhost:5678">http://localhost:5678</a>.</p>
+                <p>I naturalment, l'antic contenidor encara està en funcionament, i seguirem veient l'antiga app a <a href="http://localhost:9090">http://localhost:9090</a>.</p>
+                <p>És més, segurament encara tinguis engegat el primer contenidor que hem llançat a l'inici de tot, el que tenia el fons gris (<a href="http://localhost:7070">http://localhost:7070</a>)</p>
+            
+                <img src="img/la-meva-imatge 3-container.png">
+            </optional>
+        </li>
+    </ol>
+
+    <h4>Reemplaçar l'antic contenidor per el nou</h4>
+
+    <p>Com hauràs endevinat, no és plan d'anar iniciant contenidors nous en ports diferents. Serà més convenient eliminar els contenidors antics i reutilitzar el
+        mateix port.
+    </p>
+
+    <ol>
+        <li>
+            <p>Per a eliminar els contenidors primer cal esbrinar el seu nom. (Aquest nom és diferent al nom de la imatge <w>la-meva-imatge</w>). Degut a que 
+            no hem posat cap nom al contenidor, docker n'ha generat un d'aleatori. Per a obtenir els noms dels contenidors podem usar <w>docker ps</w>:</p>
+
+            <shell>
+                docker ps
+            </shell>
+
+            <p>Ens donarà una informació semblant a aquesta, amb el nom dels contenidors a l'última columna:</p>
+            <shell>
+CONTAINER ID  IMAGE              COMMAND          STATUS     PORTS                   NAMES
+60af742f64ee  la-meva-imatge     "docker-entry…"  Up 1 hour  0.0.0.0:5678->3000/tcp  beautiful_clint
+9e196d4f2b55  la-meva-imatge     "docker-entry…"  Up 1 hour  0.0.0.0:9090->3000/tcp  relaxed_lumiere
+d7e628fe0ca9  gerardfp/todo-app  "docker-entry…"  Up 1 hour  0.0.0.0:7070->3000/tcp  mystifying_boyd
+            </shell>
+        </li>
+        <li>
+            <p>Utilitza la comanda <w>docker rm -f &lt;NAME&gt;</w> per a eliminar els contenidors</p>
+
+            <shell>
+                docker rm -f beautiful_clint
+                docker rm -f relaxed_lumiere
+                docker rm -f mystifying_boyd
+            </shell>
+        </li>
+        <li>
+            <p>Ara ja pots iniciar un nou contenidor al port 9090 amb la nova imatge:</p>
+            <shell>
+                docker run -dp 9090:3000 la-meva-imatge
+            </shell>
+        </li>
+    </ol>
+
+    <h3>Utilitzar bind mounts</h3>
 </section>
