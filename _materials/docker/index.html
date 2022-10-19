@@ -18,20 +18,229 @@
    <ul>
     <li>
         <p>docker</p>
-        <host>root@server</host>
+        <host>root@host</host>
         <shell>
             curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+        </shell>
+
+        <p>Configuració per a executar Docker com a usuari no-root:</p>
+        <host>root@host</host>
+        <shell>
+            usermod -aG docker $USER
+        </shell>
+
+        <host>user@host</host>
+        <shell>
+            newgrp docker
         </shell>
     </li>
        <li>
         <p>docker-compose</p>
-        <host>root@server</host>
+        <host>root@host</host>
         <shell>
             curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
         </shell>     
        </li>
    </ul>
 
-   <h2>docker-compose reference</h2>
+   <h2>docker cli</h2>
+   <a href="https://docs.docker.com/engine/reference/commandline/cli/">Use Docker command line</a>
+
+   <ul>
+    <li>docker run</li>
+    <li>docker image
+        <ul>
+            <li>build</li>
+            <li>ls</li>
+            <li>rm / prune</li>
+        </ul>
+    </li>
+    <li>docker container
+        <ul>
+            <li>ls</li>
+            <li>exec</li>
+            <li>logs</li>
+            <li>rm / prune</li>
+            <li>start / stop / restart</li>
+
+        </ul>
+    </li>
+    <li>docker volume
+        <ul>
+            <li>create</li>
+            <li>inspect</li>
+            <li>ls</li>
+            <li>rm / prune</li>
+        </ul>
+    </li>
+    <li>docker ps</li>
+    <li>docker compose
+        <ul>
+            <li>up / down</li>
+            <li>logs</li>
+            <li>ps</li>
+            <li>start / stop / restart</li>
+        </ul>
+    </li>
+   </ul>
+
+   <h2>Dockerfile</h2>
+   <a href="https://docs.docker.com/engine/reference/builder/">Dockerfile reference</a>
+   <ul>
+    <li>FROM</li>
+    <li>RUN</li>
+    <li>CMD</li>
+    <li>ADD / COPY</li>
+    <li>USER</li>
+    <li>WORKDIR</li>
+   </ul>
+
+   <h2>docker-compose</h2>
    <a href="https://docs.docker.com/compose/compose-file/compose-file-v3/">compose-file-v3</a>
+
+   <ul>
+        <li>build</li>
+        <li>command</li>
+        <li>configs</li>
+        <li>depends_on</li>
+        <li>entrypoint</li>
+        <li>environment</li>
+        <li>image</li>
+        <li>networks</li>
+        <li>ports</li>
+        <li>secrets</li>
+        <li>volumes</li>
+   </ul>
+</section>
+
+<section>
+    <h2>Contenidors</h2>
+
+    <h3>Què és un contenidor?</h3>
+    <p>Simply put, a container is a sandboxed process on your machine that is isolated from all other processes on the host machine. That isolation leverages kernel namespaces and cgroups, features that have been in Linux for a long time. Docker has worked to make these capabilities approachable and easy to use. To summarize, a container:
+    
+    <ul>
+        <li>is a runnable instance of an image. You can create, start, stop, move, or delete a container using the DockerAPI or CLI.
+        <li>can be run on local machines, virtual machines or deployed to the cloud.
+        <li>is portable (can be run on any OS).
+        <li>is isolated from other containers and runs its own software, binaries, and configurations.
+    </ul>
+
+    <h3>Què és una imatge?</h3>
+    <p>When running a container, it uses an isolated filesystem. This custom filesystem is provided by a container image. Since the image contains the container's filesystem, it must contain everything needed to run an application - all dependencies, configurations, scripts, binaries, etc. The image also contains other configuration for the container, such as environment variables, a default command to run, and other metadata.
+
+    
+
+
+    <h3>Contenidor vs Màquina Virtual</h3>
+    <img src="img/container vs VM.png">
+
+    <h3>Imatge vs contenidor</h3>
+    <img src="img/container layers.png">
+
+    <h3>Container images</h3>
+    <img src="img/container image.png">
+
+    <h3>Chroot</h3>
+    <img src="img/container chroot.png">
+
+</section>
+
+<section>
+    <h2>Getting started</h2>
+
+    <p>En el següent tutorial posarem en funcionament una aplicació-web senzilla que consisteix en una TODO-APP (llista de tasqes).</p>
+
+    <info>
+    <p>Pots trobar el codi de l'aplicació aquí: <a href="https://github.com/docker/getting-started">https://github.com/docker/getting-started</a></p>
+    <p>La imatge docker amb l'aplicació és aquesta: <a href="https://hub.docker.com/r/gerardfp/todo-app">https://hub.docker.com/r/gerardfp/todo-app</a></p>
+    <p>Aquest tutorial està extret de <a href="https://docs.docker.com/get-started/">https://docs.docker.com/get-started/</a></p>
+    </info>
+
+    <h3>Comencem!</h3>
+    <p>Executa la següent comanda al terminal:</p>
+
+    <shell>
+        docker run -d -p 7070:3000 gerardfp/todo-app
+    </shell>
+
+    <p>Adona't que s'han utilitzat algunes <em>flags</em>. Aquí tens alguna info d'elles:</p>
+
+    <ul>
+        <li><w>-d</w> - Executa el contenidor en mode <em>detached</em> (en segon pla). Açò permet seguir fent altres comandes al mateix terminal, sense necessitat d'obrir-ne un altre.</li>
+        <li><w>-p 7070:3000</w> - Mapeja el port 7070 del <strong>host</strong> amb el port 3000 del <strong>contenidor</strong>. Ara pots accedir a l'aplicació a través de la URL <a href="http://localhost:7070">http://localhost:7070</a>.</li>
+        <li><w>gerardfp/todo-app</w> - Especifica la imatge a utilitzar. (Docker descarrega automàticament les imagtges de (DockerHub)</li>
+    </ul>
+
+    <p>I així, amb una sola comanda, ja tenim l'aplicació web en funcionament! 💪</p>
+    <img src="img/todoapp_gray.png">
+
+    <p>Ja està, executar un contenidor Docker es tan fàcil com això. Però ara bé, hem executat un contenidor a partir d'una imatge ja feta que contenia l'aplicació, però... 
+        què passa si volem modificar l'aplicació? Haurem d'aprendre primer a fer imatges amb les nostres aplicacions...</p>
+
+    <h3>Construir imatges</h3>
+
+    <p>Per a construir la nostra imatge agafarem el codi de l'aplicació d'exemple, el modificarem un poquet, i després construirem la imatge.</p>
+
+    <h4>Obté el codi de l'aplicació d'exemple:</h4>
+    <p>Normalment per obtenir qualsevol codi font clonarem un repositori git:</p>
+    <shell>git clone https://github.com/docker/getting-started</shell>
+
+    <p>Observa que s'ha creat la carpeta <w>getting-started</w> amb tot el contingut del repositori. 
+        De tot aquest contingut ens interessa la carpeta <w>app</w>, que és on es troba el codi font de l'aplicació.</p>
+
+    <p>Obre la carpeta <w>app</w> amb l'editor que preferisques, per exemple el Visual Studio Code. Un cop obert hauries de veure aquest contingut:</p>
+    <img src="img/vscode1.png">
+
+    <p>Ara farem una xicoteta modificació a l'aplicació. Podem canviar per exemple el color de fons, i podríem posar el color blau corporatiu de 
+        Docker: <w><span style="color:#2496ed">█</span> #2496ed</w>. Per fer-ho has de modificar l'arxiu <w>src/static/css/styles.css</w>:</p>
+
+    <scfile>src/static/css/styles.css</scfile>
+    <sc css>
+        <low>
+        body {
+        </low>
+            <add>background-color: #2496ed;</add>
+        <low>
+            margin-top: 50px;
+            font-family: 'Lato';
+        }
+        </low>
+    </sc>
+
+    <img src="img/csscolor.png">
+
+
+    <h4>Construir la nova imatge</h4>
+    <p>Per a poder construir (<em>build</em>) una imatge, necessitem un arxiu <w>Dockerfile</w>. Un arxiu Dockerfile és simplement un script de text amb 
+    les instruccions per a construir una imatge. Construirem una imatge senzilla amb la nostra aplicació:</p>
+
+    <ol>
+        <li><p>En la carpeta <w>app</w>, crea un arxiu anomenat <w>Dockerfile</w> amb els següent contingut:</p>
+            <scfile>app/Dockerfile</scfile>
+            <sc>
+                FROM node:12-alpine
+                WORKDIR /app
+                COPY . .
+                RUN yarn install --production
+                CMD ["node", "src/index.js"]
+                EXPOSE 3000
+            </sc>
+
+            <img src="img/dockerfile.png">
+        </li>
+        <li>
+            <p>Al terminal, ves a la carpeta <w>app</w>. I construeix la imatge amb la comanda <w>docker build</w>.</p>
+            <shell>
+                docker build -t la-meva-imatge .
+            </shell>
+        </li>
+    </ol>
+
+    <shell>
+        docker run -dp 9090:3000 la-meva-imatge
+    </shell>
+
+    <img src="img/todoapp_blue.png">
+
 </section>

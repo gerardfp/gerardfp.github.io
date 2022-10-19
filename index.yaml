@@ -5,7 +5,7 @@ items:
     title: "CFGS Desenvolupament d'aplicacions multiplataforma"
     items:
       m3:
-        title: "M3 - Programació bàsica"
+        title: "M3 - Programació"
         items:
           javatutorial: { tags:  [programacio, android, java] }
           uf1:
@@ -45,6 +45,10 @@ items:
           uf3:
             title: "UF3. Fonaments de gestió de fitxers"
             items:
+      entorns:
+        title: "Entorns de desenrotllament"
+        items:
+          docker: { tags:  [programacio, android, java] }
       m6:
         title: "M6 - Acces a dades"
         items:
@@ -64,7 +68,7 @@ items:
         title: "M8 - Programació de dispositius mòbils"
         items:
           uf1:
-            title: "UF1. Desenvolupament d’aplicacions per dispositius mòbils"
+            title: "UF1. Desenvolupament d'aplicacions per dispositius mòbils"
             items:
               apps:  { tags:  [programacio, android, java] }
               fragments: { tags:  [programacio, android, java] }        
@@ -115,15 +119,23 @@ items:
               daw-m8-virtmanager: { tags:  [programacio, android, java] }  
               nginx: { tags:  [programacio, android, java] }                  
           uf2:
-            title: "UF2 - Servidors d’aplicacions web"
+            title: "UF2 - Servidors d'aplicacions web"
             items:
               daw-m8-dockerwp: { tags:  [programacio, android, java] }
           uf3:
-            title: "UF3 - Desplegament d’aplicacions web"
+            title: "UF3 - Desplegament d'aplicacions web"
             items:
           uf4:
             title: "UF4 - Control de versions i documentació"
             items:
+      m3:
+        title: "M3 - Programacio"
+        items:
+          javatutorial: { tags:  [programacio, android, java] }
+      entorns:
+        title: "Entorns de desenrotllament"
+        items:
+          docker: { tags:  [programacio, android, java] }
   smx:
     title: "CFGM Sistemes microinformàtics i xarxes"
     items:
@@ -139,7 +151,7 @@ items:
               aws: { tags:  [programacio, android, java] }  
               webapps: { tags:  [programacio, android, java] }
           uf2:
-            title: "UF2 - Gestors d’arxius web"
+            title: "UF2 - Gestors d'arxius web"
             items:
               nextcloud: { tags:  [programacio, android, java] }   
               webfilemanager: { tags:  [programacio, android, java] }  
@@ -150,7 +162,7 @@ items:
               webcms: { tags:  [programacio, android, java] }   
               webtasks: { tags:  [programacio, android, java] }
           uf4:
-            title: "UF4 - Portals web d’aprenentatge "
+            title: "UF4 - Portals web d'aprenentatge "
             items:
               moodle: { tags:  [programacio, android, java] }
               webforum: { tags:  [programacio, android, java] }
