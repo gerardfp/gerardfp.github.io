@@ -167,9 +167,9 @@
     <p>Adona't que s'han utilitzat algunes <em>flags</em>. Aquí tens alguna info d'elles:</p>
 
     <ul>
-        <li><w>-d</w> - Executa el contenidor en mode <em>detached</em> (en segon pla). Açò permet seguir fent altres comandes al mateix terminal, sense necessitat d'obrir-ne un altre.</li>
-        <li><w>-p 7070:3000</w> - Mapeja el port 7070 del <strong>host</strong> amb el port 3000 del <strong>contenidor</strong>. Ara pots accedir a l'aplicació a través de la URL <a href="http://localhost:7070">http://localhost:7070</a>.</li>
-        <li><w>gerardfp/todo-app</w> - Especifica la imatge a utilitzar. (Docker descarrega automàticament les imagtges de (DockerHub)</li>
+        <li><wt>-d</wt> - Executa el contenidor en mode <em>detached</em> (en segon pla). Açò permet seguir fent altres comandes al mateix terminal, sense necessitat d'obrir-ne un altre.</li>
+        <li><wt>-p 7070:3000</wt> - Mapeja el port 7070 del <strong>host</strong> amb el port 3000 del <strong>contenidor</strong>. Ara pots accedir a l'aplicació a través de la URL <a href="http://localhost:7070">http://localhost:7070</a>.</li>
+        <li><wt>gerardfp/todo-app</wt> - Especifica la imatge a utilitzar. (Docker descarrega automàticament les imagtges de (DockerHub)</li>
     </ul>
 
     <p>I així, amb una sola comanda, ja tenim l'aplicació web en funcionament! 💪</p>
@@ -394,7 +394,7 @@ d7e628fe0ca9  gerardfp/todo-app  "docker-entry…"  Up 1 hour  0.0.0.0:7070->300
 
     <p>Així doncs, per a iniciar el contenidor en mode development, farem el següent:</p>
     <ul>
-        <li>Enllaçarem el codi font de dintre del contenidor</li>
+        <li>Enllaçarem el codi font a dintre del contenidor</li>
         <li>Instal·larem les dependencies dintre del contenidor</li>
     </ul>
 
@@ -402,26 +402,85 @@ d7e628fe0ca9  gerardfp/todo-app  "docker-entry…"  Up 1 hour  0.0.0.0:7070->300
 
     <p>Fem-ho!</p>
 
-    <p>Comprova que estàs en la carpeta <w>app</w> (pots fer-ho amb la comanda <w>pwd</w>) i executa el contenidor amb:</p>
+    <p>Comprova que al host estàs en la carpeta <w>app</w> (pots fer-ho amb la comanda <w>pwd</w>) i inicia el contenidor amb:</p>
     <shell>
         docker run   -dp 3030:3000   -v "$(pwd):/app"   -w /app    node:12-alpine    sh -c "yarn install && yarn run dev"
     </shell>
 
     <ul>
-        <li><w>-dp 3030:3000</w> - igual que abans. Iniciar en mode <em>detached</em> i mapejar el port 3030 del host amb el 3000 del contenidor.</li>
-        <li><w>-v "$(pwd):/app"</w> - realitza el <strong>bind mount</strong> entre el directori actual del host i el directori <w>/app</w> del contenidor</li>
-        <li><w>-w /app</w> - estableix el <w>working directory</w>, o directori actual, dintre del contenidor. És a dir, quan s'inicie el contenidor 
-        es farà un <w>cd /app</w> i la comanda s'executarà des d'aquest directori</li>
-        <li><w>node:12-alpine</w> - la imatge a utilitzar</li>
-        <li><w>sh -c "yarn install && yarn run dev"</w> - la comanda a executar quan s'inicie el contenidor</li>
+        <li><p><wt>-dp 3030:3000</wt> - igual que abans. Iniciar en mode <em>detached</em> i mapejar el port 3030 del host amb el 3000 del contenidor.</p></li>
+        <li><p><wt>-v "$(pwd):/app"</wt> - realitza el <strong>bind mount</strong> entre el directori actual del host i el directori <w>/app</w> del contenidor.</p>
+            <img src="img/bind-mounts-2.png">
+
+        </li>
+        <li><p><wt>-w /app</wt> - estableix el <w>working directory</w>, o directori actual, dintre del contenidor. És a dir, quan s'inicie el contenidor 
+        es farà un <w>cd /app</w> i la comanda s'executarà des d'aquest directori</p>
+        </li>
+        <li><p><wt>node:12-alpine</wt> - la imatge a utilitzar</p></li>
+        <li><p><wt>sh -c "yarn install && yarn run dev"</wt> - la comanda a executar quan s'inicie el contenidor. Aquesta comanda instal·la les dependències de 
+        la app i després posa l'app en marxa.</p> </li>
     </ul>
 
-    <p>logs / canvis i refresh / tot ok -> build</p>
+    <p><strong>Ara el directori <w>app</w> del host i el directori <w>app</w> del contenidor estàn enllaçats. Quan hi hagi algun canvi en algun arxiu del directori 
+        <w>app</w> del host, es veurà reflexat al contenidor, i viceversa, quan al contenidor es canvïi alguna cosa del directori <w>app</w> també es canviarà
+        al host.</strong>
+    </p>
+    <p>
+        De fet, si observes el directori <w>app</w> al host, veuràs que ha aparegut una carpeta nova <w>node_modules</w>. Aquesta carpeta l'ha creat el contenidor
+        amb la comanda <w>yarn install</w>. Aquí hi han totes les dependències (llibreries) que necessita l'app per a funcionar. 
+    </p>
+
+
+    <p>Veiem com si fem algun canvi a la carpeta <w>app</w> del host, aquest canvis es reflexen al contenidor (és el que ens convé per al mode development 😎):</p>
+    <p>Go ahead i fes un canvi al codi de l'aplicació al visual studio. Obre per exemple l'arxiu <w>styles.css</w>, i canvia colors o whatever you want. Recarrega 
+    navegador i veuràs com els canvis es veuen al moment. 🎉🎉🎉</p>
+
+    <p>Un cop hauríem acabat de desenvolupar l'apliació, només hauríem de tornar a fer un <w>docker build</w>, i generar luna imatge amb la nostra 
+        app llesta per a llançar a producció. 🎀</p>
 
     <h4>Volumes</h4>
 
-    <p>Tenim un contenidor en producció, i volem canviar alguna cosa i tornar-lo a posar en producció. 
-        Quan eliminem el contenidor antic, la base de dades s'elimina pq esta al contenidor. Solució volumes</p>
+    <p>Imagina aquesta situació: tes la teva app en producció, és a dir, has fet una imatge amb la teva app i has llançat un contenidor a partir d'aquesta imatge.
+        La teva app és un èxit i la utilitza la gent per a guardar les seves tasques. </p>
+    <p>Aquesta app utilitza la base de dades <a href="https://www.sqlite.org">SQLite</a> per a guardar les tasques. Les dades es guarden a l'arxiu 
+        <w>/etc/todos/todo.db</w>:</p>
+    
+        <img src="img/app-prod.png">
+        
+    <p>En un moment donat, vols realitar alguna actualització a la app. Fàcil, fas el canvi al codi i després crees una nova imatge amb la app actualitzada.
+        Però, quan inicies un nou contenidor amb la nova app... sorpresa! 😨, les tasques que hi havia a l'arxiu de la base de dades no aparèixen a l'aplicació. És lògic,
+        ja que cada contenidor té el seu propi arxiu <w>todo.db</w>, i les tasques antigues s'han quedat al contenidor antic: 
+    </p>
+
+    <img src="img/app-prod2.png">
+
+    <p>Per a solucionar açò podríem fer un <em>bind mount</em> entre els arxius <w>todo.db</w> dels contenidors i un arxiu <w>todo.db</w> del host. De forma que els 
+    canvis que es realitzin en un contenidor es reflexin en el l'arxiu del host. Els dos contenidors estarien utilitzant el mateix arxiu <w>todo.db</w>, i inclús 
+    podríem eliminar contenidors sense perdre aquest arxiu.</p>
+
+    <img src="img/app-prod3.png">
+
+    <p>Per fer açò només hauríem d'escollir en quina carpeta del host guardem aquest arxiu <w>todo.db</w>. Podríem posar-lo a la mateixa carpeta <w>app</w>, o a
+    l'escriptori, o documents... ¿quin escollir?</p>
+    <p>Per a aquest casos el mateix docker ofereix la possibilitat de crear un directori on guardar aquests arxius. Aquests directoris s'anomenen <strong>volumes</strong>.</p>
+
+    <p>Un <strong>volume</strong> és un directori creat per docker al qual li pots asignar un nom, i utilitzar-lo després per a fer un <em>bind mount</em> als contenidors.</p>
+
+
+    <p>Afegim un volum al contenidor:</p>
+
+    <ol>
+        <li>
+            <p>Crea un <em>volume</em> amb la comanda <w>docker volume create</w>:</p>
+
+            <shell>
+                docker volume create todo-db
+            </shell>
+        
+        </li>
+    </ol>
+
+
 
     <h4>Docker Compose</h4>
 
@@ -440,5 +499,5 @@ d7e628fe0ca9  gerardfp/todo-app  "docker-entry…"  Up 1 hour  0.0.0.0:7070->300
 
     <h4>Multi-container apps</h4>
 
-    
+
 </section>

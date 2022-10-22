@@ -408,6 +408,15 @@ w {
     border: 1px solid #efefef;
 }
 
+wt {
+    background-color: #47213c;
+    color: white;
+    font-family: 'Consolas', monospace;
+    padding: .1em .3em;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
 m {
     font-family: 'Consolas', monospace;
     word-wrap: break-word;
