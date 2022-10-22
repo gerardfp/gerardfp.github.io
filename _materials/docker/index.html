@@ -382,4 +382,63 @@ d7e628fe0ca9  gerardfp/todo-app  "docker-entry…"  Up 1 hour  0.0.0.0:7070->300
     </ol>
 
     <h3>Utilitzar bind mounts</h3>
+    <p>Com pots intuir, aquest procés de construir i reemplaçar un contenidor, no és el més còmode quan estem desenvolupant una app.
+        A cada petit canvi que fem no podem estar reconstruint i reemplaçant el contenidor.
+    </p>
+    <p>Incloure el codi font en la <strong>imatge</strong> és adequat quan tenim la app finalitzada i llesta per a llançar. Però en mode
+        desenvolupador tenim l'alternativa d'enllaçar dintre del <strong>contenidor</strong> el codi font de l'aplicació.</p>
+
+    <p>És a dir, tenim l'opció de <u>copiar la app a la imatge</u>, o bé <u>enllaçar la app al contenidor</u>.</p>    
+
+    <img src="img/bind-mounts.png">
+
+    <p>Així doncs, per a iniciar el contenidor en mode development, farem el següent:</p>
+    <ul>
+        <li>Enllaçarem el codi font de dintre del contenidor</li>
+        <li>Instal·larem les dependencies dintre del contenidor</li>
+    </ul>
+
+    <p>Com pots veure, no serà necessari fer el build de cap imatge. Simplement llançarem el contenidor a partir de la imatge <w>node:12-alpine</w>.</p>
+
+    <p>Fem-ho!</p>
+
+    <p>Comprova que estàs en la carpeta <w>app</w> (pots fer-ho amb la comanda <w>pwd</w>) i executa el contenidor amb:</p>
+    <shell>
+        docker run   -dp 3030:3000   -v "$(pwd):/app"   -w /app    node:12-alpine    sh -c "yarn install && yarn run dev"
+    </shell>
+
+    <ul>
+        <li><w>-dp 3030:3000</w> - igual que abans. Iniciar en mode <em>detached</em> i mapejar el port 3030 del host amb el 3000 del contenidor.</li>
+        <li><w>-v "$(pwd):/app"</w> - realitza el <strong>bind mount</strong> entre el directori actual del host i el directori <w>/app</w> del contenidor</li>
+        <li><w>-w /app</w> - estableix el <w>working directory</w>, o directori actual, dintre del contenidor. És a dir, quan s'inicie el contenidor 
+        es farà un <w>cd /app</w> i la comanda s'executarà des d'aquest directori</li>
+        <li><w>node:12-alpine</w> - la imatge a utilitzar</li>
+        <li><w>sh -c "yarn install && yarn run dev"</w> - la comanda a executar quan s'inicie el contenidor</li>
+    </ul>
+
+    <p>logs / canvis i refresh / tot ok -> build</p>
+
+    <h4>Volumes</h4>
+
+    <p>Tenim un contenidor en producció, i volem canviar alguna cosa i tornar-lo a posar en producció. 
+        Quan eliminem el contenidor antic, la base de dades s'elimina pq esta al contenidor. Solució volumes</p>
+
+    <h4>Docker Compose</h4>
+
+    <p>Llançar el contenidor per comandes <w>docker run</w> és un rollo perque</p>
+
+    <sc>
+        version: "3.8"
+        services:
+          app:
+            image: node:12-alpine
+            ports: "3030:3000"
+            working_dir: /app
+            volumes: ./:/app
+            command: sh -c "yarn install && yarn run dev"
+    </sc>
+
+    <h4>Multi-container apps</h4>
+
+    
 </section>
