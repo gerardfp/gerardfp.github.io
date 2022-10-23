@@ -14,26 +14,24 @@
 <section>
 
    <h2>Instal·lació</h2>
+   <host>root@host</host>
+   <shell>
+       curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+   </shell>
+
+   <p>Configuració per a executar Docker com a usuari no-root:</p>
+   <host>root@host</host>
+   <shell>
+       usermod -aG docker $USER
+   </shell>
+
+   <host>user@host</host>
+   <shell>
+       newgrp docker
+   </shell>
 
    <ul>
-    <li>
-        <p>docker</p>
-        <host>root@host</host>
-        <shell>
-            curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
-        </shell>
-
-        <p>Configuració per a executar Docker com a usuari no-root:</p>
-        <host>root@host</host>
-        <shell>
-            usermod -aG docker $USER
-        </shell>
-
-        <host>user@host</host>
-        <shell>
-            newgrp docker
-        </shell>
-    </li>
+    <!--
        <li>
         <p>docker-compose</p>
         <host>root@host</host>
@@ -41,9 +39,11 @@
             curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
         </shell>     
        </li>
+       -->
    </ul>
 
-   <h2>docker cli</h2>
+   <h2>Referència</h2>
+   <h3>docker</h3>
    <a href="https://docs.docker.com/engine/reference/commandline/cli/">Use Docker command line</a>
 
    <ul>
@@ -84,7 +84,7 @@
     </li>
    </ul>
 
-   <h2>Dockerfile</h2>
+   <h3>Dockerfile</h3>
    <a href="https://docs.docker.com/engine/reference/builder/">Dockerfile reference</a>
    <ul>
     <li>FROM</li>
@@ -95,7 +95,7 @@
     <li>WORKDIR</li>
    </ul>
 
-   <h2>docker-compose</h2>
+   <h3>docker-compose</h3>
    <a href="https://docs.docker.com/compose/compose-file/compose-file-v3/">compose-file-v3</a>
 
    <ul>
@@ -116,7 +116,7 @@
 <section>
     <h2>Contenidors</h2>
 
-    <h3>Què és un contenidor?</h3>
+    <h4>Què és un contenidor?</h4>
     <p>Simply put, a container is a sandboxed process on your machine that is isolated from all other processes on the host machine. That isolation leverages kernel namespaces and cgroups, features that have been in Linux for a long time. Docker has worked to make these capabilities approachable and easy to use. To summarize, a container:
     
     <ul>
@@ -126,22 +126,22 @@
         <li>is isolated from other containers and runs its own software, binaries, and configurations.
     </ul>
 
-    <h3>Què és una imatge?</h3>
+    <h4>Què és una imatge?</h4>
     <p>When running a container, it uses an isolated filesystem. This custom filesystem is provided by a container image. Since the image contains the container's filesystem, it must contain everything needed to run an application - all dependencies, configurations, scripts, binaries, etc. The image also contains other configuration for the container, such as environment variables, a default command to run, and other metadata.
 
     
 
 
-    <h3>Contenidor vs Màquina Virtual</h3>
+    <h4>Contenidor vs Màquina Virtual</h4>
     <img src="img/container vs VM.png">
 
-    <h3>Imatge vs contenidor</h3>
+    <h4>Imatge vs contenidor</h4>
     <img src="img/container layers.png">
 
-    <h3>Container images</h3>
+    <h4>Container images</h4>
     <img src="img/container image.png">
 
-    <h3>Chroot</h3>
+    <h4>Chroot</h4>
     <img src="img/container chroot.png">
 
 </section>
@@ -218,7 +218,7 @@
     <ol>
         <li><p>En la carpeta <w>app</w>, crea un arxiu anomenat <w>Dockerfile</w> amb el següent contingut:</p>
             <scfile>app/Dockerfile</scfile>
-            <sc>
+            <sc docker>
                 FROM node:12-alpine
                 WORKDIR /app
                 COPY . .
@@ -430,7 +430,6 @@ d7e628fe0ca9  gerardfp/todo-app  "docker-entry…"  Up 1 hour  0.0.0.0:7070->300
         amb la comanda <w>yarn install</w>. Aquí hi han totes les dependències (llibreries) que necessita l'app per a funcionar. 
     </p>
 
-
     <p>Veiem com si fem algun canvi a la carpeta <w>app</w> del host, aquest canvis es reflexen al contenidor (és el que ens convé per al mode development 😎):</p>
     <p>Go ahead i fes un canvi al codi de l'aplicació al visual studio. Obre per exemple l'arxiu <w>styles.css</w>, i canvia colors o whatever you want. Recarrega 
     navegador i veuràs com els canvis es veuen al moment. 🎉🎉🎉</p>
@@ -438,9 +437,13 @@ d7e628fe0ca9  gerardfp/todo-app  "docker-entry…"  Up 1 hour  0.0.0.0:7070->300
     <p>Un cop hauríem acabat de desenvolupar l'apliació, només hauríem de tornar a fer un <w>docker build</w>, i generar luna imatge amb la nostra 
         app llesta per a llançar a producció. 🎀</p>
 
+    <shell>
+        docker build -t la-meva-imatge .
+    </shell>
+
     <h4>Volumes</h4>
 
-    <p>Imagina aquesta situació: tes la teva app en producció, és a dir, has fet una imatge amb la teva app i has llançat un contenidor a partir d'aquesta imatge.
+    <p>Imagina aquesta situació: tens la teva app en producció, és a dir, has fet una imatge amb la teva app i has llançat un contenidor a partir d'aquesta imatge.
         La teva app és un èxit i la utilitza la gent per a guardar les seves tasques. </p>
     <p>Aquesta app utilitza la base de dades <a href="https://www.sqlite.org">SQLite</a> per a guardar les tasques. Les dades es guarden a l'arxiu 
         <w>/etc/todos/todo.db</w>:</p>
@@ -467,7 +470,7 @@ d7e628fe0ca9  gerardfp/todo-app  "docker-entry…"  Up 1 hour  0.0.0.0:7070->300
     <p>Un <strong>volume</strong> és un directori creat per docker al qual li pots asignar un nom, i utilitzar-lo després per a fer un <em>bind mount</em> als contenidors.</p>
 
 
-    <p>Afegim un volum al contenidor:</p>
+    <p>Afegim un volum al nostre contenidor:</p>
 
     <ol>
         <li>
@@ -476,28 +479,266 @@ d7e628fe0ca9  gerardfp/todo-app  "docker-entry…"  Up 1 hour  0.0.0.0:7070->300
             <shell>
                 docker volume create todo-db
             </shell>
-        
+        </li>
+        <li>
+            <p>Atura els contenidors que hem posat abans en funcionament. Primer esbrina el seu nom amb <w>docker ps</w> i després elimina'ls amb 
+            <w>docker rm -f &ltcontainer-name&gt;</w>.</p>
+        </li>
+        <li>
+            <p>Inicia un nou contenidor a partir de la imatge <w>la-meva-imatge</w>, però afegint el <em>flag</em> <w>-v</w> per a especificar
+            el muntatge del volum. Utilitzarem el volum <w>todo-db</w> que acabem de crear i el muntarem a la carpeta <w>/etc/todos</w> del contenidor.
+            D'aquesta forma, l'arxiu del contenidor <w>/etc/todos/todo.db</w> on es guarden totes les tasques que creen els usuaris, es guardarà a la 
+            carpeta del host que està associada amb el volum <w>todo-db</w>.</p>
+            <shell>
+                docker run   -dp 3003:3000   -v todo-db:/etc/todos   la-meva-imatge
+            </shell>
+
+            <img src="img/app-prod4.png">
+        </li>
+        <li>
+            <p>Quan el contenidor s'acabi d'iniciar, obri la app i afegeix algunes tasques: <a href="http://localhost:3003">http://localhost:3003</a></p>
+        </li>
+        <li>
+            <p>Prova a tornar a eliminar el contenidor amb <w>docker rm -f</w> i a tornar-lo a iniciar. Veuràs que les tasques han persistit.</p>
         </li>
     </ol>
 
+    <p>Per veure exactament la localització de la carpeta associada a un volum, pots utilitzar la comanda <w>docker volume inspect</w>:</p>
+
+    <shell>
+        docker volume inspect todo-db
+    </shell>
+    <shell>
+        [
+            {
+                "CreatedAt": "2022-10-23T10:38:27+02:00",
+                "Driver": "local",
+                "Labels": {},
+                "Mountpoint": "/var/lib/docker/volumes/todo-db/_data",
+                "Name": "todo-db",
+                "Options": {},
+                "Scope": "local"
+            }
+        ]
+    </shell>
+    <p>El <w>Mountpoint</w> és efectivament la carpeta en la que es guarden les dades</p>
 
 
-    <h4>Docker Compose</h4>
+    <h3>Docker Compose</h3>
 
-    <p>Llançar el contenidor per comandes <w>docker run</w> és un rollo perque</p>
+    <p>Llançar els contenidor sper comandes <w>docker run</w> no és la forma més còmoda de treballar. Una forma més adequada de fer-ho és utilitzar
+    l'eina Docker Compose.</p>
 
-    <sc>
+    <p>Amb docker compose pots crear un arxiu on definir les opcions d'un o més contenidors i després llançar-los amb una comanda.</p>
+
+    <p>Els arxius docker-compose utilitzen el llenguatge YAML per a la definició les opcions dels contenidors.</p>
+
+    <p>Veiem com podem utilitzar Docker Compose per a posar en funcionament la nostra app.</p>
+
+    <p>Abans recordem els dos modes d'iniciar el contenidor de la app:</p>
+    <ul>
+        <li>
+            <p><strong>Mode production</strong>: creàvem una imatge <w>la-meva-imatge</w> que ja incloïa el codi font. Durant la creació de la imatge
+            s'instal·laven les dependències i es definia la comanda amb la que s'inicia l'aplicació.</p>
+
+            <scfile>Dockerfile</scfile>
+            <sc docker>
+                FROM node:12-alpine
+                WORKDIR /app
+                COPY . .
+                RUN yarn install --production
+                CMD ["node", "src/index.js"]
+            </sc>
+        
+            <p>Inciàvem el contenidor a partir de <w>la-meva-imatge</w> i utilitzàvem un volum per a guardar les dades:</p>
+        
+            <shell>
+                docker run   
+                   -d
+                   -p 7000:3000   
+                   -v todo-db:/etc/todos
+                   la-meva-imatge
+            </shell>
+        </li>
+        <li>
+            <p><strong>Mode development</strong>: partíem de la imatge <w>node:12-alpine</w> i utilitzàvem un <em>bind mount</em> per a enllaçar 
+                el codi font des del nostre host al contenidor, i un altre per a enllaçar el volum on guardar les dades.
+                Havíem d'especificar la comanda que s'havia d'executar al contenidor, que instal·lava les dependències al contenidor (no a la imatge) 
+                i iniciava l'app en mode <em>dev</em>.</p>
+                <shell>
+                    docker run   
+                        -d
+                        -p 7000:3000   
+                        -v "$(pwd):/app"   
+                        -v todo-db:/etc/todos
+                        -w /app    
+                        node:12-alpine    
+                        sh -c "yarn install && yarn run dev"
+                </shell>
+            </li>
+        
+    </ul>
+
+    <img src="img/app-modes.png">
+
+    <h4>Contenidor en mode producció</h4>
+
+    <p>Crearem un arxiu anomenat <w>docker-compose.yml</w> on definirem les opcions d'inici del contenidor en mode producció. 
+        Podem crear aquest arxiu a la carpeta <w>app</w>:</p>
+
+    <scfile>getting-started/app/docker-compose.yml</scfile>
+    <sc yaml>
         version: "3.8"
+
         services:
-          app:
-            image: node:12-alpine
-            ports: "3030:3000"
-            working_dir: /app
-            volumes: ./:/app
-            command: sh -c "yarn install && yarn run dev"
+            app:
+                image: la-meva-imatge
+                ports: 
+                    - 7000:3000
+                volumes: 
+                    - todo-db:/app
+
+        volumes:
+            todo-db:
     </sc>
 
-    <h4>Multi-container apps</h4>
+    <p>Observa que les opcions de l'arxiu corresponen a les de la comanda que utilitzàvem per a llançar el contenidor en mode producció.</p>
 
+    <p>Per a iniciar aquest contenidor, només hem de fer servir aquesta comanda:</p>
+
+    <shell>
+        docker compose up -d
+    </shell>
+
+    <p>Docker agafarà les opcions de l'arxiu <w>docker-compose.yml</w> i iniciarà el contenidor amb aquestes opcions.</p>
+
+    <h4>Contenidor en mode development</h4>
+
+    <p>Crearem un arxiu anomenat <w>docker-compose-dev.yml</w> i posarem les opcions per a iniciar el contenidor en mode development:</p>
+
+    <scfile>getting-started/app/docker-compose-dev.yml</scfile>
+    <sc yaml>
+        version: "3.8"
+
+        services:
+            app:
+                image: node:12-alpine
+                command: sh -c "yarn install && yarn run dev"
+                ports:
+                    - 7000:3000
+                working_dir: /app
+                volumes:
+                    - ./:/app
+                    - todo-db:/etc/todos
+
+        volumes:
+            todo-db:
+    </sc>
+
+    <p>Les opcions d'aquest arxiu corresponen a la comanda que utilitzàvem per a iniciar el contenidor en mode development.</p>
+
+    <p>Per a iniciar el contenidor farem:</p>
+
+    <shell>
+        docker compose -f docker-compose-dev.yml up -d
+    </shell>
+
+    <p>Observa que hem hagut d'especificar el nom de l'arxiu <w>-f docker-compose-dev.yml</w>, ja que per defecte docker agafa l'arxiu anomenat <w>docker-compose.yml</w> </p>
+
+    <h3>Multi-container apps</h3>
+
+    <p>Fins ara, la nostra aplicació treballa amb un sol contenidor. En ell tenim l'aplicació i l'arxiu de dades SQLite. 
+        Però, ara volem substituir SQLite per un servidor MySQL. La següent pregunta sorgeix freqüentment: <em>"On s'executarà el servidor MySQL? S'instal·la 
+        al mateix contenidor o en un altre separat?"</em>. En general, cada contenidor hauria de fer una sola cosa i fer-la bé. Per aquests motius:</p>
+
+    <ul>
+        <li>Hi ha una alta probabilitat de que s'hagi d'escalar la app de forma diferent a la base de dades.</li>
+        <li>Contenidors separats permeten actualitzar les versions dels serveis aïlladament</li>
+        <li>Encara que puguis utilitzar el contenidor de la base de dades localment, segurament hauràs d'utilitzar un servei gestionat per a la base de dades
+            en producció. Aleshores, no voldràs colocar el servidor de bases de dades juntament amb la app.
+        </li>
+        <li>Executar múltiples processos requeriria un gestor de processos (un contenidor només inicia un únic procés), la qual cosa afegiria 
+            complexitat al procés d'inici/aturada del contendior.</li>
+    </ul>
+
+    <p>Hi ha molts altres motius. Així que actualitzarem la nostra aplicació per a que funcioni així:</p>
+
+    <img src="img/multi-app-architecture.png">
+
+    <p>Així doncs la nostra app necessitarà dos contenidors per a funcionar. Passarem d'un arquitectura <em>single-container</em> a una 
+        arquitectura <em>multi-container</em>:</p>
+
+    <img src="img/multi-container.png">
+
+    <h4>Servei MySQL</h4>
+
+    <p>Per al contenidor MySQL partirem de la imatge <w>mysql:5.7</w>. Pots trobar tota la info sobre com configurar aquesta 
+        imatge a DockerHub: <a href="https://hub.docker.com/_/mysql">https://hub.docker.com/_/mysql</a>. L'únic que ens interessa per ara
+        són les variables d'entorn per a definir el password i el nom de la base de dades.
+    </p>
+
+    <p>Podem afegir les opcions d'aquest contenidor a l'arxiu <w>docker-compose.yml</w> (<strong>mode producció</strong>).</p>
+
+    <scfile>docker-compose.yml</scfile>
+    <sc yaml>
+        version: "3.8"
+
+        services:
+            app:
+                image: la-meva-imatge
+                ports: 
+                    - 7000:3000
+                environment:
+                    MYSQL_HOST: mysql
+                    MYSQL_USER: root
+                    MYSQL_PASSWORD: contrasenya123
+                    MYSQL_DB: todos
+        
+            mysql:
+                image: mysql:5.7
+                volumes:
+                    - todo-mysqldb:/var/lib/mysql
+                environment:
+                    MYSQL_ROOT_PASSWORD: contrasenya123
+                    MYSQL_DATABASE: todos
+        
+        volumes:
+            todo-mysqldb:
+    </sc>
+
+    <p>Observa que hem tret el volum <w>todo-db</w> del contenidor <w>app</w> i hem afegit un nou volum <w>todos-mysqldb</w> al contenidor <w>mysql</w>.</p>
+
+    <p>Per al <strong>mode development</strong>, l'arxiu <w>docker-compose-dev.yml</w> quedaria així:</p>
+
+    <scfile>docker-compose-dev.yml</scfile>
+    <sc yaml>
+        version: "3.8"
+
+        services:
+            app:
+                image: node:12-alpine
+                command: sh -c "yarn install && yarn run dev"
+                ports:
+                    - 7000:3000
+                working_dir: /app
+                volumes:
+                    - ./:/app
+                environment:
+                    MYSQL_HOST: mysql
+                    MYSQL_USER: root
+                    MYSQL_PASSWORD: contrasenya123
+                    MYSQL_DB: todos
+        
+            mysql:
+                image: mysql:5.7
+                volumes:
+                    - todo-mysqldb:/var/lib/mysql
+                environment:
+                    MYSQL_ROOT_PASSWORD: contrasenya123
+                    MYSQL_DATABASE: todos
+        
+        volumes:
+            todo-mysqldb:
+    </sc>
 
 </section>
