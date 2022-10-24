@@ -392,13 +392,13 @@ d7e628fe0ca9  gerardfp/todo-app  "docker-entry…"  Up 1 hour  0.0.0.0:7070->300
 
     <img src="img/bind-mounts.png">
 
-    <p>Així doncs, per a iniciar el contenidor en mode development, farem el següent:</p>
+    <p>Així doncs, per a iniciar el contenidor en <strong>mode development</strong>, farem el següent:</p>
     <ul>
         <li>Enllaçarem el codi font a dintre del contenidor</li>
-        <li>Instal·larem les dependencies dintre del contenidor</li>
+        <li>Instal·larem les dependències dintre del contenidor</li>
     </ul>
 
-    <p>Com pots veure, no serà necessari fer el build de cap imatge. Simplement llançarem el contenidor a partir de la imatge <w>node:12-alpine</w>.</p>
+    <p>Com pots veure, no serà necessari fer el <em>build</em> de cap imatge. Simplement llançarem el contenidor a partir de la imatge <w>node:12-alpine</w>.</p>
 
     <p>Fem-ho!</p>
 
@@ -434,7 +434,7 @@ d7e628fe0ca9  gerardfp/todo-app  "docker-entry…"  Up 1 hour  0.0.0.0:7070->300
     <p>Go ahead i fes un canvi al codi de l'aplicació al visual studio. Obre per exemple l'arxiu <w>styles.css</w>, i canvia colors o whatever you want. Recarrega 
     navegador i veuràs com els canvis es veuen al moment. 🎉🎉🎉</p>
 
-    <p>Un cop hauríem acabat de desenvolupar l'apliació, només hauríem de tornar a fer un <w>docker build</w>, i generar luna imatge amb la nostra 
+    <p>Un cop hauríem acabat de desenvolupar l'aplicació, només hauríem de tornar a fer un <w>docker build</w>, i generar una imatge amb la nostra 
         app llesta per a llançar a producció. 🎀</p>
 
     <shell>
@@ -445,13 +445,13 @@ d7e628fe0ca9  gerardfp/todo-app  "docker-entry…"  Up 1 hour  0.0.0.0:7070->300
 
     <p>Imagina aquesta situació: tens la teva app en producció, és a dir, has fet una imatge amb la teva app i has llançat un contenidor a partir d'aquesta imatge.
         La teva app és un èxit i la utilitza la gent per a guardar les seves tasques. </p>
-    <p>Aquesta app utilitza la base de dades <a href="https://www.sqlite.org">SQLite</a> per a guardar les tasques. Les dades es guarden a l'arxiu 
+    <p>Aquesta app utilitza una base de dades <a href="https://www.sqlite.org">SQLite</a> per a guardar les tasques. Les dades es guarden a l'arxiu 
         <w>/etc/todos/todo.db</w>:</p>
     
         <img src="img/app-prod.png">
         
-    <p>En un moment donat, vols realitar alguna actualització a la app. Fàcil, fas el canvi al codi i després crees una nova imatge amb la app actualitzada.
-        Però, quan inicies un nou contenidor amb la nova app... sorpresa! 😨, les tasques que hi havia a l'arxiu de la base de dades no aparèixen a l'aplicació. És lògic,
+    <p>En un moment donat, vols realitzar alguna actualització a la app. Fàcil, fas el canvi al codi i després crees una nova imatge amb la app actualitzada.
+        Però, quan inicies un nou contenidor amb la nova app... sorpresa! 😨, les tasques que hi havia a l'arxiu de la base de dades no apareixen a l'aplicació. És lògic,
         ja que cada contenidor té el seu propi arxiu <w>todo.db</w>, i les tasques antigues s'han quedat al contenidor antic: 
     </p>
 
@@ -467,7 +467,7 @@ d7e628fe0ca9  gerardfp/todo-app  "docker-entry…"  Up 1 hour  0.0.0.0:7070->300
     l'escriptori, o documents... ¿quin escollir?</p>
     <p>Per a aquest casos el mateix docker ofereix la possibilitat de crear un directori on guardar aquests arxius. Aquests directoris s'anomenen <strong>volumes</strong>.</p>
 
-    <p>Un <strong>volume</strong> és un directori creat per docker al qual li pots asignar un nom, i utilitzar-lo després per a fer un <em>bind mount</em> als contenidors.</p>
+    <p>Un <strong>volume</strong> és un directori creat per docker al qual li pots assignar un nom, i utilitzar-lo després per a fer un <em>bind mount</em> als contenidors.</p>
 
 
     <p>Afegim un volum al nostre contenidor:</p>
@@ -526,10 +526,10 @@ d7e628fe0ca9  gerardfp/todo-app  "docker-entry…"  Up 1 hour  0.0.0.0:7070->300
 
     <h3>Docker Compose</h3>
 
-    <p>Llançar els contenidor sper comandes <w>docker run</w> no és la forma més còmoda de treballar. Una forma més adequada de fer-ho és utilitzar
+    <p>Llançar els contenidor per comandes <w>docker run</w> no és la forma més còmoda de treballar. Una forma més adequada de fer-ho és utilitzar
     l'eina Docker Compose.</p>
 
-    <p>Amb docker compose pots crear un arxiu on definir les opcions d'un o més contenidors i després llançar-los amb una comanda.</p>
+    <p>Amb Docker Compose pots crear un arxiu on definir les opcions d'un o més contenidors i després llançar-los amb una comanda.</p>
 
     <p>Els arxius docker-compose utilitzen el llenguatge YAML per a la definició les opcions dels contenidors.</p>
 
