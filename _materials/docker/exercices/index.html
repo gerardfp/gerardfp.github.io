@@ -1,0 +1,105 @@
+<!--meta {urls: [asix/m8/uf2], tags: [docker]}-->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav>
+<header>
+    <h1>Docker Exercicis</h1>
+</header>
+
+<section>
+    <work>
+        <h2>1. Simple jar</h2>
+    
+        <p>Arxiu de codi font:</p>
+        <scfile>myproject/src/Main.java</scfile>
+        <sc java>
+            import java.util.Scanner;
+            public class Main {
+                public static void main(String[] args) {
+                    Scanner scanner = new Scanner(System.in);
+                    System.out.println("Enter your name: ");
+                    String name = scanner.nextLine();
+                    System.out.println("Hello " + name);
+                }
+            }
+        </sc>
+    
+        <p>Compilar el codi font:</p>
+        <host>myproject/</host>
+        <shell>javac -d ./build src/Main.java</shell>
+    
+        <p>Generar l'arxiu <w>jar</w>:</p>
+        <host>myproject/build/</host>
+        <shell>jar cfe myproject.jar Main Main.class</shell>
+    
+        <p>Executar l'arxiu <w>jar</w>:</p>
+        <host>myproject/build/</host>
+        <shell>java -jar myproject.jar</shell>
+    
+        <p><b>a) Crea una imatge docker amb el codi font, que el compile, l'empaquete i l'execute.</b></p>
+    
+        <scfile>myproject/Dockerfile</scfile>
+        <sc docker>
+            FROM eclipse-temurin:11
+            COPY      # copiar el codi
+            WORKDIR   # canviar al directori de compilacio
+            RUN       # compilar el codi
+            WORKDIR   # canviar el directori de build
+            RUN       # generar el jar
+            CMD       # indicar la comanda a executar per els contenidors
+        </sc>
+    
+        <p>El contenidor s'ha de llançar amb l'opció <w>-it</w> (<em>interactive</em>)</p>
+
+        <shell>
+            docker run -it <em>myproject-image</em>
+        </shell>
+
+        <p><b>b) Crea una imatge docker multi-stage build.</b></p>
+        <p>En el primer stage s'ha de copiar el codi, compilar-lo i generar el jar.</p>
+        <p>El segon stage copiarà el jar del primer stage, i definirà el <w>CMD</w>.</p>
+
+        <scfile>myproject/Dockerfile</scfile>
+        <sc docker>
+            FROM eclipse-temurin:11 as builder
+            COPY      # copiar el codi
+            WORKDIR   # canviar el directori de compilacio
+            RUN       # compilar el codi
+            WORKDIR   # canviar al directori build
+            RUN       # generar el jar
+
+            FROM eclipse-temurin:11
+            WORKDIR   # establir el directori d'execució
+            COPY      # copiar l'arxiu jar des de l'stage anterior
+            CMD       # indicar la comanda a executar per els contendiors
+        </sc>
+
+        <p><b>c) Crea un arxiu Docker Compose per a llançar un contenidor amb la imatge.</b></p>
+
+        <p>Si la imatge no existeix, compose l'ha de generar automàticament utilitzant l'arxiu <w>Dockerfile</w> anterior.</p>
+        <scfile>
+            myproject/docker-compose.yml
+        </scfile>
+        <sc yaml>
+            version: "3.8"
+
+            services:
+                myproject:
+                    # especifica el directori (context) on es troba el Dockerfile
+                    # especifica la imatge a utilitzar
+                    stdin_open: true # docker run -i
+                    tty: true        # docker run -t
+        </sc>
+
+        <p>El contenidor s'ha de llançar amb aquesta ordre:</p>
+        <shell>
+            docker compose run myproject
+        </shell>
+    </work>
+
+</section>

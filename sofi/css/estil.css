@@ -184,7 +184,7 @@ scfile {
 scfile::before {
     content: '\f15c';
     font-family: 'FASolid';
-    margin-right: .5em;
+    margin-right: .8em;
 }
 
 scfile a {
@@ -278,6 +278,7 @@ host {
     padding: .175em;
     border-radius: 8px 8px 0px 0px;
     font-size: 14px;
+    font-family: 'Ubuntu mono', Consolas, monospace;
 }
 
 host + shell, scfile + sc {
