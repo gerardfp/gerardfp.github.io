@@ -13,10 +13,14 @@
 
 <section>
     <work>
-        <h2>1. Simple jar</h2>
+        <h2>1. Hello Docker</h2>
+
+        <p>En aquest exercici s'han de generar dos imatges Docker per a executar un programa Java. A continuació es donen les
+            instruccions per a compilar el codi, generar un JAR a partir del codi compilat, i executar el JAR.
+        </p>
     
         <p>Arxiu de codi font:</p>
-        <scfile>myproject/src/Main.java</scfile>
+        <scfile>hellodocker/src/Main.java</scfile>
         <sc java>
             import java.util.Scanner;
             public class Main {
@@ -30,23 +34,25 @@
         </sc>
     
         <p>Compilar el codi font:</p>
-        <host>myproject/</host>
+        <host>hellodocker/</host>
         <shell>javac -d ./build src/Main.java</shell>
     
         <p>Generar l'arxiu <w>jar</w>:</p>
-        <host>myproject/build/</host>
-        <shell>jar cfe myproject.jar Main Main.class</shell>
+        <host>hellodocker/build/</host>
+        <shell>jar cfe hellodocker.jar Main Main.class</shell>
     
         <p>Executar l'arxiu <w>jar</w>:</p>
-        <host>myproject/build/</host>
-        <shell>java -jar myproject.jar</shell>
+        <host>hellodocker/build/</host>
+        <shell>java -jar hellodocker.jar</shell>
     
         <p><b>a) Crea una imatge docker amb el codi font, que el compile, l'empaquete i l'execute.</b></p>
+
+        <p>Completa el següent <w>Dockerfile</w>:</p>
     
-        <scfile>myproject/Dockerfile</scfile>
+        <scfile>hellodocker/Dockerfile</scfile>
         <sc docker>
             FROM eclipse-temurin:11
-            COPY      # copiar el codi
+            COPY      # copiar el codi font
             WORKDIR   # canviar al directori de compilacio
             RUN       # compilar el codi
             WORKDIR   # canviar el directori de build
@@ -54,17 +60,18 @@
             CMD       # indicar la comanda a executar per els contenidors
         </sc>
     
-        <p>El contenidor s'ha de llançar amb l'opció <w>-it</w> (<em>interactive</em>)</p>
+        <p>Crea una imatge a partir del <w>Dockerfile</w>.</p>
+        <p>El contenidor s'ha de llançar amb l'opció <w>-it</w> (<em>interactive</em>):</p>
 
         <shell>
-            docker run -it <em>myproject-image</em>
+            docker run -it <em>hellodocker-image</em>
         </shell>
 
         <p><b>b) Crea una imatge docker multi-stage build.</b></p>
-        <p>En el primer stage s'ha de copiar el codi, compilar-lo i generar el jar.</p>
-        <p>El segon stage copiarà el jar del primer stage, i definirà el <w>CMD</w>.</p>
+        <p>En el primer stage s'ha de copiar el codi, compilar-lo i generar el JAR.</p>
+        <p>El segon stage copiarà el JAR del primer stage, i definirà el <w>CMD</w>.</p>
 
-        <scfile>myproject/Dockerfile</scfile>
+        <scfile>hellodocker/Dockerfile</scfile>
         <sc docker>
             FROM eclipse-temurin:11 as builder
             COPY      # copiar el codi
@@ -83,13 +90,13 @@
 
         <p>Si la imatge no existeix, compose l'ha de generar automàticament utilitzant l'arxiu <w>Dockerfile</w> anterior.</p>
         <scfile>
-            myproject/docker-compose.yml
+            hellodocker/docker-compose.yml
         </scfile>
         <sc yaml>
             version: "3.8"
 
             services:
-                myproject:
+                hellodocker:
                     # especifica el directori (context) on es troba el Dockerfile
                     # especifica la imatge a utilitzar
                     stdin_open: true # docker run -i
@@ -98,8 +105,72 @@
 
         <p>El contenidor s'ha de llançar amb aquesta ordre:</p>
         <shell>
-            docker compose run myproject
+            docker compose run hellodocker
         </shell>
     </work>
 
+    <work>
+        <h2>2. Laberint Gradle</h2>
+        <p>En aquest exercici el programa Java a depén d'una llibreria externa. Utilitzarem gradle per a descarregar la llibreria, compilar i generar el JAR.</p>
+
+        <p>El codi font és aquest:</p>
+
+        <scfile>laberint/app/src/main/java/Main.java</scfile>
+        <sc java>
+            import com.github.gerardfp.MazeGenerator;
+
+            public class Main {
+                public static void main(String[] args) {
+                    System.out.println(MazeGenerator.generateMaze(30));
+                }
+            }
+        </sc>
+
+        <p>Com pots observar, el programa importa la llibreria externa MazeGenerator (<a href="https://github.com/gerardfp/maze-generator">https://github.com/gerardfp/maze-generator</a>).</p>
+
+        <p>Podem utlitzar Gradle per a que descarregui automàticament la llibreria:</p>
+
+        <scfile>laberint/app/build.gradle</scfile>
+        <sc gradle>
+            plugins {
+                id 'java'
+            }
+            
+            repositories {
+                maven { url 'https://jitpack.io' }
+            }
+            
+            dependencies {
+                implementation 'com.github.gerardfp:maze-generator:8.0'
+            }
+            
+            jar {
+                manifest { attributes('Main-Class': 'Main') }
+                from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+            }
+        </sc>
+
+        <p>Hem afegit ademés a l'arxiu <w>build.gradle</w> les instruccions per a generar el <w>jar</w>. Aquest JAR inclourà tant el programa com la llibreria.</p>
+
+
+        <p><b>a) Crea una imatge per a executar l'aplicació.</b></p>
+
+        <p>Utilitza la imatge base <w>gradle:jdk11</w> (<a href="https://hub.docker.com/_/gradle">https://hub.docker.com/_/gradle</a>)</p>
+
+        <scfile>laberint/Dockerfile</scfile>
+        <sc docker>
+            FROM      # imatge base
+            COPY      # copia el codi font
+            WORKDIR   /app
+            RUN       gradle build
+            CMD       # executa l'arxiu que ha generat gradle: /app/build/libs/app.jar
+        </sc>
+
+        <p><b>b) Crea una imatge multi-stage per a executar l'aplicació.</b></p>
+
+    </work>
+
+    <work>
+        <h2>3. Nano tasks</h2>
+    </work>
 </section>

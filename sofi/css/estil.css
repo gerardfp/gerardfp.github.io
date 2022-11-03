@@ -605,7 +605,8 @@ work, warn, info, optional, tldr, observe, quizz, challenge, project {
 }
 
 work {
-    background-color: #ebf7ef;
+    border: 1px solid #189E49;
+    /* background-color: #ebf7ef; */
 }
 
 .work {
