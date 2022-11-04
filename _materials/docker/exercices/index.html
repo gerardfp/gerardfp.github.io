@@ -172,5 +172,60 @@
 
     <work>
         <h2>3. Nano tasks</h2>
+
+        <p>El següent programa consisteix en un senzill gestor de taskes. L'aplicació permet afegir tasques i veure-les.</p>
+        <shell>
+            == WELCOME TO NANO TASKS ==
+            1. Add task
+            2. View tasks
+
+            Select option: <in>1</in>
+            Task description: <in>Comprar el pa</in>
+            Task added.
+
+            == WELCOME TO NANO TASKS ==
+            1. Add task
+            2. View tasks
+
+            Select option: <in>2</in>
+
+            Task List
+            ---------
+            Comprar el pa
+        </shell>
+        <p>Desenvoluparem l'aplicació amb una arquitectura client-servidor.</p>
+        <p>Per un costat hi ha un programa que fa de servidor, i per l'altre un programa client que connecta al servidor:</p>
+        <ul>
+            <li><p>El servidor s'encarrega de (1) rebre del client un String i afegir-lo a un fitxer i (2) enviar al client el contingut del fitxer.</p>
+            <li><p>El client s'encarrega de la interacció amb l'usuari. Li permet afegir una nova tasca, i veure les tasques afegides.</p>
+    
+        </ul>
+
+        <p>Per a desenvolupar el servidor utilitza aquesta llibreria: <a href="https://github.com/gerardfp/nano-server">https://github.com/gerardfp/nano-server</a></p>
+        <p>Per a desenvolupar el client utilitza aquesta: <a href="https://github.com/gerardfp/nano-client">https://github.com/gerardfp/nano-client</a></p>
+
+        <p><b>a) Crea una imatge multi-stage de l'aplicació servidor</b></p>
+
+        <p>Pots utilitzar aquest <w>Dockerfile</w></p>
+
+        <sc docker>
+            FROM gradle:jdk11 AS build
+            COPY . /app
+            WORKDIR /app
+            RUN gradle build --no-daemon
+            
+            FROM eclipse-temurin:11
+            RUN mkdir /app
+            COPY --from=build /app/build/libs/*.jar /app/my-server.jar
+            ENTRYPOINT ["java", "-jar","/app/my-server.jar"]
+        </sc>
+
+        <p>Posa en marxa aquesta imatge per a desenvolupar el client.</p>
+
+        <p><b>b) Desenvolupa l'aplicació client i crea una imatge multi-stage de l'aplicació client</b></p>
+
+        <p><b>c) Crea un Docker Compose per a posar en marxa els dos serveis (client i servidor).</b></p>
+
+        <p>L'arxiu on guarda les tasques el servidor ha de persistir quan s'elimini el seu contenidor.</p>
     </work>
 </section>
