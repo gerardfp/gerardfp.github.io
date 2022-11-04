@@ -234,4 +234,37 @@
 
         <p>L'arxiu on guarda les tasques el servidor ha de persistir quan s'elimini el seu contenidor.</p>
     </work>
+
+    <work>
+        <h2>4. Raw Password</h2>
+
+        <warn>
+            <p>Never do this at home. Els passwords sempre s'han de passar <a href="https://auth0.com/blog/hashing-passwords-one-way-road-to-security/"><em>hashed and salted</em></a>.</p>
+        </warn>
+
+        <p>Utilitza la llibreria <a href="https://github.com/gerardfp/nano-server">https://github.com/gerardfp/nano-server</a> per a programar un servei web
+        protegit amb un password.</p>
+
+        <p>Quan es fa una petició al servei aquest ha de retornar "Welcome" si se li passa el password correcte, i "Access denied" en cas contrari.</p>
+
+        <p>Per exemple, si el password és <w>admin123</w>:
+        <ul>
+            <li><p>la petició <w>http://ip.del.servidor:port/?password=admin123</w> ha de retornar "Welcome"</p>
+            <img src="img/welcome.png">
+            </li>
+            <li><p>Qualsevol altra petició ha de retornar "Access denied"</p>
+            <img src="img/denied.png">
+            </li>
+        </ul>
+
+
+        <p><b>a) Crea un docker-compose per a llançar l'aplicació.</b></p>
+
+        <p>El password a utilitzar s'haurà de definir com a variable d'entorn en l'arxiu docker-compose.</p>
+        <p>Per a agafar la variable d'entorn "PASSWORD" des de codi Java pots utilitzar:</p>
+
+        <sc java>
+            System.getenv("PASSWORD")
+        </sc>
+    </work>
 </section>
