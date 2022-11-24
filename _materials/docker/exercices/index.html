@@ -261,10 +261,82 @@
         <p><b>a) Crea un docker-compose per a llançar l'aplicació.</b></p>
 
         <p>El password a utilitzar s'haurà de definir com a variable d'entorn en l'arxiu docker-compose.</p>
-        <p>Per a agafar la variable d'entorn "PASSWORD" des de codi Java pots utilitzar:</p>
+        <p>Per a agafar la variable d'entorn <w>PASSWORD</w> des de codi Java pots utilitzar:</p>
 
         <sc java>
             System.getenv("PASSWORD")
         </sc>
+    </work>
+
+    <work>
+        <h2>Postgres Things</h2>
+
+        <p>Aquesta aplicació Java de consola utilitza una base de dades Postgres per a emmagatzemar ...<em>coses</em></p>
+        <p>Està conformada per dos serveis:</p>
+        <ul>
+            <li>un és la app, que interactua amb l'usuari</li>
+            <li>l'altre és la base de dades, que emmagatzema les dades que obté de la app</li>
+        </ul>
+        <img src="img/jdbc.png" />
+
+        <p>Pots obtenir el codi de l'aplicació clonant aquest repositori: <a href="https://github.com/gerardfp/postgres-things">https://github.com/gerardfp/postgres-things</a></p>
+
+        <p><b>a) Un cop clonat el repositori, crea un arxiu <w>docker-compose.yml</w> amb les opcions per a posar en marxa la app (en mode <em>development</em>).</b></p>
+
+        <p>A l'arxiu <w>docker-compose.yml</w> defineix dos serveis:</p>
+        <ul>
+            <li>El servei amb l'aplicació Java, anomenat <w>app_container</w>, amb aquestes opcions:
+                <ul>
+                    <li>Utilitzarà la imatge <w>gradle:jdk11</w></li>
+                    <li>Posarem el codi de l'aplicació (el directori <w>app</w>) al contenidor utilitzant un <em>bind-mount</em>. 
+                        Per a fer-ho definirem un volum a la secció <w>volumes</w> del servei <w>app_container</w></e></li>
+                    <li>Establim el <w>working_dir</w> al directori del contenidor on hàgim muntat el codi de l'aplicació</li>
+                    <li>La <w>command</w> a executar pel contenidor és <w>gradle run -q --console:plain</w></li>
+                    <li>Configurarem el contenidor en mode <w>interactive</w> amb les opcions <w>stdin_open: true</w> i <w>tty: true</w>.</li>
+                    <li>Per últim, expressarem que aquest contenidor depén del contenidor de la base de dades amb l'opció <w>depends_on</w>. 
+                    Això farà que abans d'iniciar aquest contenidor, s'inicie el contenidor de la base de dades.</li>
+                </ul>
+            </li>
+            <li>El servei amb la base de dades Postgres, anomenat <w>database_container</w>, amb aquestes opcions:
+                <ul>
+                    <li>Utilitzarà la imatge <w>postgres:latest</w></li>
+                    <li>Tindrà definides les variables d'entorn <w>POSTGRES_USER: gerard</w>, <w>POSTGRES_PASSWORD: gerard123</w>, i <w>POSTGRES_DB: thingsdb</w></li>
+                    <li>Crearem les taules de la base de dades amb l'script <w>app/init-db.sql</w>. 
+                        Utilitza un <w>bind-mount</w> per a posar aquest script al directori del contenidor <w>/docker-entrypoint-initdb.d/</w>, 
+                        ja que Postgres el buscarà allà.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p>Posa en marxa l'aplicació amb la comanda:</p>
+        <shell>
+            docker compose run app_container
+        </shell>
+
+        <p><b>b) Modifica l'aplicació Java per a que afagi de variables d'entorn l'usuari, el password i el nom de la base de dades.</b></p>
+    </work>
+
+    <work>
+        <h2>Extagram PHP</h2>
+
+        <p>In progress...</p>
+
+        <p>
+            <a href="https://github.com/gerardfp/extagram_php">https://github.com/gerardfp/extagram_php</a>
+        </p>
+
+        <img src="img/extagram_php.png" />
+    </work>
+
+    <work>
+        <h2>Svelte countries</h2>
+
+        <p>In progress...</p>
+    </work>
+
+    <work>
+        <h2>Python REST API</h2>
+
+        <p>In progress...</p>
     </work>
 </section>
