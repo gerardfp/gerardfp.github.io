@@ -289,9 +289,9 @@
                 <ul>
                     <li>Utilitzarà la imatge <w>gradle:jdk11</w></li>
                     <li>Posarem el codi de l'aplicació (el directori <w>app</w>) al contenidor utilitzant un <em>bind-mount</em>. 
-                        Per a fer-ho definirem un volum a la secció <w>volumes</w> del servei <w>app_container</w></e></li>
-                    <li>Establim el <w>working_dir</w> al directori del contenidor on hàgim muntat el codi de l'aplicació</li>
-                    <li>La <w>command</w> a executar pel contenidor és <w>gradle run -q --console:plain</w></li>
+                        Per a fer-ho definirem un volum a la secció <w>volumes</w>.</li>
+                    <li>Establim el <w>working_dir</w> al directori del contenidor on hàgim muntat el codi de l'aplicació.</li>
+                    <li>La <w>command</w> a executar pel contenidor és <w>gradle run -q --console:plain</w>.</li>
                     <li>Configurarem el contenidor en mode <w>interactive</w> amb les opcions <w>stdin_open: true</w> i <w>tty: true</w>.</li>
                     <li>Per últim, expressarem que aquest contenidor depén del contenidor de la base de dades amb l'opció <w>depends_on</w>. 
                     Això farà que abans d'iniciar aquest contenidor, s'inicie el contenidor de la base de dades.</li>
