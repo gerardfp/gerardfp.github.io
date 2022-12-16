@@ -287,23 +287,42 @@
         <ul>
             <li>El servei amb l'aplicació Java, anomenat <w>app_container</w>, amb aquestes opcions:
                 <ul>
-                    <li>Utilitzarà la imatge <w>gradle:jdk11</w></li>
-                    <li>Posarem el codi de l'aplicació (el directori <w>app</w>) al contenidor utilitzant un <em>bind-mount</em>. 
-                        Per a fer-ho definirem un volum a la secció <w>volumes</w>.</li>
-                    <li>Establim el <w>working_dir</w> al directori del contenidor on hàgim muntat el codi de l'aplicació.</li>
-                    <li>La <w>command</w> a executar pel contenidor és <w>gradle run -q --console:plain</w>.</li>
-                    <li>Configurarem el contenidor en mode <w>interactive</w> amb les opcions <w>stdin_open: true</w> i <w>tty: true</w>.</li>
-                    <li>Per últim, expressarem que aquest contenidor depén del contenidor de la base de dades amb l'opció <w>depends_on</w>. 
-                    Això farà que abans d'iniciar aquest contenidor, s'inicie el contenidor de la base de dades.</li>
+                    <li>Utilitza la imatge <w>gradle:jdk11</w>
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#image"><icb>&#xf395;</icb> image</a></p>
+                    </li>
+                    <li>Posa el codi de l'aplicació (el directori <w>app</w>) al contenidor utilitzant un <em>bind-mount</em> (és a dir, muntant un host path). 
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#volumes"><icb>&#xf395;</icb> volumes</a></p>
+                    </li>
+                    <li>Estableix el directori on s'ha muntat el codi com a directori de treball.
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#domainname-hostname-ipc-mac_address-privileged-read_only-shm_size-stdin_open-tty-user-working_dir"><icb>&#xf395;</icb> working_dir</a></p>
+                    </li>
+                    <li>La comanda a executar pel contenidor és <w>gradle run -q --console:plain</w>.
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#command"><icb>&#xf395;</icb> command</a></p>
+                    </li>
+                    <li>Configura el contenidor en mode <em>interactiu</em>.
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#domainname-hostname-ipc-mac_address-privileged-read_only-shm_size-stdin_open-tty-user-working_dir"><icb>&#xf395;</icb> stdin_open</a></p>
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#domainname-hostname-ipc-mac_address-privileged-read_only-shm_size-stdin_open-tty-user-working_dir"><icb>&#xf395;</icb> tty</a></p>
+                    <li>Per últim, expressa que aquest contenidor depén del contenidor de la base de dades. 
+                        És a dir, que abans d'iniciar aquest contenidor, s'inicie el contenidor de la base de dades.
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#depends_on"><icb>&#xf395;</icb> depends_on</a></p>
+
+                    </li>
                 </ul>
             </li>
             <li>El servei amb la base de dades Postgres, anomenat <w>database_container</w>, amb aquestes opcions:
                 <ul>
-                    <li>Utilitzarà la imatge <w>postgres:latest</w></li>
-                    <li>Tindrà definides les variables d'entorn <w>POSTGRES_USER: gerard</w>, <w>POSTGRES_PASSWORD: gerard123</w>, i <w>POSTGRES_DB: thingsdb</w></li>
-                    <li>Crearem les taules de la base de dades amb l'script <w>app/init-db.sql</w>. 
-                        Utilitza un <w>bind-mount</w> per a posar aquest script al directori del contenidor <w>/docker-entrypoint-initdb.d/</w>, 
-                        ja que Postgres el buscarà allà.</li>
+                    <li>Utilitza la imatge <w>postgres:latest</w>
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#image"><icb>&#xf395;</icb> image</a></p>
+                    </li>
+                    <li>Defineix les variables d'entorn <w>POSTGRES_USER: gerard</w>, <w>POSTGRES_PASSWORD: gerard123</w>, i <w>POSTGRES_DB: thingsdb</w>
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#environment"><icb>&#xf395;</icb> environment</a></p>
+                    </li>
+                    <li>Crea les taules de la base de dades amb l'script <w>app/init-db.sql</w>. 
+                        Utilitza un <em>bind-mount</em> per a posar aquest script al directori del contenidor <w>/docker-entrypoint-initdb.d/</w>, 
+                        ja que Postgres el buscarà allà.
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#volumes"><icb>&#xf395;</icb> volumes</a></p>
+
+                    </li>
                 </ul>
             </li>
         </ul>
@@ -313,7 +332,7 @@
             docker compose run app_container
         </shell>
 
-        <p><b>b) Modifica l'aplicació Java per a que afagi de variables d'entorn l'usuari, el password i el nom de la base de dades.</b></p>
+        <p><b>b) Modifica l'aplicació Java per a que afagi de les variables d'entorn l'usuari, el password i el nom de la base de dades.</b></p>
     </work>
 
     <work>
