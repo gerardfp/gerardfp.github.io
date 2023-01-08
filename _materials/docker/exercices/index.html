@@ -294,7 +294,7 @@
                     <li>Utilitza la imatge <w>gradle:jdk11</w>
                         <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#image"><icb>&#xf395;</icb> image</a></p>
                     </li>
-                    <li>Posa el codi de l'aplicació (el directori <w>app</w>) al contenidor utilitzant un <em>bind-mount</em> (és a dir, muntant un host path). 
+                    <li>Posa el codi de l'aplicació (el directori <w>app</w>) al contenidor utilitzant un <em>bind-mount</em> (és a dir, muntant un <em>host path</em>). 
                         <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#volumes"><icb>&#xf395;</icb> volumes</a></p>
                     </li>
                     <li>Estableix el directori on s'ha muntat el codi com a directori de treball.
@@ -340,7 +340,71 @@
     </work>
 
     <work>
-        <h2>6. Extagram PHP</h2>
+        <h2>6. LAMP foro</h2>
+
+        <p><a href="https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04-es">LAMP</a> 
+            és el clàssic <em>stack</em> per a aplicacions web: Linux + Apache + MySQL + PHP, 
+            tot i que en els darrers anys ha sigut habitual canviar Apache per Nginx, i mod-php per <a href="https://www.php.net/manual/en/install.fpm.php">php-fpm</a>.
+            Aquest stack se l'ha anomenat <a href="https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-20-04">LEMP</a>.</p>
+        
+        <img src="img/lemp stack.png"/>
+
+        <p>
+            Aquest repositori <a href="https://github.com/gerardfp/lemp-foro">https://github.com/gerardfp/lemp-foro</a> conté una aplicació LEMP que consisteix en un fòrum de 
+            discussions.
+        </p>
+
+        <p><b>a) Clona el repositori i crea un arxiu <w>docker-compose.yml</w> amb les opcions per a posar en marxa la app (en mode <em>development</em>).</b></p>
+
+        <p>A l'arxiu <w>docker-compose.yml</w> defineix tres serveis:</p>
+        <ul>
+            <li>El servei amb el servidor nginx, anomenat <w>proxy_container</w>, amb aquestes opcions:
+                <ul>
+                    <li>Utilitza la imatge <w>nginx:alpine</w>
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#image"><icb>&#xf395;</icb> image</a></p>
+                    </li>
+                    <li>Mapeja <em>un</em> port del host amb el port 80 del contenidor. 
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#ports"><icb>&#xf395;</icb> ports</a></p>
+                    </li>
+                    <li>Proporciona l'arxiu de configuració d'nginx. Aquest és l'arxiu <w>nginx.conf</w> i s'ha de posar a la ruta <w>/etc/nginx/conf.d/default.conf</w> del contenidor.
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#configs"><icb>&#xf395;</icb> configs</a></p>
+                    </li>
+                </ul>
+            </li>
+            <li>El servei amp l'aplicació PHP, anomenat <w>app_container</w>:
+                <ul>
+                    <li>Utilitza una imatge construïda a partir de l'arxiu <w>php.Dockerfile</w>.
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#build"><icb>&#xf395;</icb> build</a></p>
+                    </li>
+                    <li>Fes un <em>bind-mount</em> del codi de l'aplicació (el directori <w>app</w>) al directori <w>/var/www/html</w> del contenidor. 
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#volumes"><icb>&#xf395;</icb> volumes</a></p>
+                    </li>
+                </ul>
+            </li>
+            <li>El servei amb la base de dades MySQL, anomenat <w>database_container</w>:
+                <ul>
+                    <li>Utilitza la imatge <w>mysql</w>
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#image"><icb>&#xf395;</icb> image</a></p>
+                    </li>
+                    <li>Defineix les variables d'entorn <w>MYSQL_DATABASE=mydb</w>, <w>MYSQL_USER=myuser</w>, <w>MYSQL_PASSWORD=mypass123</w> i <w>MYSQL_ROOT_PASSWORD=pass123</w>
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#environment"><icb>&#xf395;</icb> environment</a></p>
+                    </li>
+                    <li>Fes un <em>bind-mount</em> de l'script <w>create.sql</w> al directori <w>/docker-entrypoint-initdb.d/</w>. D'aquesta manera, es crearan les taules
+                        de la base de dades quan s'inicie el contenidor per primera vegada.
+                        <p><a href="https://docs.docker.com/compose/compose-file/compose-file-v3/#volumes"><icb>&#xf395;</icb> volumes</a></p>
+                    </li>
+                    <li>Estableix un <em>named-volume</em> al directori <w>/var/lib/mysql</w>. Així, quan les dades de la base de dades es guardaran al host, i no al contenidor.</li>
+                </ul>
+            </li>
+        </ul>
+        <p>Posa en marxa l'aplicació amb la comanda:</p>
+        <shell>
+            docker compose up
+        </shell>
+    </work>
+
+    <work>
+        <h2>7. Extagram PHP</h2>
 
         <p>In progress...</p>
 
@@ -352,25 +416,19 @@
     </work>
 
     <work>
-        <h2>7. Svelte countries</h2>
+        <h2>8. Svelte countries</h2>
 
         <p>In progress...</p>
     </work>
 
     <work>
-        <h2>8. Python REST API</h2>
+        <h2>9. Python REST API</h2>
 
         <p>In progress...</p>
     </work>
 
     <work>
-        <h2>9. Extagram SpringBoot</h2>
-
-        <p>In progress...</p>
-    </work>
-
-    <work>
-        <h2>10. Custom service</h2>
+        <h2>10. Extagram SpringBoot</h2>
 
         <p>In progress...</p>
     </work>
