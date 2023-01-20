@@ -15,7 +15,17 @@
 </header>
 
 <section>
+    <h2>Overview</h2>
+
+    <p>Un diagrama:</p> 
+    
+    Postgres <--- JDBC? SQL --->   Spring Boot  <--- HTTP / JSON ---> consumidor de la API (movil, browser, postman) </p>
+</section>
+
+<section>
     <h2>Database server</h2>
+
+    <!--
 
     <h3>Màquina virtual</h3>
     <p>Descarrega aquesta imatge de disc dur virtual: <a href="https://github.com/gerardfp/gerardfp.github.io/releases/download/img/debian-11-nocloud-amd64.qcow2">debian-11-nocloud-amd64.qcow2</a></p>
@@ -39,13 +49,13 @@
     <shell>
         ssh -i <replace>/path/to/id_rsa</replace> root@<replace>192.168.122.1</replace>
     </shell>
-   
 
     <h3>Docker Postgresql</h3>
+    -->
 
-    <p>Instal·la Docker a la màquina virtual:</p>
+    <p>Instal·la Docker a la màquina host:</p>
 
-    <host>@virtual</host>
+    <host>root@host</host>
     <shell>
         curl -fsSL https://get.docker.com -o get-docker.sh &&  sh get-docker.sh
     </shell>
@@ -57,6 +67,7 @@
         docker run -d --name myapi-postgres -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_USER=myapidbadmin -e POSTGRES_DB=myapidb -p 5432:5432 -v /root/db_data:/var/lib/postgresql/data postgres
     </shell>
 
+    <!--
     <optional>
         <p>Habilita l'inici automàtic del contenidor:</p>
 
@@ -83,7 +94,9 @@
             systemctl enable myapi-postgres.service
         </shell>
     </optional>
+    -->
 
+    <!--
     <p>El següent pas és accedir al contenidor per a crear l'esquema de la base de dades.</p>
     <p>Esbrina el <w>CONTAINER ID</w> amb la comanda:</p>
 
@@ -168,138 +181,75 @@ INSERT INTO movie_genre VALUES
     ((SELECT movieid FROM movie WHERE title='Movie Three'),(SELECT genreid FROM genre WHERE label='Genre Two')),
     ((SELECT movieid FROM movie WHERE title='Movie Three'),(SELECT genreid FROM genre WHERE label='Genre Three'));
     </sc>
+
+    -->
 </section>
 
 <section>
-    <h2>Spring boot</h2>
+    <h2>Spring initializr</h2>
 
     <p>Accedeix a <a href="https://start.spring.io/">spring initializr</a> per a generar un projecte <strong>Spring Boot</strong></p>
 
-    <p>Selecciona <name>Gradle Project</name></p>
-    <p>Afegeix les dependències:</p>
-    <ul>
-        <li>Spring Web</li>
-        <li>Spring Data JPA</li>
-        <li>PostgreSQL Driver</li>
-    </ul>
+    <ol>
+        <li>
+            <p>Selecciona les següents opcions</p>
+            <ul>
+                <li>Project: <name>Gradle - Groovy</name></li>
+                <li>Language: <name>Java</name></li>
+                <li>Spring Boot: <name>3.0.1</name></li>
+                <li>Project Metadata:
+                    <ul>
 
-    <p>Genera el projecte i descomprimeix-lo. Obre'l amb IntelliJ</p>
+                        <li>Group: <name>com.example</name></li>
+                        <li>Artifact: <name>SpringBootMovieAPI</name></li>
+                        <li>Name: <name>SpringBootMovieAPI</name></li>
+                        <li>Package name: <name>com.example.SpringBootMovieAPI</name></li>
+                        <li>Packaging: <name>JAR</name></li>
+                        <li>Java: <name>17</name></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <p>Afegeix les dependències:</p>
+            <ul>
+                <li>Spring Web</li>
+                <li>Spring Data JPA</li>
+                <li>PostgreSQL Driver</li>
+            </ul>        
+        </li>
+        <li>
+            Genera el projecte i descomprimeix-lo.
+        </li>
+        <li>
+             Obre'l amb IntelliJ
+        </li>
+    </ol>
 
-    <p>Configura l'accés a la base de dades:</p>
+
+    <p>Configura l'accés de l'aplicació a la base de dades:</p>
 
     <scfile>
         src/main/resources/application.properties
     </scfile>
     <sc>
-        spring.datasource.url= jdbc:postgresql://<replace>192.168.122.99</replace>:5432/myapidb
-        spring.datasource.username= myapidbadmin
-        spring.datasource.password= mysecretpassword
-        spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
-        spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.PostgreSQLDialect
-    </sc>
-    <!--
-    <p>Afegeix una dependència més al fitxer <w>build.gradle</w>:</p>
-
-    <scfile>
-        build.gradle
-    </scfile>
-    <sc groovy>
-        <low>
-        dependencies {
-            ...
-        </low>
-        <add>  
-            implementation "org.mapstruct:mapstruct:1.4.2.Final"
-            annotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
-        </add>
-        <low>    
-        }
-        </low>
-    </sc>
-
-    <p>Load gradle changes <kbd>Ctrl</kbd> + <kbd>Mayús</kbd> + <kbd>O</kbd></p>
-    -->
-    <p>L'arquitectura bàsica de la nostra ApiHttp amb Spring Boot serà aquesta:</p>
-
-    <img src="img/boot1.png">
-
-    <h3>Model</h3>
-    <p>Les classes Model serveixen per a crear objectes amb les dades i així poder transportar-les d'un component a un altre.</p>
-
-    <p>Començarem creant la classe <w>Movie</w> que ens servirà per a transportar les dades d'una pel·lícula:</p>
-
-    <scfile>
-        src/main/java/com/example/demo/domain/model/Movie.java
-    </scfile>
-    <sc java>
-        import javax.persistence.*;
-        import java.util.UUID;
-
-        @Entity
-        @Table(name = "movie")
-        public class Movie {
-            @Id
-            @GeneratedValue(strategy = GenerationType.AUTO)
-            public UUID movieid;
-
-            public String title;
-            public String imageurl;
-        }
-    </sc>
-
-    <h3>Repository</h3>
-    <scfile>
-        src/main/java/com/example/demo/repository/MovieRepository.java
-    </scfile>
-    <sc java>
-        import com.example.demo.domain.model.Movie;
-        import org.springframework.data.jpa.repository.JpaRepository;
-
-        import java.util.UUID;
-
-        public interface MovieRepository extends JpaRepository&lt;Movie, UUID&gt; {
-
-        }
-    </sc>
-
-    <h3>Controller</h3>
-    <scfile>
-        src/main/java/com/example/demo/controller/MovieController.java
-    </scfile>
-    <sc java>
-        import com.example.demo.domain.model.Movie;
-        import com.example.demo.repository.MovieRepository;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.web.bind.annotation.*;
-
-        import java.util.List;
-
-        @RestController
-        @RequestMapping(&quot;/movies&quot;)
-        public class MovieController {
-
-            @Autowired
-            private MovieRepository movieRepository;
-
-            @GetMapping(&quot;/&quot;)
-            public List&lt;Movie&gt; findAllMovies() {
-                return movieRepository.findAll();
-            }
-
-            @PostMapping(&quot;/&quot;)
-            public Movie createMovie(@RequestBody Movie movie) {
-                return movieRepository.save(movie);
-            }
-        }
+        spring.datasource.url=jdbc:postgresql://<replace>localhost</replace>:5432/myapidb
+        spring.datasource.username=myapidbadmin
+        spring.datasource.password=mysecretpassword
+        spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+        spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
     </sc>
 </section>
+
 
 <section>
     <h2>Database migrations</h2>
 
-    <p>La llibreria <a href="https://flywaydb.org/">Flyway</a> permet gestionar els canvis en l'esquema de la base de dades.</p>
+    <p>La llibreria <a href="https://flywaydb.org/">Flyway</a> permet gestionar els canvis en l'esquema de la base de dades.
+    És a dir, crear/eliminar/modifcar taules, dades, etc...
+    </p>
 
-    <p>Agegeix Flyway al projecte:</p>
+    <p>Afegeix Flyway al projecte:</p>
 
     <scfile>
         build.gradle
@@ -310,7 +260,7 @@ INSERT INTO movie_genre VALUES
             ...
         </low>
         <add>
-            id 'org.flywaydb.flyway' version '8.0.2'
+            id 'org.flywaydb.flyway' version '9.8.1'
         </add>
         <low>
         }
@@ -327,24 +277,30 @@ INSERT INTO movie_genre VALUES
             ... 
         </low>
         <add>
-            implementation 'org.flywaydb:flyway-core:8.0.1'
+            implementation 'org.flywaydb:flyway-core:9.8.1'
         </add>
         <low>
         }
         </low>
     </sc>
 
-    <p>Configura els paràmetres d'accés a la base de dades:</p>
+    <p>Configura els paràmetres d'accés de la llibreria Flyway a la base de dades:</p>
 
     <scfile>
         src/main/resources/application.properties
     </scfile>
     <sc>
-        flyway.url=jdbc:postgresql://<replace>192.168.122.99</replace>:5432/myapidb
+        <low>
+        # ...
+
+        </low>
+        <add>
+        flyway.url=jdbc:postgresql://<replace>localhost</replace>:5432/myapidb
         flyway.schemas=public
         flyway.user=myapidbadmin
         flyway.password=mysecretpassword
         spring.flyway.baseline_on_migrate=true
+        </add>
     </sc>
 
     <p>Crea una primera versió de l'esquema de la base de dades. Les migracions de l'esquema de la base de dades es 
@@ -424,6 +380,115 @@ INSERT INTO movie_genre VALUES
 </section>
 
 <section>
+    <h2>Spring boot API</h2>
+
+    
+    <!--
+    <p>Afegeix una dependència més al fitxer <w>build.gradle</w>:</p>
+
+    <scfile>
+        build.gradle
+    </scfile>
+    <sc groovy>
+        <low>
+        dependencies {
+            ...
+        </low>
+        <add>  
+            implementation "org.mapstruct:mapstruct:1.4.2.Final"
+            annotationProcessor "org.mapstruct:mapstruct-processor:1.4.2.Final"
+        </add>
+        <low>    
+        }
+        </low>
+    </sc>
+
+    <p>Load gradle changes <kbd>Ctrl</kbd> + <kbd>Mayús</kbd> + <kbd>O</kbd></p>
+    -->
+    <p>L'arquitectura bàsica de la nostra ApiHttp amb Spring Boot serà aquesta:</p>
+
+    <img src="img/boot1.png">
+
+    <h3>Model</h3>
+    <p>Les classes Model serveixen per a crear objectes amb les dades i així poder transportar-les d'un component a un altre.</p>
+
+    <a href="https://jakarta.ee/specifications/persistence/3.1/jakarta-persistence-spec-3.1.html#entities">Entity</a>
+
+    <p>Començarem creant la classe <w>Movie</w> que ens servirà per a transportar les dades d'una pel·lícula:</p>
+
+    <scfile>
+        src/main/java/com/example/SpringBootMovieAPI/domain/model/Movie.java
+    </scfile>
+    <sc java>
+        package com.example.SpringBootMovieAPI.domain.model;
+
+        import jakarta.persistence.*;
+        import java.util.UUID;
+        
+        @Entity
+        @Table(name = "movie")
+        public class Movie {
+            @Id
+            @GeneratedValue(strategy = GenerationType.AUTO)
+            public UUID movieid;
+        
+            public String title;
+            public String imageurl;
+        }
+    </sc>
+
+    <h3>Repository</h3>
+    <scfile>
+        src/main/java/com/example/SpringBootMovieAPI/repository/MovieRepository.java
+    </scfile>
+    <sc java>
+        package com.example.SpringBootMovieAPI.repository;
+
+        import com.example.SpringBootMovieAPI.domain.model.Movie;
+        import org.springframework.data.jpa.repository.JpaRepository;
+        import java.util.UUID;
+        
+        public interface MovieRepository extends JpaRepository&lt;Movie, UUID&gt; {
+        
+        }
+    </sc>
+
+    <h3>Controller</h3>
+    <scfile>
+        src/main/java/com/example/SpringBootMovieAPI/controller/MovieController.java
+    </scfile>
+    <sc java>
+        package com.example.SpringBootMovieAPI.controller;
+
+        import com.example.SpringBootMovieAPI.domain.model.Movie;
+        import com.example.SpringBootMovieAPI.repository.MovieRepository;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.web.bind.annotation.*;
+        import java.util.List;
+        
+        @RestController
+        @RequestMapping("/movies")
+        public class MovieController {
+        
+            @Autowired
+            private MovieRepository movieRepository;
+        
+            @GetMapping("/")
+            public List&lt;Movie&gt; findAllMovies() {
+                return movieRepository.findAll();
+            }
+        
+            @PostMapping("/")
+            public Movie createMovie(@RequestBody Movie movie) {
+                return movieRepository.save(movie);
+            }
+        }
+    </sc>
+
+    <p>Accedeix a <a href="http://localhost:8080">http://localhost:8080</a></p>
+</section>
+<!--
+<section>
     <h2>Heroku deploy</h2>
 
     <ul>
@@ -497,7 +562,7 @@ INSERT INTO movie_genre VALUES
     </ul>
 
 </section>
-
+-->
 <section>
     <h2>File uploads</h2>
 
@@ -516,51 +581,52 @@ INSERT INTO movie_genre VALUES
 
     <p>Creem el model:</p>
     <scfile>
-        src/main/java/com/example/demo/domain/model/File.java 
+        src/main/java/com/example/SpringBootMovieAPI/domain/model/File.java 
     </scfile>
     <sc java>
-        import org.hibernate.annotations.Type;
+        package com.example.SpringBootMovieAPI.domain.model;
 
-        import javax.persistence.*;
+        import jakarta.persistence.*;
         import java.util.UUID;
-
+        
         @Entity
         @Table(name = "file")
         public class File {
             @Id
             @GeneratedValue(strategy = GenerationType.AUTO)
             public UUID fileid;
-
+        
             public String contenttype;
-
-            @Lob
-            @Type(type="org.hibernate.type.BinaryType")
             public byte[] data;
         }
     </sc>
 
     <p>Creem el repository:</p>
     <scfile>
-        src/main/java/com/example/demo/repository/FileRepository.java 
+        src/main/java/com/example/SpringBootMovieAPI/repository/FileRepository.java 
     </scfile>
     <sc java>
-        import com.example.demo.domain.model.File;
+        package com.example.SpringBootMovieAPI.repository;
+
+        import com.example.SpringBootMovieAPI.domain.model.File;
         import org.springframework.data.jpa.repository.JpaRepository;
-
         import java.util.UUID;
-
+        
         public interface FileRepository extends JpaRepository&lt;File, UUID&gt; {
-
+        
         }
     </sc>
 
     <p>I per últim el controlador:</p>
     <scfile>
-        src/main/java/com/example/demo/controller/FileController.java
+        src/main/java/com/example/SpringBootMovieAPI/controller/FileController.java
     </scfile>
     <sc java>
-        import com.example.demo.domain.model.File;
-        import com.example.demo.repository.FileRepository;
+        package com.example.SpringBootMovieAPI.controller;
+
+        import com.example.SpringBootMovieAPI.domain.model.File;
+        import com.example.SpringBootMovieAPI.repository.FileRepository;
+        import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.http.MediaType;
         import org.springframework.http.ResponseEntity;
         import org.springframework.web.bind.annotation.*;
@@ -568,14 +634,18 @@ INSERT INTO movie_genre VALUES
 
         import java.util.List;
         import java.util.UUID;
+        import java.util.stream.Collectors;
 
         @RestController
         @RequestMapping(&quot;/files&quot;)
         public class FileController {
 
-            private final FileRepository fileRepository;
-            FileController(FileRepository fileRepository){
-                this.fileRepository = fileRepository;
+            @Autowired FileRepository fileRepository;
+
+            @GetMapping
+            public ResponseEntity&lt;List&lt;File&gt;&gt; getAll() {
+                return ResponseEntity.ok()
+                        .body(fileRepository.findAll());
             }
 
             @PostMapping
@@ -592,7 +662,6 @@ INSERT INTO movie_genre VALUES
                 }
             }
 
-
             @GetMapping(&quot;/{id}&quot;)
             public ResponseEntity&lt;byte[]&gt; getFile(@PathVariable UUID id) {
                 File file = fileRepository.findById(id).orElse(null);
@@ -604,12 +673,28 @@ INSERT INTO movie_genre VALUES
                         .contentLength(file.data.length)
                         .body(file.data);
             }
+
+            @GetMapping(&quot;/web&quot;) public String webView() { return &quot;&lt;form method=&#39;POST&#39; action=&#39;/files/web&#39; enctype=&#39;multipart/form-data&#39; style=&#39;display:flex;&#39;&gt;&lt;input id=&#39;file&#39; type=&#39;file&#39; name=&#39;file&#39; style=&#39;display:none&#39; onchange=&#39;preview.src=window.URL.createObjectURL(event.target.files[0])&#39;&gt;&lt;label for=&#39;file&#39; style=&#39;border:1px dashed #999&#39;&gt;&lt;img id=&#39;preview&#39; style=&#39;width:6em;max-height:6em;object-fit:contain;border:none&#39;&gt;&lt;/label&gt;&lt;input type=&#39;submit&#39; style=&#39;background:#0096f7;color: white;border: 0;border-radius: 3px;padding: 8px;&#39; value=&#39;Upload&#39;&gt;&lt;/form&gt;&lt;div style=&#39;display:flex;flex-wrap:wrap;gap:1em;&#39;&gt;&quot; + fileRepository.findAll().stream().map(file -&gt; &quot;&lt;img src=&#39;/files/&quot;+file.fileid+&quot;&#39; style=&#39;width:12em;height:12em;object-fit:contain&#39;&gt;&quot;).collect(Collectors.joining()) + &quot;&lt;/div&gt;&quot;;}
+            @PostMapping(&quot;/web&quot;) public String webUpload(@RequestParam(&quot;file&quot;) MultipartFile uploadedFile){ upload(uploadedFile); return webView(); }
         }
     </sc>
+
+    <p>Accedeix a <a href="http://localhost:8080/files">http://localhost:8080/files</a> i a <a href="http://localhost:8080/files/web">http://localhost:8080/files/web</a> 
+    i a <a href="http://localhost:8080/files/{fileid}">http://localhost:8080/files/{fileid}</a></p>
 </section>
 
 <section>
+
     <h2>Autenticació i autorització</h2>
+    <p>///////////////////////////////////// TODO: actualitzar</p>
+    <p>///////////////////////////////////// TODO: actualitzar</p>
+    <p>///////////////////////////////////// TODO: actualitzar</p>
+    <p>///////////////////////////////////// TODO: actualitzar</p>
+    <p>///////////////////////////////////// TODO: actualitzar</p>
+    <p>///////////////////////////////////// TODO: actualitzar</p>
+    <p>///////////////////////////////////// TODO: actualitzar</p>
+
+    <p>TODO: El response Entity posarlo ja de primeres?¿?¿?¿?</p>
 
     <p>Crea aquest arxiu de migració:</p>
     <scfile>
@@ -650,7 +735,7 @@ INSERT INTO movie_genre VALUES
 
     <p>Creem el model <w>User</w>:</p>
     <scfile>
-        src/main/java/com/example/demo/domain/model/User.java 
+        src/main/java/com/example/SpringBootMovieAPI/domain/model/User.java 
     </scfile>
     <sc java>
         import javax.persistence.*;
@@ -673,7 +758,7 @@ INSERT INTO movie_genre VALUES
 
     <p>Creem el repository:</p>
     <scfile>
-        src/main/java/com/example/demo/repository/UserRepository.java 
+        src/main/java/com/example/SpringBootMovieAPI/repository/UserRepository.java 
     </scfile>
     <sc java>
         import com.example.demo.domain.model.User;
@@ -690,7 +775,7 @@ INSERT INTO movie_genre VALUES
 
     <p>Afegim la configuració de seguretat:</p>
     <scfile>
-        src/main/java/com/example/demo/SecurityConfig.java
+        src/main/java/com/example/SpringBootMovieAPI/SecurityConfig.java
     </scfile>
     <sc java>
         import org.springframework.beans.factory.annotation.Autowired;
@@ -745,7 +830,7 @@ INSERT INTO movie_genre VALUES
     <p>Per al registre d'usuaris necessitarem una classe (DTO) que per guardar les dades que ens envia l'usuari (username i password):</p>
 
     <scfile>
-        src/main/java/com/example/demo/domain/dto/UserRegisterRequest.java 
+        src/main/java/com/example/SpringBootMovieAPI/domain/dto/UserRegisterRequest.java 
     </scfile>
     <sc java>
         public class UserRegisterRequest {
@@ -756,7 +841,7 @@ INSERT INTO movie_genre VALUES
 
     <p>També necessitarem un controlador per atendre les peticions de registre:</p>
     <scfile>
-        src/main/java/com/example/demo/controller/UserController.java 
+        src/main/java/com/example/SpringBootMovieAPI/controller/UserController.java 
     </scfile>
     <sc java>
         import com.example.demo.domain.dto.UserRegisterRequest;
@@ -794,7 +879,7 @@ INSERT INTO movie_genre VALUES
     <p>Per últim caldrà permetre l'accés a usuaris no autenticats a l'endpoint de registre (<w>/users/register</w>):</p>
 
     <scfile>
-        src/main/java/com/example/demo/SecurityConfig.java
+        src/main/java/com/example/SpringBootMovieAPI/SecurityConfig.java
     </scfile>
     <sc java>
         <add>
