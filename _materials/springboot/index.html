@@ -463,15 +463,17 @@ INSERT INTO movie_genre VALUES
         import com.example.SpringBootMovieAPI.domain.model.Movie;
         import com.example.SpringBootMovieAPI.repository.MovieRepository;
         import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.http.HttpStatus;
         import org.springframework.web.bind.annotation.*;
+        import org.springframework.web.server.ResponseStatusException;
         import java.util.List;
+        import java.util.UUID;
         
         @RestController
         @RequestMapping("/movies")
         public class MovieController {
         
-            @Autowired
-            private MovieRepository movieRepository;
+            @Autowired private MovieRepository movieRepository;
         
             @GetMapping("/")
             public List&lt;Movie&gt; findAllMovies() {
@@ -482,10 +484,42 @@ INSERT INTO movie_genre VALUES
             public Movie createMovie(@RequestBody Movie movie) {
                 return movieRepository.save(movie);
             }
+        
+            @GetMapping("/id/{id}")
+            public Movie findById(@PathVariable UUID id) {
+                return movieRepository.findById(id)
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie '%s' not found".formatted(id)));
+            }
         }
     </sc>
 
-    <p>Accedeix a <a href="http://localhost:8080">http://localhost:8080</a></p>
+   <p>Prova l'aplicació:</p>
+
+   <p>Get all movies:</p>
+   <shell>
+    curl localhost:8080/movies/
+   </shell>
+
+   <p>Get movie by id:</p>
+   <shell>
+    curl localhost:8080/movies/id/<replace>{id}</replace>
+   </shell>
+
+   <p>Create movie:</p>
+   <shell>
+    curl -X POST -H "Content-Type: application/json" -d '{"title":"Movie Five", "imageurl":"movie5.jpg"}' http://localhost:8080/movies
+   </shell>
+
+   <info>
+        <p>New <w>--json</w> option, <w>jq</w>, <w>jo</w>: <a href="https://daniel.haxx.se/blog/2022/02/02/curl-dash-dash-json/">https://daniel.haxx.se/blog/2022/02/02/curl-dash-dash-json/</a></p>
+        <shell>curl --json '{"title":"Movie Five", "imageurl":"movie5.jpg"}'  http://localhost:8080/movies</shell>
+        <shell>
+            curl -s localhost:8080/movies/  |  jq
+        </shell>
+        <shell>
+            jo title="Movie Five" imageurl=movie5.jpg  |  curl --json @- http://localhost:8080/movies/  |  jq
+        </shell>
+   </info>
 </section>
 <!--
 <section>
@@ -598,6 +632,13 @@ INSERT INTO movie_genre VALUES
         
             public String contenttype;
             public byte[] data;
+        
+            public File(){}
+            
+            public File(String contenttype, byte[] data) {
+                this.contenttype = contenttype;
+                this.data = data;
+            }
         }
     </sc>
 
@@ -627,74 +668,93 @@ INSERT INTO movie_genre VALUES
         import com.example.SpringBootMovieAPI.domain.model.File;
         import com.example.SpringBootMovieAPI.repository.FileRepository;
         import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.http.MediaType;
-        import org.springframework.http.ResponseEntity;
+        import org.springframework.http.HttpStatus;
         import org.springframework.web.bind.annotation.*;
         import org.springframework.web.multipart.MultipartFile;
-
+        import org.springframework.web.server.ResponseStatusException;
+        import java.io.IOException;
         import java.util.List;
         import java.util.UUID;
         import java.util.stream.Collectors;
-
+        
         @RestController
         @RequestMapping(&quot;/files&quot;)
         public class FileController {
-
+        
             @Autowired FileRepository fileRepository;
-
-            @GetMapping
-            public ResponseEntity&lt;List&lt;File&gt;&gt; getAll() {
-                return ResponseEntity.ok()
-                        .body(fileRepository.findAll());
+        
+            @GetMapping(&quot;/&quot;)
+            public List&lt;File&gt; getAll() {
+                return fileRepository.findAll();
             }
-
-            @PostMapping
-            public String upload(@RequestParam(&quot;file&quot;) MultipartFile uploadedFile) {
-                try {
-                    File file = new File();
-                    file.contenttype = uploadedFile.getContentType();
-                    file.data = uploadedFile.getBytes();
-
-                    return fileRepository.save(file).fileid.toString();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
+        
+            @PostMapping(&quot;/&quot;)
+            public String upload(@RequestParam(&quot;file&quot;) MultipartFile uploadedFile) throws IOException {
+                return fileRepository.save(new File(uploadedFile.getContentType(), uploadedFile.getBytes())).fileid.toString();
             }
-
+        
+            @GetMapping(&quot;/id/{id}&quot;)
+            public File getFileById(@PathVariable UUID id) {
+                return fileRepository.findById(id)
+                        .orElseThrow(()-&gt; new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;File &#39;%s&#39; not found&quot;.formatted(id)));
+            }
+        
             @GetMapping(&quot;/{id}&quot;)
-            public ResponseEntity&lt;byte[]&gt; getFile(@PathVariable UUID id) {
-                File file = fileRepository.findById(id).orElse(null);
-
-                if (file == null) return ResponseEntity.notFound().build();
-
-                return ResponseEntity.ok()
-                        .contentType(MediaType.valueOf(file.contenttype))
-                        .contentLength(file.data.length)
-                        .body(file.data);
+            public byte[] getFile(@PathVariable UUID id) {
+                return fileRepository.findById(id).map(f -&gt; f.data)
+                        .orElseThrow(() -&gt; new ResponseStatusException(HttpStatus.NOT_FOUND, &quot;File &#39;%s&#39; not found&quot;.formatted(id)));
             }
-
+        
+        
+        
+        
+            /* web upload */
             @GetMapping(&quot;/web&quot;) public String webView() { return &quot;&lt;form method=&#39;POST&#39; action=&#39;/files/web&#39; enctype=&#39;multipart/form-data&#39; style=&#39;display:flex;&#39;&gt;&lt;input id=&#39;file&#39; type=&#39;file&#39; name=&#39;file&#39; style=&#39;display:none&#39; onchange=&#39;preview.src=window.URL.createObjectURL(event.target.files[0])&#39;&gt;&lt;label for=&#39;file&#39; style=&#39;border:1px dashed #999&#39;&gt;&lt;img id=&#39;preview&#39; style=&#39;width:6em;max-height:6em;object-fit:contain;border:none&#39;&gt;&lt;/label&gt;&lt;input type=&#39;submit&#39; style=&#39;background:#0096f7;color: white;border: 0;border-radius: 3px;padding: 8px;&#39; value=&#39;Upload&#39;&gt;&lt;/form&gt;&lt;div style=&#39;display:flex;flex-wrap:wrap;gap:1em;&#39;&gt;&quot; + fileRepository.findAll().stream().map(file -&gt; &quot;&lt;img src=&#39;/files/&quot;+file.fileid+&quot;&#39; style=&#39;width:12em;height:12em;object-fit:contain&#39;&gt;&quot;).collect(Collectors.joining()) + &quot;&lt;/div&gt;&quot;;}
-            @PostMapping(&quot;/web&quot;) public String webUpload(@RequestParam(&quot;file&quot;) MultipartFile uploadedFile){ upload(uploadedFile); return webView(); }
+            @PostMapping(&quot;/web&quot;) public String webUpload(@RequestParam(&quot;file&quot;) MultipartFile uploadedFile) throws IOException { upload(uploadedFile); return webView(); }
         }
     </sc>
 
-    <p>Accedeix a <a href="http://localhost:8080/files">http://localhost:8080/files</a> i a <a href="http://localhost:8080/files/web">http://localhost:8080/files/web</a> 
-    i a <a href="http://localhost:8080/files/{fileid}">http://localhost:8080/files/{fileid}</a></p>
+    <p>Prova l'endpoint <w>/files/</w>:</p>
+
+    <p>Llista els arxius:</p>
+    <shell>
+        curl localhost:8080/files/
+    </shell>
+
+    <p>Puja un arxiu:</p>
+    <shell>
+        curl -F file=@foto.jpg localhost:8080/files/
+    </shell>
+
+    <p>Obté les dades d'un arxiu pel seu id:</p>
+    <shell>
+        curl localhost:8080/files/id/<replace>{id}</replace>
+    </shell>
+
+    <p>Obté el contingut d'un arxiu pel seu id:</p>
+    <shell>
+        curl localhost:8080/files/<replace>{id}</replace>
+    </shell>
+
+    
+    <p>Alternativament, utilitza la <em>mini</em> interfície web: <a href="http://localhost:8080/files/web">http://localhost:8080/files/web</a></p>
+
+    <info>
+        <p>File Size Limit:</p>
+
+        <scfile>src/main/resources/application.properties </scfile>
+        <sc>
+            <add>
+            spring.servlet.multipart.max-file-size=100MB
+            spring.servlet.multipart.max-request-size=100MB
+            </add>
+        </sc>
+    </info>
 </section>
 
 <section>
 
     <h2>Autenticació i autorització</h2>
-    <p>///////////////////////////////////// TODO: actualitzar</p>
-    <p>///////////////////////////////////// TODO: actualitzar</p>
-    <p>///////////////////////////////////// TODO: actualitzar</p>
-    <p>///////////////////////////////////// TODO: actualitzar</p>
-    <p>///////////////////////////////////// TODO: actualitzar</p>
-    <p>///////////////////////////////////// TODO: actualitzar</p>
-    <p>///////////////////////////////////// TODO: actualitzar</p>
-
-    <p>TODO: El response Entity posarlo ja de primeres?¿?¿?¿?</p>
 
     <p>Crea aquest arxiu de migració:</p>
     <scfile>
@@ -889,7 +949,9 @@ INSERT INTO movie_genre VALUES
     </sc>
 </section>
 <section>
-    <h2>ResponseEntity</h2>
+    <h2>Mangeig d'errors</h2>
+
+    <p>spring.mvc.problemdetails.enabled=true</p>
 
     <p>Per a que els mètodes REST retornin respostes de forma adequada podem utilitzar la classe <w>ResponseEntity</w>.</p>
 
@@ -941,7 +1003,6 @@ INSERT INTO movie_genre VALUES
 
     <sc java>
         public interface MovieRepository extends JpaRepository&lt;Movie, UUID&gt; {
-
             List&lt;ProjectionMovie&gt; findBy();
         }
     </sc>
@@ -968,11 +1029,11 @@ INSERT INTO movie_genre VALUES
             public String title;
             public String imageurl;
 
-            <add>
+        <add>
             @ManyToMany
             @JoinTable(name = "movie_actor", joinColumns = @JoinColumn(name = "movieid"), inverseJoinColumns = @JoinColumn(name = "actorid"))
             public Set&lt;Actor&gt; actors;
-            </add>
+        </add>
         }
     </sc>
 
@@ -989,10 +1050,10 @@ INSERT INTO movie_genre VALUES
             public String name;
             public String imageurl;
 
-            <add>
+        <add>
             @ManyToMany(mappedBy = "actors")
             public Set&lt;Movie&gt; movies;
-            </add>
+        </add>
         }
     </sc>
 
@@ -1013,9 +1074,9 @@ INSERT INTO movie_genre VALUES
 
             @ManyToMany
             @JoinTable(name = "movie_actor", joinColumns = @JoinColumn(name = "movieid"), inverseJoinColumns = @JoinColumn(name = "actorid"))
-            <add>
+        <add>
             @JsonIgnoreProperties("movies")
-            </add>
+        </add>
             public Set&lt;Actor&gt; actors;
         }
 
@@ -1030,9 +1091,9 @@ INSERT INTO movie_genre VALUES
             public String imageurl;
 
             @ManyToMany(mappedBy = "actors")
-            <add>
+        <add>
             @JsonIgnoreProperties("actors")
-            </add>
+        </add>
             public Set&lt;Movie&gt; movies;
         }
     </sc>
