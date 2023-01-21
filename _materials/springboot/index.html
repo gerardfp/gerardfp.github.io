@@ -64,8 +64,21 @@
 
     <host>@virtual</host>
     <shell>
-        docker run -d --name myapi-postgres -e POSTGRES_PASSWORD=mysecretpassword -e POSTGRES_USER=myapidbadmin -e POSTGRES_DB=myapidb -p 5432:5432 -v /root/db_data:/var/lib/postgresql/data postgres
+        docker run -dp 5432:5432 -ePOSTGRES_PASSWORD=abcd -ePOSTGRES_USER=user -ePOSTGRES_DB=db -v:/var/lib/postgresql postgres
     </shell>
+
+    <warn>
+        <p>Si ja tens un postgres en marxa al teu host, es possible que et done el següent error:</p>
+        <shell>
+            docker: Error response from daemon: [...]: Bind for 0.0.0.0:5432 failed: port is already allocated.
+        </shell>
+        <p>La solució és, o bé parar el postgres que tens en marxa, o bé utilitzar un nou port per a aquesta instància:</p>
+        <shell>
+            docker run -dp <replace>9999</replace>:5432 -ePOSTGRES_PASSWORD=abcd -ePOSTGRES_USER=user -ePOSTGRES_DB=db -v:/var/lib/postgresql postgres
+        </shell>
+
+        <p>Si canvies el port, s'haurà de posar el mateix a la configuració de l'aplicació</p>
+    </warn>
 
     <!--
     <optional>
@@ -233,9 +246,9 @@ INSERT INTO movie_genre VALUES
         src/main/resources/application.properties
     </scfile>
     <sc>
-        spring.datasource.url=jdbc:postgresql://<replace>localhost</replace>:5432/myapidb
-        spring.datasource.username=myapidbadmin
-        spring.datasource.password=mysecretpassword
+        spring.datasource.url=jdbc:postgresql://<replace>localhost:5432</replace>/db
+        spring.datasource.username=user
+        spring.datasource.password=abcd
         spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
         spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
     </sc>
@@ -295,10 +308,10 @@ INSERT INTO movie_genre VALUES
 
         </low>
         <add>
-        flyway.url=jdbc:postgresql://<replace>localhost</replace>:5432/myapidb
+        flyway.url=jdbc:postgresql://<replace>localhost:5432</replace>/db
         flyway.schemas=public
-        flyway.user=myapidbadmin
-        flyway.password=mysecretpassword
+        flyway.user=user
+        flyway.password=abcd
         spring.flyway.baseline_on_migrate=true
         </add>
     </sc>
@@ -338,7 +351,6 @@ INSERT INTO movie_genre VALUES
             movieid uuid REFERENCES movie(movieid) ON DELETE CASCADE,
             genreid uuid REFERENCES genre(genreid) ON DELETE CASCADE,
             PRIMARY KEY (movieid, genreid));
-        ;
         
         INSERT INTO movie(title, synopsis, imageurl) VALUES
             ('Movie One','This is the One Movie','movie1.jpg'),
@@ -755,25 +767,27 @@ INSERT INTO movie_genre VALUES
 <section>
 
     <h2>Autenticació i autorització</h2>
+    <p><a href="https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/jdbc.html">JDBC Authentication</a></p>
 
     <p>Crea aquest arxiu de migració:</p>
     <scfile>
         src/main/resources/db/migration/V3__usertable.sql
     </scfile>
     <sc sql>
-        CREATE TABLE usser (
-            userid uuid NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
-            username varchar(24) NOT NULL UNIQUE,
-            password varchar(255) NOT NULL,
-            role varchar(10),
-            enabled boolean DEFAULT true
-          );
-          
-          
-          
-          -- afegim un usuari de prova
-          CREATE EXTENSION IF NOT EXISTS pgcrypto;
-          INSERT INTO usser (username, password) VALUES ('user', crypt('pass', gen_salt('bf')));
+        CREATE TABLE users(
+            username varchar(50) NOT NULL PRIMARY KEY,
+            password varchar(500) NOT NULL,
+            enabled boolean NOT NULL
+        );
+        CREATE TABLE authorities (
+            username varchar(50) NOT NULL PRIMARY KEY REFERENCES users(username),
+            authority varchar(50) NOT NULL
+        );
+        
+        
+        -- afegim un usuari de prova: user/password
+        INSERT INTO users VALUES ('user', '{bcrypt}$2a$10$GRLdNijSQMUvl/au9ofL.eDwmoohzzS7.rmNSJZ.0FxO/BTk76klW', true);
+        INSERT INTO authorities VALUES ('user', 'ROLE_USER');
     </sc>
 
     <p>Afegeix la llibreria <w>spring-boot-starter-security</w>:</p>
@@ -793,6 +807,49 @@ INSERT INTO movie_genre VALUES
         </low>
     </sc>
 
+
+
+
+    <p>Afegim la configuració de seguretat:</p>
+    <scfile>
+        src/main/java/com/example/SpringBootMovieAPI/config/SecurityConfiguration.java
+    </scfile>
+    <sc java>
+        package com.example.SpringBootMovieAPI.config;
+
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.context.annotation.Bean;
+        import org.springframework.context.annotation.Configuration;
+        import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+        import org.springframework.security.provisioning.JdbcUserDetailsManager;
+        import org.springframework.security.provisioning.UserDetailsManager;
+        import org.springframework.security.web.SecurityFilterChain;
+        import javax.sql.DataSource;
+        import static org.springframework.security.config.Customizer.withDefaults;
+        
+        @Configuration
+        public class SecurityConfiguration {
+            @Autowired
+            private DataSource dataSource;
+            
+            @Bean
+            public UserDetailsManager users(DataSource dataSource) {
+                return new JdbcUserDetailsManager(dataSource);
+            }
+        
+            @Bean
+            public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                return http.authorizeHttpRequests((authz) ->
+                        authz.anyRequest().authenticated()
+        
+                ).httpBasic(withDefaults()).build();
+            }
+        }
+    </sc>
+
+    <h3>Registre d'usuaris</h3>
+    <p>Per al registre d'usuaris necessitarem una classe (DTO) que per guardar les dades que ens envia l'usuari (username i password):</p>
+
     <p>Creem el model <w>User</w>:</p>
     <scfile>
         src/main/java/com/example/SpringBootMovieAPI/domain/model/User.java 
@@ -802,7 +859,7 @@ INSERT INTO movie_genre VALUES
         import java.util.UUID;
 
         @Entity
-        @Table(name="usser")
+        @Table(name="users")
         public class User {
             @Id
             @GeneratedValue(strategy = GenerationType.AUTO)
@@ -821,73 +878,16 @@ INSERT INTO movie_genre VALUES
         src/main/java/com/example/SpringBootMovieAPI/repository/UserRepository.java 
     </scfile>
     <sc java>
-        import com.example.demo.domain.model.User;
+        package com.example.SpringBootMovieAPI.repository;
+
+        import com.example.SpringBootMovieAPI.domain.model.User;
         import org.springframework.data.jpa.repository.JpaRepository;
-
         import java.util.UUID;
-
-        public interface UserRepository extends JpaRepository<User, UUID> {
-
+        
+        public interface UserRepository extends JpaRepository&lt;User, UUID&gt; {
             User findByUsername(String username);
         }
     </sc>
-
-
-    <p>Afegim la configuració de seguretat:</p>
-    <scfile>
-        src/main/java/com/example/SpringBootMovieAPI/SecurityConfig.java
-    </scfile>
-    <sc java>
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.context.annotation.Bean;
-        import org.springframework.context.annotation.Configuration;
-        import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-        import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-        import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-        import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-        import org.springframework.security.config.http.SessionCreationPolicy;
-        import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-        import javax.sql.DataSource;
-
-        @Configuration
-        @EnableWebSecurity
-        public class SecurityConfig extends WebSecurityConfigurerAdapter {
-            @Autowired private DataSource dataSource;
-
-            @Bean
-            public BCryptPasswordEncoder getPasswordEncoder() {
-                return new BCryptPasswordEncoder();
-            }
-
-            @Override
-            protected void configure(HttpSecurity httpSecurity) throws Exception {
-                httpSecurity
-                        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                        .and().csrf().disable()
-                        .authorizeRequests()
-                            //.mvcMatchers("/users/register/")
-                            //    .permitAll()
-                            .anyRequest()
-                                .authenticated()
-                        .and()
-                        .httpBasic();
-            }
-
-            @Override
-            protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-                auth
-                        .jdbcAuthentication()
-                        .dataSource(dataSource)
-                        .usersByUsernameQuery("select username, password, enabled from usser where username = ?")
-                        .authoritiesByUsernameQuery("select username, role from usser where username = ?")
-                        .passwordEncoder(getPasswordEncoder());
-            }
-        }
-    </sc>
-
-    <h3>Registre d'usuaris</h3>
-    <p>Per al registre d'usuaris necessitarem una classe (DTO) que per guardar les dades que ens envia l'usuari (username i password):</p>
 
     <scfile>
         src/main/java/com/example/SpringBootMovieAPI/domain/dto/UserRegisterRequest.java 
