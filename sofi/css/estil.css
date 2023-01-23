@@ -265,7 +265,19 @@ low {
     opacity: .3;
 }
 
-
+circle::after {
+    content: attr(data-value);
+    background: #42b983;
+    color: white;
+    border-radius: 50%;
+    width: 1.2em;
+    height: 1.2em;
+    display: inline-block;
+    line-height: 1.2em;
+    text-align: center;
+    font-family: 'Consolas', monospace;
+    font-size: 0.9em;
+}
 
 
 host {

@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   navigation();
   pageTitle();
   wrappers();
+  autoAttributes();
   //add meta 
   //document.head.insertAdjacentHTML('afterbegin', '<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">');
   replaceParams();
@@ -46,6 +47,19 @@ function wrappers(){
   
       hl.parentElement.insertBefore(hlWrap, hl);
     });
+  });
+}
+
+function autoAttributes(){
+  var elementNames = ['circle'];
+  elementNames.forEach(name => { 
+    document.querySelectorAll(name).forEach(el => {
+      var attrs = el.getAttributeNames();
+      if(attrs[0] != null){
+        el.setAttribute("data-value", attrs[0]);
+        el.removeAttribute(attrs[0]);
+      }
+    })
   });
 }
 

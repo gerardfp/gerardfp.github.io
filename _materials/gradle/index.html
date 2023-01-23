@@ -103,6 +103,53 @@
 
     <a href="https://docs.gradle.org/current/userguide/directory_layout.html">https://docs.gradle.org/current/userguide/directory_layout.html</a>
 
+    <h4>Gradle user home directory</h4>
+
+    <shell>
+        ├── caches <circle 1></circle>
+        ├── daemon <circle 2></circle>
+        ├── init.d <circle 3></circle>
+        │   └── my-setup.gradle
+        ├── jdks <circle 4></circle>
+        │   ├── ⋮
+        │   └── jdk-14.0.2+12
+        ├── wrapper
+        │   └── dists <circle 5></circle>
+        │       ├── ⋮
+        │       ├── gradle-4.8-bin
+        │       ├── gradle-4.9-all
+        │       └── gradle-4.9-bin
+        └── gradle.properties <circle 6></circle>
+    </shell>
+
+    <p><circle 1></circle> Directorio de cache global (para todo lo que no sea específico de un proyecto)</p>
+    <p><circle 2></circle> Registro y logs del Gradle Daemon</p>
+    <p><circle 3></circle> Scripts de inicialización globales</p>
+    <p><circle 4></circle> JDKs descargados por el <em>toolchain support</em></p>
+    <p><circle 5></circle> Distribuciones descargadas por el <em>Gradle Wrapper</em></p>
+    <p><circle 6></circle> Configuración global de Gradle</p>
+
+    <h4>Project root directory</h4>
+
+    <shell>
+        ├── .gradle 
+        │   ├── 4.8 
+        │   ├── 4.9 
+        │   └── ⋮
+        ├── build 
+        ├── gradle
+        │   └── wrapper 
+        ├── gradle.properties 
+        ├── gradlew 
+        ├── gradlew.bat 
+        ├── settings.gradle 
+        ├── subproject-one 
+        |   └── build.gradle 
+        ├── subproject-two 
+        |   └── build.gradle 
+        └── ⋮
+    </shell>
+
     <h3>Build Scripts</h3>
 
     <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html">https://docs.gradle.org/current/userguide/tutorial_using_tasks.html</a>
