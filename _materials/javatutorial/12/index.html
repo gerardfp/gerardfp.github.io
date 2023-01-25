@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav> 
+<header>
+    <h1>ArrayList</h1>
+    <abstract>
+        <p>        </p>
+        <p>Aprendràs:</p>
+        <check>A utilitzar <w>ArrayList</w></check>
+    </abstract>
+</header>
+
+<!--Analogy, Diagram, Example, Plain English, Technical-->
+<section>
+    <h2>Crear un ArrayList</h2>
+
+    
+    <sc java>
+        class Alumne {
+            String nom;
+
+            Alumne(String nom) {
+                this.nom = nom;
+            }
+        }
+
+        <low>
+        public class Main {
+            public static void main(String[] args) {
+        </low>
+                List&lt;Alumne&gt; llistaAlumnes = new ArrayList&lt;&gt;();
+        <low>
+            }
+        }
+        </low>
+    </sc>
+
+   <h2>Mètodes d'un ArrayList</h2>
+
+   <h3>add()</h3>
+
+   <sc java>
+    llistaAlumnes.add(new Alumne("pep"));
+    llistaAlumnes.add(new Alumne("ana"));
+    llistaAlumnes.add(new Alumne("nil"));
+   </sc>
+
+   <h3>get()</h3>
+   
+   <sc java>
+    Alumne alumneEnLaPrimeraPosicio = llistaAlumnes.get(0);
+    Alumne alumneEnLaSegonaPosicio = llistaAlumnes.get(1);
+    Alumne alumneEnLaTerceraPosicio = llistaAlumnes.get(2);
+
+    System.out.println(alumneEnLaPrimeraPosicio.nom);   // pep
+    System.out.println(alumneEnLaSegonaPosicio.nom);    // ana
+    System.out.println(alumneEnLaTerceraPosicio.nom);    // nil
+   </sc>
+
+   <sc java>
+    System.out.println(llistaAlumnes.get(0).nom);   // pep
+    System.out.println(llistaAlumnes.get(1).nom);   // ana
+    System.out.println(llistaAlumnes.get(2).nom);   // nil
+   </sc>
+
+   <h3>size()</h3>
+
+   <sc java>
+    System.out.println(llistaAlumnes.size());  // 3
+   </sc>
+
+   <h3>remove()</h3>
+
+   <p><w>remove(int position)</w></p>
+   <sc java>
+    <low>
+    // llistaAlumnes: pep, ana, nil
+    </low>
+    
+    llistaAlumnes.remove(1);
+
+    System.out.println(llistaAlumnes.get(0).nom);   // pep
+    System.out.println(llistaAlumnes.get(1).nom);   // nil  (ana s'ha eliminat)
+    System.out.println(llistaAlumnes.size());  // 2
+   </sc>
+
+   <p><w>remove(Object o)</w></p>
+   <sc java>
+    <low>
+    // llistaAlumnes: pep, ana, nil
+    </low>
+        
+    Alumne alumneEnLaSegonaPosicio = llistaAlumnes.get(1);
+    llistaAlumnes.remove(alumneEnLaSegonaPosicio);
+
+    System.out.println(llistaAlumnes.get(0).nom);   // pep
+    System.out.println(llistaAlumnes.get(1).nom);   // nil  (ana s'ha eliminat)
+    System.out.println(llistaAlumnes.size());  // 2
+   </sc>    
+
+   <h2>Recòrrer un ArrayList</h2>
+
+   <p>classic <w>for</w> </p>
+   <sc java>
+        for (int i = 0; i &lt; llistaAlumnes.size(); i++) {
+            System.out.println(llistaAlumnes.get(i).nom);
+        }
+   </sc>
+
+   <p>enhanced <w>for</w></p>
+   <sc java>
+        for (Alumne alumne : llistaAlumnes) {
+            System.out.println(alumne.nom);
+        }
+   </sc>
+
+   <p><w>forEach()</w></p>
+   <sc java>
+    llistaAlumnes.forEach(alumne -> System.out.println(alumne.nom));
+   </sc>
+
+   <!--
+     <p><w>listIterator()</w></p>
+    <sc java>
+        for (ListIterator<Alumne> listIterator = llistaAlumnes.listIterator(); listIterator.hasNext();) {
+            Alumne alumne = listIterator.next();
+            System.out.println(alumne.nom);
+        }
+    </sc>
+
+    <p><w>stream()</w></p>
+    <sc java>
+        llistaAlumnes.stream()
+                .map(alumne -> alumne.nom)
+                .forEach(System.out::println);
+    </sc>
+   -->
+
+   <h2>Work in progress....</h2>
+</section>
+
+<section>
+
+    <work>
+        
+    </work>
+
+</section>

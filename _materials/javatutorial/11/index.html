@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+
+<nav></nav> 
+<header>
+    <h1>Mètode constructor</h1>
+    <abstract>
+        <p>        </p>
+        <p>Aprendràs:</p>
+        <check>A declarar <strong>mètodes constructors</strong></check>
+        <check>A inicialitzar <strong>camps dels objectes</strong></check>
+        <check>A utilitzar la paraula reservada <strong>this</strong></check>
+        <check>A utilitzar la paraula reservada <strong>static</strong></check>
+    </abstract>
+</header>
+
+<!--Analogy, Diagram, Example, Plain English, Technical-->
+<section>
+    <h2>Mètode constructor</h2>
+
+    <p>Una classe conté mètodes constructors. Un mètode constructor s'invoca en el moment en què es creen objectes d'aquesta classe (amb la paraula reservada <w>new</w>).</p>
+
+    <p>La declaració d'un mètode constructor es similar a la dels mètodes, excepte que el nom del constructor és el mateix que el de la classe i no s'ha d'especificar el
+        tipus de retorn.
+    </p>
+
+    <sc java>
+        class Alumne {
+            String nom;
+
+        <blk o>
+            Alumne() { 
+                // codi del constructor                
+            }
+        </blk>
+        }
+
+        <low>
+        public class Main {
+            public static void main(String[] args) {
+        </low>
+                Alumne unAlumne = new <blkin o>Alumne()</blkin>;
+        <low>
+            }
+        }
+        </low>
+    </sc>
+
+   <p>A <circle 1></circle> hem declarat el mètode constructor i a <circle 2></circle> l'hem invocat</p>
+
+
+   <h2>Work in progress....</h2>
+</section>
+
+<section>
+
+</section>

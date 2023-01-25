@@ -2,11 +2,12 @@ import {Prism} from '../prismjs/prism.js';
 
 document.addEventListener('DOMContentLoaded', (event) => {
   //syntax highlight
+  autoAttributes();
   syntaxHighlight();
   navigation();
   pageTitle();
   wrappers();
-  autoAttributes();
+
   //add meta 
   //document.head.insertAdjacentHTML('afterbegin', '<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">');
   replaceParams();
@@ -51,11 +52,11 @@ function wrappers(){
 }
 
 function autoAttributes(){
-  var elementNames = ['circle'];
+  var elementNames = ['circle, add, rem, hig, low, lin, blk'];
   elementNames.forEach(name => { 
     document.querySelectorAll(name).forEach(el => {
       var attrs = el.getAttributeNames();
-      if(attrs[0] != null){
+      if(!isNaN(attrs[0]) && attrs[0] != null){
         el.setAttribute("data-value", attrs[0]);
         el.removeAttribute(attrs[0]);
       }
@@ -63,7 +64,52 @@ function autoAttributes(){
   });
 }
 
+function getLinePairsOfElement(str, elm) {
+  function lineOf(text, substring, position){
+    var line = 0, matchedChars = 0;
+  
+    var count = 0;
+    for (var i = 0; i < text.length; i++) {
+      text[i] === substring[matchedChars] ? matchedChars++ : matchedChars = 0;
+  
+      if (matchedChars === substring.length){
+        if (count == position){
+          return line;         
+        }
+        count++;         
+      }
+      if (text[i] === '\n'){
+          line++;
+      }
+    }
+  
+    return  -1;
+  }
+
+  let condeWithOnlyLin = str.replace(/(<\/?(?:lin)[^>]*>)|<[^>]+>.*\n/igm,'$1');
+  condeWithOnlyLin = condeWithOnlyLin.replace(/^.*<lin>.*\n/igm,'<lin>');
+  condeWithOnlyLin = condeWithOnlyLin.replace(/\n.*<\/lin>.*/igm,'</lin>');
+
+  console.log(condeWithOnlyLin);
+
+  let pairs = [];
+  let i = 0;
+  while (true) {
+    let lineBegin = lineOf(condeWithOnlyLin, "<"+elm+">", i);
+    if (lineBegin == -1) break;
+    let lineEnd = lineOf(condeWithOnlyLin, "</"+elm+">", i);
+    if (lineEnd == -1) break;
+    i++;
+    pairs.push({lineBegin, lineEnd});
+  }
+
+  console.log(pairs);
+  return pairs;
+
+}
+
 function syntaxHighlight(){
+  console.log("HIGHLIGHTING");
   document.querySelectorAll('sc').forEach(b => {
 
 
@@ -105,14 +151,29 @@ function syntaxHighlight(){
       b.removeAttribute(attrs[0]);
     }
 
+
+    let datalines = getLinePairsOfElement(codeWrap.innerHTML, "lin").map(datalines => datalines.lineBegin + "-" + datalines.lineEnd).join(",");
+    if (datalines != "") preWrap.setAttribute('data-line', datalines);
+
+
+
     Prism.highlightElement(codeWrap);
 
-    codeWrap.querySelectorAll('add, rem, hig, low').forEach(k => {
+    let i=1;
+    codeWrap.querySelectorAll('add, rem, hig, lin, low, blk, blkin').forEach(k => {
       k.innerHTML = k.innerHTML.replace(/^(?:\r?\n|\r)/, '');
+      if (k.hasAttribute("o")){
+        console.log("hasAttribte oo");
+        k.setAttribute("data-value", i++);
+      }
     });
-    // console.log(codeWrap.innerHTML);
 
-    //codewrap eliminar els salts de linea despres de add i rem
+    codeWrap.querySelectorAll('add, rem, hig, lin, low, blk').forEach(k => {
+      if (k.hasAttribute("data-value") && !preWrap.hasAttribute("data-line")){
+        preWrap.setAttribute("data-line","");
+      }
+    });
+
   });
 
   document.querySelectorAll('shell, mem').forEach(b => {

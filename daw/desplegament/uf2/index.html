@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/*fira-sub*/
+@import url(/sofi/fonts/Roboto-regular.css);
+
+body {
+    margin: 0;
+    background-color: rgb(31, 29, 29);
+    font-family: Roboto, sans;
+    color: hsl(12, 95%, 95%);;
+}
+
+.index {
+    max-width: 1080px;
+    margin: auto;
+}
+
+a {
+    text-decoration: none;
+    color: hsl(12, 95%, 95%);;
+}
+
+.breadcrumb {
+    
+    display: flex;
+    gap: 0px;
+    padding: 0.5em 0em 0.5em 0em;
+    background-color: rgb(21, 21, 145);
+}
+.breadcrumb li {
+    display: flex;
+}
+
+.breadcrumb a {
+    padding: 0 1em;
+}
+
+.breadcrumb li::after {
+    content: "/";
+    display:block;
+}
+
+div.item {
+    padding: 1em;
+    margin: 0.5em 0;
+    background-color: rgb(53, 49, 49)
+}
+</style>
+
+<div class="index">
+    
+        <ul class="breadcrumb">
+        <li>
+            <a href="/"> ⌂ </a>
+        </li>
+        <li>
+            <a href="/daw"> daw </a>
+        </li>
+        <li>
+            <a href="/daw/desplegament"> desplegament </a>
+        </li>
+        
+        </ul>
+    
+
+    <h1>Servidors d&#39;aplicacions web</h1>
+    <div class="items">
+    <a href="/daw/desplegament/uf2/daw-m8-dockerwp">
+            <div class="item">
+                <span>Docker Wordpress</span>
+            </div>
+        </a>
+    </div>
+</div>

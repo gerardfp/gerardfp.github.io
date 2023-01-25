@@ -1,6 +1,10 @@
 @import '../fonts/fonts.css';
 @import '../prismjs/prism.css';
 
+:root {
+    --font-code: Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;
+}
+
 html {
     box-sizing: border-box;
     background-color: #0f172a;
@@ -42,109 +46,17 @@ abstract {
     }
 }
 
-.table {
-    width: 100%;
-    overflow: auto;
-}
-
-table {
-    border-collapse: collapse;
-    table-layout: fixed;
-    border: 1px solid #e1e4e5;
-    font-family: 'Roboto Condensed','sans-serif';
-}
-
-table th:first-child {    /* border-top-left-radius: 8px; */}table th:last-child {    /* border-top-right-radius: 8px; */}table tr:last-child td:first-child{    /* border-bottom-left-radius: 8px; */}table tr:last-child td:last-child{    /* border-bottom-right-radius: 8px; */}
-
-table th {
-    background-color: #393939;
-    color: white;
-    padding: .6em;
-    font-weight: bold;
-}
-
-table td {
-    padding: .2em .6em;
-    border: 1px solid #e1e4e5;
-}
-
-
-
-
-a {
-    color: #4262b8; 
-    word-wrap: break-word;
-}
-
-h1 {
-    text-align: center;
-    color: white;
-    font-family: 'Roboto Condensed', sans-serif;
-}
-
-h2 {
-    color: #ebebeb;
-    font-family: 'Roboto Condensed', sans-serif;
-    margin-top: 2em;;
-}
-
-h3 {
-    color: #dedede;
-    font-family: 'Roboto Condensed', sans-serif;
-    margin-top: 2em;
-}
-
-h4 {
-    color: #dadada;
-    font-family: 'Roboto Condensed', sans-serif;
-    margin-top: 2em;
-}
-
-img {
-    max-width: 100%;
-    display: block;
-    margin: auto;
-    background-color: white;
-}
-
-.img {
-    width: 100%;
-    overflow: auto;
-    margin: 1em 0;
-}
-
-img[noshadow] {
-    box-shadow: none;
-}
-
-p .img {
-    display: inline;
-    border: none;
-    margin: 0;
-}
-
-p img {
-    display: inline;
-    background: none;
-}
-
-ul, ol {
-    margin-bottom: 1em;
-}
-
-resum {
-    color: inherit;
-}
+/* ----------- CODE ----------------- */
 
 scfile {
-    background: #132858;
+    background: #193880;
     display: block;
-    border: 1px solid #132858;
+    border: 1px solid #193880;
     border-radius: 8px 8px 0px 0px;
-    font-family: 'Consolas', monospace;
-    font-size: .9em;
+    font-family: var(--font-code);
+    font-size: 14px;
     padding: .2em 1em;
-    color: #98b7ff;
+    color: #ccddff;
     word-wrap: break-word;
 }
 
@@ -159,35 +71,6 @@ scfile a {
     color: inherit;
 }
 
-.line-highlight {
-    background: linear-gradient(to right,rgba(218, 195, 181, 0.1) 70%,hsla(24,20%,50%,0));
-}
-
-a[href*='github']::before {
-    content: '\f09b';
-    font-family: 'FABrands';
-    margin-right: .5em;
-    text-decoration: none;
-}
-
-a[href*='hackerrank']::before {
-    content: '\f5f7';
-    font-family: 'FABrands';
-    margin-right: .5em;
-    text-decoration: none;
-}
-
-a::before {
-    text-decoration: none;
-    display: inline-block;
-}
-a[noicon]::before {
-    content: none;
-}
-
-a.token.url-link::before{
-    content: none;
-}
 
 
 pre[class*="language-"] {
@@ -197,7 +80,7 @@ pre[class*="language-"] {
     margin: 0;
 }
 
-pre[class*="language-"][data-line]{
+pre[class*="language-"][data-line] {
     padding-left: 2.4em;
 }
 
@@ -208,11 +91,11 @@ div.line-highlight::before, div.line-highlight[data-end]::after {
 }
 
 
-add, rem, hig, low {
+add, rem, hig, low, lin, blk {
     display: inline-block;
     min-width: calc(100% + 2em);
-    padding: 0 1rem;
-    margin: 0 -1rem;
+    padding: 0 4rem;
+    margin: 0 -4rem;
 }
 
 add {
@@ -225,12 +108,51 @@ rem {
     background: linear-gradient(to right, #5c0a0c88 70%,hsla(24,20%,50%,0));
 }
 
-hig {
-    background-color: #5a5a0c88;
+hig, blk, .line-highlight {
+    background: linear-gradient(to right,rgba(168, 154, 146, 0.2) 70%,hsla(24,20%,50%,0));
+}
+
+blkin {
+    background: rgba(168, 154, 146, 0.4);
+    padding: 0.1em 0.2em;
 }
 
 low {
-    opacity: .3;
+    opacity: .5;
+}
+
+blkin[data-value]::after {
+    content: attr(data-value);
+    background: #42b983;
+    color: white;
+    border-radius: 50%;
+    width: 1.2em;
+    height: 1.2em;
+    display: inline-block;
+    line-height: 1.2em;
+    text-align: center;
+    font-family: var(--font-code);
+    font-size: 0.9em;
+    margin-left: 0.6em;
+}
+
+:is(add, rem, hig, low, lin, blk)[data-value]::before {
+    content: attr(data-value);
+    background: #42b983;
+    color: white;
+    border-radius: 50%;
+    width: 1.2em;
+    height: 1.2em;
+    /* display: inline-block; */
+    line-height: 1.2em;
+    text-align: center;
+    font-family: var(--font-code);
+    font-size: 0.9em;
+    font-weight: bold;
+    position: absolute;
+    left: 0px;
+    margin: 3px;
+   
 }
 
 circle::after {
@@ -243,21 +165,20 @@ circle::after {
     display: inline-block;
     line-height: 1.2em;
     text-align: center;
-    font-family: 'Consolas', monospace;
+    font-family: var(--font-code);
     font-size: 0.9em;
 }
 
-
 host {
-    background: #302f2e;
+    background: #3d3c3b;
     color: white;
-    font-weight: bold;
+    /* font-weight: bold; */
     display: block;
     text-align: center;
     padding: .125em;
     border-radius: 8px 8px 0px 0px;
-    font-size: 0.8em;
-    font-family: 'Ubuntu mono', Consolas, monospace;
+    font-size: 14px;
+    font-family: var(--font-code);
 }
 
 host + shell, scfile + sc {
@@ -272,7 +193,7 @@ shell {
     background: #50013b;
     color: white;
     display: block;
-    font-family: 'Ubuntu mono', Consolas, monospace;
+    font-family: var(--font-code);
     white-space: pre;
     font-size: 14px;
     overflow-x: auto;
@@ -339,76 +260,49 @@ mem pre[class*="language-"] code {
     color: lightgreen;
 }
 
-
-
-
-ic {
-    font-family: 'FASolid';
+mem {
+    font-family: var(--font-code);
+    background: #070b15;
+    /* padding: 1em; */
 }
 
-icr {
-    font-family: 'FARegular';
-}
-
-icb {
-    font-family: 'FABrands';
-}
-
-ln {
-    padding: 0 .5em;
-    background-color: #5f5047;
-    color: hsl(24, 20%, 95%);
-    border-radius: 999px;
-    text-shadow: none;
-    box-shadow: 0 2px  	#997a66;
-    font: bold 65%/1.5 sans-serif;
-    position: relative;
-    top: -.2em;
-}
 
 w {
-    background-color: #f9f9f9;
+    background-color: #f9f9f9ed;
     color: #3f1888;
-    font-family: 'Consolas', monospace;
+    font-family: var(--font-code);
     padding: .1em .2em;
     border-radius: 4px;
-    font-size: .9em;
-    border: 1px solid #efefef;
+    /* border: 1px solid #efefef; */
     word-wrap: break-word;
+    font-size: .9em;
+    border-radius: 8px;
+    padding: .125em .6em;
 }
 
 wt {
     background-color: #50013b;
     color: white;
-    font-family: 'Consolas', monospace;
+    font-family: var(--font-code);
     padding: .1em .2em;
     border-radius: 4px;
     font-size: .9em;
+    border-radius: 8px;
+    padding: .125em .8em;
 }
 
 m {
-    font-family: 'Consolas', monospace;
+    font-family: var(--font-code);
     word-wrap: break-word;
     font-size: .9em;
-}
-
-url {
-    border-radius: 8px;
-    padding: .125em .8em;
-    /* white-space: wrap; */
-    word-wrap: break-word;
-    background-color: rgb(58, 56, 70);
-    font-size: .8em;
 }
 
 file, folder {
-    font-family: 'Consolas', monospace;
+    font-family: var(--font-code);
     font-size: .9em;
     background-color: #f5f7ab6a;
     color: #333;
-    padding: .25em .5em .2em .5em;
     padding: .1em .2em;
-    margin: 0 .3em;
     white-space: nowrap;
     border-radius: 4px;
     word-wrap: break-word;
@@ -441,8 +335,8 @@ folder::before {
 } */
 
 string {
-    font-family: 'Consolas', monospace;
-    font-size: 0.9rem;
+    font-family: var(--font-code);
+    font-size: 14px;
     background: #dde5da;
     color: #2f9c0a;
     padding: .1em .3em;
@@ -451,18 +345,8 @@ string {
     word-wrap: break-word;
 }
 
-name {
-    border: 1px solid #5cbbc1;
-    padding: .1em .5em;
-    border-radius: 4px;
-    background:white;
-    color: #555;
-    box-shadow: 0 0 2px #5cbbc1;
-    word-wrap: break-word;
-}
-
 tech {
-    font-family: 'Consolas', monospace;
+    font-family: var(--font-code);
     background: #e8e9ea;
     color: #0645ad;
     padding: .1em .3em;
@@ -472,6 +356,201 @@ tech {
 }
 
 
+
+shell replace, url replace, sc replace, w replace {
+    border: 0;
+    padding: 0;
+    background: none;
+}
+
+
+
+
+
+
+
+
+
+.table {
+    width: 100%;
+    overflow: auto;
+}
+
+table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    border: 1px solid #e1e4e5;
+    font-family: 'Roboto Condensed','sans-serif';
+}
+
+table th:first-child {    /* border-top-left-radius: 8px; */}table th:last-child {    /* border-top-right-radius: 8px; */}table tr:last-child td:first-child{    /* border-bottom-left-radius: 8px; */}table tr:last-child td:last-child{    /* border-bottom-right-radius: 8px; */}
+
+table th {
+    background-color: #393939;
+    color: white;
+    padding: .6em;
+    font-weight: bold;
+}
+
+table td {
+    padding: .2em .6em;
+    border: 1px solid #e1e4e5;
+}
+
+
+
+
+
+
+h1 {
+    text-align: center;
+    color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+h2 {
+    color: #ebebeb;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-top: 2em;;
+}
+
+h3 {
+    color: #dedede;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-top: 2em;
+}
+
+h4 {
+    color: #dadada;
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-top: 2em;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    margin: auto;
+    background-color: white;
+}
+
+.img {
+    width: 100%;
+    overflow: auto;
+    margin: 1em 0;
+}
+
+img[noshadow] {
+    box-shadow: none;
+}
+
+p .img {
+    display: inline;
+    border: none;
+    margin: 0;
+}
+
+p img {
+    display: inline;
+    background: none;
+}
+
+ul, ol {
+    margin-bottom: 1em;
+}
+
+resum {
+    color: inherit;
+}
+
+
+
+a {
+    color: #4a7aff; 
+    word-wrap: break-word;
+}
+
+a[href*='github']::before {
+    content: '\f09b';
+    font-family: 'FABrands';
+    margin-right: .5em;
+    text-decoration: none;
+}
+
+a[href*='hackerrank']::before {
+    content: '\f5f7';
+    font-family: 'FABrands';
+    margin-right: .5em;
+    text-decoration: none;
+}
+
+a::before {
+    text-decoration: none;
+    display: inline-block;
+}
+a[noicon]::before {
+    content: none;
+}
+
+a.token.url-link::before{
+    content: none;
+}
+
+
+
+
+
+
+
+
+ic {
+    font-family: 'FASolid';
+}
+
+icr {
+    font-family: 'FARegular';
+}
+
+icb {
+    font-family: 'FABrands';
+}
+
+ln {
+    padding: 0 .5em;
+    background-color: #5f5047;
+    color: hsl(24, 20%, 95%);
+    border-radius: 999px;
+    text-shadow: none;
+    box-shadow: 0 2px  	#997a66;
+    font: bold 65%/1.5 sans-serif;
+    position: relative;
+    top: -.2em;
+}
+
+
+url {
+    border-radius: 8px;
+    padding: .125em .8em;
+    /* white-space: wrap; */
+    word-wrap: break-word;
+    background-color: rgb(58, 56, 70);
+    font-size: .85em;
+}
+
+
+name {
+    border: 1px solid #5cbbc1;
+    padding: .1em .3em;
+    border-radius: 4px;
+    background:white;
+    color: #555;
+    box-shadow: 0 0 2px #5cbbc1;
+    word-wrap: break-word;
+    font-size: 0.9em;
+}
+
+
+
+
 replace {
     border: 1px dotted #3e4240;
     border-radius: 4px;
@@ -479,11 +558,7 @@ replace {
     padding: .1em .5em;
 }
 
-shell replace, url replace, sc replace, w replace {
-    border: 0;
-    padding: 0;
-    background: none;
-}
+
 
 
 mo {
@@ -550,6 +625,8 @@ check::before {
 
 
 
+/***  INFO BOXES ***/
+
 work, warn, info, optional, tldr, observe, quizz, challenge, project {
     display: block;
     padding: .4em 1.2em;
@@ -559,12 +636,12 @@ work, warn, info, optional, tldr, observe, quizz, challenge, project {
 
 .work, .warn, .info, .optional, .tldr, .observe, .quizz, .challenge, .project {
 
-    padding: .1em 1em;
+    padding: .2em 1em;
     color: white;
     margin-top: 2em;
     border-radius: 8px 8px 0 0;
     /* line-height: 1.4em; */
-    font-size: 0.9em;
+    font-size: 14px;
 }
 
 @media(min-width: 480px){
@@ -579,6 +656,7 @@ work {
 
 .work {
     background-color: #189E49;
+    border: 1px solid #189E49;
 }
 
 .work::before {
@@ -588,12 +666,12 @@ work {
 }
 
 warn {
-    border: 1px solid #f66;
-    /* background: #ffeded; */
+    border: 1px solid rgb(218, 54, 54);
 }
 
 .warn {
-    background: #f66;
+    background: rgb(218, 54, 54);
+    border: 1px solid rgb(218, 54, 54);
 }
 
 .warn::before {
@@ -602,11 +680,12 @@ warn {
 }
 
 info {
-    border: 1px solid #77CAE0;
+    border: 1px solid #5cc8e6;
 }
 
 .info {
-    background: #77CAE0;
+    background: #5cc8e6;
+    border: 1px solid #5cc8e6;
 }
 
 .info::before {
@@ -620,6 +699,7 @@ optional {
 
 .optional {
     background-color: #FFA700;
+    border: 1px solid #FFA700;
 }
 
 .optional::before {
@@ -627,11 +707,12 @@ optional {
 }
 
 observe {
-    border: 1px solid #2BD7E3;
+    border: 1px solid #be2be2;
 }
 
 .observe {
-    background-color: #2BD7E3;
+    background-color: #be2be2;
+    border: 1px solid #be2be2;
 }
 
 .observe::before {
@@ -664,6 +745,7 @@ challenge {
 
 .challenge {
     background-color: #1E8E3E;
+    border: 1px solid #1E8E3E;
 }
 
 .challenge::before {
@@ -683,13 +765,16 @@ project::before {
 
 
 
+
+/*** QUIZZZZ ***/
+
 quizz {
-    border: 1px solid #f9bc60;
+    border: 1px solid #FF5F1F;
     /* background-color: white; */
 }
 
 .quizz {
-    background-color: #f9bc60;
+    background-color: #FF5F1F;
 }
 
 .quizz::before {
@@ -827,8 +912,6 @@ question button::before {
     font-family: 'FASolid';
     content: '\f00c';
 }
-
-
 
 
 
@@ -1012,6 +1095,7 @@ mem {
 stepper step sc {
     margin: 0;
     min-height: 100%;
+    overflow: scroll;
 }
 
 stepper step shell {
@@ -1046,11 +1130,7 @@ stepper explanation w {
     font-size: 14px;
 }
 
-mem {
-    font-family: 'Consolas', monospace;
-    background: #070b15;
-    /* padding: 1em; */
-}
+
 
 mem b {
     color: greenyellow;
