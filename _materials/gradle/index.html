@@ -99,6 +99,10 @@
         }
     </sc>
 
+    <work>
+        <p>Haz las actividades propuestas en este proyecto: <a href="https://github.com/gerardfp/MyGDXGradleTask">https://github.com/gerardfp/MyGDXGradleTask</a></p>
+    </work>
+
     <h3>Directorios y ficheros que usa Gradle</h3>
 
     <a href="https://docs.gradle.org/current/userguide/directory_layout.html">https://docs.gradle.org/current/userguide/directory_layout.html</a>
@@ -184,6 +188,8 @@
 
     <h3>Plugins</h3>
 
+    <p>Los plugins añaden Tareas y Extensiones al DSL. El siguiente plugin añade la Tarea <w>tareaDeMiPrimerPlugin</w> y la extensión <w>miPrimeraExtension</w></p>
+
     <sc gradle>
         abstract class MiPrimeraExtension {
             void miPrimerMetodo(String variable) {
@@ -210,4 +216,51 @@
             miPrimerMetodo "HOolaa"
         }
     </sc>
+</section>
+
+<section>
+    <h2>El plugin 'java'</h2>
+
+    <p>El <a href="https://docs.gradle.org/current/userguide/java_plugin.html#java_plugin">plugin Java</a> añade la capacidad de compilar, testear y empaquetar proyectos Java.</p>
+
+    <p>Para utilizar el Java plugin, se debe incorporar al build script:</p>
+
+    <scfile>build.gradle</scfile>
+    <sc groovy>
+        plugins {
+            id 'java'
+        }
+    </sc>
+
+    <h3>Tareas:</h3>
+    <ul>
+        <li><w>build</w>: agrega tareas 'check' y 'assemble'.</li>
+        <li><w>check</w>: realiza tareas de verificación, como lanzar los tests.</li>
+        <li><w>assemble</w>: ensambla el proyecto, generando por ejemplo un fichero JAR.</li>
+        <li><w>clean</w>: elimina el directorio build del proyecto.</li>
+        <li><w>javadoc</w>: Genera la documentación de la API usando Javadoc.</li>
+    </ul>
+
+    <h3>Layout del proyecto</h3>
+    <p>El Java plugin asume por defecto que el proyecto está organizado en los directorios siguientes. No tienen porqué existir estos directorios, 
+        el plugin compilará los que encuentre. Estos directorios se pueden configurar.</p>
+
+    <ul>
+        <li><folder>src/main/java</folder>: el código fuente de <strong>producción</strong> del proyecto</li>
+        <li><folder>src/main/resources</folder>: recursos de <strong>producción</strong>, como ficheros de propiedades o datos XML</li>
+        <li><folder>src/test/java</folder>: el código fuente de <strong>testeo</strong> del proyecto</li>
+        <li><folder>src/test/resources</folder>: recursos de <strong>testeo</strong></li>
+    </ul>
+
+    <h3>Dependencias</h3>
+    <p>El Java plugin añade una serie de configuraciones de dependencias</p>
+
+    <ul>
+        <li><w>implementation</w></li>
+        <li><w>runtimeOnly</w></li>
+        <li><w>compileOnly</w></li>
+        <li><w>testImplementation</w></li>
+        <li><w>testRuntimeOnly</w></li>
+        <li><w>testCompileOnly</w></li>
+    </ul>
 </section>

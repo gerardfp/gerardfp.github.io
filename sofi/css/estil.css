@@ -302,9 +302,9 @@ file, folder {
     font-size: .9em;
     background-color: #f5f7ab6a;
     color: #333;
-    padding: .1em .2em;
+    border-radius: 8px;
+    padding: .125em .6em;
     white-space: nowrap;
-    border-radius: 4px;
     word-wrap: break-word;
 }
 
