@@ -237,6 +237,10 @@ shell consume {
     background: #42b98388;
 }
 
+shell d {
+    color: rgb(84, 84, 233);
+    font-weight: bold;
+}
 
 shell + clar {
     display: block;
@@ -255,6 +259,13 @@ sc {
     margin-bottom: 1.6em;
 }
 
+p sc, p sc div, p sc div pre {
+    display: inline;
+}
+
+p sc div pre[class*="language-"] {
+    padding: .1em .2em;
+}
 
 mem pre[class*="language-"] code {
     color: lightgreen;

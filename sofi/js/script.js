@@ -90,8 +90,6 @@ function getLinePairsOfElement(str, elm) {
   condeWithOnlyLin = condeWithOnlyLin.replace(/^.*<lin>.*\n/igm,'<lin>');
   condeWithOnlyLin = condeWithOnlyLin.replace(/\n.*<\/lin>.*/igm,'</lin>');
 
-  console.log(condeWithOnlyLin);
-
   let pairs = [];
   let i = 0;
   while (true) {

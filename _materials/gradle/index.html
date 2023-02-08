@@ -234,11 +234,11 @@
 
     <h3>Tareas:</h3>
     <ul>
-        <li><w>build</w>: agrega tareas 'check' y 'assemble'.</li>
+        <li><w>build</w>: agrega las tareas 'check' y 'assemble'.</li>
         <li><w>check</w>: realiza tareas de verificación, como lanzar los tests.</li>
         <li><w>assemble</w>: ensambla el proyecto, generando por ejemplo un fichero JAR.</li>
         <li><w>clean</w>: elimina el directorio build del proyecto.</li>
-        <li><w>javadoc</w>: Genera la documentación de la API usando Javadoc.</li>
+        <li><w>javadoc</w>: genera la documentación de la API usando Javadoc.</li>
     </ul>
 
     <h3>Layout del proyecto</h3>
@@ -263,4 +263,77 @@
         <li><w>testRuntimeOnly</w></li>
         <li><w>testCompileOnly</w></li>
     </ul>
+</section>
+
+<section>
+    <h2>Ensamblado de un JAR</h2>
+
+    <p>La tarea <w>jar</w> es la encargada de ensamblar un proyecto en un fichero JAR. Un fichero JAR es un fichero comprimido en formato ZIP que contiene 
+    los ficheros <w>.class</w> del proyecto y los recursos auxiliares que puediese tener (imágenes, ficheros de datos, configuraciones, ...).</p>
+
+    <p>Si el fichero JAR contiene una aplicación para ser ejecutada, se debe especificar el <em>entry point</em> en el fichero <w>/META-INF/MANIFEST.MF</w> dentro del propio JAR. 
+    Para ello, se debe incluir el siguiente attributo:</p>
+
+    <scfile>/META-INF/MANIFEST.MF</scfile>
+    <sc>
+        Main-Class: <em>classname</em>
+    </sc>
+
+    <info>
+        <p>El <em>classname</em> debe ser el nombre de la classe precedido por el <em>package</em>: </p>
+        <p>Por ejemplo, si la clase principal se encuentra en la siguiente ruta:</p>
+
+        <shell>
+            .
+            └── <d>src</d>
+                └── <d>main</d>
+                    └── <d>java</d>
+                        └── <d>my</d>
+                            └── <d>superpackage</d>
+                                └── ClasePrincipal.java      
+        </shell>
+
+        <p>El entrypoint del manifest debería ser así:</p>
+
+        <sc>
+            Main-Class: my.superpackage.ClasePrincipal
+        </sc>
+            
+        </p>
+        <p>Esta clase debe tener el método <w>psvm</w> : <sc java>public static void main(String[] args)</sc>.</p>
+    </info>
+
+    <p>La tarea JAR del plugin Java se puede configurar para que incluya el atributo Main-Class en el fichero Manifest del JAR:</p>
+
+    <scfile>build.gradle</scfile>
+    <sc gradle>
+        jar {
+            manifest {
+                attributes "Main-Class": "<em>className</em>"
+            }
+        }
+    </sc>
+
+    <h3>Uber JAR (o Fat Jar)</h3>
+    
+    <p>Un <em>Uber JAR</em> es un JAR con las dependencias incluidas. No solo contiene las clases del proyecto sino que además incluye los JAR 
+        dependientes.</p>
+
+    <p>La tarea JAR también se puede configurar para que incluya todos los JAR de los cuales depende el proyecto en el JAR ensamblado:</p>
+
+    <scfile>build.gradle</scfile>
+    <sc gradle>
+        <low>
+        jar {
+            manifest {
+                attributes "Main-Class": "<em>className</em>"
+            }
+        </low>
+            from {
+                configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+            }
+        <low>
+        }
+        </low>
+    </sc>
 </section>
