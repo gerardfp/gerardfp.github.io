@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<canvas id="myCanvas"></canvas>
+<img src="for.png" id="for" style="display: none;"/>
+<script>
+const cvs = document.getElementById("myCanvas");
+const ctx = cvs.getContext("2d");
+
+const img = document.getElementById("for");
+cvs.width = img.width; //.innerWidth;
+cvs.height = img.height; //.innerHeight;
+
+class Circle {
+    angle = 0;
+
+    constructor(es, circleRadius, circleColor) {
+        this.es = es;
+        this.circleRadius = circleRadius;
+        this.circleColor = circleColor;
+        this.cx = es[0].x;
+        this.cy = es[0].y;
+        this.i = 0;
+    }
+
+    draw() {
+        ctx.drawImage(img,0,0);
+        ctx.beginPath();
+        ctx.fillStyle = this.circleColor;
+        ctx.arc(this.cx, this.cy, this.circleRadius, 0, 2*Math.PI);
+        ctx.fill();
+        ctx.closePath();
+        
+        for(const e of this.es){
+            ctx.strokeStyle = e.c;
+            ctx.beginPath();
+            ctx.lineWidth = 5;
+            ctx.ellipse(e.x, e.y, e.rx, e.ry, 0, 0, 2*Math.PI);
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+    }
+
+    update(){
+        console.log(this.angle);
+        this.angle += this.es[this.i].v;
+        this.angle = this.angle;
+        if (this.angle > 6.27) {
+            this.angle = 0;
+            this.i++;
+            if (this.i >= this.es.length) {
+                this.i = 0;
+            }
+        }
+        this.cx = this.es[this.i].x + this.es[this.i].rx * Math.cos(this.angle);
+        this.cy = this.es[this.i].y + this.es[this.i].ry * Math.sin(this.angle);
+    }
+
+}
+
+const circle = new Circle([
+    {x:145, y:230, rx:130, ry:170, v:Math.PI/30, c:"red"},
+    {x:210, y:230, rx:70, ry:100, v:Math.PI/20, c:"blue"},
+    {x:250, y:230, rx:30, ry:40, v:Math.PI/10, c:"green"}], 
+    10, "yellow");
+
+function main(){
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+    circle.update();
+    circle.draw();
+
+    requestAnimationFrame(main);
+}
+requestAnimationFrame(main);
+
+</script>
