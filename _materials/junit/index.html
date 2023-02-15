@@ -8,26 +8,152 @@
 
 
 <section>
-    <work>
-        <h2>1. Fahrenheit Celsius Converter</h2>
+    <h2>Builder</h2>
+    <a href="https://java-design-patterns.com/patterns/builder/">https://java-design-patterns.com/patterns/builder/</a>
+    <p>Sirve para construir objetos pudiendo escoger qué parámetros y en qué orden se proporcionan.</p>
+    <p>Es com hacer un constructor "universal".</p>
 
-        <p>Escriu i testeja una llibreria per a convertir de Fahrenheit a Celsius i viceversa.</p>
-    </work>
+    <p>En el siguiente ejemplo, observa que para crear un objeto de clase <sc java>Algo</sc> llamamos primero al constructor de la clase <sc java>Algo.Builder</sc>.
+    Sobre el objeto de clase <sc java>Algo.Builder</sc> vamos llamando a los métodos <sc java>set<em>XXX</em></sc>. Estos métodos almacenan los datos temporalmente en el objeto
+    <sc java>Algo.Builder</sc>, y a su vez retornan el propio objeto <sc java>Algo.Builder</sc> (de esta forma podemos ir encadenando métodos <sc java>set<em>XXX</em></sc>). La llamada final
+    al método <sc java>build()</sc> es la que construye el objeto de clase <sc java>Algo</sc> y le pone los valores que se habían ido almacenando.
+    </p>
+    <sc java>
+        class Algo {
+            String esto;
+            String otro;
+            int aquello;
+        
+            static class Builder {
+                String esto;
+                String otro;
+                int aquello;
+        
+                Builder setEsto(String esto) {
+                    this.esto = esto;
+                    return this;
+                }
+        
+                Builder setOtro(String otro) {
+                    this.otro = otro;
+                    return this;
+                }
+        
+                Builder setAquello(int aquello) {
+                    this.aquello = aquello;
+                    return this;
+                }
+        
+                Algo build(){
+                    Algo algo = new Algo();
+                    algo.esto = this.esto;
+                    algo.otro = this.otro;
+                    algo.aquello = this.aquello;
+                    return algo;
+                }
+            }
+        }
+        
+        <low>
+        public class BuilderPattern {
+            public static void main(String[] args) {
+        </low>
+                Algo algo = new Algo.Builder()
+                        .setEsto("valorParaEsto")
+                        .setAquello(123241)
+                        .setOtro("valorParaOtro")
+                        .build();
+        <low>
+            }
+        }
+        </low>
+    </sc>
 
-    <work>
-        Division por cero
-    </work>
+    <h4>En la vida real:</h4>
 
-    <work>
-        Testing Lists
-    </work>
-    <work>
-        <h2>Shopping cart</h2>
-    </work>
+    <p>Los diálogos en Android se crean con un builder:</p>
+    <scfile><a href="https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/app/AlertDialog.java">AlertDialog</a></scfile>
+    <sc java>
+        new AlertDialog.Builder(this)
+            .setTitle("ALERTA!!!")
+            .setMessage("Este mensaje se autodestruirá en 3 milenios")
+            .show();
+    </sc>
 
-    <work>
+    <p>Las notificaciones en Android se crean con un builder:</p>
+    <scfile><a href="https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/app/Notification.java">Notification</a></scfile>
+    <sc java>
+        new Notification.Builder(this, CANNEL_ID)
+            .setContentText("Has recibido un mensaje")
+            .sertSmallIcon(R.drawable.icono_nuevo_mensaje)
+            .build();
+    </sc>
+</section>
 
-    </work>
-    // @CsvSource
-    // @MethodSource
+<section>
+    <h2>Callback</h2>
+    <a href="https://java-design-patterns.com/patterns/callback/">https://java-design-patterns.com/patterns/callback/</a>
+    <p>Es una "alternativa" al return. En lugar de que un método retorne algo, lo que hará ese método es llamar a un método que le habremos pasado, y poniendo como
+        parámetros lo que haya que retornar.</p>
+
+    <p>En el siguiente ejemplo, observa que al llamar al método <sc java>hacerAlgo</sc> le hemos pasado un objeto de clase <sc java>Algo.Callback</sc>. 
+    El método <sc java>hacerAlgo</sc>, en lugar de retornar el texto <sc java>"algo a retornar"</sc>, lo pone como parámetro en la <em>llamada de vuelta</em> al método <sc java>call</sc>
+    del objeto que le habíamos pasado.
+    </p>
+
+    <sc java>
+        class Algo {
+
+            interface Callback {
+                void call(String valorDeRetorno);
+            }
+        
+            void hacerAlgo(Callback callback){
+                callback.call("algo a retornar");
+            }
+        }
+        
+        <low>
+        public class CallbackPattern {
+            public static void main(String[] args) {
+                Algo algo = new Algo();
+        </low>
+
+                algo.hacerAlgo(new Algo.Callback() {
+                    @Override
+                    public void call(String valorDeRetorno) {
+                        System.out.println(valorDeRetorno);
+                    }
+                });
+        <low>
+            }
+        }
+        </low>
+    </sc>
+
+    <p>Debido a que el <sc java>interface Callback</sc> solo tiene un método, podemos crear el objeto de clase <sc java>Algo.Callback</sc> con una expresión lambda:</p>
+
+    <sc java>
+        algo.metodo(valorDeRetorno -> System.out.println(valorDeRetorno));
+    </sc>
+
+
+    <h4>En la vida real:</h4>
+    <p>La librería <a href="">retrofit</a> sirve para hacer llamadas HTTP. La respuesta se retorna mediante un callback:</p>
+
+    <scfile><a href="https://github.com/square/retrofit/blob/master/retrofit/src/main/java/retrofit2/Callback.java">Callback</a></scfile>
+    <sc java>
+        api.obtenerNombre().enqueue(new Callback&lt;String&gt;() {
+            @Override
+            public void onResponse(Call&lt;String&gt; call, Response&lt;String&gt; response) {
+                System.out.println("Nombre: " + response.body());
+            }
+
+            @Override
+            public void onFailure(Call&lt;String&gt; call, Throwable t) {
+                System.out.println("Fallo al obtener el nombre");
+            }
+        });
+    </sc>
+
 </section>
