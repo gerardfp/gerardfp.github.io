@@ -262,20 +262,21 @@ sc {
 p sc {
     padding: .125em .6em;
     display: inline;
-    font-size: 0.9em;
+    font-size: 14.4px;
     margin: 0;
     word-break: normal;
 }
 
 p sc div, p sc div pre {
     display: inline;
-    font-size: 0.9em;
+    font-size: 14.4px;
     margin: 0;
     padding: 0;
 }
 
 p sc div pre[class*="language-"] {
     padding: 0;
+    font-size: 14.4px;
 }
 
 mem pre[class*="language-"] code {
