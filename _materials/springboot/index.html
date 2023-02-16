@@ -14,6 +14,7 @@
   </abstract>
 </header>
 
+<!--
 <section>
     <h2>Overview</h2>
 
@@ -21,7 +22,7 @@
     
     Postgres <--- JDBC? SQL --->   Spring Boot  <--- HTTP / JSON ---> consumidor de la API (movil, browser, postman) </p>
 </section>
-
+-->
 <section>
     <h2>Database server</h2>
 
@@ -62,7 +63,7 @@
 
     <p>Inicia un contenidor Docker amb la base de dades PostreSQL:</p>
 
-    <host>@virtual</host>
+    <host>@host</host>
     <shell>
         docker run -dp 5432:5432 -ePOSTGRES_PASSWORD=abcd -ePOSTGRES_USER=user -ePOSTGRES_DB=db -v:/var/lib/postgresql postgres
     </shell>
@@ -519,7 +520,7 @@ INSERT INTO movie_genre VALUES
 
    <p>Create movie:</p>
    <shell>
-    curl -X POST -H "Content-Type: application/json" -d '{"title":"Movie Five", "imageurl":"movie5.jpg"}' http://localhost:8080/movies
+    curl -X POST -H "Content-Type: application/json" -d '{"title":"Movie Five", "imageurl":"movie5.jpg"}' http://localhost:8080/movies/
    </shell>
 
    <info>
@@ -821,17 +822,25 @@ INSERT INTO movie_genre VALUES
         import org.springframework.context.annotation.Bean;
         import org.springframework.context.annotation.Configuration;
         import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+        import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
         import org.springframework.security.provisioning.JdbcUserDetailsManager;
         import org.springframework.security.provisioning.UserDetailsManager;
         import org.springframework.security.web.SecurityFilterChain;
+        
         import javax.sql.DataSource;
+        
         import static org.springframework.security.config.Customizer.withDefaults;
         
         @Configuration
         public class SecurityConfiguration {
             @Autowired
             private DataSource dataSource;
-            
+        
+            @Bean
+            public BCryptPasswordEncoder getPasswordEncoder() {
+                return new BCryptPasswordEncoder();
+            }
+        
             @Bean
             public UserDetailsManager users(DataSource dataSource) {
                 return new JdbcUserDetailsManager(dataSource);
@@ -840,12 +849,19 @@ INSERT INTO movie_genre VALUES
             @Bean
             public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
                 return http.authorizeHttpRequests((authz) ->
-                        authz.anyRequest().authenticated()
+                                authz
+                                        .requestMatchers("/users/register/").permitAll()
+        //                                .requestMatchers("/h2-console/").permitAll()
+                                        .anyRequest().permitAll()
+                        )
+                        .httpBasic(withDefaults())
+                        .csrf().disable()
+                        .headers().frameOptions().disable().and()   // http://localhost:8080/h2-console
+                        .build();
         
-                ).httpBasic(withDefaults()).build();
             }
         }
-    </sc>
+        </sc>
 
     <h3>Registre d'usuaris</h3>
     <p>Per al registre d'usuaris necessitarem una classe (DTO) que per guardar les dades que ens envia l'usuari (username i password):</p>
@@ -855,40 +871,45 @@ INSERT INTO movie_genre VALUES
         src/main/java/com/example/SpringBootMovieAPI/domain/model/User.java 
     </scfile>
     <sc java>
-        import javax.persistence.*;
-        import java.util.UUID;
+        package com.example.SpringBootMovieAPI.domain.model;
 
+        import jakarta.persistence.*;
+        
+        import java.util.Set;
+        
         @Entity
         @Table(name="users")
         public class User {
             @Id
-            @GeneratedValue(strategy = GenerationType.AUTO)
-            public UUID userid;
-
             public String username;
             public String password;
-            public String role;
             public boolean enabled;
-
+        
+            @OneToMany(mappedBy="username")
+            public Set&lt;Authority&gt; authorities;
         }
     </sc>
 
-    <p>Creem el repository:</p>
+    <p>Creem el model <w>Authority</w>:</p>
     <scfile>
-        src/main/java/com/example/SpringBootMovieAPI/repository/UserRepository.java 
+        src/main/java/com/example/SpringBootMovieAPI/domain/model/Authority.java 
     </scfile>
     <sc java>
-        package com.example.SpringBootMovieAPI.repository;
+        package com.example.SpringBootMovieAPI.domain.model;
 
-        import com.example.SpringBootMovieAPI.domain.model.User;
-        import org.springframework.data.jpa.repository.JpaRepository;
-        import java.util.UUID;
+        import jakarta.persistence.*;
         
-        public interface UserRepository extends JpaRepository&lt;User, UUID&gt; {
-            User findByUsername(String username);
+        @Entity
+        @Table(name="authorities")
+        public class Authority {
+            @Id
+            public String username;
+            public String authority;
         }
     </sc>
 
+
+    <p>Creem el DTO <w>UserRegisterRequest</w> per a rebre les dades que ens enviarà l'usuari:</p>
     <scfile>
         src/main/java/com/example/SpringBootMovieAPI/domain/dto/UserRegisterRequest.java 
     </scfile>
@@ -904,49 +925,61 @@ INSERT INTO movie_genre VALUES
         src/main/java/com/example/SpringBootMovieAPI/controller/UserController.java 
     </scfile>
     <sc java>
-        import com.example.demo.domain.dto.UserRegisterRequest;
-        import com.example.demo.domain.model.User;
-        import com.example.demo.repository.UserRepository;
+        package com.example.SpringBootMovieAPI.controller;
+
+        import com.example.SpringBootMovieAPI.domain.dto.UserRegisterRequest;
         import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.security.core.userdetails.User;
         import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-        import org.springframework.web.bind.annotation.*;
-
-        import java.util.List;
-
+        import org.springframework.security.provisioning.UserDetailsManager;
+        import org.springframework.web.bind.annotation.PostMapping;
+        import org.springframework.web.bind.annotation.RequestBody;
+        import org.springframework.web.bind.annotation.RequestMapping;
+        import org.springframework.web.bind.annotation.RestController;
+        
         @RestController
         @RequestMapping("/users")
         public class UserController {
-
-            @Autowired private UserRepository userRepository;
+        
             @Autowired private BCryptPasswordEncoder passwordEncoder;
-
-            @PostMapping("/register")
+            @Autowired private UserDetailsManager userDetailsManager;
+            
+            @PostMapping("/register/")
             public String register(@RequestBody UserRegisterRequest userRegisterRequest) {
-
-                if (userRepository.findByUsername(userRegisterRequest.username) == null) {
-                    User user = new User();
-                    user.username = userRegisterRequest.username;
-                    user.password = passwordEncoder.encode(userRegisterRequest.password);
-                    user.enabled = true;
-                    userRepository.save(user);
-                    return "OK";   // TODO
-                }
-                return "ERROR";    // TODO
+        
+                if (userDetailsManager.userExists(userRegisterRequest.username)) return "ERROR: usuario existente";
+        
+                userDetailsManager.createUser(User.builder()
+                        .username(userRegisterRequest.username)
+                        .password(passwordEncoder.encode(userRegisterRequest.password))
+                        .roles("USER")
+                        .build()
+                );
+                return "OK";
             }
         }
     </sc>
 
-    <p>Per últim caldrà permetre l'accés a usuaris no autenticats a l'endpoint de registre (<w>/users/register</w>):</p>
+    <shell>
+        curl -X POST -H "Content-Type: application/json" -d '{"username":"gerard", "password":"gerard123"}' http://localhost:8080/users/register/
+    </shell>
+
+
+    <p>Per últim caldrà decidir a quins endpoints caldrà estar autenticat per a accedir i quins no. Per exemple, podem donar accés al registre però 
+        requerir autenticació per a tot lo demés:
+    </p>
 
     <scfile>
         src/main/java/com/example/SpringBootMovieAPI/SecurityConfig.java
     </scfile>
     <sc java>
         <add>
-        .mvcMatchers("/users/register/")
-            .permitAll()
+            .requestMatchers("/users/register/").permitAll()
+            .anyRequest().authenticated()        
         </add>
     </sc>
+
+
 </section>
 <section>
     <h2>Maneig d'errors</h2>
