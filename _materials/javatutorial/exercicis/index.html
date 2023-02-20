@@ -11,16 +11,62 @@
 
 <section>
     <work>
-        <h2>Ejercicios 1. </h2>
+        <h2>Ejercicio 1: Persona </h2>
         <ul>
             <li>
                 <p>Crea una clase llamada <w>Persona</w></p>
                 <ul>
-                    <li><p>Añade a la clase dos campos: <w>nombre</w> de tipo <sc java>String</sc>, y <w>edad</w> de tipo <sc java>int</sc></p></li>
-                    <li><p>Añade un constructor para inicializar los dos campos a partir de los parámetros.</p></li>     
-                    <li><p>Añade otro constructor para inicializar el campo <w>nombre</w> a partir de un parámetro, y que asigne </p></li>   
+                    <li><p>Añade a la clase tres campos de tipo <sc java>String</sc>: <w>nombre</w> , <w>apellido1</w> y <w>apellido2</w></p></li>
+                    <li><p>Añade un constructor para inicializar los tres campos a partir de los parámetros.</p></li>
+                    <li><p>Añade tres métodos <em>setter</em>/<em>getter</em> para obtener/establecer los campos.</p></li>
+                    <li><p>Añade un método que retorne un<sc java>String</sc> con el nombre completo con el formato: <w>apellido1 apellido2, nombre</w></p></li>
+                    <li><p>Añade un método que reciba un parámetro <sc java>String</sc> y retorne un <sc java>boolean</sc> indicando si algun campo es igual al parámetro pasado.</p></li>
                 </ul>
-            
+            </li>
+            <li>
+                <p>Crea un programa que utilice la clase <w>Persona</w></p>
+            </li>
+        </ul>
+    </work>
+    <work>
+        <h2>Ejercicio 2: TextBox </h2>
+        <ul>
+            <li>
+                <p>Crea una clase llamada <w>TextBox</w></p>
+                <ul>
+                    <li><p>Añade a la clase dos campos de tipo <sc java>int</sc>: <w>ancho</w> y <w>alto</w>. Y otro de tipo <sc java>String</sc>: <w>texto</w></p></li>
+                    <li><p>Añade un constructor que reciba un parámetro <sc java>String</sc> para inicializar el campo <w>texto</w>.</p></li>
+                    <li><p>Añade otro constructor que reciba un <sc java>String</sc>, i dos <sc java>int</sc> para incializar los campos <w>ancho</w> y <w>alto</w>.</p></li>
+                    <li><p>Añade otro constructor que reciba dos <sc java>int</sc> para incializar los campos <w>ancho</w> y <w>alto</w>.</p></li>
+                    <li><p>Añade tres métodos <em>setter</em> para establecer <w>texto</w>, <w>ancho</w> y <w>alto</w></p></li>
+                    <li><p>Añade otro campo <em>setter</em> para establecer el <w>texto</w>, que además reciba un parámetro <sc java>boolean</sc>. 
+                        Si el parámetro es <w>true</w> y el <w>texto</w> no está vacío, 
+                    el campo <w>ancho</w> se debe establecer a la longitud del campo <w>texto</w> y el campo <w>alto</w> a <w>1</w>.
+                    </p></li>
+                    <li><p>Añade el siguiente método <w>toString</w>:</p>
+                        <sc java>
+                            @Override
+                            public String toString() {
+                                return ancho + "x" + alto + "\n" +
+                                        "┏" + "━".repeat(ancho) + "┓\n" +
+                                        ("┃" + " ".repeat(ancho) + "┃\n").repeat((alto - 1) / 2) +
+                                        (alto > 0 ? "┃" + " ".repeat((ancho - texto.length() + 1) / 2) + texto + " ".repeat((ancho - texto.length()) / 2) + "┃\n" : "") +
+                                        ("┃" + " ".repeat(ancho) + "┃\n").repeat(alto / 2) +
+                                        "┗" + "━".repeat(ancho) + "┛\n";
+                            }
+                        </sc>
+                    </li>
+                    <li><p><strong>IMPORTANTE:</strong> todos los métodos anteriores deben asegurar que:</p>
+                        <ul>
+                            <li><p>Los campos <w>ancho</w> y <w>alto</w> siempre son mayores que 0.</p></li>
+                            <li><p>El campo <w>ancho</w> siempre es mayor o igual a la longitud del campo <w>texto</w></p></li>
+                            <li><p>El campo <w>alto</w> es mayor o igual <w>1</w> si el campo <w>texto</w> no está vacío.</p></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <p>Crea un programa que utilice la clase <w>TextBox</w></p>
             </li>
         </ul>
     </work>
