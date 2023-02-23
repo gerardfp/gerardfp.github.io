@@ -12,63 +12,179 @@
 <section>
     <work>
         <h2>Ejercicio 1: Persona </h2>
+           
+        <p>Crea una clase llamada <w>Persona</w></p>
         <ul>
-            <li>
-                <p>Crea una clase llamada <w>Persona</w></p>
-                <ul>
-                    <li><p>Añade a la clase tres campos de tipo <sc java>String</sc>: <w>nombre</w> , <w>apellido1</w> y <w>apellido2</w></p></li>
-                    <li><p>Añade un constructor para inicializar los tres campos a partir de los parámetros.</p></li>
-                    <li><p>Añade tres métodos <em>setter</em>/<em>getter</em> para obtener/establecer los campos.</p></li>
-                    <li><p>Añade un método que retorne un<sc java>String</sc> con el nombre completo con el formato: <w>apellido1 apellido2, nombre</w></p></li>
-                    <li><p>Añade un método que reciba un parámetro <sc java>String</sc> y retorne un <sc java>boolean</sc> indicando si algun campo es igual al parámetro pasado.</p></li>
-                </ul>
-            </li>
-            <li>
-                <p>Crea un programa que utilice la clase <w>Persona</w></p>
-            </li>
+            <li><p>Añade a la clase tres campos de tipo <sc java>String</sc>: <w>nombre</w> , <w>apellido1</w> y <w>apellido2</w></p></li>
+            <li><p>Añade un constructor para inicializar los tres campos a partir de los parámetros.</p></li>
+            <li><p>Añade tres métodos <em>setter</em>/<em>getter</em> para obtener/establecer los campos.</p></li>
+            <li><p>Añade un método que retorne un<sc java>String</sc> con el nombre completo con el formato: <w>apellido1 apellido2, nombre</w></p></li>
+            <li><p>Añade un método que reciba un parámetro <sc java>String</sc> y retorne un <sc java>boolean</sc> indicando si algun campo es igual al parámetro pasado.</p></li>
         </ul>
+
+        <p>Crea un programa que utilice la clase <w>Persona</w></p>
+
     </work>
     <work>
         <h2>Ejercicio 2: TextBox </h2>
+
+        <p>Crea una clase llamada <w>TextBox</w></p>
         <ul>
-            <li>
-                <p>Crea una clase llamada <w>TextBox</w></p>
+            <li><p>Añade a la clase dos campos de tipo <sc java>int</sc>: <w>ancho</w> y <w>alto</w>. Y otro de tipo <sc java>String</sc>: <w>texto</w></p></li>
+            <li><p>Añade un constructor que reciba un parámetro <sc java>String</sc> para inicializar el campo <w>texto</w>.</p></li>
+            <li><p>Añade otro constructor que reciba un <sc java>String</sc>, y dos <sc java>int</sc> para incializar los campos <w>ancho</w> y <w>alto</w>.</p></li>
+            <li><p>Añade otro constructor que reciba dos <sc java>int</sc> para incializar los campos <w>ancho</w> y <w>alto</w>.</p></li>
+            <li><p>Añade tres métodos <em>setter</em> para establecer <w>texto</w>, <w>ancho</w> y <w>alto</w></p></li>
+            <li><p>Añade otro campo <em>setter</em> para establecer el <w>texto</w>, que además reciba un parámetro <sc java>boolean</sc>. 
+                Si el parámetro es <w>true</w> y el <w>texto</w> no está vacío, 
+            el campo <w>ancho</w> se debe establecer a la longitud del campo <w>texto</w> y el campo <w>alto</w> a <w>1</w>.
+            </p></li>
+            <li><p>Añade el siguiente método <w>toString</w>:</p>
+                <sc java>
+                    @Override
+                    public String toString() {
+                        return ancho + "x" + alto + "\n" +
+                                "┏" + "━".repeat(ancho) + "┓\n" +
+                                ("┃" + " ".repeat(ancho) + "┃\n").repeat((alto - 1) / 2) +
+                                (alto > 0 ? "┃" + " ".repeat((ancho - texto.length() + 1) / 2) + texto + " ".repeat((ancho - texto.length()) / 2) + "┃\n" : "") +
+                                ("┃" + " ".repeat(ancho) + "┃\n").repeat(alto / 2) +
+                                "┗" + "━".repeat(ancho) + "┛\n";
+                    }
+                </sc>
+            </li>
+            <li><p><strong>IMPORTANTE:</strong> todos los métodos anteriores deben asegurar que:</p>
                 <ul>
-                    <li><p>Añade a la clase dos campos de tipo <sc java>int</sc>: <w>ancho</w> y <w>alto</w>. Y otro de tipo <sc java>String</sc>: <w>texto</w></p></li>
-                    <li><p>Añade un constructor que reciba un parámetro <sc java>String</sc> para inicializar el campo <w>texto</w>.</p></li>
-                    <li><p>Añade otro constructor que reciba un <sc java>String</sc>, y dos <sc java>int</sc> para incializar los campos <w>ancho</w> y <w>alto</w>.</p></li>
-                    <li><p>Añade otro constructor que reciba dos <sc java>int</sc> para incializar los campos <w>ancho</w> y <w>alto</w>.</p></li>
-                    <li><p>Añade tres métodos <em>setter</em> para establecer <w>texto</w>, <w>ancho</w> y <w>alto</w></p></li>
-                    <li><p>Añade otro campo <em>setter</em> para establecer el <w>texto</w>, que además reciba un parámetro <sc java>boolean</sc>. 
-                        Si el parámetro es <w>true</w> y el <w>texto</w> no está vacío, 
-                    el campo <w>ancho</w> se debe establecer a la longitud del campo <w>texto</w> y el campo <w>alto</w> a <w>1</w>.
-                    </p></li>
-                    <li><p>Añade el siguiente método <w>toString</w>:</p>
-                        <sc java>
-                            @Override
-                            public String toString() {
-                                return ancho + "x" + alto + "\n" +
-                                        "┏" + "━".repeat(ancho) + "┓\n" +
-                                        ("┃" + " ".repeat(ancho) + "┃\n").repeat((alto - 1) / 2) +
-                                        (alto > 0 ? "┃" + " ".repeat((ancho - texto.length() + 1) / 2) + texto + " ".repeat((ancho - texto.length()) / 2) + "┃\n" : "") +
-                                        ("┃" + " ".repeat(ancho) + "┃\n").repeat(alto / 2) +
-                                        "┗" + "━".repeat(ancho) + "┛\n";
-                            }
-                        </sc>
-                    </li>
-                    <li><p><strong>IMPORTANTE:</strong> todos los métodos anteriores deben asegurar que:</p>
-                        <ul>
-                            <li><p>Los campos <w>ancho</w> y <w>alto</w> siempre son mayores que 0.</p></li>
-                            <li><p>El campo <w>ancho</w> siempre es mayor o igual a la longitud del campo <w>texto</w></p></li>
-                            <li><p>El campo <w>alto</w> es mayor o igual <w>1</w> si el campo <w>texto</w> no está vacío.</p></li>
-                            <li><p>El campo <w>texto</w> nunca debe ser <sc java>null</sc>.</p></li>
-                        </ul>
-                    </li>
+                    <li><p>Los campos <w>ancho</w> y <w>alto</w> siempre son mayores que 0.</p></li>
+                    <li><p>El campo <w>ancho</w> siempre es mayor o igual a la longitud del campo <w>texto</w></p></li>
+                    <li><p>El campo <w>alto</w> es mayor o igual <w>1</w> si el campo <w>texto</w> no está vacío.</p></li>
+                    <li><p>El campo <w>texto</w> nunca debe ser <sc java>null</sc>.</p></li>
                 </ul>
             </li>
-            <li>
-                <p>Crea un programa que utilice la clase <w>TextBox</w></p>
+        </ul>
+
+        <p>Crea un programa que utilice la clase <w>TextBox</w></p>
+
+    </work>
+    <work>
+        <h2>Ejercicio 3: List String Utils</h2>
+
+        <p>Crea una clase llamada <w>StringListUtils</w>. Añade los siguientes métodos <sc java>static</sc>:</p>
+
+        <ul>
+            <li> 
+                <p><sc java>method1</sc>: Cuenta el número de veces que aparece un texto en una lista.</p>
+                <ul>
+                    <li>
+                        <p>Parametros:</p>
+                        <ul>
+                            <li><p><sc java>List&lt;String&gt; param1</sc> Una lista de textos</p></li>
+                            <li><p><sc java>String param2</sc> El texto a buscar</p></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Retorno:</p>
+                        <ul>
+                            <li><p><sc java>int</sc> El número de veces que aparece el <w>param2</w> en el <w>param1</w></p></li>
+                        </ul>
+                    </li>
+
+                </ul>
             </li>
+            <li> 
+                <p><sc java>method2</sc>: Junta los textos de una lista en un único texto, utilizando un separador.</p>
+                <ul>
+                    <li>
+                        <p>Parametros:</p>
+                        <ul>
+                            <li><p><sc java>List&lt;String&gt; param1</sc> Una lista de textos</p></li>
+                            <li><p><sc java>String param2</sc> El separador</p></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Retorno:</p>
+                        <ul>
+                            <li><p><sc java>String</sc> Los textos del <w>param1</w> unidos usando el separador <w>param1</w></p></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>       
+            <li> 
+                <p><sc java>method3</sc>: Crea una lista uniendo dos listas. No modifica ninguna de las dos listas.</p>
+                <ul>
+                    <li>
+                        <p>Parametros:</p>
+                        <ul>
+                            <li><p><sc java>List&lt;String&gt; param1</sc> Una lista de textos</p></li>
+                            <li><p><sc java>List&lt;String&gt; param2</sc> Otra lista de textos</p></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Retorno:</p>
+                        <ul>
+                            <li><p><sc java>List&lt;String&gt;</sc> Una lista con los textos de <w>param1</w> y los de <w>param2</w></p></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>    
+            <li> 
+                <p><sc java>method4</sc>: Crea una lista quitando elementos de una lista que coinciden con un texto. No modifica la lista original.</p>
+                <ul>
+                    <li>
+                        <p>Parametros:</p>
+                        <ul>
+                            <li><p><sc java>List&lt;String&gt; param1</sc> Una lista de textos</p></li>
+                            <li><p><sc java>String param2</sc> El texto a quitar de la lista</p></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Retorno:</p>
+                        <ul>
+                            <li><p><sc java>List&lt;String&gt;</sc> Una lista con los textos de <w>param1</w> que no son iguales a <w>param2</w></p></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>
+            <li> 
+                <p><sc java>method5</sc>: Crea una lista quitando elementos de una lista que estan en otra lista.. No modifica las listas originales.</p>
+                <ul>
+                    <li>
+                        <p>Parametros:</p>
+                        <ul>
+                            <li><p><sc java>List&lt;String&gt; param1</sc> Una lista de textos</p></li>
+                            <li><p><sc java>List&lt;String&gt; param2</sc> Una lista con los textos a quitar</p></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Retorno:</p>
+                        <ul>
+                            <li><p><sc java>List&lt;String&gt;</sc> Una lista con los textos de <w>param1</w> que no están en <w>param2</w></p></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>   
+            <li> 
+                <p><sc java>method6</sc>: Crea una lista con un texto repetido un número de veces.</p>
+                <ul>
+                    <li>
+                        <p>Parametros:</p>
+                        <ul>
+                            <li><p><sc java>String param1</sc> El texto a repetir</p></li>
+                            <li><p><sc java>int param2</sc> El número de veces que se debe repetir/p></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Retorno:</p>
+                        <ul>
+                            <li><p><sc java>List&lt;String&gt;</sc> Una lista con el <w>param1</w> repetido <w>param2</w> veces.</p></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li> 
         </ul>
     </work>
 </section>
