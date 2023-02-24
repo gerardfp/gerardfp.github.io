@@ -44,6 +44,7 @@ items:
         items:
           docker: { tags:  [programacio, android, java] }
           gradle: { tags:  [programacio, android, java] }
+          patterns: { tags:  [programacio, android, java] }
       dades:
         title: "Acces a dades"
         items:
