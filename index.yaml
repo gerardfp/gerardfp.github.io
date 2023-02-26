@@ -94,6 +94,7 @@ items:
         items:
           docker: { tags:  [programacio, android, java] }
           gradle: { tags:  [programacio, android, java] }
+          patterns: { tags:  [programacio, android, java] }
   smx:
     title: "CFGM Sistemes microinformàtics i xarxes"
     items:

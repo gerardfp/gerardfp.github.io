@@ -61,7 +61,7 @@
         }
         
         <low>
-        public class BuilderPattern {
+        public class Main {
             public static void main(String[] args) {
         </low>
                 Algo algo = new Algo.Builder()
@@ -75,36 +75,50 @@
         </low>
     </sc>
 
-    <h4>En la vida real:</h4>
+    <observe>
+        <p>En la vida real:</p>
 
-    <p>Los diálogos en Android se crean con un builder:</p>
-    <scfile><a href="https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/app/AlertDialog.java">AlertDialog</a></scfile>
-    <sc java>
-        new AlertDialog.Builder(this)
-            .setTitle("ALERTA!!!")
-            .setMessage("Este mensaje se autodestruirá en 3 milenios")
-            .show();
-    </sc>
+        <p>- Los diálogos en Android se crean con un builder:</p>
+        <scfile><a href="https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/app/AlertDialog.java">AlertDialog</a></scfile>
+        <sc java>
+            new AlertDialog.Builder(this)
+                .setTitle("ALERTA!!!")
+                .setMessage("Este mensaje se autodestruirá en 3 milenios")
+                .show();
+        </sc>
 
-    <p>Las notificaciones en Android se crean con un builder:</p>
-    <scfile><a href="https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/app/Notification.java">Notification</a></scfile>
-    <sc java>
-        new Notification.Builder(this, CANNEL_ID)
-            .setContentText("Has recibido un mensaje")
-            .sertSmallIcon(R.drawable.icono_nuevo_mensaje)
-            .build();
-    </sc>
+        <p>- Las notificaciones en Android se crean con un builder:</p>
+        <scfile><a href="https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/app/Notification.java">Notification</a></scfile>
+        <sc java>
+            new Notification.Builder(this, CANNEL_ID)
+                .setContentText("Has recibido un mensaje")
+                .sertSmallIcon(R.drawable.icono_nuevo_mensaje)
+                .build();
+        </sc>
+    </observe>
+
 </section>
+
+
+
+
+
+
+
+
+
+
+
 
 <section>
     <h2>Callback</h2>
     <a href="https://java-design-patterns.com/patterns/callback/">https://java-design-patterns.com/patterns/callback/</a>
-    <p>Es una "alternativa" al return. En lugar de que un método retorne algo, lo que hará ese método es llamar a un método que le habremos pasado, y poniendo como
+    <p>Es una "alternativa" al return. En lugar de que un método retorne algo, lo que hará ese método es llamar a un método que le habremos pasado, poniendo como
         parámetros lo que haya que retornar.</p>
 
     <p>En el siguiente ejemplo, observa que al llamar al método <sc java>hacerAlgo</sc> le hemos pasado un objeto de clase <sc java>Algo.Callback</sc>. 
-    El método <sc java>hacerAlgo</sc>, en lugar de retornar el texto <sc java>"algo a retornar"</sc>, lo pone como parámetro en la <em>llamada de vuelta</em> al método <sc java>call</sc>
-    del objeto que le habíamos pasado.
+    El método <sc java>hacerAlgo</sc>, en lugar de retornar el texto <sc java>"algo a retornar"</sc>, lo pone como parámetro en la <em>llamada de vuelta</em> 
+    al método <sc java>call</sc> del objeto que le habíamos pasado.
     </p>
 
     <sc java>
@@ -120,7 +134,7 @@
         }
         
         <low>
-        public class CallbackPattern {
+        public class Main {
             public static void main(String[] args) {
                 Algo algo = new Algo();
         </low>
@@ -137,29 +151,245 @@
         </low>
     </sc>
 
-    <p>Debido a que el <sc java>interface Callback</sc> solo tiene un método, podemos crear el objeto de clase <sc java>Algo.Callback</sc> con una expresión lambda:</p>
+    <info>
+        <p>Cuando un interface solo tiene <strong>un único</strong> método, podem usar una expresión lambda cuando haya que pasar como parámetro una instancia 
+            de dicho interface.</p>
+        <p>En el ejemplo anterior, el <sc java>interface Callback</sc> solo tiene el método <sc java>call</sc>. 
+            Podemos pasar la instancia de <sc java>Algo.Callback</sc> con una expresión lambda:</p>
+
+        <sc java>
+            algo.hacerAlgo(valorDeRetorno -> System.out.println(valorDeRetorno));
+        </sc>    
+
+        <p>Observa que una expresión lambda no es más que una simplificación de la instanciación del objeto; se indica solamente el nombre del parámetro y el cuerpo del método:</p>
+
+        <sc java>
+            algo.hacerAlgo(new Algo.Callback() {
+                @Override
+                public void call(String <h>valorDeRetorno</h>) {
+                    <h>System.out.println(valorDeRetorno);</h>
+                }
+            });
+        </sc>
+
+        <sc java>
+            algo.hacerAlgo(<h>valorDeRetorno</h> -> <h>System.out.println(valorDeRetorno)</h>);
+        </sc>  
+    </info>
+
+    <p>Por otra parte, un callback puede tener varios métodos, y el que lo recibe puede llamar a uno u otro según sea conveniente. De esta forma, un
+        método puede "retornar" distintos tipos de datos, o quizá "retornar" errores,...
+    </p>
 
     <sc java>
-        algo.metodo(valorDeRetorno -> System.out.println(valorDeRetorno));
+        class Algo {
+
+            interface Callback {
+                void retornoUnString(String valorDeRetorno);
+                void retornoUnInt(int valorDeRetorno);
+                void retornoUnBoolean(boolean valorDeRetorno);
+                void retornoUnError(String valorDeRetorno);
+            }
+        
+            void hacerAlgo(Callback callback){
+                if (...) {
+                    callback.retornoUnString("algo a retornar");
+                } else if (...) {
+                    callback.retornoUnInt(324342);
+                } else if (...) {
+                    callback.retornoUnBoolean(true);
+                } else if (...) {
+                    callback.retornoUnError("Error xyz");
+                }
+            }
+        }
+        
+        <low>
+        public class Main {
+            public static void main(String[] args) {
+                Algo algo = new Algo();
+        </low>
+
+                algo.hacerAlgo(new Algo.Callback() {
+                    @Override
+                    public void retornoUnString(String valorDeRetorno) {
+                        System.out.println("El resultado es: " + valorDeRetorno);
+                    }
+
+                    @Override
+                    public void retornoUnInt(int valorDeRetorno) {
+                        System.out.println("El resultado es: " + valorDeRetorno);
+                    }
+
+                    @Override
+                    public void retornoUnBoolean(boolean valorDeRetorno) {
+                        System.out.println("El resultado es: " + valorDeRetorno);
+                    }
+
+                    @Override
+                    public void retornoUnError(String valorDeRetorno) {
+                        System.out.println("Ha habido un error: " + valorDeRetorno);
+                    }
+                });
+        <low>
+            }
+        }
+        </low>
     </sc>
 
+    <info>
+        <p>En este caso, como el <sc  java>interface Algo.Callback</sc> tiene más de un método, no se puede usar una expresión lambda.</p>
+    </info>
 
-    <h4>En la vida real:</h4>
-    <p>La librería <a href="">retrofit</a> sirve para hacer llamadas HTTP. La respuesta se retorna mediante un callback:</p>
 
-    <scfile><a href="https://github.com/square/retrofit/blob/master/retrofit/src/main/java/retrofit2/Callback.java">Callback</a></scfile>
+    <observe>
+        <p>En la vida real:</p>
+        <p>- La librería <a href="">retrofit</a> sirve para hacer llamadas HTTP. La respuesta se retorna mediante un callback:</p>
+
+        <scfile><a href="https://github.com/square/retrofit/blob/master/retrofit/src/main/java/retrofit2/Callback.java">Callback</a></scfile>
+        <sc java>
+            api.obtenerNombre().enqueue(new Callback&lt;String&gt;() {
+                @Override
+                public void onResponse(Call&lt;String&gt; call, Response&lt;String&gt; response) {
+                    System.out.println("Nombre: " + response.body());
+                }
+
+                @Override
+                public void onFailure(Call&lt;String&gt; call, Throwable t) {
+                    System.out.println("Fallo al obtener el nombre");
+                }
+            });
+        </sc>
+
+        <p>- La implementación <a href="https://eclipse-ee4j.github.io/tyrus-project.github.io/documentation/latest/index/getting-started.html#d0e79">tyrus</a> del 
+            protocolo websockets utiliza callbacks para gestionar los eventos de conexión a un servidor:
+        </p>
+        <scfile><a href="https://github.com/jakartaee/websocket/blob/master/api/client/src/main/java/jakarta/websocket/Endpoint.java">Endpoint</a></scfile>
+        <sc java>
+            ClientManager.createClient().connectToServer(
+                    new Endpoint() {
+                        @Override
+                        public void onOpen(Session session, EndpointConfig config) {
+                            System.out.println("Conectado al servidor");
+                        }
+
+                        @Override
+                        public void onClose(Session session, CloseReason closeReason) {
+                            System.out.println("Desconectado del servidor");
+                        }
+
+                        @Override
+                        public void onError(Session session, Throwable thr) {
+                            System.out.println("Error conectando al servidor");
+                        }
+                    },
+                    new URI("ws://websocket.server:1234"));
+        </sc>
+    </observe>
+
+</section>
+
+
+
+
+
+
+
+<section>
+    <h2>Factory</h2>
+    <a href="https://java-design-patterns.com/patterns/factory/">https://java-design-patterns.com/patterns/factory/</a>
+    <p>Proporciona una forma de crear objetos sin tener que especificar su clase. Un método <w>factory</w> retorna los objetos de la clase adecuada.</p>
+
+    <p>Un método <em>factory</em> retorna objetos de una <strong>misma superclase</strong>, pero estos pueden ser de <strong>diferente subclase</strong>.</p>
+
     <sc java>
-        api.obtenerNombre().enqueue(new Callback&lt;String&gt;() {
+        interface SuperClase {
+            void metodo();
+        }
+        
+        class SubClaseA implements SuperClase {
             @Override
-            public void onResponse(Call&lt;String&gt; call, Response&lt;String&gt; response) {
-                System.out.println("Nombre: " + response.body());
+            public void metodo() {
+                // do something A-style
             }
-
+        }
+        
+        class SubClaseB implements SuperClase {
             @Override
-            public void onFailure(Call&lt;String&gt; call, Throwable t) {
-                System.out.println("Fallo al obtener el nombre");
+            public void metodo() {
+                // do something B-style
             }
-        });
+        }
+        
+        class Factory {
+            static SuperClase obtenerObjeto(){
+                if (...) {
+                    return new SubClaseA();
+                else {
+                    return new SubClaseB();
+                }
+            }
+        }
+        
+        <low>
+        public class Main {
+            public static void main(String[] args) {
+        </low>
+                SuperClase objeto = Factory.obtenerObjeto();
+        <low>
+            }
+        }
+        </low>
     </sc>
 
+    <p>Hay muchas formas de implementar este patrón. Otra opción muy común es incluir el método <em>factory</em> en la superclase:</p>
+
+    <sc java>
+        abstract class SuperClase {
+            abstract void metodo();
+        
+            static SuperClase obtenerObjeto() {
+                if (...) {
+                    return new SubClaseA();
+                else {
+                    return new SubClaseB();
+                }
+            }
+        }
+        
+        class SubClaseA extends SuperClase {
+            @Override
+            public void metodo() {
+                System.out.println("Soy de clase A");
+            }
+        }
+        
+        class SubClaseB extends SuperClase {
+            @Override
+            public void metodo() {
+                System.out.println("Soy de clase B");
+            }
+        }
+        
+        
+        public class Main {
+        
+            public static void main(String[] args) {
+                SuperClase objeto = SuperClase.obtenerObjeto();
+            }
+        }
+    </sc>
+
+    <observe>
+        <p>En la vida real:</p>
+
+        <p>- El método <sc java>Calendar.getInstance()</sc> retorna una implementación diferente de la clase <w>Calendar</w> en función de la localización del sistema:</p>
+
+        <scfile><a href="https://github.com/openjdk/jdk11u/blob/master/src/java.base/share/classes/java/util/Calendar.java#L1688">Calendar</a></scfile>
+        <sc java>
+            Calendar calendar = Calendar.getInstance();
+
+            // el objeto 'calendar' puede ser de clase 'BuddhistCalendar', 'JapaneseImperialCalendar' o 'GregorianCalendar'
+        </sc>
+    </observe>
 </section>

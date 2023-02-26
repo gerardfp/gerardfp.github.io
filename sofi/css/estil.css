@@ -289,6 +289,9 @@ mem {
     /* padding: 1em; */
 }
 
+sc h {
+    border: 1px dashed yellow;
+}
 
 w {
     background-color: #f9f9f9ed;
