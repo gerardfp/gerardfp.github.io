@@ -97,6 +97,35 @@
         </sc>
     </observe>
 
+    <work>
+        <p>Añade un Builder a la siguiente clase <w>TextBox</w>.</p>
+        
+        <p>El método <w>build()</w> debe asegurar que:</p>
+        <ul>
+            <li><p>Los campos <w>alto</w> y <w>ancho</w> son siempre mayores que 0.</p></li>
+            <li><p>El campo <w>ancho</w> siempre es mayor o igual a la longitud del campo <w>texto</w>.</p></li>
+            <li><p>El campo <w>alto</w> es mayor o igual a 1 si el campo <w>texto</w> no está vacío</p></li>
+            <li><p>El campo <w>texto</w> nunca debe ser <sc java>null</sc>.</p></li>
+        </ul>
+
+        <sc java>
+            class TextBox {
+                String texto;
+                int ancho, alto;
+
+                @Override
+                public String toString() {
+                    return ancho + "x" + alto + "\n" +
+                            "┏" + "━".repeat(ancho) + "┓\n" +
+                            ("┃" + " ".repeat(ancho) + "┃\n").repeat((alto - 1) / 2) +
+                            (alto > 0 ? "┃" + " ".repeat((ancho - texto.length() + 1) / 2) + texto + " ".repeat((ancho - texto.length()) / 2) + "┃\n" : "") +
+                            ("┃" + " ".repeat(ancho) + "┃\n").repeat(alto / 2) +
+                            "┗" + "━".repeat(ancho) + "┛\n";
+                }
+            }
+        </sc>
+    </work>
+
 </section>
 
 
@@ -287,6 +316,40 @@
         </sc>
     </observe>
 
+    <work>
+        <p>Haz que la siguiente clase <w>Calculadora</w> devuelva el resultado (o el error) con un Callback:</p>
+
+        <sc java>
+            class Calculadora {
+
+                static int suma(int... numeros) {
+                    int resultado = 0;
+                    for (Integer numero : numeros) resultado += numero;     // ¿ y si resultado + numero > Integer.MAX_VALUE ?
+                    return resultado;
+                }
+            
+                static int divide(int a, int b) {
+                    return a/b;     // ¿ y si b es 0 ?
+                }
+            }
+            
+            public class Main {
+                public static void main(String[] args) {
+                    int resultadoSuma = Calculadora.suma(1, 2, 3, 10, 20);
+                    System.out.println("La suma es: " + resultadoSuma);
+            
+                    int resultadoDivision = Calculadora.divide(13, 2);
+                    System.out.println("La division es: " + resultadoDivision);
+            
+                    int resultadoOtraSuma = Calculadora.suma(1, 2147483646, 1);
+                    System.out.println("La suma es: " + resultadoOtraSuma);
+            
+                    int resultadoOtraDivision = Calculadora.divide(13, 0);
+                    System.out.println("La division es: " + resultadoOtraDivision);
+                }
+            }
+        </sc>
+    </work>
 </section>
 
 
@@ -390,6 +453,19 @@
             Calendar calendar = Calendar.getInstance();
 
             // el objeto 'calendar' puede ser de clase 'BuddhistCalendar', 'JapaneseImperialCalendar' o 'GregorianCalendar'
+        </sc>
+
+        <p>- El método <sc java>List.of</sc> retorna una lista <strong>inmutable</strong> con los elementos que se han pasado como parámetros:</p>
+        <scfile><a href="https://github.com/openjdk/jdk11u/blob/master/src/java.base/share/classes/java/util/List.java#L1031">List</a></scfile>
+        <sc java>
+            List&lt;String&gt; lista = List.of("this", "list", "is", "immutable");
+
+
+            <low>
+            // estos métodos darían error
+            list.add("error");
+            lista.set(0,"error");
+            </low>
         </sc>
     </observe>
 </section>
