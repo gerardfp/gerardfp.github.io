@@ -107,14 +107,14 @@ items:
           aws: { tags:  [programacio, android, java] }  
           webapps: { tags:  [programacio, android, java] }
           nextcloud: { tags:  [programacio, android, java] }   
-          webfilemanager: { tags:  [programacio, android, java] }  
-          wordpress: { tags:  [programacio, android, java] }
-          webcms: { tags:  [programacio, android, java] }   
-          webtasks: { tags:  [programacio, android, java] }
-          moodle: { tags:  [programacio, android, java] }
-          webforum: { tags:  [programacio, android, java] }
-          webaccounts: { tags:  [programacio, android, java] }
-          weblms: { tags:  [programacio, android, java] }
+          # webfilemanager: { tags:  [programacio, android, java] }  
+          # wordpress: { tags:  [programacio, android, java] }
+          # webcms: { tags:  [programacio, android, java] }   
+          # webtasks: { tags:  [programacio, android, java] }
+          # moodle: { tags:  [programacio, android, java] }
+          # webforum: { tags:  [programacio, android, java] }
+          # webaccounts: { tags:  [programacio, android, java] }
+          # weblms: { tags:  [programacio, android, java] }
           inicihtml: { tags:  [programacio, android, java] }   
           inicicss: { tags:  [programacio, android, java] }
           elementshtml: { tags:  [programacio, android, java] }
