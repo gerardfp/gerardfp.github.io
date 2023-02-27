@@ -8,37 +8,6 @@ items:
         title: "Programació"
         items:
           javatutorial: { tags:  [programacio, android, java] }
-          codelabs:
-            title: "Codelabs"
-            items:
-              objectes: { tags:  [programacio, android, java] }
-              blocks: { tags:  [programacio, android, java] }
-              flowchart: { tags:  [programacio, android, java] }
-              seleccio: { tags:  [programacio, android, java] } 
-              loops: { tags:  [programacio, android, java] }   
-              arrays: { tags:  [programacio, android, java] }
-              javadoc: { tags:  [programacio, android, java] }
-              conversio: { tags:  [programacio, android, java] }                        
-              matrius: { tags:  [programacio, android, java] }   
-              input: { tags:  [programacio, android, java] }
-              format: { tags:  [programacio, android, java] }     
-              datetime: { tags:  [programacio, android, java] }
-              intellij: { tags:  [programacio, android, java] }
-              refactoring: { tags:  [programacio, android, java] }   
-              debugger: { tags:  [programacio, android, java] }   
-              github: { tags:  [programacio, android, java] }
-              junit: { tags:  [programacio, android, java] }
-              gradle2: { tags:  [programacio, android, java] }
-              libgdx: { tags:  [programacio, android, java] }
-              android: { tags:  [programacio, android, java] }
-              # projectes:
-              #   title: "Projectes"
-              #   items:
-              #     chatbot: { tags: [programacio, android, java] }
-              # examens:
-              #   title: "Examens"
-              #     items:
-              #       dam-m3-uf1-examen:  { tags: [programacio, android, java] }
       entorns:
         title: "Entorns de desenrotllament"
         items:
