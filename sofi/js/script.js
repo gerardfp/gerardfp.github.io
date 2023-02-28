@@ -101,13 +101,13 @@ function getLinePairsOfElement(str, elm) {
     pairs.push({lineBegin, lineEnd});
   }
 
-  console.log(pairs);
+  //console.log(pairs);
   return pairs;
 
 }
 
 function syntaxHighlight(){
-  console.log("HIGHLIGHTING");
+  //console.log("HIGHLIGHTING");
   document.querySelectorAll('sc').forEach(b => {
 
 
@@ -161,7 +161,7 @@ function syntaxHighlight(){
     codeWrap.querySelectorAll('add, rem, hig, lin, low, blk, blkin').forEach(k => {
       k.innerHTML = k.innerHTML.replace(/^(?:\r?\n|\r)/, '');
       if (k.hasAttribute("o")){
-        console.log("hasAttribte oo");
+        //console.log("hasAttribte oo");
         k.setAttribute("data-value", i++);
       }
     });

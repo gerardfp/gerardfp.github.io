@@ -2,13 +2,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="module" src="/sofi/js/script.js"></script>
+<script src='/sofi/mermaid/mermaid.js'></script>
 <link rel="stylesheet" href="/sofi/css/estil.css">
 
+<script>
+    mermaid.initialize({
+        securityLevel: 'loose',
+        theme: 'dark',
+    });
+</script>
 <nav></nav> 
 <header>
     <h1>Ejercicios</h1>
 </header>
 
+    
 <section>
     <work>
         <h2>Ejercicio 1: Persona </h2>
@@ -185,6 +193,55 @@
 
                 </ul>
             </li> 
+        </ul>
+    </work>
+
+    <work>
+        <h2>Calendario de exámenes</h2>
+        <p>Se desea hacer una aplicación para gestionar el calendario de exámenes de un instituto. La aplicación permitirá introducir y consultar las fechas 
+            de los exámenes.
+        </p>
+        <p>La infomación de cada examen es la siguiente: nombre de la asignatura, aula, fecha y hora.</p>
+        <p>A continuación se muestra un diagrama con las clases y los campos:</p>
+
+        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #81B1DB; border-radius: 8px;">
+            ---
+            title: Calendario de exámenes
+            ---
+            classDiagram
+            Calendario o-- Examen
+            Examen o-- FechaHora
+            FechaHora o-- Fecha
+            FechaHora o-- Hora
+            class Calendario{
+                +List~Examen~ examenes
+            }
+            class Examen{
+                +String asignatura
+                +String aula
+                +FechaHora fechaHora
+            }
+            class FechaHora {
+                +Fecha fecha
+                +Hora hora
+            }
+            class Fecha {
+                +int año
+                +int mes
+                +int dia
+            }
+            class Hora {
+                +int hora
+                +int minuto
+            }
+        </div>
+
+        <p>Escribe un programa que añada 3 exámenes al calendario y luego muestre el calendario.</p>
+
+        <p><strong>IMPORTANTE:</strong></p>
+        <ul>
+            <li><p>Todos los objetos se deben inicializar usando método constructor.</p></li>
+            <li><p>Para imprimir datos por pantalla se debe utilizar un método <sc java>toString()</sc></p></li>
         </ul>
     </work>
 </section>
