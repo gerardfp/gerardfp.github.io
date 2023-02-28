@@ -3,8 +3,31 @@ const path = require('path');
 const swig = require('swig-templates');
 const YAML = require('yaml');
 
+deleteLinks();
 
 let item = YAML.parse(fs.readFileSync('./index.yaml', 'utf8'));
+
+item =  trans("", item);
+
+const template = fs.readFileSync('_templates/item.htm');
+
+item.parent = false;
+item.parents = [];
+
+renderItem(item);
+
+
+function deleteLinks(){
+    try {
+        const files =  fs.readdirSync(".", {encoding: 'utf8', withFileTypes: true});
+        for (const file of files)
+            if (file.isSymbolicLink()){
+                fs.unlinkSync(file.name);
+            }
+      } catch (err) {
+        console.error(err);
+      }
+}
 
 function getTitle(path){
     try {       
@@ -16,19 +39,14 @@ function getTitle(path){
             try {
                 return html.match(/<h1>(.*)<\/h1>/)[1];                
             } catch {
-                return null;
+                return path;
             }
         }
     } catch (err) {
-        return null;
+        return path;
     }
 }
 
-
-
-// log(item);
-item =  trans("", item);
-// log(item);
 
 function trans(lps, item) {   // lps: lastPathSegment
     const transsubitem = {};
@@ -48,16 +66,6 @@ function trans(lps, item) {   // lps: lastPathSegment
     return transsubitem;
 }
 
-
-
-const template = fs.readFileSync('_templates/item.htm');
-
-item.parent = false;
-item.parents = [];
-
-// log(item);
-renderItem(item);
-log(item);
 
 function renderItem(item){
     // if(!item.items) return;
@@ -131,43 +139,3 @@ function log(object) {
     console.log("===========")
     console.dir(object, { depth: null })
 }
-
-/*
-dam: "Desenolupament"
-  m8: "android"
-    uf1: "UF1"
-    uf2: "UF2"  
-  m6:
-    uf1: "UF1"
-asix: "Asix"
-  m8: "webs"
-    uf1: "UF1"
-
-
-    [
-        [
-            { dam: "Desenolupament"},
-            [
-                [
-                    { m8: "android" },
-                    [
-                        [
-                            { uf1: "UF1" },
-                        ],
-                        [
-                            { uf2: "UF2" },
-                        ]
-
-                    ]
-                ],
-                [
-                    { m9: "webs" },
-                ]
-            ]
-        ],
-        [
-            { asix: "Asix"},
-        ]
-    ]
-
-*/

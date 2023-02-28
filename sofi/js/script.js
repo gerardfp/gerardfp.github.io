@@ -7,13 +7,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
   navigation();
   pageTitle();
   wrappers();
-
-  //add meta 
-  //document.head.insertAdjacentHTML('afterbegin', '<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">');
   replaceParams();
   doQuizz();
   doStepper();
-
 });
 
 function pageTitle(){
