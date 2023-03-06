@@ -3,7 +3,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="module" src="/sofi/js/script.js"></script>
 <link rel="stylesheet" href="/sofi/css/estil.css">
-
+<script src='/sofi/mermaid/mermaid.js'></script>
+<script>
+    mermaid.initialize({
+        securityLevel: 'loose',
+        theme: 'dark',
+    });
+</script>
 <nav></nav>
 <header>
     <h1>Patrones de diseño</h1>
@@ -510,8 +516,81 @@
             </low>
         </sc>
     </observe>
+    <work>
+        <h3>Notification System</h3>
+        <p>Se desea implementar un sistema de Notificaciones. El sistema debe poder enviar tres tipos de notificaciones: email, sms y push.</p>
+        <p>A continuación se muestra un diagrama de las classes a implementar:</p>
+
+        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #81B1DB; border-radius: 8px;">
+            ---
+            title: Notification System
+            ---
+            classDiagram
+            SMSNotification ..|> Notification
+            EmailNotification ..|> Notification
+            PushNotification ..|> Notification
+
+            class Notification {
+                +String destination
+                +Notification(String destination)
+                +abstract sendNotification(): void
+                +factory(String destination): Notification
+            }
+            class SMSNotification{
+                +sendNotification(): void
+            }
+            class EmailNotification{
+                +sendNotification(): void
+            }
+            class PushNotification{
+                +sendNotification(): void
+            }
+            
+        </div>
+
+        <p>Para facilitar su uso, se ha incluido un metodo <em>factory</em> en la clase <w>Notification</w>, que retorna un objeto de la 
+        clase correspondiente según el parámetro <w>destination</w> recibido:
+        </p>
+        <ul>
+            <li>Si el parámetro <w>destination</w> contiene una <w>@</w>, se retorna un <w>EmailNotification</w></li>
+            <li>Si el parámetro <w>destination</w> empieza por <w>http</w>, se retorna un <w>PushNotification</w></li>
+            <li>En cualquier otro caso, se retorna un <w>SMSNotification</w></li>
+        </ul>
+
+        <p>Las clases que implementan el método <sc java>sendNotification()</sc>, por el momento, <em>no es necesario</em> que realicen la acción
+        de enviar la notificación; simplemente escriben por pantalla un mensaje.</p>
+
+        <p>A continuación se muestra un ejemplo de cómo se usaría la clase <w>Notification</w>:</p>
+
+        <sc java>
+            <low>
+            public class Main {
+                public static void main(String[] args) {
+            </low>
+                    Notification.factory("gerard@benigaslo.com").sendNotification();
+                    Notification.factory("http://benigaslo.com/gerard").sendNotification();
+                    Notification.factory("+34 678 789 890").sendNotification();
+            <low>
+                }
+            }
+            </low>
+        </sc>
+
+        <p>La salida sería la siguiente:</p>
+
+        <shell>
+            SENDING Email to: gerard@benigaslo.com
+            SENDING Push to: http://benigaslo.com/gerard
+            SENDING SMS to: +34 678 789 890
+        </shell>
+    </work>
 </section>
 
 <section>
     <h2>Listener / Observer</h2>
+</section>
+
+
+<section>
+    <h2>Singleton</h2>
 </section>
