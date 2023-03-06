@@ -336,4 +336,114 @@
         <p>&nbsp;</p>
         <p>Crea un programa <w>psvm</w> con una carrera, inscribe unos cuantos coches e iníciala.</p>
     </work>
+    <work>
+        <h2>Ejercicio 6: Animals</h2>
+        <p>Programa la estructura de clases siguiente:</p>
+
+        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #81B1DB; border-radius: 8px;">
+            ---
+            title: Object Racing
+            ---
+            classDiagram
+            Animal <|-- Mamifero
+            Mamifero <|-- Perro
+            Mamifero <|-- Gato
+            Mamifero <|-- Caballo
+            class Animal {
+                +String nombre
+                +String tipoAlimentacion
+                +int edad
+            }
+
+            class Mamifero {
+                +int gestacion
+            }
+            class Perro {
+                +String raza
+            }
+            class Gato {
+                +String pedigri
+            }
+            class Caballo {
+                +String comida
+                +int ejercicio
+            }
+        </div>
+    
+
+    <p>Crea los constructores adecuados, y los métodos <sc java>toString()</sc>
+    para que funcione el siguiente Main:</p>
+    <sc java>
+        Animal animal = new Animal("Gustavo", "insectos", 3);
+        Mamifero mamifero = new Mamifero("Moby Dick", "plancton", 5, 12);
+        Perro perro = new Perro("Tobby", "carne", 7, 2, "caniche");
+        Gato gato = new Gato("Tom", "pescado", 4, 4, "siamés");
+        Caballo caballo = new Caballo("Rocinante", "hierba", 8, 12, "español", 2);
+
+        System.out.println(animal);
+        System.out.println(mamifero);
+        System.out.println(perro);
+        System.out.println(gato);
+        System.out.println(caballo);
+
+        </sc>
+    </work>
+
+    <work>
+        <h2>Ejercicio 6: Workers</h2>
+        <p>Programa la siguiente estructura de clases:</p>
+
+        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #81B1DB; border-radius: 8px;">
+            ---
+            title: Workers
+            ---
+            classDiagram
+            Empleado <|-- Directivo
+            Empleado <|-- Operario
+            Operario <|-- Oficial
+            Operario <|-- Tecnico
+            class Empleado {
+                +String nombre
+
+                +Empleado(String nombre)
+                +getNombre(): String
+                +setNombre(String nombre): void
+                +toString(): String
+            }
+
+            class Directivo {
+                +toString(): String
+            }
+            class Operario {
+                +toString(): String
+            }
+            class Oficial {
+                +toString(): String
+            }            
+            class Tecnico {
+                +toString(): String
+            }
+        </div>
+        <p>Si ejecutamos el siguiente Main:</p>
+        <sc java>
+            Empleado empleado = new Empleado("Rafa");
+            Directivo directivo = new Directivo("Mario");
+            Operario operario = new Operario("Alfonso");
+            Oficial oficial = new Oficial("Luis");
+            Tecnico tecnico = new Tecnico("Pablo");
+            System.out.println(empleado);
+            System.out.println(directivo);
+            System.out.println(operario);
+            System.out.println(oficial);
+            System.out.println(tecnico);
+        </sc>
+        <p>Debería dar una salida, más o menos, así:</p>
+        <shell>
+            Empleado Rafa
+            Empleado Mario -> Directivo
+            Empleado Alfonso -> Operario
+            Empleado Luis -> Operario -> Oficial
+            Empleado Pablo -> Operario -> Tecnico 
+        </shell>
+    </work>
 </section>
