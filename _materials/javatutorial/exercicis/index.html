@@ -244,4 +244,96 @@
             <li><p>Para imprimir datos por pantalla se debe utilizar un método <sc java>toString()</sc></p></li>
         </ul>
     </work>
+    <work>
+        <h2>Ejercicio 5: Object Racing</h2>
+        <p>Programa un simulador de carreras de coches <em>rudimentario</em>.</p>
+        <p>El programa ha de tener las siguientes clases:</p>
+        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #81B1DB; border-radius: 8px;">
+            ---
+            title: Object Racing
+            ---
+            classDiagram
+            Carrera o-- Coche
+            class Coche {
+                +String piloto
+                +int distancia
+                +int velocidad
+                +static int maxVelocidad
+
+                +Coche(String piloto)
+                +acelerar(int velocidad): void
+                +mover(): void
+            }
+
+            class Carrera {
+                +List~Coche~ coches
+                +int distancia
+
+                +Carrera(int distancia)
+                +iniciar(): void
+                +inscribir(Coche coche): void
+                +primeraPosicion(): Coche
+            }
+        </div>
+
+        <p>La implementación de los métodos debe seguir las siguiente especificaciones:</p>
+        <p>Coche</p>
+        <ul>
+            <li>
+                <p><w>Coche(String piloto)</w>:</p>
+                <p>Asigna al campo <w>piloto</w> el valor pasado por parámetro.</p>
+            </li>
+            <li>
+                <p><w>void acelerar(int velocidad)</w>:</p>
+                <p>Suma a la <w>velocidad</w> del coche el valor pasado por parámetro.</p>
+                <p>Se debe asegurar que la velocidad no queda inferior a 1 ni superior a <w>maxVelocidad</w>.</p>
+            </li>
+            <li>
+                <p><w>void mover()</w>:</p>
+                <p>Suma al campo <w>distancia</w> el campo <w>velocidad</w>.</p>
+            </li>
+        </ul>
+        <p>Coche</p>
+        <ul>
+            <li>
+                <p><w>Carrera(int distancia)</w>:</p>
+                <p>Asigna al campo <w>distancia</w> el valor pasado por parámetro.</p>
+                <p>Además, establece la <w>maxVelocidad</w> de los coches a un valor calculado: <sc java>distancia/15</sc></p>
+            </li>
+            <li>
+                <p><w>Coche primeraPosicion()</w>:</p>
+                <p>Devuelve un <w>Coche</w> que tenga el máximo valor en el campo <w>distancia</w>.</p>
+            </li>
+            <li>
+                <p><w>void inscribir(Coche coche)</w>:</p>
+                <p>Añade el <w>Coche</w> pasado por parámetro a la lista <w>coches</w>.</p>
+            </li>
+            <li>
+                <p>El método <w>void iniciar()</w>:</p>
+
+                <sc java>
+                    void iniciar(){
+                        while(true) {
+                            System.out.println("-".repeat(distancia));
+                            coches.forEach(coche -> {
+                                coche.acelerar(Coche.maxVelocidad /2-random.nextInt(Coche.maxVelocidad));
+                                coche.mover();
+                                System.out.println(" ".repeat(coche.distancia) + coche.piloto + " (" + coche.velocidad + ")");
+                            });
+                
+                            Coche primero = primeraPosicion();
+                            if (primero.distancia >= distancia) {
+                                System.out.println("Ha ganado " + primero.piloto);
+                                return;
+                            }
+                            try { Thread.sleep(1000); } catch (InterruptedException e) {}
+                        }
+                    }
+                </sc>
+            </li>
+        </ul>
+
+        <p>&nbsp;</p>
+        <p>Crea un programa <w>psvm</w> con una carrera, inscribe unos cuantos coches e iníciala.</p>
+    </work>
 </section>
