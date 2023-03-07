@@ -446,4 +446,76 @@
             Empleado Pablo -> Operario -> Tecnico 
         </shell>
     </work>
+
+    <work>
+        <h2>Ejercicio 7: Shape2D</h2>
+
+        <p>Implementa un sistema básico para dibujar figuras coloreadas.</p>
+        <p>Todas las figuras tienen: una posición (x,y) y un color. Pero cada figura <strong>concreta</strong> tiene una forma (<em>Shape</em>) diferente.</p>
+
+        <p>Para simplificar el sistema hemos creado la siguiente clase abstracta <w>Figure</w>:</p>
+        <ul>
+            <li>        <p>Cada figura concreta heredará esta clase, concretando el método <w>getShape()</w>, que retornará su forma.</p>
+            </li>
+            <li>
+                <p>Además, cada figura añadirá sus propios campos necesarios para definir su forma (por ejemplo el tamaño).</p>
+            </li>
+        </ul>
+
+        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #81B1DB; border-radius: 8px;">
+            ---
+            title: Shape2D
+            ---
+            classDiagram
+            class Figure {
+                +int x
+                +int y 
+                +Color color
+
+                +Figure(int x, int y, Color color)
+                +abstract getShape(): Shape
+            }
+        </div>
+
+        <p>Utiliza la siguiente clase Main: </p>
+        <sc java>
+            public class Main extends Frame {
+                Main() {
+                    setSize(400, 400);
+                    setVisible(true);
+                }
+            
+                static List&lt;Figure&gt; figureList = List.of(
+                        // 
+                    );
+            
+                public static void main(String[] args) {
+                    new Main();
+                }
+            
+                @Override
+                public void paint(Graphics g) {
+                    figureList.forEach(figure -> {
+                        g.setColor(figure.color);
+                        ((Graphics2D) g).fill(figure.getShape());
+                    });
+                }
+            }
+        </sc>
+
+        <p>Para definir la forma de una figura puedes usar las clases del paquete <a href="https://docs.oracle.com/javase/8/docs/api/java/awt/geom/package-summary.html"><w>java.awt.geom</w></a>.</p>
+        <p>Por ejemplo, para crear una forma de triángulo, se puede implementar el método <w>getShape()</w> así:</p>
+
+        <sc java>
+            Shape getShape() {
+                Path2D path2D = new Path2D.Double();
+                path2D.moveTo(x + width / 2, y);
+                path2D.lineTo(x + width, y + height);
+                path2D.lineTo(x, y + height);
+                path2D.closePath();
+                return path2D;
+            }
+        </sc>
+
+    </work>
 </section>
