@@ -477,6 +477,7 @@
             }
         </div>
 
+        <p>&nbsp;</p>
         <p>Utiliza la siguiente clase Main: </p>
         <sc java>
             public class Main extends Frame {
@@ -503,9 +504,9 @@
             }
         </sc>
 
+        <p>&nbsp;</p>
         <p>Para definir la forma de una figura puedes usar las clases del paquete <a href="https://docs.oracle.com/javase/8/docs/api/java/awt/geom/package-summary.html"><w>java.awt.geom</w></a>.</p>
         <p>Por ejemplo, para crear una forma de triángulo, se puede implementar el método <w>getShape()</w> así:</p>
-
         <sc java>
             Shape getShape() {
                 Path2D path2D = new Path2D.Double();
@@ -516,6 +517,22 @@
                 return path2D;
             }
         </sc>
+        <p>También se pueden usar formas predefinidas, como un rectángulo:</p>
+        <sc java>
+            Shape getShape() {
+                return new Rectangle2D.Double(x, y, width, height);
+            }
+        </sc>
 
+        <p>Y es posible, incluso combinar varias formas:</p>
+        <sc java>
+            Shape getShape() {
+                Path2D path2D = new Path2D.Double();
+                path2D.append(new Ellipse2D.Double(x, y, radius * 2, radius * 2), true);
+                path2D.append(new Rectangle.Double(x, y, radius, radius), true);
+                path2D.append(new Rectangle.Double(x+ radius, y+ radius, radius, radius), true);
+                return path2D;
+            }
+        </sc>
     </work>
 </section>
