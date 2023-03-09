@@ -587,7 +587,171 @@
 </section>
 
 <section>
-    <h2>Listener / Observer</h2>
+    <h2>Observer (aka Listener)</h2>
+    <p>Proporciona una manera de realizar varias acciones cuando sucede un evento, desligando las acciones del evento.</p>
+    <p>El objeto en el cual sucede el evento notifica a otros objetos que el evento ha sucedido, y estos otros objetos realizan las acciones correspondientes.
+        Previamente, estos objetos se deben haber suscrito para ser notificados.</p>
+
+        <sc java>
+
+            import java.util.ArrayList;
+            import java.util.List;
+
+            class NotificadorDeEvento {
+                interface ObservadorDeEvento {
+                    void cuandoSucedaElEvento();
+                }
+
+                List&lt;ObservadorDeEvento&gt; observadoresDeEvento = new ArrayList<>();
+
+                void suscribirAEvento(ObservadorDeEvento observadorDeEvento) {
+                    observadoresDeEvento.add(observadorDeEvento);
+                }
+
+                void sucederEvento(){
+                    for (ObservadorDeEvento observadorDeEvento: observadoresDeEvento) {
+                        observadorDeEvento.cuandoSucedaElEvento();
+                    }
+                }
+            }
+
+            class ObservadorDeEvento1 implements NotificadorDeEvento.ObservadorDeEvento {
+
+                @Override
+                public void cuandoSucedaElEvento() {
+                    System.out.println("Accion 1");
+                }
+            }
+
+            class ObservadorDeEvento2 implements NotificadorDeEvento.ObservadorDeEvento {
+
+                @Override
+                public void cuandoSucedaElEvento() {
+                    System.out.println("Accion 2");
+                }
+            }
+
+            public class Main {
+                public static void main(String[] args) {
+                    NotificadorDeEvento notificadorDeEvento = new NotificadorDeEvento();
+
+                    ObservadorDeEvento1 observadorDeEvento1 = new ObservadorDeEvento1();
+                    notificadorDeEvento.suscribirAEvento(observadorDeEvento1);
+
+                    ObservadorDeEvento2 observadorDeEvento2 = new ObservadorDeEvento2();
+                    notificadorDeEvento.suscribirAEvento(observadorDeEvento2);
+
+                    notificadorDeEvento.sucederEvento();
+                }
+            }
+        </sc>
+
+        <observe>
+            <p>En la vida real:</p>
+    
+            <p>- La mayoría de bibliotecas de UI utilizan Listeners para notificar los eventos de interacción del usuario.</p>
+            <p>Por ejemplo, en Android, cuando un usuario hace "clic" sobre un botón, el propio botón notifica el evento a los listeners que se hayan suscrito.</p>
+    
+            <scfile><a href="https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/view/View.java">View</a></scfile>
+            <sc java>
+                button.setOnClickListener(new OnClickListener() {
+                    public void onClick(View v) {
+                        // do something when the button is clicked
+                    }
+                });
+            </sc>
+
+            <p>Ocurre lo mismo en Java Swing</p>
+
+            <scfile><a href="https://github.com/openjdk/jdk11u/blob/73eef16128417f4a489c4dde47383bb4a00f39d4/src/java.desktop/share/classes/javax/swing/AbstractButton.java"></a>AbstractButton</scfile>
+            <sc java>
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        // do something when the button is clicked
+                    }
+                });
+            </sc>
+    
+            <p>- Las bases de datos de Firebase utilizan Listeners para notificar los cambios en los datos en tiempo real:</p>
+            <scfile>FirebaseDatabase</scfile>
+            <sc java>
+                database.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // do something with new data
+                    }
+                
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // getting data failed
+                    }
+                });
+            </sc>
+        </observe>
+        <work>
+            <h3>Guess event</h3>
+
+            <p>Transforma el siguiente juego, para que los objetos <w>confetti</w> y <w>scoreSaver</w> sean notificados cuando se acierte el número.</p>
+
+            <sc java>
+                import java.io.IOException;
+                import java.nio.file.Files;
+                import java.nio.file.Path;
+                import java.util.Scanner;
+                import java.util.concurrent.ThreadLocalRandom;
+
+                class Game {
+
+                    Confetti confetti;
+                    ScoreSaver scoreSaver;
+
+                    public Game(Confetti confetti, ScoreSaver scoreSaver) {
+                        this.confetti = confetti;
+                        this.scoreSaver = scoreSaver;
+                    }
+
+                    void start(){
+                        int guess = ThreadLocalRandom.current().nextInt(10);
+                        Scanner scanner = new Scanner(System.in);
+                        int tries = 1;
+                        while(true) {
+                            int num = scanner.nextInt();
+                            if (num == guess) break;
+                            tries++;
+                        }
+
+                        confetti.onWin(tries);
+                        scoreSaver.onWin(tries);
+
+                    }
+                }
+
+                class Confetti {
+                    public void onWin(int tries) {
+                        System.out.println("\uD83C\uDF89".repeat(tries));
+                    }
+                }
+
+                class ScoreSaver {
+                    public void onWin(int tries) {
+                        try { Files.writeString(Path.of("score.txt"), "intentos:" + tries); } catch (IOException ignored) {}
+                    }
+                }
+
+                public class Main {
+                    public static void main(String[] args) {
+
+                        Confetti confetti = new Confetti();
+                        ScoreSaver scoreSaver = new ScoreSaver();
+
+                        Game game = new Game(confetti, scoreSaver);
+                        
+                        game.start();
+                    }
+                }
+            </sc>
+        </work>
 </section>
 
 
