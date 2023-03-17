@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="module" src="/sofi/js/script.js"></script>
+<link rel="stylesheet" href="/sofi/css/estil.css">
+<script src='/sofi/mermaid/mermaid.js'></script>
+<script>
+    mermaid.initialize({
+        securityLevel: 'loose',
+        theme: 'dark',
+    });
+</script>
+<nav></nav>
+<header>
+    <h1>Patrones de diseño</h1>
+    <abstract>
+  
+    </abstract>
+  </header>
+
+
+<section>
+    <h2>Builder</h2>
+    
+    <work>
+        <h3>TextBox</h3>
+        <p>Añade un Builder a la siguiente clase <w>TextBox</w>.</p>
+        
+        <p>El método <w>build()</w> debe asegurar que:</p>
+        <ul>
+            <li><p>Los campos <w>alto</w> y <w>ancho</w> son siempre mayores que 0.</p></li>
+            <li><p>El campo <w>ancho</w> siempre es mayor o igual a la longitud del campo <w>texto</w>.</p></li>
+            <li><p>El campo <w>alto</w> es mayor o igual a 1 si el campo <w>texto</w> no está vacío</p></li>
+            <li><p>El campo <w>texto</w> nunca debe ser <sc java>null</sc>.</p></li>
+        </ul>
+
+        <sc java>
+            class TextBox {
+                String texto;
+                int ancho, alto;
+
+                @Override
+                public String toString() {
+                    return ancho + "x" + alto + "\n" +
+                            "┏" + "━".repeat(ancho) + "┓\n" +
+                            ("┃" + " ".repeat(ancho) + "┃\n").repeat((alto - 1) / 2) +
+                            (alto > 0 ? "┃" + " ".repeat((ancho - texto.length() + 1) / 2) + texto + " ".repeat((ancho - texto.length()) / 2) + "┃\n" : "") +
+                            ("┃" + " ".repeat(ancho) + "┃\n").repeat(alto / 2) +
+                            "┗" + "━".repeat(ancho) + "┛\n";
+                }
+            }
+        </sc>
+    </work>
+
+</section>
+
+<section>
+    <h2>Callback</h2>
+
+    <work>
+        <h3>Calculadora</h3>
+        <p>Haz que la siguiente clase <w>Calculadora</w> devuelva resultados o errores con un Callback:</p>
+
+        <sc java>
+            class Calculadora {
+
+                static int suma(int... numeros) {
+                    int resultado = 0;
+                    for (Integer numero : numeros) resultado += numero;     // ¿ y si resultado + numero > Integer.MAX_VALUE ?
+                    return resultado;
+                }
+            
+                static int divide(int a, int b) {
+                    return a/b;     // ¿ y si b es 0 ?
+                }
+            }
+            
+            public class Main {
+                public static void main(String[] args) {
+                    int resultadoSuma = Calculadora.suma(1, 2, 3, 10, 20);
+                    System.out.println("La suma es: " + resultadoSuma);
+            
+                    int resultadoDivision = Calculadora.divide(13, 2);
+                    System.out.println("La division es: " + resultadoDivision);
+            
+                    int resultadoOtraSuma = Calculadora.suma(1, 2147483646, 1);
+                    System.out.println("La suma es: " + resultadoOtraSuma);
+            
+                    int resultadoOtraDivision = Calculadora.divide(13, 0);
+                    System.out.println("La division es: " + resultadoOtraDivision);
+                }
+            }
+        </sc>
+    </work>
+
+    <work>
+        <h3>SimuladorHipoteca</h3>
+        <p>Haz que la siguiente clase <w>SimuladorHipoteca</w> retorne resultados o errores con un Callback:</p>
+
+        <sc java>
+            import java.net.URI;
+            import java.net.http.HttpClient;
+            import java.net.http.HttpRequest;
+            import java.net.http.HttpResponse;
+
+            class SimuladorHipoteca {
+                static double calcularCuota(double capital, double plazo) {
+                    // if (capital &lt;= 0) error: capital no valido
+                    // if (plazo &lt;= 0) error: plazo no valido
+
+                    double interes = 0;
+
+                    try {
+                        // obtener 'interes' del banco...
+                        interes = Double.parseDouble(HttpClient.newHttpClient().send(HttpRequest.newBuilder()
+                                .uri(URI.create("https://fakebank-tan.vercel.app/api/get-interest"))
+                                .GET().build(), HttpResponse.BodyHandlers.ofString()).body());
+                    } catch (Exception e) {
+                        // error obteniendo interes
+                    }
+
+                    return capital*interes/12/(1-Math.pow(1+(interes/12),-plazo*12));
+                }
+            }
+
+            public class Main {
+                public static void main(String[] args) {
+                    double cuota = SimuladorHipoteca.calcularCuota(2000, 2);
+
+                    System.out.println(cuota);
+                }
+            }
+        </sc>
+    </work>
+</section>
+
+<section>
+    <h2>Factory</h2>
+   
+    <work>
+        <h3>Notification System</h3>
+        <p>Se desea implementar un sistema de Notificaciones. El sistema debe poder enviar tres tipos de notificaciones: email, sms y push.</p>
+        <p>A continuación se muestra un diagrama de las classes a implementar:</p>
+
+        <div class="mermaid" style="display: flex; justify-content: center; align-items: center; border: 1px solid #81B1DB; border-radius: 8px;">
+            ---
+            title: Notification System
+            ---
+            classDiagram
+            SMSNotification ..|> Notification
+            EmailNotification ..|> Notification
+            PushNotification ..|> Notification
+
+            class Notification {
+                +String destination
+                +Notification(String destination)
+                +abstract sendNotification(): void
+                +factory(String destination): Notification
+            }
+            class SMSNotification{
+                +sendNotification(): void
+            }
+            class EmailNotification{
+                +sendNotification(): void
+            }
+            class PushNotification{
+                +sendNotification(): void
+            }
+            
+        </div>
+
+        <p>Para facilitar su uso, se ha incluido un metodo <em>factory</em> en la clase <w>Notification</w>, que retorna un objeto de la 
+        clase correspondiente según el parámetro <w>destination</w> recibido:
+        </p>
+        <ul>
+            <li>Si el parámetro <w>destination</w> contiene una <w>@</w>, se retorna un <w>EmailNotification</w></li>
+            <li>Si el parámetro <w>destination</w> empieza por <w>http</w>, se retorna un <w>PushNotification</w></li>
+            <li>En cualquier otro caso, se retorna un <w>SMSNotification</w></li>
+        </ul>
+
+        <p>Las clases que implementan el método <sc java>sendNotification()</sc>, por el momento, <em>no es necesario</em> que realicen la acción
+        de enviar la notificación; simplemente escriben por pantalla un mensaje.</p>
+
+        <p>A continuación se muestra un ejemplo de cómo se usaría la clase <w>Notification</w>:</p>
+
+        <sc java>
+            <low>
+            public class Main {
+                public static void main(String[] args) {
+            </low>
+                    Notification.factory("gerard@benigaslo.com").sendNotification();
+                    Notification.factory("http://benigaslo.com/gerard").sendNotification();
+                    Notification.factory("+34 678 789 890").sendNotification();
+            <low>
+                }
+            }
+            </low>
+        </sc>
+
+        <p>La salida sería la siguiente:</p>
+
+        <shell>
+            SENDING Email to: gerard@benigaslo.com
+            SENDING Push to: http://benigaslo.com/gerard
+            SENDING SMS to: +34 678 789 890
+        </shell>
+    </work>
+</section>
+
+<section>
+    <h2>Observer (aka Listener)</h2>
+    
+        <work>
+            <h3>Guess event</h3>
+
+            <p>Transforma el siguiente juego, para que los objetos <w>confetti</w> y <w>scoreSaver</w> sean notificados cuando se acierte el número.</p>
+
+            <sc java>
+                import java.io.IOException;
+                import java.nio.file.Files;
+                import java.nio.file.Path;
+                import java.util.Scanner;
+                import java.util.concurrent.ThreadLocalRandom;
+
+                class Game {
+
+                    Confetti confetti;
+                    ScoreSaver scoreSaver;
+
+                    public Game(Confetti confetti, ScoreSaver scoreSaver) {
+                        this.confetti = confetti;
+                        this.scoreSaver = scoreSaver;
+                    }
+
+                    void start(){
+                        int guess = ThreadLocalRandom.current().nextInt(10);
+                        Scanner scanner = new Scanner(System.in);
+                        int tries = 1;
+                        while(true) {
+                            int num = scanner.nextInt();
+                            if (num == guess) break;
+                            tries++;
+                        }
+
+                        confetti.onWin(tries);
+                        scoreSaver.onWin(tries);
+                    }
+                }
+
+                class Confetti {
+                    public void onWin(int tries) {
+                        System.out.println("\uD83C\uDF89".repeat(tries));
+                    }
+                }
+
+                class ScoreSaver {
+                    public void onWin(int tries) {
+                        try { Files.writeString(Path.of("score.txt"), "intentos:" + tries); } catch (IOException ignored) {}
+                    }
+                }
+
+                public class Main {
+                    public static void main(String[] args) {
+
+                        Confetti confetti = new Confetti();
+                        ScoreSaver scoreSaver = new ScoreSaver();
+
+                        Game game = new Game(confetti, scoreSaver);
+                        
+                        game.start();
+                    }
+                }
+            </sc>
+        </work>
+</section>
+
+
+<section>
+    <h2>Singleton</h2>
+</section>
