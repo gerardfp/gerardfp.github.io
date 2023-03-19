@@ -517,7 +517,7 @@
     <p>Sirve para asegurar que solo se pueda instanciar un único objeto de una clase, proporcionando una forma de acceder a él.</p>
     <p>Hay diversas formas de implementar este patrón; distinguiremos 3:</p>
 
-    <h3>Eager:</h3>
+    <p><strong>Eager:</strong></p>
     <sc java>
         class Algo {
             private static final Algo INSTANCIA = new Algo();
@@ -542,7 +542,7 @@
         </low>
     </sc>
 
-    <h3>Lazy:</h3>
+    <p><strong>Lazy:</strong></p>
     <sc java>
         class Algo {
             private static Algo INSTANCIA;
@@ -570,10 +570,42 @@
         </low>
     </sc>
 
-    <h3>Synchronized</h3>
+    <p><strong>Synchronized:</strong></p>
+    <sc java>
+        class Algo {
+            private static Algo INSTANCIA;
+        
+            private Algo(){}
+        
+            static synchronized Algo getInstance(){
+                if (INSTANCIA == null) {
+                    INSTANCIA = new Algo();
+                }
+                return INSTANCIA;
+            }
+        }
 
+        <low>
+        public class Main {
+            public static void main(String[] args) {
+        </low>
+                Algo algo = Algo.getInstance();   // se obtiene la unica instancia
+        
+                Algo otro = new Algo();       // error!, no se puede crear otra instancia (el constructor es private)   
+        <low>
+            }
+        }
+        </low>
+    </sc>
+    
     <observe>
+        <p>- Objeto Runtime</p>
         <scfile><a href="https://github.com/openjdk/jdk11u/blob/73eef16128417f4a489c4dde47383bb4a00f39d4/src/java.base/share/classes/java/lang/Runtime.java">Runtime</a></scfile>
+        <sc java>
+            Runtime.getRuntime();
+        </sc>
 
+        <p>- Android Room Database:</p>
+        <a href="https://developer.android.com/training/data-storage/room?hl=es-419#database">Room database</a>
     </observe>
 </section>
