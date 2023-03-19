@@ -260,6 +260,167 @@
     <h2>Factory</h2>
    
     <work>
+        <h3>ProductFactory</h3>
+        <p>Crea una clase <em>Factory</em> para los siguientes productos.</p>
+        <p>En el programa principal, sustiuye las llamadas a los constructores por llamadas al método <em>factory</em>.</p>
+
+        <sc java>
+            abstract class Product {
+                protected String title;
+                protected double price;
+            
+                public Product(String title, double price) {
+                    this.title = title;
+                    this.price = price;
+                }
+            
+                public abstract void display();
+            }
+            
+            class Book extends Product {
+                protected String author;
+            
+                public Book(String title, double price, String author) {
+                    super(title, price);
+                    this.author = author;
+                }
+            
+                @Override
+                public void display() {
+                    System.out.println("Book - Title: " + title + ", Author: " + author + ", Price: " + price);
+                }
+            }
+            
+            class Electronic extends Product {
+                protected String manufacturer;
+            
+                public Electronic(String title, double price, String manufacturer) {
+                    super(title, price);
+                    this.manufacturer = manufacturer;
+                }
+            
+                @Override
+                public void display() {
+                    System.out.println("Electronic - Title: " + title + ", Manufacturer: " + manufacturer + ", Price: " + price);
+                }
+            }
+            
+            class Clothing extends Product {
+                protected String size;
+            
+                public Clothing(String title, double price, String size) {
+                    super(title, price);
+                    this.size = size;
+                }
+            
+                @Override
+                public void display() {
+                    System.out.println("Clothing - Title: " + title + ", Size: " + size + ", Price: " + price);
+                }
+            }
+            
+            
+            public class Main {
+                public static void main(String[] args) {
+                    Product book = new Book("Harry Potter and the Philosopher's Stone", 9.99, "J.K. Rowling");
+                    book.display();
+
+                    Product electronic = new Electronic("iPhone 12 Pro", 999.99, "Apple");
+                    electronic.display();
+
+                    Product clothing = new Clothing("Maxi Dress", 38, "ASOS");
+                    clothing.display();
+                }
+            }
+        </sc>
+    </work>
+
+    <work>
+        <h3>GameCharacter</h3>
+        <p>Crea una classe <em>Factory</em> llamada <w>CharacterFactory</w> para los siguientes personajes de un juego:</p>
+
+        <sc java>
+            abstract class Character {
+                protected String name;
+                protected int health;
+                protected int speed;
+            
+                public Character(String name, int health, int speed) {
+                    this.name = name;
+                    this.health = health;
+                    this.speed = speed;
+                }
+            
+                public abstract void move();
+                public abstract void attack();
+                public abstract void die();
+            }
+            
+            class Knight extends Character {
+            
+                public Knight(String name, int health, int speed) {
+                    super(name, health, speed);
+                }
+            
+                @Override
+                public void move() {
+                    System.out.println("Knight is moving...");
+                }
+            
+                @Override
+                public void attack() {
+                    System.out.println("Knight is attacking...");
+                }
+            
+                @Override
+                public void die() {
+                    System.out.println("Knight died...");
+                }
+            }
+            
+            class Wizard extends Character {
+            
+                public Wizard(String name, int health, int speed) {
+                    super(name, health, speed);
+                }
+            
+                @Override
+                public void move() {
+                    System.out.println("Wizard is moving...");
+                }
+            
+                @Override
+                public void attack() {
+                    System.out.println("Wizard is attacking...");
+                }
+            
+                @Override
+                public void die() {
+                    System.out.println("Wizard died...");
+                }
+            }
+            
+            
+            public class Main {
+                public static void main(String[] args) {
+                    CharacterFactory factory = new CharacterFactory();
+            
+                    // create a knight
+                    Character knight = factory.createCharacter("knight", "Arthur", 100, 5);
+                    knight.move();
+                    knight.attack();
+                    knight.die();
+            
+                    // create a wizard
+                    Character wizard = factory.createCharacter("wizard", "Gandalf", 80, 7);
+                    wizard.move();
+                    wizard.attack();
+                    wizard.die();
+                }
+            }
+        </sc>
+    </work>
+    <work>
         <h3>Notification System</h3>
         <p>Se desea implementar un sistema de Notificaciones. El sistema debe poder enviar tres tipos de notificaciones: email, sms y push.</p>
         <p>A continuación se muestra un diagrama de las classes a implementar:</p>
@@ -390,6 +551,69 @@
                         Game game = new Game(confetti, scoreSaver);
                         
                         game.start();
+                    }
+                }
+            </sc>
+        </work>
+
+        <work>
+            <h3>Termostato</h3>
+
+            <sc java>
+                import java.util.concurrent.ThreadLocalRandom;
+
+                class Termometro {
+
+                    private float temperatura;
+
+                    void start(){
+                        while (true) {
+                            temperatura = ThreadLocalRandom.current().nextFloat()*50;
+                            System.out.println("Temperatura: " + temperatura);
+                            
+                            // notificar a los observadores la temperatura
+
+                            try { Thread.sleep(1000); } catch (Exception ignored) { }
+                        }
+                    }
+                }
+
+                class Termostato {
+                    String lugar;
+                    float maximo;
+
+                    public Termostato(String lugar, float maximo) {
+                        this.lugar = lugar;
+                        this.maximo = maximo;
+                    }
+
+                    public void update(float temperatura) {
+                        if (temperatura > maximo) {
+                            abrir();
+                        } else {
+                            cerrar();
+                        }
+                    }
+
+                    void abrir(){
+                        System.out.println("Termostato [" + lugar + "] abierto");
+                    }
+                    void cerrar(){
+                        System.out.println("Termostato [" + lugar + "] cerrado");
+                    }
+                }
+
+                public class Main {
+                    public static void main(String[] args) {
+                        Termometro termometro = new Termometro();
+
+                        Termostato t1 = new Termostato("cocina", 30);
+                        Termostato t2 = new Termostato("salon", 20);
+                        Termostato t3 = new Termostato("habitacion", 26);
+
+                        // añadir los termostatos como observadores del termometro
+
+                        termometro.start();
                     }
                 }
             </sc>
