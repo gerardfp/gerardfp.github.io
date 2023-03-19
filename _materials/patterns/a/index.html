@@ -21,6 +21,40 @@
 
 <section>
     <h2>Builder</h2>
+    <work>
+        <h3>Computer</h3>
+        <ol>
+            <li>
+                <p>Crea un <em>Builder</em> para la siguiente clase <w>Computer</w>:</p>
+                <ol>
+                    <li>
+                        <p>Los campos <w>HDD</w> y <w>RAM</w> son obligatorios, y se deben pasar en el constructor del <em>Builder</em>.</p>
+                    </li>
+                    <li>
+                        <p>Los campos <w>isGraphicsCardEnabled</w> y <w>isBluetoothEnabled</w> son opcionales y se deben establecer con métodos <em>setter</em> del <em>Builder</em></p>
+                    </li>
+                    <li>
+                        <p>Crea un constructor privado en la clase <w>Computer</w> para impedir que se instancien objetos de esta clase, si no es a través del <em>Builder</em>.</p>
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <p>Crea un programa principal que instancia un <w>Computer</w> usando el <em>Builder</em>.</p>
+            </li>
+        </ol>
+
+        <sc java>
+            class Computer {
+                // required
+                String HDD;
+                String RAM;
+             
+                // optional
+                boolean isGraphicsCardEnabled;
+                boolean isBluetoothEnabled;
+            }             
+        </sc>
+    </work>
     
     <work>
         <h3>TextBox</h3>
@@ -50,6 +84,66 @@
                 }
             }
         </sc>
+    </work>
+    <work>
+        <h3>AlertDialog</h3>
+        <img src="img/alert.png" />
+
+        <ol>
+            <li>
+                <p>Crea un clase <w>AlertDialog</w> con los siguientes campos:</p>
+                <sc java>
+                    String title, text, yesButtonText, noButtonText;
+                </sc>
+            </li>
+            <li>
+                <p>Añade un <em>Builder</em> a la classe <w>AlertDialog</w>:</p>
+                <ul>
+                    <li><p>Los campos <w>title</w> y  <w>text</w> son obligatorios.</p></li>
+                    <li><p>Los campos <w>yesButtonText</w> y  <w>noButtonText</w> son opcionales.</p></li>
+                </ul>
+            </li>
+            <li>
+                <p>Añade los siguientes métdodos al <em>Builder</em>:</p>
+                <sc java>
+                    Builder setYes()   // establece el yesButtonText a "Ok"
+                    Builder setNo()   // establece el yesButtonText a "Cancel"
+                </sc>
+            </li>
+            <li>
+                <p>Añade el siguiente método al <em>Builder</em>:</p>
+                <sc java>
+                    void show(){
+                        AlertDialog alertDialog = build();
+                        
+                        JPanel jPanel = new JPanel();
+                        jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.PAGE_AXIS));
+                        jPanel.add(new JLabel(alertDialog.text));
+                        if (alertDialog.yesButtonText != null)
+                            jPanel.add(new JButton(alertDialog.yesButtonText));
+                        if (alertDialog.noButtonText != null)
+                            jPanel.add(new JButton(alertDialog.noButtonText));
+                     
+                     
+                        JFrame jFrame = new JFrame(title);
+                        jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                        jFrame.add(jPanel);
+                        jFrame.pack();
+                        jFrame.setLocationRelativeTo(null);
+                        jFrame.setVisible(true);
+                    }                     
+                </sc>
+            </li>
+            <li>
+                <p>Comprueba que funciona el <w>AlertDialog</w>:</p>
+                <sc java>
+                    new AlertDialog.Builder("Suscribirse", "Desea suscribirse a mi canal?")
+                        .setYes("Sí, suscribeme ahora mismo")
+                        .setNo("No, otro día")
+                        .show();
+                </sc>
+            </li>
+        </ol>
     </work>
 
 </section>
@@ -130,6 +224,34 @@
                     System.out.println(cuota);
                 }
             }
+        </sc>
+    </work>
+    <work>
+        <h3>FileDownloader</h3>
+        <p>La siguiente clase <w>FileDownloader</w> simula una utilidad para realizar descargas.</p>
+        <p>Haz que vaya notificando el progreso de descarga mediante un <em>callback</em>:</p>
+
+        <sc java>
+            class FileDownloader {
+                public void downloadFile(String filePath) {
+                    // simular progreso de descarga
+                    for (int percentage = 0; percentage &lt;= 100; percentage += 10) {
+                        
+                        // actualizar el progresso cada 10%
+                        System.out.println("Loading progress: " + percentage + "%");
+            
+                        try { Thread.sleep(1000); } catch (InterruptedException ignored) {}
+                    }
+                }
+            }
+            
+            public class Main {
+                public static void main(String[] args) {
+                    FileDownloader fileDownloader = new FileDownloader();
+                    fileDownloader.downloadFile("http://.../myFile.txt");
+                }
+            }
+            
         </sc>
     </work>
 </section>
