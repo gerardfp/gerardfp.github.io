@@ -618,6 +618,172 @@
                 }
             </sc>
         </work>
+
+        <work>
+            <h3>CircleButton</h3>
+
+            <p>Implementa el patrón <em>Lístener</em> en la clase <w>CircleButton</w> para el evento de "hacer click con el ratón". Añade un listener a cada botón.</p>
+
+            <sc java>
+                import javax.swing.*;
+                import java.awt.*;
+                import java.awt.event.MouseAdapter;
+                import java.awt.event.MouseEvent;
+                import java.awt.geom.Ellipse2D;
+                import java.util.ArrayList;
+                import java.util.List;
+
+
+                class CircleButton {
+                    int x, y, radius;
+                    Color color;
+
+
+                    public CircleButton(int x, int y, int radius, Color color) {
+                        this.x = x;
+                        this.y = y;
+                        this.radius = radius;
+                        this.color = color;
+                    }
+
+
+                    Shape getShape() {
+                        return new Ellipse2D.Double(x - radius, y - radius, radius * 2, radius * 2);
+                    }
+
+
+                    double distanceTo(int x, int y) {
+                        return Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2));  // hipotenusa
+                    }
+                }
+
+
+                class Window extends JFrame {
+                    List&lt;CircleButton&gt; circleButtonList = new ArrayList&lt;&gt;();
+
+
+                    void add(CircleButton circleButton) {
+                        circleButtonList.add(circleButton);
+                    }
+
+
+                    void open() {
+                        setSize(400, 400);
+                        setVisible(true);
+
+
+                        addMouseListener(new MouseAdapter() {
+                            @Override
+                            public void mouseReleased(MouseEvent mouseEvent) {
+                                for (CircleButton circleButton : circleButtonList) {
+                                    if (circleButton.distanceTo(mouseEvent.getX(), mouseEvent.getY()) &lt; circleButton.radius) {
+                                        // button clicked. Notify observers!!!
+                                    }
+                                }
+                            }
+                        });
+                    }
+
+
+                    @Override
+                    public void paint(Graphics g) {
+                        circleButtonList.forEach(circleButton -> {
+                            g.setColor(circleButton.color);
+                            ((Graphics2D) g).fill(circleButton.getShape());
+                        });
+                    }
+                }
+
+
+                public class Main extends Frame {
+                    public static void main(String[] args) {
+                        Window window = new Window();
+
+
+                        CircleButton blueCircleButton = new CircleButton(240, 120, 60, Color.BLUE);
+                        CircleButton redCircleButton = new CircleButton(140, 300, 40, Color.RED);
+                        CircleButton greenCircleButton = new CircleButton(40, 150, 20, Color.GREEN);
+
+
+                        window.add(blueCircleButton);
+                        window.add(redCircleButton);
+                        window.add(greenCircleButton);
+
+
+                        window.open();
+                    }
+                }
+
+            </sc>
+        </work>
+
+        <work>
+            <h3>Trading</h3>
+            <p>
+                El siguiente programa simula una operacion de <em>trading</em>. Cada segundo obtiene el precio: cuando baja de $15 
+                lo <em>""notifica""</em>, y cuando baja de $10 <em>""realiza""</em> la operación de compra.
+            </p>
+            <p>
+                Transforma el patrón Callback utilizado, en un patrón Listener.
+            </p>
+            <p> 
+                Se deben añadir dos listeners distintos para las acciones de notificar y comprar. No se deben crear dos clases que implementen el interface, 
+                sino que directamente se deben crear dos clases anónimas. (Una clase anónima es cuando creamos un objeto con <w>new</w> <strong>directamente</strong> 
+                implementando un interface o extendiendo una clase).    
+            </p>
+
+            <sc java>
+                import java.net.URI;
+                import java.net.http.HttpClient;
+                import java.net.http.HttpRequest;
+                import java.net.http.HttpResponse;
+                import java.util.concurrent.Executors;
+                import java.util.concurrent.TimeUnit;
+
+
+                class Trading {
+                    interface Callback {
+                        void call(double price);
+                    }
+
+
+                    static void getPrice(Callback callback) {
+
+                        Executors.newScheduledThreadPool(1).scheduleAtFixedRate(() -> {
+                            try {
+                                // obtener precio
+                                double price = Double.parseDouble(HttpClient.newHttpClient().send(HttpRequest.newBuilder().uri(URI.create("https://fakebank-tan.vercel.app/api/get-price")).GET().build(), HttpResponse.BodyHandlers.ofString()).body());
+
+
+                                callback.call(price);
+
+
+                            } catch (Exception ignored) {}
+                        }, 0, 1, TimeUnit.SECONDS);
+                    }
+                }
+
+
+                public class Main {
+                    public static void main(String[] args) {
+                        Trading.getPrice(new Trading.Callback() {
+                            @Override
+                            public void call(double price) {
+                                if (price &lt; 15) {
+                                    System.out.println("ENVIAR NOTIFICACION:" + price);
+                                }
+
+
+                                if (price &lt; 10) {
+                                    System.out.println("COMPRAR:" + price);
+                                }
+                            }
+                        });
+                    }
+                }
+
+            </sc>
+        </work>
 </section>
 
 
