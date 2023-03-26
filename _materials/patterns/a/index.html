@@ -796,6 +796,178 @@
 
 <section>
     <h2>Singleton</h2>
+
+    <work>
+        <h3>PrinterSpooler</h3>
+        <p>Transforma la clase <w>PrinterSpooler</w> en un Singleton Synchronized:</p>
+
+        <sc java>
+            import java.util.ArrayList;
+            import java.util.List;
+            import java.util.concurrent.Callable;
+            import java.util.concurrent.ExecutorService;
+            import java.util.concurrent.Executors;
+            
+            class PrinterSpooler {
+                int jobCount;
+            
+                PrinterSpooler() {
+                    jobCount = 0;
+                }
+            
+                void printJob(String job) {
+                    System.out.println(&quot;Printing job &quot; + (++jobCount) + &quot;: &quot; + job);
+                }
+            }
+            public class Main {
+                public static void main(String[] args) throws InterruptedException {
+                    PrinterSpoolerN printerSpooler = new PrinterSpooler();
+            
+                    List&lt;Callable&lt;Void&gt;&gt; printOrders = new ArrayList&lt;&gt;();
+                    for (int i = 1; i &lt;= 10; i++) {
+                        final int docid = i;
+                        printOrders.add(() -&gt; {
+                            printerSpooler.printJob(&quot;Document&quot; + docid);
+                            return null;
+                        });
+                    }
+            
+                    ExecutorService executorService = Executors.newFixedThreadPool(10);
+                    executorService.invokeAll(printOrders);
+                    executorService.shutdown();
+            
+                    System.out.println(&quot;FINISHED. Jobs printed: &quot; + printerSpooler.jobCount);
+                }
+            }         
+        </sc>
+    </work>
+    <work>
+        <h3>SensorLogger</h3>
+        <p>Transforma la clase <w>SensorLogger</w> en un Singleton Lazy:</p>
+
+        <sc java>
+            import java.io.FileWriter;
+            import java.io.IOException;
+            import java.io.PrintWriter;
+            import java.time.LocalDateTime;
+            import java.util.concurrent.ThreadLocalRandom;
+
+            class SensorData {
+                String sensorID;
+                LocalDateTime timestamp;
+                double value;
+
+                public SensorData(String sensorID, LocalDateTime timestamp, double value) {
+                    this.sensorID = sensorID;
+                    this.timestamp = timestamp;
+                    this.value = value;
+                }
+            }
+
+            class SensorLogger {
+                private final String fileName;
+
+                SensorLogger(String fileName) {
+                    this.fileName = fileName;
+                }
+
+                public void logData(SensorData data) {
+                    try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
+                        writer.println(data.sensorID + "," + data.timestamp + "," + data.value);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            class Sensor {
+                interface DataReceiver {
+                    void receive(SensorData sensorData);
+                }
+
+                void start(DataReceiver dataReceiver){
+                    while(true) {
+                        dataReceiver.receive(new SensorData("SensorXYZ", LocalDateTime.now(), ThreadLocalRandom.current().nextDouble()));
+                        try { Thread.sleep(1000); } catch (InterruptedException ignored) { }
+                    }
+                }
+            }
+
+            public class Main {
+                public static void main(String[] args) {
+                    SensorLogger sensorLogger = new SensorLogger("data.log");
+
+                    new Sensor().start(new Sensor.DataReceiver() {
+                        @Override
+                        public void receive(SensorData sensorData) {
+                            System.out.println("Saved "  + sensorData.sensorID + "," + sensorData.timestamp + "," + sensorData.value);
+                            sensorLogger.logData(sensorData);
+                        }
+                    });
+                }
+            }
+        </sc>
+    </work>
+    <work>
+        <h3>GameManager</h3>
+
+        <p>Transforma en un Singleton Synchornized la clase <w>GameManager</w>:</p>
+
+        <sc java>
+            class GameManager {
+                static int score;
+                
+                void incrementScore(int points) {
+                    int newScore = score + points;
+                    if (new Random().nextInt(10) &gt;= 0) {
+                        score = newScore;
+                    }
+                }
+            }
+            
+            public class Main {
+            
+                public static void main(String[] args) throws InterruptedException {
+            
+                    List&lt;Callable&lt;Void&gt;&gt; gameParts = new ArrayList&lt;&gt;();
+                    for (int i = 0; i &lt; 100; i++) {
+                        gameParts.add(() -&gt; {
+                            new GameManager.incrementScore(1);
+                            return null;
+                        });
+                    }
+            
+                    ExecutorService executorService = Executors.newFixedThreadPool(10);
+                    executorService.invokeAll(gameParts);
+                    executorService.shutdown();
+
+                    System.out.println(GameManager.score);
+                }
+            }
+        </sc>
+    </work>
+    <work>
+        <h3>SQLConnection</h3>
+
+        <p>Transforma en un Singleton Synchronized la clase <w>Database</w>:</p>
+
+        <sc java>
+            class Database {
+                public static Connection getConnection() throws SQLException {
+                    return DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "myuser", "mypassword");
+                }
+            }
+
+            public class Main {
+                public static void main(String[] args) throws SQLException {
+                    Connection connection = Database.getConnection();
+            
+                    connection.createStatement().executeQuery("SELECT * FROM table");
+                }
+            }
+            
+        </sc>
+    </work>
 </section>
 <section>
     <h2>Adapter</h2>
