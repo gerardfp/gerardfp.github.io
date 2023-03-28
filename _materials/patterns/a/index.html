@@ -826,9 +826,9 @@
             
                     List&lt;Callable&lt;Void&gt;&gt; printOrders = new ArrayList&lt;&gt;();
                     for (int i = 1; i &lt;= 10; i++) {
-                        final int docid = i;
+                        final int docId = i;
                         printOrders.add(() -&gt; {
-                            printerSpooler.printJob(&quot;Document&quot; + docid);
+                            printerSpooler.printJob(&quot;Document&quot; + docId);
                             return null;
                         });
                     }
