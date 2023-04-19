@@ -12,7 +12,7 @@
 </script>
 <nav></nav>
 <header>
-    <h1>Patrones de diseño</h1>
+    <h1>Ejercicios de Patrones de diseño</h1>
     <abstract>
   
     </abstract>
@@ -971,4 +971,90 @@
 </section>
 <section>
     <h2>Adapter</h2>
+    <work>
+        <h3>Multiplier</h3>
+
+        <p>Haz que el método <sc java>multiplica()</sc> obtenga los dos números a multiplicar llamando a dos métodos de un Adaptador.</p>
+
+        <sc java>
+            class Multiplicador {
+                int multiplica(int num1, int num2){
+                    return num1 * num2;
+                }
+            }
+            
+            public class Main {
+                public static void main(String[] args) {
+                    Multiplicador multiplicador = new Multiplicador();
+                    
+                    int resultado = multiplicador.multiplica(1000, 2000);
+            
+                    System.out.println(resultado);
+                }
+            }
+        </sc>
+    </work>
+    <work>
+        <h3>ListView</h3>
+        <p>Haz que el método <sc java>show()</sc> obtenga la cantidad y cada uno de los ítems mediante un Adaptador.</p>
+
+        <sc java>
+            import java.util.List;
+
+            class ListView {
+                void show(List&lt;String&gt; items){
+                    for (int i = 0; i &lt; items.size(); i++) {
+                        System.out.println(items.get(i));
+                    }
+                }
+            }
+
+            public class Main {
+                public static void main(String[] args) {
+                    List&lt;String&gt; items = List.of(&quot;Java&quot;,&quot;Python&quot;,&quot;Javascript&quot;,&quot;C#&quot;, &quot;C++&quot;, &quot;TypeScript&quot;, &quot;PHP&quot;);
+
+                    ListView listView = new ListView();
+                    listView.show(items);
+                }
+            }
+        </sc>
+    </work>
+    <work>
+        <h3>Pinger</h3>
+        <p>Haz que el método <sc java>ping</sc> obtenga las direcciones IP de un Adaptador.</p>
+
+        <sc java>
+            import java.io.IOException;
+            import java.net.InetAddress;
+            import java.util.ArrayList;
+            import java.util.List;
+
+            class Pinger {
+                void ping(List&lt;String&gt; ips) {
+                    for (String ip : ips) {
+                        try {
+                            if (InetAddress.getByName(ip).isReachable(500)) {
+                                System.out.println(ip + &quot; is online&quot;);
+                            } else {
+                                System.out.println(ip + &quot; is down&quot;);
+                            }
+                        } catch (IOException ignored) {}
+                    }
+                }
+            }
+
+            public class Main {
+                public static void main(String[] args) {
+                    Pinger pinger = new Pinger();
+
+                    List&lt;String&gt; ips = new ArrayList&lt;&gt;();
+                    for (int i = 1; i &lt; 254; i++) {
+                        ips.add(&quot;192.168.1.&quot; + i);
+                    }
+
+                    pinger.ping(ips);
+                }
+            }
+        </sc>
+    </work>
 </section>

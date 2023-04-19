@@ -14,7 +14,7 @@
 <header>
     <h1>Patrones de diseño</h1>
     <abstract>
-  
+        <a href="a">Ejercicios</a>
     </abstract>
   </header>
 
@@ -600,6 +600,7 @@
     </sc>
     
     <observe>
+        <p>En la vida real:</p>
         <p>- El objeto Runtime permite, entre otras cosas, ejecutar otras aplicaciones del sistema operativo:</p>
         <scfile><a href="https://github.com/openjdk/jdk11u/blob/73eef16128417f4a489c4dde47383bb4a00f39d4/src/java.base/share/classes/java/lang/Runtime.java">Runtime</a></scfile>
         <sc java>
@@ -609,4 +610,118 @@
         <p>- Android Room Database:</p>
         <a href="https://developer.android.com/training/data-storage/room?hl=es-419#database">Room database</a>
     </observe>
+</section>
+
+<section>
+    <h2>Adapter</h2>
+    <a href="https://java-design-patterns.com/patterns/adapter/">https://java-design-patterns.com/patterns/adapter/</a>
+
+    <p>Es una alternativa al paso de parámetros. En lugar de que un método reciba los datos por parámetros, este método llama a los métodos del Adapter para obtenerlos.</p>
+
+    <p>En el siguiente ejemplo, el método <sc java>imprimirValor()</sc> obtiene el valor llamando al método <sc java>obtenerValor()</sc> del Adaptador:</p>
+
+    <sc java>
+        class Algo {
+            interface Adaptador {
+                int obtenerValor();
+            }
+        
+            Adaptador adaptador;
+        
+            void establecerAdaptador(Adaptador adaptador) {
+                this.adaptador = adaptador;
+            }
+
+            void imprimirValor(){
+                System.out.println(adaptador.obtenerValor());
+            }
+        }
+        
+        <low>
+        public class Main {
+            public static void main(String[] args) {
+        </low>
+                Algo algo = new Algo();
+        
+                algo.establecerAdaptador(new Algo.Adaptador() {
+                    @Override
+                    public int obtenerValor() {
+                        return 0;
+                    }
+                });
+
+                algo.imprimirValor();
+        <low>
+            }
+        }
+        </low>
+    </sc>
+
+    <p>En el siguiente ejemplo, el método <sc java>imprimirValores()</sc> obtiene primero la cantidad de valores del Adaptador, y luego obtiene los diversos valores y los imprime. </p>
+    <p>Observa también que el Adaptador se lo pasamos directamente al método, en lugar de establecerlo previamente como en el ejemplo anterior.</p>
+
+    <sc java>
+        class Algo {
+            interface Adaptador {
+                int obtenerCantidad();
+                String obtenerValor(int i);
+            }
+        
+            void imprimirValores(Adaptador adaptador){
+                int cantidad = adaptador.obtenerCantidad();
+
+                for (int i = 0; i &lt; cantidad; i++) {
+                    System.out.println(adaptador.obtenerValor(i));
+                }
+            }
+        }
+        
+        <low>
+        public class Main {
+            public static void main(String[] args) {
+        </low>
+                Algo algo = new Algo();
+        
+                algo.imprimirValores(new Algo.Adaptador() {
+                    @Override
+                    public int obtenerCantidad() {
+                        return 10;
+                    }
+        
+                    @Override
+                    public String obtenerValor(int i) {
+                        return "Valor: " + i;
+                    }
+                });
+        <low>
+            }
+        }
+        </low>
+    </sc>
+
+    <observe>
+        <p>En la vida real:</p>
+        <p>- Para mostrar listas en una App Android se usa un RecyclerView. Los datos a mostrar los obtiene con un Adaptador:</p>
+        <scfile><a href="https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:recyclerview/recyclerview/src/main/java/androidx/recyclerview/widget/RecyclerView.java?q=file:androidx%2Frecyclerview%2Fwidget%2FRecyclerView.java%20class:androidx.recyclerview.widget.RecyclerView.Adapter">RecyclerView.Adapter</a></scfile>
+        <sc java>
+            recyclerView.setAdapter(new RecyclerView.Adapter&lt;RecyclerView.ViewHolder&gt;() {
+                @NonNull
+                @Override
+                public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    return new RecyclerView.ViewHolder(new TextView(parent.getContext())){};
+                }
+    
+                @Override
+                public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+                    ((TextView) holder.itemView).setText("" + position);
+                }
+    
+                @Override
+                public int getItemCount() {
+                    return 10;
+                }
+            });
+        </sc>
+    </observe>
+
 </section>
