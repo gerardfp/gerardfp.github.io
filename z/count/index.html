@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Counters</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .deck {
+            border: 1px solid red;
+            padding: 12px;
+            text-align: center;
+            width: 172px;
+            height: 172px;
+            font-size: 96px;
+        }
+
+        .deck button {
+            width: 48px;
+            height: 48px;
+            margin:4px;
+        }
+        
+        .add {
+            width: 172px;
+            height: 172px;
+            padding: 12px;
+            border: 1px solid gray;
+            background: rgb(235, 235, 235);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            color: gray;
+        }
+
+        .decks {
+            display: flex;
+            gap: 1em;
+        }
+
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+        }
+        .bases {
+            margin: 16px 0px;
+        }
+        .bases label {
+            margin-right: 1em;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    
+    <script type="text/babel">
+    
+    function MyApp() {
+        const [cant, setCant] = React.useState(4);
+        const [base, setBase] = React.useState(10);
+
+        return (
+            <>
+            <div class="bases">
+                <input id="base2" type="radio" name="base" onClick={() => setBase(2)} /><label for="base2">bin</label>
+                <input id="base10" type="radio" name="base" checked={base == 10} onClick={() => setBase(10)} /><label for="base10">dec</label>
+                <input id="base16" type="radio" name="base" onClick={() => setBase(16)} /><label for="base16">hex</label>
+            </div>
+            <div className="decks">
+                <div className="add" onClick={() => setCant(cant+1)}>+</div>
+                <DeckList cant={cant} base={base}></DeckList>
+            </div>
+            </>
+        );
+    }
+
+    function DeckList({cant, base}){
+        const decks = [];
+        for (let i=cant-1; i>=0; i--) {
+            decks.push(<Deck key={i} base={base}></Deck>)
+        }
+        return decks;
+    }
+
+    function Deck({base=10}){
+        const [num, setNum] = React.useState(0);
+
+        return (
+            <div className="deck">
+                <div className="num">{num.toString(16).toUpperCase()}</div>
+                <div className="buttons">
+                    <button onClick={() => {setNum((num+1)%base)}}>➕</button>
+                    <button onClick={() => {setNum(((num-1)%base+base)%base)}}>➖</button>
+                    <button onClick={() => {setNum(0)}}>⭮</button>
+                </div>
+            </div>
+        )
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<MyApp />);
+
+    </script>
+  </body>
+</html>
