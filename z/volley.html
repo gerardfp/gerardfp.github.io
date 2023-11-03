@@ -1,0 +1,49 @@
+<canvas id="mycanvas" width="800" height="400"></canvas>
+<script>
+
+let ctx = mycanvas.getContext("2d");
+
+
+let x1, x2, x3, x4, y1, y2, y3, y4, xb, yb;
+
+let w=800, h=400, wmig=w/2;
+let playerRadius=30;
+
+function render() {
+	ctx.clearRect(0, 0, w, h);
+	
+	ctx.beginPath();
+	
+	ctx.rect(wmig, h, 10, 40);
+	ctx.fillStyle ="#996644";
+	ctx.fill();
+	ctx.closePath();
+	
+	// 1
+	ctx.beginPath();
+	ctx.arc(x1, x2, playerRadius, playerRadius, Math.PI * 2);
+	ctx.fillStyle = "#0095DD";
+	ctx.fill();
+	ctx.closePath();
+}
+
+
+
+function update(){
+
+}
+
+
+
+
+window.main = () => {
+  window.requestAnimationFrame(main);
+
+  update();
+  
+  render();
+};
+
+main();
+
+</script>
