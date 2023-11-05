@@ -1,49 +1,83 @@
-<canvas id="mycanvas" width="800" height="400"></canvas>
+<head></head>
+<canvas id="mycanvas" width="1200" height="800"></canvas>
 <script>
 
 let ctx = mycanvas.getContext("2d");
 
+let w=mycanvas.width, h=mycanvas.height, wmig=w/2;
+let wnet=w/80, hnet=h/4, xnet=w/2-wnet/2, ynet=h-hnet;
 
-let x1, x2, x3, x4, y1, y2, y3, y4, xb, yb;
+let c = [
+	{x:wmig, y:50, r:20, vx:0, vy:0, ax:0, ay:0, rb: -1, c:"#aabbcc"},
+	{x:50, y:h, r:30, vx:0, vy:0, ax:0, ay:0, rb: 0, c:"#eeaa33", lp:false, up:false, rp:false, lk:"a", uk:"s",rk:"d"},
+	{x:w-50, y:h, r:30, vx:0, vy:0, ax:0, ay:0, rb: 0, c:"#88ddee",lp:false, up:false, rp:false, lk:"j", uk:"k",rk:"l"},
+];
 
-let w=800, h=400, wmig=w/2;
-let playerRadius=30;
+let pr=30, br=20;
+
 
 function render() {
-	ctx.clearRect(0, 0, w, h);
+	rectangle(0,0,w,h, "#bebeef")
 	
-	ctx.beginPath();
-	
-	ctx.rect(wmig, h, 10, 40);
-	ctx.fillStyle ="#996644";
-	ctx.fill();
-	ctx.closePath();
-	
-	// 1
-	ctx.beginPath();
-	ctx.arc(x1, x2, playerRadius, playerRadius, Math.PI * 2);
-	ctx.fillStyle = "#0095DD";
-	ctx.fill();
-	ctx.closePath();
+	rectangle(xnet,ynet, wnet, hnet, "#abefab");
+
+	c.forEach(circle);
 }
 
 
 
 function update(){
+	c.forEach(c => {
+		if (c.lp) c.ax = -0.01;
+		if (c.up && c.y==h) c.ay = -0.21;
+		if (c.rp) c.ax = 0.01;
 
+		c.vx += c.ax;
+		c.vy += c.ay;
+
+		c.ay += 0.005;
+		c.ax = 0;
+
+		c.x += c.vx;
+		c.y += c.vy;
+
+		if (c.y >= h) {
+			c.y = h;
+			c.vy *= c.rb;
+		}
+	});
 }
 
 
+function circle(c){
+	ctx.beginPath();
+	ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+	ctx.fillStyle = c.c;
+	ctx.fill();
+	ctx.closePath();
+}
+
+function rectangle(x,y,w,h,c){
+	ctx.beginPath();
+	ctx.rect(x, y, w, h);
+	ctx.fillStyle = c;
+	ctx.fill();
+	ctx.closePath();
+}
 
 
-window.main = () => {
-  window.requestAnimationFrame(main);
+document.addEventListener("keydown", keyHandler(true), false);
+document.addEventListener("keyup", keyHandler(false), false);
 
-  update();
-  
-  render();
-};
+function keyHandler(b) {
+	return function (e) {
+		c.forEach(c => {
+			if(e.key == c.lk) c.lp = b;
+			else if(e.key == c.uk) c.up = b;
+			else if(e.key == c.rk) c.rp = b;
+		})
+	}
+}
 
-main();
-
+window.main = () => { window.requestAnimationFrame(main); update(); render(); }; main();
 </script>
