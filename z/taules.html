@@ -1,0 +1,146 @@
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+    * {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    #app{
+        height: 90vh;
+        display: grid;
+        grid-template-rows: 1fr 4fr 1fr 3fr;
+        gap: 0.2em;
+    }
+
+    #operation {
+        font-size: 5em;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #kb {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.2em;
+    }
+    #kb span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.4em;
+        text-align: center;
+        font-size: 2em;
+        border-radius: 8px;
+        background: rgb(231, 68, 231);
+        color: white;
+    }
+    #response {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: xx-large;
+    }
+    #pointsW {
+        text-align: right;
+        font-size: xx-large;
+    }
+    .shaking {
+        animation: shaking 0.15s 1;
+    }
+    .pulse {
+        animation: pulse 0.25s 1;
+    }
+    @keyframes shaking {
+        0% { 
+            transform: translateX(0);
+        }
+        25% { transform: translateX(5px) }
+        50% {
+            filter: blur(5px); 
+            transform: translateX(-5px);
+        
+        }
+        75% { transform: translateX(5px) }
+        100% { transform: translateX(0);
+            filter: none; 
+        }
+    }
+    @keyframes pulse {
+    30% {
+        transform: scale(1.05);
+        text-shadow: 0 0 1em #28c800;
+    }
+    96% {
+        transform: scale(0.99);
+    }
+    100% {
+        text-shadow: none;
+        transform: scale(1);
+    }
+}
+</style>
+<div id="app">
+    <div id="pointsW">✅ <span id="points"></span></div>
+    <div id="operation"></div>
+    <div id="response"></div>
+    <div id="kb"></div>
+</div>
+
+
+<script>
+    let result;
+    let operationValue;
+    let responseValue="";
+    let l = console.log;
+    let pointsValue = 0;
+
+    newOperation();
+    render();
+
+    for(let i=0; i<10; i++) {
+        kb.innerHTML += `<span onclick="p(${i})">${i}</span>`;
+    }
+
+    function newOperation(){
+        let op1 = Math.floor(Math.random()*8)+2;
+        let op2 = Math.floor(Math.random()*8)+2;
+
+        result = ""+op1*op2;
+        operationValue = op1 + "×" + op2;
+    }
+
+    function p(i) {
+        responseValue = `${responseValue}${i}`;
+
+
+        if (responseValue == result) {
+            responseValue = "";
+            pointsValue++;
+            render();
+            pointsW.classList.add("pulse");
+            pointsW.addEventListener('animationend', () => {
+                pointsW.classList.remove("pulse");
+            });
+            
+            newOperation();
+        } else if (!result.startsWith(responseValue)){
+            responseValue = "";
+            render();
+            app.classList.add("shaking");
+            app.addEventListener('animationend', () => {
+                app.classList.remove("shaking");
+            });
+            //newOperation();
+        }
+        render();
+        
+        
+        //op.innerHTML += i;
+    }
+
+    function render(){
+        points.innerHTML = pointsValue;
+        operation.innerHTML = operationValue;
+        response.innerHTML = responseValue;
+    }
+</script>
+
