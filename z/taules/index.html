@@ -2,12 +2,14 @@
 <style>
     * {
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        user-select: none;
     }
+
     #app{
         height: 90vh;
         display: grid;
-        grid-template-rows: 1fr 4fr 1fr 3fr;
-        gap: 0.2em;
+        grid-template-rows: 1fr 1fr 4fr 1fr 3fr;
+        gap: 0.8em;
     }
 
     #operation {
@@ -40,19 +42,27 @@
         font-size: xx-large;
     }
     #pointsW {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-align: right;
         font-size: xx-large;
     }
     #conf {
         display: flex;
         justify-content: space-around;
+        align-items: center;
+        background-color: rgb(236, 212, 181);
+        padding: 0.3em;
     }
     #conf span {
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #28c800;
-        padding: 0.6em;
+        background-color: #a1dc93;
+        height: 2em;
+        border-radius: 50%;
+        aspect-ratio: 1/1;
     }
     #conf span.disabled {
         background-color: #a8a8a8;
@@ -63,6 +73,9 @@
     }
     .pulse {
         animation: pulse 0.25s 1;
+    }
+    .light {
+        animation: light 2.15s 1 ;
     }
     @keyframes shaking {
         0% { 
@@ -80,18 +93,25 @@
         }
     }
     @keyframes pulse {
-    30% {
-        transform: scale(1.05);
-        text-shadow: 0 0 1em #28c800;
+        30% {
+            transform: scale(1.05);
+            text-shadow: 0 0 1em #28c800;
+        }
+        96% {
+            transform: scale(0.99);
+        }
+        100% {
+            text-shadow: none;
+            transform: scale(1);
+        }
     }
-    96% {
-        transform: scale(0.99);
+
+    @keyframes light {
+        100% {
+            box-shadow: 0 0 4px green;
+        }
     }
-    100% {
-        text-shadow: none;
-        transform: scale(1);
-    }
-}
+
 </style>
 <div id="app">
     <div id="conf"></div>
@@ -110,8 +130,8 @@
     let pointsValue = 0;
     let taules = new Set([2,3,4,5,6,7,8,9]);
 
-    console.log("mek",localStorage.getItem("taules"));
-    //localStorage.clear();;
+    points.innerHTML = pointsValue;
+
     loadTaules();
     newOperation();
     showTaules();
@@ -120,7 +140,6 @@
         if (localStorage.getItem("taules")){
             taules = new Set(JSON.parse(localStorage.getItem("taules")));
         } else {
-            console.log("yeaaa");
             taules = new Set([2,3,4,5,6,7,8,9]);
         }
     }
@@ -137,9 +156,9 @@
         conf.innerHTML = "";
         for(let i=2; i<10; i++) {
             if (taules.has(i)){
-                conf.innerHTML += `<span onclick="c(${i})">${i}</span>`;
+                conf.innerHTML += `<span id="taula${i}" onclick="c(${i})">${i}</span>`;
             } else {
-                conf.innerHTML += `<span class="disabled" onclick="c(${i})">${i}</span>`;
+                conf.innerHTML += `<span id="taula${i}" class="disabled" onclick="c(${i})">${i}</span>`;
             }
         }
     }
@@ -160,12 +179,14 @@
         if (taules.has(i)){
             if (taules.size > 1){
                 taules.delete(i);
+                document.getElementById(`taula${i}`).classList.add("disabled");
             }
         } else {
             taules.add(i);
+            document.getElementById(`taula${i}`).classList.remove("disabled");
+            animate(document.getElementById(`taula${i}`), "light");
         }
         saveTaules();
-        showTaules();
         newOperation();
     }
 
@@ -176,20 +197,18 @@
             responseValue = "";
             pointsValue++;
             points.innerHTML = pointsValue;
-            pointsW.classList.add("pulse");
-            pointsW.addEventListener('animationend', () => {
-                pointsW.classList.remove("pulse");
-            });
-            
+            animate(pointsW, "pulse");            
             newOperation();
         } else if (!result.startsWith(responseValue)){
             responseValue = "";
-            app.classList.add("shaking");
-            app.addEventListener('animationend', () => {
-                app.classList.remove("shaking");
-            });
+            animate(app, "shaking");
         }
         response.innerHTML = responseValue;
+    }
+
+    function animate(element, animation) {
+        element.classList.add(animation);
+        element.addEventListener('animationend', () => { element.classList.remove(animation);});
     }
 </script>
 
