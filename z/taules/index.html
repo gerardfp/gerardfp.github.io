@@ -3,17 +3,23 @@
     * {
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         user-select: none;
+
+    }
+
+    body {
+        background-color: rgba(221, 221, 221, 0.904);
     }
 
     #app{
         height: 90vh;
         display: grid;
-        grid-template-rows: 1fr 1fr 4fr 1fr 3fr;
+        grid-template-rows: 1fr 2fr 4fr 1fr 4fr;
         gap: 0.8em;
+        
     }
 
     #operation {
-        font-size: 5em;
+        font-size: 6em;
         text-align: center;
         display: flex;
         align-items: center;
@@ -34,6 +40,7 @@
         border-radius: 8px;
         background: rgb(231, 68, 231);
         color: white;
+        box-shadow: 2px 2px 0px gray;
     }
     #response {
         display: flex;
@@ -46,23 +53,25 @@
         align-items: center;
         justify-content: center;
         text-align: right;
-        font-size: xx-large;
+        font-size: 2.4em;
     }
     #conf {
         display: flex;
         justify-content: space-around;
         align-items: center;
-        background-color: rgb(236, 212, 181);
+        background-color: rgb(233, 153, 49);
         padding: 0.3em;
+        border-radius: 8px;;
     }
     #conf span {
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #a1dc93;
+        background-color: #80ff60;
         height: 2em;
         border-radius: 50%;
         aspect-ratio: 1/1;
+        box-shadow: 0px 0px 4px rgb(175, 175, 175);
     }
     #conf span.disabled {
         background-color: #a8a8a8;
@@ -72,10 +81,13 @@
         animation: shaking 0.15s 1;
     }
     .pulse {
-        animation: pulse 0.25s 1;
+        animation: pulse 0.35s 1 ease-in-out;
     }
     .light {
-        animation: light 2.15s 1 ;
+        animation: light 0.05s 1 ;
+    }
+    .push {
+        animation: push 0.15s 1;
     }
     @keyframes shaking {
         0% { 
@@ -85,7 +97,6 @@
         50% {
             filter: blur(5px); 
             transform: translateX(-5px);
-        
         }
         75% { transform: translateX(5px) }
         100% { transform: translateX(0);
@@ -93,26 +104,30 @@
         }
     }
     @keyframes pulse {
-        30% {
+        25% {
             transform: scale(1.05);
             text-shadow: 0 0 1em #28c800;
         }
-        96% {
-            transform: scale(0.99);
-        }
         100% {
-            text-shadow: none;
+            text-shadow: 0 0 0 white;
             transform: scale(1);
         }
     }
 
     @keyframes light {
-        100% {
-            box-shadow: 0 0 4px green;
+        50% {
+            box-shadow: 0 0 8px rgb(150, 255, 150);
+        }
+    }
+    @keyframes push {
+        50%{
+            transform: translate(2px,2px);
+            box-shadow: 0 0 0 white;
         }
     }
 
 </style>
+
 <div id="app">
     <div id="conf"></div>
     <div id="pointsW">✅ <span id="points"></span></div>
@@ -149,7 +164,7 @@
     }
 
     for(let i=0; i<10; i++) {
-        kb.innerHTML += `<span onclick="p(${i})">${i}</span>`;
+        kb.innerHTML += `<span id="b${i}" onclick="p(${i})">${i}</span>`;
     }
 
     function showTaules(){
@@ -191,6 +206,8 @@
     }
 
     function p(i) {
+        animate(document.getElementById(`b${i}`), "push");
+
         responseValue = `${responseValue}${i}`;
 
         if (responseValue == result) {
