@@ -43,6 +43,21 @@
         text-align: right;
         font-size: xx-large;
     }
+    #conf {
+        display: flex;
+        justify-content: space-around;
+    }
+    #conf span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #28c800;
+        padding: 0.6em;
+    }
+    #conf span.disabled {
+        background-color: #a8a8a8;
+    }
+
     .shaking {
         animation: shaking 0.15s 1;
     }
@@ -79,6 +94,7 @@
 }
 </style>
 <div id="app">
+    <div id="conf"></div>
     <div id="pointsW">✅ <span id="points"></span></div>
     <div id="operation"></div>
     <div id="response"></div>
@@ -92,30 +108,74 @@
     let responseValue="";
     let l = console.log;
     let pointsValue = 0;
+    let taules = new Set([2,3,4,5,6,7,8,9]);
 
+    console.log("mek",localStorage.getItem("taules"));
+    //localStorage.clear();;
+    loadTaules();
     newOperation();
-    render();
+    showTaules();
+
+    function loadTaules() {
+        if (localStorage.getItem("taules")){
+            taules = new Set(JSON.parse(localStorage.getItem("taules")));
+        } else {
+            console.log("yeaaa");
+            taules = new Set([2,3,4,5,6,7,8,9]);
+        }
+    }
+
+    function saveTaules(){
+        localStorage.setItem("taules", JSON.stringify(Array.from(taules)));
+    }
 
     for(let i=0; i<10; i++) {
         kb.innerHTML += `<span onclick="p(${i})">${i}</span>`;
     }
 
+    function showTaules(){
+        conf.innerHTML = "";
+        for(let i=2; i<10; i++) {
+            if (taules.has(i)){
+                conf.innerHTML += `<span onclick="c(${i})">${i}</span>`;
+            } else {
+                conf.innerHTML += `<span class="disabled" onclick="c(${i})">${i}</span>`;
+            }
+        }
+    }
+
     function newOperation(){
         let op1 = Math.floor(Math.random()*8)+2;
+        while(!taules.has(op1)){
+            op1 = Math.floor(Math.random()*8)+2;
+        }
         let op2 = Math.floor(Math.random()*8)+2;
 
         result = ""+op1*op2;
         operationValue = op1 + "×" + op2;
+        operation.innerHTML = operationValue;
+    }
+
+    function c(i) {
+        if (taules.has(i)){
+            if (taules.size > 1){
+                taules.delete(i);
+            }
+        } else {
+            taules.add(i);
+        }
+        saveTaules();
+        showTaules();
+        newOperation();
     }
 
     function p(i) {
         responseValue = `${responseValue}${i}`;
 
-
         if (responseValue == result) {
             responseValue = "";
             pointsValue++;
-            render();
+            points.innerHTML = pointsValue;
             pointsW.classList.add("pulse");
             pointsW.addEventListener('animationend', () => {
                 pointsW.classList.remove("pulse");
@@ -124,22 +184,11 @@
             newOperation();
         } else if (!result.startsWith(responseValue)){
             responseValue = "";
-            render();
             app.classList.add("shaking");
             app.addEventListener('animationend', () => {
                 app.classList.remove("shaking");
             });
-            //newOperation();
         }
-        render();
-        
-        
-        //op.innerHTML += i;
-    }
-
-    function render(){
-        points.innerHTML = pointsValue;
-        operation.innerHTML = operationValue;
         response.innerHTML = responseValue;
     }
 </script>
