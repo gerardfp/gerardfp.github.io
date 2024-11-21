@@ -3,21 +3,28 @@
     * {
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         user-select: none;
-
+        -webkit-user-select: none;
     }
-
+    
     body {
         background-color: rgba(221, 221, 221, 0.904);
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
     }
-
+    
+    body > * {
+        grid-row: 1;
+        grid-column: 1;
+    }
+    
     #app{
         height: 90vh;
         display: grid;
-        grid-template-rows: 1fr 2fr 4fr 1fr 4fr;
+        grid-template-rows: 1fr 1fr 2fr 4fr 1fr 4fr;
         gap: 0.8em;
-        
     }
-
+    
     #operation {
         font-size: 6em;
         text-align: center;
@@ -76,7 +83,7 @@
     #conf span.disabled {
         background-color: #a8a8a8;
     }
-
+    
     .shaking {
         animation: shaking 0.15s 1;
     }
@@ -113,7 +120,7 @@
             transform: scale(1);
         }
     }
-
+    
     @keyframes light {
         50% {
             box-shadow: 0 0 8px rgb(150, 255, 150);
@@ -126,101 +133,299 @@
         }
     }
 
+
+    #nameDialog {
+        border-radius: 8px;
+        background-image: linear-gradient(
+            45deg,
+            rgb(255, 238, 0),
+           
+            rgb(243, 176, 31)
+        );
+    }
+    
+    #nameDialog form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+        font-size: large;
+        
+    }
+
+    #playBtn {
+        background-image: linear-gradient(
+            45deg,
+            magenta,
+            rebeccapurple
+        );
+        color: white;
+        padding: 1em  3em;
+        font-size: large;
+        border-radius: 8px;
+       
+    }
+
+    #name {
+        padding: 0.4em;
+        font-size: large;
+        border-radius: 8px;
+    }
+
+    ::backdrop {
+        background-image: linear-gradient(
+            45deg,
+            magenta,
+            rebeccapurple,
+            dodgerblue,
+            green
+        );
+        opacity: 0.75;
+    }
+
+    #nameShowW {
+        background-color: pink;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #giftDialog {
+        border-radius: 8px;
+    }
+
+    #giftDialog img {
+        max-width: 90vw;
+    }
+    
 </style>
 
 <div id="app">
-    <div id="conf"></div>
+    <div id="conf">
+        <span id="taula2" onclick="c(2)">2</span>
+        <span id="taula3" onclick="c(3)">3</span>
+        <span id="taula4" onclick="c(4)">4</span>
+        <span id="taula5" onclick="c(5)">5</span>
+        <span id="taula6" onclick="c(6)">6</span>
+        <span id="taula7" onclick="c(7)">7</span>
+        <span id="taula8" onclick="c(8)">8</span>
+        <span id="taula9" onclick="c(9)">9</span>
+    </div>
+    <div id="nameShowW" onclick="showNameDialog()"><span id="nameShow"></span></div>
     <div id="pointsW">✅ <span id="points"></span></div>
     <div id="operation"></div>
     <div id="response"></div>
-    <div id="kb"></div>
+    <div id="kb">
+        <span id="b0" onclick="p(0)">0</span>
+        <span id="b1" onclick="p(1)">1</span>
+        <span id="b2" onclick="p(2)">2</span>
+        <span id="b3" onclick="p(3)">3</span>
+        <span id="b4" onclick="p(4)">4</span>
+        <span id="b5" onclick="p(5)">5</span>
+        <span id="b6" onclick="p(6)">6</span>
+        <span id="b7" onclick="p(7)">7</span>
+        <span id="b8" onclick="p(8)">8</span>
+        <span id="b9" onclick="p(9)">9</span>
+    </div>
 </div>
+<dialog id="giftDialog">
+    <img src="1.web" />
+</dialog>
 
+<dialog id="nameDialog">
+    <form>
+        <input id="name" placeholder="Nom" />
+        <input type="submit" id="playBtn" value="Start!" />
+    </form>
+</dialog>
 
 <script>
+    let l = console.log;
+    
+    let nameValue="DEFAULTNAME";
     let result;
     let operationValue;
     let responseValue="";
-    let l = console.log;
     let pointsValue = 0;
-    let taules = new Set([2,3,4,5,6,7,8,9]);
-
-    points.innerHTML = pointsValue;
-
-    loadTaules();
-    newOperation();
-    showTaules();
-
-    function loadTaules() {
-        if (localStorage.getItem("taules")){
-            taules = new Set(JSON.parse(localStorage.getItem("taules")));
-        } else {
-            taules = new Set([2,3,4,5,6,7,8,9]);
-        }
-    }
-
-    function saveTaules(){
-        localStorage.setItem("taules", JSON.stringify(Array.from(taules)));
-    }
-
-    for(let i=0; i<10; i++) {
-        kb.innerHTML += `<span id="b${i}" onclick="p(${i})">${i}</span>`;
-    }
-
-    function showTaules(){
-        conf.innerHTML = "";
-        for(let i=2; i<10; i++) {
-            if (taules.has(i)){
-                conf.innerHTML += `<span id="taula${i}" onclick="c(${i})">${i}</span>`;
-            } else {
-                conf.innerHTML += `<span id="taula${i}" class="disabled" onclick="c(${i})">${i}</span>`;
-            }
-        }
-    }
-
-    function newOperation(){
-        let op1 = Math.floor(Math.random()*8)+2;
-        while(!taules.has(op1)){
-            op1 = Math.floor(Math.random()*8)+2;
-        }
-        let op2 = Math.floor(Math.random()*8)+2;
-
-        result = ""+op1*op2;
-        operationValue = op1 + "×" + op2;
-        operation.innerHTML = operationValue;
-    }
-
-    function c(i) {
-        if (taules.has(i)){
-            if (taules.size > 1){
-                taules.delete(i);
-                document.getElementById(`taula${i}`).classList.add("disabled");
-            }
-        } else {
-            taules.add(i);
-            document.getElementById(`taula${i}`).classList.remove("disabled");
-            animate(document.getElementById(`taula${i}`), "light");
-        }
-        saveTaules();
+    let firstPointSet = false;
+    let taulesValue;
+    
+    getName();
+    loadGame();
+    
+    function loadGame(){
+        loadPoints();
+        loadTaules();
         newOperation();
     }
 
+    function setTaules(value) {
+        taulesValue = value;
+        
+        for(let i=2; i<10; i++) {
+            if (taulesValue.has(i)) {
+                document.getElementById(`taula${i}`).classList.remove("disabled");
+            } else {
+                document.getElementById(`taula${i}`).classList.add("disabled"); 
+            }
+        }
+        localStorage.setItem("taules", JSON.stringify(Array.from(taulesValue)));
+    }
+    
+    function addTaules(i) {
+        taulesValue.add(i);
+        document.getElementById(`taula${i}`).classList.remove("disabled");
+        animate(document.getElementById(`taula${i}`), "light");
+        localStorage.setItem("taules", JSON.stringify(Array.from(taulesValue)));
+    }
+    
+    function deleteTaules(i) {
+        taulesValue.delete(i);
+        document.getElementById(`taula${i}`).classList.add("disabled");
+        localStorage.setItem("taules", JSON.stringify(Array.from(taulesValue)));
+    }
+    
+    
+    function setResponse(value){
+        responseValue = value;
+        response.innerHTML = responseValue;
+    }
+    
+    function setPoints(value) {
+        if (value == null) return false;
+        
+        pointsValue = value;
+        points.innerHTML = pointsValue;
+        if (pointsValue > 0){
+            animate(pointsW, "pulse");    
+        }
+        localStorage.setItem(`${nameValue}-points`, pointsValue);
+
+        if (firstPointSet && pointsValue % 1 == 0) {
+            showGiftDialog();
+        }
+        firstPointSet = true;
+        return true;
+    }
+    
+    function setOperation(value){
+        operationValue = value;
+        operation.innerHTML = operationValue;
+    }
+    
+
+    function showGiftDialog(){
+        
+        giftDialog.querySelector("img").src = random(1,20) + ".webp";
+        giftDialog.showModal();
+
+        giftDialog.addEventListener("click", (e) => {
+            giftDialog.close();
+        })
+
+    }
+
+    function showNameDialog() {
+        console.log(nameValue);
+        
+        nameDialog.querySelector("#name").value = "";
+        nameDialog.querySelector("#name").placeholder = nameValue != "DEFAULTNAME" ? nameValue : "Nom";
+        nameDialog.showModal();
+        playBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            nameDialog.close(nameDialog.querySelector("#name").value);
+        });
+        
+        nameDialog.addEventListener("close", e => {
+            console.log("CLOSE", nameDialog.returnValue, nameDialog.querySelector("#name").placeholder  );
+            setName(nameDialog.returnValue || (nameDialog.querySelector("#name").placeholder != "Nom" ? nameDialog.querySelector("#name").placeholder : "DEFAULTNAME"));
+        });
+    }
+
+    function setName(value) {
+        if (!value) return false;
+        l("STNAME", value);
+        nameValue = value.toLocaleUpperCase();
+        document.getElementById("nameShow").innerText = nameValue != "DEFAULTNAME" ? nameValue : "";
+        
+        
+        if (nameValue != "DEFAULTNAME" && nameValue != "") {
+            localStorage.setItem("name", nameValue);
+
+            const searchParams = new URLSearchParams(window.location.search);
+            if (searchParams.get("name") != nameValue) {
+                searchParams.set("name", nameValue);
+                //window.location.search = searchParams;
+            }
+        }
+        
+        return true;
+    }
+    
+    function getName() {
+        setName(new URLSearchParams(document.location.search).get("name"))
+        ||
+        setName(localStorage.getItem("name"))
+        ||
+        showNameDialog()
+    }
+    
+    
+    
+    function loadPoints(){
+        setPoints(new URLSearchParams(document.location.search).get(`points`))
+        ||
+        setPoints(parseInt(localStorage.getItem(`${nameValue}-points`)) || 0)
+    }
+    
+    
+    function loadTaules() {
+        //setTaules(new Set([2,3,4,5,6,7,8,9]));
+        setTaules(new Set(JSON.parse(localStorage.getItem("taules")) || [2,3,4,5,6,7,8,9]));
+    }
+    
+    
+    function newOperation(){
+        let op1 = random(2,10);
+        while(!taulesValue.has(op1)) op1 = random(2,10);
+        let op2 = Math.floor(Math.random()*8)+2;
+        
+        result = ""+op1*op2;
+        setOperation(op1 + "×" + op2);
+    }
+    
+    function c(i) {
+        if (taulesValue.has(i)){
+            if (taulesValue.size > 1){
+                deleteTaules(i);
+            }
+        } else {
+            addTaules(i);
+        }
+        newOperation();
+    }
+    
     function p(i) {
         animate(document.getElementById(`b${i}`), "push");
-
-        responseValue = `${responseValue}${i}`;
-
+        
+        setResponse(`${responseValue}${i}`);
+        
         if (responseValue == result) {
-            responseValue = "";
-            pointsValue++;
-            points.innerHTML = pointsValue;
-            animate(pointsW, "pulse");            
+            setResponse("");
+            setPoints(pointsValue+1);     
             newOperation();
         } else if (!result.startsWith(responseValue)){
-            responseValue = "";
+            setResponse("");
             animate(app, "shaking");
         }
-        response.innerHTML = responseValue;
+    }
+    
+    
+    
+    function random(min, max) {
+        return Math.floor(Math.random()*(max-min))+min;
     }
 
     function animate(element, animation) {
