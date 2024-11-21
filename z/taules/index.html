@@ -303,7 +303,7 @@
         }
         localStorage.setItem(`${nameValue}-points`, pointsValue);
 
-        if (firstPointSet && pointsValue % 1 == 0) {
+        if (firstPointSet && pointsValue % 20 == 0) {
             showGiftDialog();
         }
         firstPointSet = true;
