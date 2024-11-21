@@ -296,7 +296,7 @@
     function setPoints(value) {
         if (value == null) return false;
         
-        pointsValue = value;
+        pointsValue = parseInt(value);
         points.innerHTML = pointsValue;
         if (pointsValue > 0){
             animate(pointsW, "pulse");    
