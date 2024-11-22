@@ -4,10 +4,11 @@
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         user-select: none;
         -webkit-user-select: none;
+        /* border: 1px solid gray;; */
     }
     
     body {
-        background-color: rgba(221, 221, 221, 0.904);
+        background-color: rgb(255, 255, 255);
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 1fr;
@@ -21,12 +22,12 @@
     #app{
         height: 90vh;
         display: grid;
-        grid-template-rows: 1fr 1fr 2fr 4fr 1fr 4fr;
+        grid-template-rows: 1fr 1fr 8fr 2fr 6fr;
         gap: 0.8em;
     }
     
     #operation {
-        font-size: 6em;
+        font-size: 7em;
         text-align: center;
         display: flex;
         align-items: center;
@@ -45,9 +46,15 @@
         text-align: center;
         font-size: 2em;
         border-radius: 8px;
-        background: rgb(231, 68, 231);
+        background-image: linear-gradient(
+            45deg,
+            rgb(226, 26, 226),
+            rgb(208, 0, 250) 99%
+        
+        );
         color: white;
         box-shadow: 2px 2px 0px gray;
+        font-weight: bold;
     }
     #response {
         display: flex;
@@ -66,7 +73,11 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        background-color: rgb(233, 153, 49);
+        background-image: linear-gradient(
+            45deg,
+            rgb(233, 151, 0),
+            rgb(255, 217, 0)
+        );
         padding: 0.3em;
         border-radius: 8px;;
     }
@@ -74,11 +85,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #80ff60;
+        background-color: #38ff38;
         height: 2em;
         border-radius: 50%;
         aspect-ratio: 1/1;
-        box-shadow: 0px 0px 4px rgb(175, 175, 175);
+
+        border: 3px solid rgb(66, 66, 66);
+        color: rgb(66, 66, 66);
+        font-weight: bold;
     }
     #conf span.disabled {
         background-color: #a8a8a8;
@@ -91,7 +105,7 @@
         animation: pulse 0.35s 1 ease-in-out;
     }
     .light {
-        animation: light 0.05s 1 ;
+        animation: light 0.15s 1 ease-in-out;
     }
     .push {
         animation: push 0.15s 1;
@@ -113,7 +127,7 @@
     @keyframes pulse {
         25% {
             transform: scale(1.05);
-            text-shadow: 0 0 1em #28c800;
+            text-shadow: 0 0 1em #28c937;
         }
         100% {
             text-shadow: 0 0 0 white;
@@ -123,7 +137,7 @@
     
     @keyframes light {
         50% {
-            box-shadow: 0 0 8px rgb(150, 255, 150);
+            background-color: #91ff00;
         }
     }
     @keyframes push {
@@ -158,19 +172,32 @@
         background-image: linear-gradient(
             45deg,
             magenta,
-            rebeccapurple
+            rgb(149, 43, 255)
         );
         color: white;
         padding: 1em  3em;
         font-size: large;
+        font-weight: bold;
         border-radius: 8px;
-       
+        border-block-start: 3px solid white;
+        border-inline-start: 3px solid white;
+        border-block-end: 3px solid black;
+        border-inline-end: 3px solid black;
     }
 
+    #playBtn:active {
+        border-block-start: 3px solid black;
+        border-inline-start: 3px solid black;
+        border-block-end: 3px solid white;
+        border-inline-end: 3px solid white;
+    }
+
+    
     #name {
         padding: 0.4em;
         font-size: large;
         border-radius: 8px;
+        font-weight: bold;
     }
 
     ::backdrop {
@@ -185,11 +212,21 @@
     }
 
     #nameShowW {
-        background-color: pink;
-        display: flex;
+        background-image: linear-gradient(
+            45deg,
+            rgba(255, 0, 255, 0.459),
+            rgba(255, 192, 203, 0.89)
+        
+        );
+        display: inline-flex;
+        width: fit-content;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        font-weight: bold;
+        border-radius: 8px;
+        color: white;
+        padding-inline: 1em;
     }
 
     #giftDialog {
@@ -198,6 +235,11 @@
 
     #giftDialog img {
         max-width: 90vw;
+    }
+
+    #playerInfo {
+        display: flex;
+        justify-content: space-between;
     }
     
 </style>
@@ -213,8 +255,22 @@
         <span id="taula8" onclick="c(8)">8</span>
         <span id="taula9" onclick="c(9)">9</span>
     </div>
-    <div id="nameShowW" onclick="showNameDialog()"><span id="nameShow"></span></div>
-    <div id="pointsW">✅ <span id="points"></span></div>
+    <div id="playerInfo">
+        <div id="nameShowW" onclick="showNameDialog()">
+            <span id="nameShow"></span>
+        </div>
+        <div id="pointsW">
+            <svg style="width: 1em; height: 1em" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
+
+                <defs>
+                </defs>
+                <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+                    <circle cx="45" cy="45" r="45" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(40,201,55); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+                    <path d="M 38.478 64.5 c -0.01 0 -0.02 0 -0.029 0 c -1.3 -0.009 -2.533 -0.579 -3.381 -1.563 L 21.59 47.284 c -1.622 -1.883 -1.41 -4.725 0.474 -6.347 c 1.884 -1.621 4.725 -1.409 6.347 0.474 l 10.112 11.744 L 61.629 27.02 c 1.645 -1.862 4.489 -2.037 6.352 -0.391 c 1.862 1.646 2.037 4.49 0.391 6.352 l -26.521 30 C 40.995 63.947 39.767 64.5 38.478 64.5 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+                </g>
+                </svg>
+            <span id="points"></span></div>    
+    </div>
     <div id="operation"></div>
     <div id="response"></div>
     <div id="kb">
@@ -249,7 +305,6 @@
     let operationValue;
     let responseValue="";
     let pointsValue = 0;
-    let firstPointSet = false;
     let taulesValue;
     
     getName();
@@ -293,7 +348,7 @@
         response.innerHTML = responseValue;
     }
     
-    function setPoints(value) {
+    function setPoints(value, showGift) {
         if (value == null) return false;
         
         pointsValue = parseInt(value);
@@ -303,10 +358,9 @@
         }
         localStorage.setItem(`${nameValue}-points`, pointsValue);
 
-        if (firstPointSet && pointsValue > 0 && pointsValue % 20 == 0) {
+        if (showGift && pointsValue > 0 && pointsValue % 20 == 0) {
             showGiftDialog();
         }
-        firstPointSet = true;
         return true;
     }
     
@@ -346,7 +400,6 @@
 
     function setName(value) {
         if (!value) return false;
-        //l("STNAME", value);
         nameValue = value.toLocaleUpperCase();
         document.getElementById("nameShow").innerText = nameValue != "DEFAULTNAME" ? nameValue : "";
         
@@ -376,9 +429,9 @@
     
     
     function loadPoints(){
-        setPoints(new URLSearchParams(document.location.search).get(`points`))
+        setPoints(new URLSearchParams(document.location.search).get(`points`), false)
         ||
-        setPoints(parseInt(localStorage.getItem(`${nameValue}-points`)) || 0)
+        setPoints(parseInt(localStorage.getItem(`${nameValue}-points`)) || 0, false)
     }
     
     
@@ -415,7 +468,7 @@
         
         if (responseValue == result) {
             setResponse("");
-            setPoints(pointsValue+1);     
+            setPoints(pointsValue+1, true);     
             newOperation();
         } else if (!result.startsWith(responseValue)){
             setResponse("");
