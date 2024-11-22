@@ -303,7 +303,7 @@
         }
         localStorage.setItem(`${nameValue}-points`, pointsValue);
 
-        if (firstPointSet && pointsValue % 20 == 0) {
+        if (firstPointSet && pointsValue > 0 && pointsValue % 20 == 0) {
             showGiftDialog();
         }
         firstPointSet = true;
@@ -346,10 +346,11 @@
 
     function setName(value) {
         if (!value) return false;
-        l("STNAME", value);
+        //l("STNAME", value);
         nameValue = value.toLocaleUpperCase();
         document.getElementById("nameShow").innerText = nameValue != "DEFAULTNAME" ? nameValue : "";
         
+        loadPoints();
         
         if (nameValue != "DEFAULTNAME" && nameValue != "") {
             localStorage.setItem("name", nameValue);
@@ -378,6 +379,7 @@
         setPoints(new URLSearchParams(document.location.search).get(`points`))
         ||
         setPoints(parseInt(localStorage.getItem(`${nameValue}-points`)) || 0)
+        firstPointSet = false;
     }
     
     
